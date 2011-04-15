@@ -28,3 +28,17 @@ wget http://code.ros.org/packages/ros.key -O - | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop
 }}}
+
+= ナビゲーションサンプル =
+インストール方法は後で変わるかもしれません
+{{{
+mkdir ~/ros/diamondback
+echo "- hg:
+    local-name: navigation_stage
+    uri: 'https://kforge.ros.org/navigation/tutorials
+" > ~/ros/navigation_stage.rosinstall
+rosinstall ~/ros/diamondback ~/ros/navigation_stage.rosinstall
+}}}
+
+}}}
+
