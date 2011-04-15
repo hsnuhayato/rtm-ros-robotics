@@ -2,7 +2,6 @@
 
 =インストール =
 
-http://www.ros.org/wiki/cturtle/Installation/Ubuntu より抜粋
 http://www.ros.org/wiki/diamondback/Installation/Ubuntu より抜粋
 
 
