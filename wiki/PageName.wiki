@@ -1,6 +1,10 @@
 # RTM-ROS 相互運用プロジェクト
 
+<wiki:toc max_depth="1" />
+
+== メーリングリスト ==
   * [http://groups.google.com/group/rtm-ros-robotics/subscribe メーリングリストへの参加]
+  * [http://groups.google.com/group/rtm-ros-robotics/topics メーリングリストの閲覧]
 
 == 講義日程 ==
   * 4/20 ロボットミドルウェア紹介（稲葉（秋葉原） RTM吉海/ROS岡田）
