@@ -32,13 +32,13 @@ sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop
 = ナビゲーションサンプル =
 インストール方法は後で変わるかもしれません
 {{{
-mkdir ~/ros/diamondback
+mkdir -p ~/ros/diamondback
 echo "- hg:
     local-name: navigation_stage
-    uri: 'https://kforge.ros.org/navigation/tutorials
+    uri: 'https://kforge.ros.org/navigation/tutorials'
 " > ~/ros/navigation_stage.rosinstall
 rosinstall ~/ros/diamondback ~/ros/navigation_stage.rosinstall
 }}}
 
-}}}
-
+後は以下のチュートリアルに従えばよいでしょう
+http://www.ros.org/wiki/lse_roomba_toolbox/Tutorials/Simulating%20a%20Roomba%20on%20Stage
