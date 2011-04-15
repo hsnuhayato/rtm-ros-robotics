@@ -1,6 +1,6 @@
 # RTM-ROS 相互運用プロジェクト
 
-<wiki:toc max_depth="1" />
+#sidebar TableOfContents 
 
 == メーリングリスト ==
   * [http://groups.google.com/group/rtm-ros-robotics/subscribe メーリングリストへの参加]
