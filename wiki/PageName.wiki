@@ -1,6 +1,4 @@
-#summary One-sentence summary of this page.
-
-= RTM-ROS 相互運用プロジェクト =
+#RTM-ROS 相互運用プロジェクト
 
   * [http://groups.google.com/group/rtm-ros-robotics/subscribe メーリングリストへの参加]
 
