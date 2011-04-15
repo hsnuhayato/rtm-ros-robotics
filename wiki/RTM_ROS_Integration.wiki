@@ -1,7 +1,7 @@
 #summary RTM-ROS 相互運用プロジェクト
 
 == メーリングリスト ==
-  * [http://groups.google.com/group/rtm-ros-robotics/subscribe メーリングリスト]
+  * [http://groups.google.com/group/rtm-ros-robotics/subscribe RTM-ROS 相互運用プロジェクトメーリングリスト]にご参加ください．
 
 == 講義日程 ==
   * 4/20 ロボットミドルウェア紹介（稲葉（秋葉原） RTM吉海/ROS岡田）
@@ -49,4 +49,3 @@
 　**   技術補佐員の人は最後に、学んだことの集大成の発表会
 
 場所は本郷工学部2号館231, 秋葉原ダイビル13F大講義室
-
