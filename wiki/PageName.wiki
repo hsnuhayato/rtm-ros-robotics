@@ -1,4 +1,4 @@
-# RTM-ROS 相互運用プロジェクト
+#summary RTM-ROS 相互運用プロジェクト
 
 #sidebar TableOfContents 
 
