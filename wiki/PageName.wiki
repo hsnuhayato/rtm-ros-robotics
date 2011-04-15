@@ -1,0 +1,14 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+RTM-ROS 相互運用プロジェクト
+
+
+= Details =
+
+* [http://groups.google.com/group/rtm-ros-robotics/subscribe メーリングリストへの参加]
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
