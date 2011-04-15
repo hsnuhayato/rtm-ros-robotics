@@ -2,12 +2,51 @@
 
 = RTM-ROS 相互運用プロジェクト =
 
-* [http://groups.google.com/group/rtm-ros-robotics/subscribe メーリングリス
-トへの参加]
-* 講義日程
-** 4/20 イントロダクション
+  * [http://groups.google.com/group/rtm-ros-robotics/subscribe メーリングリストへの参加]
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== 講義日程 ==
+  * 4/20 ロボットミドルウェア紹介（稲葉（秋葉原） RTM吉海/ROS岡田）
+   *　宿題：RTM,ROSをインストール. 解答 VMWare配布
+   *　全体紹介．バザール方式，開発環境，ML，Trac, 
+
+  * 4/27 ロボットミドルウェア相互概説
+   *  ROS(1) 岡田　画像処理、通信サンプル、ハローワールド
+   *  RTM(1) 吉海　画像処理、通信サンプル、ハローワールド
+   *  宿題：サンプルプログラム実行
+
+  * 5/11 ROS（2） 岡田（キャリブレーション，画像処理，Kinect）
+   * 技術補佐員による宿題解説
+   * 宿題：カメラキャリブレーション，顔追跡とロボット動作の接続，3DContest, モーショントラッキング
+
+  * 5/18  OpenRave(1)  開発環境(Hudson)
+   * 宿題：ドキュメンテーション
+   * 技術補佐員による宿題解説
+
+  * 5/25 OpenRave(2)　OpenRave本体(Planning)
+   * 答え合わせ(技術補佐員の人がやる)
+   * 技術補佐員による宿題解説
+     
+  * 6/1 OpenRave(3)　IKFast OpenRave-Ros
+   * 技術補佐員による宿題解説
+
+  * 6/8  ROS（3） 岡田（iCraete/移動ロボット演習　BEEGO）
+   * 技術補佐員による宿題解説
+   * 宿題：ロボットモデリング，地図作成，ナビゲーション
+
+  * 6/15 RTM(2) 吉海先生（富士通ビジョン, RtmEus)
+   * 技術補佐員による宿題解説
+
+  * 6/22  RTM(3) 矢口(RTMExt, 3次元地図生成, RTM-ROS)
+   * 技術補佐員による宿題解説
+
+  * 6/29 RTM(4) 花井さん(HIRO)
+   * 技術補佐員による宿題解説
+
+  * 7/6 RTM(5) 産総研HIRO         松本（紹介）
+
+  * 7/13 RTM(6) 産総研HRP4         金広（ハッキングtips）
+
+  * 7/20 まとめ 稲葉先生（ソフトウェアの発展的構成法について）
+　**   技術補佐員の人は最後に、学んだことの集大成の発表会
+
+場所は本郷工学部2号館231, 秋葉原ダイビル13F大講義室
