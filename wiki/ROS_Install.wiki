@@ -1,0 +1,30 @@
+#summary ROSインストール法
+
+=インストール =
+
+http://www.ros.org/wiki/cturtle/Installation/Ubuntu より抜粋
+http://www.ros.org/wiki/diamondback/Installation/Ubuntu より抜粋
+
+
+ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公開されているパッケージをソースでインストール 
+
+例：Ubuntu 10.04の場合
+{{{
+sudo sh -c 'echo "deb http://code.ros.org/packages/ros/ubuntu lucid main" > /etc/apt/sources.list.d/ros-latest.list'
+
+wget http://code.ros.org/packages/ros.key -O - | sudo apt-key add -
+
+sudo apt-get update
+sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop
+}}}
+
+
+例：Ubuntu 10.10の場合
+{{{
+sudo sh -c 'echo "deb http://code.ros.org/packages/ros/ubuntu marverick main" > /etc/apt/sources.list.d/ros-latest.list'
+
+wget http://code.ros.org/packages/ros.key -O - | sudo apt-key add -
+
+sudo apt-get update
+sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop
+}}}
