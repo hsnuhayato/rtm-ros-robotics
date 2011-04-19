@@ -26,6 +26,7 @@ roslaunch move_base_stage_tutorial robot.launch
 }}}
 とします．
 以下の様な初期画面が現れると思います．
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/move_base_stage_tutorial_init.png]
 
 最後に
 {{{
@@ -35,6 +36,7 @@ rosrun rviz rviz -d `rospack find move_base_stage_tutorial`/config/rviz.vcg
 
 ここで左上の`2D Nav Goal`を押して地図上の任意の場所をクリックすると
 その場所まで移動します．
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/move_base_stage_tutorial_rviz.png]
 
 また，
 {{{
