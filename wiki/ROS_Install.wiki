@@ -1,6 +1,6 @@
 #summary ROSインストール法
 
-=インストール =
+= ROS本体のインストール =
 
 http://www.ros.org/wiki/diamondback/Installation/Ubuntu より抜粋
 
@@ -25,16 +25,16 @@ sudo apt-get update
 sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop
 }}}
 
-= ナビゲーションサンプル =
-インストール方法は後で変わるかもしれません
-{{{
-mkdir -p ~/ros/diamondback
-echo "- hg:
-    local-name: navigation_stage
-    uri: 'https://kforge.ros.org/navigation/tutorials'
-" > ~/ros/navigation_stage.rosinstall
-rosinstall ~/ros/diamondback ~/ros/navigation_stage.rosinstall
-}}}
+= ROS外部パッケージのインストール =
 
-後は以下のチュートリアルに従えばよいでしょう
-http://www.ros.org/wiki/lse_roomba_toolbox/Tutorials/Simulating%20a%20Roomba%20on%20Stage
+
+{{{
+rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/ros_tutorials/rtm-ros-robotics.rosinstall
+}}}
+rosinstallについては http://www.ros.org/wiki/rosinstall を参照
+
+ROS関連のプログラムを使うためには以下の様にして環境変数をセットする必要があります．
+{{{
+source ~/prog/rtm-ros-robotics/setup.bash
+}}}
+この一行を ~/.bashrc に追加するとよいでしょう．
