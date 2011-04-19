@@ -2,11 +2,12 @@
 
 =インストール =
 
-C++版のインストールに関して，
 http://www.openrtm.org/openrtm/ja/node/999
 より抜粋
 
-ubuntuの場合，一括インストールスクリプトを使うのが楽．
+まずは，C++版のインストール．
+
+ubuntuの場合，一括インストールスクリプトを使うのが良い．
 
 {{{
  > wget http://www.openrtm.org/pub/OpenRTM-aist/cxx/install_scripts/pkg_install100_ubuntu.sh
