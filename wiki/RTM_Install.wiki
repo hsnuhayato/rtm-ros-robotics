@@ -3,7 +3,7 @@
 =インストール =
 
 http://www.openrtm.org/openrtm/ja/node/999
-より抜粋
+より一部抜粋
 
 まずは，C++版のインストール．
 
@@ -43,7 +43,7 @@ http://www.openrtm.org/pub/Windows/OpenRTM-aist/python/OpenRTM-aist-Python-1.0.1
 = 外部ツールのインストール =
 
 http://www.openrtm.org/openrtm/ja/node/941
-より抜粋．
+より一部抜粋．
 
 eclipseからグラフィカルにコンポーネントを生成するツールとしてRTCBuilder，操作するツールとしてRTSystemEditorが公開されている．
 
