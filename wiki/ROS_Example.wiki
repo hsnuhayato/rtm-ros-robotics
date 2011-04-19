@@ -36,4 +36,17 @@ rosrun rviz rviz -d `rospack find move_base_stage_tutorial`/config/rviz.vcg
 ここで左上の`2D Nav Goal`を押して地図上の任意の場所をクリックすると
 その場所まで移動します．
 
+また，
+{{{
+rosrun pr2_teleop teleop_pr2_keyboard 
+}}}
+とすると，速度指令を送ることが出来ます．
+
 == プログラミング ==
+
+速度指令プログラムは
+{{{
+roscd pr2_teleop
+cat src/teleop_pr2_keyboard.cpp
+}}}
+をみるとよい．
