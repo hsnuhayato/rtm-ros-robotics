@@ -48,6 +48,8 @@ window
   rotate [ 0 0 ]
 
   show_data 1
+  pcam_on 1
+  pcam_loc [20 15 2]
 )
 
 # load an environment bitmap
