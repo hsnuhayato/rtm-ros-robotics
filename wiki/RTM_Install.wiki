@@ -27,12 +27,7 @@ http://www.openrtm.org/pub/Windows/OpenRTM-aist/cxx/OpenRTM-aist-1.0.0-RELEASE_v
 
 次にpython版もインストール．
 
-ubuntuの場合，一括インストールスクリプトを利用．
-
-{{{
- > wget http://www.openrtm.org/pub/OpenRTM-aist/python/install_scripts/pkg_install_python_ubuntu.sh
- > sudo sh ./pkg_install_python_ubuntu.sh
-}}}
+ubuntuの場合，後でインストールする外部ツール（rtcshell）の関係で，バイナリでなく，最新版をインストールする必要があるので，ツールのインストールのところで用意した一括インストールスクリプトの中で合わせて行う．
 
 windowsの場合，インストーラを利用．
 
