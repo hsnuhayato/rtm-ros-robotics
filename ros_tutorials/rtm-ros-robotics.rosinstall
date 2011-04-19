@@ -1,0 +1,8 @@
+- svn:
+    local-name: ros_tutorials
+    uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/ros_tutorials
+- svn:
+    uri: https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk
+    local-name: jsk-ros-pkg
+
+
