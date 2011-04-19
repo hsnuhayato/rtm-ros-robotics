@@ -25,6 +25,19 @@ http://www.openrtm.org/pub/Windows/OpenRTM-aist/cxx/OpenRTM-aist-1.0.0-RELEASE_v
 その他のもの（Vineなど他のLinuxディストリビューションやMacOSなど）はhttp://www.openrtm.org/openrtm/ja/node/849#toc2
 を参照のこと．
 
+次にpython版もインストール．
+
+ubuntuの場合，一括インストールスクリプトを利用．
+
+{{{
+ > wget http://www.openrtm.org/pub/OpenRTM-aist/python/install_scripts/pkg_install_python_ubuntu.sh
+ > sudo sh ./pkg_install_python_ubuntu.sh
+}}}
+
+windowsの場合，インストーラを利用．
+http://www.openrtm.org/pub/Windows/OpenRTM-aist/python/OpenRTM-aist-Python-1.0.1.msi
+
+
 = 外部ツールのインストール =
 
 http://www.openrtm.org/openrtm/ja/node/941
