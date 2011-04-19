@@ -67,7 +67,7 @@ Windowsの場合，全部入りのパッケージがあるので，それをダ�
 http://www.openrtm.org/pub/OpenRTM-aist/tools/1.0.0/eclipse342_rtmtools100release_win32_ja.zip
 
 また，主にUbuntuで利用する際のコマンドラインの標準ツールとして，rtcshellが公開されているので，Ubuntuの場合，それもインストールする．そのための
-[http://rtm-ros-robotics.googlecode.com/files/setup-rtctools.sh シェルスクリプト]を用意したので，それをダウンロードして実行する．
+[http://rtm-ros-robotics.googlecode.com/files/setup-rtcshell.sh シェルスクリプト]を用意したので，それをダウンロードして実行する．
 
 
 {{{
