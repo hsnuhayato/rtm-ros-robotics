@@ -11,7 +11,18 @@ python版に標準で添付されているRTコンポーネントサンプル．
 
 == 準備 ==
 
-1. eclipseの起動
+1. ネームサーバの起動
+
+CORBAのネームサーバを起動する．
+
+Ubuntuの場合は，
+{{{
+ > rtm-naming
+}}}
+
+Windowsの場合は，「スタートメニュー」→「全てのプログラム」→「OpenRTM-aist」→「Python」→「tools」→「Start Naming Service」
+
+2. eclipseの起動
 
 Ubuntuの場合，インストールしてすぐの状態の場合，同じターミナルだと環境変数の反映がされてないので，必ず
 {{{
@@ -19,6 +30,51 @@ Ubuntuの場合，インストールしてすぐの状態の場合，同じタ�
 }}}
 を行う．
 
-2. RTSystemEditorの起動
+3. RTSystemEditorの起動
+
+Windows，Ubuntuともに，eclipseを初めて起動する場合は，上部メニューバーの「ウィンドウ」→「パースペクティブを開く」→「その他」を選択し，出てきたウィンドウの中から「RT System Editor」を選び「OK」を押す．
+
+4. コンポーネントの立ち上げ
+
+Ubuntuの場合，/usr/share/OpenRTM-aist/examples/python/以下にサンプルがあるのでそれを起動．
+
+まずはターミナルを一つ上げて，
+{{{
+ > cd /usr/share/OpenRTM-aist/examples/python/TkJoyStick
+ > python ./TkJoyStickComp.py
+}}}
+とする．
+
+もし，ライブラリが不足していて怒られるようならば，
+{{{
+ > sudo apt-get install python-tk
+}}}
+を実行する．
+
+次に別のターミナル，あるいは同じターミナル内で新しくタブを開き，
+{{{
+ > cd /usr/share/OpenRTM-aist/examples/python/MobileRobotCanvas
+ > python ./TkMobileRobotSimulator.py
+}}}
+とする．
+
+もし，また，ライブラリが不足していて怒られるようならば，
+{{{
+ > sudo apt-get install tix
+}}}
+を実行する．
+
+そして，「Tk Mobile Robot Simulator」側の右側にある「Create」ボタンを一回押す．
+
+一方，Windowsの場合，
+「スタートメニュー」→「全てのプログラム」→「OpenRTM-aist」→「Python」→「components」→「examples」→「TkJoyStickComp.py」
+および
+「スタートメニュー」→「全てのプログラム」→「OpenRTM-aist」→「Python」→「components」→「examples」→「TkMobileRobotSimulator.py」
+を起動し，同じく「Create」ボタンを一回押す．
+
+すると，以下の画面が出るはず．
+
+
+
 
 == 実行 ==
