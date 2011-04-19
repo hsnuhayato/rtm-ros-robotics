@@ -45,10 +45,11 @@ http://www.openrtm.org/pub/Windows/OpenRTM-aist/python/OpenRTM-aist-Python-1.0.1
 http://www.openrtm.org/openrtm/ja/node/941
 より抜粋．
 
-eclipseからグラフィカルにコンポーネントを生成するツールとしてRTCBuilder，操作するツールとしてRTSystemEditorが公開されている．それらの入った全部入りパッケージをダウンロードして，任意の場所で解凍する．
+eclipseからグラフィカルにコンポーネントを生成するツールとしてRTCBuilder，操作するツールとしてRTSystemEditorが公開されている．
 
-Ubuntuの場合，
+Ubuntuの場合，公式ページにおいてあるEclipse3.4.2の全部入りパッケージでは，そのままでは9.10で以降で動かないため，Eclipse3.6にバイナリのjarファイルを展開して用いるのが良い．そのためのシェルスクリプトを用意したので，それをインストールして実行する．
+
 http://www.openrtm.org/pub/OpenRTM-aist/tools/1.0.0/eclipse342_rtmtools100release_linux_ja.tar.gz
 
-Windowsの場合，
+Windowsの場合，全部入りのパッケージがあるので，それをダウンロードし，任意の場所で解凍する．
 http://www.openrtm.org/pub/OpenRTM-aist/tools/1.0.0/eclipse342_rtmtools100release_win32_ja.zip
