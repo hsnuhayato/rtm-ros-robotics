@@ -7,16 +7,9 @@ http://www.ros.org/wiki/diamondback/Installation/Ubuntu より抜粋
 
 ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公開されているパッケージをソースでインストール 
 
-Ubuntu 10.04の場合
 {{{
-sudo sh -c 'echo "deb http://code.ros.org/packages/ros/ubuntu lucid main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo sh -c 'echo "deb http://code.ros.org/packages/ros/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros-latest.list'
 }}}
-Ubuntu 10.10の場合
-{{{
-sudo sh -c 'echo "deb http://code.ros.org/packages/ros/ubuntu marverick main" > /etc/apt/sources.list.d/ros-latest.list'
-}}}
-（ディストリビューションの確認は `lsb_release -a`で行う)
-
 
 後はどのバージョンでも以下の作業を行う．
 {{{
