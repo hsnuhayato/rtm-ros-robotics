@@ -16,7 +16,8 @@ python版に標準で添付されているRTコンポーネントサンプル．
 Ubuntu側のサンプルには一部バグがあるため，
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/TkMobileRobotSimulator.py バグフィックス版]を用意した．
 
-/usr/share/OpenRTM-aist/examples/python/MobileRobotCanvas以下のものと差し替えてほしい．
+/usr/share/OpenRTM-aist/examples/python/MobileRobotCanvas
+以下のものと差し替えてほしい．
 
 1. ネームサーバの起動
 
