@@ -38,3 +38,22 @@ ROS関連のプログラムを使うためには以下の様にして環境変�
 source ~/prog/rtm-ros-robotics/setup.bash
 }}}
 この一行を ~/.bashrc に追加するとよいでしょう．
+
+= ROS関連コマンド =
+
+最低限 [http://www.ros.org/wiki/roscd roscd], [http://www.ros.org/wiki/rosdep rosdep], [http://www.ros.org/wiki/rosmake rosmake] を知っていればよい．例えば，
+{{{
+rosdep install euslisp
+rosmake euslisp
+}}}
+とすると，euslispパッケージに必要なパッケージをダウンロード＆インストールし，さらにeuslispパッケージをコンパイルする．
+
+また，euslispパッケージにあるディレクトリに移動したければ
+{{{
+roscd eusilsp
+}}}
+とすればよい．
+
+http://www.ros.org/wiki/ROS/Tutorials
+
+いざとなったら[http://www.ros.org/wiki/Documentation?action=AttachFile&do=get&target=ROScheatsheet.pdf ROS CheetSheet]を参考に
