@@ -20,9 +20,20 @@ windowsの場合，インストーラを利用する．Visual Studio2008なら�
 
 http://www.openrtm.org/pub/Windows/OpenRTM-aist/cxx/OpenRTM-aist-1.0.0-RELEASE_vc9_100212.msi
 
-をダウンロードして，実行する．
+をダウンロードして，標準を選択して，インストールを実行する．
 
 その他のもの（Vineなど他のLinuxディストリビューションやMacOSなど）はhttp://www.openrtm.org/openrtm/ja/node/849#toc2
 を参照のこと．
 
-= 通信サンプルプログラム =
+= 外部ツールのインストール =
+
+http://www.openrtm.org/openrtm/ja/node/941
+より抜粋．
+
+eclipseからグラフィカルにコンポーネントを生成するツールとしてRTCBuilder，操作するツールとしてRTSystemEditorが公開されている．それらの入った全部入りパッケージをダウンロードして，任意の場所で解凍する．
+
+Ubuntuの場合，
+http://www.openrtm.org/pub/OpenRTM-aist/tools/1.0.0/eclipse342_rtmtools100release_linux_ja.tar.gz
+
+Windowsの場合，
+http://www.openrtm.org/pub/OpenRTM-aist/tools/1.0.0/eclipse342_rtmtools100release_win32_ja.zip
