@@ -8,10 +8,13 @@ http://www.openrtm.org/openrtm/ja/node/999
 
 ubuntuの場合，一括インストールスクリプトを使うのが楽．
 
+{{{
  > wget [pkg_installXXX.sh のダウンロードURL]
  > su
  # sh pkg_installXXX_ubuntu.sh
- //途中，いくつかの質問をたずねられるので，''y'' あるいは ''Y'' を入力しながら完了させる．
+}}}
+
+途中，いくつかの質問をたずねられるので，''y'' あるいは ''Y'' を入力しながら完了させる．
 
 
 
