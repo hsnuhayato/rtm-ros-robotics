@@ -85,9 +85,9 @@ Ubuntuの場合，/usr/share/OpenRTM-aist/examples/python/以下にサンプル�
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/connection_for_tkmobilerobotsimulator.png]
 
 
-
-
-6, RTSystemEditor上でのコンポーネントのアクティベート
-
-
 == 実行 ==
+
+RTSystemEditor上でのコンポーネントのアクティベートして，サンプルの動作確認を行う．
+
+System Diagramの何もないところで，右クリックして，「All Activate」を選択することで，各々のコンポーネントが動き出し，画面上のジョイスティックからシミュレータ内の移動ロボットに速度指令を与えることができるようになる．
+
