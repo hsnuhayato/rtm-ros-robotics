@@ -74,7 +74,7 @@ Ubuntuの場合，/usr/share/OpenRTM-aist/examples/python/以下にサンプル�
 
 すると，以下の画面が出るはず．
 
-
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/tkmobilerobot_simulator_init.png]
 
 
 == 実行 ==
