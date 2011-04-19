@@ -38,7 +38,8 @@ windowsの場合，インストーラを利用．
 
 http://www.openrtm.org/pub/Windows/OpenRTM-aist/python/OpenRTM-aist-Python-1.0.1.msi
 
-をダウンロードして，インストールを実行．
+をダウンロードして，標準を選択して，インストールを実行．
+
 = 外部ツールのインストール =
 
 http://www.openrtm.org/openrtm/ja/node/941
