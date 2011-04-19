@@ -11,6 +11,13 @@ python版に標準で添付されているRTコンポーネントサンプル．
 
 == 準備 ==
 
+0. サンプルファイルの差し替え
+
+Ubuntu側のサンプルには一部バグがあるため，
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/TkMobileRobotSimulator.py バグフィックス版]を用意した．
+
+/usr/share/OpenRTM-aist/examples/python/MobileRobotCanvas以下のものと差し替えてほしい．
+
 1. ネームサーバの起動
 
 CORBAのネームサーバを起動する．
@@ -90,4 +97,3 @@ Ubuntuの場合，/usr/share/OpenRTM-aist/examples/python/以下にサンプル�
 RTSystemEditor上でのコンポーネントのアクティベートして，サンプルの動作確認を行う．
 
 System Diagramの何もないところで，右クリックして，「All Activate」を選択することで，各々のコンポーネントが動き出し，画面上のジョイスティックからシミュレータ内の移動ロボットに速度指令を与えることができるようになる．
-
