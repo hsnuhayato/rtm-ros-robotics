@@ -9,7 +9,7 @@ http://www.openrtm.org/openrtm/ja/node/999
 ubuntuの場合，一括インストールスクリプトを使うのが楽．
 
 {{{
- > wget [pkg_installXXX.sh のダウンロードURL]
+ > wget http://www.openrtm.org/pub/OpenRTM-aist/cxx/install_scripts/pkg_install100_ubuntu.sh
  > su
  # sh pkg_installXXX_ubuntu.sh
 }}}
