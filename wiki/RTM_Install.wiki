@@ -73,3 +73,5 @@ http://www.openrtm.org/pub/OpenRTM-aist/tools/1.0.0/eclipse342_rtmtools100releas
 {{{
  > sh ./setup-rtctools.sh
 }}}
+
+途中で，「Generate documentation?」と聞かれたらyesとタイプしてエンターを押す．
