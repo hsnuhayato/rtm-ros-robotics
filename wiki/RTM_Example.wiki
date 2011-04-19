@@ -76,5 +76,18 @@ Ubuntuの場合，/usr/share/OpenRTM-aist/examples/python/以下にサンプル�
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/tkmobilerobot_simulator_init.png]
 
+5, RTSystemEditor上でのコンポーネント接続
+
+左上の「On」と書かれたボタンを一回押してSystemDiagramの画面を表示して，左側の「Name Service View」のところに見えている2つのコンポーネントをSystem Diagram上にドラッグアンドドロップする．接続は片側のコンポーネントのポートからもう一方のコンポーネントのポートへドラッグアンドドロップで接続する．
+
+その際の接続図は以下のようになる．
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/connection_for_tkmobilerobotsimulator.png]
+
+
+
+
+6, RTSystemEditor上でのコンポーネントのアクティベート
+
 
 == 実行 ==
