@@ -1,13 +1,10 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+= シンプルな移動ロボットシミュレータのGUI操作サンプル =
 
-Add your content here.
+== 概要 ==
 
+http://www.openrtm.org/openrtm/ja/node/819
+より一部抜粋．
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+python版に標準で添付されているRTコンポーネントサンプル．GUIのスティックをドラッグして移動した値を速度指令として移動ロボットのシミュレーションを行うサンプル．
