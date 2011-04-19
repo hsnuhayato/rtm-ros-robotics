@@ -41,7 +41,7 @@ source ~/prog/rtm-ros-robotics/setup.bash
 
 = ROS関連コマンド =
 
-最低限 [http://www.ros.org/wiki/roscd roscd], [http://www.ros.org/wiki/rosdep rosdep], [http://www.ros.org/wiki/rosmake rosmake] を知っていればよい．例えば，
+最低限 [http://www.ros.org/wiki/roscd roscd], [http://www.ros.org/wiki/rosdep rosdep], [http://www.ros.org/wiki/rosmake rosmake], [http://www.ros.org/wiki/rosrun rosrun] を知っていればよい．例えば，
 {{{
 rosdep install euslisp
 rosmake euslisp
@@ -52,9 +52,19 @@ rosmake euslisp
 {{{
 roscd eusilsp
 }}}
-とすればよい．
+とすればよい．また，euslispパッケージ以下のirteusglという実行ファイルを実行したければ
+{{{
+rosrun eulisp irteusgl
+}}}
+とする．引数も渡せるので，
+{{{
+rosrun euslisp irteusgl irteus/demo/demo.l "(crank-motion)"
+rosrun euslisp irteusgl models/irt-all-robots.l "(make-all-robots)"
+rosrun euslisp irteusgl models/irt-all-objects.l "(make-all-objects)"
+}}}
+等としてサンプルを試すことが出来る．
 
-より詳しい情報はhttp://www.ros.org/wiki/ROS/Tutorialsへ，また，
+より詳しい情報はhttp://www.ros.org/wiki/ROS/Tutorials へ，また，
 
 いざとなったら[http://www.ros.org/wiki/Documentation?action=AttachFile&do=get&target=ROScheatsheet.pdf ROS CheetSheet]を参考にするとよい．
 
