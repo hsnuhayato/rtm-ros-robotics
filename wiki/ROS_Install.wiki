@@ -46,7 +46,7 @@ source ~/prog/rtm-ros-robotics/setup.bash
 rosdep install euslisp
 rosmake euslisp
 }}}
-とすると，euslispパッケージに必要なパッケージをダウンロード＆インストールし，さらにeuslispパッケージをコンパイルする．
+とすると，[http://jskeus.sourceforge.net/ euslisp]パッケージに必要なパッケージをダウンロード＆インストールし，さらにeuslispパッケージをコンパイルする．
 
 また，euslispパッケージにあるディレクトリに移動したければ
 {{{
