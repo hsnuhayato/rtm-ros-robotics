@@ -10,7 +10,7 @@ ubuntuの場合，一括インストールスクリプトを使うのが楽．
 
 {{{
  > wget http://www.openrtm.org/pub/OpenRTM-aist/cxx/install_scripts/pkg_install100_ubuntu.sh
- > sudo sh pkg_install100_ubuntu.sh
+ > sudo sh ./pkg_install100_ubuntu.sh
 }}}
 
 途中，いくつかの質問をたずねられるので，''y'' あるいは ''Y'' を入力しながら完了させる．
