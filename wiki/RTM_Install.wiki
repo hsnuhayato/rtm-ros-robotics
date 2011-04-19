@@ -11,12 +11,18 @@ ubuntuの場合，一括インストールスクリプトを使うのが楽．
 {{{
  > wget http://www.openrtm.org/pub/OpenRTM-aist/cxx/install_scripts/pkg_install100_ubuntu.sh
  > su
- # sh pkg_installXXX_ubuntu.sh
+ # sh pkg_install100_ubuntu.sh
 }}}
 
 途中，いくつかの質問をたずねられるので，''y'' あるいは ''Y'' を入力しながら完了させる．
 
+windowsの場合，インストーラを利用する．Visual Studio2008ならば，
 
+http://www.openrtm.org/pub/Windows/OpenRTM-aist/cxx/OpenRTM-aist-1.0.0-RELEASE_vc9_100212.msi
 
+をダウンロードして，実行する．
+
+その他のもの（Vineなど他のLinuxディストリビューションやMacOSなど）はhttp://www.openrtm.org/openrtm/ja/node/849#toc2
+を参照のこと．
 
 = 通信サンプルプログラム =
