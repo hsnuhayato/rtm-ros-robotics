@@ -7,6 +7,8 @@ http://www.ros.org/wiki/move_base_stage/Tutorials/stage%20and%20navigation%20sta
 に基づいたナビゲーションのサンプルです
 
 上のwikiのページは情報が古いので参考程度に見て下さい．
+下に書いてることは，このwikiページに書いてある内容を
+現状のdiamondbackで動くようにしたものです．
 
 == 準備 ==
 [ROS_Install]にしたがってROSと講義関連パッケージがインストールされていることが前提です．
