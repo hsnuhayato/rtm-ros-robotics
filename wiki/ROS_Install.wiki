@@ -62,3 +62,5 @@ rosrun euslisp irteusgl models/irt-all-objects.l "(make-all-objects)"
 いざとなったら[http://www.ros.org/wiki/Documentation?action=AttachFile&do=get&target=ROScheatsheet.pdf ROS CheetSheet]を参考にするとよい．
 
 ほとんどのunixコマンドは先頭にrosをつけたツールが存在する(rosls, roscp等）．いろいろと調べるとよいが，もしかしたらその先は[http://0xcc.net/misc/bad-knowhow.html 奥深い]ので要注意．
+
+インストールができたら，[ROS_Example サンプルプログラム]を試してみよう
