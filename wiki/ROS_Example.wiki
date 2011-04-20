@@ -5,7 +5,7 @@
 == 概要 ==
 ここで紹介するナビゲーションのサンプルは，
 http://www.ros.org/wiki/move_base_stage/Tutorials/stage%20and%20navigation%20stack
-に基づきました．ただ，このwikiのページは情報が古いので参考程度に見て下さい．紹介するナビゲーションサンプルは上のリンクのwikiページを見なくとも，実行できます．
+に基づきました．ただ，このwikiのページは情報が古いので参考程度に見て下さい．紹介するナビゲーションサンプルは上のリンクのwikiページを見なくとも，[ROS_Install]をみて，インストールし，setup.bashをsourceしていれば実行できます．
 
 
 == 準備 ==
