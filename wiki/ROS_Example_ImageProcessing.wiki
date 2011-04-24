@@ -1,0 +1,61 @@
+#summary 画像処理のサンプル
+
+[ROS_Example ROSサンプル]
+
+== 概要 ==
+ここで紹介するナビゲーションのサンプルは，
+http://www.ros.org/wiki/move_base_stage/Tutorials/stage%20and%20navigation%20stack
+に基づきました．ただ，このwikiのページは情報が古いので参考程度に見て下さい．紹介するナビゲーションサンプルは上のリンクのwikiページを見なくとも，[ROS_Install]をみて，インストールし，setup.bashをsourceしていれば実行できます．
+
+
+== 準備 ==
+
+ROSのUSBカメラドライバは各種存在する．それぞれについては，
+[http://www.iheartrobotics.com/2010/05/testing-ros-usb-camera-drivers.html Testing: ROS USB Camera drivers]に詳しい．また，
+これらのドライバを統一してサポートするバージョンを作っていこう
+という[http://ros-users.122217.n3.nabble.com/call-for-an-official-ROS-USB-camera-package-td2116581.html 議論]もあるので注意が必要な段階である．
+
+一方，IEEE1394カメラについては，以前は同様に各種存在する段階だったが今は[http://www.ros.org/wiki/camera1394 統合されたバージョン]に落ち着いている段階にある．その際の[http://www.ros.org/wiki/camera1394/Reviews 議論の過程]を見ることが出来る．
+
+*** rospack で動くことを確認．なければrosinstall
+
+== 実行 ==
+３つのターミナルを立ち上げます
+まずは，1つ目で
+{{{
+roscore
+}}}
+として下さい．
+
+次に2つ目のターミナルで
+{{{
+roslaunch move_base_stage_tutorial robot.launch
+}}}
+とします．
+以下の様な初期画面が現れると思います．
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/move_base_stage_tutorial_init.png]
+
+最後に
+{{{
+rosrun rviz rviz -d `rospack find move_base_stage_tutorial`/config/rviz.vcg 
+}}}
+としてビューワを表示します．
+
+ここで左上の`2D Nav Goal`を押して地図上の任意の場所をクリックすると
+その場所まで移動します．
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/move_base_stage_tutorial_rviz.png]
+
+また，
+{{{
+rosrun pr2_teleop teleop_pr2_keyboard 
+}}}
+とすると，速度指令を送ることが出来ます．
+
+== プログラミング ==
+
+速度指令プログラムは
+{{{
+roscd pr2_teleop
+cat src/teleop_pr2_keyboard.cpp
+}}}
+をみるとよい．
