@@ -1,5 +1,7 @@
 #summary ナビゲーションのサンプル
 
+[ ROS_Example ROSサンプル]
+
 == 概要 ==
 ここで紹介するナビゲーションのサンプルは，
 http://www.ros.org/wiki/move_base_stage/Tutorials/stage%20and%20navigation%20stack
