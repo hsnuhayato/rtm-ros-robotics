@@ -1,7 +1,7 @@
 #summary OpenRAVEサンプルプログラム
 
-[http://openrave.programmingvision.com/en/main/index.html　ホームページ]
+[http://openrave.programmingvision.com/en/main/index.html ホームページ]
 
-[http://openrave.programmingvision.com/en/main/overview.html#overview 紹介」
+[http://openrave.programmingvision.com/en/main/overview.html 紹介]
 
 [http://openrave.programmingvision.com/en/main/getting_started.html#getting-started チュートリアル]
