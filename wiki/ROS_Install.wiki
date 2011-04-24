@@ -43,11 +43,11 @@ rosmake euslisp
 
 また，euslispパッケージにあるディレクトリに移動したければ
 {{{
-roscd eusilsp
+roscd euslisp
 }}}
 とすればよい．また，euslispパッケージ以下のirteusglという実行ファイルを実行したければ
 {{{
-rosrun eulisp irteusgl
+rosrun euslisp irteusgl
 }}}
 とする．引数も渡せるので，
 {{{
