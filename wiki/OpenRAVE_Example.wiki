@@ -1,7 +1,11 @@
 #summary OpenRAVEサンプルプログラム
 
+OpenRAVEは自律型ロボットのための動作計画アルゴリズムと高度な知的マニピュレーションを備えた開発環境を提供しています。
+
 [http://openrave.programmingvision.com/en/main/index.html OpenRAVEのホームページ]
 
 [http://openrave.programmingvision.com/en/main/overview.html OpenRAVEの紹介]
 
 [http://openrave.programmingvision.com/en/main/getting_started.html#getting-started チュートリアル]
+
+[http://openrave.programmingvision.com/en/main/examples.html 実行例]
