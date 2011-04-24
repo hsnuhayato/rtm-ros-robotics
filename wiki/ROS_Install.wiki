@@ -26,6 +26,13 @@ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.
 }}}
 rosinstallについては http://www.ros.org/wiki/rosinstall を参照
 
+(Ubuntuを入れたばかりの環境だと、
+{{{
+sudo apt-get install python-setuptools
+sudo easy_install -U rosinstall
+}}}
+を行って、/usr/local/bin/rosinstallを使えるようにしておく必要がある．）
+
 ROS関連のプログラムを使うためには以下の様にして環境変数をセットする必要があります．
 {{{
 source ~/prog/rtm-ros-robotics/setup.bash
