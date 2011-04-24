@@ -1,6 +1,6 @@
 #summary ナビゲーションのサンプル
 
-[ ROS_Example ROSサンプル]
+[ROS_Example ROSサンプル]
 
 == 概要 ==
 ここで紹介するナビゲーションのサンプルは，
