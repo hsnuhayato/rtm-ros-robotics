@@ -55,7 +55,8 @@ rosrun euslisp irteusgl irteus/demo/demo.l "(crank-motion)"
 rosrun euslisp irteusgl models/irt-all-robots.l "(make-all-robots)"
 rosrun euslisp irteusgl models/irt-all-objects.l "(make-all-objects)"
 }}}
-等としてサンプルを試すことが出来る．
+等としてサンプルを試すことが出来る．crank-motionはリターンキーを打つと止まり、irteusgl$のプロンプトが出る．プロンプトに対して、exitを入れると
+euslispが終了する。
 
 より詳しい情報はhttp://www.ros.org/wiki/ROS/Tutorials へ，また，
 
