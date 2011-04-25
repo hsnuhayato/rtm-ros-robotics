@@ -7,7 +7,7 @@
 
 == 準備 ==
 
-=== 新しいソースのインストール ===
+=== 新しいソースのインストールと動作確認 ===
 {{{
 roscd agentsystem_ros_tutorials
 svn up
@@ -50,6 +50,7 @@ rxgraph
 としてみよう．以下のような画面が現れるはずだ．
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/roseus_tutorials_camera_view_rxgraph.png]
 
+丸で囲まれたものが*ノード*を示し，それらの間の矢印が*トピック*を表す．ノードはプロセスと同義であり，トピックはノード間でメッセージ（データ型）を交換するための名前付きバスである．ノードはトピックをSubscribeあるいは，Publishする．
 
   * ROSカメラドライバについて
   ちなみに，ROSのUSBカメラドライバは各種存在する．それぞれについては，[http://www.iheartrobotics.com/2010/05/testing-ros-usb-camera-drivers.html Testing: ROS USB Camera drivers]に詳しい．また，これらのドライバを統一してサポートするバージョンを作っていこうという[http://ros-users.122217.n3.nabble.com/call-for-an-official-ROS-USB-camera-package-td2116581.html 議論]もあるので注意が必要な段階である．
