@@ -13,7 +13,7 @@
 
 === 新しいソースのインストールと動作確認 ===
 {{{
-roscd agentsystem_ros_tutorials
+cd ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials
 svn up
 rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
