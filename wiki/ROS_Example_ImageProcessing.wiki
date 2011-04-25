@@ -76,7 +76,9 @@ rosrun opencv_ros_bridge_tutorial image_painter image:=/image_rect
 rosrun image_view2 image_view2 image:=/image_painted
 }}}
 とすると，画面の左上に小さい丸が表示されているはずである．
+
 `image:=/image_rect`の部分は*[http://www.ros.org/wiki/Remapping%20Arguments リマップ]*と呼ばれる大変便利な機能である．
+これはプログラム中に埋め込まれたトピック名等の名前を，プログラムの実行時に変更することが出来，これにより同じノードを複数の設定で実行することが出来る．例えば，このプログラムのコードでは` it_.subscribe("image", 1, &ImagePainter::imageCb, this);`と`image`という名前のトピックをSubscribeしているが，上の様に実行することで`image_rect`という名前のトピックをSubscribeするよう設定し実行している．
 
 
 プログラムの中身の詳細の説明は,[http://www.ros.org/wiki/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages]に譲るが，ポイントはプログラムの中段の以下の部分．
@@ -92,6 +94,114 @@ rosrun image_view2 image_view2 image:=/image_painted
 OpenCVの`cv_ptr->image`が`cv::Mat`型であるので，通常のOpenCV画像処理プログラムを記述すればよい．
 
 * トピックのサブスクライブ
+
+視野画像をクリックすると，その場所に丸を書くようにプログラムを変更しよう．そのためには，`image_rect/screenpoint`をSubscribeすればよい．
+プログラムは`image_painter2.cpp`にある．
+
+まずは，
+{{{
+rostopic info /image_painted/screenpoint
+}}}
+としてトピックの型を調べる．これで，`Type: geometry_msgs/PointStamped`という情報が得られる．(
+さらに，`rosmsg show geometry_msgs/PointStamped`とすると，型の情報を知ることが出来る）
+
+ここから，プログラムの先頭に
+{{{
+#include <geometry_msgs/PointStamped.h>
+}}}
+としてファイルをインクルードし，
+{{{
+    screen_sub_ = nh_.subscribe("/image_painted/screenpoint", 1, &ImagePainter::screenCb, this);
+}}}
+として，Subscribeする．`screenCb`の中は
+{{{
+  void screenCb(const geometry_msgs::PointStampedPtr& msg)
+  {
+    ROS_INFO("screen cb %3d %3d", (int)msg->point.x, (int)msg->point.y);
+    screen_x = msg->point.x; screen_y = msg->point.y;
+  }
+}}}
+として，メッセージを受け取る度にこの関数が呼ばれることになる．
+
+後は，視野画像をクリックすればその位置に丸がかかれることになる．
+
+このプログラム（ノード）は，どのノードが出力(publish)したかに関わらず'/image_painted/screenpoint'という名前のトピックを受け取るようになっている．したがって，例えば
+{{{
+rostopic pub -1 /image_painted/screenpoint geometry_msgs/PointStamped '{point: {x: 100, y: 200}}'
+}}}
+というコマンドラインを使ってもよいし，Pythonユーザなら
+{{{
+import roslib; roslib.load_manifest('opencv_ros_bridge_tutorial')
+import rospy;
+import math;
+from geometry_msgs.msg import PointStamped
+
+pub = rospy.Publisher('/image_painted/screenpoint', PointStamped)
+rospy.init_node('publish_screenpoint')
+msg = PointStamped()
+i = 0;
+while not rospy.is_shutdown():
+    msg.point.x = 320 + 180*math.sin(i)
+    msg.point.y = 240 + 180*math.cos(i)
+    i += 0.1
+    print msg;
+    pub.publish(msg)
+    rospy.sleep(0.1)
+}}}
+とかける．C++だと，
+{{{
+#include "ros/ros.h"
+#include "geometry_msgs/PointStamped.h"
+
+#include <math.h>
+
+int main(int argc, char **argv)
+{
+  ros::init(argc, argv, "publish_screenpoint");
+
+  ros::NodeHandle n;
+  ros::Publisher pub = n.advertise<geometry_msgs::PointStamped>("/image_painted/screenpoint", 1000);
+
+  ros::Rate loop_rate(10);
+  double i = 0;
+  while (ros::ok())
+    {
+      geometry_msgs::PointStamped msg;
+      msg.point.x = 320 + 180*sin(i);
+      msg.point.y = 240 + 180*cos(i);
+      i += 0.1;
+      ROS_INFO("%5.1f %5.1f", msg.point.x, msg.point.y);
+      pub.publish(msg);
+      ros::spinOnce();
+      loop_rate.sleep();
+    }
+
+  return 0;
+}
+}}}
+として，CMakeLists.txtに`rosbuild_add_executable(publish_screenpoint src/publish_screenpoint.cpp)`を追加しコンパイルし実行する必要が有る．euslispだと，
+{{{
+#!/usr/bin/env roseus                                                           
+
+(ros::load-ros-manifest "opencv_ros_bridge_tutorial")
+(ros::roseus "publish_screenpoint")
+(ros::advertise "/image_painted/screenpoint" geometry_msgs::PointStamped 1)
+(setq i 0)
+(ros::rate 10)
+(while (ros::ok)
+ (setq msg (instance geometry_msgs::PointStamped :init))
+ (send msg :point :x (+ 320 (* 180 (sin i))))
+ (send msg :point :y (+ 240 (* 180 (cos i))))
+ (incf i 0.1)
+ (ros::ros-info "msg ~A ~A" (send msg :point :x) (send msg :point :y))
+ (ros::publish "/image_painted/screenpoint" msg)
+ (ros::sleep))
+}}}
+となる．それぞれ`opencv_ros_bridge_tutorial/src/`にコードがある．
+
+
+より詳しくは[
+http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29]をみよう．
 
 * サービスコールの扱い
 
