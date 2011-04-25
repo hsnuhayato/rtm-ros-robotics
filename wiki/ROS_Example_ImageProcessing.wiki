@@ -16,9 +16,15 @@
 cd ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials
 svn up
 rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+}}}
+とすると，新しいソースがインストールされる．このとき
+ROSの起動に必要な環境変数が更新されるため，既に立ち上がっている
+ターミナルでは
+{{{
 source ~/.bashrc
 }}}
-とすると，新しいソースがインストールされ，環境変数が更新される．
+とすること．新たにターミナルを起動する場合はこの必要はない．
+一度，全てのターミナルを消して，新たに立ち上げることを進める．
 
   * rosinstallについて
 
