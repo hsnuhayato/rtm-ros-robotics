@@ -58,7 +58,7 @@ public:
 	return;
       }
 
-    cv::circle(cv_ptr->image, cv::Point(screen_x, screen_y), 10, CV_RGB(0,0,255));
+    cv::circle(cv_ptr->image, cv::Point(screen_x, screen_y), 20, CV_RGB(0,0,255), 3);
 
     cv::imshow(WINDOW, cv_ptr->image);
     cv::waitKey(3);
