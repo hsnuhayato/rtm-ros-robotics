@@ -16,8 +16,9 @@
 cd ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials
 svn up
 rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+source ~/.bashrc
 }}}
-とすると，新しいソースがインストールされている．
+とすると，新しいソースがインストールされ，環境変数が更新される．
 
   * rosinstallについて
 
