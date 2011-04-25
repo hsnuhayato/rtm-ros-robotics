@@ -3,7 +3,7 @@
 [ROS_Example ROSサンプル]
 
 == 概要 ==
-画像処理のサンプルプログラムを例にしつつ，ノード，トピック，メッセージ，サービス，パラメータ等の概念を紹介する．
+画像処理のサンプルプログラムを例にしつつ，ノード，トピック，リマップ，メッセージ，サービス，パラメータ等の概念を紹介する．
 
 == 準備 ==
 
@@ -27,7 +27,7 @@ $ roslocate info icra_ros_tutorial
 }}}
   のようにパッケージ名を知っていれば`roslocate`コマンドで必要な設定情報を知ることが出来る．また，どのようなリポジトリが有るかについてはhttp://www.ros.org/browse/list.php のページを見るとよい．
 
-  ここにかかれたソースをダウンロードし，必要な科環境変数を`setup.bash`(実際はこのファイルから呼ばれる`setup.sh`)に書き出している．この環境変数が無いとROSは動かないため，かならずこのファイルをロードしているか確認すること．
+  ここにかかれたソースをダウンロードし，必要な環境変数を`setup.bash`(実際はこのファイルから呼ばれる`setup.sh`)に書き出している．この環境変数が無いとROSは動かないため，かならずこのファイルをロードしているか確認すること．
 
 ソフトウェアのインストールが出来たら，
 {{{
@@ -44,6 +44,8 @@ roslaunch roseus_tutorials usb-camera.launch
 {{{
 roslaunch roseus_tutorials image-view.launch 
 }}}
+とすると，カメラ画像が見えるはずである．
+
 最後に
 {{{
 rxgraph
@@ -51,16 +53,55 @@ rxgraph
 としてみよう．以下のような画面が現れるはずだ．
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/roseus_tutorials_camera_view_rxgraph.png]
 
-丸で囲まれたものが*ノード*を示し，それらの間の矢印が*トピック*を表す．ノードはプロセスと同義であり，トピックはノード間でメッセージ（データ型）を交換するための名前付きバスである．ノードはトピックをSubscribeあるいは，Publishする．
+丸で囲まれたものが[http://www.ros.org/wiki/Nodes *ノード*]を示し，それらの間の矢印が[http://www.ros.org/wiki/Topics *トピック*]を表す．ノードはプロセスと同義であり，トピックはノード間でメッセージ（データ型）を交換するための名前付きバスである．ノードはトピックをSubscribeあるいは，Publishする．
+
+`rosnode list`とすると，現在のノードの一覧が，`rostopic list`とすると，現在のトピック一覧を見ることができる．`rostopic echo /image_rect_color/screenpoint`とすると，カメラ画像をクリックする度に表示されるはずだ．
+カメラ画像はクリックされる度に`/image_rect_color/screenpoint`というトピックをパブリッシュし，`rostopic echo`は，`/image_rect_color/screenpoint`というトピックをサブスクライブし結果を表示している，ということになる．
 
   * ROSカメラドライバについて
   ちなみに，ROSのUSBカメラドライバは各種存在する．それぞれについては，[http://www.iheartrobotics.com/2010/05/testing-ros-usb-camera-drivers.html Testing: ROS USB Camera drivers]に詳しい．また，これらのドライバを統一してサポートするバージョンを作っていこうという[http://ros-users.122217.n3.nabble.com/call-for-an-official-ROS-USB-camera-package-td2116581.html 議論]もあるので注意が必要な段階である．
 
   一方，IEEE1394カメラについては，以前は同様に各種存在する段階だったが今は[http://www.ros.org/wiki/camera1394 統合されたバージョン]に落ち着いている段階にある．その際の[http://www.ros.org/wiki/camera1394/Reviews 議論の過程]を見ることが出来る．
 
+== 簡単なサンプルプログラム ==
+
+* 基本となるサンプルプログラム
+
+簡単なサンプルプログラムをopencv_ros_bridge_tutorialに置いた
+{{{
+rosrun opencv_ros_bridge_tutorial image_painter image:=/image_rect
+}}}
+とし別のターミナルで
+{{{
+rosrun image_view2 image_view2 image:=/image_painted
+}}}
+とすると，画面の左上に小さい丸が表示されているはずである．
+`image:=/image_rect`の部分は[http://www.ros.org/wiki/Remapping%20Arguments *リマップ*]と呼ばれる大変便利な機能である．
+
+
+プログラムの中身の詳細の説明は,[http://www.ros.org/wiki/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages]に譲るが，ポイントはプログラムの中段の以下の部分．
+{{{
+    if (cv_ptr->image.rows > 60 && cv_ptr->image.cols > 60)
+      cv::circle(cv_ptr->image, cv::Point(30, 50), 10, CV_RGB(0,0,255));
+
+    cv::imshow(WINDOW, cv_ptr->image);
+    cv::waitKey(3);
+
+    image_pub_.publish(cv_ptr->toImageMsg());
+}}}
+OpenCVの`cv_ptr->image`が`cv::Mat`型であるので，通常のOpenCV画像処理プログラムを記述すればよい．
+
+* トピックのサブスクライブ
+
+* サービスコールの扱い
 
 
 
+
+
+
+
+http://www.ros.org/wiki/ROS/Tutorials
 
 == 実行 ==
 ３つのターミナルを立ち上げます
