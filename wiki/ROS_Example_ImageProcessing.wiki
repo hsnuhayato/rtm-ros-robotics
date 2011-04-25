@@ -167,6 +167,7 @@ rostopic pub -1 /image_painted/screenpoint geometry_msgs/PointStamped '{point: {
 }}}
 というコマンドラインを使ってもよいし，Pythonユーザなら
 {{{
+#!/usr/bin/env python
 import roslib; roslib.load_manifest('opencv_ros_bridge_tutorial')
 import rospy;
 import math;
