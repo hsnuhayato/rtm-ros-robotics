@@ -17,7 +17,7 @@ roscd move_base_stage_tutorial
 {{{
 source ~/prog/rtm-ros-robotics/setup.bash
 }}}
-[ROS_Install 行があるか確認しましょう]．
+という[ROS_Install 行があるか]確認しましょう．
 
 
 == 実行 ==
