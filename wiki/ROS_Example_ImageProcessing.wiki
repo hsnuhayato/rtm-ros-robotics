@@ -15,17 +15,18 @@ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback ~/prog/rtm-ros-robotics/
 }}}
 とすると，新しいソースがインストールされている．
 
-ROSのインストールは`.rosinstall`ファイルで設定する．
-ファイルフォーマットに関して，詳しい情報は，http://www.ros.org/wiki/rosinstall を見てみよう．ただ，
+* rosinstallについて
+  ROSのインストールは`.rosinstall`ファイルで設定する．
+  ファイルフォーマットに関して，詳しい情報は，http://www.ros.org/wiki/rosinstall を見てみよう．ただ，
 {{{
 $ roslocate info icra_ros_tutorial
 - svn:
         local-name: icra_ros_tutorial
         uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_boxturtle/sandbox/icra_ros_tutorial
 }}}
-のようにパッケージ名を知っていれば`roslocate`コマンドで必要な設定情報を知ることが出来る．また，どのようなリポジトリが有るかについてはhttp://www.ros.org/browse/list.php のページを見るとよい．
+  のようにパッケージ名を知っていれば`roslocate`コマンドで必要な設定情報を知ることが出来る．また，どのようなリポジトリが有るかについてはhttp://www.ros.org/browse/list.php のページを見るとよい．
 
-ここにかかれたソースをダウンロードし，必要な科環境変数を`setup.bash`(実際はこのファイルから呼ばれる`setup.sh`)に書き出している．この環境変数が無いとROSは動かないため，かならずこのファイルをロードしているか確認すること．
+  ここにかかれたソースをダウンロードし，必要な科環境変数を`setup.bash`(実際はこのファイルから呼ばれる`setup.sh`)に書き出している．この環境変数が無いとROSは動かないため，かならずこのファイルをロードしているか確認すること．
 
 ソフトウェアのインストールが出来たら，
 {{{
@@ -51,12 +52,11 @@ rxgraph
 
 
   * ROSカメラドライバについて
-ちなみに，ROSのUSBカメラドライバは各種存在する．それぞれについては，
-[http://www.iheartrobotics.com/2010/05/testing-ros-usb-camera-drivers.html Testing: ROS USB Camera drivers]に詳しい．また，
+  ちなみに，ROSのUSBカメラドライバは各種存在する．それぞれについては，[http://www.iheartrobotics.com/2010/05/testing-ros-usb-camera-drivers.html Testing: ROS USB Camera drivers]に詳しい．また，
 これらのドライバを統一してサポートするバージョンを作っていこう
 という[http://ros-users.122217.n3.nabble.com/call-for-an-official-ROS-USB-camera-package-td2116581.html 議論]もあるので注意が必要な段階である．
 
-一方，IEEE1394カメラについては，以前は同様に各種存在する段階だったが今は[http://www.ros.org/wiki/camera1394 統合されたバージョン]に落ち着いている段階にある．その際の[http://www.ros.org/wiki/camera1394/Reviews 議論の過程]を見ることが出来る．
+  一方，IEEE1394カメラについては，以前は同様に各種存在する段階だったが今は[http://www.ros.org/wiki/camera1394 統合されたバージョン]に落ち着いている段階にある．その際の[http://www.ros.org/wiki/camera1394/Reviews 議論の過程]を見ることが出来る．
 
 
 
