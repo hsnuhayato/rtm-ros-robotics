@@ -122,6 +122,12 @@ rostopic info /image_painted/screenpoint
   }
 }}}
 として，メッセージを受け取る度にこの関数が呼ばれることになる．
+`screen_x`, `screen_y`がメンバ変数であり，imageCbの中で
+{{{
+    cv::circle(cv_ptr->image, cv::Point(screen_x, screen_y), 10, CV_RGB(0,0,255));
+}}}
+として，メッセージに応じた位置にcircleを描画する様になっている．
+
 `imgae_painter`の代わりに`image_painter2`を実行するためには
 {{{
 rosrun opencv_ros_bridge_tutorial image_painter2 image:=/image_rect
