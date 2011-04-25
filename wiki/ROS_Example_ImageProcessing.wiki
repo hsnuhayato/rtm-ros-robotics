@@ -159,7 +159,7 @@ rosrun image_view2 image_view2 image:=/image_painted
 
 後は，視野画像をクリックすればその位置に丸がかかれることになる．
 
- * トピックのパブリッシュ
+* トピックのパブリッシュ
 
 このプログラム（ノード）は，どのノードが出力(publish)したかに関わらず'/image_painted/screenpoint'という名前のトピックを受け取るようになっている．したがって，例えば
 {{{
