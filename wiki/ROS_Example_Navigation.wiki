@@ -13,7 +13,12 @@ http://www.ros.org/wiki/move_base_stage/Tutorials/stage%20and%20navigation%20sta
 {{{
 roscd move_base_stage_tutorial
 }}}
-として，`roscd: command not found`と出る人は[ROS_Install]をみて，`source setup.bash`しているか確認しましょう．
+として，`roscd: command not found`と出る人は~/.bashrcに
+{{{
+source ~/prog/rtm-ros-robotics/setup.bash
+}}}
+[ROS_Install 行があるか確認しましょう]．
+
 
 == 実行 ==
 ３つのターミナルを立ち上げます
