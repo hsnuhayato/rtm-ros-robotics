@@ -72,11 +72,17 @@ rxgraph
 
 * 基本となるサンプルプログラム
 
-簡単なサンプルプログラムをopencv_ros_bridge_tutorialに置いた
+簡単なサンプルプログラムをopencv_ros_bridge_tutorialに置いた．
+新しいソースのインストールと動作確認の所で実行した
+{{{
+roscore
+roslaunch roseus_tutorials usb-camera.launch 
+}}}
+を立ち上げたまま，まず，
 {{{
 rosrun opencv_ros_bridge_tutorial image_painter image:=/image_rect
 }}}
-とし別のターミナルで
+とし，さらに別のターミナルで
 {{{
 rosrun image_view2 image_view2 image:=/image_painted
 }}}
@@ -219,8 +225,15 @@ int main(int argc, char **argv)
  (ros::publish "/image_painted/screenpoint" msg)
  (ros::sleep))
 }}}
-となる．それぞれ`opencv_ros_bridge_tutorial/src/`にコードがある．
-
+となる．それぞれ`opencv_ros_bridge_tutorial/src/`にコードがあり，
+{{{
+roscd opencv_ros_bridge_tutorial
+./src/publish_screenpoint.sh
+./src/publish_screenpoint.py
+./bin/publish_screenpoint
+./src/publish_screenpoint.l
+}}}
+として実行出来る．
 
 Publish, Subscribeの仕方について，より詳しくは [
 http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29] をみよう．
