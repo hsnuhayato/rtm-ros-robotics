@@ -13,7 +13,7 @@ http://www.ros.org/wiki/move_base_stage/Tutorials/stage%20and%20navigation%20sta
 {{{
 roscd move_base_stage_tutorial
 }}}
-として，`roscd: command not found`と出る人は~/.bashrcに
+として，`roscd: command not found`と出る人は~/.bashrcの最後に
 {{{
 source ~/prog/rtm-ros-robotics/setup.bash
 }}}
