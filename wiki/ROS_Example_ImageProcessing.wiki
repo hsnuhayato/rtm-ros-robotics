@@ -25,16 +25,33 @@ $ roslocate info icra_ros_tutorial
 }}}
 のようにパッケージ名を知っていれば`roslocate`コマンドで必要な設定情報を知ることが出来る．また，どのようなリポジトリが有るかについてはhttp://www.ros.org/browse/list.php のページを見るとよい．
 
-ここにかかれたソースをダウンロードし，必要な科環境変数を`setup.bash`(実際は個のファイルから呼ばれる`setup.sh`)に書き出している．この環境変数が無いとROSは動かないため，かならずこのファイルをロードしているか確認すること．
+ここにかかれたソースをダウンロードし，必要な科環境変数を`setup.bash`(実際はこのファイルから呼ばれる`setup.sh`)に書き出している．この環境変数が無いとROSは動かないため，かならずこのファイルをロードしているか確認すること．
 
-
-
+ソフトウェアのインストールが出来たら，
 {{{
 rosmake roseus_tutorials --rosdep-install
-
+roscore
 }}}
+とし，もう一つのターミナルを開いて
+{{{
+roslaunch roseus_tutorials usb-camera.launch 
+}}}
+（ここで，`[ WARN] [1303720226.445781085]: Started in the global namespace!` とか，`ERROR: could not set some settings.`とか，`select timeout in grab`とか表示されても気にしなくてよい）
 
-ROSのUSBカメラドライバは各種存在する．それぞれについては，
+さらにもう一つターミナルを開いて，
+{{{
+roslaunch roseus_tutorials image-view.launch 
+}}}
+最後に
+{{{
+rxgraph
+}}}
+としてみよう．以下のような画面が現れるはずだ．
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/roseus_tutorials_camera_view_rxgraph.png]
+
+
+  * ROSカメラドライバについて
+ちなみに，ROSのUSBカメラドライバは各種存在する．それぞれについては，
 [http://www.iheartrobotics.com/2010/05/testing-ros-usb-camera-drivers.html Testing: ROS USB Camera drivers]に詳しい．また，
 これらのドライバを統一してサポートするバージョンを作っていこう
 という[http://ros-users.122217.n3.nabble.com/call-for-an-official-ROS-USB-camera-package-td2116581.html 議論]もあるので注意が必要な段階である．
