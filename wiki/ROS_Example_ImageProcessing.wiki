@@ -217,56 +217,11 @@ int main(int argc, char **argv)
 となる．それぞれ`opencv_ros_bridge_tutorial/src/`にコードがある．
 
 
-より詳しくは[
-http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29]をみよう．
+Publish, Subscribeの仕方について，より詳しくは [
+http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29] をみよう．
 
+<wiki:comment>
 * サービスコールの扱い
+</wiki:comment>
 
-
-
-
-
-
-
-http://www.ros.org/wiki/ROS/Tutorials
-
-== 実行 ==
-３つのターミナルを立ち上げます
-まずは，1つ目で
-{{{
-roscore
-}}}
-として下さい．
-
-次に2つ目のターミナルで
-{{{
-roslaunch move_base_stage_tutorial robot.launch
-}}}
-とします．
-以下の様な初期画面が現れると思います．
-[http://rtm-ros-robotics.googlecode.com/svn/wiki/move_base_stage_tutorial_init.png]
-
-最後に
-{{{
-rosrun rviz rviz -d `rospack find move_base_stage_tutorial`/config/rviz.vcg 
-}}}
-としてビューワを表示します．
-
-ここで左上の`2D Nav Goal`を押して地図上の任意の場所をクリックすると
-その場所まで移動します．
-[http://rtm-ros-robotics.googlecode.com/svn/wiki/move_base_stage_tutorial_rviz.png]
-
-また，
-{{{
-rosrun pr2_teleop teleop_pr2_keyboard 
-}}}
-とすると，速度指令を送ることが出来ます．
-
-== プログラミング ==
-
-速度指令プログラムは
-{{{
-roscd pr2_teleop
-cat src/teleop_pr2_keyboard.cpp
-}}}
-をみるとよい．
+より詳しい情報は[http://www.ros.org/wiki/ROS/Tutorials]にある．
