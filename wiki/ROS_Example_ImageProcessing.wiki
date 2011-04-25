@@ -36,7 +36,7 @@ $ roslocate info icra_ros_tutorial
 
 ソフトウェアのインストールが出来たら，
 {{{
-rosmake roseus_tutorials --rosdep-install
+rosmake roseus_tutorials --rosdep-install　--rosdep-yes
 roscore
 }}}
 とし，もう一つのターミナルを開いて
