@@ -1,8 +1,46 @@
+##
+## agentsystem lecture
 - svn:
     uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials
     local-name: agentsystem_ros_tutorials
+##
+## jsk ros packages
 - svn:
     uri: https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk
     local-name: jsk-ros-pkg
-
-
+##
+## for uvc_camera
+- git:
+    uri: http://ram.umd.edu/git/ros/camera_umd.git
+    local-name: umd-ros-pkg/camera_umd
+    version: master
+##
+## cmu for imagesift
+- svn:
+    uri: https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk
+    local-name: cmu-ros-pkg
+##
+## imagesift depends on posedetection_msgs
+- svn:
+    uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/stacks
+    local-name: wg-ros-pkg-cturtle/stacks
+##
+## for cmvision
+- svn:
+    uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision
+    local-name: wg-ros-pkg-cturtle/vision
+##
+## for checkerboad_pose
+- svn:
+    uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox
+    local-name: wg-ros-pkg-cturtle/sandbox
+##
+## for face detector
+- svn:
+    uri: https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg
+    local-name: tum-ros-pkg
+##
+## saliency tracking
+- svn:
+    uri: https://ua-ros-pkg.googlecode.com/svn/trunk/arrg
+    local-name: ua-ros-pkg
