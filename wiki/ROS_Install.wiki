@@ -5,16 +5,19 @@
 http://www.ros.org/wiki/diamondback/Installation/Ubuntu より抜粋
 
 
-ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公開されているパッケージをソースでインストール 
+ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公開されているパッケージをソースでインストールする
 
+まずは以下の様にaptのリポジトリを登録し，
 {{{
 sudo sh -c 'echo "deb http://code.ros.org/packages/ros/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros-latest.list'
+wget http://code.ros.org/packages/ros.key -O - | sudo apt-key add -
 }}}
 
-後はどのバージョンでも以下の作業を行う．
+次に以下の作業を行う．
 {{{
-wget http://code.ros.org/packages/ros.key -O - | sudo apt-key add -
 sudo apt-get update
+sudo apt-get install python-setuptools
+sudo easy_install -U rosinstall
 sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop
 }}}
 
@@ -25,13 +28,6 @@ sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop
 rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 rosinstallについては http://www.ros.org/wiki/rosinstall を参照
-
-(Ubuntuを入れたばかりの環境だと、
-{{{
-sudo apt-get install python-setuptools
-sudo easy_install -U rosinstall
-}}}
-を行って、/usr/local/bin/rosinstallを使えるようにしておく必要がある．）
 
 ROS関連のプログラムを使うためには以下の様にして環境変数をセットする必要があります．
 {{{
