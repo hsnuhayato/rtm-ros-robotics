@@ -122,6 +122,17 @@ rostopic info /image_painted/screenpoint
   }
 }}}
 として，メッセージを受け取る度にこの関数が呼ばれることになる．
+`imgae_painter`の代わりに`image_painter2`を実行するためには
+{{{
+rosrun opencv_ros_bridge_tutorial image_painter2 image:=/image_rect
+}}}
+として立ち上げればよい．この時点で，これに加えて
+{{{
+roscore
+roslaunch roseus_tutorials usb-camera.launch 
+rosrun image_view2 image_view2 image:=/image_painted
+}}}
+の4つのターミナルが立ち上がっているはずである
 
 後は，視野画像をクリックすればその位置に丸がかかれることになる．
 
