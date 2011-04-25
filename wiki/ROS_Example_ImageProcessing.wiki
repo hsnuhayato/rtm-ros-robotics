@@ -52,8 +52,7 @@ rxgraph
 
 
   * ROSカメラドライバについて
-  ちなみに，ROSのUSBカメラドライバは各種存在する．それぞれについては，[http://www.iheartrobotics.com/2010/05/testing-ros-usb-camera-drivers.html Testing: ROS USB Camera drivers]に詳しい．また，これらのドライバを統一してサポートするバージョンを作っていこう
-という[http://ros-users.122217.n3.nabble.com/call-for-an-official-ROS-USB-camera-package-td2116581.html 議論]もあるので注意が必要な段階である．
+  ちなみに，ROSのUSBカメラドライバは各種存在する．それぞれについては，[http://www.iheartrobotics.com/2010/05/testing-ros-usb-camera-drivers.html Testing: ROS USB Camera drivers]に詳しい．また，これらのドライバを統一してサポートするバージョンを作っていこうという[http://ros-users.122217.n3.nabble.com/call-for-an-official-ROS-USB-camera-package-td2116581.html 議論]もあるので注意が必要な段階である．
 
   一方，IEEE1394カメラについては，以前は同様に各種存在する段階だったが今は[http://www.ros.org/wiki/camera1394 統合されたバージョン]に落ち着いている段階にある．その際の[http://www.ros.org/wiki/camera1394/Reviews 議論の過程]を見ることが出来る．
 
