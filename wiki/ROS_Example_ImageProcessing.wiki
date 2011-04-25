@@ -3,12 +3,36 @@
 [ROS_Example ROSサンプル]
 
 == 概要 ==
-ここで紹介するナビゲーションのサンプルは，
-http://www.ros.org/wiki/move_base_stage/Tutorials/stage%20and%20navigation%20stack
-に基づきました．ただ，このwikiのページは情報が古いので参考程度に見て下さい．紹介するナビゲーションサンプルは上のリンクのwikiページを見なくとも，[ROS_Install]をみて，インストールし，setup.bashをsourceしていれば実行できます．
-
+画像処理のサンプルプログラムを例にしつつ，ノード，トピック，メッセージ，サービス，パラメータ等の概念を紹介する．
 
 == 準備 ==
+
+=== 新しいソースのインストール ===
+{{{
+roscd agentsystem_ros_tutorials
+svn up
+rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+}}}
+とすると，新しいソースがインストールされている．
+
+ROSのインストールは`.rosinstall`ファイルで設定する．
+ファイルフォーマットに関して，詳しい情報は，http://www.ros.org/wiki/rosinstall を見てみよう．ただ，
+{{{
+$ roslocate info icra_ros_tutorial
+- svn:
+        local-name: icra_ros_tutorial
+        uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_boxturtle/sandbox/icra_ros_tutorial
+}}}
+のようにパッケージ名を知っていれば`roslocate`コマンドで必要な設定情報を知ることが出来る．また，どのようなリポジトリが有るかについてはhttp://www.ros.org/browse/list.php のページを見るとよい．
+
+ここにかかれたソースをダウンロードし，必要な科環境変数を`setup.bash`(実際は個のファイルから呼ばれる`setup.sh`)に書き出している．この環境変数が無いとROSは動かないため，かならずこのファイルをロードしているか確認すること．
+
+
+
+{{{
+rosmake roseus_tutorials --rosdep-install
+
+}}}
 
 ROSのUSBカメラドライバは各種存在する．それぞれについては，
 [http://www.iheartrobotics.com/2010/05/testing-ros-usb-camera-drivers.html Testing: ROS USB Camera drivers]に詳しい．また，
@@ -17,7 +41,9 @@ ROSのUSBカメラドライバは各種存在する．それぞれについて�
 
 一方，IEEE1394カメラについては，以前は同様に各種存在する段階だったが今は[http://www.ros.org/wiki/camera1394 統合されたバージョン]に落ち着いている段階にある．その際の[http://www.ros.org/wiki/camera1394/Reviews 議論の過程]を見ることが出来る．
 
-*** rospack で動くことを確認．なければrosinstall
+
+
+
 
 == 実行 ==
 ３つのターミナルを立ち上げます
