@@ -248,4 +248,4 @@ http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29] �
 * サービスコールの扱い
 </wiki:comment>
 
-より詳しい情報は[http://www.ros.org/wiki/ROS/Tutorials]にある．
+その他のより詳しい情報は[http://www.ros.org/wiki/ROS/Tutorials]にある．
