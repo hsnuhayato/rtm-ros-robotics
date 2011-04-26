@@ -94,6 +94,8 @@ rosrun image_view2 image_view2 image:=/image_painted
 }}}
 とすると，画面の左上に小さい丸が表示されているはずである．
 
+[http://code.google.com/p/rtm-ros-robotics/source/browse/wiki/Screenshot-image_view2%20%5B-image_painted%5D-1.png]
+
 `image:=/image_rect`の部分は*[http://www.ros.org/wiki/Remapping%20Arguments リマップ]*と呼ばれる大変便利な機能である．
 これはプログラム中に埋め込まれたトピック名等の名前を，プログラムの実行時に変更することが出来，これにより同じノードを複数の設定で実行することが出来る．例えば，このプログラムのコードでは` it_.subscribe("image", 1, &ImagePainter::imageCb, this);`と`image`という名前のトピックをSubscribeしているが，上の様に実行することで`image_rect`という名前のトピックをSubscribeするよう設定し実行している．
 
