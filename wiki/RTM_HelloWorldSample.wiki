@@ -209,8 +209,11 @@ RTMでは，コマンドラインからソースの雛形を生成する方法�
 
 {{{
  $ rtc-template
-rtc-template -bcxx --module-name=HelloWorldSend --module-type='DataFlowComponent' 
---module-desc='HelloWorldSend' --module-version=1.0 --module-vendor='JSK' --module-category=example --module-comp-type=DataFlowComponent --module-act-type=SPORADIC --module-max-inst=10 --outport=SendMsg:TimedString 
+rtc-template -bcxx --module-name=HelloWorldSend --module-type='DataFlowComponent' --module-desc='HelloWorldSend' --module-version=1.0 --module-vendor='JSK' --module-category=example --module-comp-type=DataFlowComponent --module-act-type=SPORADIC --module-max-inst=10 --outport=SendMsg:TimedString 
 }}}
 
 -bcxxを-bpythonとするとpythonコードもできるが，現状，生成されるPythonコードは最新版に対応していないようなので，注意が必要．UbuntuでPython版を使って開発を行っていく場合には，/usr/share/OpenRTM-aist/examples/python/に.pyのサンプルスクリプトがそれを適宜参照していくのが良い．
+
+== テスト ==
+
+Windows版，Ubuntu版の片側のみで試すだけでなく，HelloWorldSendはWindows，HelloWorldRecvはUbuntuのような組合せも試してみよう．VMWareを利用して，VMWare側のネットワーク設定をブリッジにすれば，Windows側ネームサーバとUbuntu側ネームサーバの両方が見えるので，マルチプラットフォーム接続を簡単に試すことができる．
