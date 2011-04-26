@@ -2,7 +2,15 @@
 
 = RTMハローワールド =
 
+== ソースの雛形を作成する ==
 
+まずは，RTCBuilderを使ってGUIからソースの雛形を作成する．
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder1.png]
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder2.png]
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder3.png]
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder4.png]
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder5.png]
 
 
 = RTM通信サンプル =
