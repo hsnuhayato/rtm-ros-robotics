@@ -10,9 +10,13 @@ eclipseを起動し，Window　→　Open Perspective　→ Other... で出て�
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder1.png]
 
+
+
 すると，RTCBuilderと書かれたウィンドウが右上に現れるので，その中の情報を順に埋めていく．まずは，Basicのタブは以下の図のようになっている．
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder2.png]
+
+
 
 とりあえず，変える必要のある項目は，Module name，Module vender，Module Category，Output Project，Execution rateである．Execution rateはコンポーネントの実行周期であり，単位はHzなので注意すること．また，Windows版では，最初から1.0が入っているがUbuntu版はデフォルトでは0になっているので，適切な値に必ず変えること．
 
@@ -20,13 +24,94 @@ eclipseを起動し，Window　→　Open Perspective　→ Other... で出て�
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder3.png]
 
+
+
 次にLanguage and Environmentのタブを開くと以下の図のようになる．C++を選択すれば，gcc用Makefile, VC用プロジェクト，ソリューションファイルなどを生成してくれる．勿論，Pythonを選んでも適切な雛形を作ってくれる．
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder4.png]
+
+
 
 最後に再びBasicのタブに戻ってきて，下の方にある「Code Generation」のボタンを押すと，eclipseのワークスペース（Ubuntuならデフォルトは~/workspace, WindowsならデフォルトはC:\Users\ユーザ名\workspace）以下にフォルダを生成してくれる．
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder5.png]
 
 
+== コアロジックを記述/コンパイル ==
+
+作成したプロジェクトのフォルダにいき，HelloWorld.cppを編集する．ハローワールドなので，
+{{{
+RTC::ReturnCode_t HelloWorld::onInitialize()
+{
+  std::cerr << "Initializing Component " << std::endl;
+  return RTC::RTC_OK;
+}
+
+RTC::ReturnCode_t HelloWorld::onActivated(RTC::UniqueId ec_id)
+{
+  std::cerr << "Activating Component " << std::endl;
+
+  return RTC::RTC_OK;
+}
+
+RTC::ReturnCode_t HelloWorld::onExecute(RTC::UniqueId ec_id)
+{
+  std::cerr << "Hello World!" << std::endl;
+
+  return RTC::RTC_OK;
+}
+
+}}}
+
+のように編集・保存して，コンパイルする．コンパイルは，gccならば，
+
+{{{
+ $ make -f Makefile.HelloWorld
+}}}
+
+を行い，VisualStudioならば，copyprops.batをダブルクリックした後に，対応するslnファイルをダブルクリックして，「ソリューションのビルド」を実行する．
+
+また，この時，rtc.confを適切なものに編集しておく必要がある．rtc.confは大変重要なファイルで，詳細は，RTM公式ページの
+http://www.openrtm.org/openrtm/ja/content/%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-%E5%9F%BA%E7%A4%8E%E7%B7%A8
+や
+http://www.openrtm.org/openrtm/ja/content/rtcconf%E8%A8%AD%E5%AE%9A%E9%A0%85%E7%9B%AE%E4%B8%80%E8%A6%A7
+を参考にしてほしいが，最低限必要な項目として，
+{{{
+corba.nameservers: localhost
+naming.formats: %h.host_cxt/%n.rtc
+logger.enable: NO
+exec_cxt.periodic.rate: 1000
+}}}
+
+の4項目は忘れずに記述する．一番上が一番重要で，接続するCORBAのネームサーバの設定を表す．ポートの指定がある場合には，*corba.nameservers: localhost:2809*のように記述する．
+
+2番目のものは，RTCの名前フォーマット，3番目のものはシステム組込のロガーの有効/無効を意味している．ロガーは有効（YES）にしておくと，rtcxxx.logというファイルを書きだしてくれる．RTCの起動がうまく行かない場合や途中でエラーが起こる場合には，どこでエラーが起きているのかをこのログから探ることができる．
+
+4番目の記述は実行周期（単位はHz）である．この項目をいじれば，GUIでソースの雛形を作ったあとでも実行周期を自由に変えられる．
+
+== 動作テスト ==
+
+  # ネームサーバの起動
+　Ubuntuの場合，ターミナル上でrtc-namingと打つ．Windowsの場合スタートメニューからOpenRTM-aist→ C++ → tools → Start Naming Service で起動する．
+
+もし，下記のように怒られる場合は既にネームサーバは上がっているので問題ない．
+
+{{{
+Starting omniORB omniNames: tnakaoka-laptop:
+omniORB: Error: Unable to create an endpoint of this description:
+giop:tcp::2809
+Failed to initialise the ORB / POA: INITIALIZE_TransportError
+Is omniNames already running?
+}}}
+
+  # RTSystemEditorの起動
+　ecilpseを起動して，RTSystemEditorを立ち上げる．RTCBuilderが起動したままの場合には，Window　→　Open Perspective　→ Other...からRTSystemEditorを選択する．
+
+Windowsの場合，スタートメニューからOpenRTM-aist→ C++ → tools → RT System Editor でも大丈夫．
+
+  # コンポーネントの起動
+　Ubuntuの場合は，HelloWorldComp，Windowsの場合はHelloWorldComp.exeが実行ファイル．これを実行し，起動する．
+
+  # コンポーネントのアクティベート
+　RT System Editorを使い，HelloWorldをアクティベートする．この時，rtc.confの実行周期をいじることで，printの周期が変化することを確認する．
 = RTM通信サンプル =
