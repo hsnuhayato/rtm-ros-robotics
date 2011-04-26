@@ -6,10 +6,26 @@
 
 まずは，RTCBuilderを使ってGUIからソースの雛形を作成する．
 
+eclipseを起動し，Window　→　Open Perspective　→ Other... で出てくるボックスの中からRTC Builderを選択して，OKを押す．すると，以下のような画面になるので，左上にあるカナヅチのアイコンを押す．
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder1.png]
+
+すると，RTCBuilderと書かれたウィンドウが右上に現れるので，その中の情報を順に埋めていく．まずは，Basicのタブは以下の図のようになっている．
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder2.png]
+
+とりあえず，変える必要のある項目は，Module name，Module vender，Module Category，Output Project，Execution rateである．Execution rateはコンポーネントの実行周期であり，単位はHzなので注意すること．また，Windows版では，最初から1.0が入っているがUbuntu版はデフォルトでは0になっているので，適切な値に必ず変えること．
+
+次はActivityのタブを選択すると以下の図のような状態になる．ここでは，状態変化に応じたコールバック関数の有効／無効を設定する．少なくともアクティベート時間数であるOnActivated()と周期実行関数であるOnExecute()はONにした方が良い．その他はケースバイケースで．
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder3.png]
+
+次にLanguage and Environmentのタブを開くと以下の図のようになる．C++を選択すれば，gcc用Makefile, VC用プロジェクト，ソリューションファイルなどを生成してくれる．勿論，Pythonを選んでも適切な雛形を作ってくれる．
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder4.png]
+
+最後に再びBasicのタブに戻ってきて，下の方にある「Code Generation」のボタンを押すと，eclipseのワークスペース（Ubuntuならデフォルトは~/workspace, WindowsならデフォルトはC:\Users\ユーザ名\workspace）以下にフォルダを生成してくれる．
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder5.png]
 
 
