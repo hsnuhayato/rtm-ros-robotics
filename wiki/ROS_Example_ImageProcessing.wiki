@@ -7,7 +7,7 @@
 <wiki:comment>
 ，サービス，パラメータ
 </wiki:comment>
-等の概念を紹介する．
+，バグファイル等の概念を紹介する．
 
 == 準備 ==
 
@@ -253,4 +253,40 @@ http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29] �
 * サービスコールの扱い
 </wiki:comment>
 
-その他のより詳しい情報は[http://www.ros.org/wiki/ROS/Tutorials]にある．
+* バグファイル　（ログファイル）
+
+{{{
+rosbag record -a 
+}}}
+とするとネットワーク上の全てのトピックに流れているデータをログファイルに溜め込むことが出来る．また，ログをとるトピックを取捨選択したければ`rosbag record /image_color /imag_mono`などとするとよい．
+終了したければ`C-c`で止める．ログは`<日付>.bag`という名前のファイルに書き出される．全てのトピックをログに貯めるとあっという間にディスクを圧縮するので要注意．
+
+さらに，
+{{{
+rxbag <日付>.bag
+}}}
+としてログファイルのビューワを立ち上げることが出来る．右クリックしてメニューが表示されるので，Thumbnails>image_colorなどでログの中身を確認できる．
+
+{{{
+rosbag play <日付>.bag
+}}}
+とすると，ログファイルを再生できる．カメラが動いている状態で，カメラ画像をキャプチャしたログ画像を再生すると混乱したので，いままで立ち上げていたノードを落としてから再生すること．
+
+再生されている（あるいは，実際にリアルタイムにカメラでキャプチャされている）画像のトピックは
+{{{
+rosrun theora_image_transport ogg_saver image:=/image_color imgae_color.ogv
+}}}
+としてキャプチャできる．mpegファイルに変換するには
+{{{
+mencoder imgae_color.ogv -o output.mpg -speed 15 -ofps 30 -ovc lavc -lavcopts vcodec=mpeg2video:vbitrate=2500 -oac copy -of mpeg
+}}}
+とすることで出来る．
+
+ただ，これでできる画像は汚いので，論文発表用の綺麗な動画を作るには，
+http://www.ros.org/wiki/rosbag/Tutorials/Exporting%20image%20and%20video%20data
+をみること．
+
+[http://www.ros.org/wiki/rosbag/Commandline コマンドオプション]は他にもあるので興味有れば調べてみよう．
+
+
+全般にわたって，より詳しい情報は[http://www.ros.org/wiki/ROS/Tutorials]にある．
