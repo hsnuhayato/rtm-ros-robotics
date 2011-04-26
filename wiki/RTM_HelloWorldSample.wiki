@@ -37,7 +37,7 @@ eclipseを起動し，Window　→　Open Perspective　→ Other... で出て�
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder5.png]
 
 
-== コアロジックを記述/コンパイル ==
+== コアロジックを記述／コンパイル ==
 
 作成したプロジェクトのフォルダにいき，HelloWorld.cppを編集する．ハローワールドなので，
 {{{
@@ -91,7 +91,7 @@ exec_cxt.periodic.rate: 1000
 
 == 動作テスト ==
 
-  # ネームサーバの起動
+  1. ネームサーバの起動
 　Ubuntuの場合，ターミナル上でrtc-namingと打つ．Windowsの場合スタートメニューからOpenRTM-aist→ C++ → tools → Start Naming Service で起動する．
 
 もし，下記のように怒られる場合は既にネームサーバは上がっているので問題ない．
@@ -104,14 +104,15 @@ Failed to initialise the ORB / POA: INITIALIZE_TransportError
 Is omniNames already running?
 }}}
 
-  # RTSystemEditorの起動
+  2. RTSystemEditorの起動
 　ecilpseを起動して，RTSystemEditorを立ち上げる．RTCBuilderが起動したままの場合には，Window　→　Open Perspective　→ Other...からRTSystemEditorを選択する．
 
 Windowsの場合，スタートメニューからOpenRTM-aist→ C++ → tools → RT System Editor でも大丈夫．
 
-  # コンポーネントの起動
+  3. コンポーネントの起動
 　Ubuntuの場合は，HelloWorldComp，Windowsの場合はHelloWorldComp.exeが実行ファイル．これを実行し，起動する．
 
-  # コンポーネントのアクティベート
+  4. コンポーネントのアクティベート
 　RT System Editorを使い，HelloWorldをアクティベートする．この時，rtc.confの実行周期をいじることで，printの周期が変化することを確認する．
+
 = RTM通信サンプル =
