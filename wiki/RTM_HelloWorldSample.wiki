@@ -128,5 +128,55 @@ Windowsの場合，スタートメニューからOpenRTM-aist→ C++ → tools �
 
 このデータ通信の際の型は組込型だけでなく独自定義型を指定することができる．その場合はidlを用意して通信しあうコンポーネント間の型を揃えるようにするが，その方法は，別のサンプルで述べることにする．
 
-== RTMサンプル作成 ==
+== 通信サンプル雛形作成 ==
+
+再びRTCBuilderによりコンポーネントの雛形を作成する．ただし，今度はデータポートのタブにも変更を加える．下記の図はOutPortを追加する場合である．InPort，OutPortの対応する表の横のAddボタンを押すことで新しいポートを作ることができるので，HelloWorldSendの場合，その名前を"SendMsg"に変更し，データ型をRTC::TimedStringに変更する．
+
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder_Dataport.png]
+
+
+HelloWorldRecv側も同様にOutPortの代わりにInPortを一つもつコンポーネントとして雛形を作成するが，C++ばかりでかいていてもつまらないので，このサンプルでは言語としてPythonを選んでみる．
+
+== 通信サンプル編集 ==
+
+作成された雛形の中から，HelloWorldSend.cpp，HelloWorldRecv.pyを編集するが，データポートに関して共通のAPIとして幾つか重要なものがあるので，ここで紹介したい．
+
+=== C++の場合の記述 ===
+
+まず，C++の出力の場合，雛形として生成されたヘッダファイルに
+
+{{{
+TimedString m_StringData;
+OutPort<TimedString> m_StringDataOut;
+}}}
+
+のようにデータポートが定義されているとすると，.cppの周期実行部（OnExecute())において，
+
+{{{
+m_StringData.data=“test”
+m_StringDataOut.write()
+}}}
+
+のようにすることで，データポート内のデータを更新し，ポートから出力を行うことができる．データポートで使われる型が変わっても，dataという名前のメンバ変数でその中身の値にアクセスできることは変わらない．
+
+一方，入力の側は，同じく，雛形のヘッダで以下のようにInPortが定義されているとすると，
+
+{{{
+TimedString m_StringData;
+InPort<TimedString> m_StringDataIn;
+}}}
+
+.cppのOnExecute()の中では，
+
+{{{
+if(m_StringDataIn.isNew()){
+   m_StringDataIn.read();
+   std::cerr << m_sStringData.data << std::endl;
+ }
+}}}
+
+のように記述することでデータを受取り，処理することができる．isNew()は新規データの到着の有無をチェックする関数であり，read()はデータをポートから読み出し，m_StringDataに格納する関数である．一度readすれば，OutPortの時と同じようにdataという名前のメンバ変数で値にアクセスすることができる．
+
+
+
