@@ -178,5 +178,39 @@ if(m_StringDataIn.isNew()){
 
 のように記述することでデータを受取り，処理することができる．isNew()は新規データの到着の有無をチェックする関数であり，read()はデータをポートから読み出し，m_StringDataに格納する関数である．一度readすれば，OutPortの時と同じようにdataという名前のメンバ変数で値にアクセスすることができる．
 
+=== Pythonの場合の記述 ===
 
+一方，全く同じことをPythonでも記述できる．ここでは，簡単に紹介する程度に留めるが，
+出力側は，
 
+{{{
+def onExecute(self, ec_id):
+     self.sendmsg.data = “HelloWorld”
+     OpenRTM_aist.setTimeStamp(self.sendmsg)
+     self._outport.write()
+     return RTC.RTC_OK
+}}}
+
+のようにC++の場合と同じように.dataでデータの中身にアクセスし，write()でアウトポートに書きだす．
+
+同様に入力側もC++と同じようにisNew(), read()というメンバ関数を利用することができる．
+
+{{{
+def onExecute(self, ec_id):
+  if self._inport.isNew():
+	rcvmsg = self._inport.read()     
+	print rcvmsg.data
+  return RTC.RTC_OK
+}}}
+
+== CUIによる雛形の生成 ==
+
+RTMでは，コマンドラインからソースの雛形を生成する方法も用意されている．例えば，先のHelloWorldSendは以下のように作ることができる．
+
+{{{
+ $ rtc-template
+rtc-template -bcxx --module-name=HelloWorldSend --module-type='DataFlowComponent' 
+--module-desc='HelloWorldSend' --module-version=1.0 --module-vendor='JSK' --module-category=example --module-comp-type=DataFlowComponent --module-act-type=SPORADIC --module-max-inst=10 --outport=SendMsg:TimedString 
+}}}
+
+-bcxxを-bpythonとするとpythonコードもできるが，現状，生成されるPythonコードは最新版に対応していないようなので，注意が必要．UbuntuでPython版を使って開発を行っていく場合には，/usr/share/OpenRTM-aist/examples/python/に.pyのサンプルスクリプトがそれを適宜参照していくのが良い．
