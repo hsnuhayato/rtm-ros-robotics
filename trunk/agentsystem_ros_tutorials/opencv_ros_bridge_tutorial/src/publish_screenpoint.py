@@ -11,6 +11,7 @@ rospy.init_node('publish_screenpoint')
 msg = PointStamped()
 i = 0;
 while not rospy.is_shutdown():
+    msg.header.stamp = rospy.Time.now()
     msg.point.x = 320 + 180*math.sin(i)
     msg.point.y = 240 + 180*math.cos(i)
     i += 0.1

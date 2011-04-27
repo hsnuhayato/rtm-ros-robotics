@@ -7,6 +7,7 @@
 (ros::rate 10)
 (while (ros::ok)
  (setq msg (instance geometry_msgs::PointStamped :init))
+ (send msg :header :stamp (ros::time-now))
  (send msg :point :x (+ 320 (* 180 (sin i))))
  (send msg :point :y (+ 240 (* 180 (cos i))))
  (incf i 0.1)
