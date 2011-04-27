@@ -223,7 +223,11 @@ int main(int argc, char **argv)
   return 0;
 }
 }}}
-として，CMakeLists.txtに`rosbuild_add_executable(publish_screenpoint src/publish_screenpoint.cpp)`を追加しコンパイルし実行する必要が有る．euslispだと，
+として，CMakeLists.txtに`rosbuild_add_executable(publish_screenpoint src/publish_screenpoint.cpp)`を追加しコンパイルし実行する必要が有る．euslispだと，始めて使う者は
+{{{
+rosrun roseus generate-all-msg-srv.sh 
+}}}
+としてから以下の様にする．
 {{{
 #!/usr/bin/env roseus
 
