@@ -1,12 +1,11 @@
 #summary 画像処理のサンプル
-
-<wiki:toc max_depth="2" />
-
 #sidebar
  * [ROS_Install ROSのインストール]
  * [ROS_Example ROSのサンプルプログラム]
   * [ROS_Example_Navigation ナビゲーション]
   * [ROS_Example_ImageProcessing 画像処理]
+
+<wiki:toc max_depth="2" />
 
 [ROS_Example ROSサンプル]
 
