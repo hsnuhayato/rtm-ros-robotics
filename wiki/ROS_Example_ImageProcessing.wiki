@@ -1,5 +1,5 @@
 #summary 画像処理のサンプル
-#sidebar
+#sidebar TableOfContents
  * [ROS_Install ROSのインストール]
  * [ROS_Example ROSのサンプルプログラム]
   * [ROS_Example_Navigation ナビゲーション]
