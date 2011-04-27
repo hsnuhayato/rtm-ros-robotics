@@ -2,6 +2,7 @@
 
 <wiki:toc max_depth="2" />
 
+#sidebar
  * [ROS_Install ROSのインストール]
  * [ROS_Example ROSのサンプルプログラム]
   * [ROS_Example_Navigation ナビゲーション]
