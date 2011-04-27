@@ -91,3 +91,9 @@ bindParameter(“flipMode”, m_flipMode, “1”);
 を書くことで外部からの制御が可能になる
 
 勿論，RTCBuilderのコンフィギュレーションタブで設定しても問題なく動作する．
+
+先のFlipCompの例では，flipModeの値を変えることで，下記の図のように変わるはずである．
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/FlippedImage1.png]
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/FlippedImage2.png]
