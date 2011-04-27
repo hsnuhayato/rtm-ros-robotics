@@ -16,6 +16,7 @@ int main(int argc, char **argv)
   while (ros::ok())
     {
       geometry_msgs::PointStamped msg;
+      msg.header.stamp = ros::Time().now();
       msg.point.x = 320 + 180*sin(i);
       msg.point.y = 240 + 180*cos(i);
       i += 0.1;
