@@ -21,4 +21,27 @@ http://www.openrtm.org/openrtm/ja/node/849#toc10
 
 また，同じくOpenCV1.0を用いたサンプルの画像処理プログラムを[http://rtm-ros-robotics.googlecode.com/svn/wiki/Flip100_Win.zip]に置いたので，それをダウンロードして，利用してほしい．
 
-=== Windowsの場合 ===
+=== Ubuntuの場合 ===
+
+付属のサンプルコンポーネントにUSBのキャプチャ・表示を行うコンポーネントがないためこちらで新たに用意した．[http://rtm-ros-robotics.googlecode.com/svn/wiki/UsbCameraAcquire_Ubuntu.tar.gz]がキャプチャプログラム，[http://rtm-ros-robotics.googlecode.com/svn/wiki/UsbCameraMonitor_Ubuntu.tar.gz]が表示プログラム，[http://rtm-ros-robotics.googlecode.com/svn/wiki/Flip_Ubuntu.tar.gz]が画像処理サンプルプログラムである．
+
+tar.gzを解凍し，それぞれmakeすることで，表示とキャプチャの動作確認を行う．
+
+表示側は以下．
+
+{{{
+ $ tar xvzf UsbCameraAcquire_Ubuntu.tar.gz
+ $ cd UsbCameraAcquire
+ $ make
+ $ ./build/bin/UsbCameraAcquireComp
+}}}
+
+モニタ側も同様に行う．
+{{{
+ $ tar xvzf UsbCameraMonitor_Ubuntu.tar.gz
+ $ cd UsbCameraMonitor
+ $ make
+ $ ./build/bin/UsbCameraMonitorComp
+}}}
+
+RTSystemEditorにて接続・動作確認を行う．
