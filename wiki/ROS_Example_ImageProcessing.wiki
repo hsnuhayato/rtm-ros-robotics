@@ -2,8 +2,6 @@
 
 <wiki:toc max_depth="2" />
 
-[ROS_Example ROSサンプル]
-
 = 概要 =
 画像処理のサンプルプログラムを例にしつつ，ノード，トピック，リマップ，メッセージ
 <wiki:comment>
