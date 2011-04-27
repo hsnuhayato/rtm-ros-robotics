@@ -235,12 +235,16 @@ Windows版，Ubuntu版の片側のみで試すだけでなく，HelloWorldSend�
 通信サンプルに関しても，参考のためソースコード一式を置いたので，必要な人は利用してほしい．
 
 Windows版は以下のもの，
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldSend_Win.zip]
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldRecv_Win.zip]
 
 
 Ubuntu版は以下のものになる．
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldSend_Ubuntu.tar.gz]
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldRecv_Ubuntu.tar.gz]
 
 
