@@ -170,6 +170,8 @@ rostopic pub -1 /image_painted/screenpoint geometry_msgs/PointStamped '{point: {
 というコマンドラインを使ってもよいし，Pythonユーザなら
 {{{
 #!/usr/bin/env python
+
+# http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29
 import roslib; roslib.load_manifest('opencv_ros_bridge_tutorial')
 import rospy;
 import math;
@@ -180,6 +182,7 @@ rospy.init_node('publish_screenpoint')
 msg = PointStamped()
 i = 0;
 while not rospy.is_shutdown():
+    msg.header.stamp = rospy.Time.now()
     msg.point.x = 320 + 180*math.sin(i)
     msg.point.y = 240 + 180*math.cos(i)
     i += 0.1
@@ -189,6 +192,7 @@ while not rospy.is_shutdown():
 }}}
 とかける．C++だと，
 {{{
+// http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29
 #include "ros/ros.h"
 #include "geometry_msgs/PointStamped.h"
 
@@ -206,6 +210,7 @@ int main(int argc, char **argv)
   while (ros::ok())
     {
       geometry_msgs::PointStamped msg;
+      msg.header.stamp = ros::Time().now();
       msg.point.x = 320 + 180*sin(i);
       msg.point.y = 240 + 180*cos(i);
       i += 0.1;
@@ -220,7 +225,7 @@ int main(int argc, char **argv)
 }}}
 として，CMakeLists.txtに`rosbuild_add_executable(publish_screenpoint src/publish_screenpoint.cpp)`を追加しコンパイルし実行する必要が有る．euslispだと，
 {{{
-#!/usr/bin/env roseus                                                           
+#!/usr/bin/env roseus
 
 (ros::load-ros-manifest "opencv_ros_bridge_tutorial")
 (ros::roseus "publish_screenpoint")
@@ -229,39 +234,57 @@ int main(int argc, char **argv)
 (ros::rate 10)
 (while (ros::ok)
  (setq msg (instance geometry_msgs::PointStamped :init))
+ (send msg :header :stamp (ros::time-now))
  (send msg :point :x (+ 320 (* 180 (sin i))))
  (send msg :point :y (+ 240 (* 180 (cos i))))
  (incf i 0.1)
  (ros::ros-info "msg ~A ~A" (send msg :point :x) (send msg :point :y))
  (ros::publish "/image_painted/screenpoint" msg)
  (ros::sleep))
+
+
 }}}
 となる．それぞれ`opencv_ros_bridge_tutorial/src/`にコードがあり，
 {{{
-roscd opencv_ros_bridge_tutorial
-./src/publish_screenpoint.sh
-./src/publish_screenpoint.py
-./bin/publish_screenpoint
-./src/publish_screenpoint.l
+rosrun opencv_ros_bridge_tutorial publish_screenpoint.sh
+}}}
+あるいは，
+{{{
+rosrun opencv_ros_bridge_tutorial publish_screenpoint.py
+}}}
+あるいは，
+{{{
+rosrun opencv_ros_bridge_tutorial publish_screenpoint
+}}}
+あるいは，
+{{{
+rosrun opencv_ros_bridge_tutorial publish_screenpoint.l
 }}}
 として実行出来る．
 
 Publish, Subscribeの仕方について，より詳しくは [
-http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29] をみよう．
+http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29 Writing a Simple Publisher and Subscriber (C++)]や
+[http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29 Writing a Simple Publisher and Subscriber (Python)]を見よう．
 
-<wiki:comment>
-* サービスコールの扱い
-</wiki:comment>
-
-* rxtools
-
+各プログラムの実行の様子は
+{{{
+rostopic echo /image_painted/screenpint
+}}}
+で見ることができるが，これらトピックの可視化ツールとして rxplot がある．
 {{{
 rxplot /image_painted/screenpoint/point/x,/image_painted/screenpoint/point/y
 }}}
 とすると以下のような視覚化が可能である．
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/opencv_ros_bridge_tutorial_screenpoint_rxplot.png]
 
-http://www.ros.org/wiki/rxtools
+その他のツールについては
+[http://www.ros.org/wiki/ROS/CommandLineTools]
+を見てみよう．
+
+<wiki:comment>
+* サービスコールの扱い
+</wiki:comment>
+
 
 * バグファイル　（ログファイル）
 
