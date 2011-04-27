@@ -6,3 +6,19 @@
 
 
 == 準備 ==
+
+USBカメラのキャプチャとその表示が行うプログラムを用意して，動作確認を行う．
+
+=== Windowsの場合 ===
+
+C++版に付属のサンプルコンポーネントを使う．キャプチャは，スタートメニューから，OpenRTM-aist　→ C++ → components → examples → USBCameraAqcuireComp.exe で起動する．一方，その表示は，スタートメニューから辿れる，OpenRTM-aist　→ C++ → components → examples → USBCameraMonitorComp.exe　を利用する．
+
+ネームサーバ起動後，両方のコンポーネントを起動，RT System Editorにてデータポート接続，Activateを行って，カメラ画像がキャプチャできることを確認する．
+
+尚，このサンプルは，OpenCV1.0用なので注意すること．OpenCV1.0に関しては，インストーラがOpenRTM-aistの公式ページに置いてあるので，それを利用する．
+
+http://www.openrtm.org/openrtm/ja/node/849#toc10
+
+また，サンプルの
+
+=== Windowsの場合 ===
