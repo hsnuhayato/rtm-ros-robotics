@@ -19,6 +19,6 @@ C++版に付属のサンプルコンポーネントを使う．キャプチャ�
 
 http://www.openrtm.org/openrtm/ja/node/849#toc10
 
-また，サンプルの
+また，同じくOpenCV1.0を用いたサンプルの画像処理プログラムを[http://rtm-ros-robotics.googlecode.com/svn/wiki/Flip100_Win.zip]に置いたので，それをダウンロードして，利用してほしい．
 
 === Windowsの場合 ===
