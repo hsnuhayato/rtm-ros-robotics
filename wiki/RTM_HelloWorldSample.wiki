@@ -115,6 +115,18 @@ Windowsの場合，スタートメニューからOpenRTM-aist→ C++ → tools �
   4. コンポーネントのアクティベート
 　RT System Editorを使い，HelloWorldをアクティベートする．この時，rtc.confの実行周期をいじることで，printの周期が変化することを確認する．
 
+== ソースコード ==
+
+上記の説明通り各自で生成して確かめてほしいが，参考のためソースコード一式を置いたので，必要な人は利用してほしい．
+
+Windows版は以下のもの，
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorld_Win.zip]
+
+Ubuntu版は以下のものになる．
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorld_Ubuntu.tar.gz]
+
+各々解凍すれば，すぐにコンパイル・実行して挙動が確かめられるようになっている．
+
 = RTM通信サンプル =
 
 == 概要 == 
@@ -217,3 +229,19 @@ rtc-template -bcxx --module-name=HelloWorldSend --module-type='DataFlowComponent
 == テスト ==
 
 Windows版，Ubuntu版の片側のみで試すだけでなく，HelloWorldSendはWindows，HelloWorldRecvはUbuntuのような組合せも試してみよう．VMWareを利用して，VMWare側のネットワーク設定をブリッジにすれば，Windows側ネームサーバとUbuntu側ネームサーバの両方が見えるので，マルチプラットフォーム接続を簡単に試すことができる．
+
+== ソースコード ==
+
+通信サンプルに関しても，参考のためソースコード一式を置いたので，必要な人は利用してほしい．
+
+Windows版は以下のもの，
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldSend_Win.zip]
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldRecv_Win.zip]
+
+
+Ubuntu版は以下のものになる．
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldSend_Ubuntu.tar.gz]
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldRecv_Ubuntu.tar.gz]
+
+
+各々解凍すれば，すぐにコンパイル・実行して挙動が確かめられるようになっている．
