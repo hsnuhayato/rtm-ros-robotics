@@ -1,19 +1,19 @@
 #summary 画像処理のサンプル
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 [ROS_Example ROSサンプル]
 
-== 概要 ==
+= 概要 =
 画像処理のサンプルプログラムを例にしつつ，ノード，トピック，リマップ，メッセージ
 <wiki:comment>
 ，サービス，パラメータ
 </wiki:comment>
 ，バグファイル等の概念を紹介する．
 
-== 準備 ==
+= 準備 =
 
-=== 新しいソースのインストールと動作確認 ===
+== 新しいソースのインストールと動作確認 ==
 {{{
 cd ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials
 svn up
@@ -76,9 +76,9 @@ rxgraph
 
   一方，IEEE1394カメラについては，以前は同様に各種存在する段階だったが今は[http://www.ros.org/wiki/camera1394 統合されたバージョン]に落ち着いている段階にある．その際の[http://www.ros.org/wiki/camera1394/Reviews 議論の過程]を見ることが出来る．
 
-== 簡単なサンプルプログラム ==
+= 簡単なサンプルプログラム =
 
-* 基本となるサンプルプログラム
+== 基本となるサンプルプログラム ==
 
 簡単なサンプルプログラムをopencv_ros_bridge_tutorialに置いた．
 新しいソースのインストールと動作確認の所で実行した
@@ -114,7 +114,7 @@ rosrun image_view2 image_view2 image:=/image_painted
 }}}
 OpenCVの`cv_ptr->image`が`cv::Mat`型であるので，通常のOpenCV画像処理プログラムを記述すればよい．OpenCV関数については[http://opencv.jp/opencv-2svn/cpp/index.html]を見よう．例えば`cv::circle`については，[http://opencv.jp/opencv-2svn/cpp/core_drawing_functions.html]を見ればよい．
 
-* トピックのサブスクライブ
+== トピックのサブスクライブ ==
 
 視野画像をクリックすると，その場所に丸を書くようにプログラムを変更しよう．そのためには，`image_rect/screenpoint`をSubscribeすればよい．
 プログラムは`image_painter2.cpp`にある．
@@ -163,7 +163,7 @@ rosrun image_view2 image_view2 image:=/image_painted
 
 後は，視野画像をクリックすればその位置に丸がかかれることになる．
 
-* トピックのパブリッシュ
+== トピックのパブリッシュ ==
 
 このプログラム（ノード）は，どのノードが出力(publish)したかに関わらず'/image_painted/screenpoint'という名前のトピックを受け取るようになっている．したがって，例えば
 {{{
@@ -288,7 +288,7 @@ rxplot /image_painted/screenpoint/point/x,/image_painted/screenpoint/point/y
 </wiki:comment>
 
 
-* バグファイル　（ログファイル）
+== バグファイル　（ログファイル） ==
 
 {{{
 rosbag record -a 
