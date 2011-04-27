@@ -13,9 +13,7 @@
 
 == 新しいソースのインストールと動作確認 ==
 {{{
-cd ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials
-svn up
-rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 とすると，新しいソースがインストールされる．このとき
 ROSの起動に必要な環境変数が更新されるため，既に立ち上がっている
