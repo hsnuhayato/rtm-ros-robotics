@@ -147,6 +147,7 @@ Ubuntu版は以下のものになる．
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/RTCBuilder_Dataport.png]
 
+ここで，もし，データ型を選べない場合は，Window→Preferencesで出てきたウィンドウの中でRTCBuilderを選択し，「Data type: IDL File Directories」というところに手動でrtmのidlの場所を追加する．「New」ボタンを押し，/usr/include/rtm/idl（ソースからインストールの場合は/usr/local/include/rtm/idl）を追加してOKボタンを押す．これで，RTCBuilderを一旦閉じ，再び開けば選択できるようになっているはず．どうしてもうまくいかない場合は，後述のCUIによる雛形生成を行うと良い．
 
 HelloWorldRecv側も同様にOutPortの代わりにInPortを一つもつコンポーネントとして雛形を作成するが，C++ばかりでかいていてもつまらないので，このサンプルでは言語としてPythonを選んでみる．
 
