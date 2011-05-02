@@ -193,8 +193,7 @@ rosrun roseus_tutorials vision-action-example3.l
     (send mrk :type image_view2::*FRAMES*)
     (send mrk :frames (list "/checkerboard_pose_frame"))
     (send *tfb* :send-transform
-          target-local (send pose :header :frame_id) "/checkerboard_pose_frame"\
-)
+          target-local (send pose :header :frame_id) "/checkerboard_pose_frame")
     (ros::ros-info "~A" target-local)
     (ros::publish "image_marker" mrk)
 }}}
@@ -213,3 +212,4 @@ target-localはカメラ座標系からみた対象の座標なので，
     (send (send target-world :copy-worldcoords)  :draw-on :flush t :size 200)
 }}}
 でその場所に手を伸ばすような動作を生成している．
+`:rotation-axis` のオプションは，手先の姿勢の拘束を表している．`nil`は，拘束無しを指定しており，その結果手先の位置のみの3自由度を目標とした逆運動学を解いている．
