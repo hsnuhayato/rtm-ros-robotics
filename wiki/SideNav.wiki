@@ -11,3 +11,4 @@
  * [ROS_Example ROSのサンプルプログラム]
   * [ROS_Example_Navigation ナビゲーション]
   * [ROS_Example_ImageProcessing 画像処理]
+  * [ROS_Example_RecognitionAction 認識行動]
