@@ -52,8 +52,6 @@ rosmake roseus_tutorials --rosdep-install --rosdep-yes
 }}}
 としてサンプルプログラムをコンパイルする．
 
-= サンプルプログラムの実行 =
-
 == どのサンプルプログラムにも共通するキャプチャ＆ビューワプログラムの実行 ==
 
 ターミナルを２つ立ち上げ，一つでは
@@ -136,7 +134,7 @@ rosrun roseus_tutorials vision-action-example1.l
         (send *ri* :angle-vector (send *pr2* :angle-vector) 1000)
 }}}
 
-=== 顔画像認識に基づく行動生成(2) ===
+== 顔画像認識に基づく行動生成(2) ==
 
 画像認識の結果から得られる情報と
 カメラの内部パラメータ情報を用いて
