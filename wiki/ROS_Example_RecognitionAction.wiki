@@ -108,6 +108,8 @@ rosrun roseus_tutorials face-detector-mono.l
 として顔認識プログラムの結果を取得したらfacedetect-cbという関数を呼んでいる．
 この関数の中では，顔認識の結果に応じてimage_view2に表示するためImageMarker2という変数の情報を更新しパブリッシュしている．これで，`x,y`が顔領域の中心であることが確認された．
 
+[http://code.google.com/p/rtm-ros-robotics/source/browse/wiki/facedetect.png]
+
 == 顔画像認識に基づく行動生成(1) ==
 
 画像認識の結果から得られる情報を用いてロボットの行動を生成する例を示す．
