@@ -325,3 +325,12 @@ http://www.ros.org/wiki/rosbag/Tutorials/Exporting%20image%20and%20video%20data
 
 
 全般にわたって，より詳しい情報は[http://www.ros.org/wiki/ROS/Tutorials]にある．
+
+他の画像処理
+エッジ検出
+(laplacian結果)
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/Laplacian window.png]
+(sobel結果)
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/Sobel window.png]
+(canny結果)
+未完
