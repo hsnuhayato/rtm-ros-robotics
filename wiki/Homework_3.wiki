@@ -19,6 +19,9 @@
 
 == １。ROSノード ==
 
+=== API ===
+
+一つのclassで
 === パラメーター ===
 
 ellipse_radius - 円の物理的な大きさ
@@ -89,7 +92,6 @@ geometry_msgs/PointCloud circles
 
 == ３。ドキュメント ==
 
-
  * 紹介ページを作る。
   * 目的
   * 使い方
@@ -103,11 +105,23 @@ geometry_msgs/PointCloud circles
 
 = 準備・設定 =
 
-[ROS_Install]でagentsystem_ros_tutorialsのチェックアウトし、以下のように更新する。
+[ROS_Install]でagentsystem_ros_tutorialsのチェックアウトしているはずです。以下のように更新し、agentsystem_ros_tutorials/opencv_fittingを参照し、個人のレポジトリーにコピーください。
 
 {{{
 roscd agentsystem_ros_tutorials
 svn up
+svn export opencv_fitting ~/prog/myrepo/ros/opencv_fitting
+svn add ~/prog/myrepo/ros/opencv_fitting
+}}}
+
+opencv_fittingは
+
+ * APIをinclude/fitting.hから提供している
+ * libfittingのライブラリを作成している
+ * fitting_nodeのプログラムを作成している
+ * test/testfitting.cppのテストを登録している。以下のコマンドで実行される：
+{{{
+make test
 }}}
 
 == 楕円の検出 ==
@@ -119,7 +133,9 @@ OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/cpp/fite
 == Jenkinsの設定 ==
 
 Jenkinsをローカルとにインストールしてください。
-[https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu Jenkinsインストール]
+[https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu Jenkinsインストールチュートリアル]
+
+一つのジョブを登録し、ジョブで個人レポジトリーをチェックアウトし、"make test"を呼び出し、結果を収集する
 
 = 提出項目 =
 
