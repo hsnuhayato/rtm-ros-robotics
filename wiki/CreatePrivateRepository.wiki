@@ -1,11 +1,38 @@
 #summary 個別レポジトリーの作成
 
-宿題を個別のレポジトリーで進めることになっています。得に[Homework_3 第３宿題」のテストサーバーの立ち上げに必要になります。
+宿題を個別のレポジトリーで進めることになっています。得に[Homework_3 第３宿題]のテストサーバーの立ち上げに必要になります。外部のアクセスとパスワードで守られる必要があるので教員からレポジトリーを配布することになっています。
 
-外部のアクセスとパスワードで守られる必要があるので教員からレポジトリーを配布することになっています。
+このレポジトリーが宿題の提出方法にもなるので速く作っていくのがお勧めです。
+
+= 作成 =
 
 個別レポジトリーのURLとユーザー・パスワードを教えてもらうのに出杏光魯仙にメールください。
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/rosen_email.png]
 
-このレポジトリーが宿題の提出方法にもなるので速く作っていくのがお勧めです。
+以下のようなURLをもらえる：
+{{{
+http://svn.programmingvision.com/rtm_ros_roboticsXX
+}}}
+
+= アクセス・システム設定 =
+
+{{{
+svn co http://svn.programmingvision.com/rtm_ros_roboticsXX ~/prog/myrepo
+}}}
+
+パスをROS_PACKAGE_PATHの環境変数に加える必要があります。
+{{{
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/prog/myrepo
+}}}
+
+~/.bashrcファイルに入れるのがベストです。
+{{{
+source ~/prog/rtm-ros-robotics/setup.bash
+}}}
+最初のチェックアウトでROSスタックを作る
+
+{{{
+cd ~/prog/myrepo
+roscreate-stack ros
+}}}
