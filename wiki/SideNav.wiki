@@ -1,3 +1,4 @@
+ * * [CreatePrivateRepository 個別レポジトリー作成] *
  * *RTM*
  * [RTM_Install RTMのインストール]
  * [RTM_Example RTMのサンプルプログラム]
