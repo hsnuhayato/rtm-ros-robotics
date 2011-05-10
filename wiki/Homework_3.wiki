@@ -4,7 +4,7 @@
 
 = 課題 =
 
- * （１点）画像から楕円を抽出するROSノードの作成
+ * （１点）画像から円の位置を復元出来るROSノードの作成
  * （４点）楕円抽出の単体テスト、ROSノードの総合テスト
  * （３点）ドキュメントの作成
  * （２点）Debianパッケージの作成
@@ -13,7 +13,30 @@
 
 = プロジェクトの仕様 =
 
+世界に緑色の円が決まった大きさで存在している。その円がイメージに投影されると楕円として表示されます。楕円の情報を画像から検出し、もとの３次元の円の位置を復元し、その情報をROSに送信のがプロジェクトの目的です。３次元の結果をrvizで表示する
+
 == ROSノード ==
+
+=== [http://www.ros.org/wiki/roscpp/Overview/Parameter%20Server パラメーター] ===
+
+ellipse_radius - 円の物理的な大きさ
+
+=== 入力メッセージ ===
+
+image - [http://www.ros.org/doc/api/sensor_msgs/html/msg/Image.html sensor_msgs/Image]
+
+=== 出力メッセージ ===
+
+二つのメッセージを作る必要があります。posesとpoints。[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv メッセージ作成チュートリアル]
+
+ellipses2d - 画像からの全楕円の位置と回転。定義：
+{{{
+geometry_msgs/Pose2D poses[]
+}}}
+circles3d - 緑色の楕円の３次元中心点
+{{{
+geometry_msgs/Point3D points[]
+}}}
 
 == テスト ==
 
@@ -21,7 +44,7 @@
 
 == Debianパッケージ ==
 
-= システム設定 =
+= 準備・設定 =
 
 [ROS_Install]でagentsystem_ros_tutorialsのチェックアウトし、以下のように更新する。
 
@@ -34,5 +57,10 @@ OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/cpp/fite
 
 == Jenkinsの設定 ==
 
+Jenkinsをローカルホースとにインストールすることです。
+[https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu Jenkinsインストール]
+
 
 = 提出項目 =
+
+C++かPythonを使ってもOKです。両方で完璧に出来ている人は５点で成績を増やすので挑戦してみてください。
