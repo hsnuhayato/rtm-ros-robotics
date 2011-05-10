@@ -21,7 +21,18 @@
 
 === API ===
 
-一つのclassで
+fitEllipseグローバル関数：楕円を近似する
+{{{
+fitEllipse(points) -> ellipse
+}}}
+
+fitEllipseFromImageグローバル関数：楕円を画像から抽出する
+{{{
+fitEllipseFromImage(image) -> ellipses
+}}}
+
+DetectEllipseNodeクラス：ROSノードを立ち上げ、メッセージとサービスをやりとりする。
+
 === パラメーター ===
 
 ellipse_radius - 円の物理的な大きさ
@@ -60,8 +71,6 @@ geometry_msgs/PointCloud circles
 [http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv サービス作成情報]
 
 == ２。テスト ==
-
-[http://www.ros.org/wiki/gtest gtest]と[http://www.ros.org/wiki/rostest rostest]を参照してくだい。
 
 === 単体テスト ===
 
@@ -122,11 +131,7 @@ opencv_fittingは
  * APIをinclude/fitting.hから提供している
  * libfittingのライブラリを作成している
  * fitting_nodeのプログラムを作成している
- * test/testfitting.cppのテストを登録している。以下のコマンドで実行される：
-{{{
-make test
-}}}
- * テストの結果はopencv_fitting/test/opencv_fittingに保存されています
+ * test/testfitting.cppのテストを登録している。
 
 == 楕円の検出 ==
 
@@ -134,7 +139,14 @@ OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/cpp/fite
 
 円の３次元位置を正確に計算するのにカメラの[http://www.ros.org/wiki/image_pipeline/CameraInfo キャリブレーションパラメター]が必要です。それが手間がかかるのでカメラの焦点距離を推測しても結構です。
 
-== Jenkinsの設定 ==
+== テストの設定 ==
+
+[http://www.ros.org/wiki/gtest gtest]と[http://www.ros.org/wiki/rostest rostest]を参照してくだい。以下のコマンドで実行される：
+{{{
+make test
+}}}
+
+テストの結果はopencv_fitting/test/opencv_fittingに保存されています。
 
 Jenkinsをローカルとにインストールしてください。
 [https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu Jenkinsインストールチュートリアル]
@@ -147,6 +159,13 @@ Jenkinsをローカルとにインストールしてください。
 {{{
 rosrun rosdoc rosdoc opencv_fitting
 }}}
+
+C++で宿題を行うと一番主なファイルは
+
+ * include/fitting.h
+ * mainpage.dox
+
+Pythonを使う予定だったらsrc/opencv_fitting/fitting.pyになります。
 
 = 提出項目 =
 
