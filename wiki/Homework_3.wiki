@@ -118,9 +118,8 @@ OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/cpp/fite
 
 == Jenkinsの設定 ==
 
-Jenkinsをローカルホースとにインストールすることです。
+Jenkinsをローカルとにインストールしてください。
 [https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu Jenkinsインストール]
-
 
 = 提出項目 =
 
