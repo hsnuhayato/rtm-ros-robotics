@@ -3,7 +3,7 @@
 = ROS宿題 =
 
 * 基本課題 (1pt)
- * ホームページ>ROSサンプルプログラム>画像処理サンプル(http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_ImageProcessing)を参考に,画面中の小さい丸で8の字を書くようにする.
+ * ホームページ>ROSサンプルプログラム>画像処理サンプル(http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_ImageProcessing) を参考に,画面中の小さい丸で8の字を書くようにする.
 
 * 応用課題 (2pt)
  * https://code.ros.org/svn/opencv/trunk/opencv/samples/cpp/ にあるサンプルプログラムを参考に画像処理ノードを作る.
