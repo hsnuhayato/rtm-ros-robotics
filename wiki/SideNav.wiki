@@ -1,4 +1,4 @@
- * * [CreatePrivateRepository 個別レポジトリー作成] *
+ * * [CreatePrivateRepository 個人レポジトリー作成] *
  * [Homework_List 宿題リスト]
  * *RTM*
  * [RTM_Install RTMのインストール]
