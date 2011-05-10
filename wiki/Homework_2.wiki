@@ -10,7 +10,7 @@
   * 顔認識,領域分割,オプティカルフロー,ステレオ処理等
   * 結果をmpegにして来週発表
 
- * 先端課題
+ * 先端課題(5/11追加)
   * 画像処理結果をPublishする (3pt)
   * パラメータの設定をGUIから出きるようにする．http://www.ros.org/wiki/dynamic_reconfigure/Tutorials/SettingUpDynamicReconfigureForANode (4pt)
   * プログラムをMLに添付して随時発表
