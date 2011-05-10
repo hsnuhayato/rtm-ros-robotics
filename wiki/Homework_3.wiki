@@ -17,9 +17,11 @@
 
 == ROSノード ==
 
-=== [http://www.ros.org/wiki/roscpp/Overview/Parameter%20Server パラメーター] ===
+=== パラメーター ===
 
 ellipse_radius - 円の物理的な大きさ
+
+[http://www.ros.org/wiki/roscpp/Overview/Parameter%20Server パラメーター仕様のチュートリアル]
 
 === 入力メッセージ ===
 
@@ -27,16 +29,33 @@ image - [http://www.ros.org/doc/api/sensor_msgs/html/msg/Image.html sensor_msgs/
 
 === 出力メッセージ ===
 
-二つのメッセージを作る必要があります。posesとpoints。[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv メッセージ作成チュートリアル]
+二つのメッセージを作る必要があります。[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv メッセージ作成チュートリアル]
 
-ellipses2d - 画像からの全楕円の位置と回転。定義：
+画像からの全楕円の位置と回転。定義：
+メッセージ名前：Poses2D
 {{{
 geometry_msgs/Pose2D poses[]
 }}}
-circles3d - 緑色の楕円の３次元中心点
+
+
+緑色の楕円の３次元中心点：
+メッセージ名前：Points3D
 {{{
 geometry_msgs/Point3D points[]
 }}}
+
+
+=== サービス ===
+
+画像を入力し、３次元点を返すサービス：
+
+{{{
+sensor_msgs/Image image
+===
+Points circles
+}}}
+
+[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv サービス作成チュートリアル]
 
 == テスト ==
 
