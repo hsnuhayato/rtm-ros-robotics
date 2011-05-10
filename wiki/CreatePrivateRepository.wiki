@@ -1,21 +1,25 @@
-#summary 個別レポジトリーの作成
+#summary 個人レポジトリーの作成
 
-宿題を個別のレポジトリーで進めることになっています。得に[Homework_3 第３宿題]のテストサーバーの立ち上げに必要になります。外部のアクセスとパスワードで守られる必要があるので教員からレポジトリーを配布することになっています。
+宿題を個人のレポジトリーで提出しなければなりません。
 
-このレポジトリーが宿題の提出方法にもなるので速く作っていくのがお勧めです。
+得に[Homework_3 第３宿題]のテストサーバーの立ち上げに必要になります。
 
 = 作成 =
 
-個別レポジトリーのURLとユーザー・パスワードを教えてもらうのに出杏光魯仙にメールください。
+レポジトリは外部のアクセスとパスワードで守られる必要があるので教員からレポジトリーを配布することになっています。
+
+レポジトリーのURL・ユーザー・パスワードを教えてもらうのに出杏光魯仙に名前と学生番号を速くメールください。
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/rosen_email.png]
 
-以下のようなURLをもらえる：
+以下のようなURLがもらえます：
 {{{
 http://svn.programmingvision.com/rtm_ros_roboticsXX
 }}}
 
-= アクセス・システム設定 =
+自分と教員しかみれないことになっています。
+
+= アクセス・レポジトリー設定 =
 
 {{{
 svn co http://svn.programmingvision.com/rtm_ros_roboticsXX ~/prog/myrepo
@@ -26,13 +30,21 @@ svn co http://svn.programmingvision.com/rtm_ros_roboticsXX ~/prog/myrepo
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/prog/myrepo
 }}}
 
-~/.bashrcファイルに入れるのがベストです。
+~/.bashrcファイルにも入れてください。[ROS_Install]を行った時にsetup.bashも入れられたはずです。その下で加えるのがベストです。
 {{{
 source ~/prog/rtm-ros-robotics/setup.bash
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/prog/myrepo
 }}}
-最初のチェックアウトでROSスタックを作る
+
+新しいターミナルを開いてROSスタックを作る
 
 {{{
 cd ~/prog/myrepo
 roscreate-stack ros
 }}}
+
+~/prog/myrepo/rosの下にroscreate-pkgでROSパッケージを自由に作成ください。
+
+= 宿題の提出 =
+
+締切りの時にコードが自動的にチェックアウトされるので*宿題をメールで提出しないでください*。宿題によってどこのフォルダーにファイルを入れるべきかが指定されます。
