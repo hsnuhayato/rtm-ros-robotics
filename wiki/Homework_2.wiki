@@ -13,3 +13,4 @@
  * 先端課題
   * 画像処理結果をPublishする (3pt)
   * パラメータの設定をGUIから出きるようにする．http://www.ros.org/wiki/dynamic_reconfigure/Tutorials/SettingUpDynamicReconfigureForANode (4pt)
+  * プログラムをMLに添付して随時発表
