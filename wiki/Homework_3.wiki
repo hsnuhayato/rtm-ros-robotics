@@ -7,7 +7,7 @@
 = 課題 =
 
  * （１点）画像から円の位置を復元出来るROSノードの作成
- * （４点）楕円抽出の単体テスト、ROSノードの総合テスト
+ * （４点）楕円抽出の単体テスト、ROSノードの結合テスト
  * （３点）ドキュメントの作成
  * （２点）Debianパッケージの作成
 
@@ -41,20 +41,43 @@ geometry_msgs/Pose2D poses[]
 緑色の楕円の３次元中心点：
 メッセージ名前：[http://www.ros.org/doc/api/sensor_msgs/html/msg/PointCloud.html sensor_msgs/PointCloud]
 
-
 === サービス ===
 
 画像を入力し、３次元点を返すサービス：
 
+名前：DetectCircles
 {{{
 sensor_msgs/Image image
 ===
-geometry_msgs/ circles
+geometry_msgs/PointCloud circles
 }}}
 
-[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv サービス作成チュートリアル]
+[http://www.ros.org/wiki/roscpp_tutorials/Tutorials/WritingServiceClient サービス使用チュートリアル]
+
+[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv サービス作成情報]
 
 == ２。テスト ==
+
+=== 単体テスト ===
+
+ * 2次元の点群から楕円の２D位置と大きさの計算
+
+ * 画像から楕円の２D位置と大きさが検出されているか
+
+ * 円の３次元位置が計算出来るか
+
+テストデータに二つの種類があります。
+
+ 1. ランダムに点群と画像を作成する
+ 2. 撮影された画像をファイルから読み込む。楕円の位置を他のファイルに保存する必要があります。
+
+=== 結合テスト ===
+
+テストする時にROSコアと画像を供給するプログラムも立ち上げます。[http://www.ros.org/wiki/rostest rostest]を勉強してくだい。
+
+ * ROSメッセージで画像を供給し、結果が出力されているか
+
+ * ROSのDetectCirclesサービスが動いているか
 
 == ３。ドキュメント ==
 
@@ -69,7 +92,11 @@ roscd agentsystem_ros_tutorials
 svn up
 }}}
 
+== 楕円の検出 ==
+
 OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/cpp/fitellipse.cpp fitellipseのサンプル]は画像から楕円を抽出しているのでそれをROS化するのが一番速いです。
+
+円の３次元位置を正確に計算するのにカメラの[http://www.ros.org/wiki/image_pipeline/CameraInfo キャリブレーションパラメター]が必要です。それが手間がかかるのでカメラの焦点距離を推測しても結構です。
 
 == Jenkinsの設定 ==
 
