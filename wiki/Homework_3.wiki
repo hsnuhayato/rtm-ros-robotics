@@ -2,7 +2,7 @@
 
 = *作成中* =
 
-目的はプロジェクトの全過程を通ってリリース出来る形まで行うことです。
+この宿題の目的は丈夫なソフトウェアをリリースするためのテスト、ドキュメント、リリース過程を通ることです。
 
 = 課題 =
 
@@ -11,13 +11,13 @@
  * （３点）ドキュメントの作成
  * （２点）Debianパッケージの作成
 
-合計点数：１０
+合計点数：１０点
 
 = プロジェクトの仕様 =
 
-世界に緑色の円が決まった大きさで存在している。その円がイメージに投影されると楕円として表示されます。楕円の情報を画像から検出し、もとの３次元の円の位置を復元し、その情報をROSに送信のがプロジェクトの目的です。３次元の結果をrvizで表示する
+世界に緑色の円が決まった大きさで存在しています。その円がイメージに投影されると楕円として表示されます。画像から緑色の楕円を検出し、もとの３次元の円の位置を計算し、その情報をROSに送信するのがプロジェクトの目的です。
 
-== ROSノード ==
+== １。ROSノード ==
 
 === パラメーター ===
 
@@ -31,9 +31,7 @@ image - [http://www.ros.org/doc/api/sensor_msgs/html/msg/Image.html sensor_msgs/
 
 === 出力メッセージ ===
 
-二つのメッセージを作る必要があります。[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv メッセージ作成チュートリアル]
-
-画像からの全楕円の位置と回転。定義：
+画像からの全楕円の2D位置と回転。[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv このメッセージをパッケージに定義する]：
 メッセージ名前：Poses2D
 {{{
 geometry_msgs/Pose2D poses[]
@@ -41,10 +39,7 @@ geometry_msgs/Pose2D poses[]
 
 
 緑色の楕円の３次元中心点：
-メッセージ名前：Points3D
-{{{
-geometry_msgs/Point3D points[]
-}}}
+メッセージ名前：[http://www.ros.org/doc/api/sensor_msgs/html/msg/PointCloud.html sensor_msgs/PointCloud]
 
 
 === サービス ===
@@ -54,16 +49,16 @@ geometry_msgs/Point3D points[]
 {{{
 sensor_msgs/Image image
 ===
-Points circles
+geometry_msgs/ circles
 }}}
 
 [http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv サービス作成チュートリアル]
 
-== テスト ==
+== ２。テスト ==
 
-== ドキュメント ==
+== ３。ドキュメント ==
 
-== Debianパッケージ ==
+== ４。Debianパッケージ ==
 
 = 準備・設定 =
 
