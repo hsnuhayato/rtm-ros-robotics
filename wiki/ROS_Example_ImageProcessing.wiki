@@ -328,13 +328,15 @@ http://www.ros.org/wiki/rosbag/Tutorials/Exporting%20image%20and%20video%20data
 
 = 他の画像処理 = 
 
+OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/c サンプルプログラム]
+
 == エッジ検出(image_edge.cpp) ==
 
 (laplacian結果)
-[http://rtm-ros-robotics.googlecode.com/svn/wiki/Laplacian.png]
+<img src="http://rtm-ros-robotics.googlecode.com/svn/wiki/Laplacian.png" width=320>
 
 (sobel結果)
-[http://rtm-ros-robotics.googlecode.com/svn/wiki/Sobel.png]
+<img src="http://rtm-ros-robotics.googlecode.com/svn/wiki/Sobel.png" width=320>
 
 (canny結果)
 未完
