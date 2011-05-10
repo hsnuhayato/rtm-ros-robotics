@@ -1,1 +1,38 @@
 #summary ソフトウェアのテスト・ドキュメント・リリースの練習
+
+目的はプロジェクトの全過程を通ってリリース出来る形まで行うことです。
+
+= 課題 =
+
+ * （１点）画像から楕円を抽出するROSノードの作成
+ * （４点）楕円抽出の単体テスト、ROSノードの総合テスト
+ * （３点）ドキュメントの作成
+ * （２点）Debianパッケージの作成
+
+合計点数：１０
+
+= プロジェクトの仕様 =
+
+== ROSノード ==
+
+== テスト ==
+
+== ドキュメント ==
+
+== Debianパッケージ ==
+
+= システム設定 =
+
+[ROS_Install]でagentsystem_ros_tutorialsのチェックアウトし、以下のように更新する。
+
+{{{
+roscd agentsystem_ros_tutorials
+svn up
+}}}
+
+OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/cpp/fitellipse.cpp fitellipseのサンプル]は画像から楕円を抽出しているのでそれをROS化するのが一番速いです。
+
+== Jenkinsの設定 ==
+
+
+= 提出項目 =
