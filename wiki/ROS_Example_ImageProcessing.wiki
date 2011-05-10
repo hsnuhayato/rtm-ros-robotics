@@ -309,7 +309,8 @@ rosbag play <日付>.bag
 
 再生されている（あるいは，実際にリアルタイムにカメラでキャプチャされている）画像のトピックは
 {{{
-rosrun theora_image_transport ogg_saver image:=/image_color imgae_color.ogv
+rosrun theora_image_transport ogg_saver stream:=/image_color/theora
+image_color.ogv
 }}}
 としてキャプチャできる．mpegファイルに変換するには
 {{{
