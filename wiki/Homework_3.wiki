@@ -128,9 +128,9 @@ svn add ~/prog/myrepo/ros/opencv_fitting
 
 opencv_fittingは
 
- * APIをinclude/fitting.hから提供している
- * libfittingのライブラリを作成している
- * fitting_nodeのプログラムを作成している
+ * APIをinclude/fitting.hから提供している、
+ * libfittingのライブラリを作成している、
+ * fitting_nodeのプログラムを作成している、
  * test/testfitting.cppのテストを登録している。
 
 == 楕円の検出 ==
@@ -160,7 +160,9 @@ Jenkinsをローカルとにインストールしてください。
 rosrun rosdoc rosdoc opencv_fitting
 }}}
 
-C++で宿題を行うと一番主なファイルは
+依存しているパッケージもドキュメントに参照出来るので試してみてください。例えばOpenCVの関数を参照してみてください。
+
+C++で重要なファイル
 
  * include/fitting.h
  * mainpage.dox
@@ -168,5 +170,24 @@ C++で宿題を行うと一番主なファイルは
 Pythonを使う予定だったらsrc/opencv_fitting/fitting.pyになります。
 
 = 提出項目 =
+
+全ファイルを個人レポジトリーの
+{{{
+ros/opencv_fitting
+}}}
+においてください。
+
+コンパイルとテストが通っているかが調べられます。
+
+{{{
+rosmake opencv_fitting
+rosmake opencv_fitting --test-only
+}}}
+
+HTMLドキュメントとテスト結果が出来ているかをrosdocで調べられます。
+
+Debianパッケージの作成もcmake/cpackで調べられます。
+
+== 言語 ==
 
 C++かPythonを使ってもOKです。両方で完璧に出来ている人は５点で成績を増やすので挑戦してみてください。
