@@ -14,7 +14,7 @@
 
 以下のようなURLがもらえます：
 {{{
-http://svn.programmingvision.com/rtmros_XX
+http://svn.programmingvision.com/rtmrosXX
 }}}
 
 自分と教員しかみれないことになっています。
@@ -22,7 +22,7 @@ http://svn.programmingvision.com/rtmros_XX
 = アクセス・レポジトリー設定 =
 
 {{{
-svn co http://svn.programmingvision.com/rtmros_XX ~/prog/myrepo
+svn co http://svn.programmingvision.com/rtmrosXX ~/prog/myrepo
 }}}
 
 パスをROS_PACKAGE_PATHの環境変数に加える必要があります。
