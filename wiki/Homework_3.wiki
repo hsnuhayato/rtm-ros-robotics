@@ -61,8 +61,8 @@ geometry_msgs/Pose2D poses[]
 名前：DetectCircles
 {{{
 sensor_msgs/Image image
-===
-geometry_msgs/PointCloud circles
+---
+sensor_msgs/PointCloud circles
 }}}
 
 [http://www.ros.org/wiki/roscpp_tutorials/Tutorials/WritingServiceClient サービス使用チュートリアル]
