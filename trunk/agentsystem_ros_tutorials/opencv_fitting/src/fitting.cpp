@@ -22,7 +22,7 @@ public:
 //        _pubcircles.publish(points);
     }
 
-    virtual void DetectEllipses(const sensor_msgs::ImageConstPtr& msg, opencv_fitting::Point2DList& ellipses)
+    virtual void DetectEllipses(const sensor_msgs::ImageConstPtr& msg, opencv_fitting::Poses2D& ellipses)
     {
         // 実装してください
     }
