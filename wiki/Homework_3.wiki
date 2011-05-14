@@ -183,9 +183,9 @@ Jenkinsをローカルとにインストールしてください。
    * 結果を収集し、Jenkinsの画面に表示されるように設定する。
       * JUnitテスト結果の集計
 
-テスト画像のサンプルが[wiki/hw3_testimages.tgz hw3_testimages.tgz]で入手出来ますが、自分のテストセットを必ず作る必要があります。
+テスト画像のサンプルが[http://rtm-ros-robotics.googlecode.com/svn/wiki/hw3_testimages.tgz hw3_testimages.tgz]で入手出来ますが、自分のテストセットを必ず作る必要があります。
 
-[http://rtm-ros-robotics.googlecode.com/svn/wiki/hw3_testimage2.png]
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/hw3_testimage2.jpg]
 
 == ドキュメント ==
 
