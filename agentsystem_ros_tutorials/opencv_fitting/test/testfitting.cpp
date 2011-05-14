@@ -62,11 +62,12 @@ TEST_F(TestImageResults, SendImage) {
     // realpose_で楕円を表示した画像を作成する（cv::Ellipse）
     image_pub.publish(cv_ptr->toImageMsg()); // 画像を送信し
     // 結果を待つ
-    for(int i = 0; i < 500; ++i) {
+    for(int i = 0; i < 1000; ++i) {
         if( receivedpose_ ) {
             break;
         }
-        usleep(10000); // １０ミクロ秒で待つ
+        ros::spinOnce();
+        usleep(1000); // １ミリ秒で待つ
     }
     ASSERT_TRUE(receivedpose_);
 }
