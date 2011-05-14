@@ -40,10 +40,10 @@ export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/prog/myrepo
 
 {{{
 cd ~/prog/myrepo
-roscreate-stack ros
+roscreate-stack mystack
 }}}
 
-~/prog/myrepo/rosの下にroscreate-pkgでROSパッケージを自由に作成ください。
+~/prog/myrepo/mystackの下にroscreate-pkgでROSパッケージを自由に作成ください。
 
 = 宿題の提出 =
 
