@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "fitting.h"
 
+// 単体テスト
+
 TEST(Fitting,Ellipse)
 {
     cv::Mat points;
@@ -14,6 +16,8 @@ TEST(Fitting,Ellipse)
     EXPECT_NEAR(input.angle,output.angle,pixelerror);
     ASSERT_TRUE(fiterror <= noise*1.5);
 }
+
+// 結合テスト
 
 #include <gtest/gtest.h>
 #include <ros/ros.h>
@@ -48,8 +52,7 @@ protected:
 };
 
 TEST_F(TestImageResults, SendImage) { 
-    ros::NodeHandle nh;
-    image_transport::ImageTransport imgtrans(nh);
+    image_transport::ImageTransport imgtrans(nh_);
     image_transport::Publisher image_pub = imgtrans.advertise("image", 1);
     realpose_.x = 100;
     realpose_.y = 200;

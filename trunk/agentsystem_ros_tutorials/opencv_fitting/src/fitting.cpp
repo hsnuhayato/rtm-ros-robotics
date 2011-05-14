@@ -1,10 +1,28 @@
 #include "fitting.h"
 #include <ros/node_handle.h>
+#include <opencv_fitting/Point2DList.h>
 
 class DetectEllipseNodeImpl : public DetectEllipseNode
 {
+    ros::NodeHandle _nh;
+    ros::Publisher _pubposes2d;
+    double ellipse_radius;
 public:
-    virtual void DetectEllipses(const sensor_msgs::ImageConstPtr& msg, std::list<cv::RotatedRect>& ellipses)
+    DetectEllipseNodeImpl() {
+        // topic/service/publisher subscription
+    }
+
+    virtual void imagecb(const sensor_msgs::ImageConstPtr& msg) {
+//        opencv_fitting::Point2DList mylist;
+//        DetectEllipses(msg,mylist);
+//        _pubposes2d.publish(mylist);
+//        
+//        sensor_msgs::PointCloud points;
+//        DetectCircles(msg,points);
+//        _pubcircles.publish(points);
+    }
+
+    virtual void DetectEllipses(const sensor_msgs::ImageConstPtr& msg, opencv_fitting::Point2DList& ellipses)
     {
         // 実装してください
     }
