@@ -1,24 +1,5 @@
-#include <gtest/gtest.h>
-#include "fitting.h"
-
-// 単体テスト
-
-TEST(Fitting,Ellipse)
-{
-    cv::Mat points;
-    cv::RotatedRect input, output;
-    double noise = 0;
-    double pixelerror = 0.5;
-    // pointsのサンプリング
-    double fiterror = fitEllipse(points, output);
-    ASSERT_NEAR(input.center.x,output.center.x,pixelerror);
-    // ..
-    EXPECT_NEAR(input.angle,output.angle,pixelerror);
-    ASSERT_TRUE(fiterror <= noise*1.5);
-}
-
 // 結合テスト
-
+#include "fitting.h"
 #include <gtest/gtest.h>
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
@@ -52,7 +33,7 @@ protected:
 };
 
 TEST_F(TestImageResults, SendImage) { 
-    image_transport::ImageTransport imgtrans(nh_);
+    image_transport::ImageTransport imgtrans(*nh_);
     image_transport::Publisher image_pub = imgtrans.advertise("image", 1);
     realpose_.x = 100;
     realpose_.y = 200;
