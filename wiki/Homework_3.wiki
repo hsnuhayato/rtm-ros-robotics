@@ -91,6 +91,7 @@ sensor_msgs/PointCloud circles
  * DetectEllipseNode::DetectEllipses
  * DetectEllipseNode::DetectCircles
 
+
 === 結合テスト ===
 
 テストする時にROSコアと画像を供給するプログラムも立ち上げます。
@@ -149,9 +150,15 @@ OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/cpp/fite
 
 == テストの設定 ==
 
-[http://www.ros.org/wiki/gtest gtest]と[http://www.ros.org/wiki/rostest rostest]を参照してくだい。以下のコマンドで実行される：
+[http://www.ros.org/wiki/gtest gtest]と[http://www.ros.org/wiki/rostest rostest]を参照してくだい。test/CMakeLists.txtで
+
+ * rosbuild_add_gtestを単体テストに使用
+ * rosbuild_add_rostestを結合テストに使用
+
+以下のコマンドで実行される：
 {{{
 make test
+rostest ...
 }}}
 
 テストの結果はopencv_fitting/test/opencv_fittingに保存されています。
