@@ -84,6 +84,13 @@ sensor_msgs/PointCloud circles
   # ランダムに点群と画像を作成する
   # 撮影された画像をファイルから読み込む。楕円の位置を他のファイルに保存する必要があります。
 
+関数：
+
+ *  fitEllipse
+ * fitElliseFromImage
+ * DetectEllipseNode::DetectEllipses
+ * DetectEllipseNode::DetectCircles
+
 === 結合テスト ===
 
 テストする時にROSコアと画像を供給するプログラムも立ち上げます。
