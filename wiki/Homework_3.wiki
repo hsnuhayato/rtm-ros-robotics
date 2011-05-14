@@ -47,7 +47,7 @@ image - [http://www.ros.org/doc/api/sensor_msgs/html/msg/Image.html sensor_msgs/
 画像からの全楕円の2D位置と回転。[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv このメッセージをパッケージに定義する]：
 メッセージ名前：Poses2D
 {{{
-geometry_msgs/Pose2D poses[]
+geometry_msgs/Pose2D[] poses
 }}}
 
 
