@@ -150,7 +150,13 @@ OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/cpp/fite
 
 == テストの設定 ==
 
-[http://www.ros.org/wiki/gtest gtest]と[http://www.ros.org/wiki/rostest rostest]を参照してくだい。test/CMakeLists.txtで
+[http://www.ros.org/wiki/gtest gtest]と[http://www.ros.org/wiki/rostest rostest]を参照してくだい。test_roscppのテストもとても勉強になります。
+
+{{{
+roscd test_roscpp
+}}}
+
+test/CMakeLists.txtで
 
  * rosbuild_add_gtestを単体テストに使用
  * rosbuild_add_rostestを結合テストに使用
