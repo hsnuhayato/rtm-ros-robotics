@@ -159,7 +159,16 @@ make test
 Jenkinsをローカルとにインストールしてください。
 [https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu Jenkinsインストールチュートリアル]
 
-一つのジョブを登録し、ジョブで個人レポジトリーをチェックアウトし、"make test"を呼び出し、結果を収集し、Jenkinsの画面に表示されるように設定する。
+設定内容
+
+ * 新しいノードを作ってSSHで自分のユーザーにログインする
+ * 一つのジョブを登録
+   * ジョブで個人レポジトリーをチェックアウトし
+   * ROS_PACKAGE_PATHの変更
+   * "rosmake opencv_fitting"を呼び出し
+   * テストを呼び出す
+   * 結果を収集し、Jenkinsの画面に表示されるように設定する。
+      * JUnitテスト結果の集計
 
 == ドキュメント ==
 
