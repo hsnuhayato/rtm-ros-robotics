@@ -130,8 +130,8 @@ sensor_msgs/PointCloud circles
 {{{
 roscd agentsystem_ros_tutorials
 svn up
-svn export opencv_fitting ~/prog/myrepo/ros/opencv_fitting
-svn add ~/prog/myrepo/ros/opencv_fitting
+svn export opencv_fitting ~/prog/myrepo/mystack/opencv_fitting
+svn add ~/prog/myrepo/mystack/opencv_fitting
 }}}
 
 opencv_fittingは
@@ -181,7 +181,7 @@ Pythonを使う予定だったらsrc/opencv_fitting/fitting.pyになります。
 
 全ファイルを個人レポジトリーの
 {{{
-ros/opencv_fitting
+mystack/opencv_fitting
 }}}
 においてください。
 
