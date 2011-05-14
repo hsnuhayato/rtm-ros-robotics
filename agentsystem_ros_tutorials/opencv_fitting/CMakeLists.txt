@@ -6,6 +6,8 @@ rosbuild_init()
 add_definitions(-Wall)
 rosbuild_add_boost_directories()
 
+rosbuild_genmsg()
+
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 

@@ -6,14 +6,18 @@
 #include <list>
 #include <boost/shared_ptr.hpp>
 
+#include <opencv_fitting/Point2DList.h>
+
 /// \brief ROSノード
 class DetectEllipseNode
 {
  public:
     virtual ~DetectEllipseNode() {}
     
-    virtual void DetectEllipses(const sensor_msgs::ImageConstPtr& msg, std::list<cv::RotatedRect>& ellipses) = 0;
-    virtual void DetectCircles(const sensor_msgs::ImageConstPtr& msg, sensor_msgs::PointCloud& points) = 0;
+    virtual void DetectEllipses(const sensor_msgs::ImageConstPtr& msg,
+                                opencv_fitting::Point2DList& ellipses) = 0;
+    virtual void DetectCircles(const sensor_msgs::ImageConstPtr& msg,
+                               sensor_msgs::PointCloud& points) = 0;
 };
 
 typedef boost::shared_ptr<DetectEllipseNode> DetectEllipseNodePtr;
