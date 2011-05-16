@@ -1,12 +1,11 @@
-// Author:: Atsushi TSUDA
-// mail:: tsuda@jsk.t.u-tokyo.ac.jp
-
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 #include <sensor_msgs/image_encodings.h>
+#include <dynamic_reconfigure/server.h>
+#include <opencv_ros_bridge_tutorial/ImageTrackingConfig.h>
 
 namespace enc = sensor_msgs::image_encodings;
 
@@ -39,11 +38,19 @@ private:
   std::string window_name;
   bool autosize;
 
+  int cmp_methods;
+  int result_r, result_b, result_g;
+
+  float h_ranges[2];
+
   // parameter
   std::string template_filename;
+
+  dynamic_reconfigure::Server<opencv_ros_bridge_tutorial::ImageTrackingConfig> srv;
+  dynamic_reconfigure::Server<opencv_ros_bridge_tutorial::ImageTrackingConfig>::CallbackType f;
   
 public:
-  HistogramTracking() : nh_("~"), it_(nh_){
+  HistogramTracking() : it_(nh_){
     ros::NodeHandle pnh("~");
     pnh.param("autosize", autosize, true);
     pnh.param("window_name", window_name, std::string("histogram_tracking"));
@@ -51,14 +58,24 @@ public:
     cvNamedWindow ("template_image", autosize ? CV_WINDOW_AUTOSIZE : 0);
 
     is_getting_tmp = false;
+    h_ranges[0] = 0;
+    h_ranges[1] = 181;
+    cmp_methods = CV_COMP_CORREL;
 
     cvSetMouseCallback(window_name.c_str(), &HistogramTracking::mouse_cb, this);
 
     pnh.param("template_filename", template_filename, std::string(window_name.c_str()));
     pnh.param("histogram_size", hist_size, 10);
+    
+    std::string image_name = nh_.resolveName("image");
+    image_subscriber_ = it_.subscribe(image_name, 1, &HistogramTracking::image_cb, this);
+    std::string out_image_name = nh_.resolveName("out_image");
+    image_publisher_ = it_.advertise(out_image_name, 1);
 
-    image_subscriber_ = it_.subscribe("image", 1, &HistogramTracking::image_cb, this);
-    image_publisher_ = it_.advertise("out_image", 1);
+    // for dynamic reconfigure
+    f = boost::bind(&HistogramTracking::dynamic_reconfigure_cb, this, _1, _2);
+    srv.setCallback(f);
+
     ROS_INFO("initialize finish");
   }
 
@@ -84,15 +101,15 @@ public:
     buf = src->image;
     src_img = &buf;
     if (is_getting_tmp) {draw_area();}
+    //draw_area();
 
-    cvWaitKey(33);
+    cvWaitKey(5);
 
     if ((tmp_img == NULL) || (is_getting_tmp)
         || (tmp_area_.width == 0) || (tmp_area_.height == 0)){return;}
 
     CvHistogram *hist = 0;
 
-    float h_ranges[] = { 0, 181 };
     float *ranges[] = { h_ranges };
     src_planes = (IplImage **) cvAlloc (sizeof (IplImage *) * 3);
     for (i = 0; i < 3; i++) {
@@ -113,14 +130,14 @@ public:
     // (3)探索画像全体に対して，テンプレートのヒストグラムとの距離（手法に依存）を計算
     dst_size = cvSize (src_img->width - tmp_img->width + 1, src_img->height - tmp_img->height + 1);
     dst_img = cvCreateImage (dst_size, IPL_DEPTH_32F, 1);
-    cvCalcBackProjectPatch (src_planes, dst_img, cvGetSize (tmp_img), hist, CV_COMP_CORREL, 1.0);
+    cvCalcBackProjectPatch (src_planes, dst_img, cvGetSize (tmp_img), hist, cmp_methods, 1.0);
     cvMinMaxLoc (dst_img, &min_val, &max_val, &min_loc, &max_loc, NULL);
 
     // (4)テンプレートに対応する位置に矩形を描画
     cvRectangle (src_img, max_loc,
                  cvPoint (max_loc.x + tmp_img->width,
                           max_loc.y + tmp_img->height),
-                 CV_RGB (255, 0, 0), 3);
+                 CV_RGB (result_r, result_g, result_b), 3);
 
     image_publisher_.publish(src->toImageMsg());
   }
@@ -174,7 +191,32 @@ public:
       break;
     }
     }    
-  } 
+  }
+  void dynamic_reconfigure_cb(opencv_ros_bridge_tutorial::ImageTrackingConfig &config,
+                              uint32_t level){
+    hist_size = config.hist_size;
+    h_ranges[0] = config.h_limit_min;
+    h_ranges[1] = config.h_limit_max;
+    result_r = config.tracking_result_line_r;
+    result_b = config.tracking_result_line_b;
+    result_g = config.tracking_result_line_g;
+
+    switch(config.compare_methods){
+    case 0:
+      cmp_methods = CV_COMP_CORREL;
+      break;
+    case 1:
+      cmp_methods = CV_COMP_CHISQR;
+      break;
+    case 2:
+      cmp_methods = CV_COMP_INTERSECT;
+      break;
+    case 3:
+      cmp_methods = CV_COMP_BHATTACHARYYA;
+      break;
+    }
+
+  }
 };
 
 CvRect HistogramTracking::tmp_area_ = cvRect(0,0,0,0);
