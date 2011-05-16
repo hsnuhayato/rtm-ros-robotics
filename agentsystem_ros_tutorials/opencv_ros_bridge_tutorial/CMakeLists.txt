@@ -34,3 +34,8 @@ rosbuild_add_executable(image_tracking src/image_tracking.cpp)
 rosbuild_add_executable(image_histogram src/image_histogram.cpp)
 rosbuild_add_executable(publish_screenpoint src/publish_screenpoint.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
+
+# add dynamic reconfigure api
+rosbuild_find_ros_package(dynamic_reconfigure)
+include(${dynamic_reconfigure_PACKAGE_PATH}/cmake/cfgbuild.cmake)
+gencfg()
