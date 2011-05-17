@@ -19,10 +19,10 @@
 
 以下の宿題に関して，面白いものを作ったら，作った物の概要と処理結果の画像をメーリングリストに投げてください．
 
-ソースコードは，講義第三回で作成したレポジトリに，my-rtm-packages というフォルダを作ってその下にコミットしていってください．http://svn.programmingvision.com/rtmrosXX/my-rtm-packages/以下に各宿題に対応したフォルダを作ってコミットしてもらえればと思います．各々の名前のつけ方は自由ですが，どの宿題かわかるような名前にしてください．
+ソースコードは，講義第三回で作成したレポジトリに，my-rtm-packages というフォルダを作ってその下にコミットしていってください．http://svn.programmingvision.com/rtmrosXX/my-rtm-packages/ 以下に各宿題に対応したフォルダを作ってコミットしてもらえればと思います．各々の名前のつけ方は自由ですが，どの宿題かわかるような名前にしてください．
 
  * 基本課題(1pt)
-  * ホームページ>RTMサンプルプログラム>画像処理(http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Example_ImageProcessing)を参考にして，USBカメラでキャプチャした画像に対してFlip以外の処理を行って，それを表示する
+  * ホームページ>RTMサンプルプログラム>画像処理(http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Example_ImageProcessing) を参考にして，USBカメラでキャプチャした画像に対してFlip以外の処理を行って，それを表示する
   * 顔認識，色ヒストグラム，エッジ抽出等
  * 応用課題(2pt)
   * マルチプラットフォーム環境を用意し（例えば，Windows+VMWare Ubuntuなど），一方でキャプチャした画像に対して他方で画像処理を行うコンポーネントを書いてみる．
