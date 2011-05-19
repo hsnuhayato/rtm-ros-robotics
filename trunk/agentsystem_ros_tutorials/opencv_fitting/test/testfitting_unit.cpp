@@ -19,9 +19,5 @@ TEST(Fitting,Ellipse)
 int main(int argc, char **argv)
 {
   testing::InitGoogleTest(&argc, argv);
-  ros::init(argc, argv, "testfitting");
-  if( !ros::master::check() ) {
-      return 1;
-  }
   return RUN_ALL_TESTS();
 }
