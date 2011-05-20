@@ -1,6 +1,3 @@
-# set output dir for test results
-set(rosbuild_test_results_dir ${CMAKE_CURRENT_SOURCE_DIR})
-
 # 単体テスト
 rosbuild_add_gtest(testfitting_unit testfitting_unit.cpp)
 target_link_libraries(testfitting_unit fitting)
