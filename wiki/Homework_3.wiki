@@ -122,7 +122,7 @@ sensor_msgs/PointCloud circles
 
 == ４。Debianパッケージ ==
 
-= *作成中* =
+バイナリーDebianパッケージをCMakeとCPackから作ることです。
 
 = 準備・設定 =
 
@@ -203,6 +203,19 @@ C++で重要なファイル
 
 Pythonを使う予定だったらsrc/opencv_fitting/fitting.pyになります。
 
+== Debianパッケージ ==
+
+makeが終わる時に
+
+{{{
+cd build
+cpack  -G DEB .
+}}}
+
+を実行すると
+
+Project-0.1-Linux.debが出来上がります。
+
 = 提出項目 =
 
 全ファイルを個人レポジトリーの
@@ -220,7 +233,7 @@ rosmake opencv_fitting --test-only
 
 HTMLドキュメントをrosdocで調べられます。テスト結果が出来ているか、システムを説明する画像が出ているかが調べられる。
 
-Debianパッケージの作成もcmake/cpackで調べられます。
+Debianパッケージの作成もcmake/cpackで調べられます。宿題提出のために*.debファイルをコードにコミットしてください。
 
 == 言語 ==
 
