@@ -1,0 +1,23 @@
+all: installed.colladadom
+
+FILENAME = collada-dom-2.2.zip
+TARBALL = build/$(FILENAME)
+TARBALL_URL =  http://pr.willowgarage.com/downloads/$(FILENAME)
+SOURCE_DIR = build/collada-dom
+UNPACK_CMD = unzip
+MD5SUM_FILE = $(FILENAME).md5sum
+include $(shell rospack find mk)/download_unpack_build.mk
+
+
+installed.colladadom: wiped $(SOURCE_DIR)/unpacked
+	mkdir -p $(CURDIR)/collada-dom/include
+	mkdir -p $(CURDIR)/collada-dom/lib
+	cd $(SOURCE_DIR)/dom && make $(ROS_PARALLEL_JOBS) && make install prefix=$(CURDIR)/collada-dom
+	touch installed.colladadom
+
+clean:
+	-cd $(SOURCE_DIR) && make clean
+	rm -fr colladadom-dom
+
+
+
