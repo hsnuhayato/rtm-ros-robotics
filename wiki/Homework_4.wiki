@@ -37,6 +37,6 @@ sudo apt-get install ipython
 
 = 提出項目 =
 
-一つのtouchplanning.pyの実行スクリプト（C++の場合はtouchplanningのプログラムです）。
+touchplanning.pyの実行スクリプト（C++の場合はtouchplanningのプログラムです）。
 
 ドキュメントはtouchplanning.pyの中にreStructuredTextとしてコメントを書く（C++の場合はdoxygenで書いてください）。
