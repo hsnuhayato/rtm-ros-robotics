@@ -21,6 +21,18 @@ hironxの双腕ロボットで箱の六つ平面を指で触る動作。
 
 今回Pythonでの実装がお勧めです。C++で実装するのも可能ですが、非常に難しくなるため、気をつけてください。
 
+== Python ==
+
+ipythonでpythonを使うのがお勧めです。
+
+  sudo apt-get install ipython
+
+[http://kanaya.naist.jp/nishio/LearnPythonInAnHour.html チュートリアル1]
+
+== OpenRAVE ==
+
+[OpenRAVE_Example OpenRAVEサンプルプログラム]
+
 = 提出項目 =
 
 一つのtouchplanning.pyの実行スクリプト（C++の場合はtouchplanningのプログラムです）。
