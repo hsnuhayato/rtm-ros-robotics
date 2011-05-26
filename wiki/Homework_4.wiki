@@ -2,6 +2,8 @@
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/hw4_hironx.png]
 
+= 作成中！ =
+
 = 課題 =
 
 hironxの双腕ロボットで箱の六つ平面を指で触る動作。
