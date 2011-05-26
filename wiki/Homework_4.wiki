@@ -24,10 +24,12 @@ hironxの双腕ロボットで箱の六つ平面を指で触る動作。
 == Python ==
 
 ipythonでpythonを使うのがお勧めです。
+{{{
+sudo apt-get install ipython
+}}}
 
-  sudo apt-get install ipython
-
-[http://kanaya.naist.jp/nishio/LearnPythonInAnHour.html チュートリアル1]
+[http://www.python.jp.doc/release/tutorial/index.htm Pythonチュートリアル #1]
+[http://kanaya.naist.jp/nishio/LearnPythonInAnHour.html Pythonチュートリアル #2]
 
 == OpenRAVE ==
 
