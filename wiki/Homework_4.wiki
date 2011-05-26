@@ -23,7 +23,7 @@ hironxの双腕ロボットで箱の六つ平面を指で触る動作。
 
 == Python ==
 
-ipythonでpythonを使うのがお勧めです。
+[http://montpython.s13.xrea.com/ipython/usage.html ipython]でPythonを使うのがお勧めです。
 {{{
 sudo apt-get install ipython
 }}}
