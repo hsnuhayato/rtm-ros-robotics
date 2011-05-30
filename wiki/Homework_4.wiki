@@ -120,6 +120,8 @@ sphinx-build -b html . doc
 firefox doc/index.html
 }}}
 
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/hw4_touchplanning_doc.png]
+
 sphinxのインストールは
 {{{
 sudo apt-get install python-sphinx
