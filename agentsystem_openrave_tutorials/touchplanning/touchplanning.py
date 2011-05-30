@@ -21,8 +21,8 @@ class TouchPlanner:
         self.robot = manip.GetRobot()
         self.env = self.robot.GetEnv()
 
-        manip=robot.SetActiveManipulator(options.manip)
-        self.ikmodel = openravepy.databases.inversekinematics.InverseKinematicsModel(robot,iktype=IkParameterization.Type.Transform6D,freeindices=[0])
+        manip=self.robot.SetActiveManipulator(options.manip)
+        self.ikmodel = openravepy.databases.inversekinematics.InverseKinematicsModel(self.robot,iktype=IkParameterization.Type.Transform6D,freeindices=[0])
         if not self.ikmodel.load():
             self.ikmodel.autogenerate()
         self.ikmodel.setrobot(freeinc=[0.04])
