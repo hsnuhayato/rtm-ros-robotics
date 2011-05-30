@@ -26,9 +26,9 @@ touchplanning.pyの実行スクリプトで全部書くことです。使い方�
 touchplanning.py --scene=myscene.env.xml --manip=leftarm2
 }}}
 
-* myscene.env.xmlは[http://openrave.programmingvision.com/wiki/index.php/Format:XML OpenRAVE XML]で書いてある環境です。
+ * myscene.env.xmlは[http://openrave.programmingvision.com/wiki/index.php/Format:XML OpenRAVE XML]で書いてある環境です。
 
-* manipはアームの指定。
+ * manipはアームの指定。
 
 目的をクリアする経路の必須項目：
 
@@ -66,6 +66,8 @@ translation, rotationmat, extentsで箱の位置、姿勢、寸法が定義さ�
 == 目的地の定義 ==
 
 マニピュレーターの原点は指の表面上に定義されています。その３次元の位置を箱の平面のどこに接触してもいいです。ハンドの姿勢も関係ないです。
+
+動作計画は衝突していないことを目的にしているため、**接触**を行う時に目的地を箱の表面から少し離れた位置にする必要があります。1mm以内は大丈夫です。
 
 = 準備・設定 =
 
