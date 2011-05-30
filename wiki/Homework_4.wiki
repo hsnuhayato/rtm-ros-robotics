@@ -86,6 +86,15 @@ sudo apt-get install ipython
 
 [http://openrave.org/en/main/install.html#install OpenRAVEをインストール]し、簡単な[OpenRAVE_Example サンプルプログラム]を試してみましょう。
 
+環境をランダム生成する時にpythonで以下のように物体を入れられます：
+
+{{{
+kinbody = RaveCreateKinBody(env,'')
+kinbody.InitFromBoxes(array([[0,0,0,0.2,0.5,0.01]]),True)
+kinbody.SetName('box')
+env.AddKinBody(kinbody,True)
+}}}
+
 == 初めてのスクリプト ==
 
 rtm-ros-robotics/agentsystem_openrave_tutorials/touchplanningには宿題のサンプルコードが入っています。
