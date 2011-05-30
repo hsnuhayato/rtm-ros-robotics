@@ -109,4 +109,18 @@ showgrasp(manip,Tgrasp)
 
 touchplanning.pyの実行スクリプト（C++の場合はtouchplanningのプログラムです）。個人レポジトリの~/touchplanningフォルダーに入れてください。
 
-ドキュメントはtouchplanning.pyの中にreStructuredTextとしてコメントを書く（C++の場合はdoxygenで書いてください）。
+ドキュメントはtouchplanning.pyの中にreStructuredTextとしてコメントを書く（C++の場合はdoxygenで書いてください）。ドキュメントの作成は以下のように行われます：
+
+{{{
+sphinx-build -b html . doc
+}}}
+
+確認は
+{{{
+firefox doc/index.html
+}}}
+
+sphinxのインストールは
+{{{
+sudo apt-get install python-sphinx
+}}}
