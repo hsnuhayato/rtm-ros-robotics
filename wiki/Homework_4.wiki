@@ -87,7 +87,7 @@ sudo apt-get install ipython
 [http://openrave.org/en/main/install.html#install OpenRAVEをインストール]し、簡単な[OpenRAVE_Example サンプルプログラム]を試してみましょう。
 
 
-== 初め ==
+== 初めてのスクリプト ==
 
 rtm-ros-robotics/openrave_hw4には宿題のサンプルコードが入っています。
 
