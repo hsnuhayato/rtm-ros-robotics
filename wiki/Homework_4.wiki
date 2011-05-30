@@ -31,6 +31,13 @@ touchplanning.pyの実行スクリプトで全部書くことです。
 
 == ロボットの定義 ==
 
+rtm-ros-robotics/openrave_hw4/hironx.robot.xmlを使ってください。
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/hironx_manipulators.png]
+
+ロボットの関節はマニピュレータで整理されています。この宿題では特別にrightarm2とleftarm2のマニピュレーターが定義されています。両方のマニピュレーターは指の表面上を表しています。
+
+
 == 箱の定義 ==
 
 箱のXML形式定義は：
