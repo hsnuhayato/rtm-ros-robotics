@@ -1,4 +1,4 @@
-<robot file="robots/kawada-hironx.zae">
+<robot file="kawada-hironx.zae">
   <manipulator name="rightarm2">
     <base>WAIST</base>
     <effector>RARM_JOINT5</effector>
