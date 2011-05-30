@@ -9,7 +9,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 project = u'touch planning'
 copyright = u'2011, Rosen Diankov (rosen.diankov@gmail.com)'
-
+language = 'ja'
 version = '1.0'
 release = '1.0'
 #language = None
