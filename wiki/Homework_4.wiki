@@ -109,7 +109,7 @@ rtm-ros-robotics/agentsystem_openrave_tutorials/touchplanningには宿題のサ�
 python touchplanning.py
 }}}
 
-を実行すればロボットがロードされ、単純な動作を行います。
+を実行すればロボットがロードされ、単純な動作が行われます。最初に実行する時にIKの生成で5分間待つ必要があります。
 
 ここで一つ重要な関数は：
 
