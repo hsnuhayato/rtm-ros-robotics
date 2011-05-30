@@ -86,7 +86,6 @@ sudo apt-get install ipython
 
 [http://openrave.org/en/main/install.html#install OpenRAVEをインストール]し、簡単な[OpenRAVE_Example サンプルプログラム]を試してみましょう。
 
-
 == 初めてのスクリプト ==
 
 rtm-ros-robotics/agentsystem_openrave_tutorials/touchplanningには宿題のサンプルコードが入っています。
