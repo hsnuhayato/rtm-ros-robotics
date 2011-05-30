@@ -78,7 +78,7 @@ translation, rotationmat, extentsで箱の位置、姿勢、寸法が定義さ�
 sudo apt-get install ipython
 }}}
 
-[http://www.python.jp/doc/release/tutorial/index.htm Pythonチュートリアル #1]
+[http://www.python.jp/doc/release/tutorial/index.html Pythonチュートリアル #1]
 
 [http://kanaya.naist.jp/nishio/LearnPythonInAnHour.html Pythonチュートリアル #2]
 
