@@ -21,7 +21,7 @@ hironxの双腕ロボットで箱の六つ平面を指で触る動作。
 touchplanning.pyの実行スクリプトで全部書くことです。使い方は：
 
 {{{
-touchplanning.py --scene=myscene.env.xml --manip=leftarm2
+python touchplanning.py --scene=myscene.env.xml --manip=leftarm2
 }}}
 
  * myscene.env.xmlは[http://openrave.programmingvision.com/wiki/index.php/Format:XML OpenRAVE XML]で書いてある環境です。
