@@ -26,7 +26,7 @@ class TouchPlanner:
         if not self.ikmodel.load():
             self.ikmodel.autogenerate()
         self.ikmodel.setrobot(freeinc=[0.04])
-        self.basemanip = interfaces.BaseManipulation(robot)
+        self.basemanip = interfaces.BaseManipulation(self.robot)
 
     def plan(self):
         """ドキュメント
