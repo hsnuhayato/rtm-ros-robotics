@@ -35,7 +35,7 @@ touchplanning.py --scene=myscene.env.xml --manip=leftarm2
 
 == ロボットの定義 ==
 
-rtm-ros-robotics/openrave_hw4/hironx.robot.xmlを使ってください。
+rtm-ros-robotics/agentsystem_openrave_tutorials/touchplanning/hironx.robot.xmlを使ってください。
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/hironx_manipulators.png]
 
@@ -89,7 +89,7 @@ sudo apt-get install ipython
 
 == 初めてのスクリプト ==
 
-rtm-ros-robotics/openrave_hw4には宿題のサンプルコードが入っています。
+rtm-ros-robotics/agentsystem_openrave_tutorials/touchplanningには宿題のサンプルコードが入っています。
 
 {{{
 python touchplanning.py
