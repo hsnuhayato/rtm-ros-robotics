@@ -114,7 +114,7 @@ python touchplanning.py
 ここで一つ重要な関数は：
 
 {{{
-showgrasp(manip,Tgrasp)
+self.showgrasp(Tgrasp)
 }}}
 
 この関数を利用すればハンドの到達位置姿勢が一時的に表示されます。
