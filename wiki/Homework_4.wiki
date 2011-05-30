@@ -71,10 +71,6 @@ translation, rotationmat, extentsで箱の位置、姿勢、寸法が定義さ�
 
 今回Pythonでの実装がお勧めです。C++で実装するのも可能ですが、非常に難しくなるため、気をつけてください。
 
-= 準備・設定 =
-
-今回Pythonでの実装がお勧めです。C++で実装するのも可能ですが、非常に難しくなるため、気をつけてください。
-
 == Python ==
 
 [http://montpython.s13.xrea.com/ipython/usage.html ipython]でPythonを使うのがお勧めです。
