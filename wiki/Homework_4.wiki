@@ -107,6 +107,6 @@ showgrasp(manip,Tgrasp)
 
 = 提出項目 =
 
-touchplanning.pyの実行スクリプト（C++の場合はtouchplanningのプログラムです）。
+touchplanning.pyの実行スクリプト（C++の場合はtouchplanningのプログラムです）。個人レポジトリの~/touchplanningフォルダーに入れてください。
 
 ドキュメントはtouchplanning.pyの中にreStructuredTextとしてコメントを書く（C++の場合はdoxygenで書いてください）。
