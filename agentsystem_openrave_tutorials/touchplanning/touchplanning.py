@@ -54,7 +54,7 @@ class TouchPlanner:
         :param manip: が現在の使われるマニピュレーター
         :param Tgrasp: マニピュレーターの到達位置姿勢
         """
-       with self.robot:
+        with self.robot:
             Tdelta = dot(Tgrasp,linalg.inv(self.manip.GetEndEffectorTransform()))
             for link in self.manip.GetChildLinks():
                 link.SetTransform(dot(Tdelta,link.GetTransform()))
