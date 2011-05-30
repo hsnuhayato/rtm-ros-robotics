@@ -86,6 +86,12 @@ sudo apt-get install ipython
 
 [http://openrave.org/en/main/install.html#install OpenRAVEをインストール]し、簡単な[OpenRAVE_Example サンプルプログラム]を試してみましょう。
 
+LAPACKが必要ので、以下のようにインストールしてください
+
+{{{
+sudo apt-get install liblapack-dev
+}}}
+
 環境をランダム生成する時にpythonで以下のように物体を入れられます：
 
 {{{
