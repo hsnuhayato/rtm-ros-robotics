@@ -187,7 +187,7 @@ roslaunch roseus_tutorials checkerboard-pose.launch
 {{{
 rosrun roseus_tutorials vision-action-example3.l 
 }}}
-としてクライアントプログラムを実行する．このなかの`facedetect-cb`が例となっている．
+としてクライアントプログラムを実行する．このなかの`checkerboard-cb`が例となっている．
 
 {{{
 (defun checkerboard-cb (pose)
