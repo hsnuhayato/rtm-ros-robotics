@@ -12,13 +12,13 @@ OpenRAVEは自律型ロボットのための動作計画アルゴリズムと高
 
 == チュートリアル ==
 
-[http://openrave.org/en/main/openravepy/examples.tutorial_001.html シミュレーション環境への物体の読み込み]
+[http://openrave.org/en/main/tutorials/tutorial_001.html シミュレーション環境への物体の読み込み]
 
-[http://openrave.org/en/main/openravepy/examples.tutorial_002.html 環境に読み込んだ物体の移動]
+[http://openrave.org/en/main/tutorials/tutorial_002.html 環境に読み込んだ物体の移動]
 
-[http://openrave.org/en/main/openravepy/examples.tutorial_003.html 環境に読み込んだ物体の回転（回転行列）]
+[http://openrave.org/en/main/tutorials/tutorial_003.html 環境に読み込んだ物体の回転（回転行列）]
 
-[http://openrave.org/en/main/openravepy/examples.tutorial_004.html 環境に読み込んだ物体の回転（クォータニオン）]
+[http://openrave.org/en/main/tutorials/tutorial_004.html 環境に読み込んだ物体の回転（クォータニオン）]
 
 = サンプル =
 
