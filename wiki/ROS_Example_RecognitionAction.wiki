@@ -167,7 +167,8 @@ rosrun roseus_tutorials vision-action-example2.l
 }}}
 したがって，これとカメラの現在の位置`p`から，カメラの1000mm先に対象物体が存在するとした場合の世界座標情報を計算でき，`(send *pr2: :head :look-at [pos])`メソッドを用いて，対象物を見る，という動作を生成することが出来る．最後の'*viewer*'にメソッドを送っている2行は表示用である．
 {{{
-        ;; look-at the end of ray                                                      (send *pr2* :head :look-at (v+ p (scale 1000 v)))
+        ;; look-at the end of ray
+        (send *pr2* :head :look-at (v+ p (scale 1000 v)))
         (send *ri* :angle-vector (send *pr2* :angle-vector) 1000)
         (send *viewer* :viewsurface :3d-line p (v+ p (scale 1000 v)))
         (send *viewer* :viewsurface :flush)
