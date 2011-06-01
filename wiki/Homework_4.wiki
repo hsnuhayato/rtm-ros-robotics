@@ -101,6 +101,15 @@ kinbody.SetName('box')
 env.AddKinBody(kinbody,True)
 }}}
 
+箱の寸法を取り出す時に以下のコマンドを利用してください
+{{{
+with box:
+    box.SetTransform(eye(4))
+    ab = box.ComputeAABB()
+    ab.extents()
+globalpos = transformPoints(box.GetTransform(),[ab.pos()])
+}}}
+
 == 初めてのスクリプト ==
 
 rtm-ros-robotics/agentsystem_openrave_tutorials/touchplanningには宿題のサンプルコードが入っています。
