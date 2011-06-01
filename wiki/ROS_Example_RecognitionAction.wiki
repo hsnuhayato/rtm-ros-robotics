@@ -198,7 +198,7 @@ rosrun roseus_tutorials vision-action-example3.l
 で`checkerboard-pose`から出力されるposeメッセージを座標系オブジェクトに変換している．
 {{{
     ;; for display                                                              
-    (send mrk :type image_view2::*FRAMES*)
+    (send mrk :type image_view2::ImageMarker2::*FRAMES*)
     (send mrk :frames (list "/checkerboard_pose_frame"))
     (send *tfb* :send-transform
           target-local (send pose :header :frame_id) "/checkerboard_pose_frame")
