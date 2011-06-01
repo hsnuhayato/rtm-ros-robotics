@@ -42,6 +42,12 @@ Checkout of http://ram.umd.edu/git/ros/camera_umd.git into /home/k-okada/prog/rt
 }}}
 などと聞かれたら`d`を選択すればよい
 
+= ROSメッセージのコンパイル =
+{{{
+rosrun roseus generate-all-msg-srv.sh 
+}}}
+
+
 = コンパイル =
 
 ソースのインストールあるいは更新を終えたら
