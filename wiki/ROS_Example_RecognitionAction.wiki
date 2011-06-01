@@ -13,9 +13,8 @@
 
 ソースのインストールは
 {{{
-cd ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials
-svn up
-rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback ~/prog/rtm-ros-robotics/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback
+http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 とする．また，ROSの起動に必要な環境変数は`~/prog/rtm-ros-robotics/setup.bash`にかかれる．したがって，`~/.bashrc`の最後に
 {{{
