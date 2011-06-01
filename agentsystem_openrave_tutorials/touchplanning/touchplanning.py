@@ -47,7 +47,7 @@ class TouchPlanner:
 
         print 'showing grasps'
         for T in matrices:
-            planner.showgrasp(T)
+            self.showgrasp(T)
 
     def showgrasp(self,Tgrasp):
         """
