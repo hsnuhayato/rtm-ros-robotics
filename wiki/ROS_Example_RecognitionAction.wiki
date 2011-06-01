@@ -199,7 +199,7 @@ rosrun roseus_tutorials vision-action-example3.l
     (ros::ros-info "~A" target-local)
     (ros::publish "image_marker" mrk)
 }}}
-まではディスプレイ様のコードである．このコードをつかってimage_view2上の座標が描かれている．
+まではディスプレイ用のコードである．このコードをつかってimage_view2上の座標が描かれている．
 
 target-localはカメラ座標系からみた対象の座標なので，
 {{{
