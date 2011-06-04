@@ -14,4 +14,4 @@
   * [ROS_Example_Navigation ナビゲーション]
   * [ROS_Example_ImageProcessing 画像処理]
   * [ROS_Example_RecognitionAction 認識行動]
-  * [ROS_Example_RTMINtegration RTM統合]
+  * [ROS_Example_RTMIntegration RTM統合]
