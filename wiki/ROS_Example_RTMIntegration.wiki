@@ -15,13 +15,14 @@ http://download.eclipse.org/modeling/emf/updates/releases/
 emf-sdk 2.5.0にチェック
 
 help->install new software->add->locationに
-http://download.eclipse.org/tools/gef/updates/releases/を追加
-GEF SDK 3.6.2にチェック．
+http://download.eclipse.org/tools/gef/updates/releases/
+を追加GEF SDK 3.6.2にチェック．
 
-http://sourceforge.net/projects/java3d-eclipse/files/から
-java3declipse-20090302.zip
-help->install new software->add->archive でダウンロードしたzipを選択，
-全部にcheck
+http://sourceforge.net/projects/java3d-eclipse/files/
+からjava3declipse-20090302.zipをダウンロード
+eclipseを立ち上げ，help->install new software->add->archive で
+ダウンロードしたzipを選択，全部にcheck.
+
 
 
 
