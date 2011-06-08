@@ -37,6 +37,11 @@ http://sourceforge.net/projects/java3d-eclipse/files/
 Help -> Install New Softare -> Add -> Archive
 で、ダウンロードしたzipを選択、すべてを選択し、インストールする
 
+ダウンロードしたzipを選択する際のパスに日本語が含まれる（デスクトップなど）と、
+MESSAGE No repository found
+と認識されないので、パスはすべて英数字にする
+
+
 
 $ java -version
 で
