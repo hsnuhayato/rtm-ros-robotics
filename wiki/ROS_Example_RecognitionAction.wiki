@@ -181,7 +181,7 @@ rosrun roseus_tutorials vision-action-example2.l
 {{{
 roslaunch roseus_tutorials checkerboard-pose.launch 
 }}}
-チェッカーボードは[http://rtm-ros-robotics.google.com/svn/wiki/calibboard_7x5_0.030.pdf]にある．
+チェッカーボードは[http://rtm-ros-robotics.googlecode.com/svn/wiki/calibboard_7x5_0.030.pdf]にある．
 
 
 {{{
