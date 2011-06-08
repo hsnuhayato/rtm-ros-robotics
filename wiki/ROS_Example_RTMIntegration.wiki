@@ -19,7 +19,7 @@ rosrun openhrp3 eclipse.sh
 に
 (10.04ユーザのみ）
 http://download.eclipse.org/modeling/emf/updates/releases/
-を追加し、EMF SDK 2.5.0 を選択しインストール。
+を追加し、EMF SDK 2.5.0 を選択しインストール.
 
 (10.04/10.10ユーザ共通)
 http://download.eclipse.org/tools/gef/updates/releases/
@@ -31,7 +31,11 @@ http://sourceforge.net/projects/java3d-eclipse/files/
 Help -> Install New Softare -> Add -> Archive
 で、ダウンロードしたzipを選択、すべてを選択し、インストールする
 
+ここまででRT System Editorが入る
+ Window -> Open Perspective -> Other 
+で、RT System Editorが入っていることが確認できる
 
+ここからgrxuiを入れる作業
 
 
 = Details =
