@@ -9,29 +9,27 @@ rosmake openhrp
 }}}
 
 した後，以下のeclipseの設定を行う必要がある．
+eclipseは
+{{{
+rosrun openhrp3 eclipse.sh
+}}}
+として立ち上げ、
 
-10.04 は、
+ Help -> Install New Softare -> Add -> Location
+に
+(10.04ユーザのみ）
 http://download.eclipse.org/modeling/emf/updates/releases/
-をhelp->install new software->add->locationに追加して，
-emf-sdk 2.5.0にチェック
+を追加し、EMF SDK 2.5.0 を選択しインストール。
 
-help->install new software->add->locationに
+(10.04/10.10ユーザ共通)
 http://download.eclipse.org/tools/gef/updates/releases/
-を追加GEF SDK 3.6.2にチェック．
+を追加し、GEF SDK 3.6.2をS選択しインストール．
 
-10.04, 10.10トモに、
-rosdep install openhpr3
-help->install new software->add->locationに
-http://download.eclipse.org/tools/gef/updates/releases/
-をついか
-GEF SDK 3．6．2
-にチェック．
-
-
+(10.04/10.10ユーザ共通)
 http://sourceforge.net/projects/java3d-eclipse/files/
-からjava3declipse-20090302.zipをダウンロード
-eclipseを立ち上げ，help->install new software->add->archive で
-ダウンロードしたzipを選択，全部にcheck.
+からjava3declipse-20090302.zipをダウンロードし、
+Help -> Install New Softare -> Add -> Archive
+で、ダウンロードしたzipを選択、すべてを選択し、インストールする
 
 
 
