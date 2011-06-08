@@ -63,7 +63,7 @@ $ sudo /etc/init.d/omniorb4-nameserver stop
 $ pkill -KILL omniNames
 $ rtm-naming
 
-FallingBoxはでるけど、SampleRobot_inHouse.xml
+FallingBoxはでるけど、SampleRobot_inHouse.xmlがでない場合、
 sudo rm /usr/lib/eclipse/plugins/com.generalrobotix.ui.grxui_0.9.8.jar
 roscd openrhp3; rm installed
 make
