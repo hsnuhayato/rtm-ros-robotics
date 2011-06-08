@@ -10,6 +10,7 @@ rosmake openhrp
 
 した後，以下のeclipseの設定を行う必要がある．
 
+32bit は、
 http://download.eclipse.org/modeling/emf/updates/releases/
 をhelp->install new software->add->locationに追加して，
 emf-sdk 2.5.0にチェック
@@ -17,6 +18,15 @@ emf-sdk 2.5.0にチェック
 help->install new software->add->locationに
 http://download.eclipse.org/tools/gef/updates/releases/
 を追加GEF SDK 3.6.2にチェック．
+
+32bit 64bitトモに、
+rosdep install openhpr3
+help->install new software->add->locationに
+http://download.eclipse.org/tools/gef/updates/releases/
+をついか
+GEF SDK 3．6．2
+にチェック．
+
 
 http://sourceforge.net/projects/java3d-eclipse/files/
 からjava3declipse-20090302.zipをダウンロード
