@@ -47,6 +47,27 @@ sudo update-java-alternatives -s java-6-sun
  make wipe; make
 
 
+ * 困ったときは...
+
+FallingBoxでモデルがでない。
+{{{
+ LD_LIBRARY_PATH=lib ./bin/openhrp-model-loader 
+}}}
+として
+{{{
+ready
+}}}
+が出ない場合、
+
+$ sudo /etc/init.d/omniorb4-nameserver stop
+$ pkill -KILL omniNames
+$ rtm-naming
+
+FallingBoxはでるけど、SampleRobot_inHouse.xml
+sudo rm /usr/lib/eclipse/plugins/com.generalrobotix.ui.grxui_0.9.8.jar
+roscd openrhp3; rm installed
+make
+
 
 
 = Details =
