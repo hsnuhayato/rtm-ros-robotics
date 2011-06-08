@@ -29,6 +29,8 @@ http://download.eclipse.org/tools/gef/updates/releases/
  Window -> Open Perspective -> Other 
 で、RT System Editorが入っていることが確認できる
 
+ここからgrxuiを入れる作業
+
 (10.04/10.10ユーザ共通)
 http://sourceforge.net/projects/java3d-eclipse/files/
 から[http://downloads.sourceforge.net/project/java3d-eclipse/java3declipse%20plugin/20090302/java3declipse-20090302.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fjava3d-eclipse%2Ffiles%2F&ts=1307526535&use_mirror=jaist java3declipse-20090302.zip]をダウンロードし、
@@ -36,8 +38,15 @@ Help -> Install New Softare -> Add -> Archive
 で、ダウンロードしたzipを選択、すべてを選択し、インストールする
 
 
+$ java -version
+で
+Java(TM) SE 
+という文字列が出てこない場合は、
+sudo update-java-alternatives -s java-6-sun
 
-ここからgrxuiを入れる作業
+ make wipe; make
+
+
 
 
 = Details =
