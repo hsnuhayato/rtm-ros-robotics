@@ -5,7 +5,7 @@
 = OpenHRP 環境の構築 =
 
 {{{
-rosmake openhrp
+rosmake openhrp3
 }}}
 
 した後，以下のeclipseの設定を行う必要がある．
