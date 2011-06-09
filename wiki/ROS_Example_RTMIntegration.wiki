@@ -61,7 +61,7 @@ $ sudo update-java-alternatives -s java-6-sun
 
  == 困ったときは... ==
 
- * LoadProjectでFallingBoxesを選択しても3DViewにモデルがでない。
+* LoadProjectでFallingBoxesを選択しても3DViewにモデルがでない。
 {{{
  LD_LIBRARY_PATH=lib ./bin/openhrp-model-loader 
 }}}
@@ -76,18 +76,9 @@ $ pkill -KILL omniNames
 $ rtm-naming
 }}}
 
- * FallingBoxesのシミュレーションは表示されるけど、SampleRobot_inHouse.xmlをロードしてもロボットが表示されない場合、
+* FallingBoxesのシミュレーションは表示されるけど、SampleRobot_inHouse.xmlをロードしてもロボットが表示されない場合、
 {{{
 $ sudo rm /usr/lib/eclipse/plugins/com.generalrobotix.ui.grxui_0.9.8.jar
 $ roscd openrhp3; rm installed
 $ make
 }}}
-
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
