@@ -6,6 +6,7 @@
 
 == Java の確認 ==
 {{{
+$ rosdep install openhrp3
 $ java -version
 }}}
 で
