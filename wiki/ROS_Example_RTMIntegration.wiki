@@ -10,11 +10,7 @@ rosmake openhrp
 
 した後，以下のeclipseの設定を行う必要がある．
 
-eclipseはそもそも
-1)jsk内で追加(.bashrc.jsk l.112),
-2)agentsystemのrtmインストール時に追加(.bashrcの最後)
-の2種類があるが、(この二つのaliasはコメントアウトする)
-ここからは以下の
+* 外部プラグインのインストール for RT System Editor
 {{{
 rosrun openhrp3 eclipse.sh
 }}}
@@ -34,37 +30,38 @@ http://download.eclipse.org/tools/gef/updates/releases/
  Window -> Open Perspective -> Other 
 で、RT System Editorが入っていることが確認できる
 
-ここからgrxuiを入れる作業
-パスは日本語だとエラーが出るので
-{{{
-export LANG=ja_JP.UTF-8
-}}}
-としてからeclipseを立ち上げたほうがよい
+* 外部プラグイン並びにのJava環境のインストール for GRXUI
 
 (10.04/10.10ユーザ共通)
 http://sourceforge.net/projects/java3d-eclipse/files/
 から[http://downloads.sourceforge.net/project/java3d-eclipse/java3declipse%20plugin/20090302/java3declipse-20090302.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fjava3d-eclipse%2Ffiles%2F&ts=1307526535&use_mirror=jaist java3declipse-20090302.zip]をダウンロードし、
 Help -> Install New Softare -> Add -> Archive
-で、ダウンロードしたzipを選択、すべてを選択し、インストールする
+で、ダウンロードしたzipを選択、すべてを選択し、インストールする。
 
 ダウンロードしたzipを選択する際のパスに日本語が含まれる（デスクトップなど）と、
 MESSAGE No repository found
-と認識されないので、パスはすべて英数字にする
+と認識されないので、例えば/tmpにダウンロードするなどパスはすべて英数字になるところにする
 
-
-
+{{{
 $ java -version
+}}}
 で
 Java(TM) SE 
 という文字列が出てこない場合は、
-sudo update-java-alternatives -s java-6-sun
+{{{
+$ sudo update-java-alternatives -s java-6-sun
+}}}
+とする
 
+* OpenHRPのコンパイル
+{{{
  make wipe; make
-
+}}}
+結構時間がかかる。
 
  * 困ったときは...
 
-FallingBoxでモデルがでない。
+ ** FallingBoxでモデルがでない。
 {{{
  LD_LIBRARY_PATH=lib ./bin/openhrp-model-loader 
 }}}
