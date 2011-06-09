@@ -9,11 +9,16 @@ rosmake openhrp
 }}}
 
 した後，以下のeclipseの設定を行う必要がある．
-eclipseは
+
+eclipseはそもそも
+1)jsk内で追加(.bashrc.jsk l.112),
+2)agentsystemのrtmインストール時に追加(.bashrcの最後)
+の2種類があるが、(この二つのaliasはコメントアウトする)
+ここからは以下の
 {{{
 rosrun openhrp3 eclipse.sh
 }}}
-として立ち上げ、
+で立ち上がるeclipseを用いる
 
  Help -> Install New Softare -> Add -> Location
 に
@@ -30,6 +35,11 @@ http://download.eclipse.org/tools/gef/updates/releases/
 で、RT System Editorが入っていることが確認できる
 
 ここからgrxuiを入れる作業
+パスは日本語だとエラーが出るので
+{{{
+export LANG=ja_JP.UTF-8
+}}}
+としてからeclipseを立ち上げたほうがよい
 
 (10.04/10.10ユーザ共通)
 http://sourceforge.net/projects/java3d-eclipse/files/
