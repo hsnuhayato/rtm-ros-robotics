@@ -4,13 +4,19 @@
 
 = OpenHRP 環境の構築 =
 
+== Java の確認 ==
 {{{
-rosmake openhrp3
+$ java -version
 }}}
+で
+Java(TM) SE 
+という文字列が出てこない場合は、
+{{{
+$ sudo update-java-alternatives -s java-6-sun
+}}}
+とする
 
-した後，以下のeclipseの設定を行う必要がある．
-
-== 外部プラグインのインストール for RT System Editor ==
+== Eclipseの設定:外部プラグインのインストール for RT System Editor ==
 {{{
 rosrun openhrp3 eclipse.sh
 }}}
@@ -27,10 +33,14 @@ http://download.eclipse.org/tools/gef/updates/releases/
 を追加し、GEF SDK 3.6.2をS選択しインストール．
 
 ここまででRT System Editorが入る
+{{{
+rosrun openhrp3 eclipse.sh
+}}}
+でEclipseを立ち上げて、
  Window -> Open Perspective -> Other 
 で、RT System Editorが入っていることが確認できる
 
-== 外部プラグイン並びにのJava環境のインストール for GRXUI ==
+== Eclipseの設定:外部プラグイン並びにのJava環境のインストール for GRXUI ==
 
 (10.04/10.10ユーザ共通)
 http://sourceforge.net/projects/java3d-eclipse/files/
@@ -43,29 +53,17 @@ MESSAGE No repository found
 と認識されないので、例えば/tmpにダウンロードするなどパスはすべて英数字になるところにする
 
 {{{
-$ java -version
+rosrun openhrp3 eclipse.sh
 }}}
-で
-Java(TM) SE 
-という文字列が出てこない場合は、
-{{{
-$ sudo update-java-alternatives -s java-6-sun
-}}}
-とする
-
-== OpenHRPのコンパイル ==
-{{{
- make wipe; make
-}}}
-結構時間がかかる。
-
-{{{
-roslaunch openhrp3 eclipse.sh
-}}}
-
-として立ち上げて、
+でEclipseを立ち上げて、
  Window -> Open Perspective -> Other 
 で、GRXUIが入っていることを確認する。
+
+== OpenHRPのコンパイル ==
+
+{{{
+rosmake openhrp3
+}}}
 
 == GRXUI 動作確認 ==
 {{{
