@@ -138,7 +138,7 @@ roslaunch mrobot_ros_bridge mrobot_simulator.launch
 
 * "LoadProject"で"FallingBoxes"を選択しても3DViewにモデルがでない。
 {{{
- LD_LIBRARY_PATH=lib ./bin/openhrp-model-loader 
+roscd openhrp3; bin/openhrp-model-loader 
 }}}
 として
 {{{
