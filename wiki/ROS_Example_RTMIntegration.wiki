@@ -102,6 +102,6 @@ $ rtm-naming
 * "FallingBoxes"のシミュレーションは表示されるけど、"SampleRobot_inHouse.xml"をロードしてもロボットが表示されない場合、
 {{{
 $ sudo rm /usr/lib/eclipse/plugins/com.generalrobotix.ui.grxui_0.9.8.jar
-$ roscd openrhp3; rm installed
+$ roscd openhrp3; rm installed
 $ make
 }}}
