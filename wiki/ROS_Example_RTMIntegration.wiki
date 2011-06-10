@@ -63,16 +63,14 @@ sudo make uninstall
 == OpenHRPのコンパイル ==
 
 {{{
-roscd openhrp3;make wipe
-make
-}}}
-
-その後，他のrtmrosのpackageもMakeする
-{{{
 rosmake rtmros_common
 }}}
 
-
+もしopenhrp3のMakeが通らないときは
+{{{
+roscd openhrp3;make wipe
+make
+}}}
 
 
 == Eclipseの設定:外部プラグインのインストール for RT System Editor ==
