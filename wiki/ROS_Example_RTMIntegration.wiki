@@ -119,12 +119,6 @@ rosrun openhrp3 eclipse.sh
 で、GRXUIが入っていることを確認する。
 
 
-== GRXUI 動作確認 ==
-{{{
-roslaunch mrobot_ros_bridge mrobot_simulator.launch 
-}}}
-として、視点を下に移すと台車ロボットが見えればOK.
-
 == RT System Editor 動作確認 ==
 以前講義で試したサンプル
 http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Example
@@ -135,7 +129,14 @@ roslaunch openrtm RTM_2DSimulator_Example.launch
 http://code.google.com/p/rtm-ros-robotics/wiki/RTM_2DSimulator_Example
 にあるように，「TkMobileRobotSimulator.py」が起動したら,「Create」ボタンを一回押す． 
  
- == 困ったときは... ==
+
+== GRXUI 動作確認 ==
+{{{
+roslaunch mrobot_ros_bridge mrobot_simulator.launch 
+}}}
+として、視点を下に移すと台車ロボットが見えればOK.
+
+== モデルが表示されないときは... ==
 
 * "LoadProject"で"FallingBoxes"を選択しても3DViewにモデルがでない。
 {{{
