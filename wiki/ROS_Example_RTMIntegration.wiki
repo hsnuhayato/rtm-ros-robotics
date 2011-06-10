@@ -45,7 +45,7 @@ $ sudo update-java-alternatives -s java-6-sun
 }}}
 とする
 
-また
+== 旧バージョンOpenRTMの確認(インストールしたことがある人限定) ==
 {{{
 rtm-config --version
 }}}
@@ -59,6 +59,21 @@ cd /usr/local/src/OpenRTM
 sudo make uninstall
 }}}
 としてください
+
+== OpenHRPのコンパイル ==
+
+{{{
+roscd openhrp3;make wipe
+make
+}}}
+
+その後，他のrtmrosのpackageもMakeする
+{{{
+rosmake rtmros_common
+}}}
+
+
+
 
 == Eclipseの設定:外部プラグインのインストール for RT System Editor ==
 {{{
@@ -102,12 +117,6 @@ rosrun openhrp3 eclipse.sh
 でEclipseを立ち上げて、
  Window -> Open Perspective -> Other 
 で、GRXUIが入っていることを確認する。
-
-== OpenHRPのコンパイル ==
-
-{{{
-rosmake openhrp3
-}}}
 
 
 == GRXUI 動作確認 ==
