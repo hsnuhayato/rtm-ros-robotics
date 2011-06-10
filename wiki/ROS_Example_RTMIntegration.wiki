@@ -13,6 +13,18 @@ $ lsb_release -a
 }}}
 です．10.04か10.10であることが期待されています．
 
+10.04の人は，
+http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Install
+にある通り，ipv6の設定によりlocalhostという名前解決ができないことがあるため，その場合，root権限で/etc/hostsの5行目をコメントアウトする．即ち，
+{{{
+::1     localhost ip6-localhost ip6-loopback   
+}}}
+を
+{{{
+#::1     localhost ip6-localhost ip6-loopback  
+}}}
+と変更して保存する．Makefileでチェックしているので，変更していないとMakeが通らない．
+
 = OpenHRP 環境の構築 =
 
 == Java の確認 ==
@@ -82,17 +94,6 @@ rosrun openhrp3 eclipse.sh
 rosmake openhrp3
 }}}
 
-=== 10.04 ユーザの人のための追加設定 ===
-http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Install
-にある通り，ipv6の設定によりlocalhostという名前解決ができないことがあるため，その場合，root権限で/etc/hostsの5行目をコメントアウトする．即ち，
-{{{
-::1     localhost ip6-localhost ip6-loopback   
-}}}
-を
-{{{
-#::1     localhost ip6-localhost ip6-loopback  
-}}}
-と変更して保存する．Makefileでチェックしているので，変更していないとMakeが通らない．
 
 == GRXUI 動作確認 ==
 {{{
@@ -116,6 +117,7 @@ $ sudo /etc/init.d/omniorb4-nameserver stop
 $ pkill -KILL omniNames
 $ rtm-naming
 }}}
+とする．10.04の人は/etc/hostsの::1から始まる行がコメントアウトされているか再確認．
 
 * "FallingBoxes"のシミュレーションは表示されるけど、"SampleRobot_inHouse.xml"をロードしてもロボットが表示されない場合、
 {{{
