@@ -4,8 +4,14 @@
 
 * これまでの演習に参加していない人はリポジトリのインストールをしてください
 {{{
-rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+$ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
+
+* 自分のつかっているUbuntuのバージョンを調べて下さい．
+{{{
+$ lsb_release -a
+}}}
+です．10.04か10.10であることが期待されています．
 
 = OpenHRP 環境の構築 =
 
@@ -76,6 +82,7 @@ rosrun openhrp3 eclipse.sh
 rosmake openhrp3
 }}}
 
+=== 10.04 ユーザの人のための追加設定 ===
 http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Install
 にある通り，ipv6の設定によりlocalhostという名前解決ができないことがあるため，その場合，root権限で/etc/hostsの5行目をコメントアウトする．即ち，
 {{{
