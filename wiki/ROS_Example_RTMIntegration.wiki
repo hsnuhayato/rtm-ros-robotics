@@ -25,7 +25,7 @@ http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Install
 }}}
 と変更して保存する．Makefileでチェックしているので，変更していないとMakeが通らない．
 
-= OpenHRP 環境の構築 =
+= 1.OpenHRP 環境の構築 =
 
 == Java の確認 ==
 {{{
@@ -72,7 +72,7 @@ roscd openhrp3;make wipe
 make
 }}}
 
-= Eclipseの設定 =
+= 2.Eclipseの設定 =
 <wiki:video url="http://www.youtube.com/watch?v=Majjva2YhX4" />
 == 外部プラグインのインストール for RT System Editor ==
 {{{
@@ -117,6 +117,8 @@ rosrun openhrp3 eclipse.sh
  Window -> Open Perspective -> Other 
 で、GRXUIが入っていることを確認する。
 
+= 3.動作確認 =
+<wiki:video url="http://www.youtube.com/watch?v=6wEH-41rw74" />
 
 == RT System Editor 動作確認 ==
 以前講義で試したサンプル
