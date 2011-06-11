@@ -55,7 +55,7 @@ rtm-config --version
 }}}
 と出た人は，古いOpenRTMが入っているので
 {{{
-cd /usr/local/src/OpenRTM
+cd /usr/local/src/OpenRTM/OpenRTM-aist-0.4.2
 sudo make uninstall
 }}}
 としてください
