@@ -125,10 +125,16 @@ rosrun openhrp3 eclipse.sh
 http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Example
 を試す.
 {{{
-roslaunch openrtm RTM_2DSimulator_Example.launch
+roslaunch openrtm MobileRobot_2DSimulator_Example.launch
 }}}
 http://code.google.com/p/rtm-ros-robotics/wiki/RTM_2DSimulator_Example
 にあるように，「TkMobileRobotSimulator.py」が起動したら,「Create」ボタンを一回押す． 
+
+他に
+{{{
+roslaunch openrtm Slider_and_Motor_Example.launch
+roslaunch openrtm Seq_Example.launch
+}}}
  
 
 == GRXUI 動作確認 ==
