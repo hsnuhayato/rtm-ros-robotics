@@ -135,7 +135,12 @@ http://code.google.com/p/rtm-ros-robotics/wiki/RTM_2DSimulator_Example
 roslaunch openrtm Slider_and_Motor_Example.launch
 roslaunch openrtm Seq_Example.launch
 }}}
- 
+がある。
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/MobileRobot_2DSimulator_Example.png]
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/Slider_and_Motor_Example.png]
+[http://rtm-ros-robotics.googlecode.com/svn/wiki
+/Seq_Example.png]
 
 == GRXUI 動作確認 ==
 {{{
