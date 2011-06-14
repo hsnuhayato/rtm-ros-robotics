@@ -179,6 +179,21 @@ roslaunch mrobot_ros_bridge mrobot_simulator.launch
 }}}
 として、視点を下に移すと台車ロボットが見えればOK.
 
+{{{
+roslaunch hrpsys pa10.launch
+}}}
+
+としてPA10が画面に表示され動けばOK
+
+
+あるいは，
+{{{
+roslaunch hrpsys hpr4c.launch
+}}}
+として，左上の→が描いてあるシミュレーション開始ボタンを押し，
+中心にあるExecute scriptボタンをおしてロボットが歩けば成功です．
+
+
 = 6.トラブルシューティング =
 
 == モデルが表示されないときは... ==
