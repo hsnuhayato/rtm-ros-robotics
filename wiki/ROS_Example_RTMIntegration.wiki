@@ -11,7 +11,7 @@ $ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotic
 
 
 {{{
-roscd openhrp3; make eclipse-cleanup wipe; rosmake hrpsys
+roscd openhrp3; make eclipse-cleanup; make wipe; roscd hrpsys; make wipe; rosmake
 }}}
 として，
 `http://download.eclipse.org/modeling/emf/updates/releases/`(10.04ユーザのみ), 
@@ -201,5 +201,6 @@ $ rtm-naming
 
 * "FallingBoxes"のシミュレーションは表示されるけど、"SampleRobot_inHouse.xml"をロードしてもロボットが表示されない場合、
 {{{
-$ roscd openhrp3; make eclipse-cleanup wipe; rosmake hrpsys
+roscd openhrp3; make eclipse-cleanup; make wipe; roscd hrpsys; make wipe; rosmake
 }}}
+としてクリーンな環境をつくり「概要」にしたがい必要なプラグインをインストール
