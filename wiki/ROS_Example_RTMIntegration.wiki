@@ -8,6 +8,12 @@
 {{{
 $ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
+これまでに演習に参加している人はリポジトリを更新
+{{{
+$ roscd rtmros_common
+$ svn up
+}}}
+してください．
 
 
 {{{
