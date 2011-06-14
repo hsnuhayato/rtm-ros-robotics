@@ -14,6 +14,10 @@ $ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotic
 roscd openhrp3; make eclipse-cleanup; make wipe; roscd hrpsys; make wipe; rosmake
 }}}
 として，
+{{{
+rosrun openhrp3 eclipse.sh
+}}}
+から，
 `http://download.eclipse.org/modeling/emf/updates/releases/`(10.04ユーザのみ), 
 `http://download.eclipse.org/tools/gef/updates/releases/`,
 `<openhrp3>/build/rtmtools_eclipse.zip`, 
