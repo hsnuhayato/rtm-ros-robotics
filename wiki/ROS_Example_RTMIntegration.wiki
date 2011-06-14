@@ -17,15 +17,15 @@ $ svn up
 
 
 {{{
-roscd openhrp3; make eclipse-cleanup; make wipe; roscd hrpsys; make wipe; rosmake
+roscd openhrp3; make eclipse-clean; make wipe; roscd hrpsys; make wipe; rosmake
 }}}
 として，
 {{{
 rosrun openhrp3 eclipse.sh
 }}}
 から，
-`http://download.eclipse.org/modeling/emf/updates/releases/`(10.04ユーザのみ), 
-`http://download.eclipse.org/tools/gef/updates/releases/`,
+`http://download.eclipse.org/modeling/emf/updates/releases/(EMF SDK 2.5.0)`(10.04ユーザのみ), 
+`http://download.eclipse.org/tools/gef/updates/releases/`(GEF SDK 3.6.2),
 `<openhrp3>/build/rtmtools_eclipse.zip`, 
 `<openhrp3>/build/java3declipse-20090302.zip`, 
 `<openhrp3>/build/grxui_eclipse.zip`, 
@@ -130,7 +130,7 @@ http://download.eclipse.org/modeling/emf/updates/releases/
 
 (10.04/10.10ユーザ共通)
 http://download.eclipse.org/tools/gef/updates/releases/
-を追加し、GEF SDK 3.6.2をS選択しインストール．
+を追加し、GEF SDK 3.6.2を選択しインストール．
 
  Help -> Install New Softare -> Add -> Archive
 で，`<openhrp3>/build/rtmtools_eclipse.zip`
@@ -228,6 +228,6 @@ $ rtm-naming
 
 * "FallingBoxes"のシミュレーションは表示されるけど、"SampleRobot_inHouse.xml"をロードしてもロボットが表示されない場合、
 {{{
-roscd openhrp3; make eclipse-cleanup; make wipe; roscd hrpsys; make wipe; rosmake
+roscd openhrp3; make eclipse-clean; make wipe; roscd hrpsys; make wipe; rosmake
 }}}
 としてクリーンな環境をつくり「概要」にしたがい必要なプラグインをインストール
