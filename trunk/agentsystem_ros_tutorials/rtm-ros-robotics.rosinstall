@@ -55,3 +55,13 @@
 - svn:
     uri: https://code.ros.org/svn/ros-pkg/stacks/sound_drivers/trunk
     local-name: sound_drivers
+##
+##
+##
+- hg:
+    uri: http://kforge.ros.org/robotmodel/robot_model/
+    version: unstable
+    local-name: robot_model
+- svn:
+    uri: https://code.ros.org/svn/ros-pkg/stacks/visualization/tags/diamondback/
+    local-name: visualization
