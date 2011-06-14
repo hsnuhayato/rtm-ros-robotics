@@ -10,7 +10,7 @@
 サンプルのチェックアウト
 
 {{{
- $ svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/
+ $ svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/agentssytem_rtm_tutorials
 }}}
 
 == 拡張型での通信 ==
@@ -61,3 +61,22 @@ OpenRTM-aistでは，データポート間のデータの型として，TimedSho
 === Pythonでの利用法 ===
 
 Pythonの場合，更に簡便であり，基本型と同様に'import RTC'さえしてあれば，利用できる．
+
+=== サンプル ===
+
+agentsystem_rtm_tutorials/ExtendedIdl_sample/以下のTestVelocity2DSendがcppのサンプル，TestVelocity2DRecvPyがPython側のサンプルになっている．ターミナルで，それぞれ起動する．
+
+すなわち，片側で，
+{{{
+$ cd TestVelocity2DSend
+$ make
+$ ./TestVelocity2DSendComp
+}}}
+とし，もう片側で，
+{{{
+$ python ./TestVelocity2DRecv.py
+}}}
+とする．
+
+あとは，RTSystemEditorで接続し，アクティベートすると，Recv側で値が表示されることが確認できる．
+
