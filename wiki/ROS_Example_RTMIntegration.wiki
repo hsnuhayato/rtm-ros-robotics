@@ -7,12 +7,16 @@
 $ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 
-* 自分のつかっているUbuntuのバージョンを調べて下さい．
+* 環境の確認
+** 自分のつかっているUbuntuのバージョンを調べて下さい．
 {{{
 $ lsb_release -a
 }}}
 です．10.04か10.10であることが期待されています．
 
+= 1.OpenHRP 環境の構築 =
+
+== ipv6 の設定の確認(10.04限定） ==
 10.04の人は，
 http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Install
 にある通り，ipv6の設定によりlocalhostという名前解決ができないことがあるため，その場合，root権限で/etc/hostsの5行目をコメントアウトする．即ち，
@@ -23,9 +27,7 @@ http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Install
 {{{
 #::1     localhost ip6-localhost ip6-loopback  
 }}}
-と変更して保存する．Makefileでチェックしているので，変更していないとMakeが通らない．
-
-= 1.OpenHRP 環境の構築 =
+と変更して保存する．Makefileでチェックしているので，変更していないとMakeが通りません．
 
 == Java の確認 ==
 {{{
@@ -45,6 +47,7 @@ $ sudo update-java-alternatives -s java-6-sun
 }}}
 とする
 
+
 == 旧バージョンOpenRTMの確認(インストールしたことがある人限定) ==
 {{{
 rtm-config --version
@@ -60,6 +63,16 @@ sudo make uninstall
 }}}
 としてください
 
+== Eclipse環境のクリーンアップ(インストールしたことがある人限定)  ==
+
+いままでEclipseを使ったことがある人は
+{{{
+roscd openhrp3
+make eclipse-clean
+}}}
+として環境をクリーンにしてください．
+
+
 == OpenHRPのコンパイル ==
 
 {{{
@@ -72,7 +85,7 @@ roscd openhrp3;make wipe
 make
 }}}
 
-= 2.Eclipseの設定 =
+= 2.Eclipseの設定(RT System Editor編) =
 
 <wiki:video url="http://www.youtube.com/watch?v=Majjva2YhX4" />
 
@@ -92,6 +105,13 @@ http://download.eclipse.org/modeling/emf/updates/releases/
 http://download.eclipse.org/tools/gef/updates/releases/
 を追加し、GEF SDK 3.6.2をS選択しインストール．
 
+ Help -> Install New Softare -> Add -> Archive
+で，<openhrp3>/build/rtmtools_eclipse.zip
+を選択しインストール．
+
+<openhrp3>は`rospack find openhrp3`で表示されるディレクトリであり，例えば
+`~/prog/rtm-ros-robotics/rtmros_common/openhrp3`になる．
+
 ここまででRT System Editorが入る
 {{{
 rosrun openhrp3 eclipse.sh
@@ -99,28 +119,6 @@ rosrun openhrp3 eclipse.sh
 でEclipseを立ち上げて、
  Window -> Open Perspective -> Other 
 で、RT System Editorが入っていることが確認できる
-
-== 外部プラグイン並びにのJava環境のインストール for GRXUI ==
-
-(10.04/10.10ユーザ共通)
-http://sourceforge.net/projects/java3d-eclipse/files/
-から[http://downloads.sourceforge.net/project/java3d-eclipse/java3declipse%20plugin/20090302/java3declipse-20090302.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fjava3d-eclipse%2Ffiles%2F&ts=1307526535&use_mirror=jaist java3declipse-20090302.zip]をダウンロードし、
-Help -> Install New Softare -> Add -> Archive
-で、ダウンロードしたzipを選択、すべてを選択し、インストールする。
-
-ダウンロードしたzipを選択する際のパスに日本語が含まれる（デスクトップなど）と、
-MESSAGE No repository found
-と認識されないので、例えば/tmpにダウンロードするなどパスはすべて英数字になるところにする
-
-{{{
-rosrun openhrp3 eclipse.sh
-}}}
-でEclipseを立ち上げて、
- Window -> Open Perspective -> Other 
-で、GRXUIが入っていることを確認する。
-
-= 3.動作確認 =
-<wiki:video url="http://www.youtube.com/watch?v=6wEH-41rw74" />
 
 == RT System Editor 動作確認 ==
 以前講義で試したサンプル
@@ -143,11 +141,31 @@ roslaunch openrtm Seq_Example.launch
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/Slider_and_Motor_Example.png]
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/Seq_Example.png]
 
+= 3.Eclipseの設定(GXUI編) =
+== 外部プラグイン並びにのJava環境のインストール for GRXUI ==
+
+(10.04/10.10ユーザ共通)
+Help -> Install New Softare -> Add -> Archive
+で、<openhrp3>/build/java3declipse-20090302.zip, <openhrp3>/build/grxui_eclipse.zip, <hrpsys>/build/robothardware_eclipse.zip
+をそれぞれインストール
+
+{{{
+rosrun openhrp3 eclipse.sh
+}}}
+でEclipseを立ち上げて、
+ Window -> Open Perspective -> Other 
+で、GRXUIが入っていることを確認する。
+
+= 4.動作確認 =
+<wiki:video url="http://www.youtube.com/watch?v=6wEH-41rw74" />
+
 == GRXUI 動作確認 ==
 {{{
 roslaunch mrobot_ros_bridge mrobot_simulator.launch 
 }}}
 として、視点を下に移すと台車ロボットが見えればOK.
+
+= 5.トラブルシューティング =
 
 == モデルが表示されないときは... ==
 
@@ -169,7 +187,5 @@ $ rtm-naming
 
 * "FallingBoxes"のシミュレーションは表示されるけど、"SampleRobot_inHouse.xml"をロードしてもロボットが表示されない場合、
 {{{
-$ sudo rm /usr/lib/eclipse/plugins/com.generalrobotix.ui.grxui_0.9.8.jar
-$ roscd openhrp3; rm installed
-$ make
+$ roscd openhrp3; make eclipse-cleanup wipe; make
 }}}
