@@ -32,14 +32,16 @@ rosrun openhrp3 eclipse.sh
 `<hrpsys>/build/robothardware_eclipse.zip`
 をEclipseにインストールする．
 
-* 環境の確認
-** 自分のつかっているUbuntuのバージョンを調べて下さい．
+
+
+= 1.OpenHRP 環境の構築 =
+
+== 環境の確認 ==
+* 自分のつかっているUbuntuのバージョンを調べて下さい．
 {{{
 $ lsb_release -a
 }}}
 です．10.04か10.10であることが期待されています．
-
-= 1.OpenHRP 環境の構築 =
 
 == ipv6 の設定の確認(10.04限定） ==
 10.04の人は，
