@@ -1,0 +1,20 @@
+#ifndef __IDL_TEST__
+#define __IDL_TEST__
+
+#include <BasicDataType.idl>
+
+module Idltest {
+  struct Idmsg
+  {
+    short id;
+    string msg;
+  };
+
+  struct TimedIdmsg
+  {
+    RTC::Time tm;
+    Idmsg data;
+  };
+};
+
+#endif
