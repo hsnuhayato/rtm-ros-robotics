@@ -2,6 +2,19 @@
 
 <wiki:toc max_depth="2" />
 
+= まとめ =
+{{{
+roscd openhrp3; make eclipse-cleanup wipe; rosmake hrpsys
+}}}
+として，
+`http://download.eclipse.org/modeling/emf/updates/releases/`(10.04ユーザのみ), 
+`http://download.eclipse.org/tools/gef/updates/releases/`,
+`<openhrp3>/build/rtmtools_eclipse.zip`, 
+`<openhrp3>/build/java3declipse-20090302.zip`, 
+`<openhrp3>/build/grxui_eclipse.zip`, 
+`<hrpsys>/build/robothardware_eclipse.zip`
+をEclipseにインストールする．
+
 * これまでの演習に参加していない人はリポジトリのインストールをしてください
 {{{
 $ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
@@ -186,5 +199,5 @@ $ rtm-naming
 
 * "FallingBoxes"のシミュレーションは表示されるけど、"SampleRobot_inHouse.xml"をロードしてもロボットが表示されない場合、
 {{{
-$ roscd openhrp3; make eclipse-cleanup wipe; make
+$ roscd openhrp3; make eclipse-cleanup wipe; rosmake hrpsys
 }}}
