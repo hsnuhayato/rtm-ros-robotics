@@ -26,7 +26,7 @@ class TestVelocit2DRecv(OpenRTM_aist.DataFlowComponentBase):
 
   def onInitialize(self):
     vel = RTC.Velocity2D(0, 0, 0)
-    self.RecvVel = Idltest.TimedIdmsg(RTC.Time(0,0), vel)
+    self.RecvVel = RTC.TimedVelocity2D(RTC.Time(0,0), vel)
     self._inport = OpenRTM_aist.InPort("RcvVel", self.RecvVel)
     # Set InPort
     self.addInPort("RcvVel", self._inport)
