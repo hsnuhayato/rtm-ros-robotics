@@ -6,6 +6,8 @@
   * [RTM_2DSimulator_Example 2次元移動シミュレータのGUI操作]
   * [RTM_HelloWorldSample ハローワールド]
   * [RTM_Example_ImageProcessing 画像処理]
+  * [RTM_Example_Communication 拡張型・独自型での通信]
+  * [rtmeus_roseus_Example rtmeus/roseus相互接続]
  * *OpenRAVE*
  * [OpenRAVE_Example OpenRAVE紹介]
  * *ROS*
