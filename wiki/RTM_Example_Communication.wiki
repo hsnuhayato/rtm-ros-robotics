@@ -8,3 +8,56 @@
 == 準備 ==
 
 サンプルのチェックアウト
+
+{{{
+ $ svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/
+}}}
+
+== 拡張型での通信 ==
+
+OpenRTM-aistでは，データポート間のデータの型として，TimedShort, TimedLong, TimedFloat, TimedDoubleなどの単一の値を表す型とTimedShortSeq, TimedLongSeq, TimedFloatSeq, TimedDoubleSeqなど，それらのシーケンス型が基本型として定義されている．
+
+これらは，/usr/include/rtm/idl/BasicDataType.idl（或いは，/usr/local/include/rtm/idl/BasicDataType.idl）に定義されており，コンポーネントの中で自由に利用出来る．
+
+この基本型に加えて，拡張型と呼ばれるものが存在する．それらは，
+/usr/include/rtm/idl/ExtendedDataTypes.idlおよび/usr/include/rtm/idl/InterfaceDataTypes.idlとして定義されており，自由に使うことができる．
+
+=== C++での利用法 ===
+
+ヘッダファイルに
+{{{
+#include <rtm/idl/InterfaceDataTypesSkel.h>
+}}}
+
+を記述すれば，後は他の基本型と同様に利用出来る．
+拡張型には，例えば，下記のようなものが定義されており，
+
+{{{
+    struct Velocity2D
+    {
+        /// Velocity along the x axis in metres per second.                                                                                                                      
+        double vx;
+        /// Velocity along the y axis in metres per second.                                                                                                                      
+        double vy;
+        /// Yaw velocity in radians per second.                                                                                                                                  
+        double va;
+    };
+
+   struct TimedVelocity2D
+    {
+        Time tm;
+        Velocity2D data;
+    };
+}}}
+
+これを用いたインポート/アウトポートの定義は，
+{{{
+  TimedVelocity2D m_out;
+  OutPort<TimedVelocity2D> m_outOut;
+}}}
+
+のように他の型と同様に行うことができる．
+
+=== Pythonでの利用法 ===
+
+Pythonの場合，更に簡便であり，基本型と同様に'import RTC'さえしてあれば，利用できる．
