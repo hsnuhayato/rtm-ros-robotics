@@ -106,10 +106,10 @@ http://download.eclipse.org/tools/gef/updates/releases/
 を追加し、GEF SDK 3.6.2をS選択しインストール．
 
  Help -> Install New Softare -> Add -> Archive
-で，<openhrp3>/build/rtmtools_eclipse.zip
+で，`<openhrp3>/build/rtmtools_eclipse.zip`
 を選択しインストール．
 
-<openhrp3>は`rospack find openhrp3`で表示されるディレクトリであり，例えば
+`<openhrp3>`は`rospack find openhrp3`で表示されるディレクトリであり，例えば
 `~/prog/rtm-ros-robotics/rtmros_common/openhrp3`になる．
 
 ここまででRT System Editorが入る
@@ -146,7 +146,7 @@ roslaunch openrtm Seq_Example.launch
 
 (10.04/10.10ユーザ共通)
 Help -> Install New Softare -> Add -> Archive
-で、<openhrp3>/build/java3declipse-20090302.zip, <openhrp3>/build/grxui_eclipse.zip, <hrpsys>/build/robothardware_eclipse.zip
+で、`<openhrp3>/build/java3declipse-20090302.zip`, `<openhrp3>/build/grxui_eclipse.zip`, `<hrpsys>/build/robothardware_eclipse.zip`
 をそれぞれインストール
 
 {{{
