@@ -2,7 +2,14 @@
 
 <wiki:toc max_depth="2" />
 
-= まとめ =
+= 概要 =
+
+これまでの演習に参加していない人はリポジトリのインストール
+{{{
+$ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+}}}
+
+
 {{{
 roscd openhrp3; make eclipse-cleanup wipe; rosmake hrpsys
 }}}
@@ -14,11 +21,6 @@ roscd openhrp3; make eclipse-cleanup wipe; rosmake hrpsys
 `<openhrp3>/build/grxui_eclipse.zip`, 
 `<hrpsys>/build/robothardware_eclipse.zip`
 をEclipseにインストールする．
-
-* これまでの演習に参加していない人はリポジトリのインストールをしてください
-{{{
-$ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
-}}}
 
 * 環境の確認
 ** 自分のつかっているUbuntuのバージョンを調べて下さい．
