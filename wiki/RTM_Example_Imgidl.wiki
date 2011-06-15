@@ -13,3 +13,5 @@ agentsystem_rtm_tutorials/Imgidl_sample
 agentsystem_rtm_tutorials以下でsvn upする．
 
 == Img.idl の概要 ==
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/Imgidl_image.png]
