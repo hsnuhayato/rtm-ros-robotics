@@ -22,3 +22,7 @@ agentsystem_rtm_tutorials以下でsvn upする．
 
 
 == サービスポートのインタフェース ==
+
+== サンプル ==
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/Imgidl_sample_image.png]
