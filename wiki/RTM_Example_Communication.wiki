@@ -85,5 +85,5 @@ $ python ./TestVelocity2DRecv.py
 一方，ユーザが自由に定義した型で通信を行うことも可能である．自分で用意したidlを用いて通信することができる．
 
 構造体など自由に定義して良いが，下記の2点に気をつける必要がある．
-* #include <BasicDataType.idl> を必ず含める
-* RTC::Time tmを含むTimedxxxというデータ型を作る
+ * #include <BasicDataType.idl> を必ず含める
+ * RTC::Time tmを含むTimedxxxというデータ型を作る
