@@ -87,3 +87,24 @@ $ python ./TestVelocity2DRecv.py
 構造体など自由に定義して良いが，下記の2点に気をつける必要がある．
  * #include <BasicDataType.idl> を必ず含める
  * RTC::Time tmを含むTimedxxxというデータ型を作る
+
+C++の場合，RTCBuilderで生成される雛形を修正するのが楽で良い．具体的には，Makefile中のSKEL_OBJにオブジェクトファイルを指定する．
+
+idltest.idlを読み込ませる場合，
+
+　　SKEL_OBJ = idltestSkel.o
+
+のように修正前は空だった変数にidltestSkel.oをセットすると，それがOBJSにセットされ，makeのターゲットである実行ファイル及び共有ライブラリにそのままリンクされる．
+
+ただし，idltest.idlからidltestSkel.cppとidltestSkel.hを生成する必要があるので，そのための記述を加える．
+
+idltestSkel.cpp : idltest.idl
+        $(IDLC) $(IDLFLAGS) $<
+        $(WRAPPER) $(WRAPPER_FLAGS) --idl-file=$<
+
+idltestSkel.o: idltestSkel.cpp
+        $(CXX) $(CXXFLAGS) -c -o $@ $<
+
+としておけば，最初のIDLC（実体はomniidl)を呼ぶところで idltestSkel.cpp, idltestSkel.h, idltestStub.cpp, idltestStub.hが生成され，オブジェクトファイルを作ることができるようになる．
+
+勿論，同じ通信型を使い回す場合には，共有ライブラリを作ってやり，それを各々のコンポーネント実行ファイル等にリンクするのでも良い．
