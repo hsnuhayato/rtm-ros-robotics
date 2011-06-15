@@ -7,6 +7,7 @@
   * [RTM_HelloWorldSample ハローワールド]
   * [RTM_Example_ImageProcessing 画像処理]
   * [RTM_Example_Communication 拡張型・独自型での通信]
+  * [RTM_Example_Imgidl マルチキャプチャ環境を想定したカメラIFでの通信]
   * [rtmeus_roseus_Example rtmeus/roseus相互接続]
  * *OpenRAVE*
  * [OpenRAVE_Example OpenRAVE紹介]
