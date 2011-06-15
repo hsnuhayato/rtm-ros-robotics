@@ -6,4 +6,10 @@
 
 == 準備 ==
 
-agentsystem_rtm_tutorials/Img
+agentsystem_rtm_tutorials/Imgidl_sample
+
+がなければ，
+
+agentsystem_rtm_tutorials以下でsvn upする．
+
+== Img.idl の概要 ==
