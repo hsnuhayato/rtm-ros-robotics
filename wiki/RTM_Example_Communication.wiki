@@ -10,7 +10,7 @@
 サンプルのチェックアウト
 
 {{{
- $ svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/agentssytem_rtm_tutorials
+ $ svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_rtm_tutorials
 }}}
 
 == 拡張型での通信 ==
