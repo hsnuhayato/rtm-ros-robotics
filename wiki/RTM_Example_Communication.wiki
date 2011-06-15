@@ -108,3 +108,28 @@ idltestSkel.o: idltestSkel.cpp
 としておけば，最初のIDLC（実体はomniidl)を呼ぶところで idltestSkel.cpp, idltestSkel.h, idltestStub.cpp, idltestStub.hが生成され，オブジェクトファイルを作ることができるようになる．
 
 勿論，同じ通信型を使い回す場合には，共有ライブラリを作ってやり，それを各々のコンポーネント実行ファイル等にリンクするのでも良い．
+
+一方，Pythonの場合にも，omniidlを使ってPython用のコードを生成して利用するのは同じである．ただし，Python用のコードを生成するには，
+
+{{{
+$ omniidl -bpython -I/usr/include/rtm/idl  ./xxx.idl 
+}}}
+としなければいけないので注意すること．-Iをしているのは，独自idl定義の中にBasicDataType.idlをincludeしているので，それがある場所を-Iで指定することが必要があるため．
+
+例えば，idltest.idlを上記の方法でコンパイルするとidltest_idl.pyとIdltest/, Idltest__POA/というフォルダが生成される．ここで生成された二つのフォルダは中に__init__.pyを含むフォルダなので，各々importすることができる．データ通信のみの場合は，import Idltestのみ行えば良い．サービスポートも利用する場合にはimport Idltest__POAも必要になる．
+
+上記importさえすませば，後は，oninitialize()にて
+{{{
+idmsg = Idltest.Idmsg(0, "None")                                                                                 
+self.RecvMsg = Idltest.TimedIdmsg(RTC.Time(0,0), idmsg)
+}}}
+のように参照して使うことができるようになる．ただし，Pythonの場合，きちんと対応したクラスのインスタンスを作って初期値を渡してやる必要がある．どういう初期値を与えるかは，idltest_idl.pyの中の対応する各クラス定義を参照する．
+
+
+
+
+=== サンプル ===
+
+agentsystem_rtm_tutorials/UniqueIdlTest/以下のTestSendがC++の送信側サンプル，TestRecvがC++の受信側サンプル，TestRecvPyがPython受信サンプルになっている．
+
+C++サンプルは各々のフォルダでmakeした後，ターミナルで，それぞれ起動し，RTSystemEditorで接続，アクティベートすることで独自型のメッセージの送受信がうまくいっている様子が確認できる．受信側をPython版に変えても同じ結果が出るはずである．
