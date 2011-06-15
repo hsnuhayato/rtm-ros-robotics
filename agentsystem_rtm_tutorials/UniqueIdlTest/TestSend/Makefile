@@ -65,11 +65,7 @@ idltestSkel.cpp : idltest.idl
 	$(IDLC) $(IDLFLAGS) $<
 	$(WRAPPER) $(WRAPPER_FLAGS) --idl-file=$<
 
-idltestSkel.h : idltest.idl
-	$(IDLC) $(IDLFLAGS) $<
-	$(WRAPPER) $(WRAPPER_FLAGS) --idl-file=$<
-
-idltestSkel.o: idltestSkel.cpp idltestSkel.h idltestStub.h
+idltestSkel.o: idltestSkel.cpp 
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 # end of Makefile
