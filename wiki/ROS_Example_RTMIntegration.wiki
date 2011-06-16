@@ -200,7 +200,7 @@ roslaunch hrpsys pa10.launch
 
 あるいは，
 {{{
-roslaunch hrpsys hpr4c.launch
+roslaunch hrpsys hrp4c.launch
 }}}
 として，左上の→が描いてあるシミュレーション開始ボタンを押し，
 中心にあるExecute scriptボタンをおしてロボットが歩けば成功です．
