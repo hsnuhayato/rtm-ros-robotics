@@ -22,7 +22,7 @@ rosrun rviz rviz -d `rospack find hrpsys_ros_bridge`/launch/samplerobot.vcg
 euslisp クライアント
 {{{
 roscd hrpsys/scripts/SampleRobot
-rosrun roseus roseus pickup.l
+rosrun roseus roseus pickbox.l
 }}}
 
 == HRP4C シミュレーション ==
