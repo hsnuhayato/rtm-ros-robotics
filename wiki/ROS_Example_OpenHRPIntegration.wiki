@@ -31,5 +31,5 @@ rosrun roseus roseus pickup.l
 roslaunch hrpsys hrp4c.launch
 # シミュレーション開始ボタンをおす
 roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
-rosrun rviz rviz -d `hrpsys_ros_bridge`/launch/hrp4c.vcg
+rosrun rviz rviz -d `rospack find hrpsys_ros_bridge`/launch/hrp4c.vcg
 }}}
