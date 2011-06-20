@@ -1,0 +1,35 @@
+#summary OpenHRP integration
+
+= インストールとコンパイル =
+
+{{{
+roscd rtmros_common; svn up
+roscd hrpsys; make wipe;
+roscd openhrp3; rm build/grxui_eclipse.zip
+rosmake hrpsys_ros_bridge
+}}}
+
+
+
+== サンプルロボットシミュレーション ==
+{{{
+roslaunch hrpsys samplerobot.launch
+シミュレーション開始ボタンをおす．
+roslaunch hrpsys_ros_bridge samplerobot_ros_bridge.launch
+rosrun rviz rviz -d `rospack find hrpsys_ros_bridge`/launch/samplerobot.vcg
+}}}
+
+euslisp クライアント
+{{{
+roscd hrpsys/scripts/SampleRobot
+rosrun roseus roseus pickup.l
+}}}
+
+== HRP4C シミュレーション ==
+
+{{{
+roslaunch hrpsys hrp4c.launch
+シミュレーション開始ボタンをおす
+roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
+rosrun rviz rviz -d `hrpsys_ros_bridge`/launch/hrp4c.vcg
+}}}
