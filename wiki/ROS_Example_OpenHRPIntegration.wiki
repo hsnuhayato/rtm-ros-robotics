@@ -14,7 +14,7 @@ rosmake hrpsys_ros_bridge
 == サンプルロボットシミュレーション ==
 {{{
 roslaunch hrpsys samplerobot.launch
-シミュレーション開始ボタンをおす．
+# シミュレーション開始ボタンをおす．
 roslaunch hrpsys_ros_bridge samplerobot_ros_bridge.launch
 rosrun rviz rviz -d `rospack find hrpsys_ros_bridge`/launch/samplerobot.vcg
 }}}
@@ -29,7 +29,7 @@ rosrun roseus roseus pickup.l
 
 {{{
 roslaunch hrpsys hrp4c.launch
-シミュレーション開始ボタンをおす
+# シミュレーション開始ボタンをおす
 roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
 rosrun rviz rviz -d `hrpsys_ros_bridge`/launch/hrp4c.vcg
 }}}
