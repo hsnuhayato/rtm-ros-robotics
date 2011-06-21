@@ -110,10 +110,10 @@ typedef double Mat44[4][4];
 T= {r11 r12 r13 t0
     r21 r22 r23 t1
     r31 r32 r33 t2
-    0   0    0   1}
+     0   0   0   1}
 
-r11-r13 :  姿勢変換行列
-t0-t2   :  位置ベクトル
+r11 - r13 :  姿勢変換行列
+ t0 - t2  :  位置ベクトル
 }}}
 
 でカメラから見た世界座標系の姿勢，位置を直に指定する．
@@ -157,5 +157,15 @@ oneway void stop_continuous(); // 連続撮影停止
 マルチカメラの場合には，それぞれの指示のタイミングで全てのカメラで同期した画像データが出力される．
 
 == サンプル ==
+
+準備作業がうまくいっていれば，agentsystem_rtm_tutorials/Imgidl_sample以下にUsbCameraCaptureImgidl, UsbCameraMonitorImgidl, OpticalFlowImgidlの3つが見えているはずである．
+
+全てのサンプルモジュールはpythonで記述されており，各フォルダにてmakeと打てば，omniidlを呼び出し，Img.idlをpythonでimport可能な形にコンパイルしてくれる．
+
+その状態で，ターミナルを3つ開き，各々のフォルダにて，UsbCameraCapture.py，UsbCameraMonitor.py，OpticalFlow.pyを起動する．そして，RTSystemEditorで，
+UsbCameraCaptureからUsbCameraMonitorとOpticalFlowの2つへデータポートにて接続する．
+また，キャプチャの指示を今回はOpticalFlowから行うこととして，OpticalFlowのサービスポートとUsbCameraCaptureのサービスポートを接続する．
+
+この状態で全体をactivateする．しかし，このままでは，キャプチャは行われない．RTSystemEditor上でOpticalFlow0を選択すると，System Diagramの下にあるConfiguration viewにtrack_frame_flagというconfiguration変数が見える．これの値を0から1に変更して，右のApplyボタンを押す．うまくいけば，下の図のように生画像とオプティカルフロー生成画像の両方が見えるはずである．
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/Imgidl_sample_image.png]
