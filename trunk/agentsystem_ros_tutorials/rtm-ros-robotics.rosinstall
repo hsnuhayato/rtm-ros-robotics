@@ -65,3 +65,6 @@
 - svn:
     uri: https://code.ros.org/svn/ros-pkg/stacks/visualization/tags/diamondback/
     local-name: visualization
+- svn:
+    uri: https://code.ros.org/svn/ros-pkg/stacks/joystick_drivers/trunk/wiimote
+    local-name: wiimote
