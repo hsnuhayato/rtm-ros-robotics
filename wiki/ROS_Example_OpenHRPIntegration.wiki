@@ -30,6 +30,7 @@ rosrun roseus roseus pickbox.l
 {{{
 roslaunch hrpsys hrp4c.launch
 # シミュレーション開始ボタンをおす
+# Execute script file ボタンをおす
 roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
 rosrun rviz rviz -d `rospack find hrpsys_ros_bridge`/launch/hrp4c.vcg
 }}}
