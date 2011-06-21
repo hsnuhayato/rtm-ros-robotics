@@ -1,6 +1,11 @@
-#summary サンプル
+#summary rtmeus/roseus相互接続
 
 == 概要 ==
 
+RTMとROSを接続する方法として，ロボット用Lisp開発環境であるEusLispを介して行う方法がある．RTM, ROSそれぞれへのインタフェースであるrtmeusとroseusを接続するサンプルについて解説する．
 
 == 準備 ==
+
+== rtmeus:EusLispからのRTMインタフェース ==
+
+== サンプル ==
