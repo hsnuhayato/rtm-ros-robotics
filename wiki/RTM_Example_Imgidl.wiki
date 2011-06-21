@@ -83,22 +83,38 @@ struct CameraIntrinsicParameter
 
 matrix_elementは，以下の内部パラメータ行列の要素である．
 
-A= a11 a12 a13
+{{{
+A= {a11 a12 a13
     0  a22 a23
-    0   0    1
+    0   0    1}
 
 a11 = matrix_element[0]
 a12 = matrix_element[1]
 a22 = matrix_element[2]
 a13 = matrix_element[3]
 a23 = matrix_element[4]
+}}}
 
 また， distortion_coefficientは，OpenCVの歪パラメータと同じで，(k1,k2,p1,p2[,k3])を値として持つdouble型のシーケンスである．
 
-distorsion_coefficientはOpenCVのものと同じ(k1,k2,p1,p2[,k3])
+一方，外部パラメータを表す，extrinsicは，Mat44型で定義されているが，この型は，
 
+{{{
 typedef double Mat44[4][4];
+}}}
 
+という定義になっている．この行列は4x4の同次変換行列になっており，
+{{{
+T= {r11 r12 r13 t0
+    r21 r22 r23 t1
+    r31 r32 r33 t2
+    0   0    0   1}
+
+r11-r13 :  姿勢変換行列
+t0-t2   :  位置ベクトル
+}}}
+
+でカメラから見た世界座標系の姿勢，位置を直に指定する．
 
 == サービスポートのインタフェース ==
 
