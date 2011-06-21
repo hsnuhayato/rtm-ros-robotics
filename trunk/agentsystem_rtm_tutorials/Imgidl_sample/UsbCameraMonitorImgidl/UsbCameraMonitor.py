@@ -108,7 +108,6 @@ class UsbCameraMonitor(OpenRTM_aist.DataFlowComponentBase):
     if self._inport.isNew():
       tmcameraimg = self._inport.read()
       cameraimg = tmcameraimg.data 
-      print 'hoge0'
       # copy TimedCameraImage data from Data Port
       width = cameraimg.image.width
       height = cameraimg.image.height
