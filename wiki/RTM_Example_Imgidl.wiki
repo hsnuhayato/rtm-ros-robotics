@@ -49,11 +49,11 @@ struct CameraImage
 };
 }}}
 
-となっている．
+となっている．上から順にキャプチャ時のタイムスタンプ，画像生データ，カメラ内部パラメータ構造体，カメラ外部パラメータを意味している．
+
+画像生データを表すImageData型は以下のような定義になっている．
 
 {{{
-typedef double Mat44[4][4];
-
 enum ColorFormat
 {
   CF_UNKNOWN, CF_GRAY, CF_RGB
@@ -67,6 +67,12 @@ struct ImageData
   ColorFormat format;
   sequence<octet> raw_data;
 };
+}}}
+
+
+
+{{{
+typedef double Mat44[4][4];
 
 struct CameraIntrinsicParameter
 {
