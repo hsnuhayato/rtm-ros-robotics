@@ -11,6 +11,8 @@ agentsystem_rtm_tutorials/Imgidl_sample
 がなければ，
 
 agentsystem_rtm_tutorials以下でsvn upする．
+Imgidl_sample以下には3つのフォルダがあり，それぞれが独立なサンプルに
+なっている．下記で利用するImg.idlも各々のフォルダに入っている．
 
 == Img.idl の概要 ==
 
@@ -20,6 +22,59 @@ agentsystem_rtm_tutorials以下でsvn upする．
 
 == データ通信型 ==
 
+データの通信型として，単眼カメラ用のTimedCameraImageと複数カメラ用のTimedMultiCameraImageの2種類がImg.idlに定義されている．Img.idlから関係する場所を
+抜き出して解説する．
+
+まず，単眼カメラ用のTimedCameraImageについては，
+
+{{{
+struct TimedCameraImage
+{
+  RTC::Time tm;
+  CameraImage data;
+  long error_code;
+};
+}}}
+
+と定義されており，上からタイムスタンプ，キャリブレーションデータを含む画像データ構造体，エラーコードを意味する．
+
+ここで，重要なのは，CameraImageで，これの定義は，
+{{{
+struct CameraImage
+{
+  RTC::Time captured_time;
+  ImageData image;
+  CameraIntrinsicParameter intrinsic;
+  Mat44 extrinsic;
+};
+}}}
+
+となっている．
+
+{{{
+typedef double Mat44[4][4];
+
+enum ColorFormat
+{
+  CF_UNKNOWN, CF_GRAY, CF_RGB
+};
+
+struct ImageData
+{
+  long width;
+  long height;
+
+  ColorFormat format;
+  sequence<octet> raw_data;
+};
+
+struct CameraIntrinsicParameter
+{
+  double matrix_element[5];
+  sequence<double> distortion_coefficient;
+};
+
+}}}
 
 == サービスポートのインタフェース ==
 
