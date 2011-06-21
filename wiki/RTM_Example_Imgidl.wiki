@@ -25,6 +25,8 @@ Imgidl_sample以下には3つのフォルダがあり，それぞれが独立な
 データの通信型として，単眼カメラ用のTimedCameraImageと複数カメラ用のTimedMultiCameraImageの2種類がImg.idlに定義されている．Img.idlから関係する場所を
 抜き出して解説する．
 
+=== TimedCameraImage ===
+
 まず，単眼カメラ用のTimedCameraImageについては，
 
 {{{
@@ -116,7 +118,43 @@ t0-t2   :  位置ベクトル
 
 でカメラから見た世界座標系の姿勢，位置を直に指定する．
 
+=== TimedMultiCameraImage ===
+
+一方，マルチカメラ用のデータ型であるTimedMultiCameraImageは以下のように定義されている．
+
+{{{
+struct TimedMultiCameraImage
+{
+  RTC::Time tm;
+  MultiCameraImage data;
+  long error_code;
+};
+}}}
+
+単眼の時と違うのは，画像データ構造体の型がMultiCameraImageになっていることである．この型は以下のように定義されている．
+
+{{{
+struct MultiCameraImage
+{
+  sequence<CameraImage> image_seq;
+  long camera_set_id;
+};
+}}}
+
+これは，上で説明したキャリブレーションデータを含む画像データ型であるCameraImageのシーケンスとして各カメラごとのデータを保持し，それと同時にそのカメラセットに外から参照できる形のidを付与する構成となっている．
+
 == サービスポートのインタフェース ==
+
+一方，このidlを用いた構成では，サービスポートを通じて，カメラキャプチャモジュールにキャプチャ指示が行われることになる．このインタフェースはCameraCaptureServiceという名前でidlに下記の4つの関数が定義されている．Img.idlに対応したカメラキャプチャモジュールでは，これらのインタフェースを実装しておく必要がある．
+
+{{{
+oneway void take_one_frame() // 1枚撮影
+oneway void take_multi_frames(in long num) // num枚撮影
+oneway void start_continuous(); // 連続撮影開始
+oneway void stop_continuous(); // 連続撮影停止
+}}}
+
+マルチカメラの場合には，それぞれの指示のタイミングで全てのカメラで同期した画像データが出力される．
 
 == サンプル ==
 
