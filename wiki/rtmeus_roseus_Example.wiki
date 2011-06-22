@@ -123,3 +123,5 @@ $ rosrun eusilsp irteusgl test-create.l
 ;;activate all components                                                                                           
 (send *rtm* :all-activate)
 }}}
+
+カメラキャプチャを行うUsbCameraAcquire, イメージの表示を行うUsbCameraMonitor, イメージの左右逆転を行うFlipの３つのコンポーネントを.so読み込んで，作成し，それらを接続して，最後にactivateしている例である．pluginモードというのは，一つのコンポーネントをマスター，残りをスレーブとして，マスターの動作に残りのコンポーネントを同期させるための仕組みである．
