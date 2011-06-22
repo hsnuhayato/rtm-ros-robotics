@@ -6,6 +6,33 @@ RTMとROSを接続する方法として，ロボット用Lisp開発環境であ�
 
 == 準備 ==
 
+=== rtmeusのインストール ===
+
+http://code.google.com/p/rtmeus/ に公開されているので，それをインストールする．
+
+{{{
+$ cd ~/prog/
+$ svn checkout http://rtmeus.googlecode.com/svn/trunk/ rtmeus
+}}}
+で~prog/rtmeusがチェックアウトされる．細かい情報はrtmeus/README_ja.jp.txtに書いてあるが，必要な作業を抜粋して以下に書く．
+
+まずは必要なライブラリをインストールする．
+{{{
+$ sudo apt-get install gcc g++ git-core libboost-all-dev
+$ sudo apt-get install libcv4 libhighgui4 libcvaux4 libcv-dev libcvaux-dev li\
+bhighgui-dev
+}}}
+
+次に，EusLispがインストールされていない環境では，http://sourceforge.net/apps/mediawiki/jskeus/
+を参照してインストールする．この講義用にROSをインストールした環境では，EusLispは既にインストールされている．
+
+{{{
+$ roseus euslisp irteusgl
+}}}
+
+が正しく実行されれば良い．
+
+
 == rtmeus:EusLispからのRTMインタフェース ==
 
 == サンプル ==
