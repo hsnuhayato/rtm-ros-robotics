@@ -19,6 +19,8 @@ roslaunch hrpsys_ros_bridge samplerobot_ros_bridge.launch
 rosrun rviz rviz -d `rospack find hrpsys_ros_bridge`/launch/samplerobot.vcg
 }}}
 
+[http://www.ros.org/wiki/pr2_controllers/Tutorials/Moving%20the%20arm%20using%20the%20Joint%20Trajectory%20Action JointTrajectoryAction]を使ってロボットの関節を動かせるようになっている．
+
 euslisp クライアント
 {{{
 roscd hrpsys/scripts/SampleRobot
