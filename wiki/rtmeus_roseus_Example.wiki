@@ -19,8 +19,7 @@ $ svn checkout http://rtmeus.googlecode.com/svn/trunk/ rtmeus
 まずは必要なライブラリをインストールする．
 {{{
 $ sudo apt-get install gcc g++ git-core libboost-all-dev
-$ sudo apt-get install libcv4 libhighgui4 libcvaux4 libcv-dev libcvaux-dev li\
-bhighgui-dev
+$ sudo apt-get install libcv4 libhighgui4 libcvaux4 libcv-dev libcvaux-dev libhighgui-dev
 }}}
 
 次に，EusLispがインストールされていない環境では，http://sourceforge.net/apps/mediawiki/jskeus/
@@ -32,6 +31,33 @@ $ roseus euslisp irteusgl
 
 が正しく実行されれば良い．
 
+次に，rtmeusは，
+  *OpenRTM-aist-1.0.0-Relase C++版
+  *rtcshell
+  *rtctree
+  *RTMExt
+  *OpenRTM-aist-1.0.0-Relase Python版
+
+に依存するが，rtmeus/tools/setup-official_all.shを用いれば，これらが全てインストールされる．OpenRTM-aist-1.0.0-Relase C++版が既にインストールされた環境では，
+
+{{{
+$ cd ~/prog/rtmeus/tools/
+$ ./setup-official_all.sh --no-rtm-install
+}}}
+
+とすれば良い．このスクリプトを実行すると，$HOME以下に.bashrc.rtmが生成されるので，.bashrcの中に
+
+{{{
+source .bashrc.rtm
+}}}
+
+の１行を追加する．そして，これを追加した後に，以下のようにコンパイルする．
+
+{{{
+$ source ~/.bashrc
+$ cd ~/prog/rtmeus/src/common
+$ make
+}}}
 
 == rtmeus:EusLispからのRTMインタフェース ==
 
