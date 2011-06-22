@@ -6,6 +6,22 @@ RTMとROSを接続する方法として，ロボット用Lisp開発環境であ�
 
 == 準備 ==
 
+=== 接続用サンプルの準備 ===
+
+agentsystem_rtm_tutorials/rtmros_eusapp
+
+がなければ，
+
+agentsystem_rtm_tutorials以下でsvn upする．
+
+そして，~/.bashrcの中で，ROS_PACKAGE_PATHにrtmros_eusappのある場所を追加する．
+
+例えば，以下のように.bashrcに
+{{{
+export ROS_PACKAGE_PATH=~/prog/rtm-ros-robotics/agentsystem_rtm_tutorials/rtmros_eusapp:$ROS_PACKAGE_PATH
+}}}
+の１行を追加すれば良い．
+
 === rtmeusのインストール ===
 
 http://code.google.com/p/rtmeus/ に公開されているので，それをインストールする．
@@ -71,7 +87,7 @@ rtmeusは，EusLispからrtmシステムを制御するためのインタフェ�
 
 がある．
 
-== サンプル ==
+=== rtmeusサンプル ===
 
 rtmeus/example以下にサンプルがある．まずは，
 
@@ -125,3 +141,11 @@ $ rosrun eusilsp irteusgl test-create.l
 }}}
 
 カメラキャプチャを行うUsbCameraAcquire, イメージの表示を行うUsbCameraMonitor, イメージの左右逆転を行うFlipの３つのコンポーネントを.so読み込んで，作成し，それらを接続して，最後にactivateしている例である．pluginモードというのは，一つのコンポーネントをマスター，残りをスレーブとして，マスターの動作に残りのコンポーネントを同期させるための仕組みである．
+
+== rtmeus/roseus接続サンプル ==
+
+roscoreが起動している状態で
+
+{{{
+
+}}}
