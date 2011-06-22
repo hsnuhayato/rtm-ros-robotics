@@ -82,3 +82,44 @@ $ make
 
 をした後に，rtmeus/example/eus以下の.lファイルを試すと良い．
 ここでは，一つだけサンプルの使い方を紹介する．
+
+{{{
+$ cd rtmeus/example/eus
+$ irteusgl test-create.l
+}}}
+
+ros経由でEusLispがインストールされている場合には，
+
+{{{
+$ cd rtmeus/example/eus
+$ rosrun eusilsp irteusgl test-create.l
+}}}
+
+とすれば良い．二つのウィンドウが出て，それらは左右逆転した画像が表示されるはずである．ここで，実行しているコードは，以下の物である．
+
+{{{
+(require :rtmeus (format nil "~A/eus/common/rtmeus.l" (unix:getenv 'RTMEUSDIR)))
+;;                                                                                                                  
+(setq *rtm* (instance RTMeus :init "localhost"))
+;;load module                                                                                                       
+(send *rtm* :load-module (format nil "~A/RTMEus/~A/lib/UsbCameraAcquire.so" (unix:getenv 'RTMEUSDIR) (unix:getenv "ARCHDIR")) "UsbCameraAcquireInit")
+(send *rtm* :load-module (format nil "~A/RTMEus/~A/lib/UsbCameraMonitor.so" (unix:getenv 'RTMEUSDIR) (unix:getenv "ARCHDIR")) "UsbCameraMonitorInit")
+(send *rtm* :load-module (format nil "~A/RTMEus/~A/lib/Flip.so" (unix:getenv 'RTMEUSDIR) (unix:getenv "ARCHDIR")) "FlipInit")
+;;create component                                                                                                  
+(setq acq (send *rtm* :create-component "UsbCameraAcquire" "UsbCameraAcquire0" :execrate 30 :with-outstate nil))
+(setq flip (send *rtm* :create-component "Flip" "Flip0" :execrate 30 :with-outstate nil))
+(setq mon0 (send *rtm* :create-component "UsbCameraMonitor" "UsbCameraMonitor0" :execrate 30 :with-outstate nil))
+(setq mon1 (send *rtm* :create-component "UsbCameraMonitor" "UsbCameraMonitor1" :execrate 30 :with-outstate nil))
+;;connect components                                                                                                
+(send *rtm* :connect-components acq "imageout" flip "originalImage")
+(send *rtm* :connect-components acq "imageout" mon0 "ImageData")
+(send *rtm* :connect-components flip "flippedImage" mon1 "ImageData")
+;;plugin-mode                                                                                                       
+(send *rtm* :set-master-comp acq)
+(send *rtm* :add-slave-comp flip)
+(send *rtm* :add-slave-comp mon0)
+(send *rtm* :add-slave-comp mon1)
+(send *rtm* :set-plugin-mode)
+;;activate all components                                                                                           
+(send *rtm* :all-activate)
+}}}
