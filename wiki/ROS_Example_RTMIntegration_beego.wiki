@@ -1,13 +1,16 @@
-#summary One-sentence summary of this page.
+#Use actual robot for RTM-ROS Integration
 
-= Introduction =
+<wiki:toc max_depth="2" />
 
-小型相互運用開発ロボットBeegoを用いたROS,RTM統合
+= 概要 =
+
+実際に小型相互運用開発ロボットBeegoを用いたROS,RTM統合
 
 
-= Details =
+= 環境の構築 =
+{{{
+roscd rtmros_common
+svn up
+}}}
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= 実験映像 =
