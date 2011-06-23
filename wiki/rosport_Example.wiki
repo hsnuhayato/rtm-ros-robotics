@@ -1,0 +1,45 @@
+#summary rosportを試す
+
+= 概要 =
+
+rosportとは，産総研のジェフさんが開発，公式ページで公開しているros/rtm相互運用のための仕組みである．
+
+RTM側のソースで通常のデータポート，サービスポートと同様の書き方で，ROS側へのtopicのpublish，ROS側からのtopicのsubscribeなどが行える．
+
+詳細は，
+http://www.openrtm.org/openrtm/ja/content/ros%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88rosport
+
+にあるが，現在公式ページで配布しているのはcturtle用なので，ここではdiamondback用のパッチを当てて試す方法を解説する．
+
+= 準備 =
+
+= 使い方 =
+
+例えば，ROS側にpublishしたい場合，ヘッダファイルの中で
+
+{{{
+#include <rtm/RosOutPort.h>
+RosOutPort<numbers::Num> _numOut;
+}}}
+
+のように定義して，cpp側は，
+{{{
+RTC::ReturnCode_t Publisher::onInitialize()
+{
+    addRosOutPort("number", _numOut);
+    return RTC::RTC_OK;
+}
+
+RTC::ReturnCode_t Publisher::onExecute(RTC::UniqueId ec_id)                     
+{                                                                               
+    _num.num += 1;                                                              
+    _numOut.write();                                                            
+    std::cout << "Wrote " << _num.num << std::endl;                             
+    return RTC::RTC_OK;                                                         
+}
+}}}
+
+　 
+というようにすれば，RTCからnumberというトピックをpublishすることができる．
+
+= サンプル =
