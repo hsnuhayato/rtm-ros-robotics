@@ -13,6 +13,20 @@ http://www.openrtm.org/openrtm/ja/content/ros%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B
 
 = 準備 =
 
+試すには，OpenRTM-aistのソースにパッチを当てて，コンパイルし直す必要がある．
+まず，バイナリでインストールしている場合には，アンインストールしておくこと．
+
+{{{
+$ sudo apt-get remove openrtm-aist openrtm-aist-dev openrtm-aist-example
+}}}
+
+次に，パッチとセットアップスクリプトがrtmeus/tools以下にあるので，予めrtmeusを
+チェックアウトしておくこと．方法はrtmeus/roseus相互接続のページに書いてある．
+
+{{{
+$ cd 
+}}}
+
 = 使い方 =
 
 例えば，ROS側にpublishしたい場合，ヘッダファイルの中で
@@ -43,3 +57,9 @@ RTC::ReturnCode_t Publisher::onExecute(RTC::UniqueId ec_id)
 というようにすれば，RTCからnumberというトピックをpublishすることができる．
 
 = サンプル =
+
+ジェフさんが作って公開しているサンプルが
+
+http://www.google.co.jp/gwt/x?source=m&u=http%3A%2F%2Fwww.openrtm.org/pub/OpenRTM-aist/cxx/1.0.0/examples.ros-1.0.0.tar.gz&wsi=7847c037bb64cc19&ei=hQIDTqYal8ewBu783PsE&wsc=bk
+
+にあるので，これを試すのが良い．
