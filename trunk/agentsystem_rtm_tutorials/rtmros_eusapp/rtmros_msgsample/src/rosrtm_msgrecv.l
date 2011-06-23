@@ -26,7 +26,7 @@
 (ros::subscribe "/chatter" std_msgs::string #'recv-cb)
 
 ;; main
-(do-until-key
+(while (ros::ok)
   (ros::spin-once)
   (ros::sleep)
   )
