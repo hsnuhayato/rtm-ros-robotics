@@ -153,3 +153,5 @@ $ roslaunch rtmros_msgsample rtmros_msgsample.launch
 とすれば，試すことができる．
 
 rtmros_eusapp/rtmros_msgsample/launch以下にこのlaunchファイルが，rtmros_eusapp/rtmros_msgsample/src以下に実際に実行している.lのファイルがある．実行している実体は，roseus_pubsample.lとrosrtm_msgrecv.lである．roseus_pubsample.lは，chatterというstd_msgs::stringのトピックを発行するノードである．一方，rosrtm_msgrecv.lでは，TimerTest0.rtcという文字列入力をもらって表示するサービスをもったコンポーネントを作成し，chatterトピックをsubscribeして読み込んだデータを，このTimerTest0.rtcのサービスポートに文字列をセットしている．
+
+rtmeusとroseusを接続したプログラムを行う際の，現状の制限事項として，rtc関係の初期化（コンポーネント作成，接続など）をros::で始まる関数群に先駆けて行う必要があるので，注意すること．
