@@ -42,7 +42,7 @@ $ sudo apt-get install libcv4 libhighgui4 libcvaux4 libcv-dev libcvaux-dev libhi
 を参照してインストールする．この講義用にROSをインストールした環境では，EusLispは既にインストールされている．
 
 {{{
-$ roseus euslisp irteusgl
+$ rosrun euslisp irteusgl
 }}}
 
 が正しく実行されれば良い．
