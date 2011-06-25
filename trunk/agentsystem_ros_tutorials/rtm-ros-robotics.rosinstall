@@ -51,12 +51,7 @@
     uri: https://ua-ros-pkg.googlecode.com/svn/trunk/arrg
     local-name: ua-ros-pkg
 ##
-## sound_play node
-- svn:
-    uri: https://code.ros.org/svn/ros-pkg/stacks/sound_drivers/trunk
-    local-name: sound_drivers
-##
-##
+## collada visualization
 ##
 - hg:
     uri: http://kforge.ros.org/robotmodel/robot_model/
@@ -65,6 +60,3 @@
 - svn:
     uri: https://code.ros.org/svn/ros-pkg/stacks/visualization/tags/diamondback/
     local-name: visualization
-- svn:
-    uri: https://code.ros.org/svn/ros-pkg/stacks/joystick_drivers/trunk/wiimote
-    local-name: wiimote
