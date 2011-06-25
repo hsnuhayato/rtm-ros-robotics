@@ -21,7 +21,7 @@ wget http://code.ros.org/packages/ros.key -O - | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install python-setuptools
 sudo easy_install -U rosinstall
-sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop
+sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop ros-diamondback-joystick-drivers
 }}}
 
 = ROS外部パッケージのインストール =
