@@ -75,6 +75,8 @@ $ cd ~/prog/rtmeus/src/common
 $ make
 }}}
 
+※以前にrtmeusを導入しており，再度インストールしたい場合は/usr/local/srcの中のOpenRTM，rtmtoolsをリネームすれば./setup-official_all.shを実行できる.
+
 == rtmeus:EusLispからのRTMインタフェース ==
 
 rtmeusは，EusLispからrtmシステムを制御するためのインタフェースソフトウェアであり，OpenRTM-aist-1.0.0-Release対応に対応している．rtmシステムとのインタフェースには，
@@ -108,7 +110,7 @@ ros経由でEusLispがインストールされている場合には，
 
 {{{
 $ cd rtmeus/example/eus
-$ rosrun eusilsp irteusgl test-create.l
+$ rosrun euslisp irteusgl test-create.l
 }}}
 
 とすれば良い．二つのウィンドウが出て，それらは左右逆転した画像が表示されるはずである．ここで，実行しているコードは，以下の物である．
