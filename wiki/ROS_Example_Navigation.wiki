@@ -40,7 +40,7 @@ roslaunch move_base_stage_tutorial robot.launch
 {{{
 rosrun rviz rviz -d `rospack find move_base_stage_tutorial`/config/rviz.vcg 
 }}}
-としてビューワを表示します．
+としてビューワを表示します．(エラーになる人はrosmake rvizを実行する)
 
 ここで左上の`2D Nav Goal`を押して地図上の任意の場所をクリックすると
 その場所まで移動します．
