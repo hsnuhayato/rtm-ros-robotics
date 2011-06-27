@@ -48,11 +48,11 @@ $ rosrun euslisp irteusgl
 が正しく実行されれば良い．
 
 次に，rtmeusは，
-  *OpenRTM-aist-1.0.0-Relase C++版
-  *rtcshell
-  *rtctree
-  *RTMExt
-  *OpenRTM-aist-1.0.0-Relase Python版
+  * OpenRTM-aist-1.0.0-Relase C++版
+  * rtcshell
+  * rtctree
+  * RTMExt
+  * OpenRTM-aist-1.0.0-Relase Python版
 
 に依存するが，rtmeus/tools/setup-official_all.shを用いれば，これらが全てインストールされる．OpenRTM-aist-1.0.0-Relase C++版が既にインストールされた環境では，
 
