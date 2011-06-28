@@ -11,6 +11,7 @@
 {{{
 roscd rtmros_common
 svn up
+apt-get install ros-diamondback-openni-ros
 }}}
 
 = 実験映像 =
