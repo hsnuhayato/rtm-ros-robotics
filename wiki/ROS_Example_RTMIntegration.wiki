@@ -17,7 +17,7 @@ $ svn up
 
 
 {{{
-roscd openhrp3; make eclipse-clean; make wipe; roscd hrpsys; make wipe; rosmake
+roscd openhrp3; make eclipse-clean; make wipe; roscd hrpsys; make wipe; rosmake --rosdep-install
 }}}
 として，
 {{{
