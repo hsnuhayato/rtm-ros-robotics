@@ -13,23 +13,32 @@ $ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotic
 $ roscd rtmros_common
 $ svn up
 }}}
-してください．
-
+してから、
 
 {{{
 roscd openhrp3; make eclipse-clean; make wipe; roscd hrpsys; make wipe; rosmake --rosdep-install
 }}}
-として，
+として、ソースツリーの更新とeclipseの環境の刷新をおこなってください。
+
+また、始めてeclipseを動かす人、上のコマンドで刷新した人、両方共以下の様にしてeclipse環境を整えてください。
 {{{
+rosmake hrpsys
 rosrun openhrp3 eclipse.sh
 }}}
 から，
+
 `http://download.eclipse.org/modeling/emf/updates/releases/(EMF SDK 2.5.0)`(10.04ユーザのみ), 
+
 `http://download.eclipse.org/tools/gef/updates/releases/`(GEF SDK 3.6.2),
+
 `<openhrp3>/build/rtmtools_eclipse.zip`, 
+
 `<openhrp3>/build/java3declipse-20090302.zip`, 
+
 `<openhrp3>/build/grxui_eclipse.zip`, 
+
 `<hrpsys>/build/robothardware_eclipse.zip`
+
 をEclipseにインストールする．
 
 
