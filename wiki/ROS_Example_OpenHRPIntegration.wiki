@@ -49,7 +49,7 @@ roscd hrpsys/scripts/Darwin
 roseus sample.l
 }}}
 
-{{{
+{{{ うまく行かない時は，
 roscd rtmros_common; svn up
 rosmake hrpsys_ros_bridge
 rosmake hrpsys
