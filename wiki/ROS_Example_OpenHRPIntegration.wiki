@@ -48,3 +48,11 @@ roslaunch hrpsys_ros_bridge darwin_ros_bridge.launch
 roscd hrpsys/scripts/Darwin
 roseus sample.l
 }}}
+
+{{{
+roscd rtmros_common; svn up
+rosmake hrpsys_ros_bridge
+rosmake hrpsys
+roscd hrpsys/scripts/Darwin; make
+などを行っておく．
+}}}
