@@ -36,3 +36,15 @@ roslaunch hrpsys hrp4c.launch
 roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
 rosrun rviz rviz -d `rospack find hrpsys_ros_bridge`/launch/hrp4c.vcg
 }}}
+
+
+== DARWIN シミュレーション ==
+
+{{{
+roslaunch hrpsys darwin.launch
+# シミュレーション開始ボタンをおす
+# Execute script file ボタンをおす
+roslaunch hrpsys_ros_bridge darwin_ros_bridge.launch
+roscd hrpsys/scripts/Darwin
+roseus sample.l
+}}}
