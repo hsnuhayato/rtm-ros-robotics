@@ -52,3 +52,4 @@ rtmlistenerは，pythonで書かれたRTコンポーネントで，roslistener_r
 
 上記のコマンドを実行した時点で，ros側は既につながっているが，rtmは接続されていないじょうきょうである．Eclipseを起動し，ポート間の接続を行い，コンポーネントのアクティベートを行うこと．
 
+[http://code.google.com/p/rtm-ros-robotics/wiki/python_rtmros_sample.png]
