@@ -6,5 +6,49 @@ pythonを利用すれば，比較的容易にrtmとrosを接続することが�
 
 = 準備 =
 
+サンプルのチェックアウト
+
+{{{
+ $ svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_rtm_tutorials
+}}}
+
+既にagentsystem_rtm_tutorialsがある場合は，
+
+{{{
+ $ cd agentsystem_rtm_tutorials
+ $ svn up
+}}}
 
 = サンプルの試し方 =
+
+上記の準備がうまくできていれば，agentsystem_rtm_tutorials/python_rtmrosというフォルダができているはずである．
+
+.bashrcに下記の1行を加えること．ただし，/pathto/は各自の状況に応じて置き換えること．
+{{{
+export ROS_PACKAGE_PATH=:/pathto/rtm-ros-robotics/agentsystem_rtm_tutorials/python_rtmros:$ROS_PACKAGE_PATH
+}}}
+
+
+次に，ターミナルを3つ開き，以下のコマンドを各々実行する．
+
+{{{
+ $ rosrun rtmros_msgpassing_python rostalker.py
+}}}
+
+rostalkerは，'chatter'というトピックにhellow world (現在時刻) というstringを書きだすrosnodeである．
+
+{{{
+ $ rosrun rtmros_msgpassing_python roslistener_rtmtalker.py
+}}}
+
+roslistener_rtmtalkerは，'chatter'トピックをsubscribeし，読み込んだデータをTimedString型のデータとしてrtmコンポーネントから書きだす．
+
+{{{
+ $ roscd rtmros_msgpassing_python/src
+ $ python  ./rtmlistner.py
+}}}
+
+rtmlistenerは，pythonで書かれたRTコンポーネントで，roslistener_rtmtalkerのOutPortからの出力をTimedString型のInportで受取り，それを標準出力に表示する．
+
+上記のコマンドを実行した時点で，ros側は既につながっているが，rtmは接続されていないじょうきょうである．Eclipseを起動し，ポート間の接続を行い，コンポーネントのアクティベートを行うこと．
+
