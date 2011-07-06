@@ -17,7 +17,7 @@ $ roscd iv_plan/externals;make
 $ rosmake iv_plan
 }}}
 必要に応じて rosmake --rosdep-install をする
-(vpythonが依存するlibgtkglextmm，パーサが使っているply当たりの
+(vpythonが依存するlibgtkglextmm，パーサが使っているplyあたりの
 debパッケージは入っていない可能性がある)．
 
 = デモ実行 =
@@ -55,4 +55,26 @@ $ roscd iv_scenario/src; ipython sample.py
 f = gen_goal_frm(y=-250)
 RTCサービス呼出し
 plsvc.ref.MoveArm(f,100,'right',False,False)
+}}}
+
+
+= 補足説明 =
+rにはロボット，envには環境，plにはプランナがbindされています．
+物体は名前で管理されています．
+{{{
+オブジェクト一覧
+env.get_objects()
+名前で取得
+b=env.get_object('box0')
+オブジェクトのフレームを取得（返り値はFRAME）
+b.where()
+オブジェクトの削除
+env.delete_object('box0')
+
+あとは，
+r.
+env.
+などでTABを押すとどんなメソッドがあるかわかり，
+help r.grasp
+などで関数（メソッド）のインタフェースがわかります．
 }}}
