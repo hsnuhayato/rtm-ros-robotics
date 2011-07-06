@@ -22,7 +22,8 @@ $ svn co agentsystem_hironx_samples
 $ export ROS_PACKAGE_PATH=<rtm-ros-robotics>/agentsystem_hironx_samples:$ROS_PACKAGE_PATH
 }}}
 <rtm-ros-robotics>はリポジトリをチェックアウトした場所.
-.bashrcに書いておくとよい. 
+.bashrcに書いておくとよい.
+rosinstallを利用している場合は，setup.bashでROS_PACKAGE_PATHに追加されるので明示的に追加する必要はない． 
 {{{
 $ roscd iv_plan/externals;make
 $ rosmake iv_plan
