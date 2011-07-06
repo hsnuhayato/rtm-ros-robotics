@@ -1,9 +1,20 @@
 # summary VPython環境の使い方
 
-= ダウンロード =
+= ダウンロード(以下のいずれか) =
+rtm-ros-roboticsリポジトリをsvn checkoutしている場合は，
 rtm-ros-roboticsディレクトリで，
 {{{
 $ svn up
+}}}
+
+rosinstallを使っている場合は，
+{{{
+$ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+}}}
+
+rosinstallを使っている場合にこのソースだけsvn coしたい場合は，
+{{{
+$ svn co agentsystem_hironx_samples
 }}}
 
 = 環境設定とコンパイル =
