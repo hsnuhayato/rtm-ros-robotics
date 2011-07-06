@@ -1,0 +1,9 @@
+<!-- -*- mode: XML -*- -->
+
+<launch>
+  <group ns="hiro">
+    <node pkg="JointStatePublisher" type="joint_state_publisher.py"
+	  name="joint_state_publisher" 
+	  args="-f $(find MotionPlan)/conf/rtc.conf"/>
+  </group>
+</launch>

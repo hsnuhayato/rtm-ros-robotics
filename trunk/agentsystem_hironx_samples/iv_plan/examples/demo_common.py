@@ -1,0 +1,252 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import time
+import random
+from utils import *
+from viewer import *
+import scene_objects
+from robot import *
+from mplan_env import *
+from csplan import *
+import hironx_motions
+
+real_robot = False
+if real_robot:
+    from real_hiro import *
+    import rospy
+    rr = RealHIRO()
+else:
+    rr = None
+
+env = MPlanEnv()
+env.load_scene(scene_objects.ac_scene())
+r = VHIRONX(pkgdir+'/externals/models/HIRO_110603/')
+env.insert_object(r, FRAME(), env.get_world())
+r.go_pos(-150, 0, 0)
+pl = CSPlanner(r, env)
+r.add_collision_object(env.get_object('table top'))
+
+def putbox(name='box0', vaxis='x'):
+    '''シミュレータ内で箱を机上に置く。位置はランダムに決定される。vaxis="y"で側面を上に向けて置く'''
+    x = random.uniform(-300,-50)
+    y = random.uniform(-200,200)
+    theta = random.uniform(0,2*pi)
+    env.delete_object(name)
+    bl,bh,bw=97,66,57
+    bx = visual.box(length=bl, height=bh, width=bw, color=(1,0,1))
+    obj = PartsObjectWithName(vbody=bx, name=name)
+    tbltop = env.get_object('table top') # テーブル上面
+    thickness = tbltop.vbody.size[2]
+    if vaxis == 'x':
+        relfrm = FRAME(xyzabc=[x,y,(thickness+bw)/2,0,0,theta])
+    elif vaxis == 'y':
+        relfrm = FRAME(xyzabc=[x,y,(thickness+bh)/2,pi/2,theta,0])
+    elif vaxis == 'z':
+        relfrm = FRAME(xyzabc=[x,y,(thickness+bh)/2,0,-pi/2,0])*FRAME(xyzabc=[0,0,0,theta,0,0])
+    else:
+        print 'vaxis is wrong'
+    return env.insert_object(obj, relfrm, tbltop)
+
+def sync(duration=4.0, joints='all', wait=True, waitkey=True):
+    '''synchronize the real robot with the model in "duration" [sec]'''
+    if rr:
+        js = r.get_joint_angles()
+        if joints == 'torso':
+            rr.send_goal([js[0:3],[],[],[],[]], duration, wait=wait)
+        elif joints == 'rarm':
+            rr.send_goal([[],js[3:9],[],[],[]], duration, wait=wait)
+        elif joints == 'larm':
+            rr.send_goal([[],[],js[9:15],[],[]], duration, wait=wait)
+        elif joints == 'rhand':
+            rr.send_goal([[],[],[],js[15:19],[]], duration, wait=wait)
+        elif joints == 'lhand':
+            rr.send_goal([[],[],[],[],js[19:23]], duration, wait=wait)
+        elif joints == 'torso_rarm':
+            rr.send_goal([js[0:3],js[3:9],[],[],[]], duration, wait=wait)
+        elif joints == 'torso_larm':
+            rr.send_goal([js[0:3],[],js[9:15],[],[]], duration, wait=wait)
+        elif joints=='all':
+            rr.send_goal([js[0:3],js[3:9],js[9:15],js[15:19],js[19:23]], duration, wait=wait)
+        else:
+            warn('unknown joints parameter: ' + joints)
+    else:
+        if waitkey:
+            raw_input('type any key to continue')
+        else:
+            time.sleep(duration)
+
+
+def detect(name='box0'):
+    if rr:
+        Tleye_cb = rr.detect(camera='leye')
+        bl,bh,bw = 97,66,57
+        Tcb_box = FRAME(xyzabc=[12,-8,-bw/2.0,0,0,pi])
+        Tleye_box = Tleye_cb*Tcb_box
+        r.set_joint_angles(rr.get_joint_angles())
+        print 'leye->target:', Tleye_box
+        Twld_box = r.get_link('HEAD_JOINT1_Link').where()*r.Thd_leye*Tleye_box
+        print 'world->target:', Twld_box
+
+        # 認識位置の可視化
+        env.delete_object(name)
+        bx = visual.box(length=bl, height=bh, width=bw, color=(1,0,1))
+        obj = PartsObjectWithName(vbody=bx,name=name)
+        env.insert_object(obj, Twld_box, env.get_world())
+
+        return Twld_box
+    else:
+        obj = env.get_object(name)
+        if obj:
+            frm2 = obj.where()
+            print "world->target:", frm2
+            return frm2
+        else:
+            print "not detected"
+            return None
+
+def detect_rhand():
+    '''ARマーカが貼られた箱の認識(複数対応)'''
+    if rr:
+        res = rr.detect(camera='rhand')
+        bl,bh,bw = 97,66,57
+        Tmk_box = FRAME(xyzabc=[0,0,-bh/2.0,pi/2,0,0])
+        frms = []
+        r.set_joint_angles(rr.get_joint_angles())
+        for objnum,Tcam_mk in res:
+            Tcam_box = Tcam_mk*Tmk_box
+            print 'rhand->target:', Tcam_box
+            Twld_box = r.get_link('RARM_JOINT5_Link').where()*r.Trh_cam*Tcam_box
+            print 'world->target:', Twld_box
+            frms.append((objnum,Twld_box))
+            # 認識位置の可視化
+            name = 'box'+str(objnum)
+            env.delete_object(name)
+            bx = visual.box(length=bl, height=bh, width=bw, color=(1,0,1))
+            obj = PartsObjectWithName(vbody=bx,name=name)
+            env.insert_object(obj, Twld_box, env.get_world())
+
+        return frms
+    else:
+        # box*という名前の物体を検出する
+        # *の部分がマーカ番号
+        def detected(obj):
+            x,y,z = obj.where().vec
+            return z > 700 and re.match('box*', obj.name)
+
+        detected_objs = [x for x in env.get_objects() if detected(x)]
+        return [(int(re.sub('box', '', x.name)), x.where()) for x in detected_objs]
+
+
+def detect_rhand2():
+    '''ARマーカが貼られた箱の認識(複数対応)'''
+    if rr:
+        res = rr.detect(camera='rhand')
+        bl,bh,bw = 97,66,57
+        Tmk_box = FRAME(xyzabc=[0,0,-bw/2.0,0,0,0])
+        frms = []
+        r.set_joint_angles(rr.get_joint_angles())
+        for objnum,Tcam_mk in res:
+            Tcam_box = Tcam_mk*Tmk_box
+            print 'rhand->target:', Tcam_box
+            Twld_box = r.get_link('RARM_JOINT5_Link').where()*r.Trh_cam*Tcam_box
+            print 'world->target:', Twld_box
+            frms.append((objnum,Twld_box))
+            # 認識位置の可視化
+            name = 'box'+str(objnum)
+            env.delete_object(name)
+            bx = visual.box(length=bl, height=bh, width=bw, color=(1,0,1))
+            obj = PartsObjectWithName(vbody=bx,name=name)
+            env.insert_object(obj, Twld_box, env.get_world())
+
+        return frms
+    else:
+        # box*という名前の物体を検出する
+        # *の部分がマーカ番号
+        def detected(obj):
+            x,y,z = obj.where().vec
+            return z > 700 and re.match('box*', obj.name)
+
+        detected_objs = [x for x in env.get_objects() if detected(x)]
+        return [(int(re.sub('box', '', x.name)), x.where()) for x in detected_objs]
+
+
+def look_for_boxes(name='box0'):
+    '''右手ハンドの向きを変えて箱（マーカ）を探す'''
+    f0 = r.fk()
+    objfrms = [None,None]
+    for i in range(1,2)+range(2,-4,-1):
+        f = f0 * FRAME(xyzabc=[0,0,0,0,0,pi/16*i])
+        js = r.ik(f)[0]
+        r.set_arm_joint_angles(js)
+        sync(duration=1.5)
+
+        for objnum, objfrm in detect_rhand():
+            print 'marker %d found'%objnum
+            if objnum < 2:
+                objfrms[objnum] = objfrm
+                print objfrms
+            if objfrms[0] and objfrms[1]:
+                return objfrms
+    return None
+
+
+def look_for_boxes2(num):
+    '''右手ハンドの向きを変えて箱（マーカ）を探す'''
+    f0 = r.fk()
+    objfrms = [None,None]
+    for i in range(1,2)+range(2,-4,-1):
+        f = f0 * FRAME(xyzabc=[0,0,0,0,0,pi/16*i])
+        js = r.ik(f)[0]
+        r.set_arm_joint_angles(js)
+        sync(duration=1.5)
+
+        for objnum, objfrm in detect_rhand2():
+            print 'marker %d found'%objnum
+            if objnum == num:
+                print objfrm
+                return objfrm
+    return None
+
+def release(hand='right', width=80, unfixobj=True,name='box0'):
+    r.grasp(width=width, hand=hand)
+    if unfixobj:
+        tgtobj = env.get_object(name)
+        worldfrm = tgtobj.where()
+        tgtobj.unfix()
+        tgtobj.affix(env.get_world(), worldfrm)
+
+def grasp(hand='right', width=62, affixobj=True, name='box0'):
+    r.grasp(width=width, hand=hand)
+    if affixobj:
+        tgtobj = env.get_object(name)
+        if hand=='right':
+            handjnt = r.get_joint('RARM_JOINT5')
+        else:
+            handjnt = r.get_joint('LARM_JOINT5')
+        reltf = (-handjnt.where())*tgtobj.where()
+        tgtobj.unfix()
+        tgtobj.affix(handjnt, reltf)
+
+def set_view(camera='world'):
+    warn('not yet implemented')
+    return
+    if camera == 'world':
+        pass
+    elif camera == 'leye':
+        pass
+
+def show_frame(frm, name='frame0'):
+    '''フレームを可視化する。名前を指定しないときは"frame0"という名前のオブジェクトを作り環境に挿入する'''
+    env.delete_object(name)
+    bx = visual.box(length=10, height=10, width=10, color=(1,0,1))
+    obj = PartsObjectWithName(vbody=bx,name=name)
+    env.insert_object(obj, frm, env.get_world())
+
+# def detect():
+#     '''チェスボードが貼られた箱の認識'''    
+#     s = r.get_sensor('leye')
+#     Tsensor_target = s.detect()
+#     print 'leye->target: ', Tsensor_target
+#     Tworld_target = s.where() * Tsensor_target
+#     print 'world->target: ', Tworld_target

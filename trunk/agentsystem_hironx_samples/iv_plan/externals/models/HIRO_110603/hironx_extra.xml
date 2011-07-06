@@ -1,0 +1,120 @@
+<extra name="rightarm" type="manipulator">
+  <technique profile="OpenRAVE">
+    <frame_origin link="kmodel1/link1"/>
+    <frame_tip link="kmodel1/link9">
+      <translate>-0.05 0 0</translate>
+    </frame_tip>
+    <gripper_joint joint="kmodel1/jointsid10">
+      <closing_direction axis="./axis0">
+	<float>-1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid11">
+      <closing_direction axis="./axis0">
+	<float>-1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid12">
+      <closing_direction axis="./axis0">
+	<float>1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid13">
+      <closing_direction axis="./axis0">
+	<float>1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+  </technique>
+</extra>
+<extra name="rightarm_waist" type="manipulator">
+  <technique profile="OpenRAVE">
+    <frame_origin link="kmodel1/link0"/>
+    <frame_tip link="kmodel1/link9">
+      <translate>-0.05 0 0</translate>
+    </frame_tip>
+    <gripper_joint joint="kmodel1/jointsid10">
+      <closing_direction axis="./axis0">
+	<float>-1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid11">
+      <closing_direction axis="./axis0">
+	<float>-1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid12">
+      <closing_direction axis="./axis0">
+	<float>1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid13">
+      <closing_direction axis="./axis0">
+	<float>1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+  </technique>
+</extra>
+<extra name="leftarm" type="manipulator">
+  <technique profile="OpenRAVE">
+    <frame_origin link="kmodel1/link1"/>
+    <frame_tip link="kmodel1/link19">
+      <translate>-0.05 0 0</translate>
+    </frame_tip>
+    <gripper_joint joint="kmodel1/jointsid20">
+      <closing_direction axis="./axis0">
+	<float>-1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid21">
+      <closing_direction axis="./axis0">
+	<float>-1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid22">
+      <closing_direction axis="./axis0">
+	<float>1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid23">
+      <closing_direction axis="./axis0">
+	<float>1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+  </technique>
+</extra>
+<extra name="leftarm_waist" type="manipulator">
+  <technique profile="OpenRAVE">
+    <frame_origin link="kmodel1/link0"/>
+    <frame_tip link="kmodel1/link19">
+      <translate>-0.05 0 0</translate>
+    </frame_tip>
+    <gripper_joint joint="kmodel1/jointsid20">
+      <closing_direction axis="./axis0">
+	<float>-1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid21">
+      <closing_direction axis="./axis0">
+	<float>-1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid22">
+      <closing_direction axis="./axis0">
+	<float>1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+    <gripper_joint joint="kmodel1/jointsid23">
+      <closing_direction axis="./axis0">
+	<float>1.000000</float>
+      </closing_direction>
+    </gripper_joint>
+  </technique>
+</extra>
+<extra name="head" type="manipulator">
+  <technique profile="OpenRAVE">
+    <frame_origin link="kmodel1/link1"/>
+    <frame_tip link="kmodel1/link3">
+      <translate>0.09 0.0682 0.08</translate>
+    </frame_tip>
+  </technique>
+</extra>
