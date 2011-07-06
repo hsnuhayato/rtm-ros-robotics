@@ -9,6 +9,9 @@
 - svn:
     uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/rtmros_common
     local-name: rtmros_common
+- svn:
+    uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_hironx_samples
+    local-name: agentsystem_hironx_samples
 ##
 ## jsk ros packages
 - svn:
