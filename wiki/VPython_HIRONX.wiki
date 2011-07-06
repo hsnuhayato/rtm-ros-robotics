@@ -10,21 +10,24 @@ $ svn up
 {{{
 $ export ROS_PACKAGE_PATH=<rtm-ros-robotics>/agentsystem_hironx_samples:$ROS_PACKAGE_PATH
 }}}
-(.bashrcに書いておく. <rtm-ros-robotics>はリポジトリをチェックアウトした場所)
+<rtm-ros-robotics>はリポジトリをチェックアウトした場所.
+.bashrcに書いておくとよい. 
 {{{
 $ roscd iv_plan/externals;make
 $ rosmake iv_plan
 }}}
-(必要に応じて， rosmake --rosdep-install)
+必要に応じて rosmake --rosdep-install をする
+(vpythonが依存するlibgtkglextmm，パーサが使っているply当たりの
+debパッケージは入っていない可能性がある)．
 
 = デモ実行 =
 {{{
 $ roscd iv_plan/examples
 $ ipython pickbox.py
 putbox()
-手が届く位置に箱が置く
+手が届く位置に箱を置く
 pick()
-手が届かないと例外になるので，再度 putbox() で置き直す
+手が届かないとエラーになるので，再度 putbox() で置き直す
 place()
 
 別のデモ
@@ -45,7 +48,7 @@ r.reset_pose()
 ネームサーバを起動する
 $ rtm-naming
 動作生成RTCを起動する
-$ roscd iv_plan/src; ./MPlanComp.py
+$ roscd iv_plan/src; ./MPlanComp.py -f ../conf/rtc.conf
 rtc-handleを利用して，pythonシェルからサービスを呼ぶ
 $ roscd iv_scenario/src; ipython sample.py
 目標手先フレームの生成(RTC.Pose3D)
