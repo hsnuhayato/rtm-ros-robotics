@@ -39,9 +39,9 @@ env = RtmEnv(sys.argv, [nameserver])
 ns = env.name_space[nameserver]
 ns.list_obj()
 
-hpl = get_handle('kiwi2.host_cxt/MPlan0.rtc', ns)
+hpl = get_handle('MPlan0.rtc', ns)
 hpl.activate()
-plsvc = hpl.services['MPlan0.ArmPlanService'].provided['service0']
+plsvc = hpl.services['ArmPlanService'].provided['service0']
 
 # armplan_svc = narrow_service(h_armplan, 'MotionPlan0.MotionPlanService', 'service0')
 
