@@ -1,0 +1,55 @@
+# summary VPython環境の使い方
+
+= ダウンロード =
+rtm-ros-roboticsディレクトリで，
+{{{
+$ svn up
+}}}
+
+= 環境設定とコンパイル =
+{{{
+$ export ROS_PACKAGE_PATH=<rtm-ros-robotics>/agentsystem_hironx_samples:$ROS_PACKAGE_PATH
+}}}
+(.bashrcに書いておく. <rtm-ros-robotics>はリポジトリをチェックアウトした場所)
+{{{
+$ roscd iv_plan/externals;make
+$ rosmake iv_plan
+}}}
+(必要に応じて， rosmake --rosdep-install)
+
+= デモ実行 =
+{{{
+$ roscd iv_plan/examples
+$ ipython pickbox.py
+putbox()
+手が届く位置に箱が置く
+pick()
+手が届かないと例外になるので，再度 putbox() で置き直す
+place()
+
+別のデモ
+from sample_handcam import *
+putbox(name="box0", vaxis="y")
+putbox(name="box1", vaxis="y")
+handcam_demo()
+
+動作を実行し直すには,
+r.reset_pose()
+の後，putbox以降を実行する．
+}}}
+
+ビューアは，右ドラッグで回転，中ドラッグで拡大・縮小．
+
+= RTMとして使う =
+{{{
+ネームサーバを起動する
+$ rtm-naming
+動作生成RTCを起動する
+$ roscd iv_plan/src; ./MPlanComp.py
+rtc-handleを利用して，pythonシェルからサービスを呼ぶ
+$ roscd iv_scenario/src; ipython sample.py
+目標手先フレームの生成(RTC.Pose3D)
+f = gen_goal_frm(y=-250)
+RTCサービス呼出し
+plsvc.ref.MoveArm(f,100,'right',False,False)
+}}}
