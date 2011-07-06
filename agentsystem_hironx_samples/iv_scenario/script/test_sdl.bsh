@@ -1,0 +1,12 @@
+env = rtc.env("localhost", 9876);
+print(env.get_names());
+env.get_handles();
+co = env.handles{"ConsoleOut0.rtc"};
+ci = env.handles{"ConsoleIn0.rtc"};
+cop = co.ports{"ConsoleOut0.in"};
+cip = ci.ports{"ConsoleIn0.out"};
+env.connect(cip,cop);
+co.activate();
+ci.activate();
+
+// java RTMExamples.SimpleIO.ConsoleInComp -f RTMExamples/SimpleIO/rtc.conf 
