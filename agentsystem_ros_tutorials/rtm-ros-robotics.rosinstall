@@ -58,7 +58,7 @@
 ##
 - hg:
     uri: http://kforge.ros.org/robotmodel/robot_model/
-    version: unstable
+    version: robot_model-1.5.2
     local-name: robot_model
 - svn:
     uri: https://code.ros.org/svn/ros-pkg/stacks/visualization/tags/diamondback/
