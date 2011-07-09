@@ -12,6 +12,7 @@ $ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotic
 {{{
 $ roscd rtmros_common
 $ svn up
+$ apt-get install ros-diamondback-openni-ros
 }}}
 してから、
 
