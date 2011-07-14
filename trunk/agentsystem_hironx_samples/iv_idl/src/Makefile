@@ -1,5 +1,5 @@
 IDLC = `rtm-config --idlc`
-IDL_INCDIR = /usr/local/include/rtm/idl
+IDL_INCDIR = `rtm-config --prefix`/include/rtm/idl
 IDLS = JointDataTypes.idl RobotHardwareService.idl \
 	SequencePlayerService.idl VideoStreamService.idl \
 	ArmMotion.idl GraspController.idl
