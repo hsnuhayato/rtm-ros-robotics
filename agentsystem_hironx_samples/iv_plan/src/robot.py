@@ -320,6 +320,8 @@ class VHIRONX(VRobot):
 
         self.Thd_leye = hironx_motions.Thd_leye
         self.Trh_cam = hironx_motions.Trh_cam
+        self.Thd_kinectrgb = hironx_motions.Thd_kinectrgb
+        self.Thd_kinectdepth = hironx_motions.Thd_kinectdepth
 
         VRobot.__init__(self, wrldir, scale, name)
 
