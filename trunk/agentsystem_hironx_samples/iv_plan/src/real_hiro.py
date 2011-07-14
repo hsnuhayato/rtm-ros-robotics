@@ -83,8 +83,9 @@ class RealHIRO:
 
         # h_rh = get_handle('RobotHardware0.rtc', ns)
         # self.jstt_port = h_rh.outports['jointStt']
-        h_rh = get_handle('HIRONXController(Robot)0.rtc', ns)
-        self.jstt_port = h_rh.outports['q']
+
+        # h_rh = get_handle('HIRONXController(Robot)0.rtc', ns)
+        # self.jstt_port = h_rh.outports['q']
 
         # self.h_leyecap = get_handle('leye_capture.rtc', ns)
         # activate([self.h_leyecap])
@@ -95,7 +96,7 @@ class RealHIRO:
 
         rospy.Subscriber('/hiro/rhand/ar_pose_marker', ARMarkers, self.update_rhand_cam)
         rospy.Subscriber('/hiro/lhand/ar_pose_marker', ARMarkers, self.update_lhand_cam)
-        rospy.Subscriber('/calc_center', geometry_msgs.msg.PointStamped, self.update_calc_center)
+        rospy.Subscriber('/calc_center', geometry_msgs.msg.PoseStamped, self.update_calc_center)
 
     def __del__(self):
         #deactivate([self.h_leyecap, self.h_reyecap])
@@ -124,7 +125,8 @@ class RealHIRO:
             self.lhand_pose_markers = msg.markers
 
     def update_calc_center(self, msg):
-        self.kinect_center_point = msg.point
+        self.kinect_center_point = msg.pose.position
+        self.kinect_center_orientation = msg.pose.orientation
         self.kinect_center_header = msg.header
 
 
@@ -133,12 +135,12 @@ class RealHIRO:
         # not yet used
         # secs = data.tm.sec
         # nsecs = data.tm.nsec
-        # self.joint_states = reduce(operator.__concat__, data.qState)
-        self.joint_states = data.data
+        self.joint_states = reduce(operator.__concat__, data.qState)
+        # self.joint_states = data.data
         # velocity = reduce(operator.__concat__, data.dqState)
 
     def get_joint_angles(self):
-        self.read_joint_state() # for RT-middle        
+        # self.read_joint_state() # for RT-middle        
         return self.joint_states
 
     def get_tf(self, from_frm='/leye', to_frm='/checkerboard'):
@@ -192,7 +194,8 @@ class RealHIRO:
             return Tcam_obj
 
         elif camera == 'kinect_point_center':
-            if rospy.Time.now().to_sec() - self.kinect_center_header.stamp.to_sec() > thre:
+            #if rospy.Time.now().to_sec() - self.kinect_center_header.stamp.to_sec() > thre:
+            if False:
                 return None
             else:
                 p = self.kinect_center_point
@@ -246,7 +249,7 @@ class RealHIRO:
         msg = (msg, duration, wait)
         self.send_msg(msg)
 
-    def send_msg(self, msg, host='localhost', port = 10103):
+    def send_msg(self, msg, host='192.168.128.253', port = 10103):
         soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         soc.settimeout(10.0)
         soc.connect((host,port))
