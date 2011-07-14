@@ -5,6 +5,11 @@ set(ROS_BUILD_TYPE RelWithDebInfo)
 
 rosbuild_init()
 
+execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR}/externals make RESULT_VARIABLE _make_filed)
+if (_make_failed)
+  message(FATAL_ERROR "Build of iv_plan/externals failed")
+endif(_make_failed)
+
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
