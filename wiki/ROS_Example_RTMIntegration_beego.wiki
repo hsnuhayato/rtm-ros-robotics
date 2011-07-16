@@ -11,8 +11,7 @@
 {{{
 roscd rtmros_common
 svn up
-sudo apt-get install ros-diamondback-openni-ros      (10.10以上)
-sudo apt-get install ros-diamondback-openni-kinect   (10.04）
+sudo apt-get install ros-diamondback-openni-kinect
 }}}
 
 = 実験映像 =
