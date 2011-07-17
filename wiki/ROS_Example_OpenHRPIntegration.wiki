@@ -30,22 +30,6 @@ euslisp クライアント
 rosrun roseus roseus `rospack find hrpsys`/scripts/samplerobot-pickup.l
 }}}
 
-== RH (リファレンスハード） シミュレーション ==
-
-天井画像を見てナビゲーションを行う行動
-
-{{{
-roslaunch RS003 rh.launch
-# シミュレーション開始ボタンをおす
-# Execute script file ボタンをおす
-}}}
-
-{{{
-roscd rtmros_common; svn up
-rosmake RS003
-を行っておく必要がある．
-}}}
-
 == HRP4C シミュレーション ==
 
 {{{
@@ -76,4 +60,20 @@ rosmake hrpsys_ros_bridge
 rosmake hrpsys
 roscd hrpsys/scripts/Darwin; make
 などを行っておく．
+}}}
+
+== RH (リファレンスハード） シミュレーション ==
+
+天井画像を見てナビゲーションを行う行動
+
+{{{
+roslaunch RS003 rh.launch
+# シミュレーション開始ボタンをおす
+# Execute script file ボタンをおす
+}}}
+
+{{{
+roscd rtmros_common; svn up
+rosmake RS003
+を行っておく必要がある．
 }}}
