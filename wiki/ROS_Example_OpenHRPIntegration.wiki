@@ -14,17 +14,20 @@ rosmake hrpsys_ros_bridge
 == サンプルロボットシミュレーション ==
 {{{
 roslaunch hrpsys samplerobot.launch
-# シミュレーション開始ボタンをおす．
 roslaunch hrpsys_ros_bridge samplerobot_ros_bridge.launch
 rosrun rviz rviz -d `rospack find hrpsys_ros_bridge`/launch/samplerobot.vcg
+}}}
+
+hrpsyspyクライアント
+{{{
+rosrun hrpsys SampleRobot_walk.sh 
 }}}
 
 [http://www.ros.org/wiki/pr2_controllers/Tutorials/Moving%20the%20arm%20using%20the%20Joint%20Trajectory%20Action JointTrajectoryAction]を使ってロボットの関節を動かせるようになっている．
 
 euslisp クライアント
 {{{
-roscd hrpsys/scripts/SampleRobot
-rosrun roseus roseus pickbox.l
+rosrun roseus roseus `rospack find hrpsys`/scripts/samplerobot-pickup.l
 }}}
 
 == RH (リファレンスハード） シミュレーション ==
