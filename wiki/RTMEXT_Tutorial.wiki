@@ -4,3 +4,30 @@
 
 OpenRTMの開発を支援するツールであるRTMEXTenderを導入しましょう．
 
+
+= RTMEXTender導入以前 =
+
+rtctree,rtshellをインストールしよう．
+
+rtctreeのインストール
+{{{
+$ git clone https://github.com/gbiggs/rtctree.git
+$ cd rtctree
+$ python setup.py build
+$ sudo python setup.py install
+}}}
+
+rtshellのインストール
+{{{
+$ git clone https://github.com/gbiggs/rtshell.git
+$ cd rtshell
+$ python setup.py build
+$ sudo python setup.py install
+}}}
+
+= RTMEXTender導入 =
+
+rtmextのダウンロード
+{{{
+$ git clone https://github.com/hyaguchijsk/rtmext.git
+}}}
