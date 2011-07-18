@@ -4,6 +4,7 @@
 
 OpenRTMの開発を支援するツールであるRTMEXTenderを導入しましょう．
 
+https://github.com/hyaguchijsk/rtmext
 
 = RTMEXTender導入以前 =
 
@@ -30,4 +31,20 @@ $ sudo python setup.py install
 rtmextのダウンロード
 {{{
 $ git clone https://github.com/hyaguchijsk/rtmext.git
+}}}
+
+.bashrcの編集．/path/to/rtmextは適宜自分でダウンロードしたディレクトリに読み替えること．
+{{{
+export RTCTREE_NAMESERVERS=localhost
+export PATH=${PATH}:[/path/to/rtmext]
+export RTM_PACKAGE_PATH=[/path/to/rtmext]/common:[/path/to/rtmext]/examples
+function rtmcd () {
+ cd `rtmpack find $1`
+}
+source [/path/to/rtmext]/completion.bash
+}}}
+
+.bashrcを編集したら必ず次のコマンドを実行すること．
+{{{
+source ~/.bashrc
 }}}
