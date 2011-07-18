@@ -94,6 +94,9 @@ roscd hrpsys/scripts/Darwin; make
 
 天井画像を見てナビゲーションを行う行動
 
+移動ロボット([http://rtm-ros-robotics.googlecode.com/svn/wiki/doc20110629.zip 機能仕様書])
+
+
 {{{
 roslaunch RS003 rh.launch
 # シミュレーション開始ボタンをおす
