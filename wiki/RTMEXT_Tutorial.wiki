@@ -36,6 +36,11 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:`rospack find opencv2`/opencv/lib
 
 http://opencv.willowgarage.com/wiki/
 
+.bashrcを編集したら必ず次のコマンドを実行すること．
+{{{
+source ~/.bashrc
+}}}
+
 
 = RTMEXTender導入 =
 
@@ -63,5 +68,60 @@ source ~/.bashrc
 }}}
 
 
+= チュートリアル：サンプルの使い方 =
 
+== rtmpack ==
+
+{{{
+rtmpack find rtmext_opencv
+}}}
+
+これでrtmext_opencvのパスが解決されればインストールは正常に出来ています．
+できなかったら，もう一度インストールを見直しましょう．
+
+== rtmmake ==
+
+{{{
+rtmmake sample_imageview
+}}}
+
+依存するパッケージも含めてmake
+
+== rtmlaunch ==
+
+{{{
+rtmlaunch sample_imageview capture.xml
+}}}
+
+カメラが付いている人はこちら．
+
+{{{
+rtmlaunch sample_imageview capture_from_file.xml
+}}}
+
+カメラが付いていない人はこちら．ROSのOpenCVを使っている人はカメラキャプチャが使えないのでこちらを使いましょう．
+
+= チュートリアル：開発の仕方 =
+
+== RTM_PACKAGE_PATH ==
+
+環境変数RTM_PACKAGE_PATHに自分で開発するパッケージの置き場所を追加しておく．
+
+RTCBuilderで作ったパッケージをディレクトリ単位で管理することができます．
+
+== manifest.xml ==
+
+パッケージの中に，ROSと同じ書式でmanifest.xmlをおく．
+
+{{{
+<depend package="MyPakcage" />
+}}}
+
+とすると，rtmpack find MyPackageでパスを解決して連鎖ビルドが可能になる．
+
+
+== ランチャーファイルの書き方 ==
+https://github.com/hyaguchijsk/rtmext/wiki/Format-of-rtmlaunch-.xml-file
+
+ROSとは書式が異なる．
 
