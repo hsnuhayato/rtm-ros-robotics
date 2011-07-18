@@ -70,6 +70,9 @@ source ~/.bashrc
 
 = チュートリアル：サンプルの使い方 =
 
+まず，rtm-namingを立ち上げておく．
+roslaunchとちがってネームサーバを自動で起動する機能はない．
+
 == rtmpack ==
 
 {{{
@@ -124,4 +127,3 @@ RTCBuilderで作ったパッケージをディレクトリ単位で管理する�
 https://github.com/hyaguchijsk/rtmext/wiki/Format-of-rtmlaunch-.xml-file
 
 ROSとは書式が異なる．
-
