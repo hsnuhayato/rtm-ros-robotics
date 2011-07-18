@@ -33,6 +33,23 @@ rosrun roseus roseus `rospack find hrpsys`/scripts/samplerobot-pickup.l
 == HRP4C シミュレーション ==
 
 {{{
+rosmake --rosdep-install hrpsys
+}}}
+を行っている途中で、hrp4cのモデルをダウンロードするページが
+表示されるので、そのページで登録を行ってダウンロードを行う必要がある。
+~/Download　以下においてもう一度rosmakeを行うと
+自動的に展開される。
+
+RTM通信で表示されるopenhrp3とROSとが通信するためのパッケージ
+hrpsys_ros_bridgeを作り、
+
+{{{
+rosmake --rosdep-install hrpsys_ros_bridge
+}}}
+
+センサ表示をROSメッセージを表示するrvizを用いて行う。
+
+{{{
 roslaunch hrpsys hrp4c.launch
 roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
 rosrun hrpsys hrp4c_walk.sh
