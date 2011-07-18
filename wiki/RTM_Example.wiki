@@ -1,4 +1,4 @@
-#summary ROSサンプルプログラム
+#summary RTMサンプルプログラム
 
 インストールが終わっていない人は[RTM_Install] を見ること．
 
