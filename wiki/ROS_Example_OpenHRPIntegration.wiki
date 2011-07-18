@@ -2,6 +2,17 @@
 
 = インストールとコンパイル =
 
+まったく新しい環境から行うには、
+ROSインストールをして、
+openhrp3のためのeclipseにモジュールを入れておき、
+
+{{{
+rosmake --rosdep-install roseus_tutorials
+rosmake --rosdep-install hrpsys_ros_bridge 
+}}}
+
+を行う．うまくゆかない場合には、
+
 {{{
 roscd rtmros_common; svn up
 roscd hrpsys; make wipe;
@@ -9,7 +20,7 @@ roscd openhrp3; rm build/grxui_eclipse.zip
 rosmake hrpsys_ros_bridge
 }}}
 
-
+などを行う.
 
 == サンプルロボットシミュレーション ==
 {{{
