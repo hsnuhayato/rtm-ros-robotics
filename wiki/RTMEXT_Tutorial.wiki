@@ -8,9 +8,7 @@ https://github.com/hyaguchijsk/rtmext
 
 = RTMEXTender導入以前 =
 
-rtctree,rtshellをインストールしよう．
-
-rtctreeのインストール
+== rtctreeのインストール ==
 {{{
 $ git clone https://github.com/gbiggs/rtctree.git
 $ cd rtctree
@@ -18,7 +16,7 @@ $ python setup.py build
 $ sudo python setup.py install
 }}}
 
-rtshellのインストール
+== rtshellのインストール ==
 {{{
 $ git clone https://github.com/gbiggs/rtshell.git
 $ cd rtshell
@@ -26,14 +24,29 @@ $ python setup.py build
 $ sudo python setup.py install
 }}}
 
+== OpenCVの準備 ==
+ROSのOpenCVをROSの外で使う方法．
+以下を.bashrcに追加しよう．
+{{{
+export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:`rospack find opencv2`/opencv/lib/pkgconfig
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:`rospack find opencv2`/opencv/lib
+}}}
+
+もしくは，自分でダウンロードしてインストールしよう．
+
+http://opencv.willowgarage.com/wiki/
+
+
 = RTMEXTender導入 =
 
-rtmextのダウンロード
+== rtmextのダウンロード ==
 {{{
 $ git clone https://github.com/hyaguchijsk/rtmext.git
 }}}
 
-.bashrcの編集．/path/to/rtmextは適宜自分でダウンロードしたディレクトリに読み替えること．
+== .bashrcの編集 ==
+~/.bashrcに以下を追加．
+/path/to/rtmextは適宜自分でダウンロードしたディレクトリに読み替えること．
 {{{
 export RTCTREE_NAMESERVERS=localhost
 export PATH=${PATH}:[/path/to/rtmext]
@@ -48,3 +61,7 @@ source [/path/to/rtmext]/completion.bash
 {{{
 source ~/.bashrc
 }}}
+
+
+
+
