@@ -18,8 +18,6 @@
   <depend package="rmrc_geo_model"/>
 
   <rosdep name="ply"/>
-  <!-- <rosdep name="numpy"/> -->
-  <!-- <rosdep name="scipy"/> -->
   <rosdep name="gtkglextmm"/>
 
 </package>

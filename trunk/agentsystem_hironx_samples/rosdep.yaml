@@ -1,8 +1,4 @@
 ply:
   ubuntu: python-ply
-scipy:
-  ubuntu: python-scipy
-numpy:
-  ubuntu: python-numpy
 gtkglextmm:
   ubuntu: libgtkglextmm-x11-1.2-0 libgtkglextmm-x11-1.2-dev
