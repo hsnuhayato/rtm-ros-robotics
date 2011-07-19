@@ -28,9 +28,16 @@ rosinstallを利用している場合は，setup.bashでROS_PACKAGE_PATHに追�
 $ roscd iv_plan/externals;make
 $ rosmake iv_plan
 }}}
-必要に応じて rosmake --rosdep-install をする
-(vpythonが依存するlibgtkglextmm，パーサが使っているplyあたりの
-debパッケージは入っていない可能性がある)．
+
+vpythonが依存するlibgtkglextmm，パーサが使っているplyあたりの
+debパッケージは入っていない可能性がある．
+以下のようなメッセージが表示された場合は，rosmake iv_plan --rosdep-installとして
+依存するdebパッケージをインストールする．
+{{{
+[ rosmake ] WARNING: Rosdep did not detect the following system dependencies as installed: Did not detect packages: ['libgtkglextmm-x11-1.2-0', 'libgtkglextmm-x11-1.2-dev']
+ Consider using --rosdep-install option or `rosdep install iv_plan`
+}}}
+
 
 = デモ実行 =
 {{{
