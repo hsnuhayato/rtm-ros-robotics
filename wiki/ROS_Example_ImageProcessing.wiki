@@ -12,17 +12,7 @@
 = 準備 =
 
 == 新しいソースのインストールと動作確認 ==
-{{{
-rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
-}}}
-とすると，新しいソースがインストールされる．このとき
-ROSの起動に必要な環境変数が更新されるため，既に立ち上がっている
-ターミナルでは
-{{{
-source ~/.bashrc
-}}}
-とすること．新たにターミナルを起動する場合はこの必要はない．
-一度，全てのターミナルを消して，新たに立ち上げることを勧める．
+
 
   * rosinstallについて
 
@@ -40,24 +30,24 @@ $ roslocate info icra_ros_tutorial
 
 ソフトウェアのインストールが出来たら，
 {{{
-rosmake roseus_tutorials --rosdep-install　--rosdep-yes
-roscore
+$ rosmake roseus_tutorials --rosdep-install　--rosdep-yes
+$ roscore
 }}}
 とし，もう一つのターミナルを開いて
 {{{
-roslaunch roseus_tutorials usb-camera.launch 
+$ roslaunch roseus_tutorials usb-camera.launch 
 }}}
 （ここで，`[ WARN] [1303720226.445781085]: Started in the global namespace!` とか，`ERROR: could not set some settings.`とか，`select timeout in grab`とか表示されても気にしなくてよい）
 
 さらにもう一つターミナルを開いて，
 {{{
-roslaunch roseus_tutorials image-view.launch 
+$ roslaunch roseus_tutorials image-view.launch 
 }}}
 とすると，カメラ画像が見えるはずである．
 
 最後に
 {{{
-rxgraph
+$ rxgraph
 }}}
 としてみよう．以下のような画面が現れるはずだ．
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/opencv_ros_bridge_tutorial_rxgraph.png]
