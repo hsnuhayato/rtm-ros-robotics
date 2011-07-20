@@ -2,7 +2,7 @@
 
 まずは，[http://groups.google.com/group/rtm-ros-robotics]にメールしよう．メールでの質問の仕方が分からないときは，メールでの質問の仕方が分からないと書けば良い．
 
-<wiki:toc max_depth="2" />
+<wiki:toc max_depth="3" />
 
 = インストール編 =
 
