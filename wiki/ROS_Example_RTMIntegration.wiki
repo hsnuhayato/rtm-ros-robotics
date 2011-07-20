@@ -4,46 +4,6 @@
 
 = 概要 =
 
-これまでの演習に参加していない人はリポジトリのインストール
-{{{
-$ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
-}}}
-これまでに演習に参加している人はリポジトリを更新
-{{{
-$ roscd rtmros_common
-$ svn up
-$ apt-get install ros-diamondback-openni-ros
-}}}
-してから、
-
-{{{
-roscd openhrp3; make eclipse-clean; make wipe; roscd hrpsys; make wipe; rosmake --rosdep-install
-}}}
-として、ソースツリーの更新とeclipseの環境の刷新をおこなってください。
-
-また、始めてeclipseを動かす人、上のコマンドで刷新した人、両方共以下の様にしてeclipse環境を整えてください。
-{{{
-rosmake hrpsys
-rosrun openhrp3 eclipse.sh
-}}}
-から，
-
-`http://download.eclipse.org/modeling/emf/updates/releases/(EMF SDK 2.5.0)`(10.04ユーザのみ), 
-
-`http://download.eclipse.org/tools/gef/updates/releases/`(GEF SDK 3.6.2),
-
-`<openhrp3>/build/rtmtools_eclipse.zip`, 
-
-`<openhrp3>/build/java3declipse-20090302.zip`, 
-
-`<openhrp3>/build/grxui_eclipse.zip`, 
-
-`<hrpsys>/build/robothardware_eclipse.zip`
-
-をEclipseにインストールする．
-
-
-
 = 1.OpenHRP 環境の構築 =
 
 == 環境の確認 ==
@@ -116,11 +76,6 @@ make eclipse-clean
 rosmake rtmros_common
 }}}
 
-もしopenhrp3のMakeが通らないときは
-{{{
-roscd openhrp3;make wipe
-make
-}}}
 
 = 3. Eclipseの設定(RT System Editor編) =
 
@@ -214,9 +169,7 @@ roslaunch hrpsys hrp4c.launch
 として，左上の→が描いてあるシミュレーション開始ボタンを押し，
 中心にあるExecute scriptボタンをおしてロボットが歩けば成功です．
 
-
-= 6.トラブルシューティング =
-
+= 6. トラブルシューティング =
 == モデルが表示されないときは... ==
 
 * "LoadProject"で"FallingBoxes"を選択しても3DViewにモデルがでない。
@@ -239,4 +192,4 @@ $ rtm-naming
 {{{
 roscd openhrp3; make eclipse-clean; make wipe; roscd hrpsys; make wipe; rosmake
 }}}
-としてクリーンな環境をつくり「概要」にしたがい必要なプラグインをインストール
+としてクリーンな環境をつくり必要なプラグインをインストール
