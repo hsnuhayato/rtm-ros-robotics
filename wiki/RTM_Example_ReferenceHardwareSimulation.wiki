@@ -32,7 +32,7 @@ $ jstest /dev/input/js0
 $ roslaunch RS003 rh.launch
 }}}
 
-を行うと次々にコンポーネントが立ち上がるが，GRXUIが起動したらすかさずシミュレーションスタートのボタンを押すとうまくいく．
+を行うと次々にコンポーネントが立ち上がるが，GRXUIが起動したらすかさずシミュレーションスタートのボタンを押すとうまくいき，下図のような状態になる．
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/ScreenshotRHSample.png]
 
