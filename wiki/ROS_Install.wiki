@@ -27,7 +27,7 @@ sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop ros-diam
 = ROS外部パッケージのインストール =
 
 {{{
-rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 rosinstallについては http://www.ros.org/wiki/rosinstall を参照
 
