@@ -10,14 +10,6 @@ http://www.ros.org/wiki/move_base_stage/Tutorials/stage%20and%20navigation%20sta
 
 = 準備 =
 [ROS_Install]にしたがってROSと講義関連パッケージがインストールされていることが前提です．
-{{{
-roscd move_base_stage_tutorial
-}}}
-として，`roscd: command not found`と出る人は~/.bashrcの最後に
-{{{
-source ~/prog/rtm-ros-robotics/setup.bash
-}}}
-という[ROS_Install 行があるか]確認しましょう．
 
 
 = 実行 =
