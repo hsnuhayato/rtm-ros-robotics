@@ -31,6 +31,12 @@ rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.
 }}}
 rosinstallについては http://www.ros.org/wiki/rosinstall を参照
 
+また，
+{{{
+rosinstall ~/prog/rtm-ros-robotics 
+}}}
+とすると，ソースツリーを更新してくれる．
+
 ROS関連のプログラムを使うためには以下の様にして環境変数をセットする必要があります．
 {{{
 source ~/prog/rtm-ros-robotics/setup.bash
