@@ -6,7 +6,7 @@
 
 = インストール編 =
 
-* ソースコードの再インストール
+== ソースコードの再インストール ==
 {{{
 rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
@@ -19,13 +19,13 @@ source ~/.bashrc
 とすること．新たにターミナルを起動する場合はこの必要はない．
 一度，全てのターミナルを消して，新たに立ち上げることを勧める．
 
-* ソースコードの更新
+== ソースコードの更新 ==
 {{{
 rosinstall ~/prog/rtm-ros-robotics
 }}}
 とするとソースコードを最新の物にしてくれる．
 
-* インストール中に何か聞かれた
+== インストール中に何か聞かれた ==
 
 `rosinstall ~/prog/rtm-ros-robotics/ `として各ソースの中身を更新する途中で，
 {{{
@@ -35,7 +35,7 @@ Checkout of http://ram.umd.edu/git/ros/camera_umd.git into /home/k-okada/prog/rt
 }}}
 などと聞かれたら`d`を選択すればよい
 
-* `roscd: command not found` と出る．
+== `roscd: command not found` と出る． ==
 {{{
 roscd move_base_stage_tutorial
 }}}
@@ -47,7 +47,7 @@ source ~/prog/rtm-ros-robotics/setup.bash
 
 = コンパイル編 =
 
-* eclipseが動かない
+== eclipseが動かない ==
 {{{
 roscd openhrp3; make eclipse-clean; make wipe; roscd hrpsys; make wipe; rosmake --rosdep-install
 }}}
@@ -89,7 +89,7 @@ Help -> Install New Softare -> Add -> Archive
 
 をEclipseにインストールしてください．
 
-* openhrp3のmakeが通らない．
+== openhrp3のmakeが通らない． ==
 {{{
 roscd openhrp3;svn up make wipe
 make
@@ -102,7 +102,7 @@ make
 }}}
 というのも試してみてください．
 
-* hrpsysのmakeが通らない
+== hrpsysのmakeが通らない ==
 
 {{{
 roscd rtmros_common; svn up
@@ -112,7 +112,7 @@ rosmake hrpsys_ros_bridge
 }}}
 とするとよい．
 
-* euscollada でコンパイルが失敗する
+== euscollada でコンパイルが失敗する ==
 
 {{{
 roscd euslisp; svn up; make clean; make
@@ -123,7 +123,7 @@ rosmake euscollada
 
 = 実行編 =
 
-* `roseus : command not found` と言われる．
+== `roseus : command not found` と言われる． ==
 ~/.bashrc に
 {{{
 export PATH=$PATH:`rospack find roseus`/bin
@@ -134,7 +134,7 @@ rosrun roseus roseus
 }}}
 として立ち上げよう．
 
-* roseusを立ち上げる`no such package`とエラーになる
+== roseusを立ち上げる`no such package`とエラーになる ==
 {{{
 EusLisp 8.26(r476M 636) for Linux created on U64-leus(Wed May 4 15:29:52 JST 2011)
 roseus ;; loading roseus(r1433) on euslisp((8.26 U64-leus Wed May 4 15:29:52 JST 2011 r476M 636))
