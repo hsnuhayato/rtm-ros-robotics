@@ -5,52 +5,10 @@
 = 概要 =
 画像認識，行動生成等のプログラム例を紹介する．
 
-= 準備 =
-
-== 各リポジトリのソースコードのインストールをしていない場合 ==
-[ROS_Example_ImageProcessing]の準備，並びにサンプルプログラムを
-動かすことが出来て入れば，この項目は飛ばしてよい．
-
-ソースのインストールは
-{{{
-rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback
-http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
-}}}
-とする．また，ROSの起動に必要な環境変数は`~/prog/rtm-ros-robotics/setup.bash`にかかれる．したがって，`~/.bashrc`の最後に
-{{{
-source ~/prog/rtm-ros-robotics/setup.bash
-export PATH=$PATH:`rospack find roseus`/bin
-}}}
-があることを確認し，既に立ち上がっているターミナルでは
-{{{
-source ~/.bashrc
-}}}
-とする必要がある．
-
-
-== 各リポジトリのソースコードはインストール済みの場合 ==
-
-以下の様にして，各ソースの中身を更新する
-{{{
-rosinstall ~/prog/rtm-ros-robotics/ 
-}}}
-途中で，
-{{{
-error: Your local changes to 'CMakeLists.txt' would be overwritten by merge.  Aborting.
-Please, commit your changes or stash them before you can merge.
-Checkout of http://ram.umd.edu/git/ros/camera_umd.git into /home/k-okada/prog/rtm-ros-robotics/camera_umd failed. (d)elete, (a)bort, (b)ackup: 
-}}}
-などと聞かれたら`d`を選択すればよい
-
-= ROSメッセージのコンパイル =
-{{{
-rosrun roseus generate-all-msg-srv.sh 
-}}}
-
 
 = コンパイル =
 
-ソースのインストールあるいは更新を終えたら
+[ROS_Install ソースのインストールあるいは更新]を終えたら
 最後に，
 {{{
 rosmake roseus_tutorials --rosdep-install --rosdep-yes
