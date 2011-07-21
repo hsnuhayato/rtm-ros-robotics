@@ -243,6 +243,13 @@ def show_frame(frm, name='frame0'):
     obj = PartsObjectWithName(vbody=bx,name=name)
     env.insert_object(obj, frm, env.get_world())
 
+def prepare():
+    r.set_joint_angles(r.poses['prepare'])
+
+def prepare_right():
+    r.set_joint_angles(r.poses['prepare_right'])
+
+
 # def detect():
 #     '''チェスボードが貼られた箱の認識'''    
 #     s = r.get_sensor('leye')
