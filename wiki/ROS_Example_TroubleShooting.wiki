@@ -150,3 +150,13 @@ $ rm ~/.ros/roseus/.generated
 $ rosrun roseus generate-all-msg-srv.sh 
 }}}
 としてみる．
+
+== eclipseが立ち上がらない ==
+{{{
+rosrun openhrp3 eclipse.sh 
+}}}
+として、エラーも吐かないのにeclipseが立ち上がらない場合は
+javaの確認をしてみる.
+{{{
+sudo update-java-alternatives -s java-6-sun
+}}}
