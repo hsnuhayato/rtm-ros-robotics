@@ -156,7 +156,22 @@ $ rosrun roseus generate-all-msg-srv.sh
 rosrun openhrp3 eclipse.sh 
 }}}
 として、エラーも吐かないのにeclipseが立ち上がらない場合は
-javaの確認をしてみる.
+javaの確認をしてみる.[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_RTMIntegration] を参考に
 {{{
-sudo update-java-alternatives -s java-6-sun
+$ rosdep install openhrp3
+$ java -version
 }}}
+としたときに、
+{{{
+java version "1.6.0_24"
+Java(TM) SE Runtime Environment (build 1.6.0_24-b07)
+Java HotSpot(TM) 64-Bit Server VM (build 19.1-b02, mixed mode)
+}}}
+となっていればよい．SE という文字がなかったり1.6で無い場合は
+{{{
+$ rosdep install openrhp3
+$ sudo update-java-alternatives -s java-6-sun
+}}}
+として必要なソフトをインストール
+
+SEという文字があっても，64bit環境でJavaが32bit環境という問題がある場合もある．
