@@ -74,6 +74,7 @@ class RealHIRO:
         self.joint_states = zeros(23)
         self.rhand_pose_markers = []
         self.lhand_pose_markers = []
+        self.kinect_centers = []
 
     def connect(self):
         rospy.init_node('motion_planner')
@@ -125,10 +126,24 @@ class RealHIRO:
             self.lhand_pose_markers = msg.markers
 
     def update_calc_center(self, msg):
-        self.kinect_center_point = msg.pose.position
-        self.kinect_center_orientation = msg.pose.orientation
-        self.kinect_center_header = msg.header
+        def near(p1,p2,eps=0.02):
+            return linalg.norm([p1.x-p2.x,p1.y-p2.y,p1.z-p2.z]) < eps
+        # point = msg.pose.position
+        # orientation = msg.pose.orientation
+        # header = msg.header
 
+        # append if the new observation is different
+        # from any of registered ones.
+        for cs in self.kinect_centers:
+            if near(msg.pose.position, cs.pose.position):
+                return
+
+        self.kinect_centers.append(msg)
+
+        # # discard old observations
+        # tnow = rospy.Time.now().to_sec()
+        # for cs in self.kinect_centers:
+        #     if tnow - .stamp.to_sec() > thre:
 
     def read_joint_state(self):
         data = self.jstt_port.read()
@@ -153,7 +168,7 @@ class RealHIRO:
         except (tf.LookupException, tf.ConnectivityException, tf.Exception):
             return None
 
-    def detect(self, wait=True, camera='leye', thre=0.8):
+    def detect(self, wait=True, camera='leye', thre=1.5):
         '''camera := "leye" | "rhand" | "lhand", returns the recent recognition result within thre[sec] for hand cameras'''
         if camera == 'leye':
             rate = rospy.Rate(2.0)
@@ -194,15 +209,17 @@ class RealHIRO:
             return Tcam_obj
 
         elif camera == 'kinect_point_center':
-            #if rospy.Time.now().to_sec() - self.kinect_center_header.stamp.to_sec() > thre:
-            if False:
-                return None
-            else:
-                p = self.kinect_center_point
-                trans = 1000.0 * array([p.x, p.y, p.z])
-                rot = [0,0,0,0]
-                return FRAME(mat=MATRIX(mat=quaternion_matrix(rot)[0:3,0:3].tolist()),
-                             vec=VECTOR(vec=(trans.tolist())))
+            tnow = rospy.Time.now().to_sec()
+            for cs in self.kinect_centers:
+                if tnow - cs.header.stamp.to_sec() > thre:
+                    self.kinect_centers.remove(cs)
+
+            return [FRAME(mat=MATRIX(mat=quaternion_matrix([0,0,0,0])[0:3,0:3].tolist()),
+                          vec=VECTOR(1000.0*cs.pose.position.x,1000.0*cs.pose.position.y,1000.0*cs.pose.position.z)) for cs in self.kinect_centers]
+
+            # p = self.kinect_center_point
+            # trans = 1000.0 * array([p.x, p.y, p.z])
+            # rot = [0,0,0,0]
 
 
         elif camera == 'rhand' or camera == 'lhand':
