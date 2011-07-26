@@ -24,7 +24,19 @@ $ jstest /dev/input/js0
 
 で行うことができる．
 
+また，ナビゲーションデモを行うためには，routemapを絶対パスで指定する必要がある．
+{{{
+$ roscd RS003/src/PathPlanning
+}}}
+をした場所にあるPathPlanningParam.confの中の
+{{{
+conf.default.map_file: /home/lrtmros/prog/rtm-ros-robotics/rtmros_common/RS003/src/PathPlanning/routemap
+}}}
+を各自の環境に合わせて変更する必要がある．routemapはRS003/src/PathPlanningにあるので，それを絶対パスで指定するように修正する．
+
 == サンプルの試し方 ==
+
+=== ジョイスティック操縦デモ===
 
 ジョイスティックをPCに差した状態で，
 
@@ -37,3 +49,11 @@ $ roslaunch RS003 rh.launch
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/ScreenshotRHSample.png]
 
 上記のコマンドで，うまく全てのコンポーネントが立ち上がると，ジョイスティックを利用してOpenHRP3内のロボットを操作しながら天井画像による自己位置推定を行う様子を確認することができる．
+
+=== ナビゲーションデモ===
+
+上記のrh.launchを立ち上げた状態でeclipseをもう一つ立ち上げ，RTSystemEditorを起動する．そして，PositionInput0をSystem Diagram上にドラッグアンドドロップし，01_x, 02_y, 03_thをそれぞれ編集する．ナビゲーションでいける場所は予め定められており，RS003/src/LocalizeCenter/LocalPosition.confに記述された場所のいずれかの値をここでは入力して，Applyを押すこと．
+
+そして，そこで，PositionInput0をActivateすると下図のように経路計画が行われ，自動的に目標値に向かって進むデモを見ることができる．目的地に到達した後は，PositionInput0をDeactivateし，再び別の場所の位置を指定してActivateしなおせば新たな地点への移動を行う様子をみることができる．
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/ScreenshotRHNavigationSample.png]
