@@ -2,14 +2,13 @@
 
 = コンパイル =
 {{{
-rosmake hrpsys_ros_bridge
+rosmake  --rosdep-install --rosdep-yes hrpsys_ros_bridge
 }}}
 
 == サンプルロボットシミュレーション ==
 {{{
 roslaunch hrpsys samplerobot.launch
 roslaunch hrpsys_ros_bridge samplerobot_ros_bridge.launch
-rosrun rviz rviz -d `rospack find hrpsys_ros_bridge`/launch/samplerobot.vcg
 }}}
 
 hrpsyspyクライアント
@@ -36,20 +35,14 @@ rosmake --rosdep-install hrpsys
 
 RTM通信で表示されるopenhrp3とROSとが通信するためのパッケージ
 hrpsys_ros_bridgeを作り、
-
-{{{
-rosmake --rosdep-install hrpsys_ros_bridge
-}}}
-
 センサ表示をROSメッセージを表示するrvizを用いて行う。
 
 {{{
 roslaunch hrpsys hrp4c.launch
+}}}
+として，シミュレーションが起動したら別のターミナルを立ち上げ
+{{{
 roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
-rosrun hrpsys hrp4c_walk.sh
-
-
-rosrun rviz rviz -d `rospack find hrpsys_ros_bridge`/launch/hrp4c.vcg
 }}}
 
 
