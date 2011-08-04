@@ -25,6 +25,13 @@ sudo easy_install -U rosinstall
 sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop ros-diamondback-joystick-drivers ros-diamondback-sound-drivers ros-diamondback-openni-kinect
 }}}
 
+11.04ユーザは，
+{{{
+sudo apt-get install xfs ttf-mscorefonts-installer
+}}}
+をしておく必要がある．
+
+
 = ROS外部パッケージのインストール =
 
 {{{
