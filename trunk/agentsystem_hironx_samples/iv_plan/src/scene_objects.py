@@ -170,7 +170,7 @@ def can(name):
 
 # parts A
 def partsA(name):
-    d,W,H,L = 30.0, 48.0, 57.0, 74.0
+    W,H,L = 38.0, 48.0, 28.0
     return {'name' : name,
             'shape' : 'box',
             'color' : (0.5, 0.5, 0.5),
@@ -180,7 +180,7 @@ def partsA(name):
 
 # parts B
 def partsB(name):
-    D,L = 30.0, 120.0
+    D,L = 25.0, 58.0
     return {'name' : name,
             'shape' : 'cylinder',
             'color' : (0.4, 0.4, 0.4),
@@ -188,10 +188,25 @@ def partsB(name):
             'dimension' : (L, D/2.0),
             'children' : []}
 
+def W0(name):
+    return {'name' : name,
+            'shape' : 'mesh',
+            'children' : []}
+
+def rect_pocket(name):
+    W,H,L = 43.0, 53.0, 10.0
+    return {'name' : name,
+            'shape' : 'box',
+            'color' : (0.8, 0.0, 0.8),
+            'material' : None,
+            'dimension' : [W, H, L],
+            'children' : []}
+
 # pallete
 def pallete(name):
-    w,d,h = 330.0, 245.0, 70.0
-    thickness = 3.0
+    w,d,h = 300.0, 215.0, 85.0
+    thickness = 2.0
+    bottom_thickness = 20.0
     # l = h - thickness
     a = w/2.0
     b = d/2.0
@@ -226,9 +241,9 @@ def pallete(name):
              'children' : []}
     bottom = {'name' : 'pallete bottom',
               'shape' : 'box',
-              'color' : col,
+              'color' : (0.2,0.2,0.2),
               'material' : mat,
-              'dimension' : [w,d,thickness],
+              'dimension' : [w,d,bottom_thickness],
               'children' : []}
     pllt = {'name' : name,
             'shape' : None,
@@ -236,10 +251,18 @@ def pallete(name):
                           (side2, [-b,0,c,0,0,0]),
                           (side3, [0,a,c,0,0,0]),
                           (side4, [0,-a,c,0,0,0]),
-                          (bottom, [0,0,0,0,0,0])
+                          (bottom, [0,0,bottom_thickness/2,0,0,0])
                           ]}
     return pllt
 
+def hirobase():
+    w,d,h=320.0,255.0,800.0
+    return {'name' : 'hirobase',
+            'shape' : 'box',
+            'color' : (0.2, 0.2, 0.2),
+            'material' : None,
+            'dimension' : [d,w,h],
+            'children' : []}
 
 
 ##
@@ -282,7 +305,7 @@ def table_scene():
     tbl = high_table()
     bskt = basket()
     wl0 = wall(name='wall0')
-    wl1 = wall(name='wall1')    
+    wl1 = wall(name='wall1')
     w['children'].append((tbl, [500,0,0,0,0,0]))
     w['children'].append((fl, [0,0,0,0,0,0]))
     tbl['children'].append((bskt, [-200,-370,700,0,0,0]))
@@ -296,7 +319,33 @@ def table_scene():
 def ac_scene():
     w = world()
     fl = floor()
+    bs = hirobase()
     tbl = high_table()
+    pllt = pallete(name='pallete0')
     w['children'].append((tbl, [500,0,0,0,0,0]))
     w['children'].append((fl, [0,0,0,0,0,0]))
+    w['children'].append((bs, [-40.0-150.0,0,400.0,0,0,0]))
+    tbl['children'].append((pllt, [-220,-310,700,0,0,-pi/3]))
+
+    A0 = partsA(name='A0')
+    tbl['children'].append((A0, [-230,-40,714,0,0,pi/6]))
+    A1 = partsA(name='A1')
+    tbl['children'].append((A1, [-190,100,714,0,0,-pi/6]))
+    A2 = partsA(name='A2')
+    tbl['children'].append((A2, [-240,200,714,0,0,0]))
+    A3 = partsA(name='A3')
+    tbl['children'].append((A3, [-130,40,714,0,0,pi/4]))
+    B0 = partsB(name='B0')
+    tbl['children'].append((B0, [-180,200,700,0,0,0]))
+    B1 = partsB(name='B1')
+    tbl['children'].append((B1, [-120,-70,700,0,0,0]))
+
+    p1 = rect_pocket(name='P0')
+    pllt['children'].append((p1, [40,40,20,0,0,0]))
+    p2 = rect_pocket(name='P1')
+    pllt['children'].append((p2, [-40,40,20,0,0,0]))
+    p3 = rect_pocket(name='P2')
+    pllt['children'].append((p3, [40,-40,20,0,0,0]))
+    p4 = rect_pocket(name='P3')
+    pllt['children'].append((p4, [-40,-40,20,0,0,0]))
     return w

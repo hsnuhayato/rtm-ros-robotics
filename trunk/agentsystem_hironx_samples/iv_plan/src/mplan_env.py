@@ -22,7 +22,6 @@ class MPlanEnv:
         self.tgtrobot = None
         self.markers = []
 
-
     #
     # markers
     #
@@ -35,7 +34,6 @@ class MPlanEnv:
         for vf in self.markers:
             vf.set_visible(False)
         self.markers = []
-
 
     #
     # scene objects
@@ -115,7 +113,12 @@ class MPlanEnv:
             elif shape == 'cylinder':
                 l,r = ast['dimension']
                 body = visual.cylinder(axis=(0,0,l), radius=r, color=col)
-                obj = PartsObjectWithName(vbody=body, name=nm)            
+                obj = PartsObjectWithName(vbody=body, name=nm)
+            # elif shape == 'mesh':
+            #     obj
+            else:
+                return None
+
 
         for child in ast['children']:
             cobj = self.eval_sctree(child[0])
@@ -127,45 +130,3 @@ class MPlanEnv:
     def load_scene(self, sctree):
         self.insert_object(self.eval_sctree(sctree), FRAME())
 
-    def recog_env(self, name):
-        obj = world[name]
-        tr = obj.where()
-        if obj.vbody.__class__ == visual.box:
-            # approximate with an axis-aligned bounding box
-            dim = obj.vbody.size
-            # visual.vector to geo.VECTOR conversion
-            dx = 0.5*VECTOR(x=dim[0],y=0,z=0) 
-            dy = 0.5*VECTOR(x=0,y=dim[1],z=0)
-            dz = 0.5*VECTOR(x=0,y=0,z=dim[2])
-            pts_local = []
-            pts_local.append(dx + dy + dz)
-            pts_local.append(dx + dy - dz)
-            pts_local.append(dx - dy + dz)
-            pts_local.append(dx - dy - dz)
-            pts_local.append(- dx + dy + dz)
-            pts_local.append(- dx + dy - dz)
-            pts_local.append(- dx - dy + dz)
-            pts_local.append(- dx - dy - dz)
-            pts = map(lambda pt: tr*pt, pts_local)
-            minx = miny = minz = 1e+10
-            maxx = maxy = maxz = -1e+10
-            for pt in pts:
-                if pt[0] < minx:
-                    minx = pt[0]
-                if pt[0] > maxx:
-                    maxx = pt[0]
-                if pt[1] < miny:
-                    miny = pt[1]
-                if pt[1] > maxy:
-                    maxy = pt[1]
-                if pt[2] < minz:
-                    minz = pt[2]
-                if pt[2] > maxz:
-                    maxz = pt[2]
-            return space.CAABB([minx,maxx,miny,maxy,minz,maxz])
-        elif obj.vbody.__class__ == visual.cylinder:
-            axvec_local = VECTOR(z=obj.vbody.length)
-            return space.CCapsule(tr.vec, tr.mat*axvec_local, obj.vbody.radius)
-        else:
-            print 'undefined shape'
-            return None
