@@ -164,7 +164,7 @@ class VRobot(JointObject):
         self.gen_link_collision_body()
         self.cobj_pairs = []
 
-        self.sensors = {}
+        self.sensors = []
 
         self.reset_pose()
 
@@ -258,11 +258,17 @@ class VRobot(JointObject):
     def get_joint(self, name):
         return [x for x in self.get_joints() if x.name == name][0]
 
+    def get_sensor(self, name):
+        return [x for x in self.get_sensors() if x.name == name][0]
+
     def get_links(self):
         return self.links
 
     def get_joints(self):
         return self.joints
+
+    def get_sensors(self):
+        return self.sensors
 
 class VPA10(VRobot):
     def __init__(self,
@@ -318,18 +324,21 @@ class VHIRONX(VRobot):
         # maximum workspace movement in [mm]
         self.sampling_weight = [700.0,600.0,400.0,180.0,200.0,120.0]
 
+        # fixed transforms
         self.Thd_leye = hironx_motions.Thd_leye
         self.Trh_cam = hironx_motions.Trh_cam
         self.Thd_kinectrgb = hironx_motions.Thd_kinectrgb
         self.Thd_kinectdepth = hironx_motions.Thd_kinectdepth
+        self.Twrist_ef = hironx_motions.Twrist_ef
 
         VRobot.__init__(self, wrldir, scale, name)
 
-    def attach_sensor(self, sensor_obj, name):
-        self.sensors[name] = sensor_obj
-
-    def get_sensor(self, name):
-        return self.sensors[name]
+        rhandcam = SensorObject(name='rhandcam')
+        rhandcam.affix(self.get_joint('RARM_JOINT5'), self.Trh_cam)
+        self.sensors.append(rhandcam)
+        kinectdepth = SensorObject(name='kinectdepth')
+        kinectdepth.affix(self.get_joint('HEAD_JOINT1'), self.Thd_kinectdepth)
+        self.sensors.append(kinectdepth)
 
     def set_arm_joint_angles(self, ths, arm='right', flush=True):
         '''@rtc_interface: void SetArmJointAngles(in DoubleSequence, in String, in bool)
@@ -450,7 +459,7 @@ class VHIRONX(VRobot):
 
         if use_waist:
             th_orig = self.get_joint_angle(0) # save the waist yaw angle
-            waist_yaw_samples = [-0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6]
+            waist_yaw_samples = [-0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8]
             sols = []
             for th in waist_yaw_samples:
                 self.set_joint_angle(0, th)

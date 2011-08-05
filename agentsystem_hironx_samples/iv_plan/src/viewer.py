@@ -19,7 +19,7 @@ class CoordinateObjectWithName(CoordinateObject):
     def __init__(self, name=None):
         CoordinateObject.__init__(self)
         self.name = name
-        self.vframe.resize(80.0) # make the arrows visible
+        self.vframe.resize(30.0) # make the arrows visible
 
     def __repr__(self):
         return '<%s %s>'%(self.__class__, self.name)
@@ -43,7 +43,7 @@ class PartsObjectWithName(PartsObject):
         PartsObject.__init__(self, vbody)
         self.name = name
         self.cb = None
-        self.vframe.resize(80.0)
+        self.vframe.resize(30.0)
 
     def __repr__(self):
         return '<%s %s, %s>'%(self.__class__, self.name, self.vbody)
@@ -51,11 +51,12 @@ class PartsObjectWithName(PartsObject):
     def __str__(self):
         return self.__repr__()
 
-class SensorObjectWithName(PartsObjectWithName):
+class SensorObject(PartsObjectWithName):
     def __init__(self,
+                 name,
                  vbody=visual.box(length=10,height=10,width=10,
-                                  color=[0,0,1]),
-                 name=None):
+                                  color=[0,0,1])
+                 ):
         PartsObjectWithName.__init__(self, vbody, name)
 
     def read(self):
@@ -92,7 +93,7 @@ class JointObject(CoordinateObject):
         self.name = name
         self.jaxis = jaxis
         self.reltrans = reltrans
-        self.vframe.resize(80) # make the arrow visible
+        self.vframe.resize(30) # make the arrow visible
         self.link = None
         self.angle = 0.0
 
@@ -113,7 +114,7 @@ class CoordinateObjects(CoordinateObjectWithName):
 
     def append(self, frame):
         co = CoordinateObjectWithName()
-        co.vframe.resize(40)
+        co.vframe.resize(30)
         co.affix(self, frame)
         self.coords.append(co)
 
