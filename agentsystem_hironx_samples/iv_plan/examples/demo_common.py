@@ -27,11 +27,15 @@ r.go_pos(-150, 0, 0)
 pl = CSPlanner(r, env)
 r.add_collision_object(env.get_object('table top'))
 
-def putbox(name='box0', vaxis='x'):
+
+def putbox(name='box0', vaxis='x', pose2d=None):
     '''シミュレータ内で箱を机上に置く。位置はランダムに決定される。vaxis="y"で側面を上に向けて置く'''
-    x = random.uniform(-300,-50)
-    y = random.uniform(-200,200)
-    theta = random.uniform(0,2*pi)
+    if pose2d:
+        x,y,theta  = pose2d
+    else:
+        x = random.uniform(-300,-50)
+        y = random.uniform(-200,200)
+        theta = random.uniform(0,2*pi)
     env.delete_object(name)
     bl,bh,bw=97,66,57
     bx = visual.box(length=bl, height=bh, width=bw, color=(1,0,1))
@@ -228,6 +232,38 @@ def grasp(hand='right', width=62, affixobj=True, name='box0'):
         tgtobj.unfix()
         tgtobj.affix(handjnt, reltf)
 
+def move_arm(f, duration=2.0, arm='right', width=None, use_waist=True):
+    if use_waist:
+        w,avec = r.ik(f,arm=arm,use_waist=True)[0]
+        r.set_joint_angle(0, w)
+        r.set_arm_joint_angles(avec,arm=arm)
+    else:
+        r.set_arm_joint_angles(r.ik(f,arm=arm)[0], arm=arm)
+
+    if width:
+        r.grasp(width=width, hand=arm)
+        if arm == 'right':
+            hand_joints = '_rhand'
+        else:
+            hand_joints = '_lhand'
+    else:
+        hand_joints = ''
+    if arm == 'right':
+        arm_joints = 'rarm'
+    else:
+        arm_joints = 'larm'
+    if use_waist:
+        torso_joints = 'torso_'
+    else:
+        torso_joints = ''
+
+    print torso_joints+arm_joints+hand_joints
+    sync(duration=duration, joints=torso_joints+arm_joints+hand_joints)
+
+def move_arm_ef(f, duration=2.0, arm='right', width=None, use_waist=True):
+    f = f*(-r.Twrist_ef)
+    move_arm(f, duration=duration, arm=arm, width=width, use_waist=use_waist)
+
 def set_view(camera='world'):
     warn('not yet implemented')
     return
@@ -241,6 +277,7 @@ def show_frame(frm, name='frame0'):
     env.delete_object(name)
     bx = visual.box(length=10, height=10, width=10, color=(1,0,1))
     obj = PartsObjectWithName(vbody=bx,name=name)
+    obj.vframe.resize(60.0)
     env.insert_object(obj, frm, env.get_world())
 
 def prepare():
