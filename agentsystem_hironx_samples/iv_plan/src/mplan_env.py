@@ -6,7 +6,7 @@
 
 
 from viewer import *
-
+import re
 
 class NameCollisionError(Exception):
     def __init__(self, msg):
@@ -46,8 +46,9 @@ class MPlanEnv:
         else:
             return None
 
-    def get_objects(self):
-        return self.scene_objects
+    def get_objects(self, pattern='.*'):
+        r = re.compile(pattern)
+        return [x for x in self.scene_objects if r.match(x.name) != None]
 
     def get_world(self):
         return self.get_object('world')
