@@ -6,15 +6,6 @@ import sys
 import string
 import time
 
-
-## ros dependent
-import roslib; roslib.load_manifest('iv_plan')
-##
-
-import RTC
-import _GlobalIDL, _GlobalIDL__POA
-import OpenRTM_aist
-
 from utils import *
 from viewer import *
 import scene_objects
@@ -22,6 +13,11 @@ from robot import *
 from mplan_env import *
 from csplan import *
 import hironx_motions
+
+import RTC
+import _GlobalIDL, _GlobalIDL__POA
+import OpenRTM_aist
+
 
 real_robot = False
 if real_robot:
