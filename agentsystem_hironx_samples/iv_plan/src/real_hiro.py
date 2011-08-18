@@ -75,15 +75,16 @@ class RealHIRO:
         self.rhand_pose_markers = []
         self.lhand_pose_markers = []
         self.kinect_centers = []
+        self.kinect_pose_markers = []
 
     def connect(self):
         rospy.init_node('motion_planner')
 
-        rospy.Subscriber('/hiro/joint_state', JointState, self.update_joint_state)
+        # rospy.Subscriber('/hiro/joint_state', JointState, self.update_joint_state)
         self.listener = tf.TransformListener()
 
-        # h_rh = get_handle('RobotHardware0.rtc', ns)
-        # self.jstt_port = h_rh.outports['jointStt']
+        h_rh = get_handle('RobotHardware0.rtc', ns)
+        self.jstt_port = h_rh.outports['jointStt']
 
         # h_rh = get_handle('HIRONXController(Robot)0.rtc', ns)
         # self.jstt_port = h_rh.outports['q']
@@ -98,7 +99,8 @@ class RealHIRO:
         rospy.Subscriber('/hiro/rhand/ar_pose_marker', ARMarkers, self.update_rhand_cam)
         rospy.Subscriber('/hiro/lhand/ar_pose_marker', ARMarkers, self.update_lhand_cam)
         rospy.Subscriber('/calc_center', geometry_msgs.msg.PoseStamped, self.update_calc_center)
-
+        rospy.Subscriber('/ar_pose_marker', ARMarkers, self.update_kinect_AR)
+    
     def __del__(self):
         #deactivate([self.h_leyecap, self.h_reyecap])
         deactivate([self.h_leyecap])
@@ -124,6 +126,10 @@ class RealHIRO:
     def update_lhand_cam(self, msg):
         if len(msg.markers) > 0:
             self.lhand_pose_markers = msg.markers
+
+    def update_kinect_AR(self, msg):
+        if len(msg.markers) > 0:
+            self.kinect_pose_markers = msg.markers
 
     def update_calc_center(self, msg):
         def near(p1,p2,eps=0.02):
@@ -155,7 +161,7 @@ class RealHIRO:
         # velocity = reduce(operator.__concat__, data.dqState)
 
     def get_joint_angles(self):
-        # self.read_joint_state() # for RT-middle        
+        self.read_joint_state() # for RT-middle        
         return self.joint_states
 
     def get_tf(self, from_frm='/leye', to_frm='/checkerboard'):
@@ -241,6 +247,23 @@ class RealHIRO:
                 return filter(None, [parse_marker(m) for m in self.rhand_pose_markers])
             else:
                 return filter(None, [parse_marker(m) for m in self.lhand_pose_markers])
+
+        elif camera == 'kinect_AR':
+            def parse_marker(marker):
+                if rospy.Time.now().to_sec() - marker.header.stamp.to_sec() > thre:
+                    return None
+                else:
+                    p = marker.pose.pose.position
+                    trans = 1000.0 * array([p.x, p.y, p.z])
+                    q = marker.pose.pose.orientation
+                    rot = [q.x, q.y, q.z, q.w]
+
+                    return (#marker.header.frame_id,
+                            marker.id,
+                            FRAME(mat=MATRIX(mat=quaternion_matrix(rot)[0:3,0:3].tolist()),
+                                  vec=VECTOR(vec=(trans.tolist()))))
+
+            return filter(None, [parse_marker(m) for m in self.kinect_pose_markers])
 
         else:
             print 'specified camera is not supported'
