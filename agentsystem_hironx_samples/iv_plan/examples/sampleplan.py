@@ -5,13 +5,14 @@ from set_env import *
 from demo_common import *
 from scene_objects import *
 
+
 def demo_plan():
     def grasp_width(obj):
         if obj.vbody.__class__ == visual.cylinder:
             return obj.vbody.radius*2
         else:
             return obj.vbody.size[1]
-        
+
     prepare_right()
     q_pre = r.get_arm_joint_angles()
 
@@ -28,7 +29,7 @@ def demo_plan():
         ptfrm = pt.where()
         ptfrm.vec[2] += grasp_zoffset[tgtnm]
         asols,gsols = pl.reaching_plan(ptfrm, use_waist=False)
-    
+
         move_arm(asols[0])
         r.set_arm_joint_angles(gsols[0])
         grasp(width=grasp_width(pt), name=tgtnm)
@@ -46,7 +47,7 @@ def demo_plan():
         r.set_arm_joint_angles(gsols[0])
         release(name = tgtnm)
         add_hand_collision(tgtnm)
-    
+
         # go back to prepare pose
         move_arm(q_pre)
 
@@ -90,52 +91,63 @@ def show_tree():
     show_traj(pl.T_init, name='traj0')
     show_traj(pl.T_goal, name='traj1')
 
-def play_traj(traj, duration=0.5):
-    '''function to execute a planner-generated trajectory'''
-    avecs = [x.avec for x in traj]
-    for avec in avecs:
-        r.set_arm_joint_angles(avec)
-        sync(duration=duration)
+def exec_traj(traj, duration=0.8, use_armcontrol=False):
+    def robot_relative_traj(traj):
+        T = -r.get_link('WAIST_Link').where()
+        qs = [x.avec for x in traj]
+        ps = []
+        for q in qs:
+            r.set_arm_joint_angles(q)
+            ps.append(T*r.get_link('RARM_JOINT5_Link').where())
+        return ps
 
-def setup_ac_scene():
-    tbltop = env.get_object('table top')
-    thickness = tbltop.vbody.size[2]
-    name = 'pallete'
-    plt = env.get_object('pallete')
-    if not plt:
-        newplt = env.eval_sctree(pallete(name))
-        x,y,theta = -180, -370, 0
-        reltf = FRAME(xyzabc=[x,y,(thickness+0)/2,0,0,pi/2])
-        env.insert_object(newplt, reltf, tbltop)
-
-    name = 'partsA'
-    x,y,theta = -200, 100, 0
-    if plt:
-        pt = env.get_object(name)
-        reltf = FRAME(xyzabc=[x,y,(thickness+pt.vbody.size[2])/2,
-                              0,0,theta])
-        pt.unfix()
-        pt.affix(tbltop, reltf)
+    if use_armcontrol:
+        rr.send_trajectory(robot_relative_traj(traj), duration=duration)
     else:
-        pt = env.eval_sctree(partsA(name))
-        reltf = FRAME(xyzabc=[x,y,(thickness+pt.vbody.size[2])/2,
-                              0,0,theta])
-        env.insert_object(pt, reltf, tbltop)
+        avecs = [x.avec for x in traj]
+        for avec in avecs:
+            r.set_arm_joint_angles(avec)
+            sync(duration=duration)
 
-    name = 'partsB'
-    x,y,theta = -200, -50, 0
-    if plt:
-        pt = env.get_object(name)
-        reltf = FRAME(xyzabc=[x,y,thickness/2.0,0,0,theta])
-        pt.unfix()
-        pt.affix(tbltop, reltf)
-    else:
-        pt = env.eval_sctree(partsB(name))
-        reltf = FRAME(xyzabc=[x,y,thickness/2.0,0,0,theta])
-        env.insert_object(pt, reltf, tbltop)
+# def setup_ac_scene():
+#     tbltop = env.get_object('table top')
+#     thickness = tbltop.vbody.size[2]
+#     name = 'pallete'
+#     plt = env.get_object('pallete')
+#     if not plt:
+#         newplt = env.eval_sctree(pallete(name))
+#         x,y,theta = -180, -370, 0
+#         reltf = FRAME(xyzabc=[x,y,(thickness+0)/2,0,0,pi/2])
+#         env.insert_object(newplt, reltf, tbltop)
 
-    if not plt:
-        setup_cobjs()
+#     name = 'partsA'
+#     x,y,theta = -200, 100, 0
+#     if plt:
+#         pt = env.get_object(name)
+#         reltf = FRAME(xyzabc=[x,y,(thickness+pt.vbody.size[2])/2,
+#                               0,0,theta])
+#         pt.unfix()
+#         pt.affix(tbltop, reltf)
+#     else:
+#         pt = env.eval_sctree(partsA(name))
+#         reltf = FRAME(xyzabc=[x,y,(thickness+pt.vbody.size[2])/2,
+#                               0,0,theta])
+#         env.insert_object(pt, reltf, tbltop)
+
+#     name = 'partsB'
+#     x,y,theta = -200, -50, 0
+#     if plt:
+#         pt = env.get_object(name)
+#         reltf = FRAME(xyzabc=[x,y,thickness/2.0,0,0,theta])
+#         pt.unfix()
+#         pt.affix(tbltop, reltf)
+#     else:
+#         pt = env.eval_sctree(partsB(name))
+#         reltf = FRAME(xyzabc=[x,y,thickness/2.0,0,0,theta])
+#         env.insert_object(pt, reltf, tbltop)
+
+#     if not plt:
+#         setup_cobjs()
 
 def setup_cobjs():
     pltobjs = env.get_objects('pallete side')

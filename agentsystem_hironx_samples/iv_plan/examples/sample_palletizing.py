@@ -10,6 +10,9 @@ from demo_common import *
 # task sequence
 # A0 => P0, A1 => P1, A2 => P2, A3 => P3
 
+def insert_objects():
+    pass
+
 def demo():
     for i in range(4):
         # if i % 2 == 0:
@@ -25,6 +28,15 @@ def demo():
         f.vec[2] += 25
         move_arm_ef(f, arm=l_or_r)
         release(width=parts.vbody.size[1]+10, name=parts.name, hand=l_or_r)
+
+def pick_with_handam():
+    prepare()
+    sync()
+    f = FRAME(xyzabc=[250,-50,850,0,0,0])
+    move_arm_ef(f)
+    Trhandcam_tgt = FRAME(xyzabc=[0,0,220,pi,0,pi/6]) # replaced with recognition result
+    Twld_tgt = r.get_sensor('rhandcam').where()*Trhandcam_tgt
+    move_arm_ef(Twld_tgt, duration=4.0)
 
 
 def reset_world():
