@@ -11,7 +11,7 @@ from mplan_env import *
 from csplan import *
 import hironx_motions
 
-real_robot = False
+real_robot = True
 if real_robot:
     from real_hiro import *
     import rospy
@@ -70,6 +70,14 @@ def sync(duration=4.0, joints='all', wait=True, waitkey=True):
             rr.send_goal([js[0:3],js[3:9],[],[],[]], duration, wait=wait)
         elif joints == 'torso_larm':
             rr.send_goal([js[0:3],[],js[9:15],[],[]], duration, wait=wait)
+        elif joints == 'rarm_rhand':
+            rr.send_goal([[],js[3:9],[],js[15:19],[]], duration, wait=wait)
+        elif joints == 'torso_rarm_rhand':
+            rr.send_goal([js[0:3],js[3:9],[],js[15:19],[]], duration, wait=wait)
+        elif joints == 'larm_lhand':
+            rr.send_goal([[],[],js[9:15],[],js[19:23]], duration, wait=wait)
+        elif joints == 'torso_larm_lhand':
+            rr.send_goal([js[0:3],[],js[9:15],[],js[19:23]], duration, wait=wait)
         elif joints=='all':
             rr.send_goal([js[0:3],js[3:9],js[9:15],js[15:19],js[19:23]], duration, wait=wait)
         else:
