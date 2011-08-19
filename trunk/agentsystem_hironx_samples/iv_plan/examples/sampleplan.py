@@ -5,9 +5,6 @@ from set_env import *
 from demo_common import *
 from scene_objects import *
 
-# r.add_collision_object(env.get_object('wall0'))
-# r.add_collision_object(env.get_object('wall1'))
-
 def demo_plan():
     def grasp_width(obj):
         if obj.vbody.__class__ == visual.cylinder:
@@ -53,20 +50,32 @@ def demo_plan():
         # go back to prepare pose
         move_arm(q_pre)
 
-def demo_plan1():
-    p_start = FRAME(mat=[[0, 0, -1], [0, 1, 0], [1, 0, 0]],
-                    vec=[210.0, -300.0, 880.0])
-    q_start = r.ik(p_start)[0]
-    p_target = FRAME(mat=[[0, 0, -1], [0, 1, 0], [1, 0, 0]],
-                     vec=[210.0, -50.0, 880.0])
-    q_target = r.ik(p_target)[0]
-    traj = pl.make_plan(q_start, q_target)
-    if traj == None:
+def plan1(p0 = FRAME(xyzabc=[210.0, -300.0, 860.0, 0, -pi/2, 0]),
+          p1 = FRAME(xyzabc=[210.0, -50.0, 860.0, 0, -pi/2, 0])):
+    q0 = r.ik(p0)[0]
+    q1 = r.ik(p1)[0]
+    traj0 = pl.make_plan(q0, q1)
+    if traj0 == None:
         return
+    # show_traj(traj0)
+    traj = pl.optimize_trajectory(traj0)
     show_traj(traj)
-    opttraj = pl.optimize_trajectory(traj)
-    show_traj(opttraj)
-    return traj, opttraj
+    return traj0, traj
+
+def plan2(partsname):
+    prepare() # initial pose
+    r.set_joint_angle(0, 0.8) # turn the waist
+    p1 = env.get_object(partsname).where() # get a goal frame of the end-effector
+    p1.vec[2] += 30 # approach frame
+    p1 = p1 * (-r.Twrist_ef) # calc a corresponding wrist frame
+    q0 = r.get_arm_joint_angles()
+    q1 = r.ik(p1)[0]
+    traj0 = pl.make_plan(q0, q1)
+    if traj0 == None:
+        return
+    traj = pl.optimize_trajectory(traj0)
+    show_traj(traj)
+    return traj0, traj
 
 def show_traj(sts, name='traj0'):
     env.delete_object(name)
@@ -176,18 +185,8 @@ def move_arm(q_target):
     show_traj(opttraj)
     return opttraj
 
-# def demo_plan():
-#     prepare_right()
-#     q_pre = r.get_arm_joint_angles()
 
-#     pltfrm = env.get_object('pallete').where()
-#     holefrms = [pltfrm*FRAME(xyzabc=[65,41,0,0,0,0]),
-#                 pltfrm*FRAME(xyzabc=[65,-41,0,0,0,0]),
-#                 pltfrm*FRAME(xyzabc=[-65,41,0,0,0,0]),
-#                 pltfrm*FRAME(xyzabc=[-65,-41,0,0,0,0])]
-
-#     objs = detect()
-#     for tgtnm in ['partsA', 'partsB']:
-#         pt = env.get_object(tgtnm)
-
-# setup_ac_scene()
+colored_print("1: plan2('A0')", 'blue')
+colored_print("2: plan2('A1')", 'blue')
+colored_print("3: plan2('A2')", 'blue')
+colored_print("4: plan2('A3')", 'blue')
