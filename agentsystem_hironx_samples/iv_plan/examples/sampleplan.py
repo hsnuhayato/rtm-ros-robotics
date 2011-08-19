@@ -129,16 +129,16 @@ def setup_ac_scene():
         setup_cobjs()
 
 def setup_cobjs():
-    pltobjs = [x for x in env.get_objects() if re.match('pallete side.*', x.name)]
-    ptA = env.get_object('partsA')
-    ptB = env.get_object('partsB')
+    pltobjs = env.get_objects('pallete side')
+    A0 = env.get_object('A0')
+    A1 = env.get_object('A1')
     for o in pltobjs:
         r.add_collision_object(o)
-        r.add_collision_pair(ptA, o)
-        r.add_collision_pair(ptB, o)
-    r.add_collision_object(ptA)
-    r.add_collision_object(ptB)
-    r.add_collision_pair(ptA, ptB)
+        r.add_collision_pair(A0, o)
+        r.add_collision_pair(A1, o)
+    r.add_collision_object(A0)
+    r.add_collision_object(A1)
+    r.add_collision_pair(A0, A1)
 
 def add_hand_collision(objname):
     obj = env.get_object(objname)
@@ -190,4 +190,4 @@ def move_arm(q_target):
 #     for tgtnm in ['partsA', 'partsB']:
 #         pt = env.get_object(tgtnm)
 
-setup_ac_scene()
+# setup_ac_scene()
