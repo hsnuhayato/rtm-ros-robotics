@@ -43,6 +43,10 @@ class CSPlanner():
         self.maxIter = 50
         self.epsilon = 80.0
 
+        self.cccnt = 0
+        self.cctm = 0.0
+
+
     def move_arm(self, goalrot, goalpos, width):
         """
         This is the explanation of the function, hoge.
@@ -259,7 +263,13 @@ class CSPlanner():
 
     def feasibleState(self, q):
         self.robot.set_arm_joint_angles(q.avec)
+        t1 = time.time()
         cstate = self.robot.in_collision()
+        t2 = time.time()
+        self.cccnt += 1
+        self.cctm += t2-t1
+        # print 'CC: ', t2-t1
+
         if cstate:
             print 'collision: ',
             print self.robot.get_arm_joint_angles()

@@ -20,11 +20,7 @@ from pqp_if import *
 
 
 def get_AABB(vs):
-    if vs.vbody.__class__ == visual.cylinder:
-        r = vs.vbody.radius
-        z = vs.vbody.axis[2]
-        return [[-r,r],[-r,r],[0,z]]
-    else:
+    if vs.__class__ == list:
         xlb = ylb = zlb = inf
         xub = yub = zub = -inf
         for v in vs:
@@ -41,6 +37,13 @@ def get_AABB(vs):
             if v[2] > zub:
                 zub = v[2]
         return [[xlb,xub],[ylb,yub],[zlb,zub]]
+    else:
+        if vs.vbody.__class__ == visual.cylinder:
+            r = vs.vbody.radius
+            z = vs.vbody.axis[2]
+            return [[-r,r],[-r,r],[0,z]]
+        else:
+            warn('unknown shape')
 
 def gen_collision_body(obj):
     tris = [(0,1,2), (2,3,0),
@@ -86,7 +89,7 @@ def gen_collision_body(obj):
             #warn(str(obj.vbody.__class__)+' is not supported for collision body')
             return gen_cbody_from_AABB(get_AABB(obj))
 
-    def gen_cbody_link(l, simple=False):
+    def gen_cbody_link(l, simple=True):
         pts = []
         for tf,shp in l.shapes:
             # print shp.vbody.__class__
