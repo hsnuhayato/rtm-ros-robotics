@@ -31,6 +31,9 @@ class CoordinateObjectWithName(CoordinateObject):
         #CoordinateObject.__del__(self)
         self.vframe.set_visible(False)
 
+    def locate(self, world_frame):
+        self.set_trans((-self.parent.where())*world_frame)
+
     def trace(self):
         pass
 
@@ -50,6 +53,9 @@ class PartsObjectWithName(PartsObject):
 
     def __str__(self):
         return self.__repr__()
+
+    def locate(self, world_frame):
+        self.set_trans((-self.parent.where())*world_frame)
 
 class SensorObject(PartsObjectWithName):
     def __init__(self,
