@@ -41,7 +41,7 @@ class CSPlanner():
 
         self.poses = []
         self.maxIter = 50
-        self.epsilon = 80.0
+        self.epsilon = 60.0
 
         self.cccnt = 0
         self.cctm = 0.0
@@ -79,7 +79,7 @@ class CSPlanner():
                                        approach_distance=approach_distance)
         return self.robot.ik(afrms, arm, use_waist), self.robot.ik(gfrms, arm, use_waist)
 
-        
+
     #def make_plan(self, q_start, p_targets):
     def make_plan(self, q_start, q_target):
         self.clean()

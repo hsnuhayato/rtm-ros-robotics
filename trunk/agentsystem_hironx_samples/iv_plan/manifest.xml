@@ -16,6 +16,7 @@
   <depend package="iv_idl"/>
   <depend package="rtc_handle"/>
   <depend package="rmrc_geo_model"/>
+  <depend package="tfpy"/>
 
   <rosdep name="ply"/>
   <rosdep name="gtkglextmm"/>
