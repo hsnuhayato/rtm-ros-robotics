@@ -1,5 +1,5 @@
 ##
-## RRT-connect like planner for HIRO-NX
+## RRT-connect like planner
 ## 
 ## R.Hanai 2011.04.5 - 
 ##
@@ -26,6 +26,12 @@ class State:
         self.cntrl = None
         self.avec = avec
 
+    # def __repr__(self):
+    #     return '<%s %s>'%(self.__class__, self.avec)
+
+    # def __str__(self):
+    #     return self.__repr__()
+
 class Node:
     def __init__(self, parent=None, q=zeros(7), x=FRAME()):
         self.parent = parent
@@ -38,21 +44,23 @@ class CSPlanner():
         self.robot = robot
         self.env = env
         self.cc = cc
-
-        self.poses = []
-        self.maxIter = 50
+        self.maxIter = 200
         self.epsilon = 60.0
+        self.poses = []
+        self.clean()
 
+    def clean(self):
+        for pose in self.poses:
+            pose.set_visible(False)
+        self.poses = []
         self.cccnt = 0
-        self.cctm = 0.0
+        self.cctm = self.searchtm = self.optimizetm = 0.0
 
-
-    def move_arm(self, goalrot, goalpos, width):
-        """
-        This is the explanation of the function, hoge.
-        @rtc_service_signature: (in Mat33, in Vec3, in double) -> unsigned long
-        """
-        pass
+    def print_statistics(self):
+        colored_print('total time %f[sec]'%(self.searchtm + self.optimizetm), 'cyan')
+        colored_print('search %f[sec]'%self.searchtm, 'cyan')
+        colored_print('optimize %f[sec]'%self.optimizetm, 'cyan')
+        colored_print('collision check %d[times], %f[sec]'%(self.cccnt, self.cctm), 'cyan')
 
     def grasp_plan(self, targetfrm, grasp_from_side=False,
                    offset=140, approach_distance=50):               
@@ -80,14 +88,23 @@ class CSPlanner():
         return self.robot.ik(afrms, arm, use_waist), self.robot.ik(gfrms, arm, use_waist)
 
 
-    #def make_plan(self, q_start, p_targets):
-    def make_plan(self, q_start, q_target):
+    def make_plan(self, q_start, q_target, q_targets=[]):
+        traj = self.search(q_start, q_targets if len(q_targets)>0 else [q_target])
+        if traj:
+            opttraj = self.optimize_trajectory(traj)
+            result = (traj, opttraj)
+        else:
+            result = None
+        self.print_statistics()
+        return result
+    
+    def search(self, q_start, q_targets):
         self.clean()
         self.T_init = [State(avec=array(q_start))]
-        self.T_goal = [State(avec=array(q_target))]
-        # self.T_goal = map(lambda x: State(avec=x), goal_configs)
-        start_time = time.time()
-        while time.time() - start_time < self.maxTime:
+        self.T_goal = [State(avec=array(q)) for q in q_targets]
+
+        tm_start = time.time()
+        while time.time() - tm_start < self.maxTime:
             if self.expandTree():
                 traj = []
                 nd = self.T_init[-1]
@@ -100,8 +117,8 @@ class CSPlanner():
                     traj.append(nd)
                     nd = nd.parent
 
+                self.searchtm = time.time() - tm_start
                 return traj
-
         return None
 
     def optimize_trajectory(self, traj, tm=3.0):
@@ -141,30 +158,32 @@ class CSPlanner():
             
             while True:
                 print self.dist(q_from, q_to)
-                q_new = self.newState(q_from, q_to)
+                q_new, dws = self.newState(q_from, q_to)
                 if q_new == 'trapped':
                     break
-                elif q_new == 'reached':
-                    trajlen = trajlen - (n - m -1)
-                    trajlen -= 1
-                    while q_to != q0:
-                        q = q_from.parent
-                        q_from.parent = q_to
-                        q_to = q_from
-                        q_from = q
-                        trajlen += 1
-                    print 'new length = %d'%trajlen
-                    break
                 else:
-                    q_new.parent = q_from
-                    q_from = q_new
+                    if dws < self.epsilon * 1.5:
+                        trajlen = trajlen - (n - m -1)
+                        trajlen -= 1
+                        while q_to != q0:
+                            q = q_from.parent
+                            q_from.parent = q_to
+                            q_to = q_from
+                            q_from = q
+                            trajlen += 1
+                        print 'new length = %d'%trajlen
+                        break
+                    else:
+                        q_new.parent = q_from
+                        q_from = q_new
 
         traj2 = []
         q = traj[0]
         while q:
             traj2.append(q)
             q = q.parent
-            
+
+        self.optimizetm = time.time() - t1
         return traj2
 
     def expandTree(self):
@@ -172,59 +191,47 @@ class CSPlanner():
         T_b = self.T_goal
 
         for i in range(self.maxIter):
-            if i % 50 == 0:
-                print 'iter=%d' % i
             q_rand = self.randomState()
-            res1 = self.connect(T_a, q_rand)
-            res2 = self.connect(T_b, q_rand)
-            if res1 == 'reached' and res2 == 'reached':
-                return True
-        warn('failed')
+            if i % 3 == 0:
+                if self.extend(T_a, q_rand) != 'trapped':
+                    q_new = T_a[-1]
+                    if self.connect(T_b, q_new) == 'reached':
+                        return True
+            else:
+                self.connect(T_a, q_rand, maxIter=5)
+
+            T_tmp = T_a
+            T_a = T_b
+            T_b = T_tmp
+        
         return False
 
     def extend(self, T, q_to):
         q_near = self.nearestNeighbor(q_to, T)
-        q_new = self.newState(q_to, q_near)
-        if q_new:
-            T.append(q_new)
+        q_new, dws = self.newState(q_near, q_to)
+        if q_new == 'trapped':
+            return q_new
+        else:
             q_new.parent = q_near
-            # print ' dist:',dist(q_new, self.goal)
-            # if distSO3R3(fk(q_new.avec), fk(self.goal.avec)) < 5e-2:
-
-            if self.dist(q_new, q_to) < 5e-1:
-                self.goal = q_new
+            T.append(q_new)
+            if dws < self.epsilon * 1.5:
                 return 'reached'
-            return 'advanced'
-        return 'trapped'
-
-    def clean(self):
-        for pose in self.poses:
-            pose.set_visible(False)
-        self.poses = []
+            else:
+                return 'advanced'
 
     def dist(self, q1, q2):
         return distRn(q1.avec, q2.avec)
 
-    def connect(self, T, q_to):
-        q_from = self.nearestNeighbor(q_to, T)
-        while True:
+    def connect(self, T, q_to, maxIter=100):
+        state = 'advanced'
+        i = 0
+        while state == 'advanced':
             # print self.dist(q_from, q_to)
-            q_new = self.newState(q_from, q_to)
-            if q_new == 'trapped':
-                return q_new
-            if q_new == 'reached':
-                return q_new
-            if q_new:
-                q_new.parent = q_from
-                T.append(q_new)
-                # print ' dist:',dist(q_new, self.goals[0])
-                # if dist(q_new, self.goals[0]) < 5e-1:
-                #     self.goals[0].parent = q_new
-                #     self.states.append(self.goals[0])
-                #     return 'reached'
-                # else:
-                #     q_from = q_new
-                q_from = q_new
+            state = self.extend(T, q_to)
+            if i == maxIter:
+                break
+            i += 1
+        return state
 
     def findFeasiblePath(self):
         good_paths = []
@@ -243,23 +250,27 @@ class CSPlanner():
                                  random.uniform(self.robot.arm_jlimits[5][0],self.robot.arm_jlimits[5][1])]))
 
     def nearestNeighbor(self, q_in, T):
-        return min(T, key=lambda q: distRn(q.avec, q_in.avec))
+        #return min(T, key=lambda q: distRn(q.avec, q_in.avec))
+        return min(T, key=lambda q: self.weightedDistance(q.avec, q_in.avec))
 
-    def newState(self, q_from, q_to):
-        v = q_to.avec - q_from.avec
+    def weightedDistance(self, q1, q2):
+        d = 0.0
+        for i in range(len(q1)):
+            d += self.robot.sampling_weight[i] * abs(q1[i]-q2[i])
+        return d
+
+    def newState(self, q_near, q_to):
+        v = q_to.avec - q_near.avec
         dws = 0.0
-        for i in range(len(q_from.avec)):
+        for i in range(len(q_near.avec)):
             dws += self.robot.sampling_weight[i] * abs(v[i])
 
-        if dws < self.epsilon * 2.0:
-            return 'reached'
+        dvec = self.epsilon * v / dws
+        st = State(avec = q_near.avec + dvec)
+        if self.feasibleState(st):
+            return st, dws
         else:
-            dvec = self.epsilon * v / dws
-            st = State(avec = q_from.avec + dvec)
-            if self.feasibleState(st):
-                return st
-            else:
-                return 'trapped'
+            return 'trapped', dws
 
     def feasibleState(self, q):
         self.robot.set_arm_joint_angles(q.avec)
@@ -303,7 +314,6 @@ class SamplingBasedPlanner:
         elif isinstance(frm_or_nodes[0], FRAME):
             for frm in frm_or_nodes:
                 self.plenv.add_marker(frm)
-
 
 
 class TaskSpacePlanner(SamplingBasedPlanner):
@@ -475,122 +485,3 @@ class TaskSpacePlanner(SamplingBasedPlanner):
         qs.reverse()
         xs.reverse()
         return qs,xs
-
-
-class CspacePlanner(SamplingBasedPlanner):
-    def __init__(self):
-        self.epsilon = 0.15
-
-    def calcGoalConfigs(self, efframe):
-        # joint S2 samples
-        s2samples = map(radians, [-40,-20,0,20,40])
-        q_goals = reduce(operator.add,
-                         map(lambda ths2: self.arm.ik(efframe, ths2),
-                             s2samples))
-        return q_goals
-
-    def expandTree(self):
-        T_a = self.T_init
-        T_b = self.T_goal
-
-        for i in range(self.maxIter):
-            if i % 50 == 0:
-                print 'iter=%d' % i
-            q_rand = self.randomState()
-            if self.extend(T_a, q_rand) != 'trapped':
-                if self.extend(T_b, q_new) == 'reached':
-                    return True
-            tmp = T_a
-            T_a = T_b
-            T_b = T_a
-        return False
-
-    def extend(self, T, q_to):
-        q_near = self.nearestNeighbor(q_to, T)
-        q_new = self.newState(q_to, q_near)
-        if q_new:
-            T.append(q_new)
-            q_new.parent = q_near
-            # print ' dist:',dist(q_new, self.goal)
-            # if distSO3R3(fk(q_new.avec), fk(self.goal.avec)) < 5e-2:
-
-            if dist(q_new, q_to) < 5e-1:
-                self.goal = q_new
-                return 'reached'
-            return 'advanced'
-        return 'trapped'
-
-    def makeArmPlan(self, goal_configs):
-        self.T_init = [State(avec=array(self.arm.get_joints()))]
-        self.T_goal = map(lambda x: State(avec=x), goal_configs)
-        self.clean()
-        self.expandTree()
-
-    def clean(self):
-        for pose in self.poses:
-            pose.set_visible(False)
-        self.poses = []
-        # self.states = []
-
-    def connect(self, q_to):
-        q_from = self.nearestNeighbor(q_to)
-        while True:
-            q_new = self.newState(q_from, q_to)
-            if q_new:
-                q_new.parent = q_from
-                self.states.append(q_new)
-                # print ' dist:',dist(q_new, self.goals[0])
-                # if dist(q_new, self.goals[0]) < 5e-1:
-                #     self.goals[0].parent = q_new
-                #     self.states.append(self.goals[0])
-                #     return 'reached'
-                # else:
-                #     q_from = q_new
-                q_from = q_new
-            else:
-                return 'trapped'
-
-    def findFeasiblePath(self):
-        good_paths = []
-        for goal in self.goals:
-            q_best, cost = self.evalApproachConfig(goal)
-            good_paths.append((q_best, cost))
-        return good_paths
-
-    # def evalApproachConfig(self, goal):
-    #     dmin = sys.float_info.max
-    #     for q in self.states:
-    #         # d = distSO3R3(r.fk(q.avec), r.fk(goal.avec))
-    #         # d = scipy.spatial.distance.minkowski(q.avec, goal.avec, 2)
-    #         d = 0.0
-    #         i = 0
-    #         while i < 6:
-    #             d = d + (q.avec[i]-goal.avec[i])**2
-    #             i = i + 1
-    #         if d < dmin:
-    #             dmin = d
-    #             q_best = q
-    #     return q_best, dmin
-
-    def randomState(self):
-        return sampleUniformState()
-
-    def nearestNeighbor(self, q_in, T):
-        return min(T, key=lambda q: dist(q, q_in))
-
-    def newState(self, q_from, q_to):
-        v = q_to.avec - q_from.avec
-        l = linalg.norm(v)
-        if l < 8e-1:
-            return None
-        else:
-            dvec = v / l
-            st = State(avec = q_from.avec + dvec * self.epsilon)
-            if self.feasibleState(st):
-                return st
-            else:
-                return None
-
-    def feasibleState(self, q): # check collision
-        return True
-

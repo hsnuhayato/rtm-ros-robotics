@@ -19,10 +19,11 @@ import wrl_loader
 from pqp_if import *
 
 
-def get_AABB(vs):
+def get_AABB(vs, padding=5.0):
+    xlb = ylb = zlb = inf
+    xub = yub = zub = -inf
+
     if vs.__class__ == list:
-        xlb = ylb = zlb = inf
-        xub = yub = zub = -inf
         for v in vs:
             if v[0] < xlb:
                 xlb = v[0]
@@ -36,14 +37,22 @@ def get_AABB(vs):
                 zlb = v[2]
             if v[2] > zub:
                 zub = v[2]
-        return [[xlb,xub],[ylb,yub],[zlb,zub]]
     else:
         if vs.vbody.__class__ == visual.cylinder:
             r = vs.vbody.radius
             z = vs.vbody.axis[2]
-            return [[-r,r],[-r,r],[0,z]]
+            xlb = -r
+            xub = r
+            ylb = -r
+            yub = r
+            zlb = 0
+            zub = z
         else:
             warn('unknown shape')
+            return None
+    return [[xlb-padding,xub+padding],
+            [ylb-padding,yub+padding],
+            [zlb-padding,zub+padding]]
 
 def gen_collision_body(obj):
     tris = [(0,1,2), (2,3,0),
@@ -193,10 +202,10 @@ class VRobot(JointObject):
 
     def in_collision(self, check_all=False):
         blacklist = [(0,2),(0,3),(0,9),
-                     (6,15),(6,17),
+                     (6,8),(6,15),(6,17),
                      (7,15),(7,17),
                      (8,15),(8,17),
-                     (12,19),(12,21),
+                     (12,14),(12,19),(12,21),
                      (13,14),
                      (13,19),(13,21),
                      (14,19),(14,21),
@@ -395,9 +404,9 @@ class VHIRONX(VRobot):
     def fk_fast_rarm(self, ths):
         command = ([pkgdir+'/externals/ikfast/fk_hiro']
                    + map(lambda x: '%f'%x, ths))
-        p = Popen(command, stdout=PIPE)
+        p = Popen(command, stdout=PIPE, close_fds=True)
         result = p.stdout.readlines()
-        p.stdout.close()
+        #p.stdout.close()
         return map(float, re.split(' +', result[0])[:-1])
 
     def fk(self, arm='right', scl=1e+3):

@@ -66,6 +66,13 @@ class MPlanEnv:
         if parent:
             obj.affix(parent, frame)
 
+    def delete_objects(self, pattern):
+        r = re.compile(pattern)
+        objs = self.get_objects(pattern)
+        for obj in objs:
+            if self.get_object(obj.name):
+                self.delete_object(obj.name)
+
     def delete_object(self, name):
         obj = self.get_object(name)
 
@@ -81,6 +88,7 @@ class MPlanEnv:
                 #o.vbody.frame.set_visible(False)
                 self.scene_objects.remove(o)
                 # del self.scene_objects[name]
+
 
     def show_frames(self):
         print 'not yet implemented'
