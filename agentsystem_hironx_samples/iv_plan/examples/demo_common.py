@@ -11,7 +11,7 @@ from mplan_env import *
 from csplan import *
 import hironx_motions
 
-real_robot = True
+real_robot = False
 if real_robot:
     from real_hiro import *
     import rospy
@@ -25,7 +25,6 @@ r = VHIRONX(pkgdir+'/externals/models/HIRO_110603/')
 env.insert_object(r, FRAME(), env.get_world())
 r.go_pos(-150, 0, 0)
 pl = CSPlanner(r, env)
-r.add_collision_object(env.get_object('table top'))
 
 
 def putbox(name='box0', vaxis='x', pose2d=None):
@@ -182,7 +181,6 @@ def detect_rhand2():
         detected_objs = [x for x in env.get_objects() if detected(x)]
         return [(int(re.sub('box', '', x.name)), x.where()) for x in detected_objs]
 
-
 def look_for_boxes(name='box0'):
     '''右手ハンドの向きを変えて箱（マーカ）を探す'''
     f0 = r.fk()
@@ -201,7 +199,6 @@ def look_for_boxes(name='box0'):
             if objfrms[0] and objfrms[1]:
                 return objfrms
     return None
-
 
 def look_for_boxes2(num):
     '''右手ハンドの向きを変えて箱（マーカ）を探す'''
@@ -240,7 +237,21 @@ def grasp(hand='right', width=62, affixobj=True, name='box0'):
         tgtobj.unfix()
         tgtobj.affix(handjnt, reltf)
 
-def move_arm(f, duration=2.0, arm='right', width=None, use_waist=True):
+def move_arm_plan(p1):
+    '''move arm from current pose to p1'''
+    q0 = r.get_arm_joint_angles()
+    q1 = r.ik(p1)[0]
+    traj = pl.make_plan(q0, q1)
+    if traj:
+        show_traj(traj[1])
+        return traj
+
+def move_arm(f, duration=2.0, arm='right', width=None, use_waist=True, check_collision=False):
+    if check_collision:
+        traj = move_arm_plan(f)
+        exec_traj(traj[1], duration=0.1)
+        return
+    
     if use_waist:
         w,avec = r.ik(f,arm=arm,use_waist=True)[0]
         r.set_joint_angle(0, w)
@@ -266,11 +277,12 @@ def move_arm(f, duration=2.0, arm='right', width=None, use_waist=True):
         torso_joints = ''
 
     print torso_joints+arm_joints+hand_joints
-    sync(duration=duration, joints=torso_joints+arm_joints+hand_joints)
+    sync(duration=duration, joints=torso_joints+arm_joints+hand_joints, waitkey=False)
 
-def move_arm_ef(f, duration=2.0, arm='right', width=None, use_waist=True):
+def move_arm_ef(f, duration=2.0, arm='right', width=None, use_waist=True, check_collision=False):
     f = f*(-r.Twrist_ef)
-    move_arm(f, duration=duration, arm=arm, width=width, use_waist=use_waist)
+    move_arm(f, duration=duration, arm=arm, width=width,
+             use_waist=use_waist, check_collision=check_collision)
 
 def set_view(camera='world'):
     warn('not yet implemented')
@@ -288,6 +300,71 @@ def show_frame(frm, name='frame0'):
     obj.vframe.resize(60.0)
     env.insert_object(obj, frm, env.get_world())
 
+##
+##
+
+def show_traj(sts, name='traj0'):
+    env.delete_object(name)
+    traj = CoordinateObjects(name)
+    for st in sts:
+        r.set_arm_joint_angles(st.avec)
+        f = r.fk()
+        traj.append(f)
+    env.insert_object(traj, FRAME(), env.get_world())
+
+def show_tree():
+    show_traj(pl.T_init, name='traj0')
+    show_traj(pl.T_goal, name='traj1')
+
+def exec_traj(traj, duration=0.8, use_armcontrol=False):
+    def robot_relative_traj(traj):
+        T = -r.get_link('WAIST_Link').where()
+        qs = [x.avec for x in traj]
+        ps = []
+        for q in qs:
+            r.set_arm_joint_angles(q)
+            ps.append(T*r.get_link('RARM_JOINT5_Link').where())
+        return ps
+
+    if use_armcontrol:
+        rr.send_trajectory(robot_relative_traj(traj), duration=duration)
+    else:
+        avecs = [x.avec for x in traj]
+        for avec in avecs:
+            r.set_arm_joint_angles(avec)
+            sync(duration=duration, waitkey=False)
+
+def setup_collision_objects():
+    # table top <=> robot
+    # pallete side <=> robot
+    # parts <=> robot
+    for obj in env.get_objects('table top|pallete side|A'):
+        r.add_collision_object(obj)
+
+def add_hand_collision(objname):
+    obj = env.get_object(objname)
+    for lnknm in ['RHAND_JOINT0_Link', 'RHAND_JOINT1_Link',
+                  'RHAND_JOINT2_Link', 'RHAND_JOINT3_Link']:
+        lnk = r.get_link(lnknm)
+        r.add_collision_pair(lnk, obj)
+
+def remove_hand_collision(objname):
+    obj = env.get_object(objname)
+    for lnknm in ['RHAND_JOINT0_Link', 'RHAND_JOINT1_Link',
+                  'RHAND_JOINT2_Link', 'RHAND_JOINT3_Link']:
+        lnk = r.get_link(lnknm)
+        r.remove_collision_pair(lnk, obj)
+
+def add_objects_collision(objname1, objname2):
+    obj1 = env.get_object(objname1)
+    obj2 = env.get_object(objname2)
+    r.add_collision_pair(obj1, obj2)
+
+def remove_objects_collision(objname1, objname2):
+    obj1 = env.get_object(objname1)
+    obj2 = env.get_object(objname2)
+    r.remove_collision_pair(obj1, obj2)
+
 def prepare():
     r.set_joint_angles(r.poses['prepare'])
 
@@ -295,10 +372,4 @@ def prepare_right():
     r.set_joint_angles(r.poses['prepare_right'])
 
 
-# def detect():
-#     '''チェスボードが貼られた箱の認識'''    
-#     s = r.get_sensor('leye')
-#     Tsensor_target = s.detect()
-#     print 'leye->target: ', Tsensor_target
-#     Tworld_target = s.where() * Tsensor_target
-#     print 'world->target: ', Tworld_target
+setup_collision_objects()

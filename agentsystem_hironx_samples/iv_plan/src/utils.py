@@ -108,7 +108,7 @@ def distRn(v1, v2):
     return numpy.linalg.norm(v1-v2)
     # scipy.minkowski_distance(v1, v2, 2)
 
-def distSE3(frm1, frm2, wt=1.0, wr=2.0):
+def distSE3(frm1, frm2, wt=1.0, wr=1.8):
     v1 = frm1.vec
     m1 = frm1.mat
     v2 = frm2.vec
