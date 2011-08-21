@@ -153,7 +153,7 @@ def in_collision_pair(obj1, obj2, cache):
 
     if cres.NumPairs() > 0:
         print '%s <=> %s\n'%(obj1.name, obj2.name)
-        print_collide_result(cres)
+        # print_collide_result(cres)
         return True
     else:
         return False
@@ -175,9 +175,9 @@ class VRobot(JointObject):
 
         self.gen_link_collision_body()
         self.cobj_pairs = []
-
         self.sensors = []
 
+        self.init_clink_pairs()
         self.reset_pose()
 
     def __repr__(self):
@@ -187,8 +187,60 @@ class VRobot(JointObject):
         return self.__repr__()
 
     def add_collision_object(self, obj):
-        for j in self.joints:
-            self.add_collision_pair(j.link, obj)
+        lnknames = ['ARM_JOINT2_Link', 'ARM_JOINT3_Link',
+                    'ARM_JOINT4_Link', 'ARM_JOINT5_Link',
+                    'HAND_JOINT0_Link', 'HAND_JOINT1_Link',
+                    'HAND_JOINT2_Link', 'HAND_JOINT3_Link']
+        for lnknm in ['R'+s for s in lnknames]:
+            lnk = self.get_link(lnknm)
+            self.add_collision_pair(lnk, obj)
+        for lnknm in ['L'+s for s in lnknames]:
+            lnk = self.get_link(lnknm)
+            self.add_collision_pair(lnk, obj)
+
+    def grasp_collision_object(self, obj, hand='right'):
+        for lnknm in ['WAIST_Link', 'CHEST_JOINT0_Link',
+                      'HEAD_JOINT0_Link', 'HEAD_JOINT1_Link']:
+            lnk = self.get_link(lnknm)
+            self.add_collision_pair(lnk, obj)
+        prefix1 = 'L' if hand == 'right' else 'R'
+        prefix2 = 'R' if hand == 'right' else 'L'
+        for lnknm in [prefix1+s for s in ['ARM_JOINT0_Link',
+                                           'ARM_JOINT1_Link',
+                                           'HAND_JOINT0_Link',
+                                           'HAND_JOINT1_Link',
+                                           'HAND_JOINT2_Link',
+                                           'HAND_JOINT3_Link']]:
+            lnk = self.get_link(lnknm)
+            self.add_collision_pair(lnk, obj)
+        for lnknm in [prefix2+s for s in ['HAND_JOINT0_Link',
+                                            'HAND_JOINT1_Link',
+                                            'HAND_JOINT2_Link',
+                                            'HAND_JOINT3_Link']]:
+            lnk = self.get_link(lnknm)
+            self.remove_collision_pair(lnk, obj)
+
+    def release_collision_object(self, obj, hand='right'):
+        for lnknm in ['WAIST_Link', 'CHEST_JOINT0_Link',
+                      'HEAD_JOINT0_Link', 'HEAD_JOINT1_Link']:
+            lnk = self.get_link(lnknm)
+            self.remove_collision_pair(lnk, obj)
+        prefix1 = 'L' if hand == 'right' else 'R'
+        prefix2 = 'R' if hand == 'right' else 'L'
+        for lnknm in [prefix1+s for s in ['ARM_JOINT0_Link',
+                                           'ARM_JOINT1_Link',
+                                           'HAND_JOINT0_Link',
+                                           'HAND_JOINT1_Link',
+                                           'HAND_JOINT2_Link',
+                                           'HAND_JOINT3_Link']]:
+            lnk = self.get_link(lnknm)
+            self.remove_collision_pair(lnk, obj)
+        for lnknm in [prefix2+s for s in ['HAND_JOINT0_Link',
+                                            'HAND_JOINT1_Link',
+                                            'HAND_JOINT2_Link',
+                                            'HAND_JOINT3_Link']]:
+            lnk = self.get_link(lnknm)
+            self.add_collision_pair(lnk, obj)
 
     def add_collision_pair(self, obj1, obj2):
         if not obj1.cb:
@@ -200,7 +252,7 @@ class VRobot(JointObject):
     def remove_collision_pair(self, obj1, obj2):
         self.cobj_pairs = [(x,y) for x,y in self.cobj_pairs if not ((x == obj1 and y == obj2) or (x == obj2 and y == obj1))]
 
-    def in_collision(self, check_all=False):
+    def init_clink_pairs(self):
         blacklist = [(0,2),(0,3),(0,9),
                      (6,8),(6,15),(6,17),
                      (7,15),(7,17),
@@ -211,28 +263,43 @@ class VRobot(JointObject):
                      (14,19),(14,21),
                      (0,4),(0,10)
                      ]
-        cache = {}
-        
+
+        self.clink_pairs = []
         n = len(self.joints)
         for i in range(n):
             for j in range(i+2, n):
-                if not (i,j) in blacklist:
-                    if in_collision_pair(self.joints[i].link, self.joints[j].link, cache):
-                        return True
+                if not (i, j) in blacklist:
+                    self.clink_pairs.append((self.joints[i].link,
+                                             self.joints[j].link))
 
+    def in_collision(self, check_all=False):
+        cache = {}
+        for l1,l2 in self.clink_pairs:
+            if in_collision_pair(l1, l2, cache):
+                return True
         for obj1, obj2 in self.cobj_pairs:
             if in_collision_pair(obj1, obj2, cache):
-                return True
-                
+                return True                
         return False
     
     def gen_link_collision_body(self):
         for lnk in self.get_links():
             lnk.cb = gen_collision_body(lnk)
 
-    def set_joint_angles(self, ths, flush=True):
-        for i in range(len(ths)):
-            self.set_joint_angle(i, ths[i], False)
+    def set_joint_angles(self, ths, joints='all', flush=True):
+        if joints == 'rarm':
+            js = self.joints[3:9]
+        elif joints == 'larm':
+            js = self.joints[9:15]
+        elif joints == 'rarm+torso':
+            js = [self.joints[0]]+self.joints[3:9]
+        elif joints == 'larm+torso':
+            js = [self.joints[0]]+self.joints[9:15]
+        else:
+            js = self.joints
+
+        for j,th in zip(js,ths):
+            j.angle = th
 
         if flush:
             self.refresh()
@@ -252,8 +319,18 @@ class VRobot(JointObject):
             reltrans = ltrans * jtrans
             obj.set_trans(reltrans)
 
-    def get_joint_angles(self):
-        return map(lambda j: j.angle, self.joints)
+    def get_joint_angles(self, joints='all'):
+        if joints == 'rarm':
+            js = self.joints[3:9]
+        elif joints == 'larm':
+            js = self.joints[9:15]
+        elif joints == 'rarm+torso':
+            js = [self.joints[0]]+self.joints[3:9]
+        elif joints == 'larm+torso':
+            js = [self.joints[0]]+self.joints[9:15]
+        else:
+            js = self.joints
+        return [j.angle for j in js]
 
     def get_joint_angle(self, id):
         return self.joints[id].angle
@@ -311,30 +388,13 @@ import hironx_motions
 
 class VHIRONX(VRobot):
     def __init__(self,
-                 #wrldir = pkgdir+'/externals/models/HIRO_110219/',
                  wrldir = pkgdir+'/externals/models/HIRO_110603/',
                  scale = 1000.0,
                  name = 'HIRO-NX'):
 
+        # predefined poses
         self.poses = hironx_motions.poses
         self.hand_poses = hironx_motions.hand_poses
-
-        self.jlimits = [deg2rad(x) for x in [(-163,163),(-70,70),(-20,70), # (-20,55)
-                                             (-88,88),(-140,60),(-158,0),(-165,105),(-100,100),(-163,163),
-                                             (-88,88),(-140,60),(-158,0),(-165,105),(-100,100),(-163,163),
-                                             (-109,68),(-150,90),(-109,68),(-150,90),
-                                             (-109,68),(-150,90),(-109,68),(-150,90)]]
-
-        self.safe_jlimits = [deg2rad(x) for x in [(-163,163),(-70,70),(-20,70),
-                                                  (-58,46),(-86,29),(-143,-12),(-86,86),(-115,115),(-115,115),
-                                                  (-58,46),(-86,29),(-143,-12),(-86,86),(-115,115),(-115,115),
-                                                  (-109,68),(-150,90),(-109,68),(-150,90),
-                                                  (-109,68),(-150,90),(-109,68),(-150,90)]]
-
-        self.arm_jlimits = self.jlimits[3:9]
-
-        # maximum workspace movement in [mm]
-        self.sampling_weight = [700.0,600.0,400.0,180.0,200.0,120.0]
 
         # fixed transforms
         self.Thd_leye = hironx_motions.Thd_leye
@@ -345,6 +405,24 @@ class VHIRONX(VRobot):
 
         VRobot.__init__(self, wrldir, scale, name)
 
+        # safe(soft) joint limits
+        for i,lims in enumerate([deg2rad(x) for x in [(-163,163),(-70,70),(-20,70),
+                                                      (-75,75),(-86,29),(-143,-12),(-86,86),(-95,95),(-115,115),
+                                                      (-75,75),(-86,29),(-143,-12),(-86,86),(-95,95),(-115,115),
+                                                      (-109,68),(-150,90),(-109,68),(-150,90),
+                                                      (-109,68),(-150,90),(-109,68),(-150,90)]]):
+            j = self.joints[i]
+            j.sllimit,j.sulimit = lims
+
+        # maximum workspace movement in [mm]
+        for j,w in zip(self.joints, [700,200,200,
+                                     700,600,400,180,200,120,
+                                     700,600,400,180,200,120,
+                                     50,50,50,50,
+                                     50,50,50,50]):
+            j.weight = w
+
+        # attach sensors
         rhandcam = SensorObject(name='rhandcam')
         rhandcam.affix(self.get_joint('RARM_JOINT5'), self.Trh_cam)
         self.sensors.append(rhandcam)
@@ -510,11 +588,12 @@ class VHIRONX(VRobot):
 
     def weighted_qdist(self, q1, q2):
         return weighted_L1dist(q1, q2, [1.0, 0.8, 0.3, 0.1, 0.1, 0.02])
-
+    
     def within_joint_limit(self, q):
-        for i in range(len(self.arm_jlimits)):
-            if q[i] < self.arm_jlimits[i][0] or q[i] > self.arm_jlimits[i][1]:
-                print 'joint', i ,'is out of limits', self.arm_jlimits[i]
+        for i in range(6):
+            jnt = self.joints[i+3]
+            if q[i] < jnt.sllimit or q[i] > jnt.sulimit:
+                print 'Limits: %d,%f,%f,%f'%(i+3,q[i],jnt.sllimit,jnt.sulimit)
                 return False
         return True
 
