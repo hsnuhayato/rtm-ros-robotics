@@ -300,14 +300,11 @@ def show_frame(frm, name='frame0'):
     obj.vframe.resize(60.0)
     env.insert_object(obj, frm, env.get_world())
 
-##
-##
-
-def show_traj(sts, name='traj0'):
+def show_traj(sts, joints='all', name='traj0'):
     env.delete_object(name)
     traj = CoordinateObjects(name)
     for st in sts:
-        r.set_arm_joint_angles(st.avec)
+        r.set_joint_angles(st.avec, joints=joints)
         f = r.fk()
         traj.append(f)
     env.insert_object(traj, FRAME(), env.get_world())
@@ -316,13 +313,13 @@ def show_tree():
     show_traj(pl.T_init, name='traj0')
     show_traj(pl.T_goal, name='traj1')
 
-def exec_traj(traj, duration=0.8, use_armcontrol=False):
+def exec_traj(traj, duration=0.8, joints='all', use_armcontrol=False):
     def robot_relative_traj(traj):
         T = -r.get_link('WAIST_Link').where()
         qs = [x.avec for x in traj]
         ps = []
         for q in qs:
-            r.set_arm_joint_angles(q)
+            r.set_joint_angles(q, joints=joints)
             ps.append(T*r.get_link('RARM_JOINT5_Link').where())
         return ps
 
@@ -331,7 +328,7 @@ def exec_traj(traj, duration=0.8, use_armcontrol=False):
     else:
         avecs = [x.avec for x in traj]
         for avec in avecs:
-            r.set_arm_joint_angles(avec)
+            r.set_joint_angles(avec, joints=joints)
             sync(duration=duration, waitkey=False)
 
 def setup_collision_objects():
@@ -341,30 +338,6 @@ def setup_collision_objects():
     for obj in env.get_objects('table top|pallete side|A'):
         r.add_collision_object(obj)
 
-def add_hand_collision(objname):
-    obj = env.get_object(objname)
-    for lnknm in ['RHAND_JOINT0_Link', 'RHAND_JOINT1_Link',
-                  'RHAND_JOINT2_Link', 'RHAND_JOINT3_Link']:
-        lnk = r.get_link(lnknm)
-        r.add_collision_pair(lnk, obj)
-
-def remove_hand_collision(objname):
-    obj = env.get_object(objname)
-    for lnknm in ['RHAND_JOINT0_Link', 'RHAND_JOINT1_Link',
-                  'RHAND_JOINT2_Link', 'RHAND_JOINT3_Link']:
-        lnk = r.get_link(lnknm)
-        r.remove_collision_pair(lnk, obj)
-
-def add_objects_collision(objname1, objname2):
-    obj1 = env.get_object(objname1)
-    obj2 = env.get_object(objname2)
-    r.add_collision_pair(obj1, obj2)
-
-def remove_objects_collision(objname1, objname2):
-    obj1 = env.get_object(objname1)
-    obj2 = env.get_object(objname2)
-    r.remove_collision_pair(obj1, obj2)
-
 def prepare():
     r.set_joint_angles(r.poses['prepare'])
 
@@ -372,4 +345,4 @@ def prepare_right():
     r.set_joint_angles(r.poses['prepare_right'])
 
 
-setup_collision_objects()
+#setup_collision_objects()
