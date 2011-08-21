@@ -25,9 +25,9 @@ def plan(name1='A0', name2='P0'):
         return r.ik(p*(-r.Twrist_ef))[0]
 
     r.set_joint_angle(0, 0.8)
-    traj = pl.make_plan(get_config(name1), get_config(name2))
+    traj = pl.make_plan(get_config(name1), get_config(name2), joints='rarm')
     if traj:
-        show_traj(traj[1])
+        show_traj(traj[1], joints='rarm')
         return traj
 
 def graspplan(parts):
@@ -63,7 +63,7 @@ def demo(n=2):
         move_arm(gfrm, arm=l_or_r, check_collision=False)
 
         # for collision check ( get objects using regular expression )
-        remove_hand_collision(parts.name)
+        r.grasp_collision_object(parts, hand='right')
         for obj in env.get_objects('table top|pallete side|A'):
             if obj.name != parts.name:
                 r.add_collision_pair(obj, parts)
@@ -76,7 +76,7 @@ def demo(n=2):
         move_arm(gfrm, arm=l_or_r, check_collision=False)        
 
         # for collision check
-        add_hand_collision(parts.name)
+        r.grasp_collision_object(parts, hand='right')
         for obj in env.get_objects('table top|pallete side|A'):
             if obj.name != parts.name:
                 r.remove_collision_pair(obj, parts)
@@ -91,6 +91,25 @@ def pick_with_handcam():
     Trhandcam_tgt = FRAME(xyzabc=[0,0,220,pi,0,pi/6]) # replaced with recognition result
     Twld_tgt = r.get_sensor('rhandcam').where()*Trhandcam_tgt
     move_arm_ef(Twld_tgt, duration=4.0)
+
+def shift_right_to_left():
+    prepare()
+    q0 = r.get_joint_angles()
+    fr = FRAME(mat=[[-0.0755156,-0.155534,-0.984940],
+                    [-0.994845, 0.0787985, 0.0638317],
+                    [0.0676838, 0.984683, -0.160683]],
+               vec=[254.071, -95.291, 1011.867])
+    fl = FRAME(mat=[[0.0756703, -0.984940, -0.155458],
+                    [0.994765, 0.0638311, 0.0797926],
+                    [-0.0686679, -0.160680, 0.984614]],
+               vec=[254.071, 74.709, 1011.867])
+    r.set_arm_joint_angles(r.ik(fr)[0])
+    r.set_arm_joint_angles(r.ik(fl, arm='left')[0], arm='left')
+    q1 = r.get_joint_angles()
+    traj = pl.make_plan(q0, q1, joints='all')
+    if traj:
+        show_traj(traj[1], joints='all')
+        return traj
 
 def reset_world():
     for i in range(4):
@@ -111,3 +130,4 @@ colored_print("approach('P2')", 'blue')
 colored_print("approach('P3')", 'blue')
 colored_print("plan('A0','P0')", 'blue')
 colored_print('demo()', 'blue')
+colored_print('shift_right_to_left()', 'blue')
