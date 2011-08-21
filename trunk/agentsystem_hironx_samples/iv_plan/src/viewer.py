@@ -93,12 +93,17 @@ class LinkObject:
 
 
 class JointObject(CoordinateObject):
-    def __init__(self, id_, name, jaxis, reltrans):
+    def __init__(self, id_, name, jaxis, reltrans,
+                 ulimit=0, llimit=0, uvlimit=0, lvlimit=0):
         CoordinateObject.__init__(self)
         self.id = id_
         self.name = name
         self.jaxis = jaxis
         self.reltrans = reltrans
+        self.ulimit = ulimit
+        self.llimit = llimit
+        self.uvlimit = uvlimit
+        self.lvlimit = lvlimit
         self.vframe.resize(30) # make the arrow visible
         self.link = None
         self.angle = 0.0

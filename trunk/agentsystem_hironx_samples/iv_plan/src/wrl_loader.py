@@ -144,6 +144,9 @@ class WrlLoader():
         return children
 
     def eval_joint_node(self, jnt, wenv):
+        def getval(dict, key, default_value=0.0):
+            return dict[key][0] if dict.has_key(key) else default_value
+
         jaxis = jnt['jointAxis']
         if not jaxis:
             jaxis = [0,0,1] # default axis is 'Z'
@@ -157,7 +160,10 @@ class WrlLoader():
         trans = self.scale * VECTOR(vec=trans) # [m] => [mm]
         rot = MATRIX(axis=VECTOR(vec=rot[:-1]), angle=rot[3])
         reltrans = FRAME(vec=trans, mat=rot)
-        jobj = JointObject(jnt['jointId'], jnt['name'], jaxis, reltrans)
+        jobj = JointObject(jnt['jointId'], jnt['name'],
+                           jaxis, reltrans,
+                           getval(jnt,'ulimit'), getval(jnt,'llimit'),
+                           getval(jnt,'uvlimit'), getval(jnt,'lvlimit'))
         wenv['joints'].append(jobj)
 
         children = jnt['children']
