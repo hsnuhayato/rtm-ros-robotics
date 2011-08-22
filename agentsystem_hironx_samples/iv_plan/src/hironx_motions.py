@@ -68,7 +68,7 @@ Thd_kinectrgb = FRAME(mat=[[-1.1117269199954012e-06, -0.0012823607936395445, 0.9
 Thd_kinectdepth = FRAME(xyzabc=[-28.74092948502755, 1.6231065841821675, 202.52593003532405, -pi/2,pi/2,0])*FRAME(xyzabc=[0,0,0,0.05,0,0])
 
 
-Twrist_ef = FRAME(xyzabc=[-130,0,0,0,pi/2,0])
+Twrist_ef = FRAME(xyzabc=[-97,0,0,0,pi/2,0])
 
 
 # prepare+grasp
@@ -82,6 +82,7 @@ wp4 = [0.0, 0.0, 0.0, -0.2400590531732, -0.694204583696023, -1.0717643944820141,
 # wp1 => wp2 => wp3 => release() => wp4 => prepare
 
 
+Tikoffset = FRAME(xyzabc=[-50,0,0,0,-pi/2,0])
 
 stretch_right_pose = [0.39999673963362542,
                       -0.3999701506333021,
