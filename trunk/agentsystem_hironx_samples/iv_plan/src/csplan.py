@@ -66,10 +66,11 @@ class Node:
 
 def random_interval(trajlen):
     # choose 2 nodes randomly
+    l = min(trajlen/2, 8)
     while True:
         m = random.randint(0, trajlen-1)
         n = random.randint(0, trajlen-1)
-        if abs(m - n) < 8:
+        if abs(m - n) < l:
             continue
         if m > n:
             tmp = m
@@ -100,7 +101,7 @@ class CSPlanner():
         self.poses = []
 
     def initialize(self, joints='rarm'):
-        # joints ::= rarm | larm | rarm+torso | larm+torso | all
+        # joints ::= rarm | larm | torso_rarm | torso_larm | all
         for pose in self.poses:
             pose.set_visible(False)
         self.poses = []
@@ -112,9 +113,9 @@ class CSPlanner():
             self.js = self.robot.joints[3:9]
         elif joints == 'larm':
             self.js = self.robot.joints[9:15]
-        elif joints == 'rarm+torso':
+        elif joints == 'torso_rarm':
             self.js = [self.robot.joints[0]]+self.robot.joints[3:9]
-        elif joints == 'larm+torso':
+        elif joints == 'torso_larm':
             self.js = [self.robot.joints[0]]+self.robot.joints[9:15]
         else:
             self.js = self.robot.joints
@@ -235,8 +236,7 @@ class CSPlanner():
             dws2 = 0.0
             for i in range(9,15):
                 dws2 += self.weights[i] * abs(dq[i])
-            dws = dws1 if dws1 > dws2 else dws2
-            dws += self.weights[0] * abs(dq[0])
+            dws = max(dws1, dws2) + self.weights[0] * abs(dq[0])
         else:
             for i in range(len(dq)):
                 dws += self.weights[i] * abs(dq[i])

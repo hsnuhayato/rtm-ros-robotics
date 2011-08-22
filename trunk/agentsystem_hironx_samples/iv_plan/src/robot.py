@@ -158,6 +158,24 @@ def in_collision_pair(obj1, obj2, cache):
     else:
         return False
 
+def parse_joints_flag(flag):
+    if flag == 'rarm':
+        use_waist = False
+        arm = 'right'
+    elif flag == 'torso_rarm':
+        use_waist = True
+        arm = 'right'
+    elif flag == 'larm':
+        use_waist = False
+        arm = 'left'
+    elif flag == 'torso_larm':
+        use_waist = True
+        arm = 'left'
+    else:
+        warn('joints %s is not supported'%flag)
+        return None
+    return arm, use_waist
+
 
 class VRobot(JointObject):
     def __init__(self, wrldir, scale, robotname):
@@ -253,15 +271,15 @@ class VRobot(JointObject):
         self.cobj_pairs = [(x,y) for x,y in self.cobj_pairs if not ((x == obj1 and y == obj2) or (x == obj2 and y == obj1))]
 
     def init_clink_pairs(self):
-        blacklist = [(0,2),(0,3),(0,9),
+        blacklist = [(0,2),(0,3),(0,4),(0,5),(0,9),(0,10),(0,11),
                      (6,8),(6,15),(6,17),
                      (7,15),(7,17),
                      (8,15),(8,17),
                      (12,14),(12,19),(12,21),
-                     (13,14),
                      (13,19),(13,21),
                      (14,19),(14,21),
-                     (0,4),(0,10)
+                     (15,17),(15,18),(16,18),
+                     (19,21),(19,22),(20,22)
                      ]
 
         self.clink_pairs = []
@@ -291,9 +309,9 @@ class VRobot(JointObject):
             js = self.joints[3:9]
         elif joints == 'larm':
             js = self.joints[9:15]
-        elif joints == 'rarm+torso':
+        elif joints == 'torso_rarm':
             js = [self.joints[0]]+self.joints[3:9]
-        elif joints == 'larm+torso':
+        elif joints == 'torso_larm':
             js = [self.joints[0]]+self.joints[9:15]
         else:
             js = self.joints
@@ -324,9 +342,9 @@ class VRobot(JointObject):
             js = self.joints[3:9]
         elif joints == 'larm':
             js = self.joints[9:15]
-        elif joints == 'rarm+torso':
+        elif joints == 'torso_rarm':
             js = [self.joints[0]]+self.joints[3:9]
-        elif joints == 'larm+torso':
+        elif joints == 'torso_larm':
             js = [self.joints[0]]+self.joints[9:15]
         else:
             js = self.joints
@@ -402,24 +420,25 @@ class VHIRONX(VRobot):
         self.Thd_kinectrgb = hironx_motions.Thd_kinectrgb
         self.Thd_kinectdepth = hironx_motions.Thd_kinectdepth
         self.Twrist_ef = hironx_motions.Twrist_ef
+        self.Tikoffset = hironx_motions.Tikoffset
 
         VRobot.__init__(self, wrldir, scale, name)
 
         # safe(soft) joint limits
-        for i,lims in enumerate([deg2rad(x) for x in [(-163,163),(-70,70),(-20,70),
-                                                      (-75,75),(-86,29),(-143,-12),(-86,86),(-95,95),(-115,115),
-                                                      (-75,75),(-86,29),(-143,-12),(-86,86),(-95,95),(-115,115),
+        for i,lims in enumerate([deg2rad(x) for x in [(-90,90),(-70,70),(-20,70),
+                                                      (-80,80),(-86,29),(-143,-12),(-86,86),(-95,95),(-115,115),
+                                                      (-80,80),(-86,29),(-143,-12),(-86,86),(-95,95),(-115,115),
                                                       (-109,68),(-150,90),(-109,68),(-150,90),
                                                       (-109,68),(-150,90),(-109,68),(-150,90)]]):
             j = self.joints[i]
             j.sllimit,j.sulimit = lims
 
         # maximum workspace movement in [mm]
-        for j,w in zip(self.joints, [700,200,200,
-                                     700,600,400,180,200,120,
-                                     700,600,400,180,200,120,
-                                     50,50,50,50,
-                                     50,50,50,50]):
+        for j,w in zip(self.joints, [800,200,200,
+                                     700,600,350,160,180,100,
+                                     700,600,350,160,180,100,
+                                     20,20,20,20,
+                                     20,20,20,20]):
             j.weight = w
 
         # attach sensors
@@ -479,44 +498,43 @@ class VHIRONX(VRobot):
             js[19:23] = angles
         self.set_joint_angles(js)
 
-    def fk_fast_rarm(self, ths):
+    def fk_fast_rarm(self, ths, scl=1e+3):
         command = ([pkgdir+'/externals/ikfast/fk_hiro']
                    + map(lambda x: '%f'%x, ths))
         p = Popen(command, stdout=PIPE, close_fds=True)
         result = p.stdout.readlines()
         #p.stdout.close()
-        return map(float, re.split(' +', result[0])[:-1])
-
+        a = map(float, re.split(' +', result[0])[:-1])
+        m = MATRIX(mat=[a[0:3], a[4:7], a[8:11]])
+        v = VECTOR(vec=map(lambda x: scl*x, a[3::4]))
+        return FRAME(mat=m, vec=v)
+    
     def fk(self, arm='right', scl=1e+3):
         rarm = self.check_right_or_left(arm)
         
         if rarm:
             ths = self.get_joint_angles()[3:9]
-            a = self.fk_fast_rarm(ths)
-            m = MATRIX(mat=[a[0:3], a[4:7], a[8:11]])
-            v = VECTOR(vec=map(lambda x: scl*x, a[3::4]))
-            Twb = self.links[0].where()
+            f = self.fk_fast_rarm(ths)
+            f = f*(-self.Tikoffset) ###
             Twc = self.links[2].where()
-            return Twc*FRAME(mat=m, vec=v)
+            return Twc*f
         else:
             ths = self.get_joint_angles()[9:15]
             for i in [0,3,5]:
                 ths[i] = -ths[i]
-            a = self.fk_fast_rarm(ths)
-            m = MATRIX(mat=[a[0:3], a[4:7], a[8:11]])
-            v = VECTOR(vec=map(lambda x: scl*x, a[3::4]))
-            f = FRAME(mat=m, vec=v)
+            f = self.fk_fast_rarm(ths)
+            f = f*(-self.Tikoffset) ###
             x,y,z = f.vec
             a,b,c = f.mat.abc()
             f = FRAME(xyzabc=[x,-y,z,-a,b,-c])
-            Twb = self.links[0].where()
             Twc = self.links[2].where()
             return Twc*f
 
-    def ik_fast_rarm(self, efframe, method=3, scl=1e-3):
+    def ik_fast_rarm(self, efframe, scl=1e-3):
+        efframe = efframe*self.Tikoffset ###
         m = efframe.mat
         v = efframe.vec
-        command = ([pkgdir+'/externals/ikfast/ik_hiro'+str(method)]
+        command = ([pkgdir+'/externals/ikfast/ik_hiro']
                    + map(str,
                          [m[0][0], m[0][1], m[0][2], v[0]*scl,
                           m[1][0], m[1][1], m[1][2], v[1]*scl,
@@ -532,11 +550,13 @@ class VHIRONX(VRobot):
                 solutions.append(map(lambda s: float(s), avecstrs))
         return solutions
 
-    def ik(self, frms, arm='right', use_waist=False, method=3, scl=1e-3):
+    def ik(self, frms, joints='rarm', scl=1e-3):
         def reverse_frame(frm):
             x,y,z = frm.vec
             a,b,c = frm.mat.abc()
             return FRAME(xyzabc=[x,-y,z,-a,b,-c])
+
+        arm,use_waist = parse_joints_flag(joints)
 
         rarm = self.check_right_or_left(arm)
 
@@ -558,9 +578,9 @@ class VHIRONX(VRobot):
                 if not rarm:
                     frms2 = map(reverse_frame, frms2)
 
-                sols += [(th, x) for x in reduce(operator.add,
-                                                 map(lambda frm: self.ik_fast_rarm(frm),
-                                                     frms2))]
+                sols += [(th,x) for x in reduce(operator.add,
+                                                map(lambda frm: self.ik_fast_rarm(frm),
+                                                    frms2))]
             sols2 = self.eval_solutions(sols, q_reference, use_waist=use_waist)
             if not rarm:
                 for sol in sols2:
@@ -568,7 +588,12 @@ class VHIRONX(VRobot):
                         sol[1][i] = -sol[1][i]
 
             self.set_joint_angle(0, th_orig) # restore the waist yaw angle
-            return sols2
+
+            sols3 = []
+            for th,avec in sols2:
+                avec.insert(0, th)
+                sols3.append(avec)
+            return sols3
 
         else:
             Twc = self.links[2].where()

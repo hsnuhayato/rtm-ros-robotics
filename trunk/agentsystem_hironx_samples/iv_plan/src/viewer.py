@@ -19,7 +19,7 @@ class CoordinateObjectWithName(CoordinateObject):
     def __init__(self, name=None):
         CoordinateObject.__init__(self)
         self.name = name
-        self.vframe.resize(30.0) # make the arrows visible
+        self.vframe.resize(20.0) # make the arrows visible
 
     def __repr__(self):
         return '<%s %s>'%(self.__class__, self.name)
@@ -31,8 +31,11 @@ class CoordinateObjectWithName(CoordinateObject):
         #CoordinateObject.__del__(self)
         self.vframe.set_visible(False)
 
-    def locate(self, world_frame):
-        self.set_trans((-self.parent.where())*world_frame)
+    def locate(self, frame, world=False):
+        if world:
+            self.set_trans((-self.parent.where())*frame)
+        else:
+            self.set_trans(frame)
 
     def trace(self):
         pass
@@ -46,7 +49,7 @@ class PartsObjectWithName(PartsObject):
         PartsObject.__init__(self, vbody)
         self.name = name
         self.cb = None
-        self.vframe.resize(30.0)
+        self.vframe.resize(20.0)
 
     def __repr__(self):
         return '<%s %s, %s>'%(self.__class__, self.name, self.vbody)
@@ -54,8 +57,12 @@ class PartsObjectWithName(PartsObject):
     def __str__(self):
         return self.__repr__()
 
-    def locate(self, world_frame):
-        self.set_trans((-self.parent.where())*world_frame)
+    def locate(self, frame, world=False):
+        if world:
+            self.set_trans((-self.parent.where())*frame)
+        else:
+            self.set_trans(frame)
+
 
 class SensorObject(PartsObjectWithName):
     def __init__(self,
@@ -104,7 +111,7 @@ class JointObject(CoordinateObject):
         self.llimit = llimit
         self.uvlimit = uvlimit
         self.lvlimit = lvlimit
-        self.vframe.resize(30) # make the arrow visible
+        self.vframe.resize(20) # make the arrow visible
         self.link = None
         self.angle = 0.0
 
