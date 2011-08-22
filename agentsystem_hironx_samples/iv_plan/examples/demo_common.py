@@ -21,7 +21,7 @@ else:
 
 env = MPlanEnv()
 env.load_scene(scene_objects.ac_scene())
-r = VHIRONX(pkgdir+'/externals/models/HIRO_110603/')
+r = VHIRONX(pkgdir+'/externals/models/HIRONX_110822/')
 env.insert_object(r, FRAME(), env.get_world())
 r.go_pos(-150, 0, 0)
 pl = CSPlanner(r, env)
@@ -221,63 +221,53 @@ def release(hand='right', width=80, unfixobj=True,name='box0'):
     r.grasp(width=width, hand=hand)
     if unfixobj:
         tgtobj = env.get_object(name)
-        worldfrm = tgtobj.where()
-        tgtobj.unfix()
-        tgtobj.affix(env.get_world(), worldfrm)
+        affix(tgtobj, hand=hand)
 
 def grasp(hand='right', width=62, affixobj=True, name='box0'):
     r.grasp(width=width, hand=hand)
     if affixobj:
         tgtobj = env.get_object(name)
-        if hand=='right':
-            handjnt = r.get_joint('RARM_JOINT5')
-        else:
-            handjnt = r.get_joint('LARM_JOINT5')
-        reltf = (-handjnt.where())*tgtobj.where()
-        tgtobj.unfix()
-        tgtobj.affix(handjnt, reltf)
+        affix(tgtobj, hand=hand)
 
-def move_arm_plan(p1):
+def affix(obj, hand='right'):
+    if hand=='right':
+        handjnt = r.get_joint('RARM_JOINT5')
+    else:
+        handjnt = r.get_joint('LARM_JOINT5')
+    reltf = (-handjnt.where())*obj.where()
+    obj.unfix()
+    obj.affix(handjnt, reltf)
+
+def unfix(obj, hand='right'):
+    wldfrm = obj.where()
+    obj.unfix()
+    obj.affix(env.get_world(), wldfrm)
+
+def move_arm_plan(p1, joints='rarm'):
     '''move arm from current pose to p1'''
-    q0 = r.get_arm_joint_angles()
-    q1 = r.ik(p1)[0]
-    traj = pl.make_plan(q0, q1)
+    q0 = r.get_joint_angles(joints=joints)
+    q1 = r.ik(p1, joints=joints)[0]
+    print 'Q0: ', q0
+    print 'Q1: ', q1
+    traj = pl.make_plan(q0, q1, joints=joints)
     if traj:
-        show_traj(traj[1])
+        show_traj(traj[1], joints=joints)
         return traj
 
-def move_arm(f, duration=2.0, arm='right', width=None, use_waist=True, check_collision=False):
+def move_arm(f, duration=2.0, joints='rarm', width=None, check_collision=False):
     if check_collision:
-        traj = move_arm_plan(f)
-        exec_traj(traj[1], duration=0.1)
-        return
-    
-    if use_waist:
-        w,avec = r.ik(f,arm=arm,use_waist=True)[0]
-        r.set_joint_angle(0, w)
-        r.set_arm_joint_angles(avec,arm=arm)
+        traj = move_arm_plan(f, joints=joints)
+        exec_traj(traj[1], joints=joints, duration=0.1)
     else:
-        r.set_arm_joint_angles(r.ik(f,arm=arm)[0], arm=arm)
+        q = r.ik(f, joints=joints)[0]
+        r.set_joint_angles(q, joints=joints)
+        sync(duration=duration, joints=joints, waitkey=False)
 
     if width:
-        r.grasp(width=width, hand=arm)
-        if arm == 'right':
-            hand_joints = '_rhand'
-        else:
-            hand_joints = '_lhand'
-    else:
-        hand_joints = ''
-    if arm == 'right':
-        arm_joints = 'rarm'
-    else:
-        arm_joints = 'larm'
-    if use_waist:
-        torso_joints = 'torso_'
-    else:
-        torso_joints = ''
+        rl,use_waist = parse_joints_flag(joints)
+        r.grasp(width=width, hand=rl)
+        sync(duration=0.5, joints=rl[0]+'hand', waitkey=False)
 
-    print torso_joints+arm_joints+hand_joints
-    sync(duration=duration, joints=torso_joints+arm_joints+hand_joints, waitkey=False)
 
 def move_arm_ef(f, duration=2.0, arm='right', width=None, use_waist=True, check_collision=False):
     f = f*(-r.Twrist_ef)
@@ -300,20 +290,24 @@ def show_frame(frm, name='frame0'):
     obj.vframe.resize(60.0)
     env.insert_object(obj, frm, env.get_world())
 
-def show_traj(sts, joints='all', name='traj0'):
+def show_traj(sts, joints='rarm', name='traj0'):
     env.delete_object(name)
     traj = CoordinateObjects(name)
     for st in sts:
         r.set_joint_angles(st.avec, joints=joints)
-        f = r.fk()
-        traj.append(f)
+        if re.match('.*rarm$', joints) or joints == 'all':
+            f = r.fk('right')
+            traj.append(f)
+        if re.match('.*larm$', joints) or joints == 'all':
+            f = r.fk('left')
+            traj.append(f)
     env.insert_object(traj, FRAME(), env.get_world())
 
 def show_tree():
     show_traj(pl.T_init, name='traj0')
     show_traj(pl.T_goal, name='traj1')
 
-def exec_traj(traj, duration=0.8, joints='all', use_armcontrol=False):
+def exec_traj(traj, duration=0.8, joints='rarm', use_armcontrol=False):
     def robot_relative_traj(traj):
         T = -r.get_link('WAIST_Link').where()
         qs = [x.avec for x in traj]
@@ -345,4 +339,4 @@ def prepare_right():
     r.set_joint_angles(r.poses['prepare_right'])
 
 
-#setup_collision_objects()
+setup_collision_objects()
