@@ -150,6 +150,27 @@ def sampleSE3_with_z_constraint(R):
     p = sampleBoxR3(WSMINX,WSMAXX,WSMINY,WSMAXY,WSMINZ,WSMAXZ)
     return FRAME(mat=R*m, vec=p)
 
+##
+##
+
+def parse_joints_flag(flag):
+    if flag == 'rarm':
+        use_waist = False
+        arm = 'right'
+    elif flag == 'torso_rarm':
+        use_waist = True
+        arm = 'right'
+    elif flag == 'larm':
+        use_waist = False
+        arm = 'left'
+    elif flag == 'torso_larm':
+        use_waist = True
+        arm = 'left'
+    else:
+        warn('joints %s is not supported'%flag)
+        return None
+    return arm, use_waist
+
 
 ##
 ## For fast nearest neighbor search

@@ -140,10 +140,13 @@ class CSPlanner():
 
     def make_plan(self, q_start, q_target, q_targets=[], joints='rarm'):
         self.initialize(joints=joints)
-        traj = self.search(q_start, q_targets if len(q_targets)>0 else [q_target])
+        traj,oneshot = self.search(q_start, q_targets if len(q_targets)>0 else [q_target])
         if traj:
-            opttraj = self.optimize_trajectory(traj)
-            result = (traj, opttraj)
+            if oneshot:
+                result = traj
+            else:
+                opttraj = self.optimize_trajectory(traj)
+                result = opttraj
         else:
             result = None
         self.print_statistics()
@@ -154,7 +157,8 @@ class CSPlanner():
         self.T_goal = [State(avec=array(q)) for q in q_targets]
 
         tm_start = time.time()
-        if self.expandTree():
+        isConnected, isFirstTry = self.expandTree()
+        if isConnected:
             traj = []
             nd = self.T_init[-1]
             while nd:
@@ -167,8 +171,8 @@ class CSPlanner():
                 nd = nd.parent
 
             self.searchtm = time.time() - tm_start
-            return traj
-        return None
+            return traj, isFirstTry
+        return None, False
 
     def expandTree(self):
         T_a = self.T_init
@@ -179,19 +183,49 @@ class CSPlanner():
                 q_rand = self.ws_sample_state()
             else:
                 q_rand = self.random_state()
-            if i % 3 == 0:
+            if i < 3 and self.joints != 'all':
+                l = 150.0
+                if i == 0:
+                    T_from = self.T_init
+                    q_to = self.T_goal[0]
+                    if self.connect(T_from, q_to) == 'reached':
+                        return True, True
+
+                elif i == 1:
+                    T_from = self.T_goal
+                    T_to = self.T_init
+                    q = self.T_goal[0]
+                    self.robot.set_joint_angles(q.avec, joints=self.joints)
+                    l_or_r,use_waist = parse_joints_flag(self.joints)
+                    f = self.robot.fk(l_or_r) * FRAME(vec=[l,0,0])
+                    q_to = State(avec = self.robot.ik(f, joints=self.joints)[0])
+                    if self.connect(T_from, q_to) == 'reached':
+                        if self.connect(T_to, q_to) == 'reached':
+                            return True, False
+                    
+                else:
+                    T_from = self.T_init
+                    T_to = self.T_goal
+                    q = self.T_init[0]
+                    self.robot.set_joint_angles(q.avec, joints=self.joints)
+                    l_or_r,use_waist = parse_joints_flag(self.joints)
+                    f = self.robot.fk(l_or_r) * FRAME(vec=[l,0,0])
+                    q_to = State(avec = self.robot.ik(f, joints=self.joints)[0])
+                    if self.connect(T_from, q_to) == 'reached':
+                        if self.connect(T_to, q_to) == 'reached':
+                            return True, False
+
+            else:
                 if self.extend(T_a, q_rand) != 'trapped':
                     q_new = T_a[-1]
                     if self.connect(T_b, q_new) == 'reached':
-                        return True
-            else:
-                self.connect(T_a, q_rand, maxIter=5)
+                        return True, False
 
-            T_tmp = T_a
-            T_a = T_b
-            T_b = T_tmp
-        
-        return False
+                T_tmp = T_a
+                T_a = T_b
+                T_b = T_tmp
+                            
+        return False, False
 
     def extend(self, T, q_to):
         q_near = self.nearestNeighbor(q_to, T)
@@ -245,6 +279,9 @@ class CSPlanner():
     def newState(self, q_near, q_to):
         v = q_to.avec - q_near.avec
         dws = self.weightedNorm(v)
+
+        if dws < self.epsilon*0.1:
+            return 'trapped', dws
 
         dvec = self.epsilon * v / dws
         st = State(avec = q_near.avec + dvec)
