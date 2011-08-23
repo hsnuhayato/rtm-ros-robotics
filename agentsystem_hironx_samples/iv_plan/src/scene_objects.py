@@ -335,10 +335,11 @@ def ac_scene():
     tbl['children'].append((A2, [-250,190,714,0,0,0]))
     A3 = partsA(name='A3')
     tbl['children'].append((A3, [-120,-10,714,0,0,pi/4]))
-    #B0 = partsB(name='B0')
-    #tbl['children'].append((B0, [-180,200,700,0,0,0]))
-    #B1 = partsB(name='B1')
-    #tbl['children'].append((B1, [-120,-70,700,0,0,0]))
+
+    B0 = partsB(name='B0')
+    tbl['children'].append((B0, [-160,210,700,0,0,0]))
+    B1 = partsB(name='B1')
+    tbl['children'].append((B1, [-120,-70,700,0,0,0]))
 
     p1 = rect_pocket(name='P0')
     pllt['children'].append((p1, [40,40,20,0,0,0]))

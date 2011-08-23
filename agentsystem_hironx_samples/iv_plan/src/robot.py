@@ -158,24 +158,6 @@ def in_collision_pair(obj1, obj2, cache):
     else:
         return False
 
-def parse_joints_flag(flag):
-    if flag == 'rarm':
-        use_waist = False
-        arm = 'right'
-    elif flag == 'torso_rarm':
-        use_waist = True
-        arm = 'right'
-    elif flag == 'larm':
-        use_waist = False
-        arm = 'left'
-    elif flag == 'torso_larm':
-        use_waist = True
-        arm = 'left'
-    else:
-        warn('joints %s is not supported'%flag)
-        return None
-    return arm, use_waist
-
 
 class VRobot(JointObject):
     def __init__(self, wrldir, scale, robotname):
@@ -435,8 +417,8 @@ class VHIRONX(VRobot):
 
         # maximum workspace movement in [mm]
         for j,w in zip(self.joints, [800,200,200,
-                                     700,600,350,160,180,100,
-                                     700,600,350,160,180,100,
+                                     700,650,320,120,140,50,
+                                     700,650,320,120,140,50,
                                      20,20,20,20,
                                      20,20,20,20]):
             j.weight = w
@@ -569,7 +551,7 @@ class VHIRONX(VRobot):
 
         if use_waist:
             th_orig = self.get_joint_angle(0) # save the waist yaw angle
-            waist_yaw_samples = [-0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8]
+            waist_yaw_samples = linspace(-1.0, 1.0, 11)
             sols = []
             for th in waist_yaw_samples:
                 self.set_joint_angle(0, th)
