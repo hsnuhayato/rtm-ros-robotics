@@ -247,17 +247,12 @@ def move_arm_plan(p1, joints='rarm'):
     '''move arm from current pose to p1'''
     q0 = r.get_joint_angles(joints=joints)
     q1 = r.ik(p1, joints=joints)[0]
-    print 'Q0: ', q0
-    print 'Q1: ', q1
-    traj = pl.make_plan(q0, q1, joints=joints)
-    if traj:
-        show_traj(traj[1], joints=joints)
-        return traj
+    return pl.make_plan(q0, q1, joints=joints)
 
 def move_arm(f, duration=2.0, joints='rarm', width=None, check_collision=False):
     if check_collision:
         traj = move_arm_plan(f, joints=joints)
-        exec_traj(traj[1], joints=joints, duration=0.1)
+        exec_traj(traj, joints=joints, duration=0.05)
     else:
         q = r.ik(f, joints=joints)[0]
         r.set_joint_angles(q, joints=joints)
@@ -268,11 +263,24 @@ def move_arm(f, duration=2.0, joints='rarm', width=None, check_collision=False):
         r.grasp(width=width, hand=rl)
         sync(duration=0.5, joints=rl[0]+'hand', waitkey=False)
 
+def move_arm2(afrm, gfrm, width, duration=2.0, joints='torso_rarm'):
+    if r.ik(afrm, joints) == [] or r.ik(gfrm, joints) == []:
+        return False
+    else:
+        move_arm(afrm, joints=joints, check_collision=True, duration=duration)
+        move_arm(gfrm, width=width, joints=joints, check_collision=False, duration=0.5)
+        return True
 
-def move_arm_ef(f, duration=2.0, arm='right', width=None, use_waist=True, check_collision=False):
-    f = f*(-r.Twrist_ef)
-    move_arm(f, duration=duration, arm=arm, width=width,
-             use_waist=use_waist, check_collision=check_collision)
+def go_prepare_pose():
+    jts = 'all'
+    q0 = r.get_joint_angles(joints=jts)
+    prepare()
+    q1 = r.get_joint_angles(joints=jts)
+    traj = pl.make_plan(q0, q1, joints=jts)
+    if traj:
+        exec_traj(traj, joints=jts)
+    else:
+        warn('error: go_prepare_pose()')
 
 def set_view(camera='world'):
     warn('not yet implemented')
@@ -283,7 +291,6 @@ def set_view(camera='world'):
         pass
 
 def show_frame(frm, name='frame0'):
-    '''フレームを可視化する。名前を指定しないときは"frame0"という名前のオブジェクトを作り環境に挿入する'''
     env.delete_object(name)
     bx = visual.box(length=10, height=10, width=10, color=(1,0,1))
     obj = PartsObjectWithName(vbody=bx,name=name)
@@ -307,7 +314,7 @@ def show_tree():
     show_traj(pl.T_init, name='traj0')
     show_traj(pl.T_goal, name='traj1')
 
-def exec_traj(traj, duration=0.8, joints='rarm', use_armcontrol=False):
+def exec_traj(traj, duration=0.05, joints='rarm', use_armcontrol=False, draw_trajectory=True):
     def robot_relative_traj(traj):
         T = -r.get_link('WAIST_Link').where()
         qs = [x.avec for x in traj]
@@ -317,19 +324,32 @@ def exec_traj(traj, duration=0.8, joints='rarm', use_armcontrol=False):
             ps.append(T*r.get_link('RARM_JOINT5_Link').where())
         return ps
 
+    name = 'last_trajectory'
+    env.delete_object(name)
+    frames = CoordinateObjects(name)
+
     if use_armcontrol:
         rr.send_trajectory(robot_relative_traj(traj), duration=duration)
     else:
-        avecs = [x.avec for x in traj]
-        for avec in avecs:
-            r.set_joint_angles(avec, joints=joints)
+        for st in traj:
+            r.set_joint_angles(st.avec, joints=joints)
             sync(duration=duration, waitkey=False)
+
+            if draw_trajectory:
+                if re.match('.*rarm$', joints) or joints == 'all':
+                    f = r.fk('right')
+                    frames.append(f)
+                if re.match('.*larm$', joints) or joints == 'all':
+                    f = r.fk('left')
+                    frames.append(f)
+        env.insert_object(frames, FRAME(), env.get_world())
+
 
 def setup_collision_objects():
     # table top <=> robot
     # pallete side <=> robot
     # parts <=> robot
-    for obj in env.get_objects('table top|pallete side|A'):
+    for obj in env.get_objects('table top|pallete side|A|B'):
         r.add_collision_object(obj)
 
 def prepare():
