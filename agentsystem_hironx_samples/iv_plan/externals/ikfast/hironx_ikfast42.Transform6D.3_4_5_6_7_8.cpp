@@ -7958,3 +7958,88 @@ int main(int argc, char** argv)
 }
 
 #endif
+
+#include <boost/python.hpp>
+#include <boost/foreach.hpp>
+#include <boost/range/value_type.hpp>
+namespace py = boost::python;
+
+typedef std::vector<IKReal> real_vector;
+
+PyObject* call_fk(PyObject* joint_angles) {
+    py::list retval;
+
+    if (!PySequence_Check(joint_angles)) { return py::incref(retval.ptr()); }
+
+    IKReal js[6];
+    IKReal eerot[9],eetrans[3];
+    for (int i = 0; i < 6; i++) { js[i] = py::extract<IKReal>(PySequence_GetItem(joint_angles, i)); }
+
+    fk(js, eetrans, eerot);
+
+    py::list mat;
+    for (int i = 0; i < 3; i++) {
+	py::list row;
+	for (int j = 0; j < 3; j++) {
+	    row.append(py::object(eerot[i*3+j]));
+	}
+	mat.append(row);
+    }
+
+    py::list vec;
+    for (int i = 0; i < 3; i++) {
+	vec.append(py::object(eetrans[i]));
+    }
+
+    retval.append(mat);
+    retval.append(vec);
+
+    return py::incref(retval.ptr());
+}
+
+PyObject* call_ik(PyObject* mat, PyObject* vec) {
+    std::vector<IKSolution> vsolutions;
+
+    py::list retval;
+
+    if (!PySequence_Check(mat)) { return py::incref(retval.ptr()); }
+    if (!PySequence_Check(vec)) { return py::incref(retval.ptr()); }
+
+    IKReal eerot[9],eetrans[3];
+
+    for (int i = 0; i < 3; i++) {
+	for (int j = 0; j < 3; j++) {
+	    eerot[3*i+j] = 
+		py::extract<IKReal>(PySequence_GetItem(PySequence_GetItem(mat, i), j));
+	}
+    }
+    for (int i = 0; i < 3; i++) { eetrans[i] = py::extract<IKReal>(PySequence_GetItem(vec, i)); }
+
+    bool bSuccess = ik(eetrans, eerot, NULL, vsolutions);
+
+    if( !bSuccess ) { return py::incref(retval.ptr()); }
+
+    // printf("Found %d ik solutions:\n", (int)vsolutions.size());
+    std::vector<IKReal> sol(getNumJoints());
+
+
+    for(std::size_t i = 0; i < vsolutions.size(); ++i) {
+        std::vector<IKReal> vsolfree(vsolutions[i].GetFree().size());
+        vsolutions[i].GetSolution(&sol[0],vsolfree.size()>0?&vsolfree[0]:NULL);
+	py::list v;
+        for( std::size_t j = 0; j < sol.size(); ++j) {
+	    v.append(py::object(sol[j]));
+	}
+	retval.append(v);
+    }
+
+    return py::incref(retval.ptr());
+}
+
+BOOST_PYTHON_MODULE( libik_hiro )
+{
+  using namespace boost::python;
+
+  def("fk", &call_fk);
+  def("ik", &call_ik);
+}

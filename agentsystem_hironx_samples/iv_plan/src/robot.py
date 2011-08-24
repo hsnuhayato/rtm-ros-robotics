@@ -17,7 +17,7 @@ from viewer import *
 import wrl_loader
 
 from pqp_if import *
-
+import libik_hiro as ikfast
 
 def get_AABB(vs, padding=5.0):
     xlb = ylb = zlb = inf
@@ -152,7 +152,7 @@ def in_collision_pair(obj1, obj2, cache):
     cres = collide(R1, T1, obj1.cb, R2, T2, obj2.cb, cpqp.contact_type.first)
 
     if cres.NumPairs() > 0:
-        print '%s <=> %s\n'%(obj1.name, obj2.name)
+        print '%s <=> %s'%(obj1.name, obj2.name)
         # print_collide_result(cres)
         return True
     else:
@@ -176,6 +176,8 @@ class VRobot(JointObject):
         self.gen_link_collision_body()
         self.cobj_pairs = []
         self.sensors = []
+
+        self.grabbed_obj = {'right': None, 'left': None}
 
         self.init_clink_pairs()
         self.reset_pose()
@@ -481,14 +483,9 @@ class VHIRONX(VRobot):
         self.set_joint_angles(js)
 
     def fk_fast_rarm(self, ths, scl=1e+3):
-        command = ([pkgdir+'/externals/ikfast/fk_hiro']
-                   + map(lambda x: '%f'%x, ths))
-        p = Popen(command, stdout=PIPE, close_fds=True)
-        result = p.stdout.readlines()
-        #p.stdout.close()
-        a = map(float, re.split(' +', result[0])[:-1])
-        m = MATRIX(mat=[a[0:3], a[4:7], a[8:11]])
-        v = VECTOR(vec=map(lambda x: scl*x, a[3::4]))
+        rot,trans = ikfast.fk(ths)
+        m = MATRIX(mat=rot)
+        v = VECTOR(vec=[scl*x for x in trans])
         return FRAME(mat=m, vec=v)
     
     def fk(self, arm='right', scl=1e+3):
@@ -514,23 +511,7 @@ class VHIRONX(VRobot):
 
     def ik_fast_rarm(self, efframe, scl=1e-3):
         efframe = efframe*self.Tikoffset ###
-        m = efframe.mat
-        v = efframe.vec
-        command = ([pkgdir+'/externals/ikfast/ik_hiro']
-                   + map(str,
-                         [m[0][0], m[0][1], m[0][2], v[0]*scl,
-                          m[1][0], m[1][1], m[1][2], v[1]*scl,
-                          m[2][0], m[2][1], m[2][2], v[2]*scl]))
-        p = Popen(command, stdout=PIPE)
-        result = p.stdout.readlines()
-        p.stdout.close()
-        solutions = []
-        if result:
-            print result[0]
-            for ln in result[1:]:
-                avecstrs = re.split(', ', re.split(': ', ln)[1])[:-1]
-                solutions.append(map(lambda s: float(s), avecstrs))
-        return solutions
+        return ikfast.ik(efframe.mat, [scl * x for x in efframe.vec])
 
     def ik(self, frms, joints='rarm', scl=1e-3):
         def reverse_frame(frm):
@@ -600,7 +581,7 @@ class VHIRONX(VRobot):
         for i in range(6):
             jnt = self.joints[i+3]
             if q[i] < jnt.sllimit or q[i] > jnt.sulimit:
-                print 'Limits: %d,%f,%f,%f'%(i+3,q[i],jnt.sllimit,jnt.sulimit)
+                # print 'Limits: %d,%f,%f,%f'%(i+3,q[i],jnt.sllimit,jnt.sulimit)
                 return False
         return True
 
@@ -614,8 +595,8 @@ class VHIRONX(VRobot):
             sols2.sort(lambda q1,q2: cmp(self.weighted_qdist(q_reference, q1),
                                          self.weighted_qdist(q_reference, q2)))
 
-        print 'feasible solution ranking'
-        print sols2
+        # print 'feasible solutions'
+        # print sols2
         return sols2
 
     def check_right_or_left(self, arm):

@@ -19,60 +19,7 @@ import _GlobalIDL, _GlobalIDL__POA
 import OpenRTM_aist
 
 
-real_robot = False
-if real_robot:
-    from real_hiro import *
-    import rospy
-    rr = RealHIRO()
-else:
-    rr = None
-
-env = MPlanEnv()
-env.load_scene(scene_objects.ac_scene())
-r = VHIRONX(pkgdir+'/externals/models/HIRO_110603/')
-env.insert_object(r, FRAME(), env.get_world())
-r.go_pos(-150, 0, 0)
-pl = CSPlanner(r, env)
-r.add_collision_object(env.get_object('table top'))
-
-def move_arm(goal,width,arm,use_torso,check_collision,duration=2.0):
-    ori = goal.orientation
-    pos = goal.position
-    frm = FRAME(xyzabc=[pos.x,pos.y,pos.z,ori.r,ori.p,ori.y])
-    try:
-        sol = r.ik(frm, use_waist=use_torso, arm=arm)[0]
-        if use_torso:
-            r.set_joint_angle(0, sol[0])
-            r.set_arm_joint_angles(sol[1], arm=arm)
-        else:
-            r.set_arm_joint_angles(sol, arm=arm)
-        sync(duration=duration)
-        return True
-    except:
-        return False
-
-def sync(duration=4.0, joints='all', wait=True, waitkey=True):
-    '''synchronize the real robot with the model in "duration" [sec]'''
-    if rr:
-        js = r.get_joint_angles()
-        if joints == 'torso':
-            rr.send_goal([js[0:3],[],[],[],[]], duration, wait=wait)
-        elif joints == 'rarm':
-            rr.send_goal([[],js[3:9],[],[],[]], duration, wait=wait)
-        elif joints == 'larm':
-            rr.send_goal([[],[],js[9:15],[],[]], duration, wait=wait)
-        elif joints == 'rhand':
-            rr.send_goal([[],[],[],js[15:19],[]], duration, wait=wait)
-        elif joints == 'lhand':
-            rr.send_goal([[],[],[],[],js[19:23]], duration, wait=wait)
-        elif joints == 'torso_rarm':
-            rr.send_goal([js[0:3],js[3:9],[],[],[]], duration, wait=wait)
-        elif joints == 'torso_larm':
-            rr.send_goal([js[0:3],[],js[9:15],[],[]], duration, wait=wait)
-        elif joints=='all':
-            rr.send_goal([js[0:3],js[3:9],js[9:15],js[15:19],js[19:23]], duration, wait=wait)
-        else:
-            warn('unknown joints parameter: ' + joints)
+from demo_common import *
 
 
 # Module specification
@@ -90,6 +37,33 @@ mplanserviceprovider_spec = ["implementation_id", "MPlan",
                              ""]
 
 
+def Pose3DtoFRAME(pose):
+    ori = pose.orientation
+    pos = pose.position
+    return FRAME(xyzabc=[pos.x,pos.y,pos.z,ori.r,ori.p,ori.y])
+
+def FRAMEtoPose3D(frm):
+    pos = RTC.Point3D(frm.vec[0], frm.vec[1], frm.vec[2])
+    a,b,c = frm.mat.abc()
+    ori = RTC.Orientation3D(a, b, c)
+    return RTC.Pose3D(ori, pos)
+
+import operator
+
+def encode_FRAME(f):
+    return reduce(operator.__add__, f.mat) + f.vec
+
+def decode_FRAME(ds):
+    return FRAME(mat=array(ds[0:9]).reshape(3,3).tolist(), vec=ds[9:])
+
+def prefix(objectType):
+    table = {1:'A', 2:'B'}
+    try:
+        return table[objectType]
+    except:
+        return []
+
+
 class MPlanServiceSVC_impl(_GlobalIDL__POA.ArmMotionService):
     def __init__(self):
         return
@@ -97,20 +71,69 @@ class MPlanServiceSVC_impl(_GlobalIDL__POA.ArmMotionService):
     def __del__(self):
         pass
 
-    def MoveArm(self, goal, handWidth, arm, useTorso, checkCollision):
-        print 'goal: ', goal
-        print 'handWidth: ', handWidth
-        print 'arm: ', arm
-        print 'useTorso: ', useTorso
-        print 'checkCollision: ', checkCollision
-        return move_arm(goal,handWidth,arm,useTorso,checkCollision)
+    def MoveArm(self, goal, handWidth, joints, checkCollision, duration):
+        frm = decode_FRAME(goal)
+        if handWidth <= 0.0: # doesn't move gripper
+            handWidth = None
+        return move_arm(frm,joints=joints, width=handWidth,
+                        check_collision=checkCollision, duration=duration)
+    
+    def MoveArm2(self, afrm, gfrm, handWidth, joints):
+        afrm = decode_FRAME(afrm)
+        gfrm = decode_FRAME(gfrm)
+        return move_arm2(afrm, gfrm, handWidth, joints=joints)
 
-    def SetJointAngles(self, jointAngles):
-        return r.set_joint_angles(jointAngles)
+    def GoPreparePose(self):
+        return go_prepare_pose()
 
-    # def ResetEnv(self):
-    #     return setup_ac_scene()
+    def GetJointAngles(self, joints):
+        return r.get_joint_angles(joints=joints)
 
+    def Grab(self, hand):
+        return grab(hand=hand)
+
+    def Release(self, hand):
+        return release(hand=hand)
+
+    def GraspPlan(self, otype, ofrm, longSide):
+        ofrm = decode_FRAME(ofrm)
+        afrm,gfrm,handwidth = graspplan(otype, ofrm, long_side=longSide)
+        return encode_FRAME(afrm) + encode_FRAME(gfrm) + [handwidth]
+
+    def RequestNext(self, afrm, gfrm, handwidth):
+        afrm2,gfrm2 = request_next(afrm, gfrm)
+        return encode_FRAME(afrm2) + encode_FRAME(gfrm2) + [handwidth]
+
+    def PlacePlan(self, otype, pfrm):
+        pfrm = decode_FRAME(pfrm)
+        afrm,gfrm = placeplan(otype, pfrm)
+        return encode_FRAME(afrm) + encode_FRAME(gfrm)
+
+    def RecognizePocket(self, objectType):
+        def occupied(p, otyp):
+            eps = 10.0
+            return reduce(operator.__or__,
+                          [linalg.norm(array(o.where().vec[:2]-array(p.where().vec[:2]))) < eps
+                           for o in env.get_objects(prefix(objectType))])
+
+        os = [o for o in env.get_objects('P') if not occupied(o, objectType)]
+        if len(os) > 0:
+            return encode_FRAME(os[0].where())
+        else:
+            return None
+
+    def RecognizeParts(self, objectType):
+        os = [o for o in env.get_objects(prefix(objectType)) if o.where().vec[1] > -80]
+
+        if len(os) > 0:
+            return encode_FRAME(os[0].where())
+            #return encode_FRAME(os[random.randint(0,len(os)-1)].where())
+        else:
+            return None
+
+    def ResetWorld(self):
+        reset_parts()
+        
 
 class MPlanServiceProvider(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):

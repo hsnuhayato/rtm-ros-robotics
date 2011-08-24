@@ -217,17 +217,17 @@ def look_for_boxes2(num):
                 return objfrm
     return None
 
-def release(hand='right', width=80, unfixobj=True,name='box0'):
-    r.grasp(width=width, hand=hand)
-    if unfixobj:
-        tgtobj = env.get_object(name)
-        affix(tgtobj, hand=hand)
+# def release(hand='right', width=80, unfixobj=True,name='box0'):
+#     r.grasp(width=width, hand=hand)
+#     if unfixobj:
+#         tgtobj = env.get_object(name)
+#         affix(tgtobj, hand=hand)
 
-def grasp(hand='right', width=62, affixobj=True, name='box0'):
-    r.grasp(width=width, hand=hand)
-    if affixobj:
-        tgtobj = env.get_object(name)
-        affix(tgtobj, hand=hand)
+# def grasp(hand='right', width=62, affixobj=True, name='box0'):
+#     r.grasp(width=width, hand=hand)
+#     if affixobj:
+#         tgtobj = env.get_object(name)
+#         affix(tgtobj, hand=hand)
 
 def affix(obj, hand='right'):
     if hand=='right':
@@ -263,6 +263,8 @@ def move_arm(f, duration=2.0, joints='rarm', width=None, check_collision=False):
         r.grasp(width=width, hand=rl)
         sync(duration=0.5, joints=rl[0]+'hand', waitkey=False)
 
+    return True
+
 def move_arm2(afrm, gfrm, width, duration=2.0, joints='torso_rarm'):
     if r.ik(afrm, joints) == [] or r.ik(gfrm, joints) == []:
         return False
@@ -279,8 +281,10 @@ def go_prepare_pose():
     traj = pl.make_plan(q0, q1, joints=jts)
     if traj:
         exec_traj(traj, joints=jts)
+        return True
     else:
         warn('error: go_prepare_pose()')
+        return False
 
 def set_view(camera='world'):
     warn('not yet implemented')
@@ -357,6 +361,101 @@ def prepare():
 
 def prepare_right():
     r.set_joint_angles(r.poses['prepare_right'])
+
+def objtype(obj):
+    if re.match('^A.*', obj.name):
+        return 1
+    elif re.match('^B.*', obj.name):
+        return 2
+    elif re.match('^P.*', obj.name):
+        return 3
+    else:
+        return 0
+
+def obj_in_hand(hand='right'):
+    prefix = 'R' if hand == 'right' else 'L'
+    handlinks = [r.get_link('%sHAND_JOINT%d_Link'%(prefix, n)) for n in [1,3]]
+    for obj in env.get_objects('A|B'):
+        for l in handlinks:
+            if in_collision_pair(l, obj, {}):
+                warn('grab %s'%obj)
+                return obj
+    warn('failed to grab')
+    return None
+
+def grab(hand='right'):
+    obj = obj_in_hand(hand=hand)
+    if obj == None:
+        return False
+    r.grabbed_obj[hand] = obj
+    affix(obj, hand=hand)
+    r.grasp_collision_object(obj, hand=hand)
+    for obj2 in env.get_objects('table top|pallete side|A|B'):
+        if obj.name != obj2.name:
+            r.add_collision_pair(obj2, obj)
+    return True
+
+def release(hand='right'):
+    obj = r.grabbed_obj[hand]
+    if obj == None:
+        return False
+    warn('release %s'%obj)
+    r.grabbed_obj[hand] = None
+    unfix(obj, hand=hand)
+    r.release_collision_object(obj, hand=hand)
+    for obj2 in env.get_objects('table top|pallete side|A|B'):
+        if obj.name != obj2.name:
+            r.remove_collision_pair(obj2, obj)
+    return True
+
+def graspplan(objtype, objfrm, long_side=False):
+    # objfrm = parts.where()
+    if objtype == 1:
+        if long_side:
+            objfrm = objfrm * FRAME(xyzabc=[0,0,0,0,0,pi/2])
+            handwidth = 48
+        else:
+            handwidth = 38
+        gfrm = objfrm*(-r.Twrist_ef)
+        afrm = FRAME(gfrm)
+        afrm.vec[2] += 40
+    else:
+        handwidth = 25
+        objfrm = objfrm * FRAME(vec=[0,0,58-15])
+        gfrm = objfrm*(-r.Twrist_ef)
+    afrm = FRAME(gfrm)
+    afrm.vec[2] += 40
+    
+    return afrm,gfrm,handwidth
+
+def request_next(afrm, gfrm, handwidth):
+    return afrm*FRAME(xyzabc=[0,0,0,pi,0,0]), gfrm*FRAME(xyzabc=[0,0,0,pi,0,0]), handwidth
+
+def placeplan(objtype, plcfrm):
+    # plcfrm = place.where()
+    gfrm = plcfrm*(-r.Twrist_ef)
+    if objtype == 1:
+        gfrm.vec[2] += 28/2
+    else:
+        gfrm.vec[2] += (58-15)
+    afrm = FRAME(gfrm)
+    afrm.vec[2] += 40
+    return afrm,gfrm
+
+def reset_parts():
+    def reset1(nm, pose):
+        o = env.get_object(nm)
+        o.unfix()
+        o.affix(env.get_object('table'), FRAME(xyzabc=pose))
+
+    for i,pose in enumerate([[-260,-50,714,0,0,pi/6],
+                             [-170,100,714,0,0,-pi/6],
+                             [-250,190,714,0,0,0],
+                             [-120,-10,714,0,0,pi/4]]):
+        reset1('A'+str(i), pose)
+    for i,pose in enumerate([[-160,210,700,0,0,0],
+                             [-120,-70,700,0,0,0]]):
+        reset1('B'+str(i), pose)
 
 
 setup_collision_objects()

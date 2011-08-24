@@ -26,5 +26,3 @@ sys.path.append(pkgdir+'/lib')
 # sys.path.append('/usr/local/lib/python2.6/site-packages/')
 # user install
 sys.path.append(pkgdir+'/externals/visual/site-packages/')
-
-# sys.path.append(pkgdir+'/externals/visual/site-packages/')

@@ -76,7 +76,7 @@ def random_interval(trajlen):
             tmp = m
             m = n
             n = tmp
-        print 'm,n=%d,%d'%(m,n) # try to connect 2 nodes
+        #print 'm,n=%d,%d'%(m,n) # try to connect 2 nodes
         return m,n
 
 def inflection_points(traj, thre=0.85):

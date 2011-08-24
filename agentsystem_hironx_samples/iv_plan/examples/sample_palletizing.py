@@ -31,39 +31,6 @@ def plan(name1='A0', name2='P0', joints='rarm'):
         exec_traj(traj, joints=joints)
         return traj
 
-def graspplan(parts, long_side=False):
-    ofrm = parts.where()
-    if re.match('^A.*', parts.name):
-        if long_side:
-            ofrm = ofrm * FRAME(xyzabc=[0,0,0,0,0,pi/2])
-            handwidth = parts.vbody.size[0]
-        else:
-            handwidth = parts.vbody.size[1]
-        gfrm = ofrm*(-r.Twrist_ef)
-        afrm = FRAME(gfrm)
-        afrm.vec[2] += 40
-    else:
-        handwidth = parts.vbody.radius * 2
-        ofrm = ofrm * FRAME(vec=[0,0,parts.vbody.axis[2]-15])
-        gfrm = ofrm*(-r.Twrist_ef)
-    afrm = FRAME(gfrm)
-    afrm.vec[2] += 40
-    
-    return afrm,gfrm,handwidth
-
-def request_next(afrm, gfrm):
-    return afrm*FRAME(xyzabc=[0,0,0,pi,0,0]), gfrm*FRAME(xyzabc=[0,0,0,pi,0,0])
-
-def placeplan(place, parts):
-    gfrm = place.where()*(-r.Twrist_ef)
-    if re.match('^A.*', parts.name):
-        gfrm.vec[2] += parts.vbody.size[2]/2
-    else:
-        gfrm.vec[2] += (parts.vbody.axis[2]-15)
-    afrm = FRAME(gfrm)
-    afrm.vec[2] += 40
-    return afrm,gfrm
-
 
 def palletize(task_sequence=[]):
     # parts: A0,A1,A2,A3,B0,B1
@@ -84,41 +51,30 @@ def palletize(task_sequence=[]):
             pick_pass_and_place(oname, pname)
 
     go_prepare_pose()
+
     
 def pick_and_place(oname='A0', pname='P0', joints='rarm'):
     jts = joints
     l_or_r,_ = parse_joints_flag(joints)
     parts = env.get_object(name=oname)
-    afrm,gfrm,handwidth = graspplan(parts)
+    afrm,gfrm,handwidth = graspplan(objtype(parts), parts.where())
     if not move_arm2(afrm, gfrm, joints=jts, width=handwidth):
-        afrm,gfrm = request_next(afrm, gfrm)
+        afrm,gfrm,_ = request_next(afrm, gfrm)
         if not move_arm2(afrm, gfrm, joints=jts, width=handwidth):
             return False
-        
-    affix(parts, hand=l_or_r)
+
+    grab(hand=l_or_r)
     move_arm(afrm, joints=jts, check_collision=False, duration=0.2)
-    # for collision check
-    # get object references from the environment using regular expression
-    r.grasp_collision_object(parts, hand=l_or_r)
-    for obj in env.get_objects('table top|pallete side|A|B'):
-        if obj.name != parts.name:
-            r.add_collision_pair(obj, parts)
-        
+
     place = env.get_object(name=pname)
-    afrm,gfrm = placeplan(place, parts)
+    afrm,gfrm = placeplan(objtype(parts), place.where())
     if not move_arm2(afrm, gfrm, joints=jts, width=handwidth):
-        afrm,gfrm = request_next(afrm, gfrm)
+        afrm,gfrm,_ = request_next(afrm, gfrm, handwidth)
         if not move_arm2(afrm, gfrm, joints=jts, width=handwidth):
             return False
 
-    unfix(parts, hand=l_or_r)
+    release(hand=l_or_r)
     move_arm(afrm, joints=jts, check_collision=False, duration=0.2)
-    # for collision check
-    r.release_collision_object(parts, hand=l_or_r)
-    for obj in env.get_objects('table top|pallete side|A|B'):
-        if obj.name != parts.name:
-            r.remove_collision_pair(obj, parts)
-
 
 def pass_left_to_right(parts, handwidth):
     q0 = r.get_joint_angles()
@@ -164,7 +120,7 @@ def pick_pass_and_place(name1='A1', name2='P0'):
     # pick 'A1' with 'lhand'
     afrm,gfrm,handwidth = graspplan(parts, long_side=True)
     if not move_arm2(afrm, gfrm, joints=jts, width=handwidth):
-        afrm,gfrm = request_next(afrm, gfrm)
+        afrm,gfrm,_ = request_next(afrm, gfrm)
         if not move_arm2(afrm, gfrm, joints=jts, width=handwidth):
             return False
 
@@ -184,7 +140,7 @@ def pick_pass_and_place(name1='A1', name2='P0'):
     place = env.get_object(name=name2)
     afrm,gfrm = placeplan(place, parts)
     if not move_arm2(afrm, gfrm, joints=jts, width=handwidth+20):
-        afrm,gfrm = request_next(afrm, gfrm)
+        afrm,gfrm,_ = request_next(afrm, gfrm)
         if not move_arm2(afrm, gfrm, joints=jts, width=handwidth+20):
             return False
         
