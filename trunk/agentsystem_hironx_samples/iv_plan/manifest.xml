@@ -12,7 +12,7 @@
   <depend package="tf"/>
   <depend package="sensor_msgs"/>
   <depend package="geometry_msgs"/>
-<!-- <depend package="ar_pose"/> -->
+  <depend package="ar_pose"/> 
   <depend package="iv_idl"/>
   <depend package="rtc_handle"/>
   <depend package="rmrc_geo_model"/>
