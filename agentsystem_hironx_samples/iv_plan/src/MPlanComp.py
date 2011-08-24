@@ -120,7 +120,7 @@ class MPlanServiceSVC_impl(_GlobalIDL__POA.ArmMotionService):
         if len(os) > 0:
             return encode_FRAME(os[0].where())
         else:
-            return None
+            return []
 
     def RecognizeParts(self, objectType):
         os = [o for o in env.get_objects(prefix(objectType)) if o.where().vec[1] > -80]
@@ -129,7 +129,7 @@ class MPlanServiceSVC_impl(_GlobalIDL__POA.ArmMotionService):
             return encode_FRAME(os[0].where())
             #return encode_FRAME(os[random.randint(0,len(os)-1)].where())
         else:
-            return None
+            return []
 
     def ResetWorld(self):
         reset_parts()
