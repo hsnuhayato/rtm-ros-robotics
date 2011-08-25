@@ -332,6 +332,9 @@ def exec_traj(traj, duration=0.05, joints='rarm', use_armcontrol=False, draw_tra
     env.delete_object(name)
     frames = CoordinateObjects(name)
 
+    if rr:
+        duration = 0.2
+
     if use_armcontrol:
         rr.send_trajectory(robot_relative_traj(traj), duration=duration)
     else:
@@ -425,7 +428,7 @@ def graspplan(objtype, objfrm, long_side=False):
         gfrm = objfrm*(-r.Twrist_ef)
     afrm = FRAME(gfrm)
     afrm.vec[2] += 40
-    
+
     return afrm,gfrm,handwidth
 
 def request_next(afrm, gfrm, handwidth):

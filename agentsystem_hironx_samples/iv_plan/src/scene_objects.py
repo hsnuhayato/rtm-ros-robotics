@@ -204,7 +204,7 @@ def rect_pocket(name):
 
 # pallete
 def pallete(name):
-    w,d,h = 300.0, 215.0, 85.0
+    w,d,h = 300.0, 215.0, (85.0 + 5.0)
     thickness = 2.0
     bottom_thickness = 20.0
     # l = h - thickness

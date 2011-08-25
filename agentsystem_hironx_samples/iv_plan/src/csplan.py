@@ -101,7 +101,7 @@ class CSPlanner():
         self.poses = []
 
     def initialize(self, joints='rarm'):
-        # joints ::= rarm | larm | torso_rarm | torso_larm | all
+        # joints ::= rarm | larm | torso_rarm | torso_larm | torso_arms | all
         for pose in self.poses:
             pose.set_visible(False)
         self.poses = []
@@ -117,6 +117,8 @@ class CSPlanner():
             self.js = [self.robot.joints[0]]+self.robot.joints[3:9]
         elif joints == 'torso_larm':
             self.js = [self.robot.joints[0]]+self.robot.joints[9:15]
+        elif joints == 'torso_arms':
+            self.js = [self.robot.joints[0]]+self.robot.joints[3:15]
         else:
             self.js = self.robot.joints
 
@@ -183,7 +185,7 @@ class CSPlanner():
                 q_rand = self.ws_sample_state()
             else:
                 q_rand = self.random_state()
-            if i < 3 and self.joints != 'all':
+            if i < 3 and self.joints != 'all' and self.joints != 'torso_arms':
                 l = 150.0
                 if i == 0:
                     T_from = self.T_init
@@ -269,6 +271,14 @@ class CSPlanner():
                 dws1 += self.weights[i] * abs(dq[i])
             dws2 = 0.0
             for i in range(9,15):
+                dws2 += self.weights[i] * abs(dq[i])
+            dws = max(dws1, dws2) + self.weights[0] * abs(dq[0])
+        elif self.joints == 'torso_arms':
+            dws1 = 0.0
+            for i in range(1,7):
+                dws1 += self.weights[i] * abs(dq[i])
+            dws2 = 0.0
+            for i in range(7,13):
                 dws2 += self.weights[i] * abs(dq[i])
             dws = max(dws1, dws2) + self.weights[0] * abs(dq[0])
         else:

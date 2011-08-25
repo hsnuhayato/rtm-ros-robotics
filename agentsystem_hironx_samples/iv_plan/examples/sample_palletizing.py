@@ -77,7 +77,7 @@ def pick_and_place(oname='A0', pname='P0', joints='rarm'):
     move_arm(afrm, joints=jts, check_collision=False, duration=0.2)
 
 def pass_left_to_right(parts, handwidth):
-    q0 = r.get_joint_angles()
+    q0 = r.get_joint_angles(joints='torso_arms')
     r.set_joint_angle(0, 0.0)
     fr = FRAME(mat=[[-0.0755156,-0.155534,-0.984940],
                     [-0.994845, 0.0787985, 0.0638317],
@@ -92,9 +92,9 @@ def pass_left_to_right(parts, handwidth):
         
     r.set_joint_angles(r.ik(fr, joints='rarm')[0], joints='rarm')
     r.set_joint_angles(r.ik(fl, joints='larm')[0], joints='larm')
-    q1 = r.get_joint_angles(joints='all')
-    traj = pl.make_plan(q0, q1, joints='all')
-    exec_traj(traj, joints='all')
+    q1 = r.get_joint_angles(joints='torso_arms')
+    traj = pl.make_plan(q0, q1, joints='torso_arms')
+    exec_traj(traj, joints='torso_arms')
 
     move_arm(fr, joints='rarm', width=handwidth, check_collision=False, duration=0.2)
     unfix(parts, hand='left')
@@ -118,7 +118,7 @@ def pick_pass_and_place(name1='A1', name2='P0'):
     parts = env.get_object(name=name1)
 
     # pick 'A1' with 'lhand'
-    afrm,gfrm,handwidth = graspplan(parts, long_side=True)
+    afrm,gfrm,handwidth = graspplan(objtype(parts), parts.where(), long_side=True)
     if not move_arm2(afrm, gfrm, joints=jts, width=handwidth):
         afrm,gfrm,_ = request_next(afrm, gfrm)
         if not move_arm2(afrm, gfrm, joints=jts, width=handwidth):
@@ -132,13 +132,13 @@ def pick_pass_and_place(name1='A1', name2='P0'):
             r.add_collision_pair(obj, parts)
 
     # pass 'A1' to 'rhand'
-    _,_,handwidth = graspplan(parts) # from remote
+    _,_,handwidth = graspplan(objtype(parts), parts.where()) # from remote
     pass_left_to_right(parts, handwidth)
 
     # put 'A1' to 'P0'
     jts = 'torso_rarm'
     place = env.get_object(name=name2)
-    afrm,gfrm = placeplan(place, parts)
+    afrm,gfrm = placeplan(objtype(parts), place.where())
     if not move_arm2(afrm, gfrm, joints=jts, width=handwidth+20):
         afrm,gfrm,_ = request_next(afrm, gfrm)
         if not move_arm2(afrm, gfrm, joints=jts, width=handwidth+20):

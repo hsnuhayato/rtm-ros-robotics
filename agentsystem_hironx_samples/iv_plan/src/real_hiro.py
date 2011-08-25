@@ -86,6 +86,9 @@ class RealHIRO:
         h_rh = get_handle('RobotHardware0.rtc', ns)
         self.jstt_port = h_rh.outports['jointStt']
 
+        h_bp = get_handle('Flip0.rtc', ns)
+        self.bxpose_port = h_bp.outports['boxPose']
+
         # h_rh = get_handle('HIRONXController(Robot)0.rtc', ns)
         # self.jstt_port = h_rh.outports['q']
 
@@ -151,8 +154,33 @@ class RealHIRO:
         # for cs in self.kinect_centers:
         #     if tnow - .stamp.to_sec() > thre:
 
+    def read_pose3d(self):
+        pose3d = self.bxpose_port.read()
+        u = pose3d.position.x
+        v = pose3d.position.y
+        w = pose3d.position.z
+        
+        print 'w=', w
+        
+        R = pose3d.orientation.r
+        P = pose3d.orientation.p
+        Y = pose3d.orientation.y
+
+        a = 182
+        b = 134
+        c = 0
+        d = 0
+        # e = 190.7
+        e = 212.8246
+        x = a / 640.0 * (u - 320) + c
+        y = b / 480.0 * (v - 240) + d
+        z =  e / w
+        Tcam_obj = FRAME(xyzabc=[x,y,z,R,P,Y])
+        return Tcam_obj
+
     def read_joint_state(self):
         data = self.jstt_port.read()
+
         # not yet used
         # secs = data.tm.sec
         # nsecs = data.tm.nsec
