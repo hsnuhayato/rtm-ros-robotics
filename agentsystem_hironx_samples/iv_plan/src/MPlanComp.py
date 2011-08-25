@@ -83,17 +83,38 @@ class MPlanServiceSVC_impl(_GlobalIDL__POA.ArmMotionService):
         gfrm = decode_FRAME(gfrm)
         return move_arm2(afrm, gfrm, handWidth, joints=joints)
 
+    def Grab(self, hand):
+        return grab(hand=hand)
+
+    def Release(self, hand):
+        return release(hand=hand)
+
+    def Move(self, goalConfig, joints):
+        q0 = r.get_joint_angles(joints=joints)
+        traj = pl.make_plan(q0, goalConfig, joints=joints)
+        exec_traj(traj, joints=joints)
+        return True
+
+    def MoveArmRelative(self, reltrans, handWidth, joints, checkCollision, duration):
+        f = decode_FRAME(reltrans)
+        g = r.fk(parse_joints_flag(joints)[0])
+        frm = FRAME(mat=g.mat*f.mat, vec=g.vec+f.vec)
+        if handWidth <= 0.0:
+            handWidth = None
+        return move_arm(frm,joints=joints, width=handWidth,
+                        check_collision=checkCollision, duration=duration)
+
     def GoPreparePose(self):
         return go_prepare_pose()
 
     def GetJointAngles(self, joints):
         return r.get_joint_angles(joints=joints)
 
-    def Grab(self, hand):
-        return grab(hand=hand)
+    def Fk(self, joints):
+        return encode_FRAME(r.fk(parse_joints_flag(joints)[0]))
 
-    def Release(self, hand):
-        return release(hand=hand)
+    def Ik(self, frm, joints):
+        return r.ik(decode_FRAME(frm), joints=joints)[0]
 
     def GraspPlan(self, otype, ofrm, longSide):
         ofrm = decode_FRAME(ofrm)
