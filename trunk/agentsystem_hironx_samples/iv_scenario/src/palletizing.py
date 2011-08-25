@@ -57,7 +57,7 @@ def decode_FRAME(ds):
     return FRAME(mat=array(ds[0:9]).reshape(3,3).tolist(), vec=ds[9:])
 
 
-nameserver = 'localhost:2809'
+nameserver = 'hiro014:2809'
 env = RtmEnv(sys.argv, [nameserver])
 ns = env.name_space[nameserver]
 ns.list_obj()
@@ -127,26 +127,24 @@ def palletize_right():
 
 def pass_left_to_right(objType):
     if objType == 1:
-        q_goal = [0, 0, 1.1, 0.18962052706991084, -0.30309547203097081, -1.6161104682040897,
+        q_goal = [0, 0.18962052706991084, -0.30309547203097081, -1.6161104682040897,
                   -1.1672811346866405, -0.12695972539338643, -0.23692180236594873,
                   -0.13308174660428049, -0.36125317532098755, -1.5033910600950069,
-                  1.3706292369222353, 0.0028576290419997661, 1.7279863708909555,
-                  0.8, -0.1, -0.8, 0.1, 0.8, -0.1, -0.8, 0.1]
+                  1.3706292369222353, 0.0028576290419997661, 1.7279863708909555]
         handwidth = 38
     else:
-        q_goal = [0, 0, 1.1, 0.10953652101989117, -0.32418125972003026, -1.619220151757599,
+        q_goal = [0, 0.10953652101989117, -0.32418125972003026, -1.619220151757599,
                   -1.1960786166203574, -0.048452045171419739, -0.23084568842323364,
                   -0.13308174660428049, -0.36125317532098755, -1.5033910600950069,
-                  1.3706292369222353, 0.0028576290419997661, 1.7279863708909555,
-                  0.8, -0.1, -0.8, 0.1, 0.8, -0.1, -0.8, 0.1]
+                  1.3706292369222353, 0.0028576290419997661, 1.7279863708909555]
         handwidth = 25
-        
-    plsvc.ref.Move(q_goal, 'all') # whole body motion
+
+    plsvc.ref.Move(q_goal, 'torso_arms') # whole body motion
     plsvc.ref.MoveArmRelative(encode_FRAME(FRAME()), handwidth, 'rarm', False, 0.5) # just close the hand
     plsvc.ref.Release('left')
     plsvc.ref.Grab('right')
+    plsvc.ref.MoveArmRelative(encode_FRAME(FRAME()), 100, 'larm', False, 0.5)
     plsvc.ref.MoveArmRelative(encode_FRAME(FRAME(xyzabc=[0,-50,0,0,0,0])), -1, 'rarm', False, 0.5)
-
 
 def pick_pass_and_place(ofrm, objType):
     plsvc.ref.GoPreparePose()
