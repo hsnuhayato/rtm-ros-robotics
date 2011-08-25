@@ -91,6 +91,8 @@ class MPlanServiceSVC_impl(_GlobalIDL__POA.ArmMotionService):
 
     def Move(self, goalConfig, joints):
         q0 = r.get_joint_angles(joints=joints)
+        print q0
+        print goalConfig
         traj = pl.make_plan(q0, goalConfig, joints=joints)
         exec_traj(traj, joints=joints)
         return True

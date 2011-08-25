@@ -19,7 +19,7 @@ import wrl_loader
 from pqp_if import *
 import libik_hiro as ikfast
 
-def get_AABB(vs, padding=5.0):
+def get_AABB(vs, padding=6.0):
     xlb = ylb = zlb = inf
     xub = yub = zub = -inf
 
@@ -281,9 +281,9 @@ class VRobot(JointObject):
                 return True
         for obj1, obj2 in self.cobj_pairs:
             if in_collision_pair(obj1, obj2, cache):
-                return True                
+                return True
         return False
-    
+
     def gen_link_collision_body(self):
         for lnk in self.get_links():
             lnk.cb = gen_collision_body(lnk)
@@ -297,6 +297,8 @@ class VRobot(JointObject):
             js = [self.joints[0]]+self.joints[3:9]
         elif joints == 'torso_larm':
             js = [self.joints[0]]+self.joints[9:15]
+        elif joints == 'torso_arms':
+            js = [self.joints[0]]+self.joints[3:15]
         else:
             js = self.joints
 
@@ -330,6 +332,8 @@ class VRobot(JointObject):
             js = [self.joints[0]]+self.joints[3:9]
         elif joints == 'torso_larm':
             js = [self.joints[0]]+self.joints[9:15]
+        elif joints == 'torso_arms':
+            js = [self.joints[0]]+self.joints[3:15]
         else:
             js = self.joints
         return [j.angle for j in js]

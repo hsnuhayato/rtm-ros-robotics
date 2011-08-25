@@ -5,6 +5,8 @@ from set_env import *
 from demo_common import *
 import hironx_motions
 
+import RTC
+
 def handcam_demo():
     '''右手ハンドカメラで箱を２つ見つけた後、box0をbox1の上に載せるデモ'''
     r.set_joint_angles(hironx_motions.stretch_right_pose)
@@ -51,6 +53,21 @@ def handcam_demo():
 
         release(width=80)
         sync(duration=1.5)
+
+
+def recog_pose():
+    f = FRAME(xyzabc=[200,-300,930,0,-pi/2,0])
+    q = r.ik(f)[0]
+    r.set_arm_joint_angles(q)
+    sync()
+
+def detect_box():
+    f = rr.read_pose3d()
+    print 'cam => obj: ', f
+    r.set_joint_angles(rr.get_joint_angles())
+    Twld_cam = r.get_link('RARM_JOINT5_Link').where()*r.Trh_cam
+    return Twld_cam * f
+
 
 colored_print('1: putbox(name="box0", vaxis="y")', 'blue')
 colored_print('2: putbox(name="box1", vaxis="y")', 'blue')
