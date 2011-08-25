@@ -127,20 +127,61 @@ def palletize_right():
 
 def pass_left_to_right(objType):
     if objType == 1:
-        q_goal = []
+        q_goal = [0, 0, 1.1, 0.18962052706991084, -0.30309547203097081, -1.6161104682040897,
+                  -1.1672811346866405, -0.12695972539338643, -0.23692180236594873,
+                  -0.13308174660428049, -0.36125317532098755, -1.5033910600950069,
+                  1.3706292369222353, 0.0028576290419997661, 1.7279863708909555,
+                  0.8, -0.1, -0.8, 0.1, 0.8, -0.1, -0.8, 0.1]
         handwidth = 38
     else:
-        q_goal = []
+        q_goal = [0, 0, 1.1, 0.10953652101989117, -0.32418125972003026, -1.619220151757599,
+                  -1.1960786166203574, -0.048452045171419739, -0.23084568842323364,
+                  -0.13308174660428049, -0.36125317532098755, -1.5033910600950069,
+                  1.3706292369222353, 0.0028576290419997661, 1.7279863708909555,
+                  0.8, -0.1, -0.8, 0.1, 0.8, -0.1, -0.8, 0.1]
         handwidth = 25
         
     plsvc.ref.Move(q_goal, 'all') # whole body motion
-    plsvc.ref.MoveArmRelative(FRAME(), joints='rarm') # just close the hand
-    plsvc.ref.Grab('right')
+    plsvc.ref.MoveArmRelative(encode_FRAME(FRAME()), handwidth, 'rarm', False, 0.5) # just close the hand
     plsvc.ref.Release('left')
-    plsvc.ref.MoveArmRelative(FRAME(xyzabc=[-50,0,0,0,0,0]), joints='rarm')
+    plsvc.ref.Grab('right')
+    plsvc.ref.MoveArmRelative(encode_FRAME(FRAME(xyzabc=[0,-50,0,0,0,0])), -1, 'rarm', False, 0.5)
 
-def pick_pass_and_place():
-    pass
+
+def pick_pass_and_place(ofrm, objType):
+    plsvc.ref.GoPreparePose()
+    joints = 'torso_larm'
+    hand = 'left'
+    a = plsvc.ref.GraspPlan(objType, ofrm, True)
+    afrm = a[:12]
+    gfrm = a[12:24]
+    handwidth = a[24]
+    if not plsvc.ref.MoveArm2(afrm, gfrm, handwidth, joints):
+        a = plsvc.ref.RequestNext(afrm, gfrm, handwidth) # try next grasp
+        afrm = a[:12]
+        gfrm = a[12:24]
+        handwidth = a[24]
+        if not plsvc.ref.MoveArm2(afrm, gfrm, handwidth, joints):
+            print 'Cannot reach with %s' % joints
+            return False
+
+    plsvc.ref.Grab('left')
+    pass_left_to_right(objType)
+
+    joints = 'torso_rarm'
+    hand = 'right'
+    pfrm = plsvc.ref.RecognizePocket(objType)
+    a = plsvc.ref.PlacePlan(objType, pfrm)
+    afrm = a[:12]
+    gfrm = a[12:24]
+
+    if not plsvc.ref.MoveArm2(afrm, gfrm, handwidth+20, joints):
+        print 'Cannot reach with %s' % joints
+        return False
+    
+    plsvc.ref.Release(hand)
+    plsvc.ref.MoveArm(afrm, -1, joints, False, 0.5)
+
 
 def palletize():
     def aux(objType):
@@ -148,7 +189,7 @@ def palletize():
             ofrm = plsvc.ref.RecognizeParts(objType)
             if not ofrm:
                 return
-            if ofrm.vec[1] < 50:
+            if decode_FRAME(ofrm).vec[1] < 50:
                 pick_and_place(ofrm, objType)
             else:
                 pick_pass_and_place(ofrm, objType)

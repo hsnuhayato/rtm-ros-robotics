@@ -52,9 +52,13 @@ interface ArmMotionService
     /**
      * @brief Move an arm. The destination is specified relatively from the current pose
      * @param relativeTransform
+     * @param handWidth
      * @param joints 'rarm' | 'larm' | 'torso_rarm' | 'torso_larm'
+     * @param checkCollision
+     * @param duration
      */
-    boolean MoveArmRelative(in DblSequence relativeTransform, in string joints);
+    boolean MoveArmRelative(in DblSequence relativeTransform, in double handWidth,
+			    in string joints, in boolean checkCollision, in double duration);
 
     boolean GoPreparePose();
 
@@ -66,12 +70,13 @@ interface ArmMotionService
     /**
      * @param joints 'rarm' | 'larm'
      */
-    //DblSequence Fk(in string joints);
+    DblSequence Fk(in string joints);
 
     /**
+     * @param frame
      * @param joints 'rarm' | 'larm' | 'torso_rarm' | 'torso_larm'
      */
-    //DblSequence Ik(in string joints);
+    DblSequence Ik(in DblSequence frame, in string joints);
 
     /**
      * @brief Add an object in the planning environment

@@ -54,10 +54,14 @@ omniORB.registerType(ArmMotionService._NP_RepositoryId, _0__GlobalIDL._d_ArmMoti
 # ArmMotionService operations and attributes
 ArmMotionService._d_MoveArm = ((omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"], omniORB.tcInternal.tv_double, (omniORB.tcInternal.tv_string,0), omniORB.tcInternal.tv_boolean, omniORB.tcInternal.tv_double), (omniORB.tcInternal.tv_boolean, ), None)
 ArmMotionService._d_MoveArm2 = ((omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"], omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"], omniORB.tcInternal.tv_double, (omniORB.tcInternal.tv_string,0)), (omniORB.tcInternal.tv_boolean, ), None)
-ArmMotionService._d_GoPreparePose = ((), (omniORB.tcInternal.tv_boolean, ), None)
-ArmMotionService._d_GetJointAngles = (((omniORB.tcInternal.tv_string,0), ), (omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"], ), None)
 ArmMotionService._d_Grab = (((omniORB.tcInternal.tv_string,0), ), (omniORB.tcInternal.tv_boolean, ), None)
 ArmMotionService._d_Release = (((omniORB.tcInternal.tv_string,0), ), (omniORB.tcInternal.tv_boolean, ), None)
+ArmMotionService._d_Move = ((omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"], (omniORB.tcInternal.tv_string,0)), (omniORB.tcInternal.tv_boolean, ), None)
+ArmMotionService._d_MoveArmRelative = ((omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"], omniORB.tcInternal.tv_double, (omniORB.tcInternal.tv_string,0), omniORB.tcInternal.tv_boolean, omniORB.tcInternal.tv_double), (omniORB.tcInternal.tv_boolean, ), None)
+ArmMotionService._d_GoPreparePose = ((), (omniORB.tcInternal.tv_boolean, ), None)
+ArmMotionService._d_GetJointAngles = (((omniORB.tcInternal.tv_string,0), ), (omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"], ), None)
+ArmMotionService._d_Fk = (((omniORB.tcInternal.tv_string,0), ), (omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"], ), None)
+ArmMotionService._d_Ik = ((omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"], (omniORB.tcInternal.tv_string,0)), (omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"], ), None)
 ArmMotionService._d_AddObject = (((omniORB.tcInternal.tv_string,0), omniORB.tcInternal.tv_long, omniORB.typeMapping["IDL:ArmMotionService/DblSequence:1.0"]), (omniORB.tcInternal.tv_boolean, ), None)
 ArmMotionService._d_DeleteObject = (((omniORB.tcInternal.tv_string,0), ), (omniORB.tcInternal.tv_boolean, ), None)
 ArmMotionService._d_ResetWorld = ((), (), None)
@@ -80,17 +84,29 @@ class _objref_ArmMotionService (CORBA.Object):
     def MoveArm2(self, *args):
         return _omnipy.invoke(self, "MoveArm2", _0__GlobalIDL.ArmMotionService._d_MoveArm2, args)
 
+    def Grab(self, *args):
+        return _omnipy.invoke(self, "Grab", _0__GlobalIDL.ArmMotionService._d_Grab, args)
+
+    def Release(self, *args):
+        return _omnipy.invoke(self, "Release", _0__GlobalIDL.ArmMotionService._d_Release, args)
+
+    def Move(self, *args):
+        return _omnipy.invoke(self, "Move", _0__GlobalIDL.ArmMotionService._d_Move, args)
+
+    def MoveArmRelative(self, *args):
+        return _omnipy.invoke(self, "MoveArmRelative", _0__GlobalIDL.ArmMotionService._d_MoveArmRelative, args)
+
     def GoPreparePose(self, *args):
         return _omnipy.invoke(self, "GoPreparePose", _0__GlobalIDL.ArmMotionService._d_GoPreparePose, args)
 
     def GetJointAngles(self, *args):
         return _omnipy.invoke(self, "GetJointAngles", _0__GlobalIDL.ArmMotionService._d_GetJointAngles, args)
 
-    def Grab(self, *args):
-        return _omnipy.invoke(self, "Grab", _0__GlobalIDL.ArmMotionService._d_Grab, args)
+    def Fk(self, *args):
+        return _omnipy.invoke(self, "Fk", _0__GlobalIDL.ArmMotionService._d_Fk, args)
 
-    def Release(self, *args):
-        return _omnipy.invoke(self, "Release", _0__GlobalIDL.ArmMotionService._d_Release, args)
+    def Ik(self, *args):
+        return _omnipy.invoke(self, "Ik", _0__GlobalIDL.ArmMotionService._d_Ik, args)
 
     def AddObject(self, *args):
         return _omnipy.invoke(self, "AddObject", _0__GlobalIDL.ArmMotionService._d_AddObject, args)
@@ -116,7 +132,7 @@ class _objref_ArmMotionService (CORBA.Object):
     def RecognizePocket(self, *args):
         return _omnipy.invoke(self, "RecognizePocket", _0__GlobalIDL.ArmMotionService._d_RecognizePocket, args)
 
-    __methods__ = ["MoveArm", "MoveArm2", "GoPreparePose", "GetJointAngles", "Grab", "Release", "AddObject", "DeleteObject", "ResetWorld", "GraspPlan", "RequestNext", "PlacePlan", "RecognizeParts", "RecognizePocket"] + CORBA.Object.__methods__
+    __methods__ = ["MoveArm", "MoveArm2", "Grab", "Release", "Move", "MoveArmRelative", "GoPreparePose", "GetJointAngles", "Fk", "Ik", "AddObject", "DeleteObject", "ResetWorld", "GraspPlan", "RequestNext", "PlacePlan", "RecognizeParts", "RecognizePocket"] + CORBA.Object.__methods__
 
 omniORB.registerObjref(ArmMotionService._NP_RepositoryId, _objref_ArmMotionService)
 _0__GlobalIDL._objref_ArmMotionService = _objref_ArmMotionService
@@ -128,7 +144,7 @@ class ArmMotionService (PortableServer.Servant):
     _NP_RepositoryId = _0__GlobalIDL.ArmMotionService._NP_RepositoryId
 
 
-    _omni_op_d = {"MoveArm": _0__GlobalIDL.ArmMotionService._d_MoveArm, "MoveArm2": _0__GlobalIDL.ArmMotionService._d_MoveArm2, "GoPreparePose": _0__GlobalIDL.ArmMotionService._d_GoPreparePose, "GetJointAngles": _0__GlobalIDL.ArmMotionService._d_GetJointAngles, "Grab": _0__GlobalIDL.ArmMotionService._d_Grab, "Release": _0__GlobalIDL.ArmMotionService._d_Release, "AddObject": _0__GlobalIDL.ArmMotionService._d_AddObject, "DeleteObject": _0__GlobalIDL.ArmMotionService._d_DeleteObject, "ResetWorld": _0__GlobalIDL.ArmMotionService._d_ResetWorld, "GraspPlan": _0__GlobalIDL.ArmMotionService._d_GraspPlan, "RequestNext": _0__GlobalIDL.ArmMotionService._d_RequestNext, "PlacePlan": _0__GlobalIDL.ArmMotionService._d_PlacePlan, "RecognizeParts": _0__GlobalIDL.ArmMotionService._d_RecognizeParts, "RecognizePocket": _0__GlobalIDL.ArmMotionService._d_RecognizePocket}
+    _omni_op_d = {"MoveArm": _0__GlobalIDL.ArmMotionService._d_MoveArm, "MoveArm2": _0__GlobalIDL.ArmMotionService._d_MoveArm2, "Grab": _0__GlobalIDL.ArmMotionService._d_Grab, "Release": _0__GlobalIDL.ArmMotionService._d_Release, "Move": _0__GlobalIDL.ArmMotionService._d_Move, "MoveArmRelative": _0__GlobalIDL.ArmMotionService._d_MoveArmRelative, "GoPreparePose": _0__GlobalIDL.ArmMotionService._d_GoPreparePose, "GetJointAngles": _0__GlobalIDL.ArmMotionService._d_GetJointAngles, "Fk": _0__GlobalIDL.ArmMotionService._d_Fk, "Ik": _0__GlobalIDL.ArmMotionService._d_Ik, "AddObject": _0__GlobalIDL.ArmMotionService._d_AddObject, "DeleteObject": _0__GlobalIDL.ArmMotionService._d_DeleteObject, "ResetWorld": _0__GlobalIDL.ArmMotionService._d_ResetWorld, "GraspPlan": _0__GlobalIDL.ArmMotionService._d_GraspPlan, "RequestNext": _0__GlobalIDL.ArmMotionService._d_RequestNext, "PlacePlan": _0__GlobalIDL.ArmMotionService._d_PlacePlan, "RecognizeParts": _0__GlobalIDL.ArmMotionService._d_RecognizeParts, "RecognizePocket": _0__GlobalIDL.ArmMotionService._d_RecognizePocket}
 
 ArmMotionService._omni_skeleton = ArmMotionService
 _0__GlobalIDL__POA.ArmMotionService = ArmMotionService
