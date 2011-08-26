@@ -7940,11 +7940,11 @@ int main(int argc, char** argv)
     bool bSuccess = ik(eetrans, eerot, vfree.size() > 0 ? &vfree[0] : NULL, vsolutions);
 
     if( !bSuccess ) {
-        fprintf(stderr,"Failed to get ik solution\n");
+        //fprintf(stderr,"Failed to get ik solution\n");
         return -1;
     }
 
-    printf("Found %d ik solutions:\n", (int)vsolutions.size());
+    //printf("Found %d ik solutions:\n", (int)vsolutions.size());
     std::vector<IKReal> sol(getNumJoints());
     for(std::size_t i = 0; i < vsolutions.size(); ++i) {
         printf("sol%d (free=%d): ", (int)i, (int)vsolutions[i].GetFree().size());
