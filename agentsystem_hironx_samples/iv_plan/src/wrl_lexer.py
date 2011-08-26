@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#
-# R.Hanai
-# 2010/12/07 - 
-#
-
 import sys
 import ply.lex as lex
 

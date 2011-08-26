@@ -1,7 +1,3 @@
-//
-// R.Hanai 2011/04/01 - 
-//
-
 #define BOOST_PYTHON_STATIC_LIB
 #include <string>
 #include <iostream>

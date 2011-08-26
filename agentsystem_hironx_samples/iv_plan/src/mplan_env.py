@@ -1,9 +1,4 @@
-##
-## mplan_env,py
-## 
-## R.Hanai 2010.11.30 - 
-##
-
+# -*- coding: utf-8 -*-
 
 from viewer import *
 import re
@@ -22,9 +17,6 @@ class MPlanEnv:
         self.tgtrobot = None
         self.markers = []
 
-    #
-    # markers
-    #
     def add_marker(self, frm):
         vf = VFrame(FRAME(mat=frm.mat, vec=frm.vec), size=100.0, width=5.0)
         vf.set_visible(True)
@@ -35,9 +27,6 @@ class MPlanEnv:
             vf.set_visible(False)
         self.markers = []
 
-    #
-    # scene objects
-    #
     def get_object(self, name):
         objs = [x for x in self.scene_objects if x.name == name]
         # 2 objects with a same name is not permitted
@@ -52,9 +41,6 @@ class MPlanEnv:
 
     def get_world(self):
         return self.get_object('world')
-
-    # def insert_robot(self, robot, frame, parent):
-    #     self.insert_object(robot.basejoint, frame, parent)
 
     def insert_object(self, obj, frame, parent=None):
         # check the names of existing objects

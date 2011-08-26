@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#
-# R.Hanai
-# 2010/12/07 - 
-#
-
 # depend: python-ply 3.3-1
 
 # The current parser doesn't interpret PROTO definitions.

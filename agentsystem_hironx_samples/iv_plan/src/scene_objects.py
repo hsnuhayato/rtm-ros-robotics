@@ -1,12 +1,6 @@
-##
-## scene_objects.py
-## 
-## R.Hanai 2010.12.08 - 
-##
-
+# -*- coding: utf-8 -*-
 
 from math import *
-
 
 # World
 def world():
@@ -314,7 +308,7 @@ def table_scene():
     return w
 
 ##
-## Table scene with 2 cans
+## Palletizing scene
 ##
 def ac_scene():
     w = world()

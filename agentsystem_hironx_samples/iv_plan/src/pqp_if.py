@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-##
-## pqp_if.py
-##
-## R.Hanai 2011.03.20 -
-##
-
 from math import *
 from numpy import *
 import operator
@@ -14,11 +8,12 @@ import operator
 from set_env import *
 import libcpqp as cpqp
 
-def build_model():
+def build_model(debug=False):
     b1 = cpqp.PQP_Model()
     b2 = cpqp.PQP_Model()
 
-    print "loading tris into PQP_Model objects..."
+    if debug:
+        print("loading tris into PQP_Model objects...")
 
     a = 1.0
     b = 0.2
@@ -47,12 +42,16 @@ def build_model():
             b2.AddTri(p4,p2,p3,count+1)
             count += 2
 
-    print "done"
-    print "Tri have %d triangles each." % count
-    print "building hierarchies..."
+    if debug:
+        print("done")
+        print("Tri have %d triangles each." % count)
+        print("building hierarchies...")
     b1.EndModel()
     b2.EndModel()
-    print "done."
+
+    if debug:
+        print("done.")
+
     b1.MemUsage(1)
     b2.MemUsage(2)
 
