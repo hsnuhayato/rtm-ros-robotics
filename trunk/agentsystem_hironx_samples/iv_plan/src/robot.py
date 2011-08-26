@@ -1,10 +1,4 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-#
-# R.Hanai
-# 2011/04/10 - 
-#
 
 import os
 import re

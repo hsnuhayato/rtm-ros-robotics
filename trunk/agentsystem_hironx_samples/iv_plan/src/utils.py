@@ -1,8 +1,4 @@
-##
-## space.py
-## 
-## R.Hanai 2010.10.10 - 
-##
+# -*- coding: utf-8 -*-
 
 import sys
 import os
