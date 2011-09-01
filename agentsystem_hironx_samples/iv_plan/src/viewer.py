@@ -240,6 +240,15 @@ def objects(vobjs=None):
             vobjs.set_visible(True)
 
 
+def set_view(camera='world'):
+    warn('not yet implemented')
+    return
+    if camera == 'world':
+        pass
+    elif camera == 'leye':
+        pass
+
+
 
 ##
 ## viewer settings
