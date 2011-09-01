@@ -16,9 +16,9 @@ PQP = PQP_v1.3.tgz
 # binary download
 ARCH=$(shell uname -m)
 ifeq ($(ARCH),x86_64)
-VPYTHON = visual-5.32_release.patched.x86_64.tgz
+VPYTHON = visual-5.71_release.patched.x86_64.tgz
 else
-VPYTHON = visual-5.32_release.patched.x86.tgz
+VPYTHON = visual-5.71_release.patched.x86.tgz
 endif
 
 
