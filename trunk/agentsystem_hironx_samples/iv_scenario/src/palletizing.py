@@ -1,6 +1,8 @@
+#!/usr/bin/env ipython
 # -*- coding: utf-8 -*-
 
 from set_env import *
+from ivutils import *
 import RTC
 import _GlobalIDL
 import math
@@ -197,3 +199,12 @@ def palletize():
 
     aux(1); aux(2)
     plsvc.ref.GoPreparePose()
+
+
+
+colored_print('ofrm = plsvc.ref.RecognizeParts(1)', 'blue')
+colored_print('pick_and_place(ofrm)', 'blue')
+colored_print('plsvc.ref.ResetWorld()', 'blue')
+colored_print('palletize_right()', 'blue')
+colored_print('plsvc.ref.ResetWorld()', 'blue')
+colored_print('palletize()', 'blue')
