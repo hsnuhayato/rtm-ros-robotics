@@ -13,8 +13,7 @@ class NameCollisionError(Exception):
 class MPlanEnv:
     def __init__(self):
         self.scene_objects = []
-        self.mdlrobot = None
-        self.tgtrobot = None
+        self.robot = None
         self.markers = []
 
     def add_marker(self, frm):
@@ -51,6 +50,13 @@ class MPlanEnv:
 
         if parent:
             obj.affix(parent, frame)
+
+    def insert_robot(self, robot):
+        self.robot = robot
+        self.insert_object(robot, FRAME(), parent=self.get_world())
+
+    def get_robot(self):
+        return self.robot
 
     def delete_objects(self, pattern):
         r = re.compile(pattern)
@@ -125,3 +131,26 @@ class MPlanEnv:
     def load_scene(self, sctree):
         self.insert_object(self.eval_sctree(sctree), FRAME())
 
+    def putbox(self, name='box0', vaxis='x', pose2d=None):
+        '''シミュレータ内で箱を机上に置く。位置はランダムに決定される。vaxis="y"で側面を上に向けて置く'''
+        if pose2d:
+            x,y,theta  = pose2d
+        else:
+            x = random.uniform(-300,-50)
+            y = random.uniform(-200,200)
+            theta = random.uniform(0,2*pi)
+        self.delete_object(name)
+        bl,bh,bw=97,66,57
+        bx = visual.box(length=bl, height=bh, width=bw, color=(1,0,1))
+        obj = PartsObjectWithName(vbody=bx, name=name)
+        tbltop = self.get_object('table top') # テーブル上面
+        thickness = tbltop.vbody.size[2]
+        if vaxis == 'x':
+            relfrm = FRAME(xyzabc=[x,y,(thickness+bw)/2,0,0,theta])
+        elif vaxis == 'y':
+            relfrm = FRAME(xyzabc=[x,y,(thickness+bh)/2,pi/2,theta,0])
+        elif vaxis == 'z':
+            relfrm = FRAME(xyzabc=[x,y,(thickness+bh)/2,0,-pi/2,0])*FRAME(xyzabc=[0,0,0,theta,0,0])
+        else:
+            print 'vaxis is wrong'
+        return self.insert_object(obj, relfrm, tbltop)

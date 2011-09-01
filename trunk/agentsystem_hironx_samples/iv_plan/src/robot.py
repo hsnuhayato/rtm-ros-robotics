@@ -338,6 +338,12 @@ class VRobot(JointObject):
     def reset_pose(self):
         self.set_joint_angles(self.poses['init'])
 
+    def prepare(self):
+        self.set_joint_angles(self.poses['prepare'])
+
+    def prepare_right(self):
+        self.set_joint_angles(self.poses['prepare_right'])
+
     def go_pos(self, x, y, theta):
         self.set_trans(FRAME(xyzabc=[x,y,0,0,0,theta]))
 
@@ -607,8 +613,4 @@ class VHIRONX(VRobot):
         th = asin(((width/2.0) - 15) / 42)
         js = [th, -th, -th, th]
         self.set_hand_joint_angles(js, hand=hand)
-
-    def prepare_right():
-        self.set_joint_angles(self.poses['prepare_right'])
-        self.set_hand_joint_angles(self.hand_poses['open2'], hand='right')
 

@@ -58,9 +58,9 @@ def inflection_points(traj, thre=0.85):
 
 
 class CSPlanner():
-    def __init__(self, robot, env, cc=None):
+    def __init__(self, env, cc=None):
         self.maxTime = 1.0
-        self.robot = robot
+        self.robot = env.get_robot()
         self.env = env
         self.cc = cc
         self.maxIter = 200
