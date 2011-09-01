@@ -30,7 +30,7 @@ download: pqp-download vpython-download
 pqp-download:
 	$(if $(shell find ./ -name PQP_v1.3.tgz), $(donothing), $(pqp-download))
 vpython-download:
-	$(if $(shell find ./ -name visual-5.32_release.patched.x86.tgz), $(donothing), $(vpython-download))
+	$(if $(shell find ./ -name visual-5.71_release.patched.x86.tgz), $(donothing), $(vpython-download))
 
 define pqp-download
 	wget $(ARCHIVEDIR)/$(PQP)
@@ -41,9 +41,9 @@ endef
 
 untar: pqp-untar vpython-untar
 pqp-untar:
-	$(if $(shell find ./ -name PQP_v1.3), $(donothing), $(pqp-untar))
+	$(if $(shell find ./ -maxdepth 1 -name PQP_v1.3), $(donothing), $(pqp-untar))
 vpython-untar:
-	$(if $(shell find ./ -name visual), $(donothing), $(vpython-untar))
+	$(if $(shell find ./ -maxdepth 1 -name visual), $(donothing), $(vpython-untar))
 define pqp-untar
 	tar xvfz $(PQP)
 endef
