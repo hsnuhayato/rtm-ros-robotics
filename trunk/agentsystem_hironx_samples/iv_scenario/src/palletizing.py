@@ -1,17 +1,17 @@
-##
-## scenario.py
-## R.Hanai 2011.05.23 -
-##
+# -*- coding: utf-8 -*-
 
-import roslib; roslib.load_manifest('iv_plan')
-
-from rtc_handle import *
+from set_env import *
 import RTC
 import _GlobalIDL
-import rospy
 import math
 from numpy import *
 from geo import *
+
+##
+## RTC-handle
+##
+
+from rtc_handle import *
 
 def get_handle(name, nspace):
     return nspace.rtc_handles[name]
@@ -37,6 +37,20 @@ def disconnect(con):
     con.disconnect()
 
 
+nameserver = 'localhost:2809'
+rtmenv = RtmEnv(sys.argv, [nameserver])
+ns = rtmenv.name_space[nameserver]
+ns.list_obj()
+
+hpl = get_handle('ArmPlan0.rtc', ns)
+hpl.activate()
+plsvc = hpl.services['ArmPlanService'].provided['service0']
+
+
+##
+## encoding/decoding for RTM messaging
+##
+
 def Pose3DtoFRAME(pose):
     ori = pose.orientation
     pos = pose.position
@@ -48,26 +62,15 @@ def FRAMEtoPose3D(frm):
     ori = RTC.Orientation3D(a, b, c)
     return RTC.Pose3D(ori, pos)
 
-import operator
-
 def encode_FRAME(f):
+    import operator
     return reduce(operator.__add__, f.mat) + f.vec
 
 def decode_FRAME(ds):
     return FRAME(mat=array(ds[0:9]).reshape(3,3).tolist(), vec=ds[9:])
 
 
-nameserver = 'hiro014:2809'
-env = RtmEnv(sys.argv, [nameserver])
-ns = env.name_space[nameserver]
-ns.list_obj()
-
-hpl = get_handle('MPlan0.rtc', ns)
-hpl.activate()
-plsvc = hpl.services['ArmPlanService'].provided['service0']
-
-
-# objType definition:
+# objType definition (temporary):
 # 1: parts A
 # 2: parts B
 # 3: pallet pocket P
@@ -127,24 +130,24 @@ def palletize_right():
 
 def pass_left_to_right(objType):
     if objType == 1:
-        q_goal = [0, 0.18962052706991084, -0.30309547203097081, -1.6161104682040897,
-                  -1.1672811346866405, -0.12695972539338643, -0.23692180236594873,
-                  -0.13308174660428049, -0.36125317532098755, -1.5033910600950069,
-                  1.3706292369222353, 0.0028576290419997661, 1.7279863708909555]
+        q_goal = [0, 0, 1.1, 0.15882788821815941, -0.31022021803713384, -1.6186460357518606, -1.1781919825350482,
+                  -0.096582871199665632, -0.23461256447573006, -0.13308174660428049, -0.36125317532098755,
+                  -1.5033910600950069, 1.3706292369222353, 0.0028576290419997661, 1.7279863708909555,
+                  0.8, -0.1, -0.8, 0.1, 0.8, -0.1, -0.8, 0.1]
         handwidth = 38
     else:
-        q_goal = [0, 0.10953652101989117, -0.32418125972003026, -1.619220151757599,
-                  -1.1960786166203574, -0.048452045171419739, -0.23084568842323364,
-                  -0.13308174660428049, -0.36125317532098755, -1.5033910600950069,
-                  1.3706292369222353, 0.0028576290419997661, 1.7279863708909555]
+        q_goal = [0, 0, 1.1, 0.078806061289114021, -0.33446638930404399, -1.6174062593925511, -1.2074687162189695,
+                  -0.018746179622803873, -0.22843791550139492, -0.13308174660428049, -0.36125317532098755,
+                  -1.5033910600950069, 1.3706292369222353, 0.0028576290419997661, 1.7279863708909555,
+                  0.8, -0.1, -0.8, 0.1, 0.8, -0.1, -0.8, 0.1]
         handwidth = 25
-
-    plsvc.ref.Move(q_goal, 'torso_arms') # whole body motion
+        
+    plsvc.ref.Move(q_goal, 'all') # whole body motion
     plsvc.ref.MoveArmRelative(encode_FRAME(FRAME()), handwidth, 'rarm', False, 0.5) # just close the hand
     plsvc.ref.Release('left')
     plsvc.ref.Grab('right')
-    plsvc.ref.MoveArmRelative(encode_FRAME(FRAME()), 100, 'larm', False, 0.5)
     plsvc.ref.MoveArmRelative(encode_FRAME(FRAME(xyzabc=[0,-50,0,0,0,0])), -1, 'rarm', False, 0.5)
+
 
 def pick_pass_and_place(ofrm, objType):
     plsvc.ref.GoPreparePose()
@@ -194,4 +197,3 @@ def palletize():
 
     aux(1); aux(2)
     plsvc.ref.GoPreparePose()
-    
