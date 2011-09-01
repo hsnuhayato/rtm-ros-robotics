@@ -367,7 +367,7 @@ class VRobot(JointObject):
 
 class VPA10(VRobot):
     def __init__(self,
-                 wrldir = pkgdir+'/externals/models/PA10_2/',
+                 wrldir = ivpkgdir+'/iv_plan/externals/models/PA10_2/',
                  scale = 1000.0,
                  name = 'pa10'):
         self.poses = { 'reset' : zeros(9),
@@ -381,7 +381,7 @@ class VPA10(VRobot):
 
 class VRH2(VRobot):
     def __init__(self,
-                 wrldir = pkgdir+'/externals/models/RH2/',
+                 wrldir = ivpkgdir+'/iv_plan/externals/models/RH2/',
                  scale = 1000.0,
                  name = 'rh2'):
 
@@ -394,7 +394,7 @@ import hironx_motions
 
 class VHIRONX(VRobot):
     def __init__(self,
-                 wrldir = pkgdir+'/externals/models/HIRO_110603/',
+                 wrldir = ivpkgdir+'/iv_plan/externals/models/HIRO_110603/',
                  scale = 1000.0,
                  name = 'HIRO-NX'):
 
