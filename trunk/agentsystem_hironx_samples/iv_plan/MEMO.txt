@@ -1,0 +1,68 @@
+##
+
+VPython:
+ sudo aptitude install python-visual libgtkglext1 libgtkglext1-dev
+
+ * VPythonがネイティブで動作しない場合がある
+   import visual
+   visual.sphere()
+   で確認できる．
+
+ - ダメな場合は，以下のように libgdkglextの関数でSEGV
+
+ #0  0x014b920b in gdk_gl_get_proc_address ()
+   from /usr/lib/libgdkglext-x11-1.0.so.0
+ #1  0x01470bed in Gdk::GL::get_proc_address(char const*) ()
+   from /usr/lib/libgdkglextmm-x11-1.2.so.0
+
+ #1の引数は "display_kernel::getProcAddress" で，
+ VPythonのソースのsrc/core/display_kernel.cpp 
+ 335行目の
+
+ if (getProcAddress("display_kernel::getProcAddress") != notImplemented)
+   glext.init( *this );
+
+ をコメントアウトすると動く.
+
+ なぜ notImplemented にならないかは不明．
+
+ ちなみに，VPythonのコンパイル時にはboostのヘッダを修正する必要がある．
+ どこを編集すべきかは，付属文書INSTALL.txtに記載がある．
+
+
+##
+
+配布パッケージの生成：
+ make clean
+ iv_plan
+ iv_scenario
+ iv_idl
+ rmrc_geo_model
+ rtc_handle
+
+ .svn/
+ manifest.xml
+ 等を削除
+
+
+全体のMakefile:
+ cd iv_plan/externals/; make
+ cd $libdir/iv_idl/src; make
+ 
+
+pythonのパスを通す
+
+実機実行：
+ SequencePlayerService/seq_service_socket.py
+ (ホスト名がハードコーディングされている)
+
+model
+
+vpython
+ply
+PQPのライセンス
+ikfast
+
+
+
+real_hiroからrosを除く
