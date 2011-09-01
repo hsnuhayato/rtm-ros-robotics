@@ -6,6 +6,18 @@ import sys
 import string
 import time
 
+from set_env import *
+
+import RTC
+import _GlobalIDL, _GlobalIDL__POA
+import OpenRTM_aist
+
+##
+## Imports of RTM must be before those of vpython.
+## Otherwise, SEGV occurs when sending a CORBA message for some reason.
+##
+
+import visual
 from ivutils import *
 from viewer import *
 import scene_objects
@@ -13,10 +25,6 @@ from robot import *
 from mplan_env import *
 from csplan import *
 import hironx_motions
-
-import RTC
-import _GlobalIDL, _GlobalIDL__POA
-import OpenRTM_aist
 
 
 from demo_common import *
