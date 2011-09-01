@@ -6,7 +6,7 @@ import operator
 from subprocess import Popen, PIPE
 
 from numpy import *
-from utils import *
+from ivutils import *
 from viewer import *
 import wrl_loader
 

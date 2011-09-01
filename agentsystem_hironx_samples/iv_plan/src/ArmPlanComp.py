@@ -6,7 +6,7 @@ import sys
 import string
 import time
 
-from utils import *
+from ivutils import *
 from viewer import *
 import scene_objects
 from robot import *

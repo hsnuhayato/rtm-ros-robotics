@@ -3,7 +3,30 @@
 
 import time
 import re
-from ivplan import *
+
+from set_env import *
+from ivutils import *
+from viewer import *
+import scene_objects
+from robot import *
+from mplan_env import *
+from csplan import *
+
+
+if real_robot:
+    from real_hiro import *
+    import rospy
+    rr = RealHIRO()
+else:
+    rr = None
+
+env = MPlanEnv()
+env.load_scene(scene_objects.ac_scene())
+r = VHIRONX(ivpkgdir+'/iv_plan/externals/models/HIRONX_110822/')
+env.insert_robot(r)
+r.go_pos(-150, 0, 0)
+pl = CSPlanner(env)
+
 
 def sync(duration=4.0, joints='all', wait=True, waitkey=True):
     '''synchronize the real robot with the model in "duration" [sec]'''

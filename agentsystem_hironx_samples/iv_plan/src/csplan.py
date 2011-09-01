@@ -10,7 +10,7 @@ from numpy import *
 from scipy import *
 from scipy.spatial import *
 
-from utils import *
+from ivutils import *
 from viewer import *
 from mplan_env import *
 

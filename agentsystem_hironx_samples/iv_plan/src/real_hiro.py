@@ -1,39 +1,40 @@
-##
-## real_hiro.py
-##
-## R.Hanai 2011.04.02 -
-##
+# -*- coding: utf-8 -*-
 
 import socket
 import pickle
 import operator
 
+from set_env import *
+
 ## ROS
-import roslib; roslib.load_manifest('iv_plan')
-import rospy
-import tf
-from sensor_msgs.msg import JointState
-from ar_pose.msg import ARMarkers
-import geometry_msgs.msg
-from tf.transformations import *
+if ros_available:
+    import rospy
+    import tf
+    from sensor_msgs.msg import JointState
+    from ar_pose.msg import ARMarkers
+    import geometry_msgs.msg
+    from tf.transformations import *
 ##
 
 
 from numpy import *
-from utils import *
+from ivutils import *
+
 
 ## RTM
 from rtc_handle import *
 import RTC
 import _GlobalIDL
-import rospy
+
 try:
-    nameserver = rospy.get_param('hiro/nameserver')
     env = RtmEnv(sys.argv, [nameserver])
     ns = env.name_space[nameserver]
     ns.list_obj()
 except:
-    warn('HIRO-NX base system is not running, or ROS_MASTER_URI is not set correctly, maybe ...')
+    warn('HIRO-NX base system is not running')
+    if ros_available:
+        warn ('or ROS_MASTER_URI is not set correctly, maybe ...')
+    
 ##
 
 

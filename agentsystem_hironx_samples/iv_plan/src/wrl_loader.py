@@ -10,7 +10,7 @@ from numpy import *
 
 from wrl_parser import *
 from viewer import *
-from utils import *
+from ivutils import *
 
 
 class WrlLoader():
