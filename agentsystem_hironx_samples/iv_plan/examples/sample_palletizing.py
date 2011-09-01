@@ -4,9 +4,10 @@ import roslib; roslib.load_manifest('iv_plan')
 from set_env import *
 from demo_common import *
 
-def approach(partsname, joints='rarm'):
+def approach(partsname, env, joints='rarm'):
     '''make a plan to a parts or a place from prepare position'''
-    prepare() # initial pose
+    r = env.get_robot()
+    r.prepare() # initial pose
     r.set_joint_angle(0, 0.6) # turn the waist
     p1 = env.get_object(partsname).where() # get a goal frame of the end-effector
     p1.vec[2] += 20 # approach frame
@@ -24,7 +25,7 @@ def plan(name1='A0', name2='P0', joints='rarm'):
         p.vec[2] += 20
         return r.ik(p*(-r.Twrist_ef), joints=joints)[0]
 
-    prepare()
+    r.prepare()
     r.set_joint_angle(0, 0.6)
     traj = pl.make_plan(get_config(name1), get_config(name2), joints=joints)
     if traj:
@@ -39,7 +40,7 @@ def palletize(task_sequence=[]):
         task_sequence = [('A0','P0','right'),('A2','P2','left'),('A1','P1','right'),
                          ('B0','P0','left'),('A3','P3','right'),('B1','P3','right')]
 
-    prepare()
+    r.prepare()
     p0 = r.fk()
 
     jts = 'torso_rarm'
