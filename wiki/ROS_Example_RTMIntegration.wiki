@@ -137,8 +137,14 @@ roslaunch openrtm Seq_Example.launch
 == 外部プラグイン並びにのJava環境のインストール for GRXUI ==
 
 (10.04/10.10ユーザ共通)
-Help -> Install New Softare -> Add -> Archive
-で、`<openhrp3>/build/java3declipse-20090302.zip`, `<openhrp3>/build/grxui_eclipse.zip`, `<hrpsys>/build/robothardware_eclipse.zip`
+Help -> Install New Softare -> Add -> Archive から
+
+`<openhrp3>/build/java3declipse-20090302.zip`,
+
+`<openhrp3>/build/grxui_eclipse.zip`,
+
+`<hrpsys>/build/robothardware_eclipse.zip`
+
 をそれぞれインストール
 
 {{{
