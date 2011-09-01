@@ -2,29 +2,24 @@
 
 import os
 import sys
+from os import path
+
+ros_available = False
 
 try:
-    pkgdir = os.environ['IV_PLAN_ROOT']
+    ivpkgdir = os.environ['IV_PKG_DIR']
 except:
-    pkgdir = '..'
+    ivpkgdir = path.abspath('../..')
+    print "'IV_PKG_DIR' is not set, so use %s instead." % ivpkgdir
 
-ros_available = True
 if ros_available:
     import roslib; roslib.load_manifest('iv_plan')
 else:
-    libpath = os.environ['HOME'] + '/prog/hironx/agenssystem_hironx_samples'
-    paths = [libpath+'/iv_plan',
-             libpath+'/iv_idl',
-             libpath+'/rtc_handle',
-             libpath+'/rmrc_geo_model']
-    for p in paths:
-        sys.path.append(p)
+    def load_manifest(pkgnm):
+        sys.path.append(ivpkgdir+pkgnm+'/src')
 
+    for pkgnm in ['/iv_plan','/iv_idl','/rtc_handle','/rmrc_geo_model']:
+        load_manifest(pkgnm)
 
-sys.path.append(pkgdir+'/lib')
-
-# for patched python visual
-# shared install
-# sys.path.append('/usr/local/lib/python2.6/site-packages/')
-# user install
-sys.path.append(pkgdir+'/externals/visual/site-packages/')
+    sys.path.append(ivpkgdir+'/iv_plan/lib')
+    sys.path.append(ivpkgdir+'/iv_plan/externals/visual/site-packages/')
