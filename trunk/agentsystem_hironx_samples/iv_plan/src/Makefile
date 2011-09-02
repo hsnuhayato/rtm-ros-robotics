@@ -1,7 +1,7 @@
 # -*- Makefile -*-
 
 CPQP_SRC = cpqp.cpp
-CPQP_LIB = $(patsubst %.cpp,%.so, $(CPQP_SRC))
+CPQP_LIB = libcpqp.so
 CPQP_OBJ = $(patsubst %.cpp,%.o, $(CPQP_SRC))
 PQP_DIR = ../externals/PQP_v1.3
 LIB_DIR = ../lib
