@@ -84,12 +84,12 @@ interface ArmMotionService
      * @param objectType
      * @param worldFrame
      */
-    boolean AddObject(in string name, in long objectType, in DblSequence worldFrame);
+    void AddObject(in string name, in long objectType, in DblSequence worldFrame);
 
     /**
      * @brief Delete an object in the planning environment
      */
-    boolean DeleteObject(in string name);
+    void DeleteObject(in string name);
 
     void ResetWorld();
 

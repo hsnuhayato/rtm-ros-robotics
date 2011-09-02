@@ -117,6 +117,19 @@ class ArmPlanServiceSVC_impl(_GlobalIDL__POA.ArmMotionService):
     def Ik(self, frm, joints):
         return r.ik(decode_FRAME(frm), joints=joints)[0]
 
+    def AddObject(self, name, objectType, worldFrame):
+        if objectType == 1:
+            obj = env.eval_sctree(scene_objects.partsA(name))
+        elif objectType == 2:
+            obj = env.eval_sctree(scene_objects.partsB(name))
+        else:
+            return
+
+        env.insert_object(obj, decode_FRAME(worldFrame), parent=env.get_world())
+
+    def DeleteObject(self, name):
+        env.delete_object(name)
+
     def GraspPlan(self, otype, ofrm, longSide):
         ofrm = decode_FRAME(ofrm)
         afrm,gfrm,handwidth = graspplan(otype, ofrm, long_side=longSide)
