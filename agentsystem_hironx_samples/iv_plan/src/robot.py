@@ -390,7 +390,7 @@ class VRH2(VRobot):
         VRobot.__init__(self, wrldir, scale, name)
 
 
-import hironx_motions
+import hironx_params
 
 class VHIRONX(VRobot):
     def __init__(self,
@@ -399,16 +399,16 @@ class VHIRONX(VRobot):
                  name = 'HIRO-NX'):
 
         # predefined poses
-        self.poses = hironx_motions.poses
-        self.hand_poses = hironx_motions.hand_poses
+        self.poses = hironx_params.poses
+        self.hand_poses = hironx_params.hand_poses
 
         # fixed transforms
-        self.Thd_leye = hironx_motions.Thd_leye
-        self.Trh_cam = hironx_motions.Trh_cam
-        self.Thd_kinectrgb = hironx_motions.Thd_kinectrgb
-        self.Thd_kinectdepth = hironx_motions.Thd_kinectdepth
-        self.Twrist_ef = hironx_motions.Twrist_ef
-        self.Tikoffset = hironx_motions.Tikoffset
+        self.Thd_leye = hironx_params.Thd_leye
+        self.Trh_cam = hironx_params.Trh_cam
+        self.Thd_kinectrgb = hironx_params.Thd_kinectrgb
+        self.Thd_kinectdepth = hironx_params.Thd_kinectdepth
+        self.Twrist_ef = hironx_params.Twrist_ef
+        self.Tikoffset = hironx_params.Tikoffset
 
         VRobot.__init__(self, wrldir, scale, name)
 

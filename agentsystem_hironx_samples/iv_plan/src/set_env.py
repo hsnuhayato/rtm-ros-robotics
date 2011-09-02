@@ -4,8 +4,8 @@ import os
 import sys
 from os import path
 
-ros_available = False
 real_robot = False
+ros_available = False
 
 try:
     ivpkgdir = os.environ['IV_PKG_DIR']
@@ -29,7 +29,19 @@ else:
 sys.path.append(ivpkgdir+'/iv_plan/lib')
 sys.path.append(ivpkgdir+'/iv_plan/externals/visual/site-packages/')
 
-if real_robot:
-    nameserver = 'hiro014'
-else:
-    nameserver = 'localhost'
+def getNameServerFromConf(filename):
+    import OpenRTM_aist
+    prop = OpenRTM_aist.Properties()
+    fd = file(filename, 'r')
+    prop.load(fd)
+    fd.close()
+    nameserver = prop.findNode('corba.nameservers').getValue()
+    return nameserver
+
+nameserver = getNameServerFromConf(ivpkgdir+'/iv_plan/src/rtc.conf')
+print 'nameserver = %s' % nameserver
+
+# if real_robot:
+#     nameserver = 'hiro014'
+# else:
+#     nameserver = 'localhost'
