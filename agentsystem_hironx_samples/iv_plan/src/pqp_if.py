@@ -6,7 +6,7 @@ from numpy import *
 import operator
 
 from set_env import *
-import libcpqp as cpqp
+import cpqp
 
 def build_model(debug=False):
     b1 = cpqp.PQP_Model()

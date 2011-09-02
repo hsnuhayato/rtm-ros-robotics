@@ -10,4 +10,4 @@ idlcompile: $(IDLS)
 	omniidl -bpython -I$(IDL_INCDIR) $^
 
 clean:
-	rm -rf *_idl.py *.pyc _GlobalIDL _GlobalIDL__POA OpenHRP OpenHRP__POA RTC RTC__POA
+	rm -rf *_idl.py *.pyc _GlobalIDL _GlobalIDL__POA OpenHRP OpenHRP__POA RTC RTC__POA Img Img__POA

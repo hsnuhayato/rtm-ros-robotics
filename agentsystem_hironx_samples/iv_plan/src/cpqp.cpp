@@ -148,7 +148,7 @@ int PQP_Distance2(PQP_DistanceResult *result,
 }
 
 
-BOOST_PYTHON_MODULE( libcpqp )
+BOOST_PYTHON_MODULE( cpqp )
 {
   using namespace boost::python;
 

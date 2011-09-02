@@ -1,12 +1,26 @@
-CFLAGS = -g -O2 -Wall
+# -*- Makefile -*-
 
-all: cpqp.so
+CPQP_SRC = cpqp.cpp
+CPQP_LIB = $(patsubst %.cpp,%.so, $(CPQP_SRC))
+CPQP_OBJ = $(patsubst %.cpp,%.o, $(CPQP_SRC))
+PQP_DIR = ../externals/PQP_v1.3
+LIB_DIR = ../lib
 
-cpqp.so: cpqp.o
-	g++ -shared -g -o $@ $^ -lboost_python -lPQP -L../externals/PQP_v1.3/lib
+CFLAGS = -g -O3 -Wall
 
-cpqp.o: cpqp.cpp
-	g++ $(CFLAGS) -c $< -fPIC -I/usr/include/python2.6 -I../externals/PQP_v1.3/include
+all: $(LIB_DIR)/$(CPQP_LIB)
 
-clean:
-	rm -rf cpqp.so cpqp.o *.pyc
+$(LIB_DIR)/$(CPQP_LIB): $(CPQP_OBJ)
+	g++ -shared -g -o $@ $^ -lboost_python -lPQP -L$(PQP_DIR)/lib
+
+$(CPQP_OBJ): $(CPQP_SRC)
+	g++ $(CFLAGS) -c $< -fPIC -I/usr/include/python2.6 -I$(PQP_DIR)/include
+
+clean: clean_objs clean_pyim
+	rm -f *~ *.log
+
+clean_objs:
+	rm -rf $(LIB_DIR)/$(CPQP_LIB) $(CPQP_OBJ)
+
+clean_pyim:
+	rm -rf *.pyc parser.out parsetab.py
