@@ -39,14 +39,13 @@ def disconnect(con):
     con.disconnect()
 
 
-nameserver = 'localhost:2809'
 rtmenv = RtmEnv(sys.argv, [nameserver])
 ns = rtmenv.name_space[nameserver]
 ns.list_obj()
 
 hpl = get_handle('ArmPlan0.rtc', ns)
 hpl.activate()
-plsvc = hpl.services['ArmPlanService'].provided['service0']
+plsvc = hpl.services['ArmPlanService'].provided['ArmPlanService0']
 
 
 ##
