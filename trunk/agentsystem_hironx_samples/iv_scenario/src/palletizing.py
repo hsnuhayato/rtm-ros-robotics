@@ -1,7 +1,11 @@
 #!/usr/bin/env ipython
 # -*- coding: utf-8 -*-
 
+import sys
+sys.path.append('../../iv_plan/src')
+
 from set_env import *
+
 from ivutils import *
 import RTC
 import _GlobalIDL
