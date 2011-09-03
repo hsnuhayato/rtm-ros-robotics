@@ -27,6 +27,12 @@ env.insert_robot(r)
 r.go_pos(-150, 0, 0)
 pl = CSPlanner(env)
 
+for o in env.get_objects('table top|pallete side|A|B'):
+    r.add_collision_object(o)
+# table top <=> robot
+# pallete side <=> robot
+# parts <=> robot
+
 
 def sync(duration=4.0, joints='all', wait=True, waitkey=True):
     '''synchronize the real robot with the model in "duration" [sec]'''
@@ -435,12 +441,3 @@ def reset_parts():
                              [-120,-70,700,0,0,0]]):
         reset1('B'+str(i), pose)
         
-
-def setup_collision_objects():
-    # table top <=> robot
-    # pallete side <=> robot
-    # parts <=> robot
-    for obj in env.get_objects('table top|pallete side|A|B'):
-        r.add_collision_object(obj)
-
-setup_collision_objects()

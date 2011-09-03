@@ -243,7 +243,8 @@ class VRobot(JointObject):
             obj1.cb = gen_collision_body(obj1)
         if not obj2.cb:
             obj2.cb = gen_collision_body(obj2)
-        self.cobj_pairs.append((obj1, obj2))
+        if not (obj1,obj2) in self.cobj_pairs:
+            self.cobj_pairs.append((obj1, obj2))
 
     def remove_collision_pair(self, obj1, obj2):
         self.cobj_pairs = [(x,y) for x,y in self.cobj_pairs if not ((x == obj1 and y == obj2) or (x == obj2 and y == obj1))]
