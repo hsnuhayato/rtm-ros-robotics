@@ -7,12 +7,8 @@ from os import path
 real_robot = False
 ros_available = False
 
-try:
-    ivpkgdir = os.environ['IV_PKG_DIR']
-except:
-    ivpkgdir = path.abspath('../..')
-    print "'IV_PKG_DIR' is not set, so use %s instead." % ivpkgdir
-
+ivpkgdir = os.path.abspath('../..')
+ivpkgs = ['/iv_plan','/iv_idl','/rtc_handle','/rmrc_geo_model']
 
 if ros_available:
     import roslib; roslib.load_manifest('iv_plan')
@@ -21,25 +17,25 @@ if ros_available:
 
 else:
     def load_manifest(pkgnm):
-        sys.path.append(ivpkgdir+pkgnm+'/src')
+        for subdir in ['src', 'lib']:
+            sys.path.append(ivpkgdir+pkgnm+'/'+subdir)
 
-    for pkgnm in ['/iv_plan','/iv_idl','/rtc_handle','/rmrc_geo_model']:
-        load_manifest(pkgnm)
+    for pkg in ivpkgs:
+        load_manifest(pkg)
 
-sys.path.append(ivpkgdir+'/iv_plan/lib')
 sys.path.append(ivpkgdir+'/iv_plan/externals/visual/site-packages/')
 
-def getNameServerFromConf(filename):
+def getNameServerFromConf(argv):
     import OpenRTM_aist
+    mc = OpenRTM_aist.ManagerConfig(argv)
     prop = OpenRTM_aist.Properties()
-    fd = file(filename, 'r')
-    prop.load(fd)
-    fd.close()
+    mc.configure(prop)
     nameserver = prop.findNode('corba.nameservers').getValue()
+    print 'config file = %s' % mc._configFile
+    print 'nameserver = %s' % nameserver
     return nameserver
 
-nameserver = getNameServerFromConf(ivpkgdir+'/iv_plan/src/rtc.conf')
-print 'nameserver = %s' % nameserver
+nameserver = getNameServerFromConf(sys.argv)
 
 # if real_robot:
 #     nameserver = 'hiro014'
