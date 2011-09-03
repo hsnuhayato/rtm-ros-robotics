@@ -78,6 +78,9 @@ class MPlanEnv:
             if isinstance(o, CoordinateObject):
                 o.vframe.set_visible(False)
                 #o.vbody.frame.set_visible(False)
+                # remove from collision list
+                self.robot.cobj_pairs = [p for p in self.robot.cobj_pairs if p[0] != o and p[1] != o]
+                
                 self.scene_objects.remove(o)
                 # del self.scene_objects[name]
 

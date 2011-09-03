@@ -125,6 +125,7 @@ class ArmPlanServiceSVC_impl(_GlobalIDL__POA.ArmMotionService):
         else:
             return
 
+        r.add_collision_object(obj)
         env.insert_object(obj, decode_FRAME(worldFrame), parent=env.get_world())
 
     def DeleteObject(self, name):
