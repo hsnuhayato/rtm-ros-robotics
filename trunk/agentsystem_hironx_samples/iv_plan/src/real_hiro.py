@@ -87,8 +87,12 @@ class RealHIRO:
         h_rh = get_handle('RobotHardware0.rtc', ns)
         self.jstt_port = h_rh.outports['jointStt']
 
-        h_bp = get_handle('Flip0.rtc', ns)
-        self.bxpose_port = h_bp.outports['boxPose']
+        try:
+            flipcmp = 'Flip0.rtc'
+            h_bp = get_handle('flipcmp', ns)
+            self.bxpose_port = h_bp.outports['boxPose']
+        except:
+            warn('%s not found'%flipcmp)
 
         # h_rh = get_handle('HIRONXController(Robot)0.rtc', ns)
         # self.jstt_port = h_rh.outports['q']
@@ -104,7 +108,7 @@ class RealHIRO:
         rospy.Subscriber('/hiro/lhand/ar_pose_marker', ARMarkers, self.update_lhand_cam)
         rospy.Subscriber('/calc_center', geometry_msgs.msg.PoseStamped, self.update_calc_center)
         rospy.Subscriber('/ar_pose_marker', ARMarkers, self.update_kinect_AR)
-    
+
     def __del__(self):
         #deactivate([self.h_leyecap, self.h_reyecap])
         deactivate([self.h_leyecap])
