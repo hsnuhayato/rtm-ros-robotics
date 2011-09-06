@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import roslib; roslib.load_manifest('iv_plan')
+import sys
+sys.path.append('../../iv_plan/src')
+
 from set_env import *
 from demo_common import *
 
