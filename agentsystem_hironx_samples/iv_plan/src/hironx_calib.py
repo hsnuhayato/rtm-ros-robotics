@@ -17,21 +17,50 @@ neck_angles2 = [
     [-0.32, 1.0], [0, 0.95], [0.32, 1.0], [0, 1.15]
     ]
 
-def one_shot():
-    Tsen_tgt = rr.detect(camera='kinect_rgb')
-    r.set_joint_angles(rr.get_joint_angles())
-    Twld_hd = r.get_link('HEAD_JOINT1_Link').where()
-    show_frame(Twld_hd * r.Thd_kinectrgb * Tsen_tgt)
-    return r.get_joint_angles(), Tsen_tgt
+# after r.prepare()
+rhand_angles1 = [
+    [300,-400,1050,0,-pi/2,-pi/6],
+    [300,-200,1050,0,-pi/2,0],
+    [300,0,1050,0,-pi/2,pi/6],
+    [150,-200,1050,0,-pi/2-pi/8,0],
+    [400,-200,1050,0,-pi/2+pi/8,0]
+    ]
 
-def record_data():
+def one_shot(sensor='kinect'):
+    if sensor == 'kinect':
+        Tsen_tgt = rr.detect(camera='kinect_rgb')
+        r.set_joint_angles(rr.get_joint_angles())
+        Twld_hd = r.get_link('HEAD_JOINT1_Link').where()
+        show_frame(Twld_hd * r.Thd_kinectrgb * Tsen_tgt)
+        return r.get_joint_angles(), Tsen_tgt
+    elif sensor == 'rhand_cam':
+        tf = rr.get_tf('/base_link', '/checkerboard')
+        (trans, rot) = tf
+        Tsen_tgt = FRAME(mat=MATRIX(mat=quaternion_matrix(rot)[0:3,0:3].tolist()),
+                         vec=VECTOR(vec=(1000.0*array(trans)).tolist()))
+        r.set_joint_angles(rr.get_joint_angles())
+        Twld_rh = r.get_link('RARM_JOINT5_Link').where()
+        show_frame(Twld_rh * r.Trh_cam * Tsen_tgt)
+        return r.get_joint_angles(), Tsen_tgt
+
+def record_data(sensor='kinect', waitTime=1.5):
     res = []
-    for y,p in neck_angles2:
-        r.set_joint_angle(1,y)
-        r.set_joint_angle(2,p)
+    if sensor == 'kinect':
+        for y,p in neck_angles2:
+            r.set_joint_angle(1,y)
+            r.set_joint_angle(2,p)
+            sync()
+            time.sleep(waitTime)
+            res.append(one_shot(sensor))
+    elif sensor == 'rhand_cam':
+        r.prepare()
         sync()
-        time.sleep(1.5)
-        res.append(one_shot())
+        for v in rhand_angles1:
+            f = FRAME(xyzabc=v)
+            r.set_arm_joint_angles(r.ik(f)[0])
+            sync()
+            time.sleep(waitTime)
+            res.append(one_shot(sensor))
     return res
 
 def play_data(res):
