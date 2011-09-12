@@ -339,8 +339,10 @@ class VRobot(JointObject):
     def reset_pose(self):
         self.set_joint_angles(self.poses['init'])
 
-    def prepare(self):
+    def prepare(self, width=None):
         self.set_joint_angles(self.poses['prepare'])
+        if width:
+            self.grasp(width=width)
 
     def prepare_right(self):
         self.set_joint_angles(self.poses['prepare_right'])
