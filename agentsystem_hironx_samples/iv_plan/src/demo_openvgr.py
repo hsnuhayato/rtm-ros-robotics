@@ -91,8 +91,9 @@ def start_reading_port(raw_paths, options, tree=None):
     comp_mgmt.shutdown(mgr)
     return result
 
-#pt = 'Recognition0.rtc:RecognitionResultOut'
-ports = ['RobotHardware0.rtc:jointStt', 'Flip0.rtc:boxPose']
+#ports = ['Recognition0.rtc:RecognitionResultOut']
+#ports = ['RobotHardware0.rtc:jointStt', 'Flip0.rtc:boxPose']
+ports = ['Flip0.rtc:boxPose']
 
 # main(argv=[pt])
 # options = {'paths': [], 'verbose': False, 'max': -1, 'modules': [], 'rate': 100.0, 'timeout': -1}
@@ -102,7 +103,7 @@ options.paths = []
 options.verbose = False
 options.max = -1
 options.modules = ['RTC_grx']
-options.rate = 100.0
+options.rate = 10.0
 options.timeout = -1
 tree = None
 
@@ -116,16 +117,23 @@ def main():
 
 
 def preapproach():
-    r.prepare()
-    f = FRAME(xyzabc=[200,-100,1000,0,-pi/2,0])
+    f = r.fk()
+    f.vec[2] += 50
+    sol = r.ik(f)[0]
+    r.set_arm_joint_angles(sol)
+    sync(joints='rarm', duration=2.5)
+
+    r.prepare(width=80)
+    f = FRAME(xyzabc=[200,-50,1000,0,-pi/2,0])
     r.set_arm_joint_angles(r.ik(f)[0])
     sync()
 
-def get_joint_angles():
-    return reduce(operator.__add__, comp.get()[0].qState)
+# def get_joint_angles():
+#     return reduce(operator.__add__, comp.get()[0].qState)
 
 def detect_pose3d(scl=1.0):
-    pose3d = comp.get()[1]
+    pose3d = comp.get()[0]
+    #pose3d = comp.get()[1]
     u = pose3d.position.x
     v = pose3d.position.y
     w = pose3d.position.z
@@ -136,34 +144,73 @@ def detect_pose3d(scl=1.0):
 
     a = 182
     b = 134
-    c = 0
-    d = 0
-    e = 212.8246
+    c = -6
+    d = -2
+    e = 216
     x = a / 640.0 * (u - 320) + c
     y = b / 480.0 * (v - 240) + d
     z =  e / w
     Tcam_obj = FRAME(xyzabc=[scl*x,scl*y,scl*z,R,P,-Y])
     print 'cam=>obj: ', Tcam_obj
 
-    q = get_joint_angles()
+    q = rr.get_joint_angles()
     r.set_joint_angles(q)
     Twld_cam = r.get_link('RARM_JOINT5_Link').where()*r.Trh_cam
-    return Twld_cam * Tcam_obj
 
-def pick(f, sync=False):
+    Twld_obj = Twld_cam * Tcam_obj
+
+    m = array(Twld_obj.mat)
+    a = cross(m[0:3,2], [0,0,1])
+    m2 = MATRIX(angle=linalg.norm(a), axis=VECTOR(vec=a.tolist()))
+    Twld_obj.mat = m2*Twld_obj.mat
+    return Twld_obj
+
+def pick(f, h = 723, dosync=True):
+    f.vec[2] = h
     f2 = f * (-r.Twrist_ef)
-    f2.vec[2] -= 12.0
     sols = r.ik(f2)
     if sols == []:
         f2 = f * FRAME(xyzabc=[0,0,0,0,0,pi]) * (-r.Twrist_ef)
         sols = r.ik(f2)
     r.set_arm_joint_angles(sols[0])
-    if sync:
-        sync(joints='rarm')
-        r.grasp(48)
-        sync(duration=0.5)
-        r.grasp(34)
-        sync(duration=0.5)
+    if dosync:
+        sync(joints='rarm', duration=2.5)
+        for w in [80,75,70,65,60,55,50,45,40,34]:
+            r.grasp(w)
+            sync(duration=0.3)
+
+def transport():
+    f = r.fk()
+    f.vec[2] += 150
+    sol = r.ik(f)[0]
+    r.set_arm_joint_angles(sol)
+    sync(joints='rarm', duration=2.5)
+    f = FRAME(xyzabc=[200,-300,1000,0,-pi/2,0])
+    r.set_arm_joint_angles(r.ik(f)[0])
+    sync(joints='rarm', duration=2.5)
+
+def place(f, h = 746, dosync=True):
+    f.vec[2] = h
+    f2 = f * (-r.Twrist_ef)
+    sols = r.ik(f2)
+    if sols == []:
+        f2 = f * FRAME(xyzabc=[0,0,0,0,0,pi]) * (-r.Twrist_ef)
+        sols = r.ik(f2)
+    r.set_arm_joint_angles(sols[0])
+    if dosync:
+        sync(joints='rarm', duration=2.5)
+        for w in [40,50,60,70,80]:
+            r.grasp(w)
+            sync(duration=0.3)
+
+def pick_and_place():
+    f = detect_pose3d()
+    pick(f)
+    transport()
+    time.sleep(2.5)
+    f = detect_pose3d()
+    place(f)
+    preapproach()
 
 
 # def main():
