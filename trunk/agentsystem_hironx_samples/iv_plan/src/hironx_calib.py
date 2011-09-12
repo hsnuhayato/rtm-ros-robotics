@@ -3,7 +3,7 @@
 from set_env import *
 from demo_common import *
 import time
-
+from tfpy import *
 from scipy.optimize import leastsq
 
 
@@ -63,10 +63,10 @@ def record_data(sensor='kinect', waitTime=1.5):
             res.append(one_shot(sensor))
     return res
 
-def play_data(res):
+def play_data(res, link='HEAD_JOINT1_Link', tf=r.Thd_kinectrgb):
     for js, Tsen_tgt in res:
         r.set_joint_angles(js)
-        Twld_tgt = r.get_link('HEAD_JOINT1_Link').where()*r.Thd_kinectrgb*Tsen_tgt
+        Twld_tgt = r.get_link(link).where()*tf*Tsen_tgt
         show_frame(Twld_tgt)
         print Twld_tgt.vec
         time.sleep(1.0)
@@ -102,17 +102,17 @@ def error_fun_t(v, A, B, Rx):
         return d
     return [e(v,Ai,Bi) for (Ai,Bi) in zip(A,B)]
 
-def error_fun_t2(v, qs, fs, Rx, h):
+def error_fun_t2(v, qs, fs, Rx, h, link='HEAD_JOINT1_Link'):
     def e(v, q, f):
         r.set_joint_angles(q)
         Tx = FRAME(mat=Rx, vec=v.tolist())
-        f2 = r.get_link('HEAD_JOINT1_Link').where()*Tx*f
+        f2 = r.get_link(link).where()*Tx*f
         d = abs(f2.vec[2] - h)
         print v,d
         return d
     return [e(v,q,f) for (q,f) in zip(qs,fs)]
 
-def calibrate(res, maxfev=2000, height = 705.0):
+def calibrate(res, maxfev=2000, link='HEAD_JOINT1_Link', tf0=r.Thd_kinectrgb, height = 705.0):
     # height = 960 (on a box)
 
     qs,fs = unzip(res)
@@ -121,7 +121,7 @@ def calibrate(res, maxfev=2000, height = 705.0):
 
     for q in qs:
         r.set_joint_angles(q)
-        B0.append(r.get_link('HEAD_JOINT1_Link').where())
+        B0.append(r.get_link(link).where())
 
     B = [(-x)*y for (x,y) in zip(B0[:-1],B0[1:])]
     A = [x*(-y) for (x,y) in zip(fs[:-1],fs[1:])]
@@ -133,7 +133,7 @@ def calibrate(res, maxfev=2000, height = 705.0):
     Rb = [b.mat for b in B]
     Ra = [a.mat for a in A]
 
-    v0 = r.Thd_kinectrgb.mat.abc()
+    v0 = tf0.mat.abc()
     print 'maxfev = ', 2000
 
     print 'optimizing rotation ...'
@@ -141,10 +141,10 @@ def calibrate(res, maxfev=2000, height = 705.0):
     Rx = FRAME(xyzabc=[0,0,0]+res[0].tolist()).mat
     print 'rotation = ', Rx, ' rpy= ', res[0]
 
-    v0 = r.Thd_kinectrgb.vec
+    v0 = tf0.vec
     print 'optimizing translation ...'
     #res = leastsq(error_fun_t, v0, args=(A,B,Rx), maxfev=maxfev)
-    res = leastsq(error_fun_t2, v0, args=(qs,fs,Rx,height), maxfev=maxfev)
+    res = leastsq(error_fun_t2, v0, args=(qs,fs,Rx,height,link), maxfev=maxfev)
     tx = VECTOR(vec=res[0].tolist())
     print 'translation = ', tx
 
