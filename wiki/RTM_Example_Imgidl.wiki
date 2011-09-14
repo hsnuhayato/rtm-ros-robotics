@@ -12,11 +12,10 @@ agentsystem_rtm_tutorials/Imgidl_sample
 
 agentsystem_rtm_tutorials以下でsvn upする．
 
-単体でチェックアウトする場合には，
+サンプル単体でチェックアウトしたい場合には，
 {{{
 svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_rtm_tutorials/Imgidl_sample
 }}}
-
 とすること．
 
 Imgidl_sample以下には3つのフォルダがあり，それぞれが独立なサンプルに
