@@ -11,6 +11,14 @@ agentsystem_rtm_tutorials/Imgidl_sample
 がなければ，
 
 agentsystem_rtm_tutorials以下でsvn upする．
+
+単体でチェックアウトする場合には，
+{{{
+svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_rtm_tutorials/Imgidl_sample
+}}}
+
+とすること．
+
 Imgidl_sample以下には3つのフォルダがあり，それぞれが独立なサンプルに
 なっている．下記で利用するImg.idlも各々のフォルダに入っている．
 
