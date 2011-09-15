@@ -133,24 +133,36 @@ def preapproach():
 
 def detect_pose3d(scl=1.0):
     pose3d = comp.get()[0]
-    #pose3d = comp.get()[1]
-    u = pose3d.position.x
-    v = pose3d.position.y
-    w = pose3d.position.z
-    print 'w=', w
-    R = pose3d.orientation.r
-    P = pose3d.orientation.p
-    Y = pose3d.orientation.y
 
-    a = 182
-    b = 134
-    c = -6
-    d = -2
-    e = 216
-    x = a / 640.0 * (u - 320) + c
-    y = b / 480.0 * (v - 240) + d
-    z =  e / w
-    Tcam_obj = FRAME(xyzabc=[scl*x,scl*y,scl*z,R,P,-Y])
+    if pose3d.position.z < 100.0:
+        return None
+
+    # u = pose3d.position.x
+    # v = pose3d.position.y
+    # w = pose3d.position.z
+    x = pose3d.position.x
+    y = pose3d.position.y
+    z = pose3d.position.z
+    ax = pose3d.orientation.r
+    ay = pose3d.orientation.p
+    az = pose3d.orientation.y
+
+    axis =  array([ax,ay,az])
+    angle = linalg.norm(axis)
+
+    m = MATRIX(angle=angle, axis=VECTOR(vec=axis.tolist()))
+    Tcam_obj = FRAME(mat=m, vec=VECTOR(x,y,z))
+
+    # a = 182
+    # b = 134
+    # c = -6
+    # d = -2
+    # e = 216
+    # x = a / 640.0 * (u - 320) + c
+    # y = b / 480.0 * (v - 240) + d
+    # z =  e / w
+    # Tcam_obj = FRAME(xyzabc=[scl*x,scl*y,scl*z,R,P,-Y])
+
     print 'cam=>obj: ', Tcam_obj
 
     q = rr.get_joint_angles()
@@ -163,9 +175,10 @@ def detect_pose3d(scl=1.0):
     a = cross(m[0:3,2], [0,0,1])
     m2 = MATRIX(angle=linalg.norm(a), axis=VECTOR(vec=a.tolist()))
     Twld_obj.mat = m2*Twld_obj.mat
+
     return Twld_obj
 
-def pick(f, h = 723, dosync=True):
+def pick(f, h = 722, dosync=True):
     f.vec[2] = h
     f2 = f * (-r.Twrist_ef)
     sols = r.ik(f2)
@@ -179,18 +192,22 @@ def pick(f, h = 723, dosync=True):
             r.grasp(w)
             sync(duration=0.3)
 
-def transport():
+def transport(n = 0):
+    pocketposs = [(200,-300),(120,-300),
+                  (200,-380),(120,-380)]
     f = r.fk()
     f.vec[2] += 150
     sol = r.ik(f)[0]
     r.set_arm_joint_angles(sol)
-    sync(joints='rarm', duration=2.5)
-    f = FRAME(xyzabc=[200,-300,1000,0,-pi/2,0])
+    sync(joints='rarm', duration=2.0)
+    x,y = pocketposs[n]
+    f = FRAME(xyzabc=[x, y, 1000,0,-pi/2,0])
     r.set_arm_joint_angles(r.ik(f)[0])
-    sync(joints='rarm', duration=2.5)
+    sync(joints='rarm', duration=2.0)
 
-def place(f, h = 746, dosync=True):
+def place(f, h = 739, dosync=True):
     f.vec[2] = h
+    f.vec[0] -= 1.2 #
     f2 = f * (-r.Twrist_ef)
     sols = r.ik(f2)
     if sols == []:
@@ -199,18 +216,25 @@ def place(f, h = 746, dosync=True):
     r.set_arm_joint_angles(sols[0])
     if dosync:
         sync(joints='rarm', duration=2.5)
-        for w in [40,50,60,70,80]:
+        for w in [38,40,42,48,60,80]:
             r.grasp(w)
             sync(duration=0.3)
 
-def pick_and_place():
-    f = detect_pose3d()
-    pick(f)
-    transport()
-    time.sleep(2.5)
-    f = detect_pose3d()
-    place(f)
-    preapproach()
+def detect(zmin=720):
+    while True:
+        f = detect_pose3d()
+        if f and f.vec[2] > zmin and f.vec[2] < 750:
+            return f
+
+def pick_and_place(n=1):
+    for i in range(n):
+        f = detect()
+        pick(f)
+        transport(i)
+        time.sleep(2.5)
+        f = detect(zmin=680)
+        place(f)
+        preapproach()
 
 
 # def main():
