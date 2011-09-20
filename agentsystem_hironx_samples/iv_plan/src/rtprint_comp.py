@@ -22,7 +22,7 @@ Reader component used by rtprint
 from rtshell import gen_comp
 import OpenRTM_aist
 import RTC
-
+import time
 
 ###############################################################################
 ## Reader component for rtprint
