@@ -116,23 +116,57 @@ def main():
     comp,mgr,tree= start_reading_port([rtshell.path.cmd_path_to_full_path(p) for p in ports], options, tree)
 
 
-def preapproach():
+# quick version
+tms = {'preapproach1': 0.4,
+       'preapproach2': 1.0,
+       'pick': 0.5,
+       'transport': 0.6,
+       'place': 0.5}
+
+# slow version
+# tms = {'preapproach1': 1.5,
+#        'preapproach2': 2.5,
+#        'pick': 1.5,
+#        'transport': 1.5,
+#        'place': 1.5}
+
+detectposs = [(160,-50),(230,-50),
+              (150, 10),(220, 10)]
+
+
+def preapproach(n = 0):
+    print 'PRE:', n
     f = r.fk()
-    f.vec[2] += 50
+    f.vec[2] += 60
     sol = r.ik(f)[0]
     r.set_arm_joint_angles(sol)
-    sync(joints='rarm', duration=2.5)
+    sync(joints='rarm', duration=tms['preapproach1'])
 
     r.prepare(width=80)
-    f = FRAME(xyzabc=[200,-50,1000,0,-pi/2,0])
+    x,y = detectposs[n]
+    f = FRAME(xyzabc=[x, y, 1025,0,-pi/2,0])
     r.set_arm_joint_angles(r.ik(f)[0])
-    sync()
+    sync(duration=tms['preapproach2'])
 
 # def get_joint_angles():
 #     return reduce(operator.__add__, comp.get()[0].qState)
 
 def detect_pose3d(scl=1.0):
-    pose3d = comp.get()[0]
+    lastpos = zeros(3)
+    lasttm = RTC.Time(sec=0, nsec=0)
+
+    while True:
+        pose3d_stamped = comp.get()[0]
+        tm = pose3d_stamped.tm
+        pose3d = pose3d_stamped.data
+
+        if tm.sec > lasttm.sec or tm.nsec > lasttm.nsec:
+            pos = array([pose3d.position.x, pose3d.position.y, pose3d.position.z])
+            if linalg.norm(pos-lastpos) < 10:
+                break
+            else:
+                lastpos = pos
+                lasttm = tm
 
     if pose3d.position.z < 100.0:
         return None
@@ -178,7 +212,7 @@ def detect_pose3d(scl=1.0):
 
     return Twld_obj
 
-def pick(f, h = 722, dosync=True):
+def pick(f, h = 720, dosync=True):
     f.vec[2] = h
     f2 = f * (-r.Twrist_ef)
     sols = r.ik(f2)
@@ -187,10 +221,10 @@ def pick(f, h = 722, dosync=True):
         sols = r.ik(f2)
     r.set_arm_joint_angles(sols[0])
     if dosync:
-        sync(joints='rarm', duration=2.5)
-        for w in [80,75,70,65,60,55,50,45,40,34]:
+        sync(joints='rarm', duration=tms['pick'])
+        for w in [80,60,50,44,39,34]:
             r.grasp(w)
-            sync(duration=0.3)
+            sync(duration=0.2)
 
 def transport(n = 0):
     pocketposs = [(200,-300),(120,-300),
@@ -199,15 +233,14 @@ def transport(n = 0):
     f.vec[2] += 150
     sol = r.ik(f)[0]
     r.set_arm_joint_angles(sol)
-    sync(joints='rarm', duration=2.0)
+    sync(joints='rarm', duration=tms['transport'])
     x,y = pocketposs[n]
-    f = FRAME(xyzabc=[x, y, 1000,0,-pi/2,0])
+    f = FRAME(xyzabc=[x, y, 975,0,-pi/2,0])
     r.set_arm_joint_angles(r.ik(f)[0])
-    sync(joints='rarm', duration=2.0)
+    sync(joints='rarm', duration=tms['transport'])
 
-def place(f, h = 739, dosync=True):
+def place(f, h = 738, dosync=True):
     f.vec[2] = h
-    f.vec[0] -= 1.2 #
     f2 = f * (-r.Twrist_ef)
     sols = r.ik(f2)
     if sols == []:
@@ -215,15 +248,15 @@ def place(f, h = 739, dosync=True):
         sols = r.ik(f2)
     r.set_arm_joint_angles(sols[0])
     if dosync:
-        sync(joints='rarm', duration=2.5)
-        for w in [38,40,42,48,60,80]:
+        sync(joints='rarm', duration=tms['place'])
+        for w in [38,40,46,80]:
             r.grasp(w)
-            sync(duration=0.3)
+            sync(duration=0.2)
 
 def detect(zmin=720):
     while True:
         f = detect_pose3d()
-        if f and f.vec[2] > zmin and f.vec[2] < 750:
+        if f and f.vec[2] > zmin and f.vec[2] < 745:
             return f
 
 def pick_and_place(n=1):
@@ -231,10 +264,12 @@ def pick_and_place(n=1):
         f = detect()
         pick(f)
         transport(i)
-        time.sleep(2.5)
         f = detect(zmin=680)
         place(f)
-        preapproach()
+        if i == n-1:
+            preapproach(0)
+        else:
+            preapproach(i+1)
 
 
 # def main():
