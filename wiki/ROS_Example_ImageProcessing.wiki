@@ -334,5 +334,19 @@ OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/c サン
 == checkerboard検出 ==
 腱駆動ヒューマノイド：腱臓で手先認識のためにcheckerboard検出を利用
 
-<img src="http://rtm-ros-robotics.googlecode.com/svn/wiki/junbi.jpg" width=320>
+<img src="http://rtm-ros-robotics.googlecode.com/svn/wiki/junbi.jpg" width=240>
 <img src="http://rtm-ros-robotics.googlecode.com/svn/wiki/board.png" width=320>
+
+{{{
+roscd checkerboad_detector
+roslaucnh roseus_tutorial usb-camera.launch
+roslaunch checkerboad_detector.launch
+}}}
+で実行する
+手元にあるチェッカーボードのサイズに合わせて，
+launch の中身
+  <param name="rect0_size_x" type="double" value="0.35"/>
+  <param name="rect0_size_y" type="double" value="0.35"/>
+  <param name="grid0_size_x" type="int" value="4"/>
+  <param name="grid0_size_y" type="int" value="6"/>
+を変更する
