@@ -333,5 +333,6 @@ OpenCVの[https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/c サン
 
 == checkerboard検出 ==
 腱駆動ヒューマノイド：腱臓で手先認識のためにcheckerboard検出を利用
+
 <img src="http://rtm-ros-robotics.googlecode.com/svn/wiki/junbi.jpg" width=320>
 <img src="http://rtm-ros-robotics.googlecode.com/svn/wiki/board.png" width=320>
