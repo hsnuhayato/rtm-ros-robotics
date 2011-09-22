@@ -21,8 +21,11 @@ wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install python-setuptools
 sudo easy_install -U rosinstall
-sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop ros-diamondback-joystick-drivers ros-diamondback-sound-drivers ros-diamondback-openni-kinect
+sudo apt-get install ros-electric-wg-pr2-apps ros-electric-pr2-apps ros-electric-pr2-desktop ros-electric-openni-kinect
 }}}
+<wiki:comment>
+sudo apt-get install ros-diamondback-wg-pr2 ros-diamondback-pr2-desktop ros-diamondback-joystick-drivers ros-diamondback-sound-drivers ros-diamondback-openni-kinect
+</wiki:comment>
 
 11.04ユーザは，
 {{{
@@ -34,8 +37,11 @@ sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
 = ROS外部パッケージのインストール =
 
 {{{
-rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosinstall ~/prog/rtm-ros-robotics /opt/ros/electric http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
+<wiki:comment>
+rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+</wiki:comment>
 rosinstallについては http://www.ros.org/wiki/rosinstall を参照
 
 また，
