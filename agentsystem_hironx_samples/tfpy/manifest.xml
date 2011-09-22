@@ -1,7 +1,0 @@
-<package>
-  <description brief="transformation library for python included in tf"></description>
-  <author>Ryo Hanai</author>
-  <license>BSD</license>
-  <review status="unreviewed" notes=""/>
-</package>
-

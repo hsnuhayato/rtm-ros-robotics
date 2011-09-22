@@ -1,8 +1,0 @@
-<stack name="agentsystem_ros_tutorials">
-  <description brief="ROS Tutorials on RTM-ROS INtegration">
-  </description>
-  <author>Kei Okada</author>
-  <license>BSD</license>
-  <review status="unreviewed" notes=""/>
-  <url>http://code.google.com/p/rtm-ros-robotics/</url>
-</stack>
