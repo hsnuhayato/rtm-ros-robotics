@@ -14,7 +14,7 @@ ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公
 sudo apt-get install build-essential python-yaml cmake subversion wget python-setuptools git-core mercurial aptitude
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
-apt-get update
+sudo apt-get update
 }}}
 
 次に以下の作業を行う．
