@@ -4,7 +4,11 @@
 
 = ROS本体のインストール =
 
-http://www.ros.org/wiki/diamondback/Installation/Ubuntu より抜粋
+<wiki:comment>
+http://www.ros.org/wiki/diamondback/Installation/Ubuntu
+</wiki:comment>
+http://www.ros.org/wiki/electric/Installation/Ubuntu
+ より抜粋
 
 
 ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公開されているパッケージをソースでインストールする
