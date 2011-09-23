@@ -4,6 +4,11 @@
 
 = Install =
 
+== Install source code ==
+Install ROS by following [http://www.ros.org/wiki/electric/Installation/Ubuntu] and install `rtm-ros-robotics` software
+{{{
+rosinstall ~/prog/rtm-ros-robotics /opt/ros/electric http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+}}}
 == Build source code ==
 build source code and install related packages
 {{{
