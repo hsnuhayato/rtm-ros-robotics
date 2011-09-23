@@ -1,52 +1,132 @@
 #summary One-sentence summary of this page.
 
+<wiki:toc max_depth="2" />
+
 = Install =
+
+== Build source code ==
+build source code and install related packages
+{{{
+$ rosmake --rosdep-install --rosdep-yes hrpsys_ros_bridge
+}}}
+
+== Setup Eclipse ==
+type
+{{{
+$ rosrun openrhp3 eclipse.sh
+}}}
+then you'll see eclipse interface.
+Then you select
+`Help -> Install New Softare -> Add`
+from menu bar. and add
+ `http://download.eclipse.org/tools/gef/updates/releases/`
+to the Location and select GEF SDK 3.6.2, install and restart eclipse.
+
+If you're using 10.04 Ubuntu, you also need to add
+ `http://download.eclipse.org/modeling/emf/updates/releases/`
+to the Location and select SDK EMF SDK 2.5.0.
+
+Then select
+`Help -> Install New Softare -> Add`
+and add
+
+`<openhrp3>/build/rtmtools_eclipse.zip`
+
+to the Add menu and select everything.
+
+Lastly, you have to install following software as well from Install
+`New Software -> Add`
+
+`<openhrp3>/build/java3declipse-20090302.zip`<br>
+`<openhrp3>/build/grxui_eclipse.zip`<br>
+`<hrpsys>/build/robothardware_eclipse.zip`<br>
 
 = Example =
 
-= Troubleshootig =
+== HiroNX RTM/ROS Integration ===
+try
+{{{
+$ rosrun hrpsys hironx.launch
+}}}
+to see Eclipse based OpenRTM simulation. Then type
+{{{
+$ rosrun hrpsys_ros_bridge hironx_ros_bridge.launch
+}}}
+to see Hiro robot on Rviz *
+Type
+{{{
+$ roscd hrpsys/scrips; rosrun roseus roseus  kawada-hironx-example.l
+}}}
+to  see the robot is moving.
 
-* make sure that you have downloaded latest version of repository
+It seems we still have timing isseus
+try to launch `hironx_ros_bridge.launch` immediately after you see
+following message.
+{{{
+[openhrp-scheduler]     1, time:  0.005, controlTime:  0.005, control : true
+[openhrp-scheduler]     2, time:  0.010, controlTime:  0.010, control : true
+}}}
+
+
+
+= Troubleshooting =
+
+== Check SVN version ==
+make sure that you have downloaded latest version of repository 
+{{{
 $ roscd rtmros_common; svn up
+}}}
 if you have find any update, then `rosmake hrpsys hrpsys_ros_bridge` again
 
-1) Check Java version, OpenHRP3 assume SUN version of java and not GNU
-or other implementation.
+== Check Java version ==
+OpenHRP3 assume SUN version of java and not GNU or other implementation.
+{{{
 $ java -version
   java version "1.6.0_26"
  Java(TM) SE Runtime Environment (build 1.6.0_26-b03)
  Java HotSpot(TM) 64-Bit Server VM (build 20.1-b02, mixed mode)
+}}}
+if it is not sun java, `rosdep install openhrp3` or `sudo
+update-java-alternatives -s java-6-sun`
 
-if not sun java, rosdep install openhrp3 or sudo
-update-java-alternatives -s java-6-sun
+== Check OpenHRP simulation == 
+Please make sure that OpenHRP simulation works.
 
-2) Please make sure that OpenHRP simulation works.
-
+{{{
 $ rosrun openhrp3 grxui.sh
+}}}
 select "GrxUI -> Load Project" menu
 and select FallingBoxes.xml
 Then press "Start Simulation" button, to see if the 3 yellow boxes falling down.
 
-then select SampleRobot_inHouse.xml file and press "Start Simulation"
+Then select SampleRobot_inHouse.xml file and press "Start Simulation"
 button to see that robot start walking.
 
 If this not working, you may fail to install eclipse plugin
+{{{
 rm -fr ~/.eclipse
 roscd openhrp3; rm -fr workspace
+}}}
 and then install the plugins again.
 
-3) Make sure that you have downloaded HiroNX collada file
+== Check HiroNX collada file ==
+Make sure that you have downloaded HiroNX collada file
+{{{
  rosls collada_robots/data/robots/kawada-hironx.dae
+}}}
 
-if not, roscd collada_robots; rm installed; make
+if not, `roscd collada_robots; rm installed; make`
 
-4) Make sure that your openrhp3 support to load collada files
+== Check OpenHRP Collada support ==
+Make sure that your openrhp3 support to load collada files
+{{{
 $ roslaunch openhrp3 grxui.launch
+}}}
 and right click Model menu on the left "Item View" and select "load",
 
 Select kawada-hironx.dae under
 jsk-ros-pkg/openrave_planning/collada_robots/data/robots  directory
 
-Select *.dae from buttom left menu, that currently shown as *.wrl, and
+Select `*.dae` from buttom left menu, that currently shown as `*.wrl`, and
 choose kawada-hironx.dae model, then confurm if you can see kawada
 robot model on the screen.
