@@ -166,7 +166,7 @@ to  see the robot is moving.
 $ rosrun openrtm rtm-naming-restart
 }}}
 and start following command from different terminal
-{{
+{{{
 $ rosrun openhrp3 openhrp-aist-dynamics-simulator -ORBInitRef
 NameService=corbaloc:iiop:localhost:2809/NameService
 }}}
