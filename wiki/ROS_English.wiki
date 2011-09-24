@@ -59,11 +59,12 @@ roslaunch openhrp3 pa10.launch
 }}}
 press `Start Simulation` button 
 
-* Sample Vehicle
+=== Sample Vehicle ===
 {{{
 roslaunch openhrp3 sample-vehicle.launch
 }}}
-* Sample Humanoid Robot
+
+=== Sample Humanoid Robot ===
 {{{
 roslaunch openhrp3 samplerobot-walk.launch
 }}}
@@ -80,7 +81,7 @@ Change FPS from 50 to 1-10 to speed up simulation.
 == hrpsys Simulation ==
 
 <wiki:comment>
-* PA10
+=== PA10 ===
 {{{
 roslaunch hrpsys pa10.launch
 }}}
@@ -88,7 +89,7 @@ press `Start Simulation` button,
 then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/PA10; rosrun hrpsys hrpsyspy ./PA10.py`
 </wiki:comment>
 
-* HRP-4C walking
+=== HRP-4C walking ===
 {{{
 roslaunch hrpsys hrp4c.launch
 }}}
@@ -97,7 +98,7 @@ then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/HRP-4C; r
 
 == RTM/ROS Integration ===
 
-* Sample Robot
+=== Sample Robot ===
 {{{
 roslaunch hrpsys_ros_bridge samplerobot.launch
 }}}
@@ -124,14 +125,14 @@ roscd hrpsys_ros_bridge/scripts/
 rosrun roseus roseus samplerobot-pickup.l
 }}}
 
-* HRP4
+=== HRP4 ===
 {{{
 roslaunch hrpsys_ros_bridge hrp4c.launch
 roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
 rosrun hrpsys hrp4c_walk.sh 
 }}}
 
-* HIRONX
+=== Kawada HIRONX ===
 
 try
 {{{
