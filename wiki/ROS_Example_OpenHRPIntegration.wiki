@@ -7,7 +7,7 @@ rosmake  --rosdep-install --rosdep-yes hrpsys_ros_bridge
 
 == サンプルロボットシミュレーション ==
 {{{
-roslaunch hrpsys samplerobot.launch
+roslaunch hrpsys_ros_bridge samplerobot.launch
 roslaunch hrpsys_ros_bridge samplerobot_ros_bridge.launch
 }}}
 
@@ -20,7 +20,7 @@ rosrun hrpsys SampleRobot_walk.sh
 
 euslisp クライアント
 {{{
-rosrun roseus roseus `rospack find hrpsys`/scripts/samplerobot-pickup.l
+rosrun roseus roseus `rospack find hrpsys_ros_bridge`/scripts/samplerobot-pickup.l
 }}}
 
 == HRP4C シミュレーション ==
@@ -38,7 +38,7 @@ hrpsys_ros_bridgeを作り、
 センサ表示をROSメッセージを表示するrvizを用いて行う。
 
 {{{
-roslaunch hrpsys hrp4c.launch
+roslaunch hrpsys_ros_bridge hrp4c.launch
 }}}
 として，シミュレーションが起動したら別のターミナルを立ち上げ
 {{{
