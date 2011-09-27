@@ -60,6 +60,8 @@ def sync(duration=4.0, joints='all', wait=True, waitkey=True):
             rr.send_goal([[],[],js[9:15],[],js[19:23]], duration, wait=wait)
         elif joints == 'torso_larm_lhand':
             rr.send_goal([js[0:3],[],js[9:15],[],js[19:23]], duration, wait=wait)
+        elif joints == 'torso_arms':
+            rr.send_goal([js[0:3],js[3:9],js[9:15],[],[]], duration, wait=wait)
         elif joints=='all':
             rr.send_goal([js[0:3],js[3:9],js[9:15],js[15:19],js[19:23]], duration, wait=wait)
         else:
@@ -322,14 +324,14 @@ def exec_traj(traj, duration=0.05, joints='rarm', use_armcontrol=False, draw_tra
     frames = CoordinateObjects(name)
 
     if rr:
-        duration = 0.2
+        duration = 0.5
 
     if use_armcontrol:
         rr.send_trajectory(robot_relative_traj(traj), duration=duration)
     else:
         for st in traj:
             r.set_joint_angles(st.avec, joints=joints)
-            sync(duration=duration, waitkey=False)
+            sync(duration=duration, joints=joints, waitkey=False)
 
             if draw_trajectory:
                 if re.match('.*rarm$', joints) or joints == 'torso_arms' or joints == 'all':

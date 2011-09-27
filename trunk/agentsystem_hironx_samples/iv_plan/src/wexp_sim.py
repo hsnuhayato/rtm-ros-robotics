@@ -154,151 +154,12 @@ def pick_pass_and_place(name1='A1', name2='P0'):
     return True
 
 
-pocketposs_dual = [(200,-260),(120,-260),
-                   (200,-340),(120,-340)]
 
 tms = {'preapproach1': 0.4,
        'preapproach2': 1.0,
        'pick': 0.5,
        'transport': 0.6,
        'place': 0.5}
-detectposs_dual = [(160,-30),(160,150)]
-
-def preapproach_dual():
-    r.prepare(width=80)
-
-    jts = 'rarm'
-    x,y = detectposs_dual[0]
-    f = FRAME(xyzabc=[x, y, 1025,0,-pi/2,0])
-    r.set_joint_angles(r.ik(f, jts)[0], joints=jts)
-    
-    jts = 'larm'
-    x,y = detectposs_dual[1]
-    f = FRAME(xyzabc=[x, y, 1025,0,-pi/2,0])
-    r.set_joint_angles(r.ik(f, jts)[0], joints=jts)
-
-    sync(duration=tms['preapproach2'])
-    
-
-def dual_arm_pick_and_place(oname00='A0', oname01='A2',
-                            pname00='P3', pname01='P0'):
-
-    preapproach_dual()
-
-    ## pick ##
-    # detect_pose3d(hand='right')
-    # detect_pose3d(hand='left')
-    # adjust the positions of target objects
-
-    q0 = r.get_joint_angles(joints='torso_arms')
-
-    jts = 'rarm'
-    parts = env.get_object(name=oname00)
-    afrm,gfrm,handwidth = graspplan(objtype(parts), parts.where())
-
-    try:
-        afrm_rarm_sol = r.ik(afrm, joints=jts)[0]
-        gfrm_rarm_sol = r.ik(gfrm, joints=jts)[0]
-    except:
-        afrm,gfrm,handwidth = request_next(afrm,gfrm,handwidth)                
-
-    try:
-        afrm_rarm_sol = r.ik(afrm, joints=jts)[0]
-        gfrm_rarm_sol = r.ik(gfrm, joints=jts)[0]
-    except:
-        warn('ik solution not found: %s'%jts)
-        return
-
-    jts = 'larm'
-    parts = env.get_object(name=oname01)
-    afrm,gfrm,handwidth = graspplan(objtype(parts), parts.where())
-
-    try:
-        afrm_larm_sol = r.ik(afrm, joints=jts)[0]
-        gfrm_larm_sol = r.ik(gfrm, joints=jts)[0]
-    except:
-        afrm,gfrm,handwidth = request_next(afrm,gfrm,handwidth)        
-
-    try:
-        afrm_larm_sol = r.ik(afrm, joints=jts)[0]
-        gfrm_larm_sol = r.ik(gfrm, joints=jts)[0]
-    except:
-        warn('ik solution not found: %s'%jts)
-        return
-
-    r.set_joint_angles(afrm_rarm_sol, joints='rarm')
-    r.set_joint_angles(afrm_larm_sol, joints='larm')
-    q1 = r.get_joint_angles(joints='torso_arms')
-    traj = pl.make_plan(q0, q1, joints='torso_arms')
-    exec_traj(traj, joints='torso_arms')
-
-    r.set_joint_angles(gfrm_rarm_sol, joints='rarm')
-    r.set_joint_angles(gfrm_larm_sol, joints='larm')
-    sync(duration=0.5)
-    r.grasp(width=35, hand='right')
-    r.grasp(width=35, hand='left')
-    sync(duration=0.5)
-    grab(hand='right')
-    grab(hand='left')
-    r.set_joint_angles(afrm_rarm_sol, joints='rarm')
-    r.set_joint_angles(afrm_larm_sol, joints='larm')
-    sync(duration=0.5)
-
-    ## transport ##
-    q0 = r.get_joint_angles(joints='torso_arms')    
-    r.set_joint_angle(0, -0.6)
-
-    jts = 'rarm'
-    x,y = pocketposs_dual[3] # right
-    f = FRAME(xyzabc=[x, y, 975,0,-pi/2,0])
-    r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
-    jts = 'larm'
-    x,y = pocketposs_dual[0] # left
-    f = FRAME(xyzabc=[x, y, 975,0,-pi/2,0])
-    r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
-    q1 = r.get_joint_angles(joints='torso_arms')
-    traj = pl.make_plan(q0, q1, joints='torso_arms')
-    exec_traj(traj, joints='torso_arms')
-
-    ## place ##
-    # detect_pose3d()
-    # adjust the positions of pockets
-
-    q0 = r.get_joint_angles(joints='torso_arms')    
-    
-    jts = 'rarm'
-    plc = env.get_object(name=pname00)
-    afrm,gfrm = placeplan(objtype(parts), plc.where())
-    afrm_rarm_sol = r.ik(afrm, joints=jts)[0]
-    gfrm_rarm_sol = r.ik(gfrm, joints=jts)[0]
-
-    jts = 'larm'
-    plc = env.get_object(name=pname01)
-    afrm,gfrm = placeplan(objtype(parts), plc.where())
-    afrm_larm_sol = r.ik(afrm, joints=jts)[0]
-    gfrm_larm_sol = r.ik(gfrm, joints=jts)[0]
-
-    r.set_joint_angles(afrm_rarm_sol, joints='rarm')
-    r.set_joint_angles(afrm_larm_sol, joints='larm')
-    q1 = r.get_joint_angles(joints='torso_arms')
-    traj = pl.make_plan(q0, q1, joints='torso_arms')
-    exec_traj(traj, joints='torso_arms')
-
-    r.set_joint_angles(gfrm_rarm_sol, joints='rarm')
-    r.set_joint_angles(gfrm_larm_sol, joints='larm')
-    sync(duration=0.5)
-    r.grasp(width=80, hand='right')
-    r.grasp(width=80, hand='left')
-    sync(duration=0.5)
-    release(hand='right')
-    release(hand='left')
-    r.set_joint_angles(afrm_rarm_sol, joints='rarm')
-    r.set_joint_angles(afrm_larm_sol, joints='larm')
-    sync(duration=0.5)
-
-    go_prepare_pose()
-
-
 
 plt = env.get_object('pallete0')
 plt.set_trans(FRAME(xyzabc=[-290,-270,700,0,0,0]))
@@ -310,6 +171,7 @@ env.delete_object('A1')
 env.delete_object('A3')
 env.delete_object('B0')
 env.delete_object('B1')
+
 
 
 colored_print("approach('A0')", 'blue')

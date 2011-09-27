@@ -10,10 +10,12 @@ def world():
 
 # Floor
 def floor():
-    w,d,h = 3000.0, 3000.0, 20.0
+    #w,d,h = 3000.0, 3000.0, 20.0
+    w,d,h = 6000.0, 6000.0, 20.0
     return {'name' : 'floor',
             'shape' : 'box',
-            'color': (0.1, 0.1, 0.2),
+            #'color': (0.1, 0.1, 0.2),
+            'color': (1.0, 1.0, 1.0),
             'material' : 'rough',
             'dimension' : (w, d, h),
             'children' : []}
@@ -198,7 +200,7 @@ def rect_pocket(name):
 
 # pallete
 def pallete(name):
-    w,d,h = 300.0, 215.0, (85.0 + 5.0)
+    w,d,h = 300.0, 215.0, (85.0 + 10.0)
     thickness = 2.0
     bottom_thickness = 20.0
     # l = h - thickness
