@@ -232,9 +232,9 @@ class VRobot(JointObject):
             lnk = self.get_link(lnknm)
             self.remove_collision_pair(lnk, obj)
         for lnknm in [prefix2+s for s in ['HAND_JOINT0_Link',
-                                            'HAND_JOINT1_Link',
-                                            'HAND_JOINT2_Link',
-                                            'HAND_JOINT3_Link']]:
+                                          'HAND_JOINT1_Link',
+                                          'HAND_JOINT2_Link',
+                                          'HAND_JOINT3_Link']]:
             lnk = self.get_link(lnknm)
             self.add_collision_pair(lnk, obj)
 
@@ -251,6 +251,7 @@ class VRobot(JointObject):
 
     def init_clink_pairs(self):
         blacklist = [(0,2),(0,3),(0,4),(0,5),(0,9),(0,10),(0,11),
+                     (2,3),(2,9),
                      (6,8),(6,15),(6,17),
                      (7,15),(7,17),
                      (8,15),(8,17),
@@ -417,8 +418,8 @@ class VHIRONX(VRobot):
 
         # safe(soft) joint limits
         for i,lims in enumerate([deg2rad(x) for x in [(-90,90),(-70,70),(-20,70),
-                                                      (-80,80),(-86,29),(-143,-12),(-86,86),(-95,95),(-115,115),
-                                                      (-80,80),(-86,29),(-143,-12),(-86,86),(-95,95),(-115,115),
+                                                      (-80,80),(-86,29),(-143,-12),(-86,86),(-95,95),(-160,160),
+                                                      (-80,80),(-86,29),(-143,-12),(-86,86),(-95,95),(-160,160),
                                                       (-109,68),(-150,90),(-109,68),(-150,90),
                                                       (-109,68),(-150,90),(-109,68),(-150,90)]]):
             j = self.joints[i]

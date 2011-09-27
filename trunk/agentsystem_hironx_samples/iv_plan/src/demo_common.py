@@ -332,10 +332,10 @@ def exec_traj(traj, duration=0.05, joints='rarm', use_armcontrol=False, draw_tra
             sync(duration=duration, waitkey=False)
 
             if draw_trajectory:
-                if re.match('.*rarm$', joints) or joints == 'all':
+                if re.match('.*rarm$', joints) or joints == 'torso_arms' or joints == 'all':
                     f = r.fk('right')
                     frames.append(f)
-                if re.match('.*larm$', joints) or joints == 'all':
+                if re.match('.*larm$', joints) or joints == 'torso_arms' or joints == 'all':
                     f = r.fk('left')
                     frames.append(f)
         env.insert_object(frames, FRAME(), env.get_world())

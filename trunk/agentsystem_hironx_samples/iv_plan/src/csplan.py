@@ -63,7 +63,7 @@ class CSPlanner():
         self.robot = env.get_robot()
         self.env = env
         self.cc = cc
-        self.maxIter = 200
+        self.maxIter = 300
         self.epsilon = 60.0
         self.use_sampling_heuristics = False
         self.poses = []
