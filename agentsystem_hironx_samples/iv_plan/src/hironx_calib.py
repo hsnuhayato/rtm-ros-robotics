@@ -26,6 +26,15 @@ rhand_angles1 = [
     [400,-200,1050,0,-pi/2+pi/8,0]
     ]
 
+lhand_angles1 = [
+    [300,400,1050,0,-pi/2,pi/6],
+    [300,200,1050,0,-pi/2,0],
+    [300,0,1050,0,-pi/2,-pi/6],
+    [150,200,1050,0,-pi/2-pi/8,0],
+    [400,200,1050,0,-pi/2+pi/8,0]
+    ]
+
+
 def one_shot(sensor='kinect'):
     if sensor == 'kinect':
         Tsen_tgt = rr.detect(camera='kinect_rgb')
@@ -41,6 +50,15 @@ def one_shot(sensor='kinect'):
         r.set_joint_angles(rr.get_joint_angles())
         Twld_rh = r.get_link('RARM_JOINT5_Link').where()
         show_frame(Twld_rh * r.Trh_cam * Tsen_tgt)
+        return r.get_joint_angles(), Tsen_tgt
+    elif sensor == 'lhand_cam':
+        tf = rr.get_tf('/base_link', '/checkerboard')
+        (trans, rot) = tf
+        Tsen_tgt = FRAME(mat=MATRIX(mat=quaternion_matrix(rot)[0:3,0:3].tolist()),
+                         vec=VECTOR(vec=(1000.0*array(trans)).tolist()))
+        r.set_joint_angles(rr.get_joint_angles())
+        Twld_lh = r.get_link('LARM_JOINT5_Link').where()
+        show_frame(Twld_lh * r.Tlh_cam * Tsen_tgt)
         return r.get_joint_angles(), Tsen_tgt
 
 def record_data(sensor='kinect', waitTime=1.5):
@@ -58,6 +76,16 @@ def record_data(sensor='kinect', waitTime=1.5):
         for v in rhand_angles1:
             f = FRAME(xyzabc=v)
             r.set_arm_joint_angles(r.ik(f)[0])
+            sync()
+            time.sleep(waitTime)
+            res.append(one_shot(sensor))
+    elif sensor == 'lhand_cam':
+        r.prepare()
+        sync()
+        for v in lhand_angles1:
+            jts = 'larm'
+            f = FRAME(xyzabc=v)
+            r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
             sync()
             time.sleep(waitTime)
             res.append(one_shot(sensor))

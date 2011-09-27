@@ -13,7 +13,7 @@ import wrl_loader
 from pqp_if import *
 import libik_hiro as ikfast
 
-def get_AABB(vs, padding=6.0):
+def get_AABB(vs, padding=7.0):
     xlb = ylb = zlb = inf
     xub = yub = zub = -inf
 
@@ -344,6 +344,7 @@ class VRobot(JointObject):
         self.set_joint_angles(self.poses['prepare'])
         if width:
             self.grasp(width=width)
+            self.grasp(width=width, hand='left')
 
     def prepare_right(self):
         self.set_joint_angles(self.poses['prepare_right'])
@@ -409,17 +410,22 @@ class VHIRONX(VRobot):
         # fixed transforms
         self.Thd_leye = hironx_params.Thd_leye
         self.Trh_cam = hironx_params.Trh_cam
+        self.Tlh_cam = hironx_params.Tlh_cam
         self.Thd_kinectrgb = hironx_params.Thd_kinectrgb
         self.Thd_kinectdepth = hironx_params.Thd_kinectdepth
-        self.Twrist_ef = hironx_params.Twrist_ef
+        self.Trwrist_ef = hironx_params.Trwrist_ef
+        self.Tlwrist_ef = hironx_params.Tlwrist_ef
+
+        self.Twrist_ef = hironx_params.Trwrist_ef # deprecated
+
         self.Tikoffset = hironx_params.Tikoffset
 
         VRobot.__init__(self, wrldir, scale, name)
 
         # safe(soft) joint limits
         for i,lims in enumerate([deg2rad(x) for x in [(-90,90),(-70,70),(-20,70),
-                                                      (-80,80),(-86,29),(-143,-12),(-86,86),(-95,95),(-160,160),
-                                                      (-80,80),(-86,29),(-143,-12),(-86,86),(-95,95),(-160,160),
+                                                      (-80,80),(-86,29),(-143,-12),(-86,86),(-95,95),(-110,110),
+                                                      (-80,80),(-86,29),(-143,-12),(-86,86),(-95,95),(-110,110),
                                                       (-109,68),(-150,90),(-109,68),(-150,90),
                                                       (-109,68),(-150,90),(-109,68),(-150,90)]]):
             j = self.joints[i]
@@ -437,6 +443,9 @@ class VHIRONX(VRobot):
         rhandcam = SensorObject(name='rhandcam')
         rhandcam.affix(self.get_joint('RARM_JOINT5'), self.Trh_cam)
         self.sensors.append(rhandcam)
+        lhandcam = SensorObject(name='lhandcam')
+        lhandcam.affix(self.get_joint('LARM_JOINT5'), self.Tlh_cam)
+        self.sensors.append(lhandcam)
         kinectdepth = SensorObject(name='kinectdepth')
         kinectdepth.affix(self.get_joint('HEAD_JOINT1'), self.Thd_kinectdepth)
         self.sensors.append(kinectdepth)
