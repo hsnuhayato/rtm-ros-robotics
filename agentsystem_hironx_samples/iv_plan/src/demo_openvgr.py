@@ -132,7 +132,8 @@ tms = {'preapproach1': 0.4,
 
 detectposs = [(160,-50),(230,-50),
               (150, 10),(220, 10)]
-
+pocketposs = [(200,-300),(120,-300),
+              (200,-380),(120,-380)]
 
 def preapproach(n = 0):
     print 'PRE:', n
@@ -151,12 +152,18 @@ def preapproach(n = 0):
 # def get_joint_angles():
 #     return reduce(operator.__add__, comp.get()[0].qState)
 
-def detect_pose3d(scl=1.0):
+def detect_pose3d(scl=1.0, hand='right'):
     lastpos = zeros(3)
     lasttm = RTC.Time(sec=0, nsec=0)
+    if hand == 'right':
+        port = 0
+        parentlink = 'RARM_JOINT5_Link'
+    else:
+        port = 1
+        parentlink = 'LARM_JOINT5_Link'
 
     while True:
-        pose3d_stamped = comp.get()[0]
+        pose3d_stamped = comp.get()[port]
         tm = pose3d_stamped.tm
         pose3d = pose3d_stamped.data
 
@@ -201,7 +208,7 @@ def detect_pose3d(scl=1.0):
 
     q = rr.get_joint_angles()
     r.set_joint_angles(q)
-    Twld_cam = r.get_link('RARM_JOINT5_Link').where()*r.Trh_cam
+    Twld_cam = r.get_link(parentlink).where()*r.Trh_cam
 
     Twld_obj = Twld_cam * Tcam_obj
 
@@ -227,8 +234,6 @@ def pick(f, h = 720, dosync=True):
             sync(duration=0.2)
 
 def transport(n = 0):
-    pocketposs = [(200,-300),(120,-300),
-                  (200,-380),(120,-380)]
     f = r.fk()
     f.vec[2] += 150
     sol = r.ik(f)[0]
