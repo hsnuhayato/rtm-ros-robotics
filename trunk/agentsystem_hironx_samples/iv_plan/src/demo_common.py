@@ -443,3 +443,13 @@ def reset_parts():
                              [-120,-70,700,0,0,0]]):
         reset1('B'+str(i), pose)
         
+def reset_parts_demo():
+    def reset1(nm, pose, parent='table'):
+        o = env.get_object(nm)
+        o.unfix()
+        o.affix(env.get_object(parent), FRAME(xyzabc=pose))
+
+    reset1('A0', [-260,-50,714,0,0,pi/6])
+    reset1('A2', [-250,190,714,0,0,0])
+    reset1('P0', [40,40,20,0,0,0], parent='pallete0')
+    reset1('P3', [-40,-40,20,0,0,0], parent='pallete0')
