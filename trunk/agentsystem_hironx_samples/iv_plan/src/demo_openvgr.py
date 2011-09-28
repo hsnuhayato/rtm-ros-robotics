@@ -184,9 +184,6 @@ def detect_pose3d(scl=1.0, hand='right'):
     if pose3d.position.z < 100.0:
         return None
 
-    # u = pose3d.position.x
-    # v = pose3d.position.y
-    # w = pose3d.position.z
     x = pose3d.position.x
     y = pose3d.position.y
     z = pose3d.position.z
@@ -199,16 +196,6 @@ def detect_pose3d(scl=1.0, hand='right'):
 
     m = MATRIX(angle=angle, axis=VECTOR(vec=axis.tolist()))
     Tcam_obj = FRAME(mat=m, vec=VECTOR(x,y,z))
-
-    # a = 182
-    # b = 134
-    # c = -6
-    # d = -2
-    # e = 216
-    # x = a / 640.0 * (u - 320) + c
-    # y = b / 480.0 * (v - 240) + d
-    # z =  e / w
-    # Tcam_obj = FRAME(xyzabc=[scl*x,scl*y,scl*z,R,P,-Y])
 
     print 'cam=>obj: ', Tcam_obj
 
@@ -274,10 +261,10 @@ def place(f, h = 738, dosync=True):
             r.grasp(w)
             sync(duration=0.2)
 
-def detect(zmin=710, hand='right'):
+def detect(zmin=710, zmax=740, hand='right'):
     while True:
         f = detect_pose3d(hand=hand)
-        if f and f.vec[2] > zmin and f.vec[2] < 745:
+        if f and f.vec[2] > zmin and f.vec[2] < zmax:
             return f
 
 def pick_and_place(n=1):
@@ -305,14 +292,14 @@ def preapproach_dual():
     x,y = detectposs_dual[0]
     f = FRAME(xyzabc=[x, y, 1025,0,-pi/2,0])
     r.set_joint_angles(r.ik(f, jts)[0], joints=jts)
-    
+
     jts = 'larm'
     x,y = detectposs_dual[1]
     f = FRAME(xyzabc=[x, y, 1025,0,-pi/2,0])
     r.set_joint_angles(r.ik(f, jts)[0], joints=jts)
 
     sync(duration=tms['preapproach2'])
-    
+
 
 def dual_arm_pick_and_place(oname00='A0', oname01='A2',
                             pname00='P3', pname01='P0'):
@@ -476,8 +463,21 @@ f.vec[1] += 40
 A0.locate(f)
 env.delete_object('A1')
 env.delete_object('A3')
-env.delete_object('B0')
+#env.delete_object('B0')
 env.delete_object('B1')
+
+
+pose1 = [FRAME(xyzabc=[230, -200, 1000-1.5, 0, -pi/2, -pi/2]),
+         FRAME(xyzabc=[185, 200, 1000, 0, -pi/2, pi/2])]
+
+pose2 = [FRAME(xyzabc=[140, -200, 1000-1.5, 0, -pi/2, -pi/2]),
+         FRAME(xyzabc=[185, 200, 1000, 0, -pi/2, pi/2])]
+
+def test():
+    fc = detect(zmax=780)
+    fc.vec[2] = 700
+    
+
 
 
 
