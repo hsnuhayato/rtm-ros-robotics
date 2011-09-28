@@ -132,8 +132,12 @@ tms = {'preapproach1': 1.5,
 
 detectposs = [(160,-50),(230,-50),
               (150, 10),(220, 10)]
-pocketposs = [(200,-300),(120,-300),
-              (200,-380),(120,-380)]
+
+# pocketposs = [(200,-300),(120,-300),
+#               (200,-380),(120,-380)]
+pocketposs = [(180,-240),(100,-240),
+                   (180,-330),(100,-330)]
+
 
 def preapproach(n = 0):
     print 'PRE:', n
@@ -277,6 +281,7 @@ def detect(zmin=710, hand='right'):
             return f
 
 def pick_and_place(n=1):
+    preapproach(0)
     for i in range(n):
         f = detect()
         pick(f)
@@ -398,8 +403,8 @@ def dual_arm_pick_and_place(oname00='A0', oname01='A2',
     ## place ##
     rpfrm = detect(hand='right', zmin=680)
     lpfrm = detect(hand='left', zmin=680)
-    rpfrm.vec[2] = 726
-    lpfrm.vec[2] = 728
+    rpfrm.vec[2] = 724
+    lpfrm.vec[2] = 726
     # adjust the positions of pockets
     P3 = env.get_object('P3')
     P3.locate(rpfrm, world=True)
