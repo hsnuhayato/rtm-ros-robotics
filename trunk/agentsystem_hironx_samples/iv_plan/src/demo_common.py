@@ -397,9 +397,9 @@ def graspplan(objtype, objfrm, long_side=False):
     if objtype == 1:
         if long_side:
             objfrm = objfrm * FRAME(xyzabc=[0,0,0,0,0,pi/2])
-            handwidth = 48
+            handwidth = 45
         else:
-            handwidth = 38
+            handwidth = 35
         gfrm = objfrm*(-r.Twrist_ef)
         afrm = FRAME(gfrm)
         afrm.vec[2] += 40
@@ -442,7 +442,7 @@ def reset_parts():
     for i,pose in enumerate([[-160,210,700,0,0,0],
                              [-120,-70,700,0,0,0]]):
         reset1('B'+str(i), pose)
-        
+
 def reset_parts_demo():
     def reset1(nm, pose, parent='table'):
         o = env.get_object(nm)
