@@ -349,7 +349,7 @@ pose2 = [FRAME(xyzabc=[140, -200, 1000-1.5, 0, -pi/2, -pi/2]),
 def test():
     fc = detect(zmax=780)
     fc.vec[2] = 700
-    
+
 
 
 
