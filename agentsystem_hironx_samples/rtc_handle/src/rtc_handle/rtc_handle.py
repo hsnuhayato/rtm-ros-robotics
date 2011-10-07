@@ -10,6 +10,10 @@ from omniORB import any, cdrMarshal, cdrUnmarshal
 import OpenRTM_aist
 import RTC
 
+#
+default_modules = ['RTC', 'Img']
+import Img
+#
 
 from CorbaNaming import *
 import SDOPackage
@@ -269,11 +273,20 @@ class RtcInport(Port) :
         Port.__init__(self, profile, nv_dict, handle)
         self.con = IOConnector([self], prop_dict={'dataport.dataflow_type':'push'})
 #		       'dataport.buffer.length':'1'})
-        self.get_info() 
+        self.get_info()
 #       self.ref = self.con.prop_dict['dataport.corba_any.inport_ref']
         self.ref = self.con.prop_dict['dataport.corba_cdr.inport_ref']
-        self.data_class = eval('RTC.' + self.prop['dataport.data_type'])
-        self.data_tc = eval('RTC._tc_' + self.prop['dataport.data_type'])
+
+        print 'Inport type: '+self.prop['dataport.data_type']
+        for m in default_modules:
+            try:
+                self.data_class = eval(m+'.' + self.prop['dataport.data_type'])
+                self.data_tc = eval(m+'._tc_' + self.prop['dataport.data_type'])
+                return
+            except:
+                pass
+        raise # re-throw the exception last caught
+                
     def write(self,data) :
 #        self.ref.put(CORBA.Any(self.data_tc,
 #                         self.data_class(RTC.Time(0,0),data)))
@@ -296,8 +309,16 @@ class RtcOutport(Port) :
            self.ref = self.con.prop_dict['dataport.corba_cdr.outport_ref']
         else :
            self.ref=None
-        self.data_class = eval('RTC.' + self.prop['dataport.data_type'])
-        self.data_tc = eval('RTC._tc_' + self.prop['dataport.data_type'])
+
+        print 'Outport type: '+self.prop['dataport.data_type']
+        for m in default_modules:
+            try:
+                self.data_class = eval(m+'.'+self.prop['dataport.data_type'])
+                self.data_tc = eval(m+'._tc_' + self.prop['dataport.data_type'])
+                return
+            except:
+                pass
+        raise # re-throw the exception last caught
 
     def read(self) :
         if self.ref :
@@ -318,10 +339,12 @@ class RtcHandle :
   def __init__(self, name, env, ref=None) :
     self.name = name
     self.env = env
+    
     if ref :
         self.rtc_ref = ref
     else :
         self.rtc_ref = env.naming.resolve(name)._narrow(RTC.RTObject)
+
     self.conf_ref = None
     self.retrieve_info()
 
