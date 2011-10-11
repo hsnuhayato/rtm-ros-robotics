@@ -1,4 +1,5 @@
 #include <BasicDataType.idl>
+#include <ExtendedDataTypes.idl>
 
 module RTC {
 
