@@ -1,12 +1,25 @@
 # -*- coding: utf-8 -*-
 
-#import roslib; roslib.load_manifest('iv_plan')
-
 from numpy import *
 import sys
 import time
 
-from setup_rtshell import *
+from demo_common import *
+from setup_rtchandle import *
+
+
+rhandhost = 'VisionPC'
+lhandhost = 'lupus'
+
+try:
+    hrhandrecog = ns.rtc_handles[rhandhost+'.host_cxt/AppRecog0.rtc'].outports['AppRecog0.RecognitionResultOut']
+except:
+    warn('recognition module is not running in rhand')
+
+try:
+    hlhandrecog = ns.rtc_handles[lhandhost+'.host_cxt/AppRecog0.rtc'].outports['AppRecog0.RecognitionResultOut']
+except:
+    warn('recognition module is not running in lhand')
 
 
 # quick version
@@ -29,7 +42,7 @@ detectposs = [(160,-50),(230,-50),
 # pocketposs = [(200,-300),(120,-300),
 #               (200,-380),(120,-380)]
 pocketposs = [(180,-240),(100,-240),
-                   (180,-330),(100,-330)]
+              (180,-330),(100,-330)]
 
 
 def preapproach(n = 0):
@@ -50,16 +63,35 @@ def preapproach(n = 0):
 #     return reduce(operator.__add__, comp.get()[0].qState)
 
 def detect_pose3d(scl=1.0, hand='right'):
+    def read_stable_result(hrecog):
+        lastpos = zeros(3)
+        lasttm = RTC.Time(sec=0, nsec=0)
+        while True:
+            pose3d_stamped = hrecog.read()
+            tm = pose3d_stamped.tm
+            pose3d = pose3d_stamped.data
+
+            if tm.sec > lasttm.sec or tm.nsec > lasttm.nsec:
+                pos = array([pose3d.position.x, pose3d.position.y, pose3d.position.z])
+                if linalg.norm(pos-lastpos) < 10:
+                    break
+                elif linalg.norm(pos) > 1:
+                    lastpos = pos
+                    lasttm = tm
+
+        return [pose3d.position.x, pose3d.position.y, pose3d.position.z,
+                pose3d.orientation.r, pose3d.orientation.p, pose3d.orientation.y]
+
     if hand == 'right':
-        port = 0
+        hrecog = hrhandrecog
         parentlink = 'RARM_JOINT5_Link'
         Th_cam = r.Trh_cam
     else:
-        port = 1
+        hrecog = hlhandrecog
         parentlink = 'LARM_JOINT5_Link'
         Th_cam = r.Tlh_cam
 
-    pose3d = rtc_get(port)
+    pose3d = read_stable_result(hrecog)
     if pose3d[2] < 100.0:
         return None
 
@@ -134,7 +166,7 @@ def place(f, h = 738, dosync=True):
             r.grasp(w)
             sync(duration=0.2)
 
-def detect(zmin=710, zmax=740, hand='right'):
+def detect(zmin=710, zmax=1000, hand='right'):
     while True:
         f = detect_pose3d(hand=hand)
         if f and f.vec[2] > zmin and f.vec[2] < zmax:
@@ -340,17 +372,15 @@ env.delete_object('A3')
 env.delete_object('B1')
 
 
-pose1 = [FRAME(xyzabc=[230, -200, 1000-1.5, 0, -pi/2, -pi/2]),
-         FRAME(xyzabc=[185, 200, 1000, 0, -pi/2, pi/2])]
+pose1 = {'rarm': FRAME(xyzabc=[230, -200, 1000-1.5, 0, -pi/2, -pi/2]),
+         'larm': FRAME(xyzabc=[185, 200, 1000, 0, -pi/2, pi/2])}
 
-pose2 = [FRAME(xyzabc=[140, -200, 1000-1.5, 0, -pi/2, -pi/2]),
-         FRAME(xyzabc=[185, 200, 1000, 0, -pi/2, pi/2])]
+pose2 = {'rarm': FRAME(xyzabc=[140, -200, 1000-1.5, 0, -pi/2, -pi/2]),
+         'larm': FRAME(xyzabc=[185, 200, 1000, 0, -pi/2, pi/2])}
 
 def test():
     fc = detect(zmax=780)
     fc.vec[2] = 700
-
-
 
 
 

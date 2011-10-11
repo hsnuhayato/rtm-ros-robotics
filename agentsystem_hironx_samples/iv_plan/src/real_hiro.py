@@ -20,55 +20,7 @@ if ros_available:
 from numpy import *
 from ivutils import *
 
-
-## RTM
-from rtc_handle import *
-import RTC
-import _GlobalIDL
-
-try:
-    env = RtmEnv(sys.argv, [nameserver])
-    ns = env.name_space[nameserver]
-    ns.list_obj()
-except:
-    warn('HIRO-NX base system is not running')
-    if ros_available:
-        warn ('or ROS_MASTER_URI is not set correctly, maybe ...')
-    
-##
-
-
-def get_handle(name, nspace):
-    return nspace.rtc_handles[name]
-
-def narrow_service(handle, service, port):
-    svc = handle.services[service].provided[port]
-    svc.narrow_ref(globals())
-    return svc
-
-def activate(handles):
-    for hdl in handles:
-        hdl.activate()
-
-def deactivate(handles):
-    for hdl in handles:
-        hdl.deactivate()
-
-def connect(handle1, port1, handle2, port2):
-    con = IOConnector([handle1.outports[port1], handle2.inports[port2]])
-    con.connect()
-
-def disconnect(con):
-    con.disconnect()
-
-
-# global h_seq, seq_svc, jstt_port, mysvc, h_my
-# h_seq = get_handle('seq.rtc', ns)
-# seq_svc = narrow_service(h_seq, 'SequencePlayerService', 'service0')
-# h_my = get_handle('MyServiceProvider0.rtc', ns)
-# mysvc = narrow_service(h_my, 'MyService', 'myservice0')
-
-
+from setup_rtchandle import *
 
 class RealHIRO:
     def __init__(self):
@@ -79,20 +31,20 @@ class RealHIRO:
         self.kinect_pose_markers = []
 
     def connect(self):
-        rospy.init_node('motion_planner')
+        if ros_available:
+            rospy.init_node('motion_planner')
+            rospy.Subscriber('/hiro/rhand/ar_pose_marker', ARMarkers, self.update_rhand_cam)
+            rospy.Subscriber('/hiro/lhand/ar_pose_marker', ARMarkers, self.update_lhand_cam)
+            rospy.Subscriber('/calc_center', geometry_msgs.msg.PoseStamped, self.update_calc_center)
+            rospy.Subscriber('/ar_pose_marker', ARMarkers, self.update_kinect_AR)
 
-        # rospy.Subscriber('/hiro/joint_state', JointState, self.update_joint_state)
-        self.listener = tf.TransformListener()
+            # rospy.Subscriber('/hiro/joint_state', JointState, self.update_joint_state)
+            self.listener = tf.TransformListener()
+
 
         h_rh = get_handle('RobotHardware0.rtc', ns)
         self.jstt_port = h_rh.outports['jointStt']
 
-        try:
-            flipcmp = 'Flip0.rtc'
-            h_bp = get_handle('flipcmp', ns)
-            self.bxpose_port = h_bp.outports['boxPose']
-        except:
-            warn('%s not found'%flipcmp)
 
         # h_rh = get_handle('HIRONXController(Robot)0.rtc', ns)
         # self.jstt_port = h_rh.outports['q']
@@ -103,11 +55,6 @@ class RealHIRO:
         #self.h_reyecap = get_handle('reye_capture.rtc', ns)
         #self.h_rhandcap = get_handle('rhand_capture.rtc', ns)
         #activate([self.h_leyecap, self.h_reyecap])
-
-        rospy.Subscriber('/hiro/rhand/ar_pose_marker', ARMarkers, self.update_rhand_cam)
-        rospy.Subscriber('/hiro/lhand/ar_pose_marker', ARMarkers, self.update_lhand_cam)
-        rospy.Subscriber('/calc_center', geometry_msgs.msg.PoseStamped, self.update_calc_center)
-        rospy.Subscriber('/ar_pose_marker', ARMarkers, self.update_kinect_AR)
 
     def __del__(self):
         #deactivate([self.h_leyecap, self.h_reyecap])
@@ -159,29 +106,30 @@ class RealHIRO:
         # for cs in self.kinect_centers:
         #     if tnow - .stamp.to_sec() > thre:
 
-    def read_pose3d(self):
-        pose3d = self.bxpose_port.read()
-        u = pose3d.position.x
-        v = pose3d.position.y
-        w = pose3d.position.z
+    # def read_pose3d(self):
+    #     pose3d = self.bxpose_port.read()
+    #     u = pose3d.position.x
+    #     v = pose3d.position.y
+    #     w = pose3d.position.z
         
-        print 'w=', w
+    #     print 'w=', w
         
-        R = pose3d.orientation.r
-        P = pose3d.orientation.p
-        Y = pose3d.orientation.y
+    #     R = pose3d.orientation.r
+    #     P = pose3d.orientation.p
+    #     Y = pose3d.orientation.y
 
-        a = 182
-        b = 134
-        c = 0
-        d = 0
-        # e = 190.7
-        e = 212.8246
-        x = a / 640.0 * (u - 320) + c
-        y = b / 480.0 * (v - 240) + d
-        z =  e / w
-        Tcam_obj = FRAME(xyzabc=[x,y,z,R,P,Y])
-        return Tcam_obj
+    #     a = 182
+    #     b = 134
+    #     c = 0
+    #     d = 0
+    #     # e = 190.7
+    #     e = 212.8246
+    #     x = a / 640.0 * (u - 320) + c
+    #     y = b / 480.0 * (v - 240) + d
+    #     z =  e / w
+    #     Tcam_obj = FRAME(xyzabc=[x,y,z,R,P,Y])
+    #     return Tcam_obj        
+
 
     def read_joint_state(self):
         data = self.jstt_port.read()
