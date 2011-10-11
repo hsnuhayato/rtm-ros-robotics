@@ -21,8 +21,8 @@ import rtprint_comp
 #import rtshell
 
 from set_env import *
-import RTC_grx
-from demo_common import *
+#import RTC_grx
+#import RTC
 
 
 prompt = 'continue? (y/n): '
@@ -91,7 +91,9 @@ def start_reading_port(raw_paths, options, tree=None):
 
 #ports = ['Recognition0.rtc:RecognitionResultOut']
 #ports = ['RobotHardware0.rtc:jointStt', 'Flip0.rtc:boxPose']
-ports = ['Flip0.rtc:boxPose', 'FlipLHand0.rtc:boxPose']
+ports = ['/hiro014:2809/VisionPC.host_cxt/AppRecog0.rtc:boxPose',
+         '/hiro014:2809/lupus.host_cxt/AppRecog0.rtc:boxPose']
+# ports = ['/hiro014:2809/VisionPC.host_cxt/AppRecog0.rtc:boxPose']
 
 # main(argv=[pt])
 # options = {'paths': [], 'verbose': False, 'max': -1, 'modules': [], 'rate': 100.0, 'timeout': -1}
@@ -132,5 +134,3 @@ def rtc_get(port):
     return [pose3d.position.x, pose3d.position.y, pose3d.position.z,
             pose3d.orientation.r, pose3d.orientation.p, pose3d.orientation.y]
 
-    
-    
