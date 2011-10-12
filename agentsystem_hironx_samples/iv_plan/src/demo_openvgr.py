@@ -27,17 +27,23 @@ except:
 #        'preapproach2': 1.0,
 #        'pick': 0.65,
 #        'transport': 0.6,
-#        'place': 0.55}
+#        'place': 0.55,
+#        'look_for': 0.5}
 
 # slow version
 tms = {'preapproach1': 1.5,
        'preapproach2': 2.5,
        'pick': 1.5,
        'transport': 1.5,
-       'place': 1.5}
+       'place': 1.5,
+       'look_for': 0.8}
 
 detectposs = [(160,-50),(230,-50),
               (150, 10),(220, 10)]
+
+
+detectposs_dual = [[(150,-30),(150,150)],
+                   [(230,-30),(230,150)]]
 
 # pocketposs = [(200,-300),(120,-300),
 #               (200,-380),(120,-380)]
@@ -59,9 +65,6 @@ def preapproach(n = 0):
     r.set_arm_joint_angles(r.ik(f)[0])
     sync(duration=tms['preapproach2'])
 
-# def get_joint_angles():
-#     return reduce(operator.__add__, comp.get()[0].qState)
-
 def detect_pose3d(scl=1.0, hand='right'):
     def read_stable_result(hrecog):
         lastpos = zeros(3)
@@ -78,6 +81,7 @@ def detect_pose3d(scl=1.0, hand='right'):
                 elif linalg.norm(pos) > 1:
                     lastpos = pos
                     lasttm = tm
+                    time.sleep(0.1)
 
         return [pose3d.position.x, pose3d.position.y, pose3d.position.z,
                 pose3d.orientation.r, pose3d.orientation.p, pose3d.orientation.y]
@@ -148,7 +152,7 @@ def transport(n = 0):
     r.set_arm_joint_angles(sol)
     sync(joints='rarm', duration=tms['transport'])
     x,y = pocketposs[n]
-    f = FRAME(xyzabc=[x, y, 975,0,-pi/2,0])
+    f = FRAME(xyzabc=[x, y, 1000,0,-pi/2,0])
     r.set_arm_joint_angles(r.ik(f)[0])
     sync(joints='rarm', duration=tms['transport'])
 
@@ -166,11 +170,50 @@ def place(f, h = 738, dosync=True):
             r.grasp(w)
             sync(duration=0.2)
 
-def detect(zmin=710, zmax=1000, hand='right'):
-    while True:
+def detect(timeout=0, zmin=710, zmax=1000, theta_constraint=None, hand='right'):
+    start_tm = time.time()
+    while timeout == 0 or time.time() - start_tm < timeout:
         f = detect_pose3d(hand=hand)
         if f and f.vec[2] > zmin and f.vec[2] < zmax:
-            return f
+            if theta_constraint != None:
+                theta = acos(dot(array(f.mat)[0:2,0], array([1,0])))
+                for c in theta_constraint:
+                    if c[0] <= theta and theta <= c[1]:
+                        return f
+            else:
+                return f
+
+def look_for():
+    r.prepare(width=80)
+    detected = []
+    for rpos,lpos in detectposs_dual:
+        print rpos
+        print lpos
+        jts = 'rarm'
+        fr = FRAME(xyzabc=[rpos[0], rpos[1], 1050,0,-pi/2,0])
+        r.set_joint_angles(r.ik(fr, joints=jts)[0], joints=jts)
+        jts = 'larm'
+        fl = FRAME(xyzabc=[lpos[0], lpos[1], 1050,0,-pi/2,0])
+        r.set_joint_angles(r.ik(fl, joints=jts)[0], joints=jts)
+        sync(duration=tms['look_for'])
+        obj_fr = detect(hand='right', timeout=1.5)
+        obj_fl = detect(hand='left', timeout=1.5)
+        if obj_fr:
+            detected.append(obj_fr)
+        if obj_fl:
+            detected.append(obj_fl)
+    for i,f in enumerate(detected):
+        env.get_object('A'+str(i)).locate(f, world=True)
+    for i in range(len(detected),4):
+        env.get_object('A'+str(i)).locate(FRAME(xyzabc=[500,-800,714,0,0,0]))
+    return detected
+
+def choose_two_obj(frms):
+    if len(frms) >= 2:
+        frms.sort(cmp=lambda x,y: cmp(x.vec[0]-x.vec[1], y.vec[0]-y.vec[1]))
+        return frms[-1],frms[0]
+    else:
+        return None
 
 def pick_and_place(n=1):
     preapproach(0)
@@ -178,7 +221,8 @@ def pick_and_place(n=1):
         f = detect()
         pick(f)
         transport(i)
-        f = detect(zmin=680)
+        f = detect(zmin=680, zmax=710, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        f.vec[0] -= 1.5
         place(f)
         if i == n-1:
             preapproach(0)
@@ -188,26 +232,26 @@ def pick_and_place(n=1):
 pocketposs_dual = [(180,-240),(100,-240),
                    (180,-330),(100,-330)]
 
-detectposs_dual = [(160,-30),(160,150)]
+# detectposs_dual = [(160,-30),(160,150)]
 
 def preapproach_dual():
     r.prepare(width=80)
 
     jts = 'rarm'
-    x,y = detectposs_dual[0]
+    x,y = detectposs_dual[0][0]
     f = FRAME(xyzabc=[x, y, 1025,0,-pi/2,0])
     r.set_joint_angles(r.ik(f, jts)[0], joints=jts)
 
     jts = 'larm'
-    x,y = detectposs_dual[1]
+    x,y = detectposs_dual[0][1]
     f = FRAME(xyzabc=[x, y, 1025,0,-pi/2,0])
     r.set_joint_angles(r.ik(f, jts)[0], joints=jts)
 
     sync(duration=tms['preapproach2'])
 
 
-def dual_arm_pick_and_place(oname00='A0', oname01='A2',
-                            pname00='P3', pname01='P0'):
+def dual_arm_pick_and_place_plan(oname00='A0', oname01='A2',
+                                 pname00='P3', pname01='P0'):
 
     preapproach_dual()
 
@@ -366,9 +410,9 @@ A0 = env.get_object('A0')
 f = A0.rel_trans
 f.vec[1] += 40
 A0.locate(f)
-env.delete_object('A1')
-env.delete_object('A3')
-#env.delete_object('B0')
+# env.delete_object('A1')
+# env.delete_object('A3')
+env.delete_object('B0')
 env.delete_object('B1')
 
 
