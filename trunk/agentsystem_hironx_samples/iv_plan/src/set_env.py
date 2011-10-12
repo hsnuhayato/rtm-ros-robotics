@@ -18,12 +18,12 @@ if ros_available:
 else:
     def load_manifest(pkgnm):
         for subdir in ['src', 'lib']:
-            sys.path.append(ivpkgdir+pkgnm+'/'+subdir)
+            sys.path.insert(0, ivpkgdir+pkgnm+'/'+subdir)
 
     for pkg in ivpkgs:
         load_manifest(pkg)
 
-sys.path.append(ivpkgdir+'/iv_plan/externals/visual/site-packages/')
+sys.path.insert(0, ivpkgdir+'/iv_plan/externals/visual/site-packages/')
 
 def getNameServerFromConf(argv):
     import OpenRTM_aist

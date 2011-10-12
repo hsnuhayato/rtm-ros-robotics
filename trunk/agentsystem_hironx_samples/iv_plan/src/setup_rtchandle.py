@@ -4,7 +4,7 @@ from set_env import *
 from rtc_handle import *
 import RTC
 import Img
-#import OpenHRP
+import OpenHRP
 import _GlobalIDL
 
 
