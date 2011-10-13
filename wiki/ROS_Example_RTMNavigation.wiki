@@ -4,14 +4,153 @@
 
 = 概要 =
 
-実際に小型相互運用開発ロボットBeegoを用いたROS,RTM統合
+RTC対応移動台車ロボットによるROSナビゲーションモジュールの統合
 
+== RTM-ROS Beego ソフトウェアセットアップ ==
 
-= 環境の構築 =
+Beego, Windows機の導入
+芝浦工業大学の山口様が作成された「RTC-CANopenリファレンスマニュアル」を参考に。
+
+Linux機の導入　(Ubuntu 10.04 をインストールしたPCを例に)
+rtmros_commonのインストール：　
 {{{
-roscd rtmros_common
-svn up
-sudo apt-get install ros-diamondback-openni-kinect
+　　svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/ rtm-ros-robotics-read-only
+}}}
+[ROS_Install]にインストールのための豊富なドキュメントがある。
+これだけで必要なROSとRTMが全て入る。
+
+なおLinux機の.bashrcに
+Windows, Linux機と外部PC間のROS,RTMの通信ができるように以下の行を加える
+{{{
+export RTCTREE_NAMESERVERS=192.168.0.9
+export ROS_MASTER_URI=http://192.168.0.10:11311
 }}}
 
-= 実験映像 =
+もちろん外部PCにもrtmros_commonをインストールし、.bashrcに以下の行を加える
+{{{
+export RTCTREE_NAMESERVERS=192.168.0.9
+export ROS_MASTER_URI=http://192.168.0.10:11311 
+export ROS_IP=192.168.0.* (このPCに割り当てられたIPアドレス)
+}}}
+       
+== Beegoの地図作成、ナビゲーションデモの実行 ==
+===  Windows側でのRTC-CANopen環境の立ち上げ ===
+ # Right Motor ,Left Motor 計４つのすべてのスイッチがOFF担っていることを確認してBeegoの鍵をON。
+ # windows機でデスクトップの0.AutoRun.batを実行。
+ ##  9個のコマンドプロンプトを上がるが、注目するのはstatusmanager.bat。
+   その中で、
+{{{
+   ################ RTC ################
+   Instance Name            Status
+   ProxyEPOSLeft0           DEAD
+   ProxyEPOSRight0          DEAD
+   Odometry0           　     INACTIVE
+   BeegoController0         INACTIVE
+}}}
+   となっている。statusがうえからDEAD,DEAD,INACTIVE,INACTIVEとなっていることを確認。
+  ## Right Motor ,Left Motor のそれぞれ赤いボタンをONにする。
+このときstatusmanager.bat.は
+{{{
+   ################ RTC ################
+   Instance Name            Status
+   ProxyEPOSLeft0           ACTIVE
+   ProxyEPOSRight0          ACTIVE
+   Odometry0             　   ACTIVE
+   BeegoController0         ACTIVE
+}}}
+となっている。もし４つともACTIVEでなければ
+windows機でデスクトップのKillAll.batを実行し 1.に戻る。
+もし４つともACTIVEならば、残りの緑のボタンもONにして次に進む。
+
+=== Linux側でPS３コントローラの接続、RTM-ROS Beegoソフトウェアの立ち上げ ===
+
+Linux機で terminalを開いて
+{{{
+$ roslaunch mrobot_ros_bridge mrobot_ros_bridge.launch 
+}}}
+とうつ。　ここでPS3コントローラの真ん中のボタン（Play Station ボタン）を長押しし
+て、linux機とペアリングをする。（ペアリングされているかの確認は
+{{{
+$ rostopic echo /joy
+}}}
+ として実際にcontrollerを押してみるとよい）
+
+=== PS3コントローラを用いたBeegoの操縦 ===
+
+ここまでで、PS3コントローラをROSを介してBeegoを動かすことができる。
+ * PS3コントローラの操縦方法:
+ ** L1を押しながら、左スティックで前身・後進
+ ** L1を押しながら、右スティックで回転
+
+=== Kinect画面をWebブラウザで確認する ===
+
+外部PCを無線LANにつないで、Beego上のLinux機(192.168.0.10)にSSHする。
+ SSH先で
+{{{
+roslaunch mrobot_ros_bridge beego_kinect.launch　
+}}}
+さらに同じSSH先で
+{{{
+roslaunch mrobot_ros_bridge beego_camera.launch
+}}}
+とうつ。外部PCのWEBブラウザのアドレス欄に
+{{{
+http://192.168.0.10:8081/stream?topic=/camera/rgb/image_rect_color
+}}
+をいれるとKinectの画像が見れる。この状態で、
+{{{
+roslaunch mrobot_ros_bridge mrobot_ros_bridge.launch 
+}}}
+とすれば、Beegoの視野画像を見ながら、PS３コントローラで操縦できる。
+無線アクセスポイントが飛ぶ範囲までは操縦可能。
+
+=== 2次元地図を作成する ===
+
+PS3コントローラが使える状態で、Linux機でterminalを開いて
+{{{
+roslaunch mrobot_ros_bridge make_map.launch 
+}}}
+とうつ。別のterminalで
+{{{
+rosrun rviz rviz
+}}}
+とうって出てきたウィンドウを見る。
+この状態でコントローラを用いてBeegoを動かし、地図が更新されていくのを確認。
+
+{{{
+rosrun map_server map_saver 
+}}}
+とうつと繰り返しmap.pgmを保存してくれる。
+（Ctrl + C してとめる）
+
+=== 移動アプリを利用する ===
+
+PS3コントローラが使える状態（8ページ）で
+{{{
+roslaunch mrobot_ros_bridge_ start_nav_beego.launch
+}}}
+とうつ。 別のterminalで
+{{{
+rosrun rviz rviz
+}}}
+とうって出てきたウィンドウを見る。
+使い方は
+左上の2D Pose Estimateをおして、地図上で左クリックしてBeegoの現在地を指定し、そのままドラッグして離すことで向きを指定する。
+左上の2D Nav Goalをおして、地図上で左クリックしてBeegoの目的地を指定し、そのままドラッグして離すことで向きを指定する。
+
+== RTM-ROSブリッジソフトウェア構成の説明 ==
+
+「Beegoの構成-ソフトウェア」に全体のシステム図を紹介する．
+　上部がRTM, 下部がROSの世界に別れており、MobileRobotROSBridgeCompを介してメッセージをやりとりしている。
+
+下図にはWindows機のプログラムを立ち上げた際のEclipseの画面を載せた。上部はRTMのみ、下部はRTM+ROSブリッジ時であり、ブリッジ時にMobileRobotROSBridgeCompが立ち上がり、右図（Rviz, ROSのノードのvisualizeしたもの）のようにROSのネットワーク内にRTMのメッセージを流すノードが作られる。
+
+== Beegoハードウェアの変更点 ==
+
+　配布されたBeegoはRTC-CANopenが適用されたリファレンスロボットである。
+今回の目的はRT-Middlewareで動くRTC-CANopenとROSをつなげて、ナビゲーションを可能にすることである。そのためLinux上のみで動くROSのために新たにLinux機と無線アクセスポイントを用意した。
+　　
+ 「Beegoの構成-ハードウェア」の通り、無線アクセスポイントを介して、Windows機とLinux機を有線LANでつなぐ。なお、アクセスポイントの設定により、Windows機には192.168.0.9, Linux機には192.168.0.10を割り振っている。実験の際には, 他のPC（192.168.0.*が割り振られる）からLinux機にSSHして、操作することを期待している。また、Beegoのバッテリの上部にナビゲーション用のセンサとしてKinectをつけ、Linux機に繋いだ。無線アクセスポイントとKinectの電源は、どちらもBeegoについていた12V電源から供給している。
+
+* 注意　2011/09/17現在、Windows機を閉じたまま動かすとBeegoが指令通りに動かないバグが確認されているので、とりあえずWindows機はディスプレイを開けておくほうがよい。無線アクセスポインタはWindows機に両面テープで固定してあ
+
