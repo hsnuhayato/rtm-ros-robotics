@@ -11,6 +11,41 @@ from setup_rtchandle import *
 rhandhost = 'VisionPC'
 lhandhost = 'lupus'
 
+def init_palletizing_scene():
+    tbl = env.get_object('table')
+
+    def put_on_table(objdef, name, xyzabc):
+        obj = env.eval_sctree(objdef(name=name))
+        env.insert_object(obj, FRAME(xyzabc=xyzabc), tbl)
+
+    # put_on_table(scene_objects.pallete, 'pallete0', [-220,-310,700,0,0,-pi/3])
+    put_on_table(scene_objects.pallete, 'pallete0', [-290,-270,700,0,0,0])
+
+    put_on_table(scene_objects.partsA, 'A0', [-260,-10,714,0,0,pi/6])
+    put_on_table(scene_objects.partsA, 'A1', [-170,100,714,0,0,-pi/6])
+    put_on_table(scene_objects.partsA, 'A2', [-250,190,714,0,0,0])
+    put_on_table(scene_objects.partsA, 'A3', [-120,-10,714,0,0,pi/4])
+
+    # put_on_table(scene_objects.partsB, 'B0', [-160,210,700,0,0,0])
+    # put_on_table(scene_objects.partsB, 'B1', [-120,-70,700,0,0,0])
+
+    plt  = env.get_object('pallete0')
+
+    def put_on_pallete(objdef, name, xyzabc):
+        obj = env.eval_sctree(objdef(name=name))
+        env.insert_object(obj, FRAME(xyzabc=xyzabc), plt)
+
+    put_on_pallete(scene_objects.rect_pocket, 'P0', [40,40,20,0,0,0])
+    put_on_pallete(scene_objects.rect_pocket, 'P1', [-40,40,20,0,0,0])
+    put_on_pallete(scene_objects.rect_pocket, 'P2', [40,-40,20,0,0,0])
+    put_on_pallete(scene_objects.rect_pocket, 'P3', [-40,-40,20,0,0,0])
+
+    for o in env.get_objects('table top|pallete side|A|B'):
+        r.add_collision_object(o)
+
+init_palletizing_scene()
+
+
 try:
     hrhandrecog = ns.rtc_handles[rhandhost+'.host_cxt/AppRecog0.rtc'].outports['AppRecog0.RecognitionResultOut']
 except:
@@ -404,16 +439,16 @@ def dual_arm_pick_and_place_plan(oname00='A0', oname01='A2',
     go_prepare_pose()
 
 
-plt = env.get_object('pallete0')
-plt.set_trans(FRAME(xyzabc=[-290,-270,700,0,0,0]))
-A0 = env.get_object('A0')
-f = A0.rel_trans
-f.vec[1] += 40
-A0.locate(f)
+# plt = env.get_object('pallete0')
+
+# A0 = env.get_object('A0')
+# f = A0.rel_trans
+# f.vec[1] += 40
+# A0.locate(f)
 # env.delete_object('A1')
 # env.delete_object('A3')
-env.delete_object('B0')
-env.delete_object('B1')
+# env.delete_object('B0')
+# env.delete_object('B1')
 
 
 pose1 = {'rarm': FRAME(xyzabc=[230, -200, 1000-1.5, 0, -pi/2, -pi/2]),
@@ -421,66 +456,3 @@ pose1 = {'rarm': FRAME(xyzabc=[230, -200, 1000-1.5, 0, -pi/2, -pi/2]),
 
 pose2 = {'rarm': FRAME(xyzabc=[140, -200, 1000-1.5, 0, -pi/2, -pi/2]),
          'larm': FRAME(xyzabc=[185, 200, 1000, 0, -pi/2, pi/2])}
-
-def test():
-    fc = detect(zmax=780)
-    fc.vec[2] = 700
-
-
-
-# def main():
-#     try:
-#         val = read_from_ports([path.cmd_path_to_full_path(pt)], options, tree)
-#         val = val.data
-#         f = array(val[8:20])
-#         f.resize([3,4])
-#         print f[0:3,3]
-#         Twld_obj = convert(f)
-#         show_frame(Twld_obj)
-#         key = raw_input(prompt)
-#         if key != 'y':
-#             return f
-#         pickup(Twld_obj)
-#     except Exception, e:
-#         print >> sys.stderr, '{0}: {1}'.format(os.path.basename(sys.argv[0]), e)
-#         return 1
-#     return 0
-
-
-# f = array([[  9.98929562e-01,   0.00000000e+00,   4.62572077e-02,
-#               -1.50504138e+01],
-#            [  3.20064736e-02,  -7.21970315e-01,  -6.91183369e-01,
-#               -3.07515927e+01],
-#            [  3.33963308e-02,   6.91924030e-01,  -7.21197491e-01,
-#               7.43907387e+02]])
-
-# def convert(f):
-#     Tcam_obj = FRAME(mat=f[0:3,0:3].tolist(),vec=f[0:3,3].tolist())
-#     Twld_cam = FRAME(xyzabc=[795,-170,1330,pi/2,-pi/2,0])*FRAME(mat=MATRIX(a=51.8*pi/180.0))
-#     Twld_obj = Twld_cam*Tcam_obj
-#     print 'world->obj: ', Twld_obj
-#     return Twld_obj
-
-# def pickup(f):
-#     fa = FRAME(xyzabc=[f.vec[0],f.vec[1],f.vec[2]+202.0,0,-pi/2,0])
-#     fg = FRAME(xyzabc=[f.vec[0],f.vec[1],f.vec[2]+152.0,0,-pi/2,0])
-#     w,avec = r.ik(fa, use_waist=True)[0]
-#     r.set_joint_angle(0, w)
-#     r.set_arm_joint_angles(avec)
-#     r.grasp(width=100)
-#     sync(duration=2.0)
-#     key = raw_input(prompt)
-#     if key != 'y':
-#         return
-#     w,avec = r.ik(fg, use_waist=True)[0]
-#     r.set_joint_angle(0, w)
-#     r.set_arm_joint_angles(avec)
-#     sync(duration=1.5)
-#     r.grasp(width=24)
-#     sync(duration=1.5)
-#     fp = r.fk()
-#     fp.vec[2] += 50
-#     w,avec = r.ik(fp, use_waist=True)[0]
-#     r.set_joint_angle(0, w)
-#     r.set_arm_joint_angles(avec)
-#     sync(joints='rarm', duration=1.5)
