@@ -22,9 +22,7 @@
   * [ROS_Example_ImageProcessing 画像処理]
   * [ROS_Example_RecognitionAction 認識行動]
   * [ROS_Example_RTMIntegration RTM統合]
-<wiki:comment>
-  * [ROS_Example_RTMIntegration_beego RTM統合(実機)]
-</wiki:comment>
+  * [ROS_Example_RTMNavigation ROSナビゲーションRTM移動台車お都合]
   * [ROS_Example_OpenHRPIntegration OpenHRP統合]
   * [ROS_Example_TroubleShooting 困ったときは]
  * [ROS_English OpenRTM/OpenHRP/ROS Install and Example]
