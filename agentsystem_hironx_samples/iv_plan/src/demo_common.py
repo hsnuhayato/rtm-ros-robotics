@@ -21,17 +21,11 @@ else:
     rr = None
 
 env = MPlanEnv()
-env.load_scene(scene_objects.ac_scene())
+env.load_scene(scene_objects.table_scene())
 r = VHIRONX(ivpkgdir+'/iv_plan/externals/models/HIRONX_110822/')
 env.insert_robot(r)
 r.go_pos(-150, 0, 0)
 pl = CSPlanner(env)
-
-for o in env.get_objects('table top|pallete side|A|B'):
-    r.add_collision_object(o)
-# table top <=> robot
-# pallete side <=> robot
-# parts <=> robot
 
 
 def sync(duration=4.0, joints='all', wait=True, waitkey=True):
@@ -453,3 +447,4 @@ def reset_parts_demo():
     reset1('A2', [-250,190,714,0,0,0])
     reset1('P0', [40,40,20,0,0,0], parent='pallete0')
     reset1('P3', [-40,-40,20,0,0,0], parent='pallete0')
+

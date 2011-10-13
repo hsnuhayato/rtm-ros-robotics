@@ -14,8 +14,8 @@ def floor():
     w,d,h = 6000.0, 6000.0, 20.0
     return {'name' : 'floor',
             'shape' : 'box',
-            #'color': (0.1, 0.1, 0.2),
-            'color': (1.0, 1.0, 1.0),
+            'color': (0.1, 0.1, 0.2),
+            #'color': (1.0, 1.0, 1.0),
             'material' : 'rough',
             'dimension' : (w, d, h),
             'children' : []}
@@ -298,6 +298,16 @@ def empty_scene():
 def table_scene():
     w = world()
     fl = floor()
+    bs = hirobase()
+    tbl = high_table()
+    w['children'].append((tbl, [500,0,0,0,0,0]))
+    w['children'].append((fl, [0,0,0,0,0,0]))
+    w['children'].append((bs, [-40.0-150.0,0,400.0,0,0,0]))
+    return w
+
+def table_scene2():
+    w = world()
+    fl = floor()
     tbl = high_table()
     bskt = basket()
     wl0 = wall(name='wall0')
@@ -307,42 +317,4 @@ def table_scene():
     tbl['children'].append((bskt, [-200,-370,700,0,0,0]))
     tbl['children'].append((wl0, [-160,-180,800,0,0,0]))
     tbl['children'].append((wl1, [-160,-50,1150,pi/2,0,0]))
-    return w
-
-##
-## Palletizing scene
-##
-def ac_scene():
-    w = world()
-    fl = floor()
-    bs = hirobase()
-    tbl = high_table()
-    pllt = pallete(name='pallete0')
-    w['children'].append((tbl, [500,0,0,0,0,0]))
-    w['children'].append((fl, [0,0,0,0,0,0]))
-    w['children'].append((bs, [-40.0-150.0,0,400.0,0,0,0]))
-    tbl['children'].append((pllt, [-220,-310,700,0,0,-pi/3]))
-
-    A0 = partsA(name='A0')
-    tbl['children'].append((A0, [-260,-50,714,0,0,pi/6]))
-    A1 = partsA(name='A1')
-    tbl['children'].append((A1, [-170,100,714,0,0,-pi/6]))
-    A2 = partsA(name='A2')
-    tbl['children'].append((A2, [-250,190,714,0,0,0]))
-    A3 = partsA(name='A3')
-    tbl['children'].append((A3, [-120,-10,714,0,0,pi/4]))
-
-    B0 = partsB(name='B0')
-    tbl['children'].append((B0, [-160,210,700,0,0,0]))
-    B1 = partsB(name='B1')
-    tbl['children'].append((B1, [-120,-70,700,0,0,0]))
-
-    p1 = rect_pocket(name='P0')
-    pllt['children'].append((p1, [40,40,20,0,0,0]))
-    p2 = rect_pocket(name='P1')
-    pllt['children'].append((p2, [-40,40,20,0,0,0]))
-    p3 = rect_pocket(name='P2')
-    pllt['children'].append((p3, [40,-40,20,0,0,0]))
-    p4 = rect_pocket(name='P3')
-    pllt['children'].append((p4, [-40,-40,20,0,0,0]))
     return w
