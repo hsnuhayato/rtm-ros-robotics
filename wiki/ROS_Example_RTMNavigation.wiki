@@ -61,9 +61,9 @@ export ROS_IP=192.168.0.* (このPCに割り当てられたIPアドレス)
 windows機でデスクトップの !KillAll.bat を実行し 1.に戻る．
 もし４つともACTIVEならば，残りの緑のボタンもONにして次に進む．
 
-http://code.google.com/p/rtm-ros-robotics/wiki/beego_4switch.jpg
+http://rtmros-robotics.google.com/svn/wiki/beego_4switch.jpg
 
-http://code.google.com/p/rtm-ros-robotics/wiki/beego_autorun_icon.jpg
+http://rtmros-robotics.google.com/svn/wiki/beego_autorun_icon.jpg
 
 == Linux側でPS３コントローラの接続，RTM-ROS Beegoソフトウェアの立ち上げ ==
 
@@ -147,11 +147,11 @@ rosrun rviz rviz
 以下にに全体のシステム図を紹介する．
 　上部がRTM, 下部がROSの世界に別れており，MobileRobotROSBridgeCompを介してメッセージをやりとりしている．
 
-[http://code.google.com/p/rtm-ros-robotics/wiki/beego_system_configuration.odp http://code.google.com/p/rtm-ros-robotics/wiki/beego_system_configuration.png]
+[http://rtmros-robotics.google.com/svn/wiki/beego_system_configuration.odp http://rtmros-robotics.google.com/svn/wiki/beego_system_configuration.png]
 
 下図にはWindows機のプログラムを立ち上げた際のEclipseの画面を載せた．上部はRTMのみ，下部はRTM+ROSブリッジ時であり，ブリッジ時にMobileRobotROSBridgeCompが立ち上がり，右図（Rviz, ROSのノードのvisualizeしたもの）のようにROSのネットワーク内にRTMのメッセージを流すノードが作られる．
 
-[http://code.google.com/p/rtm-ros-robotics/wiki/beego_component_configuration.odp http://code.google.com/p/rtm-ros-robotics/wiki/beego_component_configuration.png]
+[http://rtmros-robotics.google.com/svn/wiki/beego_component_configuration.odp http://rtmros-robotics.google.com/svn/wiki/beego_component_configuration.png]
 
 = Beegoハードウェアの変更点 =
 
@@ -164,4 +164,4 @@ rosrun rviz rviz
 
 注意　2011/09/17現在，Windows機を閉じたまま動かすとBeegoが指令通りに動かないバグが確認されているので，とりあえずWindows機はディスプレイを開けておくほうがよい．無線アクセスポインタはWindows機に両面テープで固定してある．
 
-[http://code.google.com/p/rtm-ros-robotics/wiki/beego_hardware_configuration.odp http://code.google.com/p/rtm-ros-robotics/wiki/beego_hardware_configuration.png]
+[http://rtmros-robotics.google.com/svn/wiki/beego_hardware_configuration.odp http://rtmros-robotics.google.com/svn/wiki/beego_hardware_configuration.png]
