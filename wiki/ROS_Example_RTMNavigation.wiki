@@ -8,16 +8,18 @@
 
 = RTM-ROS Beego ソフトウェアセットアップ =
 
-# Beego, Windows機の導入
-芝浦工業大学の山口様が作成された「RTC-CANopenリファレンスマニュアル」を参考に．
+ * Beego, Windows機の導入
+芝浦工業大学の山口様が作成された「RTC-CANopenリファレンスマニュアル」を参考にセットアップする
 
-# Beeogo, Linux機と外部PCの導入　(Ubuntu 10.04 をインストールしたPCを例に)
+ * Beeogo, Linux機と外部PCの導入　(Ubuntu 10.04 をインストールしたPCを例に)
 rtmros_commonのインストール：　
+[http://www.ros.org/wiki/electric/Installation/Ubuntu]をみて最低限のROSの環境を作った後，OpenRTM,ROS統合のためのインストール作業を行う．
+[ROS_Install]にインストールのためのドキュメントがあるが，
 {{{
-svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/ rtm-ros-robotics-read-only
+rosinstall ~/prog/rtm-ros-robotics /opt/ros/electric http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosmake mrobot_ros_bridge
 }}}
-[ROS_Install]にインストールのための豊富なドキュメントがある．
-これだけで必要なROSとRTMが全て入る．
+これだけで必要なROSとRTMが全て入るようになっている．
 
 なおLinux機の.bashrcに
 Windows, Linux機と外部PC間のROS,RTMの通信ができるように以下の行を加える
