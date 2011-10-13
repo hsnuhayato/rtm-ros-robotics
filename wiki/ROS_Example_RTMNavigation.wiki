@@ -165,4 +165,3 @@ rosrun rviz rviz
 注意　2011/09/17現在，Windows機を閉じたまま動かすとBeegoが指令通りに動かないバグが確認されているので，とりあえずWindows機はディスプレイを開けておくほうがよい．無線アクセスポインタはWindows機に両面テープで固定してある．
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_hardware_configuration.odp http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_hardware_configuration.png]
-[http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_hardware_configuration.odp {{http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_hardware_configuration.png | width=320px }}]
