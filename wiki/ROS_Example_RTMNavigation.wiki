@@ -4,6 +4,37 @@
 
 = RTM-ROS Beego 実験環境セットアップ =
 
+まず車両点検を行う．
+
+* 電源ケーブルの確認
+
+電源ケーブルが正しく接続されていることを確認すること．
+
+http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_setup_powercable.jpg
+
+
+* コンソールパネルの確認
+
+パネル左側のスタートキーがOFFになっていることを確認すること．
+
+中央のボタン4つが全てOFFになっていることを確認すること．
+
+右側のシリアルコネクタにケーブルがささっていることを確認すること．
+
+http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_setup_switch.jpg
+
+* 制御PCの準備
+
+LANケーブル，CANcaseXLのUSBケーブル（位置は搭載するPCの機種により異なる）を確認すること．
+
+デバイスマネージャ（スタート→ファイル名を指定して実行→devmgmt.msc）から
+VectorHardware → CANcaseXL が存在することを確認すること．
+
+http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_setup_winpc.jpg
+
+
+* 外部PCの準備
+
 台車に搭載されたWindowsノートPC(以降Windows機と呼ぶ)，LinuxノートPC(以降Linux機と呼ぶ)の他に，外部からコマンド指令やセンサ監視するためのPC(以降外部PCと呼ぶ)を準備すること．外部PCはBeegoのアクセスポイント（F142DCG）に接続すること．
 
 = RTM-ROS Beego ソフトウェアセットアップ =
