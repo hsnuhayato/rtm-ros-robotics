@@ -66,9 +66,9 @@ export ROS_MASTER_URI=http://192.168.0.10:11311
 export ROS_IP=192.168.0.* (このPCに割り当てられたIPアドレス)
 }}}
        
-= Beegoの地図作成，ナビゲーションデモの実行 =
+= Beegoの基本動作ソフトウェアの実行 =
 ==  Windows側でのRTC-CANopen環境の立ち上げ ==
- # Right Motor ,Left Motor 計４つのすべてのスイッチがOFF担っていることを確認してBeegoの鍵をON．
+ # Right Motor ,Left Motor 計４つのすべてのスイッチがOFFになっていることを確認してBeegoの鍵をON．
  # windows機でデスクトップの !0.AutoRun.bat を実行．
  #  9個のコマンドプロンプトを上がるが，注目するのはstatusmanager.bat．windowに
 {{{
@@ -141,9 +141,17 @@ roslaunch mrobot_ros_bridge mrobot_ros_bridge.launch
 とすれば，Beegoの視野画像を見ながら，PS３コントローラで操縦できる．
 無線アクセスポイントが飛ぶ範囲までは操縦可能．
 
+
+= Beegoの地図作成，ナビゲーションデモの実行 =
+
 == 2次元地図を作成する ==
 
-PS3コントローラが使える状態で，Linux機でterminalを開いて
+まず，PS3コントローラが使える状態にしておく．(Kinectは後に自動的に起動される)
+{{{
+$ roslaunch mrobot_ros_bridge mrobot_ros_bridge.launch 
+}}}
+
+その後Linux機でterminalを開いて
 {{{
 roslaunch mrobot_ros_bridge make_map.launch 
 }}}
@@ -162,7 +170,12 @@ rosrun map_server map_saver
 
 == 移動アプリを利用する ==
 
-PS3コントローラが使える状態で
+まず，PS3コントローラが使える状態にしておく．(Kinectは後に自動的に起動される)
+{{{
+$ roslaunch mrobot_ros_bridge mrobot_ros_bridge.launch 
+}}}
+
+その後別のターミナルで
 {{{
 roslaunch mrobot_ros_bridge_ start_nav_beego.launch
 }}}
@@ -174,6 +187,8 @@ rosrun rviz rviz
 使い方は
 左上の2D Pose Estimateをおして，地図上で左クリックしてBeegoの現在地を指定し，そのままドラッグして離すことで向きを指定する．
 左上の2D Nav Goalをおして，地図上で左クリックしてBeegoの目的地を指定し，そのままドラッグして離すことで向きを指定する．
+
+
 
 = RTM-ROSブリッジソフトウェア構成の説明 =
 
