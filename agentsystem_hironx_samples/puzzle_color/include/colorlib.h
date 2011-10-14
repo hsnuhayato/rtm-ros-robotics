@@ -1,0 +1,8 @@
+#include "brown_lab.h"
+#include "green_lab.h"
+#include "limegreen_lab.h"
+#include "purple_lab.h"
+#include "red_lab.h"
+#include "waterblue_lab.h"
+#include "yellow_lab.h"
+#include "table_lab.h"

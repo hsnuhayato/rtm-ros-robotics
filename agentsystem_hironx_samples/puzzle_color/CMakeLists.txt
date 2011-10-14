@@ -38,5 +38,7 @@ rosbuild_add_executable(color
 	src/Test_color.cpp)
 rosbuild_add_executable(gmm
 	src/Test_color_gmm.cpp)
+rosbuild_add_executable(learn
+	src/Test_learn.cpp)
 
 #target_link_libraries(example ${PROJECT_NAME})
