@@ -5,7 +5,7 @@ wget http://www.jsk.t.u-tokyo.ac.jp/~yamazaki/share/puzzleimages.tar.gz
 tar xzvf puzzleimages.tar.gz
 
 準備（データの学習）
-python proc-learn rgb lab
+python proc-learn.py rgb lab
 cd data
 python cat.py
 cd ../
