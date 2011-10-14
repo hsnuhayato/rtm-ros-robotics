@@ -1,0 +1,15 @@
+試し方
+
+画像のダウンロードと展開
+wget http://www.jsk.t.u-tokyo.ac.jp/~yamazaki/share/puzzleimages.tar.gz 
+tar xzvf puzzleimages.tar.gz
+
+準備（データの学習）
+python proc-learn rgb lab
+cd data
+python cat.py
+cd ../
+
+認識
+python proc-gmm.py puzzleimages/frame0010.jpg data/green_0-lab.dat
+( frame00**.jpg, **_0-lab.dat の ** 部分は入れ替え可能 )
