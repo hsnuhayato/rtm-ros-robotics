@@ -12,5 +12,5 @@ cd ../
 python proc-learn-gmm.py rgb lab
 
 認識
-python proc-gmm.py puzzleimages/frame0010.jpg data/green_0-lab.dat
+python proc-gmm.py puzzleimages/frame0010.jpg green lab
 ( frame00**.jpg, **_0-lab.dat の ** 部分は入れ替え可能 )

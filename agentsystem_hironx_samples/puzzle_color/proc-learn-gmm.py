@@ -30,6 +30,7 @@ def proc(cmode):
         os.system(command);
 
         ifile.write("#include \"" + color + "_" + cmode + ".h" + "\"\n")
+        ifile.write("#define COLOR_" + cmode.upper() + "\n")
         
     ifile.close()
     command = "mv -f " + clibname + " include/"
