@@ -39,7 +39,6 @@ Mat proc(Mat &src,string targetcolor,string colormode)
 
 	float mave[GaussN][3], mcov[GaussN][3][3];
 	getTrainingParam(GaussN,targetcolor,colormode,mave,mcov);
-	printf("%f %f %f\n",mave[0][0],mave[0][1],mave[0][2]);
 
   for(int i=0; i<target.rows; i++)
     {
