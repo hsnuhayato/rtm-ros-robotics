@@ -4,7 +4,7 @@
 #include <highgui.h>
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/io.hpp>
-#include <colorlib.h>
+#include "CopyParam.h"
 
 //#define ONLY_AB
 
@@ -27,7 +27,7 @@ void pruneSide(Mat& src)
 			src.at<uchar>(j,3*i) = src.at<uchar>(j,3*i+1) = src.at<uchar>(j,3*i+2) = 0;
 }
 
-Mat proc(Mat &src,string colormode)
+Mat proc(Mat &src,string targetcolor,string colormode)
 {
 	Mat tmp = Mat::zeros(src.rows,src.cols,CV_8UC3);
 	if(colormode == "rgb")		   tmp = src.clone();
@@ -36,6 +36,9 @@ Mat proc(Mat &src,string colormode)
 
 	Mat target = Mat::zeros(src.rows,src.cols,CV_32FC3);
 	tmp.convertTo(target,CV_32FC3, 1.0);
+
+	float mave[GaussN][3], mcov[GaussN][3][3];
+	getTrainingParam(targetcolor,mave,mcov);
 
   for(int i=0; i<target.rows; i++)
     {
@@ -46,9 +49,8 @@ Mat proc(Mat &src,string colormode)
 					for(int k=0; k<GaussN; k++)
 						{
 							float vec[3] = {row[j].val[0], row[j].val[1], row[j].val[2]};
-							//double dis = Mahalanobis(means.at(k),Mat(1,coldim,CV_32F,vec),icovs.at(k));
-							Mat ave = Mat(1,coldim,CV_32F, brown_lab_ave[k]);
-							Mat var = Mat(coldim,coldim,CV_32F, brown_lab_var[k]);
+							Mat ave = Mat(1,coldim,CV_32F, mave[k]);
+							Mat var = Mat(coldim,coldim,CV_32F, mcov[k]);
 							double dis = Mahalanobis(ave,Mat(1,coldim,CV_32F,vec),var);
 							minval = ((dis < minval) ? dis : minval);
 						}
@@ -69,14 +71,14 @@ int main(int argc,char *argv[])
 {
 	if(argc < 3)
 		{
-			cerr << "usage: ./color imgfile trainfile colormode" << endl;
+			cerr << "usage: ./color imgfile targetcolor colormode" << endl;
 			exit(1);
 		}
 
 	Mat img = imread(argv[1]);
 	pruneSide(img);
 
-	Mat dst = proc(img,string(argv[3]));
+	Mat dst = proc(img,string(argv[2]),string(argv[3]));
 
 	imshow("org",img);
 	cvMoveWindow("org",0,0);
