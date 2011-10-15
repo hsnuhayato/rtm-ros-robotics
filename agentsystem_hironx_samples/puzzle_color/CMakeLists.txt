@@ -40,5 +40,11 @@ rosbuild_add_executable(gmm
 	src/Test_color_gmm.cpp)
 rosbuild_add_executable(learn
 	src/Test_learn.cpp)
+rosbuild_add_executable(region
+	src/Test_get_region.cpp
+	blob/Blob.cpp
+	blob/BlobExtraction.cpp
+	blob/BlobResult.cpp
+	)
 
 #target_link_libraries(example ${PROJECT_NAME})
