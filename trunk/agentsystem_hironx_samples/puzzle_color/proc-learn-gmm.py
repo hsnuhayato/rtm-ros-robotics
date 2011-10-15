@@ -6,16 +6,15 @@ imgdir = "./training/"
 imglist=["brown_0","green_0","limegreen_0","purple_0","red_0","waterblue_0","yellow_0","table_0"]
 
 def lab():
-    proc("lab")
+    proc("lab","colorlib-lab.h")
 
 def rgb():
-    proc("rgb")
+    proc("rgb","colorlib-rgb.h")
 
 
-def proc(cmode):
+def proc(cmode,clibname):
     exe = "./bin/learn"
 
-    clibname = "colorlib.h"
     ifile = open(clibname,"w")
     for img in imglist:
         color = img[:].split("_")[0]
@@ -30,7 +29,7 @@ def proc(cmode):
         os.system(command);
 
         ifile.write("#include \"" + color + "_" + cmode + ".h" + "\"\n")
-        ifile.write("#define COLOR_" + cmode.upper() + "\n")
+        ifile.write("#define COLOR_" + color.upper() + "\n\n")
         
     ifile.close()
     command = "mv -f " + clibname + " include/"
