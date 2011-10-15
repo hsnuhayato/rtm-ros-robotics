@@ -5,16 +5,14 @@ import sys
 
 imgdir = "./training/"
 
-def proc(imgfile,learndata):
-    cmode = learndata[:].split("/")[-1].split("-")[-1].split(".")[0]
-    
+def proc(imgfile,learndata,cmode):
     command = "./bin/gmm " + imgfile + " " + learndata + " " + cmode
     print command
     os.system(command)
     
 
-if len(sys.argv) > 2:
-    proc(sys.argv[1], sys.argv[2])
+if len(sys.argv) > 3:
+    proc(sys.argv[1], sys.argv[2], sys.argv[3])
 else:
-    print "usage: py proc.py imgfile learndata"
+    print "usage: py proc.py imgfile targetcolor cmode"
 

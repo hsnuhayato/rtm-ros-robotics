@@ -5,6 +5,7 @@ wget http://www.jsk.t.u-tokyo.ac.jp/~yamazaki/share/puzzleimages.tar.gz
 tar xzvf puzzleimages.tar.gz
 
 準備（データの学習。おまじない的な作業）
+make
 python proc-learn.py rgb lab
 cd data
 python cat.py
@@ -12,5 +13,6 @@ cd ../
 python proc-learn-gmm.py rgb lab
 
 認識
+make clean; make
 python proc-gmm.py puzzleimages/frame0010.jpg green lab
 ( frame00**.jpg, **_0-lab.dat の ** 部分は入れ替え可能 )
