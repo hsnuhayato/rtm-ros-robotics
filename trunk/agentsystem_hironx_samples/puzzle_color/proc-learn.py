@@ -3,7 +3,8 @@ import sys
 
 imgdir = "./training/"
 imglist=["brown_1","green_1","limegreen_1","purple_1","red_1","waterblue_1","yellow_1","table_1",
-				 "brown_2","green_2","limegreen_2","purple_2","red_2","waterblue_2","yellow_2","table_2"]
+				 "brown_2","green_2","limegreen_2","purple_2","red_2","waterblue_2","yellow_2","table_2",
+				 "brown_3","green_3","limegreen_3","purple_3","red_3","waterblue_3","yellow_3","table_3"]
 
 datadir = "data"
 if not os.path.exists(datadir):
