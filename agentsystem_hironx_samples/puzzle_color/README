@@ -14,5 +14,10 @@ python proc-learn-gmm.py rgb lab
 
 認識
 make clean; make
+
+○指定した色に近いピクセルを表示する
 python proc-gmm.py puzzleimages/frame0010.jpg green lab
 ( frame00**.jpg の ** 部分は入れ替え可能 )
+
+○ピクセルの固まりごとにクラスタリングして、四角で囲む
+./bin/region puzzleimages/frame0010.jpg green
