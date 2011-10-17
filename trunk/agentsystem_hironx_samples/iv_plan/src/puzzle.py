@@ -20,7 +20,7 @@ def generate_piece(nametag, color, cubeposes, l=30.0):
 
 init_frames = {}
 
-def init_puzzle_scene():
+def setup_puzzle_scene():
     l = 30.0
     tbl = env.get_object('table')
     tbltop = env.get_object('table top')
@@ -78,103 +78,91 @@ def reset_puzzle():
 
 
 def grasp_plan(obj):
-    ''' given an object, compute handlink pose and distance between fingers '''
-    l = 30.0
-    d = 30.0
-    # target frame needs default coordinate
-    if obj.name == 'piecedg':
-        # dark green
-        Tobj_grsp = FRAME(xyzabc=[0,0,l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2])
-    elif obj.name == 'pieceyg':
-        # yellow green
-        Tobj_grsp = FRAME(xyzabc=[0,l,0,-pi/2,0,0])
-    elif obj.name == 'piecerd':
-        # red
-        Tobj_grsp = FRAME(xyzabc=[-0.5*l,-l,0,pi/2,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2])
-    elif obj.name == 'piecepp':
-        # purple
-        Tobj_grsp = FRAME(xyzabc=[l,0,0,0,pi/2,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2])
-    elif obj.name == 'piecelb':
-        # light blue
-        Tobj_grsp = FRAME(xyzabc=[0,2*l,0,-pi/2,0,0])*FRAME(xyzabc=[0,0,0,0,0,-pi/2])
-    elif obj.name == 'piecebr':
-        # brown
-        Tobj_grsp = FRAME(xyzabc=[0.5*l,l,0,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2])
-    elif obj.name == 'pieceyl':
-        # yellow
-        Tobj_grsp = FRAME(xyzabc=[l,l,0,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2])
-    else:
-        return warn('unknown piece')
+    '''given an object, compute handlink frame and distance between fingers to pick the piece'''
+    l = 30
+    d = 30
 
-    gfrm = obj.where()*Tobj_grsp*(-r.Trwrist_ef)
+    grspposs = {
+        'piecedg':FRAME(xyzabc=[0,0,l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2]), # dark green
+        'pieceyg':FRAME(xyzabc=[0,l,0,-pi/2,0,0]), # yellow green
+        'piecerd':FRAME(xyzabc=[-0.5*l,-l,0,pi/2,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2]), # red
+        'piecepp':FRAME(xyzabc=[l,0,0,0,pi/2,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2]), # purple
+        'piecelb':FRAME(xyzabc=[0,2*l,0,-pi/2,0,0])*FRAME(xyzabc=[0,0,0,0,0,-pi/2]), # light blue
+        'piecebr':FRAME(xyzabc=[0.5*l,l,0,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2]), # brown
+        'pieceyl':FRAME(xyzabc=[l,l,0,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2]) # yellow
+    }
+
+    gfrm = obj.where()*grspposs[obj.name]*(-r.Trwrist_ef)
     afrm = gfrm*FRAME(xyzabc=[d,0,0,0,0,0])
-    return afrm,gfrm
+    awidth = 80
+    gwidth = 20
+    return afrm,gfrm,awidth,gwidth
 
 
 def place_plan(obj,p=FRAME(xyzabc=[0,0,0,0,0,0])):
     l = 30
     d = 30
+
     rfrm = env.get_object('piecedg').where()*FRAME(xyzabc=[0,0,0,0,0,pi/2])
-    if obj.name == 'piecedg':
-        gfrm = rfrm*FRAME(xyzabc=[0,0,l,0,0,0])*(-r.Trwrist_ef)
-        afrm = gfrm*FRAME(xyzabc=[d,0,0,0,0,0])
-        return afrm,gfrm
-    elif obj.name == 'pieceyg':
-        gfrm = rfrm*FRAME(xyzabc=[2*l,0,l,0,0,0])*(-r.Trwrist_ef)
-        afrm = gfrm*FRAME(xyzabc=[d,0,0,0,0,0])
-        return afrm,gfrm
-    elif obj.name == 'piecerd':
-        gfrm = rfrm*FRAME(xyzabc=[0.5*l,-l,l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2])*(-r.Trwrist_ef)
-        afrm = gfrm*FRAME(xyzabc=[d,0,0,0,0,0])
-        return afrm,gfrm
-    elif obj.name == 'piecepp':
-        gfrm = rfrm*FRAME(xyzabc=[2*l,-2*l,l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2])*(-r.Trwrist_ef)
-        afrm = gfrm*FRAME(xyzabc=[d,0,0,0,0,0])
-        return afrm,gfrm
-    elif obj.name == 'piecelb':
-        gfrm = rfrm*FRAME(xyzabc=[0,-2*l,2*l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,-pi/2])*(-r.Trwrist_ef)
-        afrm = gfrm*FRAME(xyzabc=[d,0,0,0,0,0])
-        return afrm,gfrm
-    elif obj.name == 'piecebr':
-        gfrm = rfrm*FRAME(xyzabc=[1.5*l,-l,2*l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2])*(-r.Trwrist_ef)
-        afrm = gfrm*FRAME(xyzabc=[d,0,0,0,0,0])
-        return afrm,gfrm
-    elif obj.name == 'pieceyl':
-        gfrm = rfrm*FRAME(xyzabc=[l,0,2*l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2])*(-r.Trwrist_ef)
-        afrm = gfrm*FRAME(xyzabc=[d,0,0,0,0,0])
-        return afrm,gfrm
-    else:
-        warn('unknown piece')
 
-def pick_piece(obj):
-    afrm,gfrm = grasp_plan(obj)
-    jts = 'rarm'
-    r.set_joint_angles(r.ik(afrm, joints=jts)[0], joints=jts)
-    raw_input()
+    plcposs = {
+        'piecedg':FRAME(xyzabc=[0,0,l,0,0,0]),
+        'pieceyg':FRAME(xyzabc=[2*l,0,l,0,0,0]),
+        'piecerd':FRAME(xyzabc=[0.5*l,-l,l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2]),
+        'piecepp':FRAME(xyzabc=[2*l,-2*l,l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2]),
+        'piecelb':FRAME(xyzabc=[0,-2*l,2*l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,-pi/2]),
+        'piecebr':FRAME(xyzabc=[1.5*l,-l,2*l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2]),
+        'pieceyl':FRAME(xyzabc=[l,0,2*l,0,0,0])*FRAME(xyzabc=[0,0,0,0,0,pi/2])
+    }
+
+    gfrm = rfrm*plcposs[obj.name]*(-r.Trwrist_ef)        
+    afrm = gfrm*FRAME(xyzabc=[d,0,0,0,0,0])
+    width = 80.0 # hand width when releasing a piece
+    return afrm,gfrm,width
+
+def pick_piece(obj, jts='rarm', hand='right'):
+    # determine grasp position & hand width
+    afrm,gfrm,awidth,gwidth = grasp_plan(obj)
+
+    r.grasp(awidth, hand=hand)
+
+    # initial configuration
+    q0 = r.get_joint_angles(joints=jts)
+    # compute goal configuration by solving inverse kimematics
+    q1 = r.ik(afrm, joints=jts)[0]
+
+    # connect 2 configurations by RRT-connect
+    traj = pl.make_plan(q0, q1, joints=jts)
+    # execute the trajectory
+    exec_traj(traj, joints=jts)
+
     r.set_joint_angles(r.ik(gfrm, joints=jts)[0], joints=jts)
-    return afrm,gfrm
+    r.grasp(gwidth, hand=hand)
 
-def place_piece(obj,p=FRAME(xyzabc=[0,0,0,0,0,0])):
-    afrm,gfrm = place_plan(obj,p)
-    jts = 'rarm'
-    r.set_joint_angles(r.ik(afrm, joints=jts)[0], joints=jts)
-    raw_input()
+def place_piece(obj,p=FRAME(xyzabc=[0,0,0,0,0,0]), jts='rarm', hand='right'):
+    afrm,gfrm,width = place_plan(obj,p)
+    q0 = r.get_joint_angles(joints=jts)
+    q1 = r.ik(afrm, joints=jts)[0]
+    traj = pl.make_plan(q0, q1, joints=jts)
+    exec_traj(traj, joints=jts)
+    
     r.set_joint_angles(r.ik(gfrm, joints=jts)[0], joints=jts)
-    return afrm,gfrm
+    r.grasp(width, hand=hand)
 
-def demo():
+def demo(jts='rarm'):
+    hand = 'right' if re.match('.*rarm', jts) else 'left'
+    
     cl = ['dg','yg','rd','pp','lb','br','yl']
     for c in cl:
         obj = env.get_object('piece'+c)
-        r.grasp(80,hand='right')
-        pick_piece(obj)
-        raw_input()
-        r.grasp(20,hand='right')
-        grab(hand='right')
-        place_piece(obj)
-        raw_input()
+        r.grasp(80, hand=hand)
+        pick_piece(obj, jts=jts, hand=hand)
+        grab(hand=hand)
+        place_piece(obj, jts=jts, hand=hand)
         release()
     r.prepare()
 
-init_puzzle_scene()
+
+setup_puzzle_scene()
 r.prepare()
+colored_print("demo()", 'blue')
