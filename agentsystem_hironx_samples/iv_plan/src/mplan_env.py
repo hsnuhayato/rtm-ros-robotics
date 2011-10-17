@@ -13,18 +13,8 @@ class NameCollisionError(Exception):
 class MPlanEnv:
     def __init__(self):
         self.scene_objects = []
+        self.collidable_objects = []
         self.robot = None
-        self.markers = []
-
-    def add_marker(self, frm):
-        vf = VFrame(FRAME(mat=frm.mat, vec=frm.vec), size=100.0, width=5.0)
-        vf.set_visible(True)
-        self.markers.append(vf)
-
-    def clear_markers(self):
-        for vf in self.markers:
-            vf.set_visible(False)
-        self.markers = []
 
     def get_object(self, name):
         objs = [x for x in self.scene_objects if x.name == name]
@@ -49,6 +39,7 @@ class MPlanEnv:
         self.scene_objects.append(obj)
 
         if parent:
+            parent.children.append(obj)
             obj.affix(parent, frame)
 
     def insert_robot(self, robot):
@@ -65,8 +56,11 @@ class MPlanEnv:
             if self.get_object(obj.name):
                 self.delete_object(obj.name)
 
-    def delete_object(self, name):
-        obj = self.get_object(name)
+    def delete_object(self, name_or_obj):
+        if type(name_or_obj) == str:
+            obj = self.get_object(name)
+        else:
+            obj = name_or_obj
 
         # delete all children
         delete_candidate = [obj]
@@ -94,35 +88,34 @@ class MPlanEnv:
         except:
             nm = None
 
-        shape = ast['shape']
-
-        if shape == None:
-            obj = CoordinateObjectWithName(name=nm)
+        if ast['type'] == 'coordinate':
+            obj = CoordinateObjectWithName(nm)
         else:
-            col = ast['color']
-
-            mat = ast['material']        
-            if mat == 'wood':
-                mat = visual.materials.wood
-            elif mat == 'rough':
-                mat = visual.materials.rough
-            else:
-                mat = None
+            shape = ast['shape']
+            if shape != None:
+                col = ast['color']
+                mat = ast['material']        
+                if mat == 'wood':
+                    mat = visual.materials.wood
+                elif mat == 'rough':
+                    mat = visual.materials.rough
+                else:
+                    mat = None
 
             if shape == 'box':
                 w,d,h = ast['dimension']
                 body = visual.box(length=d, height=w, width=h,
                                   color=col, material=mat)
-                obj = PartsObjectWithName(vbody=body, name=nm)
             elif shape == 'cylinder':
                 l,r = ast['dimension']
                 body = visual.cylinder(axis=(0,0,l), radius=r, color=col)
-                obj = PartsObjectWithName(vbody=body, name=nm)
-            # elif shape == 'mesh':
-            #     obj
             else:
-                return None
+                body = None
 
+            if ast['type'] == 'kinbody':
+                obj = KinbodyObject(vbody=body, name=nm)
+            else:
+                obj = PartsObjectWithName(vbody=body, name=nm)
 
         for child in ast['children']:
             cobj = self.eval_sctree(child[0])
@@ -133,6 +126,9 @@ class MPlanEnv:
 
     def load_scene(self, sctree):
         self.insert_object(self.eval_sctree(sctree), FRAME())
+
+    def add_collidable_object(self, obj):
+        self.collidable_objects.append(obj)
 
     def putbox(self, name='box0', vaxis='x', pose2d=None):
         '''シミュレータ内で箱を机上に置く。位置はランダムに決定される。vaxis="y"で側面を上に向けて置く'''

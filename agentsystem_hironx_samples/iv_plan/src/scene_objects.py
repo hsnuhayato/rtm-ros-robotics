@@ -4,7 +4,8 @@ from math import *
 
 # World
 def world():
-    return {'name' : 'world',
+    return {'type' : 'coordinate',
+            'name' : 'world',
             'shape' : None,
             'children' : []}
 
@@ -12,7 +13,8 @@ def world():
 def floor():
     #w,d,h = 3000.0, 3000.0, 20.0
     w,d,h = 6000.0, 6000.0, 20.0
-    return {'name' : 'floor',
+    return {'type' : 'parts',
+            'name' : 'floor',
             'shape' : 'box',
             'color': (0.1, 0.1, 0.2),
             #'color': (1.0, 1.0, 1.0),
@@ -21,14 +23,14 @@ def floor():
             'children' : []}
 
 # Table
-def low_table():
-    w,d,h = 900.0, 550.0, 450.0
-    return {'name' : 'table',
-            'shape' : 'box',
-            'color' : (1, 0.8, 0.6),
-            'material' : 'wood',
-            'dimension' : [w, d, h],
-            'children' : []}
+# def low_table():
+#     w,d,h = 900.0, 550.0, 450.0
+#     return {'name' : 'table',
+#             'shape' : 'box',
+#             'color' : (1, 0.8, 0.6),
+#             'material' : 'wood',
+#             'dimension' : [w, d, h],
+#             'children' : []}
 
 # Table with 4 legs
 def high_table():
@@ -43,37 +45,43 @@ def high_table():
     legmat = 'wood'
     topmat = None
 
-    top = {'name' : 'table top',
+    top = {'type' : 'kinbody',
+           'name' : 'table top',
            'shape' : 'box',
            'color' : topcol,
            'material' : topmat,
            'dimension' : [w, d, thickness],
            'children' : []}
-    leg1 = {'name' : 'table leg1',
-           'shape' : 'cylinder',
-           'color' : legcol,
-           'material' : legmat,
-           'dimension' : [l, r],
-           'children' : []}
-    leg2 = {'name' : 'table leg2',
-           'shape' : 'cylinder',
-           'color' : legcol,
-           'material' : legmat,
-           'dimension' : [l, r],
-           'children' : []}
-    leg3 = {'name' : 'table leg3',
-           'shape' : 'cylinder',
-           'color' : legcol,
-           'material' : legmat,
-           'dimension' : [l, r],
-           'children' : []}
-    leg4 = {'name' : 'table leg4',
-           'shape' : 'cylinder',
-           'color' : legcol,
-           'material' : legmat,
-           'dimension' : [l, r],
-           'children' : []}
-    table = {'name' : 'table',
+    leg1 = {'type' : 'kinbody',
+            'name' : 'table leg1',
+            'shape' : 'cylinder',
+            'color' : legcol,
+            'material' : legmat,
+            'dimension' : [l, r],
+            'children' : []}
+    leg2 = {'type' : 'kinbody',
+            'name' : 'table leg2',
+            'shape' : 'cylinder',
+            'color' : legcol,
+            'material' : legmat,
+            'dimension' : [l, r],
+            'children' : []}
+    leg3 = {'type' : 'kinbody',
+            'name' : 'table leg3',
+            'shape' : 'cylinder',
+            'color' : legcol,
+            'material' : legmat,
+            'dimension' : [l, r],
+            'children' : []}
+    leg4 = {'type' : 'kinbody',
+            'name' : 'table leg4',
+            'shape' : 'cylinder',
+            'color' : legcol,
+            'material' : legmat,
+            'dimension' : [l, r],
+            'children' : []}
+    table = {'type' : 'parts',
+             'name' : 'table',
              'shape' : None,
              'children' : [(leg1, [b,a,0,0,0,0]),
                            (leg2, [-b,a,0,0,0,0]),
@@ -167,7 +175,8 @@ def can(name):
 # parts A
 def partsA(name):
     W,H,L = 38.0, 48.0, 28.0
-    return {'name' : name,
+    return {'type' : 'parts',
+            'name' : name,
             'shape' : 'box',
             'color' : (0.5, 0.5, 0.5),
             'material' : None,
@@ -177,7 +186,8 @@ def partsA(name):
 # parts B
 def partsB(name):
     D,L = 25.0, 58.0
-    return {'name' : name,
+    return {'type' : 'parts',
+            'name' : name,
             'shape' : 'cylinder',
             'color' : (0.4, 0.4, 0.4),
             'material' : None,
@@ -191,7 +201,8 @@ def W0(name):
 
 def rect_pocket(name):
     W,H,L = 43.0, 53.0, 10.0
-    return {'name' : name,
+    return {'type' : 'parts',
+            'name' : name,
             'shape' : 'box',
             'color' : (0.8, 0.0, 0.8),
             'material' : None,
@@ -211,37 +222,43 @@ def pallete(name):
     col = (0.7, 0.7, 0.7)
     mat = None
 
-    side1 = {'name' : 'pallete side1',
+    side1 = {'type' : 'kinbody',
+             'name' : 'pallete side1',
              'shape' : 'box',
              'color' : col,
              'material' : mat,
              'dimension' : [w,thickness,h],
              'children' : []}
-    side2 = {'name' : 'pallete side2',
+    side2 = {'type' : 'kinbody',
+             'name' : 'pallete side2',
              'shape' : 'box',
              'color' : col,
              'material' : mat,
              'dimension' : [w,thickness,h],
              'children' : []}
-    side3 = {'name' : 'pallete side3',
+    side3 = {'type' : 'kinbody',
+             'name' : 'pallete side3',
              'shape' : 'box',
              'color' : col,
              'material' : mat,
              'dimension' : [thickness,d,h],
              'children' : []}
-    side4 = {'name' : 'pallete side4',
+    side4 = {'type' : 'kinbody',
+             'name' : 'pallete side4',
              'shape' : 'box',
              'color' : col,
              'material' : mat,
              'dimension' : [thickness,d,h],
              'children' : []}
-    bottom = {'name' : 'pallete bottom',
+    bottom = {'type' : 'kinbody',
+              'name' : 'pallete bottom',
               'shape' : 'box',
               'color' : (0.2,0.2,0.2),
               'material' : mat,
               'dimension' : [w,d,bottom_thickness],
               'children' : []}
-    pllt = {'name' : name,
+    pllt = {'type' : 'parts',
+            'name' : name,
             'shape' : None,
             'children' : [(side1, [b,0,c,0,0,0]),
                           (side2, [-b,0,c,0,0,0]),
@@ -253,7 +270,8 @@ def pallete(name):
 
 def hirobase():
     w,d,h=320.0,255.0,800.0
-    return {'name' : 'hirobase',
+    return {'type' : 'parts',
+            'name' : 'hirobase',
             'shape' : 'box',
             'color' : (0.2, 0.2, 0.2),
             'material' : None,
