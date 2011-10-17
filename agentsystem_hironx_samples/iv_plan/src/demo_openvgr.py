@@ -21,10 +21,10 @@ def init_palletizing_scene():
     # put_on_table(scene_objects.pallete, 'pallete0', [-220,-310,700,0,0,-pi/3])
     put_on_table(scene_objects.pallete, 'pallete0', [-290,-270,700,0,0,0])
 
-    put_on_table(scene_objects.partsA, 'A0', [-330,-10,714,0,0,pi/6])
-    put_on_table(scene_objects.partsA, 'A1', [-280,100,714,0,0,-pi/6])
-    put_on_table(scene_objects.partsA, 'A2', [-310,190,714,0,0,0])
-    put_on_table(scene_objects.partsA, 'A3', [-250,-10,714,0,0,pi/4])
+    put_on_table(scene_objects.partsA, 'A0', [-330,-10,716,0,0,pi/6])
+    put_on_table(scene_objects.partsA, 'A1', [-280,100,716,0,0,-pi/6])
+    put_on_table(scene_objects.partsA, 'A2', [-310,190,716,0,0,0])
+    put_on_table(scene_objects.partsA, 'A3', [-250,-10,716,0,0,pi/4])
 
     # put_on_table(scene_objects.partsB, 'B0', [-160,210,700,0,0,0])
     # put_on_table(scene_objects.partsB, 'B1', [-120,-70,700,0,0,0])
@@ -68,22 +68,23 @@ except:
 # slow version
 tms = {'preapproach1': 1.5,
        'preapproach2': 2.5,
-       'pick': 1.5,
-       'transport': 1.5,
-       'place': 1.5,
+       'pick': 1.3,
+       'transport': 1.6,
+       'place': 1.3,
+       'pregrasp': 0.7,
        'look_for': 0.8}
 
 detectposs = [(160,-50),(230,-50),
               (150, 10),(220, 10)]
 
 
-detectposs_dual = [[(150,-30),(150,150)],
-                   [(230,-30),(230,150)]]
+detectposs_dual = [[(140,-30),(140,150)],
+                   [(220,-30),(220,150)]]
 
 # pocketposs = [(200,-300),(120,-300),
 #               (200,-380),(120,-380)]
-pocketposs = [(180,-240),(100,-240),
-              (180,-330),(100,-330)]
+pocketposs = [(160,-240),(80,-240),
+              (160,-330),(80,-330)]
 
 
 def preapproach(n = 0):
@@ -241,7 +242,7 @@ def look_for():
     for i,f in enumerate(detected):
         env.get_object('A'+str(i)).locate(f, world=True)
     for i in range(len(detected),4):
-        env.get_object('A'+str(i)).locate(FRAME(xyzabc=[500,-800,714,0,0,0]))
+        env.get_object('A'+str(i)).locate(FRAME(xyzabc=[500,-800,716,0,0,0]))
 
     if len(detected) < 4:
         return False
@@ -272,7 +273,7 @@ def choose_objs(n=0):
 
 def grasp_plan(o, long_side=False):
     objfrm = o.where()
-    
+
     if long_side:
         objfrm = objfrm * FRAME(xyzabc=[0,0,0,0,0,pi/2])
         gwidth = 45
@@ -290,24 +291,28 @@ def grasp_plan(o, long_side=False):
 
 def place_plan(p):
     plcfrm = p.where()
-    
+
     gfrm = plcfrm*(-r.Twrist_ef)
-    gfrm.vec[2] += 28/2
+    gfrm.vec[2] += 28/2+2
 
     afrm = FRAME(gfrm)
-    afrm.vec[2] += 40
+    afrm.vec[2] += 60
     rwidth = 80
-    return afrm,gfrm,rwidth
+
+    afrm2 = afrm*FRAME(xyzabc=[0,0,0,pi,0,0])
+    gfrm2 = gfrm*FRAME(xyzabc=[0,0,0,pi,0,0])
+    return (afrm,gfrm,rwidth),(afrm2,gfrm2,rwidth)
 
 rwp = FRAME(xyzabc=[150,-100,1000,0,-pi/2,0])
 lwp = FRAME(xyzabc=[180,100,1000,0,-pi/2,0])
 
-def demo():
+def demo(recognition=False):
     preapproach_dual()
-    
-    # if not look_for():
-    #     warn('detection failed')
-    #     return
+
+    if recognition:
+        if not look_for():
+            warn('detection failed')
+            return
 
     o1, o2 = choose_objs(0)
 
@@ -343,11 +348,11 @@ def demo():
 
     r.set_joint_angles(rasol, joints='rarm')
     r.set_joint_angles(lasol, joints='larm')
-    sync()
+    sync(duration=tms['pick'])
 
     r.set_joint_angles(rgsol, joints='rarm')
     r.set_joint_angles(lgsol, joints='larm')
-    sync()
+    sync(duration=tms['pregrasp'])
 
     for w in [80,60,50,44,39,34]:
         r.grasp(w, hand='right')
@@ -356,75 +361,89 @@ def demo():
 
     r.set_joint_angles(rasol, joints='rarm')
     r.set_joint_angles(lasol, joints='larm')
-    sync()
+    sync(duration=tms['pregrasp'])
 
     r.set_joint_angle(0,-0.3)
     jts = 'rarm'
     r.set_joint_angles(r.ik(rwp, joints=jts)[0], joints=jts)
     jts = 'larm'
     r.set_joint_angles(r.ik(lwp, joints=jts)[0], joints=jts)
-    sync(joints='torso_arms')
+    sync(joints='torso_arms', duration=tms['transport'])
 
     r.set_joint_angle(0,-0.6)
     jts = 'rarm'
     x,y = pocketposs_dual[3] # right
-    f = FRAME(xyzabc=[x, y, 975,0,-pi/2,0])
+    f = FRAME(xyzabc=[x, y, 1050,0,-pi/2,0])
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
     jts = 'larm'
     x,y = pocketposs_dual[0] # left
-    f = FRAME(xyzabc=[x, y, 975,0,-pi/2,0])
+    f = FRAME(xyzabc=[x, y, 1050,0,-pi/2,0])
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
-    sync(joints='torso_arms')
-    
-    # rpfrm = detect(hand='right', zmin=680)
-    # lpfrm = detect(hand='left', zmin=680)
-    # rpfrm.vec[2] = 724
-    # lpfrm.vec[2] = 726
+    sync(joints='torso_arms', duration=tms['transport'])
+
     P3 = env.get_object('P3')
-    # P3.locate(rpfrm, world=True)
     P0 = env.get_object('P0')
-    # P0.locate(lpfrm, world=True)
-    
-    afrm,gfrm,width = place_plan(P3)
+    if recognition:
+        rpfrm = detect(hand='right', zmin=680, zmax=710, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        lpfrm = detect(hand='left', zmin=680, zmax=710, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        rpfrm.vec[2] = 726
+        lpfrm.vec[2] = 726
+        P3.locate(rpfrm, world=True)
+        P0.locate(lpfrm, world=True)
+
+    s1, s2 = place_plan(P3)
     jts = 'rarm'
     try:
+        afrm,gfrm,rwidth = s1
         rasol = r.ik(afrm, joints=jts)[0]
         rgsol = r.ik(gfrm, joints=jts)[0]
     except:
-        warn('ik failed, right arm')
-        return
+        try:
+            afrm,gfrm,rwidth = s2
+            rasol = r.ik(afrm, joints=jts)[0]
+            rgsol = r.ik(gfrm, joints=jts)[0]
+        except:
+            warn('ik failed, right arm')
+            return
 
-    afrm,gfrm,width = place_plan(P0)
+    s1, s2 = place_plan(P0)
     jts = 'larm'
     try:
+        afrm,gfrm,rwidth = s1
         lasol = r.ik(afrm, joints=jts)[0]
         lgsol = r.ik(gfrm, joints=jts)[0]
     except:
-        warn('ik failed, left arm')
-        return
+        try:
+            afrm,gfrm,rwidth = s2
+            lasol = r.ik(afrm, joints=jts)[0]
+            lgsol = r.ik(gfrm, joints=jts)[0]
+        except:
+            warn('ik failed, left arm')
+            return
 
     r.set_joint_angles(rasol, joints='rarm')
     r.set_joint_angles(lasol, joints='larm')
-    sync()
+    sync(joints='torso_arms', duration=tms['place'])
 
     r.set_joint_angles(rgsol, joints='rarm')
     r.set_joint_angles(lgsol, joints='larm')
-    sync()
+    sync(joints='torso_arms', duration=tms['pregrasp'])
 
-    for w in [38,40,46,80]:    
+    for w in [38,40,46,80]:
         r.grasp(w, hand='right')
         r.grasp(w, hand='left')
+        sync(duration=0.2)
 
     r.set_joint_angles(rasol, joints='rarm')
     r.set_joint_angles(lasol, joints='larm')
-    sync()
+    sync(duration=tms['pregrasp'])
 
     r.set_joint_angle(0,-0.3)
     jts = 'rarm'
     r.set_joint_angles(r.ik(rwp, joints=jts)[0], joints=jts)
     jts = 'larm'
     r.set_joint_angles(r.ik(lwp, joints=jts)[0], joints=jts)
-    sync(joints='torso_arms')
+    sync(joints='torso_arms', duration=tms['pick'])
 
     ####
     ####
@@ -463,11 +482,11 @@ def demo():
 
     r.set_joint_angles(rasol, joints='rarm')
     r.set_joint_angles(lasol, joints='larm')
-    sync()
+    sync(duration=tms['pick'])
 
     r.set_joint_angles(rgsol, joints='rarm')
     r.set_joint_angles(lgsol, joints='larm')
-    sync()
+    sync(duration=tms['pregrasp'])
 
     for rw,lw in zip([80,60,50,44,39,34],[80,65,55,50,46,43]):
         r.grasp(rw, hand='right')
@@ -476,89 +495,114 @@ def demo():
 
     r.set_joint_angles(rasol, joints='rarm')
     r.set_joint_angles(lasol, joints='larm')
-    sync()
+    sync(joints='torso_arms', duration=tms['pregrasp'])
 
     r.set_joint_angle(0,-0.3)
     jts = 'rarm'
     r.set_joint_angles(r.ik(rwp, joints=jts)[0], joints=jts)
     jts = 'larm'
     r.set_joint_angles(r.ik(lwp, joints=jts)[0], joints=jts)
-    sync(joints='torso_arms')
+    sync(joints='torso_arms', duration=tms['transport'])
 
     jts = 'rarm'
-    x,y = pocketposs_dual[1] # right
-    f = FRAME(xyzabc=[x, y, 975,0,-pi/2,0])
+    x,y = pocketposs_dual[2] # right
+    f = FRAME(xyzabc=[x, y, 1050,0,-pi/2,0])
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
-    sync(joints='rarm')
+    sync(joints='rarm', duration=tms['transport'])
 
-    #rpfrm = detect(hand='right', zmin=680)
-    #rpfrm.vec[2] = 724
     P2 = env.get_object('P2')
-    # P2.locate(rpfrm, world=True)
-    
-    afrm,gfrm,width = place_plan(P2)
+    if recognition:
+        rpfrm = detect(hand='right', zmin=680, zmax=710, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        rpfrm.vec[2] = 726
+
+        P2.locate(rpfrm, world=True)
+
+    s1, s2 = place_plan(P2)
     jts = 'rarm'
     try:
+        afrm,gfrm,rwidth = s1
         rasol = r.ik(afrm, joints=jts)[0]
         rgsol = r.ik(gfrm, joints=jts)[0]
     except:
-        warn('ik failed, right arm')
-        return
+        try:
+            afrm,gfrm,rwidth = s2
+            rasol = r.ik(afrm, joints=jts)[0]
+            rgsol = r.ik(gfrm, joints=jts)[0]
+        except:
+            warn('ik failed, right arm')
+            return
 
     r.set_joint_angles(rasol, joints='rarm')
-    sync(joints='rarm')
+    sync(joints='rarm', duration=tms['place'])
     r.set_joint_angles(rgsol, joints='rarm')
-    sync(joints='rarm')
+    sync(joints='rarm', duration=tms['pregrasp'])
 
-    for w in [38,40,46,80]:    
+    for w in [38,40,46,80]:
         r.grasp(w, hand='right')
+        sync(joints='rhand', duration=0.2)
+
+    r.set_joint_angles(rasol, joints='rarm')
+    sync(joints='rarm', duration=tms['pregrasp'])
 
     f = r.fk(arm='left')*FRAME(xyzabc=[0,0,0,0,0,pi/2])
     r.set_joint_angles(r.ik(f,joints='larm')[0], joints='larm')
     f = FRAME(xyzabc=[180,-160,1000,pi,0,pi/2])
     r.set_joint_angles(r.ik(f, joints='rarm')[0], joints='rarm')
-    sync(joints='torso_arms')
-    
-    f = FRAME(xyzabc=[180,-80,1000,pi,0,pi/2])
+    sync(joints='torso_arms', duration=tms['pick'])
+
+    f = FRAME(xyzabc=[180,-90,1000,pi,0,pi/2])
     r.set_joint_angles(r.ik(f, joints='rarm')[0], joints='rarm')
-    sync(joints='rarm')
+    sync(joints='rarm', duration=tms['pick'])
     r.grasp(34)
-    sync(joints='rhand')
+    sync(joints='rhand', duration=0.2)
     r.grasp(80, hand='left')
-    sync(joints='lhand')
+    sync(joints='lhand', duration=0.2)
 
     f = FRAME(xyzabc=[180,-160,1000,pi,0,pi/2])
     r.set_joint_angles(r.ik(f, joints='rarm')[0], joints='rarm')
-    sync(joints='rarm')
+    sync(joints='rarm', duration=tms['transport'])
 
     jts = 'rarm'
     x,y = pocketposs_dual[1] # right
-    f = FRAME(xyzabc=[x, y, 975,0,-pi/2,0])
+    f = FRAME(xyzabc=[x, y, 1050,0,-pi/2,0])
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
-    sync(joints='rarm')
+    sync(joints='rarm', duration=tms['transport'])
 
-    #rpfrm = detect(hand='right', zmin=680)
-    #rpfrm.vec[2] = 724
     P1 = env.get_object('P1')
-    # P1.locate(rpfrm, world=True)
-    
-    afrm,gfrm,width = place_plan(P1)
+    if recognition:
+        rpfrm = detect(hand='right', zmin=680, zmax=710, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        rpfrm.vec[2] = 726
+        P1.locate(rpfrm, world=True)
+
+    s1, s2 = place_plan(P1)
     jts = 'rarm'
     try:
+        afrm,gfrm,rwidth = s1
         rasol = r.ik(afrm, joints=jts)[0]
         rgsol = r.ik(gfrm, joints=jts)[0]
     except:
-        warn('ik failed, right arm')
-        return
+        try:
+            afrm,gfrm,rwidth = s2
+            rasol = r.ik(afrm, joints=jts)[0]
+            rgsol = r.ik(gfrm, joints=jts)[0]
+        except:
+            warn('ik failed, right arm')
+            return
 
     r.set_joint_angles(rasol, joints='rarm')
-    sync(joints='rarm')
+    sync(joints='rarm', duration=tms['place'])
     r.set_joint_angles(rgsol, joints='rarm')
-    sync(joints='rarm')
+    sync(joints='rarm', duration=tms['pregrasp'])
 
-    for w in [38,40,46,80]:    
+    for w in [38,40,46,80]:
         r.grasp(w, hand='right')
-    
+        sync(duration=0.2)
+
+    r.set_joint_angles(rasol, joints='rarm')
+    sync(joints='rarm', duration=tms['pregrasp'])
+
+    preapproach_dual()
+
 
 def pick_and_place(n=1):
     preapproach(0)
@@ -671,11 +715,11 @@ def dual_arm_pick_and_place_plan(oname00='A0', oname01='A2',
 
     jts = 'rarm'
     x,y = pocketposs_dual[3] # right
-    f = FRAME(xyzabc=[x, y, 975,0,-pi/2,0])
+    f = FRAME(xyzabc=[x, y, 1050,0,-pi/2,0])
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
     jts = 'larm'
     x,y = pocketposs_dual[0] # left
-    f = FRAME(xyzabc=[x, y, 975,0,-pi/2,0])
+    f = FRAME(xyzabc=[x, y, 1050,0,-pi/2,0])
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
     q1 = r.get_joint_angles(joints='torso_arms')
     traj = pl.make_plan(q0, q1, joints='torso_arms')
