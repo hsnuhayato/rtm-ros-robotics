@@ -57,26 +57,49 @@ class MPlanEnv:
                 self.delete_object(obj.name)
 
     def delete_object(self, name_or_obj):
+        def delete_object_aux(obj):
+            print 'delete ', obj
+            if obj == None:
+                return
+
+            # delete all children
+            if isinstance(obj, CoordinateObjectWithName):
+                for cobj in obj.children:
+                    delete_object_aux(cobj)
+
+            try:
+                obj.set_visible(False)
+            except:
+                pass
+
+            self.robot.cobj_pairs = [p for p in self.robot.cobj_pairs if p[0] != obj and p[1] != obj]
+            self.scene_objects.remove(obj)
+
         if type(name_or_obj) == str:
-            obj = self.get_object(name)
+            obj = self.get_object(name_or_obj)
         else:
             obj = name_or_obj
 
-        # delete all children
-        delete_candidate = [obj]
-        for o in self.scene_objects:
-            if o.ancestor(obj) and o != obj:
-                delete_candidate.append(o)
+        if obj == None:
+            return
 
-        for o in delete_candidate:
-            if isinstance(o, CoordinateObject):
-                o.vframe.set_visible(False)
-                #o.vbody.frame.set_visible(False)
-                # remove from collision list
-                self.robot.cobj_pairs = [p for p in self.robot.cobj_pairs if p[0] != o and p[1] != o]
+        delete_object_aux(obj)
+        obj.parent.children.remove(obj)
+        
+        # delete_candidate = [obj]
+        # for o in self.scene_objects:
+        #     if o.ancestor(obj) and o != obj:
+        #         delete_candidate.append(o)
+
+        # for o in delete_candidate:
+        #     if isinstance(o, CoordinateObject):
+        #         o.vframe.set_visible(False)
+        #         #o.vbody.frame.set_visible(False)
+        #         # remove from collision list
+        #         self.robot.cobj_pairs = [p for p in self.robot.cobj_pairs if p[0] != o and p[1] != o]
                 
-                self.scene_objects.remove(o)
-                # del self.scene_objects[name]
+        #         self.scene_objects.remove(o)
+        #         # del self.scene_objects[name]
 
 
     def show_frames(self):

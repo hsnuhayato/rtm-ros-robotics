@@ -33,6 +33,9 @@ class CoordinateObjectWithName(CoordinateObject):
         else:
             self.set_trans(frame)
 
+    def set_visible(self, true_or_false):
+        self.vbody.vframe.set_visible(true_or_false)
+
     def trace(self):
         pass
 
@@ -157,7 +160,8 @@ class CoordinateObjects(CoordinateObjectWithName):
         self.coords.append(co)
 
     def set_visible(self, true_or_false):
-        pass
+        for co in self.coords:
+            co.vframe.set_visible(False)
 
 
 ##
