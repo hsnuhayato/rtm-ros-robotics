@@ -121,7 +121,12 @@ def gen_collision_body(obj):
     if obj.__class__ == LinkObject:
         return gen_cbody_link(obj)
     elif obj.__class__ == PartsObjectWithName:
-        return gen_cbody(obj)
+        try:
+            return gen_cbody(obj)
+        except:
+            return None
+    elif obj.__class__ == KinbodyObject:
+        return gen_cbody(obj)        
 
 def in_collision_pair(obj1, obj2, cache):
     if obj1.cb == None or obj2.cb == None:
@@ -151,6 +156,22 @@ def in_collision_pair(obj1, obj2, cache):
         return True
     else:
         return False
+
+def in_collision_pair_parts(obj1, obj2, cache):
+    if in_collision_pair(obj1, obj2, cache):
+        return True
+    for cobj1 in obj1.children:
+        if isinstance(cobj1, KinbodyObject):
+            for cobj2 in obj2.children:
+                if in_collision_pair(cobj1, cobj2, cache):
+                    return True
+            if in_collision_pair(cobj1, obj2, cache):
+                return True
+    for cobj2 in obj2.children:
+        if isinstance(cobj2, KinbodyObject):
+            if in_collision_pair(cobj2, obj1, cache):
+                return True
+    return False
 
 
 class VRobot(JointObject):
@@ -239,10 +260,15 @@ class VRobot(JointObject):
             self.add_collision_pair(lnk, obj)
 
     def add_collision_pair(self, obj1, obj2):
-        if not obj1.cb:
-            obj1.cb = gen_collision_body(obj1)
-        if not obj2.cb:
-            obj2.cb = gen_collision_body(obj2)
+        obj1.cb = gen_collision_body(obj1)
+        for cobj in obj1.children:
+            if isinstance(cobj, KinbodyObject) and (not cobj.cb):
+                cobj.cb = gen_collision_body(cobj)
+        obj2.cb = gen_collision_body(obj2)
+        for cobj in obj2.children:
+            if isinstance(cobj, KinbodyObject) and (not cobj.cb):
+                cobj.cb = gen_collision_body(cobj)
+
         if not (obj1,obj2) in self.cobj_pairs:
             self.cobj_pairs.append((obj1, obj2))
 
@@ -273,10 +299,10 @@ class VRobot(JointObject):
     def in_collision(self, check_all=False):
         cache = {}
         for l1,l2 in self.clink_pairs:
-            if in_collision_pair(l1, l2, cache):
+            if in_collision_pair_parts(l1, l2, cache):
                 return True
         for obj1, obj2 in self.cobj_pairs:
-            if in_collision_pair(obj1, obj2, cache):
+            if in_collision_pair_parts(obj1, obj2, cache):
                 return True
         return False
 

@@ -15,6 +15,7 @@ class CoordinateObjectWithName(CoordinateObject):
         CoordinateObject.__init__(self)
         self.name = name
         self.vframe.resize(20.0) # make the arrows visible
+        self.children = []
 
     def __repr__(self):
         return '<%s %s>'%(self.__class__, self.name)
@@ -26,7 +27,7 @@ class CoordinateObjectWithName(CoordinateObject):
         #CoordinateObject.__del__(self)
         self.vframe.set_visible(False)
 
-    def locate(self, frame, world=False):
+    def locate(self, frame, world=True):
         if world:
             self.set_trans((-self.parent.where())*frame)
         else:
@@ -35,24 +36,48 @@ class CoordinateObjectWithName(CoordinateObject):
     def trace(self):
         pass
 
+class KinbodyObject(CoordinateObjectWithName):
+    def __init__(self, vbody=None, name=None) :
+        CoordinateObjectWithName.__init__(self, name)
+        if vbody:
+            self.set_vbody(vbody)
 
-class PartsObjectWithName(PartsObject):
-    def __init__(self,
-                 vbody=visual.box(length=10,height=10,width=10,
-                                  color=[0,0,1]),
-                 name=None):
-        PartsObject.__init__(self, vbody)
+        self.cb = None
+        self.vframe.resize(1.0)
+
+    def set_vbody(self, vbody):
+        self.vbody = vbody
+        self.vbody.frame = self.vframe
+
+# CoordinateObject
+# -> CoordinateObjectWithName
+#   -> KinbodyObject
+#   -> PartsObjectWithName
+#    (-> LinkObject) 
+#     -> SensorObject
+#   -> JointObject
+
+class PartsObjectWithName(CoordinateObjectWithName):
+    def __init__(self, vbody=None, name=None):
+        CoordinateObjectWithName.__init__(self, name)
+        if vbody :
+            self.set_vbody(vbody)
+        
         self.name = name
         self.cb = None
         self.vframe.resize(20.0)
 
+    def set_vbody(self, vbody):
+        self.vbody = vbody
+        self.vbody.frame = self.vframe
+
     def __repr__(self):
-        return '<%s %s, %s>'%(self.__class__, self.name, self.vbody)
+        return '<%s %s>'%(self.__class__, self.name)
 
     def __str__(self):
         return self.__repr__()
 
-    def locate(self, frame, world=False):
+    def locate(self, frame, world=True):
         if world:
             self.set_trans((-self.parent.where())*frame)
         else:
@@ -77,6 +102,7 @@ class LinkObject:
         self.name = name
         self.shapes = shapes
         self.cb = None
+        self.children = []
 
     def __repr__(self):
         return '<Link %s>'%self.name
@@ -94,12 +120,11 @@ class LinkObject:
     #     self.attached_joint.affix(parent, frm)
 
 
-class JointObject(CoordinateObject):
+class JointObject(CoordinateObjectWithName):
     def __init__(self, id_, name, jaxis, reltrans,
                  ulimit=0, llimit=0, uvlimit=0, lvlimit=0):
-        CoordinateObject.__init__(self)
+        CoordinateObjectWithName.__init__(self, name)
         self.id = id_
-        self.name = name
         self.jaxis = jaxis
         self.reltrans = reltrans
         self.ulimit = ulimit

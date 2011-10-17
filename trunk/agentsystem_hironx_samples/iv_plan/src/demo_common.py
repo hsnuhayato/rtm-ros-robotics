@@ -15,7 +15,6 @@ from csplan import *
 
 if real_robot:
     from real_hiro import *
-    import rospy
     rr = RealHIRO()
 else:
     rr = None
@@ -67,139 +66,6 @@ def sync(duration=4.0, joints='all', wait=True, waitkey=True):
             time.sleep(duration)
 
 
-def detect(name='box0'):
-    if rr:
-        Tleye_cb = rr.detect(camera='leye')
-        bl,bh,bw = 97,66,57
-        Tcb_box = FRAME(xyzabc=[12,-8,-bw/2.0,0,0,pi])
-        Tleye_box = Tleye_cb*Tcb_box
-        r.set_joint_angles(rr.get_joint_angles())
-        print 'leye->target:', Tleye_box
-        Twld_box = r.get_link('HEAD_JOINT1_Link').where()*r.Thd_leye*Tleye_box
-        print 'world->target:', Twld_box
-
-        # 認識位置の可視化
-        env.delete_object(name)
-        bx = visual.box(length=bl, height=bh, width=bw, color=(1,0,1))
-        obj = PartsObjectWithName(vbody=bx,name=name)
-        env.insert_object(obj, Twld_box, env.get_world())
-
-        return Twld_box
-    else:
-        obj = env.get_object(name)
-        if obj:
-            frm2 = obj.where()
-            print "world->target:", frm2
-            return frm2
-        else:
-            print "not detected"
-            return None
-
-
-def detect_rhand():
-    '''ARマーカが貼られた箱の認識(複数対応)'''
-    if rr:
-        res = rr.detect(camera='rhand')
-        bl,bh,bw = 97,66,57
-        Tmk_box = FRAME(xyzabc=[0,0,-bh/2.0,pi/2,0,0])
-        frms = []
-        r.set_joint_angles(rr.get_joint_angles())
-        for objnum,Tcam_mk in res:
-            Tcam_box = Tcam_mk*Tmk_box
-            print 'rhand->target:', Tcam_box
-            Twld_box = r.get_link('RARM_JOINT5_Link').where()*r.Trh_cam*Tcam_box
-            print 'world->target:', Twld_box
-            frms.append((objnum,Twld_box))
-            # 認識位置の可視化
-            name = 'box'+str(objnum)
-            env.delete_object(name)
-            bx = visual.box(length=bl, height=bh, width=bw, color=(1,0,1))
-            obj = PartsObjectWithName(vbody=bx,name=name)
-            env.insert_object(obj, Twld_box, env.get_world())
-
-        return frms
-    else:
-        # box*という名前の物体を検出する
-        # *の部分がマーカ番号
-        def detected(obj):
-            x,y,z = obj.where().vec
-            return z > 700 and re.match('box*', obj.name)
-
-        detected_objs = [x for x in env.get_objects() if detected(x)]
-        return [(int(re.sub('box', '', x.name)), x.where()) for x in detected_objs]
-
-
-def detect_rhand2():
-    '''ARマーカが貼られた箱の認識(複数対応)'''
-    if rr:
-        res = rr.detect(camera='rhand')
-        bl,bh,bw = 97,66,57
-        Tmk_box = FRAME(xyzabc=[0,0,-bw/2.0,0,0,0])
-        frms = []
-        r.set_joint_angles(rr.get_joint_angles())
-        for objnum,Tcam_mk in res:
-            Tcam_box = Tcam_mk*Tmk_box
-            print 'rhand->target:', Tcam_box
-            Twld_box = r.get_link('RARM_JOINT5_Link').where()*r.Trh_cam*Tcam_box
-            print 'world->target:', Twld_box
-            frms.append((objnum,Twld_box))
-            # 認識位置の可視化
-            name = 'box'+str(objnum)
-            env.delete_object(name)
-            bx = visual.box(length=bl, height=bh, width=bw, color=(1,0,1))
-            obj = PartsObjectWithName(vbody=bx,name=name)
-            env.insert_object(obj, Twld_box, env.get_world())
-
-        return frms
-    else:
-        # box*という名前の物体を検出する
-        # *の部分がマーカ番号
-        def detected(obj):
-            x,y,z = obj.where().vec
-            return z > 700 and re.match('box*', obj.name)
-
-        detected_objs = [x for x in env.get_objects() if detected(x)]
-        return [(int(re.sub('box', '', x.name)), x.where()) for x in detected_objs]
-
-
-def look_for_boxes(name='box0'):
-    '''右手ハンドの向きを変えて箱（マーカ）を探す'''
-    f0 = r.fk()
-    objfrms = [None,None]
-    for i in range(1,2)+range(2,-4,-1):
-        f = f0 * FRAME(xyzabc=[0,0,0,0,0,pi/16*i])
-        js = r.ik(f)[0]
-        r.set_arm_joint_angles(js)
-        sync(duration=1.5)
-
-        for objnum, objfrm in detect_rhand():
-            print 'marker %d found'%objnum
-            if objnum < 2:
-                objfrms[objnum] = objfrm
-                print objfrms
-            if objfrms[0] and objfrms[1]:
-                return objfrms
-    return None
-
-
-def look_for_boxes2(num):
-    '''右手ハンドの向きを変えて箱（マーカ）を探す'''
-    f0 = r.fk()
-    objfrms = [None,None]
-    for i in range(1,2)+range(2,-4,-1):
-        f = f0 * FRAME(xyzabc=[0,0,0,0,0,pi/16*i])
-        js = r.ik(f)[0]
-        r.set_arm_joint_angles(js)
-        sync(duration=1.5)
-
-        for objnum, objfrm in detect_rhand2():
-            print 'marker %d found'%objnum
-            if objnum == num:
-                print objfrm
-                return objfrm
-    return None
-
-
 # def release(hand='right', width=80, unfixobj=True,name='box0'):
 #     r.grasp(width=width, hand=hand)
 #     if unfixobj:
@@ -219,6 +85,7 @@ def affix(obj, hand='right'):
     else:
         handjnt = r.get_joint('LARM_JOINT5')
     reltf = (-handjnt.where())*obj.where()
+    obj.parent.children.remove(obj)
     obj.unfix()
     obj.affix(handjnt, reltf)
 
@@ -226,7 +93,9 @@ def affix(obj, hand='right'):
 def unfix(obj, hand='right'):
     wldfrm = obj.where()
     obj.unfix()
-    obj.affix(env.get_world(), wldfrm)
+    wld = env.get_world()
+    wld.children.append(obj)
+    obj.affix(wld, wldfrm)
 
 
 def move_arm_plan(p1, joints='rarm'):
@@ -351,9 +220,9 @@ def objtype(obj):
 def obj_in_hand(hand='right'):
     prefix = 'R' if hand == 'right' else 'L'
     handlinks = [r.get_link('%sHAND_JOINT%d_Link'%(prefix, n)) for n in [1,3]]
-    for obj in env.get_objects('A|B'):
+    for obj in env.collidable_objects:
         for l in handlinks:
-            if in_collision_pair(l, obj, {}):
+            if in_collision_pair_parts(l, obj, {}):
                 warn('grab %s'%obj)
                 return obj
     warn('failed to grab')
@@ -367,7 +236,7 @@ def grab(hand='right'):
     r.grabbed_obj[hand] = obj
     affix(obj, hand=hand)
     r.grasp_collision_object(obj, hand=hand)
-    for obj2 in env.get_objects('table top|pallete side|A|B'):
+    for obj2 in env.collidable_objects:
         if obj.name != obj2.name:
             r.add_collision_pair(obj2, obj)
     return True
@@ -381,70 +250,8 @@ def release(hand='right'):
     r.grabbed_obj[hand] = None
     unfix(obj, hand=hand)
     r.release_collision_object(obj, hand=hand)
-    for obj2 in env.get_objects('table top|pallete side|A|B'):
+    for obj2 in env.collidable_objects:
         if obj.name != obj2.name:
             r.remove_collision_pair(obj2, obj)
     return True
-
-
-def graspplan(objtype, objfrm, long_side=False):
-    if objtype == 1:
-        if long_side:
-            objfrm = objfrm * FRAME(xyzabc=[0,0,0,0,0,pi/2])
-            handwidth = 45
-        else:
-            handwidth = 35
-        gfrm = objfrm*(-r.Twrist_ef)
-        afrm = FRAME(gfrm)
-        afrm.vec[2] += 40
-    else:
-        handwidth = 25
-        objfrm = objfrm * FRAME(vec=[0,0,58-15])
-        gfrm = objfrm*(-r.Twrist_ef)
-    afrm = FRAME(gfrm)
-    afrm.vec[2] += 40
-
-    return afrm,gfrm,handwidth
-
-
-def request_next(afrm, gfrm, handwidth):
-    return afrm*FRAME(xyzabc=[0,0,0,pi,0,0]), gfrm*FRAME(xyzabc=[0,0,0,pi,0,0]), handwidth
-
-
-def placeplan(objtype, plcfrm):
-    gfrm = plcfrm*(-r.Twrist_ef)
-    if objtype == 1:
-        gfrm.vec[2] += 28/2
-    else:
-        gfrm.vec[2] += (58-15)
-    afrm = FRAME(gfrm)
-    afrm.vec[2] += 40
-    return afrm,gfrm
-
-
-def reset_parts():
-    def reset1(nm, pose):
-        o = env.get_object(nm)
-        o.unfix()
-        o.affix(env.get_object('table'), FRAME(xyzabc=pose))
-
-    for i,pose in enumerate([[-260,-50,714,0,0,pi/6],
-                             [-170,100,714,0,0,-pi/6],
-                             [-250,190,714,0,0,0],
-                             [-120,-10,714,0,0,pi/4]]):
-        reset1('A'+str(i), pose)
-    for i,pose in enumerate([[-160,210,700,0,0,0],
-                             [-120,-70,700,0,0,0]]):
-        reset1('B'+str(i), pose)
-
-def reset_parts_demo():
-    def reset1(nm, pose, parent='table'):
-        o = env.get_object(nm)
-        o.unfix()
-        o.affix(env.get_object(parent), FRAME(xyzabc=pose))
-
-    reset1('A0', [-260,-50,714,0,0,pi/6])
-    reset1('A2', [-250,190,714,0,0,0])
-    reset1('P0', [40,40,20,0,0,0], parent='pallete0')
-    reset1('P3', [-40,-40,20,0,0,0], parent='pallete0')
 
