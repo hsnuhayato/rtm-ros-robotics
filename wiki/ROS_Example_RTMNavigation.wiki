@@ -195,7 +195,7 @@ rosrun rviz rviz
 以下にに全体のシステム図を紹介する．
 　上部がRTM, 下部がROSの世界に別れており，MobileRobotROSBridgeCompを介してメッセージをやりとりしている．
 
-[http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_system_configuration.odp http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_system_configuration.png]
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_system_configuration.pdf http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_system_configuration.png]
 
 下図にはWindows機のプログラムを立ち上げた際のEclipseの画面を載せた．上部はRTMのみ，下部はRTM+ROSブリッジ時であり，ブリッジ時にMobileRobotROSBridgeCompが立ち上がり，右図（Rviz, ROSのノードのvisualizeしたもの）のようにROSのネットワーク内にRTMのメッセージを流すノードが作られる．
 
