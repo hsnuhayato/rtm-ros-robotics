@@ -63,5 +63,11 @@ Ubuntuの場合，公式ページにおいてあるEclipse3.4.2の全部入り�
 = rtc-tool =
 
 = agentsystem_hironx_samples =
+mkdir -p ~/prog/hironx
+cd ~/prog/hironx
+svn co http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_hironx_samples
+
+sudo aptitude install ros-diamondback-ccny-vision
+
 
 = OpenRAVE =
