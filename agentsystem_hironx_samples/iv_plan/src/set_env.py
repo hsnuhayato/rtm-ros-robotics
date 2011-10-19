@@ -5,7 +5,7 @@ import sys
 from os import path
 
 real_robot = False
-ros_available = False
+ros_available = True
 
 ivpkgdir = os.path.abspath('../..')
 ivpkgs = ['/iv_plan','/iv_idl','/rtc_handle','/rmrc_geo_model']

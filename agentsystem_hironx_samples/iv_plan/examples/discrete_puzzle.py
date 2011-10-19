@@ -54,6 +54,7 @@ class PhPiece:
     def valid_piece_configs(self):
         qs = []
         ps = []
+        fs = []
         for pos in poss:
             for ori in oris:
                 shp = self.put(pos, ori)
@@ -64,7 +65,8 @@ class PhPiece:
                     if not (cube in ps):
                         qs.append(shp)
                         ps.append(cube)
-        return zip(qs,ps)
+                        fs.append((pos,ori))
+        return zip(qs,ps,fs)
 
     def put(self, pos, ori):
         ex, ey = ori
@@ -84,7 +86,7 @@ def piece_inside(poss):
         return reduce(operator.__and__, map(lambda x: x>=0 and x<=2, pos))
     return reduce(operator.__and__, map(pos_inside, poss))
 
-def put(q, p, state, piece):
+def put(q, p, f, state, piece):
     newstate = copy(state)
     for pos in q:
         x,y,z = pos
@@ -96,28 +98,30 @@ def put(q, p, state, piece):
     return newstate
 
 nsols = 0
+sols = []
 
 def print_solution(nsols, sol):
     print 'solution: %d '%nsols
     for i,p in sol:
         print ' ', p,
-        print p.qs[i][0]
+        print p.qs[i][2]
 
 class SolutionsFound(Exception):
     def __init__(self):
         pass
 
 def solve(pieces, state, parsol=[], maxsolutions=10, debug=False):
+    global nsols, sols
     if pieces == []:
-        global nsols
         nsols += 1
+        sols.append(parsol)
         print_solution(nsols, parsol)
         if nsols >= maxsolutions:
             raise SolutionsFound()
         return None
     piece = pieces[0]
-    for i,(q,p) in enumerate(piece.qs):
-        newstate = put(q, p, state, piece)
+    for i,(q,p,f) in enumerate(piece.qs):
+        newstate = put(q, p, f, state, piece)
         if not newstate == None:
             if debug:
                 print 'put: ', piece
@@ -129,19 +133,28 @@ def solve(pieces, state, parsol=[], maxsolutions=10, debug=False):
 
 # definition of pieces
 pieces = [PhPiece(1, 'brown', [[0,0,0],[0,1,0],[1,0,0],[1,1,0]]),
-          PhPiece(2, 'aqua', [[0,0,0],[0,1,0],[0,2,0],[1,1,0]]),
-          PhPiece(3, 'yellow', [[0,0,0],[0,1,0],[0,2,0],[1,0,0]]),
-          PhPiece(4, 'red', [[0,0,0],[1,0,0],[1,1,0],[2,1,0]]),
-          PhPiece(5, 'green', [[0,0,0],[0,1,0],[1,0,0],[0,0,1]]),
-          PhPiece(6, 'purple', [[0,0,0],[1,0,0],[1,1,0],[0,0,1]]),
-          PhPiece(7, 'yellow-green', [[0,0,0],[0,1,0],[1,0,0]])]
+         PhPiece(2, 'aqua', [[0,0,0],[0,1,0],[0,2,0],[1,1,0]]),
+         PhPiece(3, 'yellow', [[0,0,0],[0,1,0],[0,2,0],[1,0,0]]),
+         PhPiece(4, 'red', [[0,0,0],[1,0,0],[1,1,0],[2,1,0]]),
+         PhPiece(5, 'green', [[0,0,0],[0,1,0],[1,0,0],[0,0,1]]),
+         PhPiece(6, 'purple', [[0,0,0],[1,0,0],[1,1,0],[0,0,1]]),
+         PhPiece(7, 'yellow-green', [[0,0,0],[0,1,0],[1,0,0]])]
+# pieces = [PhPiece(1, 'brown', [[0,0,0],[0,1,0],[1,0,0],[1,1,0]]),
+#          PhPiece(2, 'aqua', [[0,0,0],[0,1,0],[0,2,0],[1,1,0]]),
+#          PhPiece(3, 'yellow', [[0,0,0],[0,1,0],[0,2,0],[1,0,0]]),
+#          PhPiece(4, 'red', [[0,0,0],[1,0,0],[1,1,0],[2,1,0]]),
+#          PhPiece(5, 'green', [[0,0,0],[0,1,0],[1,0,0],[0,0,1]]),
+#          PhPiece(6, 'purple', [[0,0,0],[1,0,0],[1,1,0],[0,0,1]]),
+#          PhPiece(7, 'yellow-green', [[0,0,0],[0,1,0],[1,0,0]])]
+
 
 def run(n=10, debug=False):
-    global nsols
+    global nsols, sols
     nsols = 0
+    sols = []
     t1 = time.time()
     try:
-        solve(pieces, zeros([3,3,3]), maxsolutions=n, debug=debug)
+        solve(pieces, zeros([3,3,3]), parsol=[], maxsolutions=n, debug=debug)
     except:
         pass
     t2 = time.time()
