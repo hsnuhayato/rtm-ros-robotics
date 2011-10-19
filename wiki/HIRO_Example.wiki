@@ -19,7 +19,7 @@ http://openrave.org/en/main/openravepy/examples.cubeassembly.html
 実行方法
 
 {{{
-openrave.py --example cubeassembly
+openrave.py --example cubeassembly --collision=bullet
 }}}
 
 最初の実行はデータベースの作成が必要ので20分ぐらいかかるかもしれません。
