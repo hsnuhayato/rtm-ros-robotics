@@ -101,16 +101,17 @@ class MATRIX(list) :
   def rot_axis(self) :
     axis = VECTOR()
     co=(self[0][0]+self[1][1]+self[2][2]-1.0)/2.0;
-    if co <= -1.0 :
-      angl = pi;
-      tmp=min(1.0,max(0,(self[0][0] + 1.0)/2.0))
-      axis[0] = sqrt(tmp)
-      tmp=min(1.0,max(0,(self[1][1] + 1.0)/2.0))
-      axis[1] = sign(self[0][1])*sqrt(tmp)
-      tmp=min(1.0,max(0,(self[2][2] + 1.0)/2.0))
-      axis[2] = sign(self[0][2])*sqrt(tmp)
-      si=0.0
-    elif co < 1.0 :
+    # if co <= -1.0 :
+    #   angl = pi;
+    #   tmp=min(1.0,max(0,(self[0][0] + 1.0)/2.0))
+    #   axis[0] = sqrt(tmp)
+    #   tmp=min(1.0,max(0,(self[1][1] + 1.0)/2.0))
+    #   axis[1] = sign(self[0][1])*sqrt(tmp)
+    #   tmp=min(1.0,max(0,(self[2][2] + 1.0)/2.0))
+    #   axis[2] = sign(self[0][2])*sqrt(tmp)
+    #   si=0.0
+    # elif co < 1.0 :
+    if co < 1.0:
       axis[0] = self[2][1] - self[1][2]
       axis[1] = self[0][2] - self[2][0]
       axis[2] = self[1][0] - self[0][1]
