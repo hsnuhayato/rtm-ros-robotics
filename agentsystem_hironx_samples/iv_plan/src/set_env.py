@@ -7,8 +7,8 @@ from os import path
 real_robot = False
 ros_available = True
 
-# ivpkgdir = os.path.abspath('../..')
-ivpkgdir = os.environ['IV_PKG_DIR']
+ivpkgdir = os.path.abspath('../..')
+#ivpkgdir = os.environ['IV_PKG_DIR']
 ivpkgs = ['/iv_plan','/iv_idl','/rtc_handle','/rmrc_geo_model']
 
 if ros_available:
