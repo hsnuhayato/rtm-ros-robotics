@@ -76,3 +76,9 @@ roscd iv_plan
 rosmake --rosdep-install
 
 = OpenRAVE =
+
+{{{
+sudo add-apt-repository ppa:openrave/testing
+sudo apt-get update
+sudo apt-get install openrave
+}}}
