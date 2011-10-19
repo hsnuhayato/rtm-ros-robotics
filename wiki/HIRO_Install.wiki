@@ -71,6 +71,8 @@ svn co http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_hironx_sampl
 
 sudo aptitude install ros-diamondback-ccny-vision
 
+echo 'export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$HOME/prog/hironx/agentsystem_hironx_samples' >> ~/.bashrc
+
 roscd iv_plan
 
 rosmake --rosdep-install
