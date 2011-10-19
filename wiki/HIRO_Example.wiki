@@ -3,7 +3,9 @@
 = パズル =
 
 roscd iv_plan/examples
-ipython puzzle.py
-> demo()
-> demo(jts='torso_rarm')
 
+ipython puzzle.py
+
+> demo()
+
+> demo(jts='torso_rarm')
