@@ -62,5 +62,9 @@ Ubuntuの場合，公式ページにおいてあるEclipse3.4.2の全部入り�
 }}}
 と変更して保存する．
 
-Windowsの場合，全部入りのパッケージがあるので，それをダウンロードし，任意の場所で解凍する．
-http://www.openrtm.org/pub/OpenRTM-aist/tools/1.0.0/eclipse342_rtmtools100release_win32_ja.zip
+
+= VPython環境 =
+
+ > svn co http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_hironx_samples/
+
+= OpenRAVE =
