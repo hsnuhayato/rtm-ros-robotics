@@ -91,7 +91,7 @@ sudo apt-get install openrave
 wget http://jaist.dl.sourceforge.net/project/opende/ODE/0.11.1/ode-0.11.1.tar.bz2
 tar xf ode-0.11.1.tar.bz2
 cd ode-0.11.1
- ./configure --disable-asserts --enable-old-trimesh --disable-double-precision --prefix=/usr
+ ./configure --disable-asserts --disable-double-precision --with-trimesh=opcode --enable-new-trimesh --disable-demos --enable-shared --enable-release --enable-malloc --disable-ou --disable-asserts --with-pic --prefix=/usr
 make clean
 make -j4
 sudo make install
