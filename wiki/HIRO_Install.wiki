@@ -1,0 +1,45 @@
+#summary One-sentence summary of this page.
+
+= ROS =
+
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu lucid main" >/etc/apt/sources.list.d/ros-latest.list'
+
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+
+sudo apt-get update
+
+* 重要！！！
+
+electric を diamondback に変更する
+
+sudo apt-get install ros-diamondback-desktop
+
+echo "source /opt/ros/diamondback/setup.bash" >> ~/.bashrc
+
+. ~/.bashrc
+
+
+= RT-middleware =
+
+http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Install
+
+wget http://www.openrtm.org/pub/OpenRTM-aist/cxx/install_scripts/pkg_install100_ubuntu.sh
+
+sudo sh ./pkg_install100_ubuntu.sh
+
+途中，いくつかの質問をたずねられるので，''y'' あるいは ''Y'' を入力しながら完了させる．
+
+次にpython版もインストール．
+ubuntuの場合一括インストールスクリプトを利用．
+
+
+wget http://www.openrtm.org/pub/OpenRTM-aist/python/install_scripts/pkg_install_python_ubuntu.sh
+
+sudo sh ./pkg_install_python_ubuntu.sh
+
+= rtc-tool =
+
+= agentsystem_hironx_samples =
+
+= OpenRAVE =
+
