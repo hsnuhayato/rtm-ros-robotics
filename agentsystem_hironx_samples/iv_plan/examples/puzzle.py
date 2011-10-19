@@ -29,7 +29,7 @@ def setup_puzzle_scene():
     z = ttz + l/2
 
     # generate 7 pieces
-    # dark green piece
+    # green piece
     env.insert_object(generate_piece('green', (0.0, 0.392, 0.0),
                                      [(0,0,0,0,0,0),(0,0,l,0,0,0),(l,0,0,0,0,0),(0,l,0,0,0,0)]),
                       FRAME(xyzabc=[-310,-80,z,0,0,-pi/2]), tbl)
@@ -40,19 +40,19 @@ def setup_puzzle_scene():
     # red piece
     env.insert_object(generate_piece('red', (1.0, 0.0, 0.0),
                                      [(0,0,0,0,0,0),(l,0,0,0,0,0),(l,l,0,0,0,0),(2*l,l,0,0,0,0)]),
-                      FRAME(xyzabc=[-300,-200,z+l,-pi/2,0,0]), tbl)
+                      FRAME(xyzabc=[-310,-180,z+l,-pi/2,0,0])*FRAME(xyzabc=[0,0,0,0,pi/3,0]), tbl)
     # purple piece
     env.insert_object(generate_piece('purple', (0.6, 0.196, 0.8),
                                      [(0,0,0,0,0,0),(l,0,0,0,0,0),(l,l,0,0,0,0),(0,0,l,0,0,0)]),
-                      FRAME(xyzabc=[-180,-150,z,0,-pi/2,0]), tbl)
+                      FRAME(xyzabc=[-160,-130,z,0,-pi/2,0]), tbl)
     # aqua piece
     env.insert_object(generate_piece('aqua', (0.0, 1.0, 1.0),
                                      [(0,0,0,0,0,0),(0,l,0,0,0,0),(0,2*l,0,0,0,0),(l,l,0,0,0,0)]),
-                      FRAME(xyzabc=[-350,-300,z,pi/2,0,0]), tbl)
+                      FRAME(xyzabc=[-330,-280,z,pi/2,0,0]), tbl)
     # brown piece
     env.insert_object(generate_piece('brown', (0.545, 0.27, 0.075),
                                      [(0,0,0,0,0,0),(l,0,0,0,0,0),(l,l,0,0,0,0),(0,l,0,0,0,0)]),
-                      FRAME(xyzabc=[-250,-300,z,0,0,0]), tbl)
+                      FRAME(xyzabc=[-210,-260,z,0,0,0]), tbl)
     # yellow piece
     env.insert_object(generate_piece('yellow', (1.0, 1.0, 0.0),
                                      [(0,0,0,0,0,0),(0,l,0,0,0,0),(0,2*l,0,0,0,0),(l,0,0,0,0,0)]),
@@ -173,7 +173,7 @@ def demo(jts='rarm'):
         pick_piece(obj, jts=jts, hand=hand)
         grab(hand=hand)
         place_piece(obj, jts=jts, hand=hand)
-        release()
+        release(hand=hand)
     r.prepare()
 
 
