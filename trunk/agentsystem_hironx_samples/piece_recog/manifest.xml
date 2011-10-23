@@ -1,0 +1,17 @@
+<package>
+  <description brief="piece_recog">
+
+     piece_recog
+
+  </description>
+  <author>Ryo Hanai</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/piece_recog</url>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+  <depend package="opencv2"/>
+
+</package>
+
+
