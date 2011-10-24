@@ -91,9 +91,9 @@ def start_reading_port(raw_paths, options, tree=None):
 
 #ports = ['Recognition0.rtc:RecognitionResultOut']
 #ports = ['RobotHardware0.rtc:jointStt', 'Flip0.rtc:boxPose']
-ports = ['/hiro014:2809/VisionPC.host_cxt/AppRecog0.rtc:boxPose',
-         '/hiro014:2809/lupus.host_cxt/AppRecog0.rtc:boxPose']
-# ports = ['/hiro014:2809/VisionPC.host_cxt/AppRecog0.rtc:boxPose']
+ports = [nameserver+'/VisionPC.host_cxt/AppRecog0.rtc:boxPose',
+         nameserver+'/lupus.host_cxt/AppRecog0.rtc:boxPose']
+# ports = [nameserver+'/VisionPC.host_cxt/AppRecog0.rtc:boxPose']
 
 # main(argv=[pt])
 # options = {'paths': [], 'verbose': False, 'max': -1, 'modules': [], 'rate': 100.0, 'timeout': -1}

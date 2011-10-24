@@ -4,8 +4,8 @@ import os
 import sys
 from os import path
 
-real_robot = False
-ros_available = True
+real_robot = True
+ros_available = False
 
 ivpkgdir = os.path.abspath('../..')
 #ivpkgdir = os.environ['IV_PKG_DIR']
@@ -37,8 +37,3 @@ def getNameServerFromConf(argv):
     return nameserver
 
 nameserver = getNameServerFromConf(sys.argv)
-
-# if real_robot:
-#     nameserver = 'hiro014'
-# else:
-#     nameserver = 'localhost'

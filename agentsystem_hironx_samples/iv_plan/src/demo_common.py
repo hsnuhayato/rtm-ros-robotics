@@ -4,7 +4,7 @@
 import time
 import re
 
-from set_env import *
+import set_env
 from ivutils import *
 from viewer import *
 import scene_objects
@@ -15,7 +15,7 @@ from csplan import *
 
 if real_robot:
     from real_hiro import *
-    rr = RealHIRO()
+    rr = RealHIRO(set_env.nameserver)
 else:
     rr = None
 
