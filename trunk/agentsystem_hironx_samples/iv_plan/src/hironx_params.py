@@ -69,8 +69,7 @@ Thd_kinectrgb =  FRAME(mat=[[-0.020665791755841132, -0.027054668638523939, 0.999
 
 Thd_kinectdepth = FRAME(xyzabc=[-28.74092948502755, 1.6231065841821675, 202.52593003532405, -pi/2,pi/2,0])*FRAME(xyzabc=[0,0,0,0.05,0,0])
 
-
 Trwrist_ef = FRAME(xyzabc=[-99,0,-5,0,pi/2,0])
 Tlwrist_ef = FRAME(xyzabc=[-99,0,-2,0,pi/2,0])
 
-Tikoffset = FRAME(xyzabc=[-50,0,0,0,-pi/2,0])
+Tikoffset = FRAME(xyzabc=[-50+59,0,0,0,-pi/2,0])

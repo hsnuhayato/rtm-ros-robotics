@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import socket
-import pickle
-import operator
+from hiro_controller import *
 
-from set_env import *
-
-## ROS
 if ros_available:
     import rospy
     import tf
@@ -16,52 +11,33 @@ if ros_available:
     from tf.transformations import *
 ##
 
-
-from numpy import *
-from ivutils import *
-
-from setup_rtchandle import *
-
-class RealHIRO:
-    def __init__(self):
-        self.joint_states = zeros(23)
+class RealHIRO(HIROController):
+    def __init__(self, nameserver):
+        HIROController.__init__(self, nameserver)
         self.rhand_pose_markers = []
         self.lhand_pose_markers = []
         self.kinect_centers = []
         self.kinect_pose_markers = []
 
     def connect(self):
+        HIROController.connect(self)
         if ros_available:
             rospy.init_node('motion_planner')
             rospy.Subscriber('/hiro/rhand/ar_pose_marker', ARMarkers, self.update_rhand_cam)
             rospy.Subscriber('/hiro/lhand/ar_pose_marker', ARMarkers, self.update_lhand_cam)
             rospy.Subscriber('/calc_center', geometry_msgs.msg.PoseStamped, self.update_calc_center)
             rospy.Subscriber('/ar_pose_marker', ARMarkers, self.update_kinect_AR)
-
-            # rospy.Subscriber('/hiro/joint_state', JointState, self.update_joint_state)
             self.listener = tf.TransformListener()
-
-
-        h_rh = get_handle('RobotHardware0.rtc', ns)
-        self.jstt_port = h_rh.outports['jointStt']
-
-
-        # h_rh = get_handle('HIRONXController(Robot)0.rtc', ns)
-        # self.jstt_port = h_rh.outports['q']
 
         # self.h_leyecap = get_handle('leye_capture.rtc', ns)
         # activate([self.h_leyecap])
-
-        #self.h_reyecap = get_handle('reye_capture.rtc', ns)
-        #self.h_rhandcap = get_handle('rhand_capture.rtc', ns)
-        #activate([self.h_leyecap, self.h_reyecap])
+        # self.h_reyecap = get_handle('reye_capture.rtc', ns)
+        # self.h_rhandcap = get_handle('rhand_capture.rtc', ns)
+        # activate([self.h_leyecap, self.h_reyecap])
 
     def __del__(self):
         #deactivate([self.h_leyecap, self.h_reyecap])
         deactivate([self.h_leyecap])
-
-    def update_joint_state(self, joint_state_msg):
-        self.joint_states = joint_state_msg.position
 
     def update_rhand_cam(self, msg):
         if len(msg.markers) > 0:
@@ -105,45 +81,6 @@ class RealHIRO:
         # tnow = rospy.Time.now().to_sec()
         # for cs in self.kinect_centers:
         #     if tnow - .stamp.to_sec() > thre:
-
-    # def read_pose3d(self):
-    #     pose3d = self.bxpose_port.read()
-    #     u = pose3d.position.x
-    #     v = pose3d.position.y
-    #     w = pose3d.position.z
-        
-    #     print 'w=', w
-        
-    #     R = pose3d.orientation.r
-    #     P = pose3d.orientation.p
-    #     Y = pose3d.orientation.y
-
-    #     a = 182
-    #     b = 134
-    #     c = 0
-    #     d = 0
-    #     # e = 190.7
-    #     e = 212.8246
-    #     x = a / 640.0 * (u - 320) + c
-    #     y = b / 480.0 * (v - 240) + d
-    #     z =  e / w
-    #     Tcam_obj = FRAME(xyzabc=[x,y,z,R,P,Y])
-    #     return Tcam_obj        
-
-
-    def read_joint_state(self):
-        data = self.jstt_port.read()
-
-        # not yet used
-        # secs = data.tm.sec
-        # nsecs = data.tm.nsec
-        self.joint_states = reduce(operator.__concat__, data.qState)
-        # self.joint_states = data.data
-        # velocity = reduce(operator.__concat__, data.dqState)
-
-    def get_joint_angles(self):
-        self.read_joint_state() # for RT-middle
-        return self.joint_states
 
     def get_tf(self, from_frm='/leye', to_frm='/checkerboard'):
         tfs = {}
@@ -248,53 +185,3 @@ class RealHIRO:
 
         else:
             print 'specified camera is not supported'
-
-    # def send_head_goal(self, joint_angles):
-    #     js = list(self.joint_states)
-    #     js[0:3] = joint_angles[0:3]
-    #     self.send_goal(js)
-
-    # def send_rarm_goal(self, joint_angles):
-    #     js = list(self.joint_states)
-    #     js[3:9] = joint_angles[0:6]
-    #     self.send_goal(js)
-
-    # def send_rhand_goal(self, joint_angles):
-    #     js = list(self.joint_states)
-    #     js[15:19] = joint_angles[0:4]
-    #     self.send_goal(js)
-
-    def send_goal(self, joint_angless, duration, wait=True):
-        # need to convert from numpy.float64 to float
-        goal = map(lambda joint_angles: map(lambda x: float(x), joint_angles), joint_angless)
-        msg = ('goal', goal, duration, wait)
-        self.send_msg(msg)
-
-    def send_trajectory(self, ps, duration=2.0, arm='right'):
-        traj = []
-        s = 0.001
-        for p in ps:
-            x,y,z = p.vec
-            a,b,c = euler_from_matrix(p.mat, axes='sxyz')
-            # p.mat.abc() = eusler_from_matrix(p.mat, axes='szyx')
-            traj.append(([s*x,s*y,s*z,a,b,c], duration))
-        msg = ('trajectory', traj)
-        self.send_msg(msg, timeout=30.0)
-
-    def send_msg(self, msg, host='192.168.128.253', port = 10103, timeout = 10.0):
-        soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        if timeout > 0.0:
-            soc.settimeout(timeout)
-        soc.connect((host,port))
-        soc.sendall(pickle.dumps(msg))
-        msgstr = soc.recv(4096)
-        msg = pickle.loads(msgstr)
-        print msg
-        soc.close()
-
-# seq.waitInterpolation()
-# seq.setJointAngles(jvs, tm)
-# seq.setJointAngle(jname, jv, tm)
-# seq.isEmpty()
-# seq.clear()
-# seq.clearNoWait()

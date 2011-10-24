@@ -108,6 +108,10 @@ class CSPlanner():
         colored_print('optimize %f[sec]'%self.optimizetm, 'cyan')
         colored_print('collision check %d[times], %f[sec]'%(self.cccnt, self.cctm), 'cyan')
 
+    def try_connect(self, q_start, q_target, joints='rarm'):
+        self.initialize(joints=joints)
+        return self.connect([State(avec=array(q_start))], State(avec=array(q_target))) == 'reached'
+
     def make_plan(self, q_start, q_target, q_targets=[], joints='rarm'):
         self.initialize(joints=joints)
         traj,oneshot = self.search(q_start, q_targets if len(q_targets)>0 else [q_target])
