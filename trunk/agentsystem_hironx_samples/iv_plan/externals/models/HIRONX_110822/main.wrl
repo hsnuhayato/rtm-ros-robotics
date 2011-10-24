@@ -210,7 +210,8 @@ DEF main_withHands Humanoid{
 						 jointAxis 1.0 0.0 0.0 
 						 #  translation -0.0335 0 -0.09 
 						 #translation 0.0 0.0 -0.090
-						 translation -0.040 0.0 -0.090
+						 #translation -0.040 0.0 -0.090
+						 translation -0.099 0.0 -0.090
 						 ulimit [ 2.8448866807507569 ] #  163
 						 llimit [-2.8448866807507569 ] # -163
 						 uvlimit [ 5.2359877559829888 ] #  300
@@ -510,7 +511,8 @@ DEF main_withHands Humanoid{
 						 jointAxis 1.0 0.0 0.0 
 						 #  translation -0.0335 0 -0.09 
 						 #translation 0.0 0.0 -0.090 
-						 translation -0.040 0.0 -0.090 
+						 #translation -0.040 0.0 -0.090 
+						 translation -0.099 0.0 -0.090 
 						 ulimit [ 2.8448866807507569 ] #  163
 						 llimit [-2.8448866807507569 ] # -163
 						 uvlimit [ 5.2359877559829888 ] #  300
