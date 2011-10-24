@@ -4,8 +4,8 @@ import os
 import sys
 from os import path
 
-real_robot = True
-ros_available = False
+real_robot = False
+ros_available = True
 
 ivpkgdir = os.path.abspath('../..')
 #ivpkgdir = os.environ['IV_PKG_DIR']
