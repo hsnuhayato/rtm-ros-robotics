@@ -11,7 +11,7 @@ import OpenRTM_aist
 import RTC
 
 #
-default_modules = ['RTC', 'Img']
+default_modules = ['RTC', 'Img', 'OpenHRP']
 import Img
 #
 
