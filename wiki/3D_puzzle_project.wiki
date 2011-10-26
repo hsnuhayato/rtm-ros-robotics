@@ -110,8 +110,18 @@ vision@VisionPCで、
  * マーカデータファイルは ar_pose/data/4x4 の中にgif,psがあるので、これを印刷して使う。
  * マーカ周囲の白枠は重要。これがないと正しく認識されない。
 
+* 画像の保存（ROS）
+ * rosrun image_view image_view image:=/hiro/rhand/usb_cam/image_raw
+  * ウィンドウ上で右クリック 
+ * rosrun image_view extract_images image:=/hiro/rhand/usb_cam/image_raw
+
 * カメラキャリブレーション
 
+{{{
+ $ rosrun camera_calibration cameracalibrator.py --size 7x10 --square 0.025 image:=/hiro/rhand/usb_cam/image_raw
+}}}
+ * アルポリックA4版ボードの設定
 
 * Kinect
+
  * camera_infoは設定ファイルから読み込めるように作られていないので、openni_nodelet.cppを直接編集して書きこむ (diamondback)
