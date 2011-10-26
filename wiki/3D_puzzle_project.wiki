@@ -111,3 +111,7 @@ vision@VisionPCで、
  * マーカ周囲の白枠は重要。これがないと正しく認識されない。
 
 * カメラキャリブレーション
+
+
+* Kinect
+ * camera_infoは設定ファイルから読み込めるように作られていないので、openni_nodelet.cppを直接編集して書きこむ (diamondback)
