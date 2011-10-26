@@ -6,7 +6,7 @@
  * rostopic, rxgraph, rosrun, roslaunch ...
 
 
-= HIRONX実機の使い方
+= HIRONX実機の使い方 =
  * 起動
   * 本体の電源が先、VisionPCが後
   * 本体の電源を入れるとすぐにビジョンPCの電源を入れて良い
@@ -33,6 +33,37 @@
    * 関節位置指令
   # ikTest (IKのサンプル), ikTest_spline (手先軌道を空間的に滑らかにつなぐサンプル) 
    * これらは手先位置指令
+
+ * 終了手順
+  # gui.pyのウィンドウで、goOffPoseを押して終了姿勢に移動するまで待つ。
+  # 終了姿勢になるとservoOffするかどうか訊かれるので、了解ボタンを押す。
+  # shutdownボタンを押す。
+   * RTC経由で本体QNXのシャットダウン
+   * sshで直接ログインしてshutdownする場合は以下のようにする。
+{{{
+  $ ssh hiro@hiro014
+  $ su
+  # /opt/grx/bin/shutdown.sh 
+  (注意) QNXではshutdownコマンドをリブートしたいときに使う
+}}}
+  # VisionPCの電源を切る
+{{{
+  $ sudo shutdown -h now
+}}}
+
+ * 再起動の手順
+  # ロボット本体の再起動
+{{{
+  $ ssh hiro@hiro014
+  $ su
+  # shutdown
+  ;; ハブの電源供給は止まらないので、再起動のときはVisionPCの再起動は不要
+}}}
+
+ * 保護停止、非常停止
+  * 保護停止は指令値をクリア、解除するとそのまま次の動作を実行できる。
+  * 非常停止はサーボオフする。
+   * 解除後、GUIで一度servoOffボタンをして再度servoOnを押すことで、たいてい復帰できる。復帰できなければ、ロボットを再起動する。
 
 
 = Recognition =
