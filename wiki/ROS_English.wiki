@@ -13,6 +13,18 @@ and install `rtm-ros-robotics` software
 {{{
 rosinstall ~/prog/rtm-ros-robotics /opt/ros/electric http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
+
+For update installed packages 
+{{{
+rosinstall ~/prog/rtm-ros-robotics 
+}}}
+
+Load environment variables used for ROS system
+{{{
+source ~/prog/rtm-ros-robotics/setup.bash
+}}}
+Add this line to your ~/.bashrc
+
 == Build source code ==
 build source code and install related packages
 {{{
