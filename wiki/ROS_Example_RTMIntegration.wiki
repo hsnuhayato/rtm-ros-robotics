@@ -163,10 +163,12 @@ roslaunch mrobot_ros_bridge mrobot_simulator.launch
 として、視点を下に移すと台車ロボットが見えればOK.wiimoteがないと言われる場合は，`aptittude install ros-diamondback-joystick-drivers`とするとよい．
 {{{
 roslaunch hrpsys pa10.launch
+または
+roslaunch openhrp3 pa10.launch
 }}}
-
 としてPA10が画面に表示され動けばOK
 
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/roslaunch_openhrp3_pa10.jpg]
 
 あるいは，
 {{{
