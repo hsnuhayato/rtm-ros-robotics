@@ -69,6 +69,14 @@
   * 非常停止はサーボオフする。
    * 解除後、GUIで一度servoOffボタンをして再度servoOnを押すことで、たいてい復帰できる。復帰できなければ、ロボットを再起動する。
 
+
+= 自分のマシンをHIRONXネットワークに入れる =
+ 
+ * ネットワークを設定する
+ * roscoreの場所を指定する
+  * export ROS_MASTER_URI=http://VisionPC:11311 
+
+
 = HIRONX実機とのインタフェース =
  * 基本的にpython上でrtc-handleを使うか、コマンドラインでrtshellを使う
  * ロボットの関節角の取得
