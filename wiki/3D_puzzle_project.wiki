@@ -38,13 +38,13 @@
   # gui.pyのウィンドウで、goOffPoseを押して終了姿勢に移動するまで待つ。
   # 終了姿勢になるとservoOffするかどうか訊かれるので、了解ボタンを押す。
   # shutdownボタンを押す。
-   * RTC経由で本体QNXのシャットダウン
+   * RTC経由で本体のシャットダウン
    * sshで直接ログインしてshutdownする場合は以下のようにする。
 {{{
   $ ssh hiro@hiro014
   $ su
   # /opt/grx/bin/shutdown.sh 
-  (注意) QNXではshutdownコマンドをリブートしたいときに使う
+  (注意) shutdownコマンドをリブートしたいときに使う
 }}}
   # VisionPCの電源を切る
 {{{
