@@ -125,6 +125,12 @@ vision@VisionPCで、
   * ウィンドウ上で右クリック 
  * rosrun image_view extract_images image:=/hiro/rhand/usb_cam/image_raw
 
+* Pythonプログラムでのセンサデータの受信例
+{{{
+ coming soon ...
+}}}
+
+
 * カメラキャリブレーション
 
 {{{
