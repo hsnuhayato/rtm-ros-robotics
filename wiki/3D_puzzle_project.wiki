@@ -1,0 +1,40 @@
+#summary One-sentence summary of this page.
+
+= Recognition =
+
+* AR marker
+
+* HIRONXハンドカメラでar_poseを起動した状態
+
+/hiro/lhand/ar_pose_marker
+/hiro/lhand/usb_cam/camera_info
+/hiro/lhand/usb_cam/image_raw
+/hiro/lhand/usb_cam/image_raw/compressed
+/hiro/lhand/usb_cam/image_raw/compressed/parameter_descriptions
+/hiro/lhand/usb_cam/image_raw/compressed/parameter_updates
+/hiro/lhand/usb_cam/image_raw/theora
+/hiro/lhand/usb_cam/image_raw/theora/parameter_descriptions
+/hiro/lhand/usb_cam/image_raw/theora/parameter_updates
+/hiro/lhand/visualization_marker
+/hiro/rhand/ar_pose_marker
+/hiro/rhand/usb_cam/camera_info
+/hiro/rhand/usb_cam/image_raw
+/hiro/rhand/usb_cam/image_raw/compressed
+/hiro/rhand/usb_cam/image_raw/compressed/parameter_descriptions
+/hiro/rhand/usb_cam/image_raw/compressed/parameter_updates
+/hiro/rhand/usb_cam/image_raw/theora
+/hiro/rhand/usb_cam/image_raw/theora/parameter_descriptions
+/hiro/rhand/usb_cam/image_raw/theora/parameter_updates
+/hiro/rhand/visualization_marker
+/rosout
+/rosout_agg
+/tf
+
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
