@@ -44,7 +44,7 @@
   $ ssh hiro@hiro014
   $ su
   # /opt/grx/bin/shutdown.sh 
-  (注意) shutdownコマンドをリブートしたいときに使う
+  (注意) shutdownコマンドはリブートしたいときに使う
 }}}
   # VisionPCの電源を切る
 {{{
