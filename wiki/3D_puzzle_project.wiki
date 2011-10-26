@@ -6,6 +6,10 @@
  * rostopic, rxgraph, rosrun, roslaunch ...
 
 
+= RT-middleware how to =
+ * rtshell, rtc-handle, system editor
+
+
 = HIRONX実機の使い方 =
  * 起動
   * 本体の電源が先、VisionPCが後
@@ -64,6 +68,12 @@
   * 保護停止は指令値をクリア、解除するとそのまま次の動作を実行できる。
   * 非常停止はサーボオフする。
    * 解除後、GUIで一度servoOffボタンをして再度servoOnを押すことで、たいてい復帰できる。復帰できなければ、ロボットを再起動する。
+
+= HIRONX実機とのインタフェース =
+ * 基本的にpython上でrtc-handleを使うか、コマンドラインでrtshellを使う
+ * ロボットの関節角の取得
+ * ロボットへの関節角指令の送信
+ * 力センサの値を読む
 
 
 = Recognition =
