@@ -7,10 +7,9 @@ import time
 from demo_common import *
 from setup_rtchandle import *
 
-handcamhost='hiro-console'
 
-#tblheight = 700 # tuniv
-tblheight = 735 # aist
+tblheight = 700 # tuniv
+#tblheight = 735 # aist
 fsoffset = 59
 
 def init_palletizing_scene():
@@ -21,7 +20,7 @@ def init_palletizing_scene():
         env.insert_object(obj, FRAME(xyzabc=xyzabc), tbl)
 
     # put_on_table(scene_objects.pallete, 'pallete0', [-220,-310,tblheight,0,0,-pi/3])
-    put_on_table(scene_objects.pallete, 'pallete0', [-290,-270,tblheight,0,0,0])
+    put_on_table(scene_objects.pallete, 'pallete0', [-290,-270,tblheight-2,0,0,0])
 
     put_on_table(scene_objects.partsA, 'A0', [-330,-10,tblheight+15,0,0,pi/6])
     put_on_table(scene_objects.partsA, 'A1', [-280,100,tblheight+15,0,0,-pi/6])
@@ -49,12 +48,12 @@ init_palletizing_scene()
 
 
 try:
-    hrhandrecog = ns.rtc_handles[handcamhost+'.right_cxt/AppRecog0.rtc'].outports['AppRecog0.RecognitionResultOut']
+    hrhandrecog = ns.rtc_handles['rhand_cxt/AppRecog0.rtc'].outports['RecognitionResultOut']
 except:
     warn('recognition module is not running in rhand')
 
 try:
-    hlhandrecog = ns.rtc_handles[handcamhost+'.left_cxt/AppRecog0.rtc'].outports['AppRecog0.RecognitionResultOut']
+    hlhandrecog = ns.rtc_handles['lhand_cxt/AppRecog0.rtc'].outports['RecognitionResultOut']
 except:
     warn('recognition module is not running in lhand')
 
