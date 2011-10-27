@@ -7,9 +7,11 @@ import time
 from demo_common import *
 from setup_rtchandle import *
 
+handcamhost='hiro-console'
 
-rhandhost = 'VisionPC'
-lhandhost = 'lupus'
+#tblheight = 700 # tuniv
+tblheight = 735 # aist
+fsoffset = 59
 
 def init_palletizing_scene():
     tbl = env.get_object('table')
@@ -18,13 +20,13 @@ def init_palletizing_scene():
         obj = env.eval_sctree(objdef(name=name))
         env.insert_object(obj, FRAME(xyzabc=xyzabc), tbl)
 
-    # put_on_table(scene_objects.pallete, 'pallete0', [-220,-310,700,0,0,-pi/3])
-    put_on_table(scene_objects.pallete, 'pallete0', [-290,-270,700,0,0,0])
+    # put_on_table(scene_objects.pallete, 'pallete0', [-220,-310,tblheight,0,0,-pi/3])
+    put_on_table(scene_objects.pallete, 'pallete0', [-290,-270,tblheight,0,0,0])
 
-    put_on_table(scene_objects.partsA, 'A0', [-330,-10,716,0,0,pi/6])
-    put_on_table(scene_objects.partsA, 'A1', [-280,100,716,0,0,-pi/6])
-    put_on_table(scene_objects.partsA, 'A2', [-310,190,716,0,0,0])
-    put_on_table(scene_objects.partsA, 'A3', [-250,-10,716,0,0,pi/4])
+    put_on_table(scene_objects.partsA, 'A0', [-330,-10,tblheight+15,0,0,pi/6])
+    put_on_table(scene_objects.partsA, 'A1', [-280,100,tblheight+15,0,0,-pi/6])
+    put_on_table(scene_objects.partsA, 'A2', [-310,190,tblheight+15,0,0,0])
+    put_on_table(scene_objects.partsA, 'A3', [-250,-10,tblheight+15,0,0,pi/4])
 
     # put_on_table(scene_objects.partsB, 'B0', [-160,210,700,0,0,0])
     # put_on_table(scene_objects.partsB, 'B1', [-120,-70,700,0,0,0])
@@ -47,12 +49,12 @@ init_palletizing_scene()
 
 
 try:
-    hrhandrecog = ns.rtc_handles[rhandhost+'.host_cxt/AppRecog0.rtc'].outports['AppRecog0.RecognitionResultOut']
+    hrhandrecog = ns.rtc_handles[handcamhost+'.right_cxt/AppRecog0.rtc'].outports['AppRecog0.RecognitionResultOut']
 except:
     warn('recognition module is not running in rhand')
 
 try:
-    hlhandrecog = ns.rtc_handles[lhandhost+'.host_cxt/AppRecog0.rtc'].outports['AppRecog0.RecognitionResultOut']
+    hlhandrecog = ns.rtc_handles[handcamhost+'.left_cxt/AppRecog0.rtc'].outports['AppRecog0.RecognitionResultOut']
 except:
     warn('recognition module is not running in lhand')
 
@@ -75,7 +77,7 @@ tms = {'preapproach1': 1.5,
        'look_for': 0.8}
 
 detectposs = [(190,-60),(260,-60),
-              (180, 20),(250, 20)]
+              (180, 10),(250, 10)]
 
 
 detectposs_dual = [[(180,-35),(180,155)],
@@ -83,11 +85,8 @@ detectposs_dual = [[(180,-35),(180,155)],
 
 # pocketposs = [(200,-300),(120,-300),
 #               (200,-380),(120,-380)]
-pocketposs = [(160,-240),(80,-240),
-              (160,-330),(80,-330)]
-
-tblheight = 700
-fsoffset = 59
+pocketposs = [(190,-240),(110,-240),
+              (190,-330),(110,-330)]
 
 def preapproach(n = 0, height=tblheight+fsoffset+290):
     print 'PRE:', n
@@ -112,14 +111,16 @@ def detect_pose3d(scl=1.0, hand='right'):
             tm = pose3d_stamped.tm
             pose3d = pose3d_stamped.data
 
-            if tm.sec > lasttm.sec or tm.nsec > lasttm.nsec:
+            print tm.sec + tm.nsec*1e-9, ' ', pose3d.position.x, ' ', pose3d.position.y
+
+            if tm.sec + tm.nsec*1e-9 > lasttm.sec + lasttm.nsec*1e-9:
                 pos = array([pose3d.position.x, pose3d.position.y, pose3d.position.z])
-                if linalg.norm(pos-lastpos) < 10:
+                if linalg.norm(pos-lastpos) < 5:
                     break
                 elif linalg.norm(pos) > 1:
                     lastpos = pos
                     lasttm = tm
-                    time.sleep(0.1)
+            time.sleep(0.1)
 
         return [pose3d.position.x, pose3d.position.y, pose3d.position.z,
                 pose3d.orientation.r, pose3d.orientation.p, pose3d.orientation.y]
@@ -235,8 +236,9 @@ def look_for():
         fl = FRAME(xyzabc=[lpos[0], lpos[1], tblheight+fsoffset+290, 0, -pi/2,0])
         r.set_joint_angles(r.ik(fl, joints=jts)[0], joints=jts)
         sync(duration=tms['look_for'])
-        obj_fr = detect(hand='right', timeout=1.5)
-        obj_fl = detect(hand='left', timeout=1.5)
+        time.sleep(2) # this is aweful
+        obj_fr = detect(hand='right', timeout=2.0)
+        obj_fl = detect(hand='left', timeout=2.0)
         if obj_fr:
             detected.append(obj_fr)
         if obj_fl:
@@ -311,7 +313,7 @@ def place_plan(p):
 rwp = FRAME(xyzabc=[200,-110,1049,0,-pi/2,0])
 lwp = FRAME(xyzabc=[240,90,1049,0,-pi/2,0])
 
-def demo(recognition=False):
+def demo(recognition=True):
     preapproach_dual()
 
     if recognition:
@@ -396,8 +398,8 @@ def demo(recognition=False):
     P3 = env.get_object('P3')
     P0 = env.get_object('P0')
     while recognition:
-        rpfrm = detect(hand='right', zmin=680, zmax=710, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
-        lpfrm = detect(hand='left', zmin=680, zmax=710, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        lpfrm = detect(hand='left', zmin=tblheight-20, zmax=tblheight+20, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
         rpfrm.vec[2] = tblheight+15
         lpfrm.vec[2] = tblheight+15
         P3.locate(rpfrm, world=True)
@@ -535,7 +537,7 @@ def demo(recognition=False):
 
     P2 = env.get_object('P2')
     if recognition:
-        rpfrm = detect(hand='right', zmin=680, zmax=710, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
         rpfrm.vec[2] = tblheight+15
         P2.locate(rpfrm, world=True)
 
@@ -592,7 +594,7 @@ def demo(recognition=False):
 
     P1 = env.get_object('P1')
     if recognition:
-        rpfrm = detect(hand='right', zmin=680, zmax=710, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
         rpfrm.vec[2] = tblheight+15
         P1.locate(rpfrm, world=True)
 

@@ -11,8 +11,11 @@ from setup_rtchandle import *
 
 
 class HIROController:
-    def __init__(self, nameserver, seq_proxy_host='VisionPC', seq_proxy_port=10103):
-        self.seq_proxy_address = socket.gethostbyname(seq_proxy_host)
+    def __init__(self, nameserver, seq_proxy_host='150.29.146.166', seq_proxy_port=10103):
+        try:
+            self.seq_proxy_address = socket.gethostbyname(seq_proxy_host)
+        except:
+            self.seq_proxy_address = seq_proxy_host
         self.seq_proxy_port = seq_proxy_port
         self.joint_states = zeros(23)
 
