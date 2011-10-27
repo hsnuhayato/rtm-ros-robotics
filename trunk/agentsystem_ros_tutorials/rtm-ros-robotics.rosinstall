@@ -36,7 +36,7 @@
 ##
 ## for checkerboad_pose
 - svn:
-    uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboad_pose
+    uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboard_pose
     local-name: wg-ros-pkg-cturtle/sandbox/checkerboad_pose
 ##
 ## for face detector
