@@ -6,6 +6,15 @@ import time
 from tfpy import *
 from scipy.optimize import leastsq
 
+# hand camera calibration pose
+def handcam_calib_pose():
+    rf = FRAME(xyzabc=[200,-300,1100,0,-pi,0])
+    jts = 'rarm'
+    r.set_joint_angles(r.ik(rf, joints=jts)[0], joints=jts)
+    lf = FRAME(xyzabc=[200,300,1100,0,-pi,0])
+    jts = 'larm'
+    r.set_joint_angles(r.ik(lf, joints=jts)[0], joints=jts)
+
 
 neck_angles1 = [
     [0.35, 0.85], [0, 0.8], [-0.35, 0.85],
@@ -17,21 +26,23 @@ neck_angles2 = [
     [-0.32, 1.0], [0, 0.95], [0.32, 1.0], [0, 1.15]
     ]
 
+height = 1100
+
 # after r.prepare()
 rhand_angles1 = [
-    [300,-400,1050,0,-pi/2,-pi/6],
-    [300,-200,1050,0,-pi/2,0],
-    [300,0,1050,0,-pi/2,pi/6],
-    [150,-200,1050,0,-pi/2-pi/8,0],
-    [400,-200,1050,0,-pi/2+pi/8,0]
+    [270,-400,height,0,-pi/2,-pi/6],
+    [270,-200,height,0,-pi/2,0],
+    [270,0,height,0,-pi/2,pi/6],
+    [180,-200,height-20,0,-pi/2-pi/8,0],
+    [380,-200,height-40,0,-pi/2+pi/8,0]
     ]
 
 lhand_angles1 = [
-    [300,400,1050,0,-pi/2,pi/6],
-    [300,200,1050,0,-pi/2,0],
-    [300,0,1050,0,-pi/2,-pi/6],
-    [150,200,1050,0,-pi/2-pi/8,0],
-    [400,200,1050,0,-pi/2+pi/8,0]
+    [270,400,height,0,-pi/2,pi/6],
+    [270,200,height,0,-pi/2,0],
+    [270,0,height,0,-pi/2,-pi/6],
+    [180,200,height-20,0,-pi/2-pi/8,0],
+    [380,200,height-40,0,-pi/2+pi/8,0]
     ]
 
 
