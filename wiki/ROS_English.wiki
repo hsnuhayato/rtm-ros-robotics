@@ -149,6 +149,9 @@ roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
 rosrun hrpsys hrp4c_walk.sh 
 }}}
 
+Note: `rosrun hrpsys hrpsyspy ./HRP4C.py` does not work. 
+you need to change  `bridge = findRTC("HRP-4C(Robot)0")` to `bridge = findRTC("HRP4(Robot)0")` and pass absolute path of "data/walk2m" to `loadPattern` function
+
 === Kawada HIRONX ===
 
 try
