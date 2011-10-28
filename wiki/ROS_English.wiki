@@ -137,6 +137,11 @@ roscd hrpsys_ros_bridge/scripts/
 rosrun roseus roseus samplerobot-pickup.l
 }}}
 
+{{{
+roslaunch hrpsys_ros_bridge samplerobot.launch SCHEDULER_ARGS:=--nosim
+}}}
+to start without dynamics simulation calculation.
+
 === HRP4 ===
 {{{
 roslaunch hrpsys_ros_bridge hrp4c.launch
