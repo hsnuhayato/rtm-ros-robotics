@@ -13,7 +13,7 @@ import wrl_loader
 from pqp_if import *
 import libik_hiro as ikfast
 
-def get_AABB(vs, padding=7.0):
+def get_AABB(vs, padding=8.0):
     xlb = ylb = zlb = inf
     xub = yub = zub = -inf
 
@@ -92,7 +92,7 @@ def gen_collision_body(obj):
             #warn(str(obj.vbody.__class__)+' is not supported for collision body')
             return gen_cbody_from_AABB(get_AABB(obj))
 
-    def gen_cbody_link(l, simple=True):
+    def gen_cbody_link(l, simple=False):
         pts = []
         for tf,shp in l.shapes:
             # print shp.vbody.__class__
