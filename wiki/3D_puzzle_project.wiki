@@ -78,10 +78,17 @@
 
 
 = HIRONX実機とのインタフェース =
+ * RT-componentでシステムは作られている
  * 基本的にpython上でrtc-handleを使うか、コマンドラインでrtshellを使う
+  * iv_plan/src/hiro_controller.py, iv_plan/src/setup_rtchandle.py
  * ロボットの関節角の取得
- * ロボットへの関節角指令の送信
  * 力センサの値を読む
+ * ロボットへの関節角指令の送信
+
+ * 下位レベルのインタフェース
+  * RobotHardware0.jointDatOutデータポートを読む
+  * force....データポートを読む
+  * seqへの通信を仲介するjython上のサーバにソケットでコマンドを送る
 
 
 = Recognition =
@@ -133,11 +140,60 @@ vision@VisionPCで、
   * ウィンドウ上で右クリック 
  * rosrun image_view extract_images image:=/hiro/rhand/usb_cam/image_raw
 
-* Pythonプログラムでのセンサデータの受信例
+* Pythonプログラムでのセンサデータの受信
+ * ROSのtopicに対してcallbackを登録する
+ * 例(iv_plan/examples/robot_if_sample.py)：
 {{{
- coming soon ...
-}}}
+# -*- coding: utf-8 -*-
 
+import roslib; roslib.load_manifest('iv_plan')
+import set_env
+from ivutils import *
+from hiro_controller import *
+
+import rospy
+from ar_pose.msg import ARMarkers
+from tf.transformations import *
+
+class MyRobotInterface(HIROController):
+    def __init__(self, nameserver):
+        HIROController.__init__(self, nameserver)
+        self.lhand_markers = []
+
+    def connect(self):
+        HIROController.connect(self)
+        rospy.init_node('pick_piece')
+        rospy.Subscriber('/hiro/lhand/ar_pose_marker', ARMarkers, self.lhand_callback)
+
+    def lhand_callback(self, msg):
+        if len(msg.markers) > 0:
+            self.lhand_markers = msg.markers
+
+    def recognize(self, camera='lhand', thre=1.5):
+        def parse_marker(marker):
+            if rospy.Time.now().to_sec() - marker.header.stamp.to_sec() > thre:
+                return None
+            else:
+                p = marker.pose.pose.position
+                trans = 1000.0 * array([p.x, p.y, p.z])
+                q = marker.pose.pose.orientation
+                rot = [q.x, q.y, q.z, q.w]
+
+                return (marker.id,
+                        FRAME(mat=MATRIX(mat=quaternion_matrix(rot)[0:3,0:3].tolist()),
+                              vec=VECTOR(vec=(trans.tolist()))))
+
+        if camera == 'lhand':
+            return filter(None, [parse_marker(m) for m in self.lhand_markers])
+        else:
+            return filter(None, [parse_marker(m) for m in self.rhand_markers])
+
+
+rr = MyRobotInterface(set_env.nameserver)
+rr.connect()
+
+}}}
+ * 認識結果をロボットのモデルを用いて世界座標に変換し，pieceを把持する例(iv_plan/examples/pick_piece.py)
 
 * カメラキャリブレーション
 
