@@ -228,7 +228,7 @@ If this not working, you may fail to install eclipse plugin
 rm -fr ~/.eclipse
 roscd openhrp3; rm -fr workspace
 }}}
-and then [Setup_Eclipse setup eclipse to install the plugins] again.
+and then [ROS_English#Setup_Eclipse setup eclipse to install the plugins] again.
 
 == Check HiroNX collada file ==
 Make sure that you have downloaded HiroNX collada file
