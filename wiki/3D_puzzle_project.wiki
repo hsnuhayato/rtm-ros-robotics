@@ -205,3 +205,16 @@ rr.connect()
 * Kinect
 
  * camera_infoは設定ファイルから読み込めるように作られていないので、openni_nodelet.cppを直接編集して書きこむ (diamondback)
+
+
+* 平面的なピース認識(yellow,red,brown,aqua,yellowgreen)
+{{{
+ roscd piece_recog
+ rosmake
+ rosrun piece_recog piece_recog_node image:=/hiro/lhand/usb_cam/image_raw
+ rosservice call /set_target_piece yellow  # サービスで認識対象を設定
+ rostopic echo /tf  # tfが出力される
+ rosrun rviz rviz  # /camera->/piece を表示してみる
+}}}
+
+ 
