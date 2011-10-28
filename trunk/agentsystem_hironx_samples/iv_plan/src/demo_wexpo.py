@@ -20,7 +20,7 @@ def init_palletizing_scene():
         env.insert_object(obj, FRAME(xyzabc=xyzabc), tbl)
 
     # put_on_table(scene_objects.pallete, 'pallete0', [-220,-310,tblheight,0,0,-pi/3])
-    put_on_table(scene_objects.pallete, 'pallete0', [-290,-270,tblheight-2,0,0,0])
+    put_on_table(scene_objects.pallete, 'pallete0', [-270,-250,tblheight-2,0,0,-pi/4])
 
     put_on_table(scene_objects.partsA, 'A0', [-330,-10,tblheight+15,0,0,pi/6])
     put_on_table(scene_objects.partsA, 'A1', [-280,100,tblheight+15,0,0,-pi/6])
@@ -209,16 +209,15 @@ def place(f, h = tblheight+38+fsoffset, dosync=True):
             sync(duration=0.2)
 
 def detect(timeout=0, zmin=tblheight, zmax=tblheight+250,
-           theta_constraint=None, hand='right'):
+           constraint=None, hand='right'):
     start_tm = time.time()
     while timeout == 0 or time.time() - start_tm < timeout:
         f = detect_pose3d(hand=hand)
         if f and f.vec[2] > zmin and f.vec[2] < zmax:
-            if theta_constraint != None:
-                theta = acos(dot(array(f.mat)[0:2,0], array([1,0])))
-                for c in theta_constraint:
-                    if c[0] <= theta and theta <= c[1]:
-                        return f
+            if constraint != None:
+                axis,thresh = constraint
+                if abs(dot(array(f.mat)[0:2,0], axis)) > thresh:
+                    return f
             else:
                 return f
 
@@ -313,6 +312,8 @@ rwp = FRAME(xyzabc=[200,-110,1049,0,-pi/2,0])
 lwp = FRAME(xyzabc=[240,90,1049,0,-pi/2,0])
 
 def demo(recognition=True):
+    pltaxis = array(env.get_object('pallete0').where().mat)[0:2,0]
+
     preapproach_dual()
 
     if recognition:
@@ -385,20 +386,20 @@ def demo(recognition=True):
 
     r.set_joint_angle(0,-0.6)
     jts = 'rarm'
-    x,y = pocketposs_dual[3] # right
-    f = FRAME(xyzabc=[x, y, tblheight+fsoffset+290, 0, -pi/2, 0])
+    f = pocket_detection_pose(3) # right
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
     jts = 'larm'
-    x,y = pocketposs_dual[0] # left
-    f = FRAME(xyzabc=[x, y, tblheight+fsoffset+290, 0, -pi/2, 0])
+    f = pocket_detection_pose(0) # left
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
     sync(joints='torso_arms', duration=tms['transport'])
 
     P3 = env.get_object('P3')
     P0 = env.get_object('P0')
     while recognition:
-        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
-        lpfrm = detect(hand='left', zmin=tblheight-20, zmax=tblheight+20, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20,
+                       constraint=(pltaxis,0.9))
+        lpfrm = detect(hand='left', zmin=tblheight-20, zmax=tblheight+20,
+                       constraint=(pltaxis,0.9))
         rpfrm.vec[2] = tblheight+15
         lpfrm.vec[2] = tblheight+15
         P3.locate(rpfrm, world=True)
@@ -529,14 +530,14 @@ def demo(recognition=True):
     sync(joints='torso_arms', duration=tms['transport'])
 
     jts = 'rarm'
-    x,y = pocketposs_dual[2] # right
-    f = FRAME(xyzabc=[x, y, tblheight+fsoffset+290, 0, -pi/2, 0])
+    f = pocket_detection_pose(2) # right
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
     sync(joints='rarm', duration=tms['transport'])
 
     P2 = env.get_object('P2')
     if recognition:
-        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20, 
+                       constraint=(pltaxis,0.9))
         rpfrm.vec[2] = tblheight+15
         P2.locate(rpfrm, world=True)
 
@@ -586,14 +587,14 @@ def demo(recognition=True):
     sync(joints='rarm', duration=tms['transport'])
 
     jts = 'rarm'
-    x,y = pocketposs_dual[1] # right
-    f = FRAME(xyzabc=[x, y, tblheight+fsoffset+290, 0, -pi/2, 0])
+    f = pocket_detection_pose(1) # right
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
     sync(joints='rarm', duration=tms['transport'])
 
     P1 = env.get_object('P1')
     if recognition:
-        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20, theta_constraint=[[0,pi/6],[5*pi/6,pi]])
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20,
+                       constraint=(pltaxis,0.9))
         rpfrm.vec[2] = tblheight+15
         P1.locate(rpfrm, world=True)
 
@@ -642,10 +643,18 @@ def pick_and_place(n=1):
         else:
             preapproach(i+1)
 
-pocketposs_dual = [(180,-240),(100,-240),
-                   (180,-330),(100,-330)]
+# pocketposs_dual = [(180,-240),(100,-240),
+#                    (180,-330),(100,-330)]
 
-# detectposs_dual = [(160,-30),(160,150)]
+
+def pocket_detection_pose(n):
+    pocketpos = [(-30,30),(-110,-30),
+                 (-30,-60),(-110,-60)]
+    x,y = pocketpos[n]
+    plt = env.get_object('pallete0')
+    z = tblheight+fsoffset+290 - plt.where().vec[2]
+    return plt.where() * FRAME(xyzabc=[x,y,z,0,-pi/2,0])
+
 
 def preapproach_dual():
     r.prepare(width=80)
@@ -738,11 +747,11 @@ def dual_arm_pick_and_place_plan(oname00='A0', oname01='A2',
     r.set_joint_angle(0, -0.6)
 
     jts = 'rarm'
-    x,y = pocketposs_dual[3] # right
+    x,y = pocket_detection_pos(3) # right
     f = FRAME(xyzabc=[x, y, tblheight+fsoffset+290, 0, -pi/2, 0])
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
     jts = 'larm'
-    x,y = pocketposs_dual[0] # left
+    x,y = pocket_detection_pos(0) # left
     f = FRAME(xyzabc=[x, y, tblheight+fsoffset+290, 0, -pi/2, 0])
     r.set_joint_angles(r.ik(f, joints=jts)[0], joints=jts)
     q1 = r.get_joint_angles(joints='torso_arms')
