@@ -29,11 +29,6 @@
     uri: https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk
     local-name: cmu-ros-pkg
 ##
-## imagesift depends on posedetection_msgs
-- svn:
-    uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/stacks
-    local-name: wg-ros-pkg-cturtle/stacks
-##
 ## for cmvision
 - svn:
     uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision
@@ -41,8 +36,8 @@
 ##
 ## for checkerboad_pose
 - svn:
-    uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox
-    local-name: wg-ros-pkg-cturtle/sandbox
+    uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboard_pose
+    local-name: wg-ros-pkg-cturtle/sandbox/checkerboad_pose
 ##
 ## for face detector
 - svn:
@@ -61,5 +56,5 @@
     version: robot_model-1.5.2
     local-name: robot_model
 - svn:
-    uri: https://code.ros.org/svn/ros-pkg/stacks/visualization/tags/diamondback/
+    uri: https://code.ros.org/svn/ros-pkg/stacks/visualization/tags/electric
     local-name: visualization
