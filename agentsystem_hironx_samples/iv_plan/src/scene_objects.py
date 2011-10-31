@@ -318,7 +318,7 @@ def table_scene():
     fl = floor()
     bs = hirobase()
     tbl = high_table()
-    w['children'].append((tbl, [500,0,0,0,0,0]))
+    w['children'].append((tbl, [350,0,0,0,0,0]))
     w['children'].append((fl, [0,0,0,0,0,0]))
     w['children'].append((bs, [-40.0-150.0,0,400.0,0,0,0]))
     return w

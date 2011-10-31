@@ -19,13 +19,16 @@ def init_palletizing_scene():
         obj = env.eval_sctree(objdef(name=name))
         env.insert_object(obj, FRAME(xyzabc=xyzabc), tbl)
 
-    # put_on_table(scene_objects.pallete, 'pallete0', [-220,-310,tblheight,0,0,-pi/3])
-    put_on_table(scene_objects.pallete, 'pallete0', [-270,-250,tblheight-2,0,0,-pi/4])
-
-    put_on_table(scene_objects.partsA, 'A0', [-330,-10,tblheight+15,0,0,pi/6])
-    put_on_table(scene_objects.partsA, 'A1', [-280,100,tblheight+15,0,0,-pi/6])
-    put_on_table(scene_objects.partsA, 'A2', [-310,190,tblheight+15,0,0,0])
-    put_on_table(scene_objects.partsA, 'A3', [-250,-10,tblheight+15,0,0,pi/4])
+    # put_on_table(scene_objects.pallete, 'pallete0', [-270,-250,tblheight-2,0,0,-pi/4])
+    # choreonoid
+    # robot: [0, 159.900, 1059.800]
+    # W: [296.980,-137.080,1041.640]
+    # robot=>W: [296.980, -296.980, -18.160]
+    put_on_table(scene_objects.pallete, 'pallete0', [-203.02,-296.98,tblheight-2,0,0,-pi/4])
+    put_on_table(scene_objects.partsA, 'A0', [-180,-10,tblheight+15,0,0,pi/6])
+    put_on_table(scene_objects.partsA, 'A1', [-130,100,tblheight+15,0,0,-pi/6])
+    put_on_table(scene_objects.partsA, 'A2', [-160,190,tblheight+15,0,0,0])
+    put_on_table(scene_objects.partsA, 'A3', [-100,-10,tblheight+15,0,0,pi/4])
 
     # put_on_table(scene_objects.partsB, 'B0', [-160,210,700,0,0,0])
     # put_on_table(scene_objects.partsB, 'B1', [-120,-70,700,0,0,0])
@@ -66,26 +69,37 @@ except:
 #        'place': 0.55,
 #        'look_for': 0.5}
 
-# slow version
-tms = {'preapproach1': 1.5,
-       'preapproach2': 2.5,
-       'pick': 1.3,
-       'transport': 1.6,
-       'place': 1.3,
+# normal version
+tms = {'preapproach1': 1.2,
+       'preapproach2': 2.0,
+       'pick': 1.0,
+       'transport': 1.2,
+       'place': 1.0,
        'pregrasp': 0.7,
-       'look_for': 0.8}
+       'look_for': 0.65}
+
+# slow version
+# tms = {'preapproach1': 1.5,
+#        'preapproach2': 2.5,
+#        'pick': 1.3,
+#        'transport': 1.6,
+#        'place': 1.3,
+#        'pregrasp': 0.7,
+#        'look_for': 0.8}
 
 detectposs = [(190,-60),(260,-60),
               (180, 10),(250, 10)]
 
 
-detectposs_dual = [[(180,-35),(180,155)],
-                   [(260,-35),(260,155)]]
+detectposs_dual = [[(180,-35),(180,150)],
+                   [(260,-35),(260,150)]]
 
 # pocketposs = [(200,-300),(120,-300),
 #               (200,-380),(120,-380)]
-pocketposs = [(190,-240),(110,-240),
-              (190,-330),(110,-330)]
+# pocketposs = [(190,-240),(110,-240),
+#               (190,-330),(110,-330)]
+pocketposs = [(107,-287),(27,-287),
+              (107,-377),(27,-377)]
 
 def preapproach(n = 0, height=tblheight+fsoffset+290):
     print 'PRE:', n
@@ -582,7 +596,7 @@ def demo(recognition=True):
     r.grasp(80, hand='left')
     sync(joints='lhand', duration=0.1)
 
-    f = FRAME(xyzabc=[lwp.vec[0],-160,lwp.vec[2],pi,0,pi/2])
+    f = FRAME(xyzabc=[lwp.vec[0],-200,lwp.vec[2],pi,0,pi/2])
     r.set_joint_angles(r.ik(f, joints='rarm')[0], joints='rarm')
     sync(joints='rarm', duration=tms['transport'])
 
@@ -648,8 +662,8 @@ def pick_and_place(n=1):
 
 
 def pocket_detection_pose(n):
-    pocketpos = [(-30,30),(-110,-30),
-                 (-30,-60),(-110,-60)]
+    pocketpos = [(-30,45),(-110,45),
+                 (-30,-45),(-110,-45)]
     x,y = pocketpos[n]
     plt = env.get_object('pallete0')
     z = tblheight+fsoffset+290 - plt.where().vec[2]
@@ -826,20 +840,12 @@ def dual_arm_pick_and_place_plan(oname00='A0', oname01='A2',
     go_prepare_pose()
 
 
-# plt = env.get_object('pallete0')
-
-# A0 = env.get_object('A0')
-# f = A0.rel_trans
-# f.vec[1] += 40
-# A0.locate(f)
-# env.delete_object('A1')
-# env.delete_object('A3')
-# env.delete_object('B0')
-# env.delete_object('B1')
-
 
 pose1 = {'rarm': FRAME(xyzabc=[230, -200, 1000-1.5, 0, -pi/2, -pi/2]),
          'larm': FRAME(xyzabc=[185, 200, 1000, 0, -pi/2, pi/2])}
 
 pose2 = {'rarm': FRAME(xyzabc=[140, -200, 1000-1.5, 0, -pi/2, -pi/2]),
          'larm': FRAME(xyzabc=[185, 200, 1000, 0, -pi/2, pi/2])}
+
+if rr:
+    rr.connect()
