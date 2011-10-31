@@ -1,0 +1,88 @@
+*summary One-sentence summary of this page.*
+
+= ROS =
+
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu lucid main" >/etc/apt/sources.list.d/ros-latest.list'
+
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+
+sudo apt-get update
+
+*重要！！！*
+
+electric を diamondback に変更する
+
+sudo apt-get install ros-diamondback-desktop
+
+echo "source /opt/ros/diamondback/setup.bash" >> ~/.bashrc
+
+. ~/.bashrc
+
+= RT-middleware =
+
+http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Install
+
+wget http://www.openrtm.org/pub/OpenRTM-aist/cxx/install_scripts/pkg_install100_ubuntu.sh
+
+sudo sh ./pkg_install100_ubuntu.sh
+
+途中，いくつかの質問をたずねられるので，''y'' あるいは ''Y'' を入力しながら完了させる．
+
+次にpython版もインストール． ubuntuの場合一括インストールスクリプトを利用．
+
+wget http://www.openrtm.org/pub/OpenRTM-aist/python/install_scripts/pkg_install_python_ubuntu.sh
+
+sudo sh ./pkg_install_python_ubuntu.sh
+
+*外部ツールのインストール*
+
+http://www.openrtm.org/openrtm/ja/node/941 より一部抜粋．
+
+eclipseからグラフィカルにコンポーネントを生成するツールとしてRTCBuilder，操作するツールとしてRTSystemEditorが公開されている．
+
+Ubuntuの場合，公式ページにおいてあるEclipse3.4.2の全部入りパッケージでは，そのままでは9.10で以降で動かないため，Eclipse3.6にバイナリのjarファイルを展開して用いるのが良い．そのための [http://rtm-ros-robotics.googlecode.com/files/setup-eclipse.sh シェルスクリプト] を用意したので，それをダウンロードして実行する．
+
+{{{
+> sh ./setup-eclipse.sh
+}}}
+
+また，ipv6の設定によりlocalhostという名前解決ができないことがあるため，その場合，root権限で/etc/hostsの5行目をコメントアウトする．即ち，
+
+{{{
+::1     localhost ip6-localhost ip6-loopback
+}}}
+
+を
+
+{{{
+#::1     localhost ip6-localhost ip6-loopback
+}}}
+
+と変更して保存する．
+
+= rtc-tool =
+
+= agentsystem_hironx_samples =
+
+mkdir -p ~/prog/hironx
+
+cd ~/prog/hironx
+
+svn co http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_hironx_samples
+
+sudo aptitude install ros-diamondback-ccny-vision
+
+echo 'export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$HOME/prog/hironx/agentsystem_hironx_samples' >> ~/.bashrc
+
+roscd iv_plan
+
+rosmake --rosdep-install
+
+= OpenRAVE =
+
+{{{
+sudo add-apt-repository ppa:openrave/testing
+sudo apt-get update
+sudo apt-get install --reinstall openrave
+}}}
+

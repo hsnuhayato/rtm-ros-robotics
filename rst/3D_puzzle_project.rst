@@ -1,0 +1,195 @@
+*summary One-sentence summary of this page.*
+
+==========
+ROS how to
+==========
+- ROS_MASTER_URIの設定例
+
+ - export ROS_MASTER_URI=http://lupus:11311
+
+- rostopic, rxgraph, rosrun, roslaunch ...
+
+
+====================
+RT-middleware how to
+====================
+
+- rtshell, rtc-handle, system editor
+
+==================
+HIRONX実機の使い方
+==================
+
+- 起動
+
+ - 本体の電源が先、VisionPCが後
+ - 本体の電源を入れるとすぐにビジョンPCの電源を入れて良い
+ - しばらく待って、表示灯が緑、白の点滅になれば起動完了
+
+  - (注意点) 以下のメッセージで起動が止まることがある。この場合は、電源ボタン長押しで一度電源を切り、再度電源投入すると起動する。
+
+   - Could not determine which IOAPIC pin timer is connected too 
+
+- 準備(VisionPCで)
+
+  ::
+
+    $ cd /opt/grx/HIRONX/script
+    $ ./gui.py
+    # ウィンドウ上部の緑丸のアイコンでも起動できる。
+
+
+1. setup rt-system
+
+ - RTCの接続とRobotHardware以外のRTCでロードされていないものをロード
+
+2. calibrateJoint
+
+ - キャリブレーション、ロボット起動後に一回行う
+
+  - ボタンを押しても、キャリブレーションが始まらない、変な姿勢で終わることがある。この場合、一度servoOffして、再度 calibratejointを行う。関節リミットから遠ざけると上手くいくことが多い？エラーが起きたときなど、calibrateJointをしても始まらない場合がある。この場合はロボットの再起動。 
+
+- 動作テスト (jythonスクリプト)
+
+ 1. goInitial (初期姿勢へ移行)
+ 2. testPattern (テスト動作実行)
+
+  - 関節位置指令
+
+ 3. ikTest (IKのサンプル), ikTest_spline (手先軌道を空間的に滑らかにつなぐサンプル) 
+
+  - これらは手先位置指令
+
+- 終了手順
+
+ 1. gui.pyのウィンドウで、goOffPoseを押して終了姿勢に移動するまで待つ。
+ 2. 終了姿勢になるとservoOffするかどうか訊かれるので、了解ボタンを押す。
+ 3. shutdownボタンを押す。
+
+  - RTC経由で本体のシャットダウン
+  - sshで直接ログインしてshutdownする場合は以下のようにする。
+
+    ::
+
+      $ ssh hiro@hiro014
+      $ su
+      # /opt/grx/bin/shutdown.sh 
+      (注意) shutdownコマンドはリブートしたいときに使う
+
+ 4. VisionPCの電源を切る
+
+  ::
+
+    $ sudo shutdown -h now
+
+- 再起動の手順
+
+ 1. ロボット本体の再起動
+
+  ::
+
+    $ ssh hiro@hiro014
+    $ su
+    # shutdown
+    ;; ハブの電源供給は止まらないので、再起動のときはVisionPCの再起動は不要
+
+
+- 保護停止、非常停止
+
+ - 保護停止は指令値をクリア、解除するとそのまま次の動作を実行できる。
+ - 非常停止はサーボオフする。
+
+  - 解除後、GUIで一度servoOffボタンをして再度servoOnを押すことで、たいてい復帰できる。復帰できなければ、ロボットを再起動する。
+
+========================================
+自分のマシンをHIRONXネットワークに入れる
+========================================
+ 
+- ネットワークを設定する
+- roscoreの場所を指定する
+
+ - export ROS_MASTER_URI=http://VisionPC:11311 
+
+
+============================
+HIRONX実機とのインタフェース
+============================
+
+- 基本的にpython上でrtc-handleを使うか、コマンドラインでrtshellを使う
+- ロボットの関節角の取得
+- ロボットへの関節角指令の送信
+- 力センサの値を読む
+
+===========
+Recognition
+===========
+
+*HIRONXハンドカメラのキャプチャノードとマーカ認識器の起動*
+
+vision@VisionPCで、
+
+::
+
+  $ roslaunch Sense sense_hiro_ar.launch
+  $ rostopic list
+
+  /hiro/lhand/ar_pose_marker
+  /hiro/lhand/usb_cam/camera_info
+  /hiro/lhand/usb_cam/image_raw
+  /hiro/lhand/usb_cam/image_raw/compressed
+  /hiro/lhand/usb_cam/image_raw/compressed/parameter_descriptions
+  /hiro/lhand/usb_cam/image_raw/compressed/parameter_updates
+  /hiro/lhand/usb_cam/image_raw/theora
+  /hiro/lhand/usb_cam/image_raw/theora/parameter_descriptions
+  /hiro/lhand/usb_cam/image_raw/theora/parameter_updates
+  /hiro/lhand/visualization_marker
+  /hiro/rhand/ar_pose_marker
+  /hiro/rhand/usb_cam/camera_info
+  /hiro/rhand/usb_cam/image_raw
+  /hiro/rhand/usb_cam/image_raw/compressed
+  /hiro/rhand/usb_cam/image_raw/compressed/parameter_descriptions
+  /hiro/rhand/usb_cam/image_raw/compressed/parameter_updates
+  /hiro/rhand/usb_cam/image_raw/theora
+  /hiro/rhand/usb_cam/image_raw/theora/parameter_descriptions
+  /hiro/rhand/usb_cam/image_raw/theora/parameter_updates
+  /hiro/rhand/visualization_marker
+  /rosout
+  /rosout_agg
+  /tf
+
+  $ rostopic echo /hiro/lhand/ar_pose_marker
+  $ rostopic echo /hiro/rhand/ar_pose_marker
+  $ rostopic echo /tf
+
+
+
+- 複数マーカ認識のar_multiはmarker_width, marker_center_x, marker_center_yなどのparameterを見ない。
+- data/object_4x4などのマーカ定義ファイル中の記述を参照する。
+- マーカデータファイルは ar_pose/data/4x4 の中にgif,psがあるので、これを印刷して使う。
+- マーカ周囲の白枠は重要。これがないと正しく認識されない。
+
+*画像の保存（ROS）*
+
+- rosrun image_view image_view image:=/hiro/rhand/usb_cam/image_raw
+
+ - ウィンドウ上で右クリック 
+
+- rosrun image_view extract_images image:=/hiro/rhand/usb_cam/image_raw
+
+*Pythonプログラムでのセンサデータの受信例*
+
+::
+
+  coming soon ...
+
+*カメラキャリブレーション*
+
+::
+
+  $ rosrun camera_calibration cameracalibrator.py --size 7x10 --square 0.025 image:=/hiro/rhand/usb_cam/image_raw
+
+- アルポリックA4版ボードの設定
+
+*Kinect*
+
+- camera_infoは設定ファイルから読み込めるように作られていないので、openni_nodelet.cppを直接編集して書きこむ (diamondback)

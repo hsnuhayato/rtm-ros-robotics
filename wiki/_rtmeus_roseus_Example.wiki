@@ -1,0 +1,165 @@
+*summary rtmeus/roseus相互接続*
+
+= 概要 =
+
+RTMとROSを接続する方法として，ロボット用Lisp開発環境であるEusLispを介して行う方法がある．RTM, ROSそれぞれへのインタフェースであるrtmeusとroseusを接続するサンプルについて解説する．
+
+== 準備 ==
+
+=== 接続用サンプルの準備 ===
+
+agentsystem_rtm_tutorials/rtmros_eusapp
+
+がなければ，
+
+agentsystem_rtm_tutorials以下でsvn upする．
+
+そして，~/.bashrcの中で，ROS_PACKAGE_PATHにrtmros_eusappのある場所を追加する．
+
+例えば，以下のように.bashrcに
+
+{{{
+export ROS_PACKAGE_PATH=~/prog/rtm-ros-robotics/agentsystem_rtm_tutorials/rtmros_eusapp:$ROS_PACKAGE_PATH
+}}}
+
+の１行を追加すれば良い．
+
+=== rtmeusのインストール ===
+
+http://code.google.com/p/rtmeus/ に公開されているので，それをインストールする．
+
+{{{
+$ cd ~/prog/
+$ svn checkout http://rtmeus.googlecode.com/svn/trunk/ rtmeus
+}}}
+
+で~prog/rtmeusがチェックアウトされる．細かい情報はrtmeus/README_ja.jp.txtに書いてあるが，必要な作業を抜粋して以下に書く．
+
+まずは必要なライブラリをインストールする．
+
+{{{
+$ sudo apt-get install gcc g++ git-core libboost-all-dev
+$ sudo apt-get install libcv4 libhighgui4 libcvaux4 libcv-dev libcvaux-dev libhighgui-dev
+}}}
+
+次に，EusLispがインストールされていない環境では，http://sourceforge.net/apps/mediawiki/jskeus/ を参照してインストールする．この講義用にROSをインストールした環境では，EusLispは既にインストールされている．
+
+{{{
+$ rosrun euslisp irteusgl
+}}}
+
+が正しく実行されれば良い．
+
+次に，rtmeusは，
+
+  * OpenRTM-aist-1.0.0-Relase C++版
+  * rtcshell
+  * rtctree
+  * RTMExt
+  * OpenRTM-aist-1.0.0-Relase Python版
+
+
+に依存するが，rtmeus/tools/setup-official_all.shを用いれば，これらが全てインストールされる．OpenRTM-aist-1.0.0-Relase C++版が既にインストールされた環境では，
+
+{{{
+$ cd ~/prog/rtmeus/tools/
+$ ./setup-official_all.sh --no-rtm-install
+}}}
+
+とすれば良い．このスクリプトを実行すると，$HOME以下に.bashrc.rtmが生成されるので，.bashrcの中に
+
+{{{
+source .bashrc.rtm
+}}}
+
+の１行を追加する．そして，これを追加した後に，以下のようにコンパイルする．
+
+{{{
+$ source ~/.bashrc
+$ cd ~/prog/rtmeus/src/common
+$ make
+}}}
+
+※以前にrtmeusを導入しており，再度インストールしたい場合は/usr/local/srcの中のOpenRTM，rtmtoolsをリネームすれば./setup-official_all.shを実行できる.
+
+== rtmeus:EusLispからのRTMインタフェース ==
+
+rtmeusは，EusLispからrtmシステムを制御するためのインタフェースソフトウェアであり，OpenRTM-aist-1.0.0-Release対応に対応している．rtmシステムとのインタフェースには， 産総研のジェフさんが開発したrtcshellを利用している．
+
+独自機能としては，
+
+  * EusLispからのコンポーネント制御
+  * 汎用入出力インタフェースのためのサービスポート拡張（文字列型引数，返り値によるConsumer/Provider記述）
+  * コンポーネント再利用性向上のためのデータポート拡張（配列構造のプロファイルをデータポートを通じてやり取りする）
+
+
+がある．
+
+=== rtmeusサンプル ===
+
+rtmeus/example以下にサンプルがある．まずは，
+
+{{{
+$ cd rtmeus/example/cpp
+$ make
+}}}
+
+をした後に，rtmeus/example/eus以下の.lファイルを試すと良い． ここでは，一つだけサンプルの使い方を紹介する．
+
+{{{
+$ cd rtmeus/example/eus
+$ irteusgl test-create.l
+}}}
+
+ros経由でEusLispがインストールされている場合には，
+
+{{{
+$ cd rtmeus/example/eus
+$ rosrun euslisp irteusgl test-create.l
+}}}
+
+とすれば良い．二つのウィンドウが出て，それらは左右逆転した画像が表示されるはずである．ここで，実行しているコードは，以下の物である．
+
+{{{
+(require :rtmeus (format nil "~A/eus/common/rtmeus.l" (unix:getenv 'RTMEUSDIR)))
+;;
+(setq *rtm* (instance RTMeus :init "localhost"))
+;;load module
+(send *rtm* :load-module (format nil "~A/RTMEus/~A/lib/UsbCameraAcquire.so" (unix:getenv 'RTMEUSDIR) (unix:getenv "ARCHDIR")) "UsbCameraAcquireInit")
+(send *rtm* :load-module (format nil "~A/RTMEus/~A/lib/UsbCameraMonitor.so" (unix:getenv 'RTMEUSDIR) (unix:getenv "ARCHDIR")) "UsbCameraMonitorInit")
+(send *rtm* :load-module (format nil "~A/RTMEus/~A/lib/Flip.so" (unix:getenv 'RTMEUSDIR) (unix:getenv "ARCHDIR")) "FlipInit")
+;;create component
+(setq acq (send *rtm* :create-component "UsbCameraAcquire" "UsbCameraAcquire0" :execrate 30 :with-outstate nil))
+(setq flip (send *rtm* :create-component "Flip" "Flip0" :execrate 30 :with-outstate nil))
+(setq mon0 (send *rtm* :create-component "UsbCameraMonitor" "UsbCameraMonitor0" :execrate 30 :with-outstate nil))
+(setq mon1 (send *rtm* :create-component "UsbCameraMonitor" "UsbCameraMonitor1" :execrate 30 :with-outstate nil))
+;;connect components
+(send *rtm* :connect-components acq "imageout" flip "originalImage")
+(send *rtm* :connect-components acq "imageout" mon0 "ImageData")
+(send *rtm* :connect-components flip "flippedImage" mon1 "ImageData")
+;;plugin-mode
+(send *rtm* :set-master-comp acq)
+(send *rtm* :add-slave-comp flip)
+(send *rtm* :add-slave-comp mon0)
+(send *rtm* :add-slave-comp mon1)
+(send *rtm* :set-plugin-mode)
+;;activate all components
+(send *rtm* :all-activate)
+}}}
+
+カメラキャプチャを行うUsbCameraAcquire, イメージの表示を行うUsbCameraMonitor, イメージの左右逆転を行うFlipの３つのコンポーネントを.so読み込んで，作成し，それらを接続して，最後にactivateしている例である．pluginモードというのは，一つのコンポーネントをマスター，残りをスレーブとして，マスターの動作に残りのコンポーネントを同期させるための仕組みである．
+
+== rtmeus/roseus接続サンプル ==
+
+roscoreが起動している状態で
+
+{{{
+$ roslaunch rtmros_msgsample rtmros_msgsample.launch
+}}}
+
+とすれば，試すことができる．
+
+rtmros_eusapp/rtmros_msgsample/launch以下にこのlaunchファイルが，rtmros_eusapp/rtmros_msgsample/src以下に実際に実行している.lのファイルがある．実行している実体は，roseus_pubsample.lとrosrtm_msgrecv.lである．roseus_pubsample.lは，chatterというstd_msgs::stringのトピックを発行するノードである．一方，rosrtm_msgrecv.lでは，TimerTest0.rtcという文字列入力をもらって表示するサービスをもったコンポーネントを作成し，chatterトピックをsubscribeして読み込んだデータを，このTimerTest0.rtcのサービスポートに文字列をセットしている．
+
+rtmeusとroseusを接続したプログラムを行う際の，現状の制限事項として，rtc関係の初期化（コンポーネント作成，接続など）をros::で始まる関数群に先駆けて行う必要があるので，注意すること．
+

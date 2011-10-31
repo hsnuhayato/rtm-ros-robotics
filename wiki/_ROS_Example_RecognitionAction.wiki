@@ -1,0 +1,199 @@
+*summary 認識行動のサンプル*
+
+= 概要 =
+
+画像認識，行動生成等のプログラム例を紹介する．
+
+= コンパイル =
+
+[ROS_Install.html ソースのインストールあるいは更新] を終えたら最後に，
+
+{{{
+rosmake roseus_tutorials --rosdep-install --rosdep-yes
+}}}
+
+としてサンプルプログラムをコンパイルする．
+
+= どのサンプルプログラムにも共通するキャプチャ＆ビューワプログラムの実行 =
+
+ターミナルを２つ立ち上げ，一つでは
+
+{{{
+roslaunch roseus_tutorials usb-camera.launch
+}}}
+
+もう一つでは
+
+{{{
+roslaunch roseus_tutorials image-view.launch
+}}}
+
+つぃ，カメラ画像が写っていることを確認しよう．以後，このビューワを`image_view2`と呼ぶ．
+
+= サンプルプログラム =
+
+== 顔画像認識クライアントプログラムの理解 ==
+
+{{{
+roslaunch roseus_tutorials face-detector-mono.launch
+}}}
+
+とすると顔画像認識プログラムが起動する．
+
+{{{
+rostopic echo /face_detector_mono/faces
+}}}
+
+として認識結果を確認することが出来る．顔が認識されていれば，例えば 以下の様になるだろう
+
+{{{
+---
+header:
+  seq: 136
+  stamp:
+    secs: 1304306512
+    nsecs: 921823634
+  frame_id: ''
+rects:
+  -
+    x: 379
+    y: 272
+    width: 185
+    height: 185
+}}}
+
+rects: x, y が顔の座標，width heightがサイズである． x,yが顔の中心なのか，左上なのかを調べたければプログラムを 書くのが簡単，かつ，確実である．実際には
+
+{{{
+rosrun roseus_tutorials face-detector-mono.l
+}}}
+
+とすればよい．`image_view2`上で顔が認識された場所が赤四角で囲まれていると思う． このプログラムは
+
+{{{
+(ros::subscribe "face_detector_mono/faces" face_detector_mono::RectArray #'facedetect-cb)
+}}}
+
+として顔認識プログラムの結果を取得したらfacedetect-cbという関数を呼んでいる． この関数の中では，顔認識の結果に応じてimage_view2に表示するためImageMarker2という変数の情報を更新しパブリッシュしている．これで，`x,y`が顔領域の中心であることが確認された．
+
+== 顔画像認識に基づく行動生成(1) ==
+
+画像認識の結果から得られる情報を用いてロボットの行動を生成する例を示す．
+
+顔画像認識プログラムを起動する．起動していなければ，
+
+{{{
+roslaunch roseus_tutorials face-detector-mono.launch
+}}}
+
+とする．
+
+{{{
+rosrun roseus_tutorials vision-action-example1.l
+}}}
+
+としてクライアントプログラムを実行する．このなかの`facedetect-cb`にあるように， 顔画像の画像座標上での位置`cx, cy`に応じた動作を生成する．
+
+{{{
+(if (> cx 320)
+    (send *pr2* :head :neck-y :joint-angle 30)
+  (send *pr2* :head :neck-y :joint-angle -30))
+(send *ri* :angle-vector (send *pr2* :angle-vector) 1000)
+(send *pr2* :head :neck-p :joint-angle 30)
+(send *ri* :angle-vector (send *pr2* :angle-vector) 1000)
+(send *pr2* :head :neck-p :joint-angle 0)
+(send *pr2* :head :neck-y :joint-angle 0)
+(send *ri* :angle-vector (send *pr2* :angle-vector) 1000)
+}}}
+
+== 顔画像認識に基づく行動生成(2) ==
+
+画像認識の結果から得られる情報と カメラの内部パラメータ情報を用いて ロボットの行動を生成する例を示す．
+
+顔画像認識プログラムを起動する．起動していなければ，
+
+{{{
+roslaunch roseus_tutorials face-detector-mono.launch
+}}}
+
+とする．
+
+{{{
+rosrun roseus_tutorials vision-action-example2.l
+}}}
+
+としてクライアントプログラムを実行する．このなかの`facedetect-cb`を みてみよう． まずは，前回と同様`cx, cy`に視野画像中の顔の位置が画像座標系で表現されているとする．変数`cam`にカメラのモデルをセットし，`(send cam :ray cx cy)`とすることで，このカメラの画像座標上の点が絶対座標空間ではどの方向にあるか，という情報を得ることが出来る．
+
+{{{
+;; calc 3d ray from camera model and image coordinates
+(setq cam (send *pr2* :camera "wide_stereo/right"))
+(setq p (send cam :worldpos))
+(setq v (send cam :ray cx cy))
+(format t "ray = ~A~%" v)
+}}}
+
+したがって，これとカメラの現在の位置`p`から，カメラの1000mm先に対象物体が存在するとした場合の世界座標情報を計算でき，`(send *pr2: :head :look-at [pos])`メソッドを用いて，対象物を見る，という動作を生成することが出来る．最後の'*viewer*'にメソッドを送っている2行は表示用である．
+
+{{{
+;; look-at the end of ray
+(send *pr2* :head :look-at (v+ p (scale 1000 v)))
+(send *ri* :angle-vector (send *pr2* :angle-vector) 1000)
+(send *viewer* :viewsurface :3d-line p (v+ p (scale 1000 v)))
+(send *viewer* :viewsurface :flush)
+}}}
+
+=== 顔画像認識に基づく行動生成(3) ===
+
+画像処理で対象の三次元情報が得られる場合のサンプルプログラムを紹介する． チェッカーボードの三次元座標を検出する以下のプログラムを実行する．
+
+{{{
+roslaunch roseus_tutorials checkerboard-pose.launch
+}}}
+
+チェッカーボードは calibboard_7x5_0.030.pdf にある．
+
+{{{
+rosrun roseus_tutorials vision-action-example3.l
+}}}
+
+としてクライアントプログラムを実行する．このなかの`checkerboard-cb`が例となっている．
+
+{{{
+(defun checkerboard-cb (pose)
+  (let ((mrk (instance image_view2::ImageMarker2 :init))
+        cam target-local target-world)
+    (setq target-local (ros::tf-pose->coords (send pose :pose)))
+}}}
+
+で`checkerboard-pose`から出力されるposeメッセージを座標系オブジェクトに変換している．
+
+{{{
+;; for display
+(send mrk :type image_view2::ImageMarker2::*FRAMES*)
+(send mrk :frames (list "/checkerboard_pose_frame"))
+(send *tfb* :send-transform
+      target-local (send pose :header :frame_id) "/checkerboard_pose_frame")
+(ros::ros-info "~A" target-local)
+(ros::publish "image_marker" mrk)
+}}}
+
+まではディスプレイ用のコードである．このコードをつかってimage_view2上の座標が描かれている．
+
+target-localはカメラ座標系からみた対象の座標なので，
+
+{{{
+(setq target-world (send target-local :transform (send cam :worldcoords) :parent))
+}}}
+
+で世界座標系に変換し，
+
+{{{
+(send *pr2* :rarm :inverse-kinematics
+      target-world :rotation-axis nil
+      :stop 3 :revert-if-error nil :warnp nil)
+(send *ri* :angle-vector (send *pr2* :angle-vector) 1000)
+(send (send target-world :copy-worldcoords)  :draw-on :flush t :size 200)
+}}}
+
+でその場所に手を伸ばすような動作を生成している． `:rotation-axis` のオプションは，手先の姿勢の拘束を表している．`nil`は，拘束無しを指定しており，その結果手先の位置のみの3自由度を目標とした逆運動学を解いている．
+

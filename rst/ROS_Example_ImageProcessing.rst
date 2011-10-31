@@ -1,0 +1,450 @@
+*画像処理のサンプル*
+
+.. <wiki:toc max_depth="2" />
+
+====
+概要
+====
+画像処理のサンプルプログラムを例にしつつ，ノード，トピック，リマップ，メッセージ
+，バグファイル等の概念を紹介する．
+
+.. <wiki:comment>
+   ，サービス，パラメータ
+   </wiki:comment>
+
+====
+準備
+====
+
+------------------------------------
+新しいソースのインストールと動作確認
+------------------------------------
+
+- rosinstallについて
+
+  ROSのインストールは.rosinstallファイルで設定する．
+  ファイルフォーマットに関して，詳しい情報は， http://www.ros.org/wiki/rosinstall を見てみよう．ただ，
+
+  ::
+
+    $ roslocate info icra_ros_tutorial
+    - svn:
+          local-name: icra_ros_tutorial
+          uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_boxturtle/sandbox/icra_ros_tutorial
+
+  のようにパッケージ名を知っていればroslocateコマンドで必要な設定情報を知ることが出来る．また，どのようなリポジトリが有るかについては http://www.ros.org/browse/list.php のページを見るとよい．
+
+  ここにかかれたソースをダウンロードし，必要な環境変数をsetup.bash(実際はこのファイルから呼ばれるsetup.sh)に書き出している．この環境変数が無いとROSは動かないため，かならずこのファイルをロードしているか確認すること．
+
+ソフトウェアのインストールが出来たら，
+
+::
+
+  $ rosmake roseus_tutorials --rosdep-install　--rosdep-yes
+  $ roscore
+
+とし，もう一つのターミナルを開いて
+
+::
+
+  $ roslaunch roseus_tutorials usb-camera.launch 
+
+（ここで，[ WARN] [1303720226.445781085]: Started in the global namespace! とか，ERROR: could not set some settings.とか，select timeout in grabとか表示されても気にしなくてよい）
+
+さらにもう一つターミナルを開いて，
+
+::
+
+  $ roslaunch roseus_tutorials image-view.launch 
+
+とすると，カメラ画像が見えるはずである．
+
+最後に
+
+::
+
+  $ rxgraph
+
+としてみよう．以下のような画面が現れるはずだ．
+
+.. image :: opencv_ros_bridge_tutorial_rxgraph.png
+
+丸で囲まれたものが ノード_ を示し，それらの間の矢印が トピック_ を表す．ノードはプロセスと同義であり，トピックはノード間でメッセージ（データ型）を交換するための名前付きバスである．ノードはトピックをSubscribeあるいは，Publishする．
+
+.. _ノード: http://www.ros.org/wiki/Nodes
+.. _トピック: http://www.ros.org/wiki/Topics
+
+rosnode listとすると，現在のノードの一覧が，rostopic listとすると，現在のトピック一覧を見ることができる．rostopic echo /image_rect_color/screenpointとすると，カメラ画像をクリックする度に表示されるはずだ．
+カメラ画像はクリックされる度に/image_rect_color/screenpointというトピックをパブリッシュし，rostopic echoは，/image_rect_color/screenpointというトピックをサブスクライブし結果を表示している，ということになる．
+
+- ROSカメラドライバについて
+  ちなみに，ROSのUSBカメラドライバは各種存在する．それぞれについては， `Testing: ROS USB Camera drivers`_ に詳しい．また，これらのドライバを統一してサポートするバージョンを作っていこうという 議論_ もあるので注意が必要な段階である．
+
+.. _`Testing: ROS USB Camera drivers`: http://www.iheartrobotics.com/2010/05/testing-ros-usb-camera-drivers.html
+.. _議論: http://ros-users.122217.n3.nabble.com/call-for-an-official-ROS-USB-camera-package-td2116581.html
+
+  一方，IEEE1394カメラについては，以前は同様に各種存在する段階だったが今は 統合されたバージョン_ に落ち着いている段階にある．その際の 議論の過程_ を見ることが出来る．
+
+.. _統合されたバージョン: http://www.ros.org/wiki/camera1394
+.. _議論の過程: http://www.ros.org/wiki/camera1394/Reviews
+
+========================
+簡単なサンプルプログラム
+========================
+
+----------------------------
+基本となるサンプルプログラム
+----------------------------
+
+簡単なサンプルプログラムをopencv_ros_bridge_tutorialに置いた．
+新しいソースのインストールと動作確認の所で実行した
+
+::
+
+  roscore
+  roslaunch roseus_tutorials usb-camera.launch 
+
+を立ち上げたまま，まず，
+
+::
+
+  rosrun opencv_ros_bridge_tutorial image_painter image:=/image_rect
+
+とし，さらに別のターミナルで
+
+::
+
+  rosrun image_view2 image_view2 image:=/image_painted
+
+とすると，画面の左上に小さい丸が表示されているはずである．
+
+.. image :: opencv_ros_bridge_tutorial_image_painted.png
+
+image:=/image_rectの部分は リマップ_ と呼ばれる大変便利な機能である．
+これはプログラム中に埋め込まれたトピック名等の名前を，プログラムの実行時に変更することが出来，これにより同じノードを複数の設定で実行することが出来る．例えば，このプログラムのコードでは it\_.subscribe("image", 1, &ImagePainter::imageCb, this);とimageという名前のトピックをSubscribeしているが，上の様に実行することでimage_rectという名前のトピックをSubscribeするよう設定し実行している．
+
+.. _リマップ: http://www.ros.org/wiki/Remapping%20Arguments
+
+プログラムの中身の詳細の説明は, http://www.ros.org/wiki/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages に譲るが，ポイントはプログラムの中段の以下の部分．
+
+::
+
+    if (cv_ptr->image.rows > 60 && cv_ptr->image.cols > 60)
+      cv::circle(cv_ptr->image, cv::Point(30, 50), 10, CV_RGB(0,0,255));
+
+    cv::imshow(WINDOW, cv_ptr->image);
+    cv::waitKey(3);
+
+    image_pub_.publish(cv_ptr->toImageMsg());
+
+OpenCVのcv_ptr->imageがcv::Mat型であるので，通常のOpenCV画像処理プログラムを記述すればよい．OpenCV関数については http://opencv.jp/opencv-2svn/cpp/index.html を見よう．例えばcv::circleについては， http://opencv.jp/opencv-2svn/cpp/core_drawing_functions.html を見ればよい．
+
+------------------------
+トピックのサブスクライブ
+------------------------
+
+視野画像をクリックすると，その場所に丸を書くようにプログラムを変更しよう．そのためには，image_rect/screenpointをSubscribeすればよい．
+プログラムはimage_painter2.cppにある．
+
+まずは，
+::
+
+  rostopic info /image_painted/screenpoint
+
+としてトピックの型を調べる．これで，Type: geometry_msgs/PointStampedという情報が得られる．(
+さらに，rosmsg show geometry_msgs/PointStampedとすると，型の情報を知ることが出来る）
+
+ここから，プログラムの先頭に
+::
+
+  #include <geometry_msgs/PointStamped.h>
+
+としてファイルをインクルードし，
+::
+
+    screen_sub_ = nh_.subscribe("/image_painted/screenpoint", 1, &ImagePainter::screenCb, this);
+
+として，Subscribeする．screenCbの中は
+::
+
+  void screenCb(const geometry_msgs::PointStampedPtr& msg)
+  {
+    ROS_INFO("screen cb %3d %3d", (int)msg->point.x, (int)msg->point.y);
+    screen_x = msg->point.x; screen_y = msg->point.y;
+  }
+
+として，メッセージを受け取る度にこの関数が呼ばれることになる．
+screen_x, screen_yがメンバ変数であり，imageCbの中で
+::
+
+    cv::circle(cv_ptr->image, cv::Point(screen_x, screen_y), 10, CV_RGB(0,0,255));
+
+として，メッセージに応じた位置にcircleを描画する様になっている．
+
+imgae_painterの代わりにimage_painter2を実行するためには
+::
+
+  rosrun opencv_ros_bridge_tutorial image_painter2 image:=/image_rect
+
+として立ち上げればよい．この時点で，これに加えて
+::
+
+  roscore
+  roslaunch roseus_tutorials usb-camera.launch 
+  rosrun image_view2 image_view2 image:=/image_painted
+
+の4つのターミナルが立ち上がっているはずである
+
+後は，視野画像をクリックすればその位置に丸がかかれることになる．
+
+======================
+トピックのパブリッシュ
+======================
+
+このプログラム（ノード）は，どのノードが出力(publish)したかに関わらず'/image_painted/screenpoint'という名前のトピックを受け取るようになっている．したがって，例えば
+
+::
+
+  rostopic pub -1 /image_painted/screenpoint geometry_msgs/PointStamped '{point: {x: 100, y: 200}}'
+
+というコマンドラインを使ってもよいし，Pythonユーザなら
+
+::
+
+  #!/usr/bin/env python
+
+  # http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29
+  import roslib; roslib.load_manifest('opencv_ros_bridge_tutorial')
+  import rospy;
+  import math;
+  from geometry_msgs.msg import PointStamped
+  
+  pub = rospy.Publisher('/image_painted/screenpoint', PointStamped)
+  rospy.init_node('publish_screenpoint')
+  msg = PointStamped()
+  i = 0;
+  while not rospy.is_shutdown():
+      msg.header.stamp = rospy.Time.now()
+      msg.point.x = 320 + 180*math.sin(i)
+      msg.point.y = 240 + 180*math.cos(i)
+      i += 0.1
+      print msg;
+      pub.publish(msg)
+      rospy.sleep(0.1)
+
+とかける．C++だと，
+
+::
+
+  // http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29
+  #include "ros/ros.h"
+  #include "geometry_msgs/PointStamped.h"
+
+  #include <math.h>
+  
+  int main(int argc, char **argv)
+  {
+    ros::init(argc, argv, "publish_screenpoint");
+  
+    ros::NodeHandle n;
+    ros::Publisher pub = n.advertise<geometry_msgs::PointStamped>("/image_painted/screenpoint", 1000);
+  
+    ros::Rate loop_rate(10);
+    double i = 0;
+    while (ros::ok())
+      {
+        geometry_msgs::PointStamped msg;
+        msg.header.stamp = ros::Time().now();
+        msg.point.x = 320 + 180*sin(i);
+        msg.point.y = 240 + 180*cos(i);
+        i += 0.1;
+        ROS_INFO("%5.1f %5.1f", msg.point.x, msg.point.y);
+        pub.publish(msg);
+        ros::spinOnce();
+        loop_rate.sleep();
+      }
+  
+    return 0;
+  }
+
+として，CMakeLists.txtにrosbuild_add_executable(publish_screenpoint src/publish_screenpoint.cpp)を追加しコンパイルし実行する必要が有る．euslispだと，始めて使う者は
+
+::
+
+  rosrun roseus generate-all-msg-srv.sh 
+
+
+としてから以下の様にする．
+
+::
+
+  #!/usr/bin/env roseus
+
+  (ros::load-ros-manifest "opencv_ros_bridge_tutorial")
+  (ros::roseus "publish_screenpoint")
+  (ros::advertise "/image_painted/screenpoint" geometry_msgs::PointStamped 1)
+  (setq i 0)
+  (ros::rate 10)
+  (while (ros::ok)
+   (setq msg (instance geometry_msgs::PointStamped :init))
+   (send msg :header :stamp (ros::time-now))
+   (send msg :point :x (+ 320 (* 180 (sin i))))
+   (send msg :point :y (+ 240 (* 180 (cos i))))
+   (incf i 0.1)
+   (ros::ros-info "msg ~A ~A" (send msg :point :x) (send msg :point :y))
+   (ros::publish "/image_painted/screenpoint" msg)
+   (ros::sleep))
+
+
+となる．それぞれopencv_ros_bridge_tutorial/src/にコードがあり，
+
+::
+
+  rosrun opencv_ros_bridge_tutorial publish_screenpoint.sh
+
+あるいは，
+::
+
+  rosrun opencv_ros_bridge_tutorial publish_screenpoint.py
+
+あるいは，
+
+::
+
+  rosrun opencv_ros_bridge_tutorial publish_screenpoint
+
+あるいは，
+::
+
+  rosrun opencv_ros_bridge_tutorial publish_screenpoint.l
+
+として実行出来る．
+
+Publish, Subscribeの仕方について，より詳しくは _`Writing a Simple Publisher and Subscriber (C++)`、
+_`Writing a Simple Publisher and Subscriber (Python)` を見よう．
+
+.. `Writing a Simple Publisher and Subscriber (C++)`: http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29
+.. `Writing a Simple Publisher and Subscriber (Python)`: http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29
+
+各プログラムの実行の様子は
+::
+
+  rostopic echo /image_painted/screenpint
+
+で見ることができるが，これらトピックの可視化ツールとして rxplot がある．
+::
+
+  rxplot /image_painted/screenpoint/point/x,/image_painted/screenpoint/point/y
+
+とすると以下のような視覚化が可能である．
+
+.. image :: opencv_ros_bridge_tutorial_screenpoint_rxplot.png
+
+その他のツールについては http://www.ros.org/wiki/ROS/CommandLineTools を見てみよう．
+
+.. <wiki:comment>
+   * サービスコールの扱い
+   </wiki:comment>
+
+----------------------------
+バグファイル（ログファイル）
+----------------------------
+
+::
+
+  rosbag record -a 
+
+とするとネットワーク上の全てのトピックに流れているデータをログファイルに溜め込むことが出来る．また，ログをとるトピックを取捨選択したければrosbag record /image_color /imag_monoなどとするとよい．
+終了したければC-cで止める．ログは<日付>.bagという名前のファイルに書き出される．全てのトピックをログに貯めるとあっという間にディスクを圧縮するので要注意．
+
+さらに，
+::
+
+  rxbag <日付>.bag
+
+としてログファイルのビューワを立ち上げることが出来る．右クリックしてメニューが表示されるので，Thumbnails>image_colorなどでログの中身を確認できる．
+
+::
+
+  rosbag play <日付>.bag
+
+とすると，ログファイルを再生できる．カメラが動いている状態で，カメラ画像をキャプチャしたログ画像を再生すると混乱したので，いままで立ち上げていたノードを落としてから再生すること．
+
+再生されている（あるいは，実際にリアルタイムにカメラでキャプチャされている）画像のトピックは
+
+::
+
+  rosrun theora_image_transport ogg_saver stream:=/image_color/theora image_color.ogv
+
+としてキャプチャできる．mpegファイルに変換するには
+::
+
+  mencoder imgae_color.ogv -o output.mpg -speed 15 -ofps 30 -ovc lavc -lavcopts vcodec=mpeg2video:vbitrate=2500 -oac copy -of mpeg
+
+とすることで出来る．
+
+ただ，これでできる画像は汚いので，論文発表用の綺麗な動画を作るには，
+http://www.ros.org/wiki/rosbag/Tutorials/Exporting%20image%20and%20video%20data
+をみること．
+
+コマンドオプション_ は他にもあるので興味有れば調べてみよう．
+
+.. _コマンドオプション: http://www.ros.org/wiki/rosbag/Commandline
+
+全般にわたって，より詳しい情報は http://www.ros.org/wiki/ROS/Tutorials にある．
+
+============
+他の画像処理
+============
+
+OpenCVの サンプルプログラム_
+
+.. _サンプルプログラム: https://code.ros.org/trac/opencv/browser/trunk/opencv/samples/c
+
+--------------------------
+エッジ検出(image_edge.cpp)
+--------------------------
+
+(laplacian結果)
+
+.. image :: Laplacian.png
+   :width: 320
+
+(sobel結果)
+
+.. image :: Sobel.png
+   :width: 320
+
+(canny結果)
+未完
+
+-----------------
+checkerboard検出
+-----------------
+
+腱駆動ヒューマノイド：腱臓で手先認識のためにcheckerboard検出を利用
+
+.. image :: junbi.jpg
+   :width: 240
+
+.. image :: board.png
+   :width: 320
+
+::
+
+  roslaucnh roseus_tutorial usb-camera.launch
+  roscd checkerboad_detector
+  roslaunch checkerboad_detector.launch
+
+で実行する
+手元にあるチェッカーボードのサイズに合わせて，
+launch の中身
+
+::
+
+  <param name="rect0_size_x" type="double" value="0.35"/>
+  <param name="rect0_size_y" type="double" value="0.35"/>
+  <param name="grid0_size_x" type="int" value="4"/>
+  <param name="grid0_size_y" type="int" value="6"/>
+
+を変更する

@@ -1,0 +1,92 @@
+*rosportを試す*
+
+====
+概要
+====
+
+rosportとは，産総研のジェフさんが開発，公式ページで公開しているros/rtm相互運用のための仕組みである．
+
+RTM側のソースで通常のデータポート，サービスポートと同様の書き方で，ROS側へのtopicのpublish，ROS側からのtopicのsubscribeなどが行える．
+
+詳細は，
+http://www.openrtm.org/openrtm/ja/content/ros%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88rosport
+
+にあるが，現在公式ページで配布しているのはcturtle用なので，ここではdiamondback用のパッチを当てて試す方法を解説する．
+
+====
+準備
+====
+
+試すには，OpenRTM-aistのソースにパッチを当てて，コンパイルし直す必要がある．
+まず，バイナリでインストールしている場合には，アンインストールしておくこと．
+
+::
+
+  $ sudo apt-get remove openrtm-aist openrtm-aist-dev openrtm-aist-example
+
+
+ROSについては，予めdiamondbackがインストールされている必要がある．講義で用意した環境があれば，問題ない．
+次に，diamondback用パッチとセットアップスクリプトがrtmeus/tools以下にあるので，予めrtmeusをチェックアウトしておくこと．方法は `rtmeus/roseus相互接続`_ に書いてある．
+
+.. _`rtmeus/roseus相互接続`: rtmeus_roseus_Example.html
+
+後は，以下のようにしてセットアップを行う．
+
+::
+
+  $ cd rtmeus/tools
+  $ ./setup-rosport.sh
+
+
+うまくセットアップができていれば，
+
+::
+
+  $ rtm-config --cflags
+  -Wall -fPIC -O2 -I/usr/local/include -I/usr/local/include/rtm/idl -I/opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp/include -I/opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp/msg_gen/cpp/include -I/opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp/srv_gen/cpp/include -I/opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp_serialization/include -I/opt/ros/diamondback/stacks/ros_comm/clients/cpp/roscpp_traits/include -I/opt/ros/diamondback/stacks/ros_comm/utilities/rostime/include -I/opt/ros/diamondback/stacks/ros_comm/utilities/xmlrpcpp/src -I/opt/ros/diamondback/stacks/ros_comm/tools/rosconsole/include -I/opt/ros/diamondback/stacks/ros_comm/utilities/cpp_common/include -I/opt/ros/diamondback/stacks/ros_comm/messages/std_msgs/include -I/opt/ros/diamondback/stacks/ros_comm/messages/std_msgs/msg_gen/cpp/include -I/opt/ros/diamondback/ros/core/roslib/msg_gen/cpp/include -I/opt/ros/diamondback/ros/core/roslib/include -I/opt/ros/diamondback/ros/tools/rospack -I/opt/ros/diamondback/ros/tools/rospack/include -I/opt/ros/diamondback/stacks/ros_comm/messages/rosgraph_msgs/msg_gen/cpp/include
+
+のように出るはずである．
+
+======
+使い方
+======
+
+例えば，ROS側にpublishしたい場合，ヘッダファイルの中で
+
+::
+
+  #include <rtm/RosOutPort.h>
+  RosOutPort<numbers::Num> _numOut;
+
+
+のように定義して，cpp側は，
+
+::
+
+  RTC::ReturnCode_t Publisher::onInitialize()
+  {
+      addRosOutPort("number", _numOut);
+      return RTC::RTC_OK;
+  }
+
+  RTC::ReturnCode_t Publisher::onExecute(RTC::UniqueId ec_id)                     
+  {                                                                               
+      _num.num += 1;                                                              
+      _numOut.write();                                                            
+      std::cout << "Wrote " << _num.num << std::endl;                             
+      return RTC::RTC_OK;                                                         
+  }
+
+
+
+というようにすれば，RTCからnumberというトピックをpublishすることができる．
+
+========
+サンプル
+========
+
+ジェフさんが作って公開しているサンプルが
+
+http://www.google.co.jp/gwt/x?source=m&u=http%3A%2F%2Fwww.openrtm.org/pub/OpenRTM-aist/cxx/1.0.0/examples.ros-1.0.0.tar.gz&wsi=7847c037bb64cc19&ei=hQIDTqYal8ewBu783PsE&wsc=bk
+
+にあるので，これを試すのが良い．

@@ -1,0 +1,174 @@
+*summary RTMEXTenderを試す*
+
+====
+概要
+====
+
+OpenRTMの開発を支援するツールであるRTMEXTenderを導入しましょう．
+
+https://github.com/hyaguchijsk/rtmext
+
+===================
+RTMEXTender導入以前
+===================
+
+---------------------
+rtctreeのインストール
+---------------------
+
+::
+
+  $ git clone https://github.com/gbiggs/rtctree.git
+  $ cd rtctree
+  $ python setup.py build
+  $ sudo python setup.py install
+
+
+---------------------
+rtshellのインストール
+---------------------
+::
+
+  $ git clone https://github.com/gbiggs/rtshell.git
+  $ cd rtshell
+  $ python setup.py build
+  $ sudo python setup.py install
+
+
+------------
+OpenCVの準備
+------------
+ROSのOpenCVをROSの外で使う方法．
+以下を.bashrcに追加しよう．
+::
+
+  export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:`rospack find opencv2`/opencv/lib/pkgconfig
+  LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:`rospack find opencv2`/opencv/lib
+
+
+もしくは，自分でダウンロードしてインストールしよう．
+
+http://opencv.willowgarage.com/wiki/
+
+.bashrcを編集したら必ず次のコマンドを実行すること．
+::
+
+  source ~/.bashrc
+
+
+===============
+RTMEXTender導入
+===============
+
+--------------------
+rtmextのダウンロード
+--------------------
+
+::
+
+  $ git clone https://github.com/hyaguchijsk/rtmext.git
+
+
+-------------
+.bashrcの編集
+-------------
+
+~/.bashrcに以下を追加．
+/path/to/rtmextは適宜自分でダウンロードしたディレクトリに読み替えること．
+::
+
+  export RTCTREE_NAMESERVERS=localhost
+  export PATH=${PATH}:[/path/to/rtmext]
+  export RTM_PACKAGE_PATH=[/path/to/rtmext]/common:[/path/to/rtmext]/examples
+  function rtmcd () {
+   cd `rtmpack find $1`
+  }
+  source [/path/to/rtmext]/completion.bash
+
+.bashrcを編集したら必ず次のコマンドを実行すること．
+::
+
+  source ~/.bashrc
+
+
+
+================================
+チュートリアル：サンプルの使い方
+================================
+
+まず，rtm-namingを立ち上げておく．
+roslaunchとちがってネームサーバを自動で起動する機能はない．
+
+-------
+rtmpack
+-------
+
+::
+
+  rtmpack find rtmext_opencv
+
+
+これでrtmext_opencvのパスが解決されればインストールは正常に出来ています．
+できなかったら，もう一度インストールを見直しましょう．
+
+-------
+rtmmake
+-------
+
+::
+
+  rtmmake sample_imageview
+
+
+依存するパッケージも含めてmake
+
+---------
+rtmlaunch
+---------
+
+::
+
+  rtmlaunch sample_imageview capture.xml
+
+
+カメラが付いている人はこちら．
+
+::
+
+  rtmlaunch sample_imageview capture_from_file.xml
+
+
+カメラが付いていない人はこちら．ROSのOpenCVを使っている人はカメラキャプチャが使えないのでこちらを使いましょう．
+
+==========================
+チュートリアル：開発の仕方
+==========================
+
+----------------
+RTM_PACKAGE_PATH
+----------------
+
+環境変数RTM_PACKAGE_PATHに自分で開発するパッケージの置き場所を追加しておく．
+
+RTCBuilderで作ったパッケージをディレクトリ単位で管理することができます．
+
+============
+manifest.xml
+============
+
+パッケージの中に，ROSと同じ書式でmanifest.xmlをおく．
+
+::
+
+  <depend package="MyPakcage" />
+
+
+とすると，rtmpack find MyPackageでパスを解決して連鎖ビルドが可能になる．
+
+--------------------------
+ランチャーファイルの書き方
+--------------------------
+
+https://github.com/hyaguchijsk/rtmext/wiki/Format-of-rtmlaunch-.xml-file
+
+ROSとは書式が異なる．

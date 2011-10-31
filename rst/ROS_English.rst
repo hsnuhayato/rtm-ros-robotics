@@ -1,0 +1,324 @@
+*summary One-sentence summary of this page.*
+
+.. <wiki:toc max_depth="3" />
+
+=======
+Install
+=======
+
+-------------------
+Install source code
+-------------------
+
+Install ROS by following  http://www.ros.org/wiki/electric/Installation/Ubuntu  , install related ros packages
+::
+
+  sudo apt-get install ros-electric-wg-pr2-apps ros-electric-pr2-apps ros-electric-pr2-desktop ros-electric-openni-kinect
+
+and install `rtm-ros-robotics` software
+::
+
+  rosinstall ~/prog/rtm-ros-robotics /opt/ros/electric http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+
+-----------------
+Build source code
+-----------------
+build source code and install related packages
+::
+
+  $ rosmake --rosdep-install --rosdep-yes hrpsys_ros_bridge
+
+
+-------------
+Setup Eclipse
+-------------
+type
+::
+
+  $ rosrun openrhp3 eclipse.sh
+
+then you'll see eclipse interface.
+Then you select
+`Help -> Install New Softare -> Add`
+from menu bar. and add
+
+ http://download.eclipse.org/tools/gef/updates/releases/
+
+to the Location and select GEF SDK 3.6.2, install and restart eclipse.
+
+If you're using 10.04 Ubuntu, you also need to add
+
+ http://download.eclipse.org/modeling/emf/updates/releases/
+
+to the Location and select SDK EMF SDK 2.5.0.
+
+Then select
+`Help -> Install New Softare -> Add`
+and add
+
+`<openhrp3>/build/rtmtools_eclipse.zip`
+
+to the Add menu and select everything.
+
+Lastly, you have to install following software as well from Install
+`New Software -> Add`
+
+<openhrp3>/build/java3declipse-20090302.zip<br>
+<openhrp3>/build/grxui_eclipse.zip<br>
+<hrpsys>/build/robothardware_eclipse.zip<br>
+
+=======
+Example
+=======
+
+------------------
+OpenHRP Simulation
+------------------
+
+- PA10
+
+::
+
+  roslaunch openhrp3 pa10.launch
+
+press `Start Simulation` button 
+
+~~~~~~~~~~~~~~
+Sample Vehicle
+~~~~~~~~~~~~~~
+::
+
+  roslaunch openhrp3 sample-vehicle.launch
+
+
+~~~~~~~~~~~~~~~~~~~~~
+Sample Humanoid Robot
+~~~~~~~~~~~~~~~~~~~~~
+::
+
+  roslaunch openhrp3 samplerobot-walk.launch
+
+::
+
+  roslaunch openhrp3 samplerobot-pickupbox.launch
+
+::
+
+  roslaunch openhrp3 samplerobot-inhouse.launch
+
+press `Start Simulation` button 
+
+Change FPS from 50 to 1-10 to speed up simulation.
+
+-----------------
+hrpsys Simulation
+-----------------
+
+.. <wiki:comment>
+   ~~~~
+   PA10
+   ~~~~
+   ::
+   
+     roslaunch hrpsys pa10.launch
+   
+   press `Start Simulation` button,
+   then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/PA10; rosrun hrpsys hrpsyspy ./PA10.py`
+   </wiki:comment>
+
+~~~~~~~~~~~~~~
+HRP-4C walking
+~~~~~~~~~~~~~~
+::
+
+  roslaunch hrpsys hrp4c.launch
+
+press `Start Simulation` button,
+then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/HRP-4C; rosrun hrpsys hrpsyspy ./HRP4C.py`
+
+-------------------
+RTM/ROS Integration
+-------------------
+
+~~~~~~~~~~~~
+Sample Robot
+~~~~~~~~~~~~
+::
+
+  roslaunch hrpsys_ros_bridge samplerobot.launch
+
+and if you see following message as well as eclipse OpenHRP simulaiton
+
+::
+
+  [openhrp-scheduler]   129, time:  0.258, controlTime:  0.258, control : true
+  @Execute name : AbsTransformToPosRpy0/0, pr:1
+  1.9 -0.397999 0.717624 3.12594e-07 -1 3.52344e-08 1 3.12594e-07 .03301e-09 -2.03302e-09 3.52344e-08 1 
+  [openhrp-scheduler]   130, time:  0.260, controlTime:  0.260, control : true
+  @Execute name : AbsTransformToPosRpy0/0, pr:1
+  1.9 -0.397999 0.717626 3.12604e-07 -1 3.4962e-08 1 3.12604e-07 .0601e-09 -2.06011e-09 3.4962e-08 1 
+
+Then type
+
+::
+
+  roslaunch hrpsys_ros_bridge samplerobot_ros_bridge.launch
+
+to see Sample robot in rviz.
+
+::
+
+  rosrun hrpsys SampleRobot_walk.sh
+
+or
+
+::
+
+  roscd hrpsys_ros_bridge/scripts/
+  rosrun roseus roseus samplerobot-pickup.l
+
+
+~~~~
+HRP4
+~~~~
+::
+
+  roslaunch hrpsys_ros_bridge hrp4c.launch
+  roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
+  rosrun hrpsys hrp4c_walk.sh 
+
+
+~~~~~~~~~~~~~
+Kawada HIRONX
+~~~~~~~~~~~~~
+
+try
+::
+
+  $ rosrun hrpsys_ros_bridge hironx.launch
+
+to see Eclipse simulation. 
+
+Then type
+::
+
+  $ rosrun hrpsys_ros_bridge hironx_ros_bridge.launch
+
+to see Hiro robot on Rviz.
+since we still have timing isseus
+try to launch `hironx_ros_bridge.launch` immediately after you see
+following message.
+::
+
+  [openhrp-scheduler]     1, time:  0.005, controlTime:  0.005, control : true
+  [openhrp-scheduler]     2, time:  0.010, controlTime:  0.010, control : true
+
+
+Type
+::
+
+  $ roscd hrpsys_ros_bridge/scrips; rosrun roseus roseus  kawada-hironx-example.l
+
+to  see the robot is moving.
+
+===============
+Troubleshooting
+===============
+
+-----------------
+Check OmniORB bug
+-----------------
+::
+
+  $ rosrun openrtm rtm-naming-restart
+
+and start following command from different terminal
+::
+
+  $ rosrun openhrp3 openhrp-aist-dynamics-simulator -ORBInitRef
+  NameService=corbaloc:iiop:localhost:2809/NameService
+
+If you see "ready", than it ok,
+if you see "IDL:omg.org/CORBA/TRANSIENT:1.0", that's would be omniorb
+bug in ubuntu package.
+
+Please comment out
+::
+
+  ::1     localhost ip6-localhost ip6-loopback
+
+line from `/etc/hosts` file
+
+-----------------
+Check SVN version
+-----------------
+make sure that you have downloaded latest version of repository 
+::
+
+  $ roscd rtmros_common; svn up
+
+if you have find any update, then `rosmake hrpsys hrpsys_ros_bridge` again
+
+------------------
+Check Java version
+------------------
+OpenHRP3 assume SUN version of java and not GNU or other implementation.
+::
+
+  $ java -version
+  java version "1.6.0_26"
+  Java(TM) SE Runtime Environment (build 1.6.0_26-b03)
+  Java HotSpot(TM) 64-Bit Server VM (build 20.1-b02, mixed mode)
+
+if it is not sun java, `rosdep install openhrp3` or `sudo
+update-java-alternatives -s java-6-sun`
+
+------------------------
+Check OpenHRP simulation
+------------------------
+Please make sure that OpenHRP simulation works.
+
+::
+
+  $ rosrun openhrp3 grxui.sh
+
+select "GrxUI -> Load Project" menu
+and select FallingBoxes.xml
+Then press "Start Simulation" button, to see if the 3 yellow boxes falling down.
+
+Then select SampleRobot_inHouse.xml file and press "Start Simulation"
+button to see that robot start walking.
+
+If this not working, you may fail to install eclipse plugin
+::
+
+  rm -fr ~/.eclipse
+  roscd openhrp3; rm -fr workspace
+
+-------------------------
+Check HiroNX collada file
+-------------------------
+Make sure that you have downloaded HiroNX collada file
+::
+
+   rosls collada_robots/data/robots/kawada-hironx.dae
+
+
+if not, `roscd collada_robots; rm installed; make`
+
+-----------------------------
+Check OpenHRP Collada support
+-----------------------------
+Make sure that your openrhp3 support to load collada files
+::
+
+  $ roslaunch openhrp3 grxui.launch
+
+and right click Model menu on the left "Item View" and select "load",
+
+Select kawada-hironx.dae under
+jsk-ros-pkg/openrave_planning/collada_robots/data/robots  directory
+
+Select `*.dae` from buttom left menu, that currently shown as `*.wrl`, and
+choose kawada-hironx.dae model, then confurm if you can see kawada
+robot model on the screen.

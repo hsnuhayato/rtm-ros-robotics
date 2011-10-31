@@ -1,0 +1,196 @@
+*summary マルチキャプチャ環境を想定したカメラIFでの通信サンプル*
+
+----
+概要
+----
+
+画像処理プログラム間の通信に用いる新たな共通IFとしてマルチキャプチャ環境を想定したカメラIFが国のプロジェクトの中で検討されている．そのIFの構成と，それを用いたRTコンポーネントプログラムの例について紹介する．
+
+----
+準備
+----
+
+agentsystem_rtm_tutorials/Imgidl_sample
+
+がなければ，
+
+agentsystem_rtm_tutorials以下でsvn upする．
+
+サンプル単体でチェックアウトしたい場合には，
+::
+
+  svn checkout http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_rtm_tutorials/Imgidl_sample
+
+とすること．
+
+Imgidl_sample以下には3つのフォルダがあり，それぞれが独立なサンプルに
+なっている．下記で利用するImg.idlも各々のフォルダに入っている．
+
+--------------
+Img.idl の概要
+--------------
+
+現在，次世代知能化プロジェクトの中での画像処理コンポーネント用のデータ通信型として，マルチカメラシステムを初めから視野にいれたデータ構造が検討されている．下図のように，カメラキャプチャモジュールはカメラ設定やキャリブレーションデータを外部ファイルなどとして読込み，サービスポートからの指示で画像データをデータポートを通じて転送する．転送する画像データには，カメラ設定やキャリブレーションデータも一緒に付加する．キャプチャの指示は，実際に画像処理を行うコンポーネントから行うことを想定している．
+
+.. image :: Imgidl_image.png
+
+------------
+データ通信型
+------------
+
+データの通信型として，単眼カメラ用のTimedCameraImageと複数カメラ用のTimedMultiCameraImageの2種類がImg.idlに定義されている．Img.idlから関係する場所を
+抜き出して解説する．
+
+~~~~~~~~~~~~~~~~
+TimedCameraImage
+~~~~~~~~~~~~~~~~
+
+まず，単眼カメラ用のTimedCameraImageについては，
+
+::
+
+  struct TimedCameraImage
+  {
+    RTC::Time tm;
+    CameraImage data;
+    long error_code;
+  };
+
+と定義されており，上からタイムスタンプ，キャリブレーションデータを含む画像データ構造体，エラーコードを意味する．
+
+ここで，重要なのは，CameraImageで，これの定義は，
+::
+
+  struct CameraImage
+  {
+    RTC::Time captured_time;
+    ImageData image;
+    CameraIntrinsicParameter intrinsic;
+    Mat44 extrinsic;
+  };
+
+となっている．上から順にキャプチャ時のタイムスタンプ，画像生データ，カメラ内部パラメータ構造体，カメラ外部パラメータを意味している．
+
+画像生データを表すImageData型は以下のような定義になっている．
+
+::
+
+  enum ColorFormat
+  {
+    CF_UNKNOWN, CF_GRAY, CF_RGB
+  };
+
+  struct ImageData
+  {
+    long width;
+    long height;
+  
+    ColorFormat format;
+    sequence<octet> raw_data;
+  };
+
+まずは，long型で画像の幅と高さが，そして，色フォーマットが定義されている．色フォーマットは，enum型でその上に示してあるものから選択する．現状では，グレーかRGBかを選ぶことになる．そして，最後に画像データそのものがoctet型のシーケンスとして定義されている．画像データはサイズが大きくなるので，octet型で転送するのが速度が出ることが知られている．
+
+カメラ内部パラメータ構造体とカメラ外部パラメータについても解説すると，内部パラメータについては，以下のように内部パラメータ行列の要素と歪パラメータから定義されている．
+
+::
+
+  struct CameraIntrinsicParameter
+  {
+    double matrix_element[5];
+    sequence<double> distortion_coefficient;
+  };
+
+matrix_elementは，以下の内部パラメータ行列の要素である．
+
+::
+
+  A= {a11 a12 a13
+      0  a22 a23
+      0   0    1}
+
+  a11 = matrix_element[0]
+  a12 = matrix_element[1]
+  a22 = matrix_element[2]
+  a13 = matrix_element[3]
+  a23 = matrix_element[4]
+
+また， distortion_coefficientは，OpenCVの歪パラメータと同じで，(k1,k2,p1,p2[,k3])を値として持つdouble型のシーケンスである．
+
+一方，外部パラメータを表す，extrinsicは，Mat44型で定義されているが，この型は，
+
+::
+
+  typedef double Mat44[4][4];
+
+という定義になっている．この行列は4x4の同次変換行列になっており，
+::
+
+  T= {r11 r12 r13 t0
+      r21 r22 r23 t1
+      r31 r32 r33 t2
+       0   0   0   1}
+
+  r11 - r13 :  姿勢変換行列
+   t0 - t2  :  位置ベクトル
+
+でカメラから見た世界座標系の姿勢，位置を直に指定する．
+
+~~~~~~~~~~~~~~~~~~~~~
+TimedMultiCameraImage
+~~~~~~~~~~~~~~~~~~~~~
+
+一方，マルチカメラ用のデータ型であるTimedMultiCameraImageは以下のように定義されている．
+
+::
+
+  struct TimedMultiCameraImage
+  {
+    RTC::Time tm;
+    MultiCameraImage data;
+    long error_code;
+  };
+
+単眼の時と違うのは，画像データ構造体の型がMultiCameraImageになっていることである．この型は以下のように定義されている．
+
+::
+
+  struct MultiCameraImage
+  {
+    sequence<CameraImage> image_seq;
+    long camera_set_id;
+  };
+
+これは，上で説明したキャリブレーションデータを含む画像データ型であるCameraImageのシーケンスとして各カメラごとのデータを保持し，それと同時にそのカメラセットに外から参照できる形のidを付与する構成となっている．
+
+------------------------------
+サービスポートのインタフェース
+------------------------------
+
+一方，このidlを用いた構成では，サービスポートを通じて，カメラキャプチャモジュールにキャプチャ指示が行われることになる．このインタフェースはCameraCaptureServiceという名前でidlに下記の4つの関数が定義されている．Img.idlに対応したカメラキャプチャモジュールでは，これらのインタフェースを実装しておく必要がある．
+
+::
+
+  oneway void take_one_frame() // 1枚撮影
+  oneway void take_multi_frames(in long num) // num枚撮影
+  oneway void start_continuous(); // 連続撮影開始
+  oneway void stop_continuous(); // 連続撮影停止
+
+マルチカメラの場合には，それぞれの指示のタイミングで全てのカメラで同期した画像データが出力される．
+
+--------
+サンプル
+--------
+
+準備作業がうまくいっていれば，agentsystem_rtm_tutorials/Imgidl_sample以下にUsbCameraCaptureImgidl, UsbCameraMonitorImgidl, OpticalFlowImgidlの3つが見えているはずである．
+
+全てのサンプルモジュールはpythonで記述されており，各フォルダにてmakeと打てば，omniidlを呼び出し，Img.idlをpythonでimport可能な形にコンパイルしてくれる．
+
+その状態で，ターミナルを3つ開き，各々のフォルダにて，UsbCameraCapture.py，UsbCameraMonitor.py，OpticalFlow.pyを起動する．そして，RTSystemEditorで，
+UsbCameraCaptureからUsbCameraMonitorとOpticalFlowの2つへデータポートにて接続する．
+また，キャプチャの指示を今回はOpticalFlowから行うこととして，OpticalFlowのサービスポートとUsbCameraCaptureのサービスポートを接続する．
+
+この状態で全体をactivateする．しかし，このままでは，キャプチャは行われない．RTSystemEditor上でOpticalFlow0を選択すると，System Diagramの下にあるConfiguration viewにtrack_frame_flagというconfiguration変数が見える．これの値を0から1に変更して，右のApplyボタンを押す．うまくいけば，下の図のように生画像とオプティカルフロー生成画像の両方が見えるはずである．
+
+.. image :: Imgidl_sample_image.png
+

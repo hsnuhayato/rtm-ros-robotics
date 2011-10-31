@@ -1,0 +1,233 @@
+*summary RTMのハローワールド，通信サンプル*
+
+= RTMハローワールド =
+
+== ソースの雛形を作成する ==
+
+まずは，RTCBuilderを使ってGUIからソースの雛形を作成する．
+
+eclipseを起動し，Window　→　Open Perspective　→ Other... で出てくるボックスの中からRTC Builderを選択して，OKを押す．すると，以下のような画面になるので，左上にあるカナヅチのアイコンを押す．
+
+すると，RTCBuilderと書かれたウィンドウが右上に現れるので，その中の情報を順に埋めていく．まずは，Basicのタブは以下の図のようになっている．
+
+とりあえず，変える必要のある項目は，Module name，Module vender，Module Category，Output Project，Execution rateである．Execution rateはコンポーネントの実行周期であり，単位はHzなので注意すること．また，Windows版では，最初から1.0が入っているがUbuntu版はデフォルトでは0になっているので，適切な値に必ず変えること．
+
+次はActivityのタブを選択すると以下の図のような状態になる．ここでは，状態変化に応じたコールバック関数の有効／無効を設定する．少なくともアクティベート時間数であるOnActivated()と周期実行関数であるOnExecute()はONにした方が良い．その他はケースバイケースで．
+
+次にLanguage and Environmentのタブを開くと以下の図のようになる．C++を選択すれば，gcc用Makefile, VC用プロジェクト，ソリューションファイルなどを生成してくれる．勿論，Pythonを選んでも適切な雛形を作ってくれる．
+
+最後に再びBasicのタブに戻ってきて，下の方にある「Code Generation」のボタンを押すと，eclipseのワークスペース（Ubuntuならデフォルトは~/workspace, WindowsならデフォルトはC:Usersユーザ名workspace）以下にフォルダを生成してくれる．
+
+== コアロジックを記述／コンパイル ==
+
+作成したプロジェクトのフォルダにいき，HelloWorld.cppを編集する．ハローワールドなので，
+
+{{{
+RTC::ReturnCode_t HelloWorld::onInitialize()
+{
+  std::cerr << "Initializing Component " << std::endl;
+  return RTC::RTC_OK;
+}
+
+RTC::ReturnCode_t HelloWorld::onActivated(RTC::UniqueId ec_id)
+{
+  std::cerr << "Activating Component " << std::endl;
+
+  return RTC::RTC_OK;
+}
+
+RTC::ReturnCode_t HelloWorld::onExecute(RTC::UniqueId ec_id)
+{
+  std::cerr << "Hello World!" << std::endl;
+
+  return RTC::RTC_OK;
+}
+}}}
+
+のように編集・保存して，コンパイルする．コンパイルは，gccならば，
+
+{{{
+$ make -f Makefile.HelloWorld
+}}}
+
+を行い，VisualStudioならば，copyprops.batをダブルクリックした後に，対応するslnファイルをダブルクリックして，「ソリューションのビルド」を実行する．
+
+また，この時，rtc.confを適切なものに編集しておく必要がある．rtc.confは大変重要なファイルで，詳細は，RTM公式ページの http://www.openrtm.org/openrtm/ja/content/%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB-%E5%9F%BA%E7%A4%8E%E7%B7%A8 や http://www.openrtm.org/openrtm/ja/content/rtcconf%E8%A8%AD%E5%AE%9A%E9%A0%85%E7%9B%AE%E4%B8%80%E8%A6%A7 を参考にしてほしいが，最低限必要な項目として，
+
+{{{
+corba.nameservers: localhost
+naming.formats: %h.host_cxt/%n.rtc
+logger.enable: NO
+exec_cxt.periodic.rate: 1000
+}}}
+
+の4項目は忘れずに記述する．一番上が一番重要で，接続するCORBAのネームサーバの設定を表す．ポートの指定がある場合には， *corba.nameservers: localhost:2809* のように記述する．
+
+2番目のものは，RTCの名前フォーマット，3番目のものはシステム組込のロガーの有効/無効を意味している．ロガーは有効（YES）にしておくと，rtcxxx.logというファイルを書きだしてくれる．RTCの起動がうまく行かない場合や途中でエラーが起こる場合には，どこでエラーが起きているのかをこのログから探ることができる．
+
+4番目の記述は実行周期（単位はHz）である．この項目をいじれば，GUIでソースの雛形を作ったあとでも実行周期を自由に変えられる．
+
+== 動作テスト ==
+
+  # ネームサーバの起動
+
+
+Ubuntuの場合，ターミナル上でrtc-namingと打つ．Windowsの場合スタートメニューからOpenRTM-aist→ C++ → tools → Start Naming Service で起動する．
+
+もし，下記のように怒られる場合は既にネームサーバは上がっているので問題ない．
+
+{{{
+Starting omniORB omniNames: tnakaoka-laptop:
+omniORB: Error: Unable to create an endpoint of this description:
+giop:tcp::2809
+Failed to initialise the ORB / POA: INITIALIZE_TransportError
+Is omniNames already running?
+}}}
+
+  # RTSystemEditorの起動
+
+
+ecilpseを起動して，RTSystemEditorを立ち上げる．RTCBuilderが起動したままの場合には，Window　→　Open Perspective　→ Other...からRTSystemEditorを選択する．
+
+Windowsの場合，スタートメニューからOpenRTM-aist→ C++ → tools → RT System Editor でも大丈夫．
+
+  # コンポーネントの起動
+
+
+Ubuntuの場合は，HelloWorldComp，Windowsの場合はHelloWorldComp.exeが実行ファイル．これを実行し，起動する．
+
+  # コンポーネントのアクティベート
+
+
+RT System Editorを使い，HelloWorldをアクティベートする．この時，rtc.confの実行周期をいじることで，printの周期が変化することを確認する．
+
+== ソースコード ==
+
+上記の説明通り各自で生成して確かめてほしいが，参考のためソースコード一式を置いたので，必要な人は利用してほしい．
+
+Windows版は以下のもの， http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorld_Win.zip
+
+Ubuntu版は以下のものになる． http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorld_Ubuntu.tar.gz
+
+各々解凍すれば，すぐにコンパイル・実行して挙動が確かめられるようになっている．
+
+= RTM通信サンプル =
+
+== 概要 ==
+
+次にHelloWorldを2つのコンポーネントに分けて通信を行うことを考える．RTMのデータ通信のやり方には，
+
+  # データポート通信
+  # サービスポート通信
+
+
+の２つがあるが，前者は連続的なデータ通信に向いており後者は一時的な関数呼び出しのような通信に向いている．実装は異なるが，概念としてはROSのトピック／サービスにそれぞれ対応していると考えて良い．
+
+今回は文字列をそのまま連続的に通信するので，データポートによるコンポーネント間通信の実装を行う．コンポーネント間の通信を行うためには互いのデータ型を合わせる必要があるが，今回は文字列なので，組込型のTimedString型を用いて，TimedString型のOutPortを持つHelloWorldSendとTimedString型のInportを持つHelloWorldRecvを作ることにする．
+
+このデータ通信の際の型は組込型だけでなく独自定義型を指定することができる．その場合はidlを用意して通信しあうコンポーネント間の型を揃えるようにするが，その方法は，別のサンプルで述べることにする．
+
+== 通信サンプル雛形作成 ==
+
+再びRTCBuilderによりコンポーネントの雛形を作成する．ただし，今度はデータポートのタブにも変更を加える．下記の図はOutPortを追加する場合である．InPort，OutPortの対応する表の横のAddボタンを押すことで新しいポートを作ることができるので，HelloWorldSendの場合，その名前を"SendMsg"に変更し，データ型をRTC::TimedStringに変更する．
+
+ここで，もし，データ型を選べない場合は，Window→Preferencesで出てきたウィンドウの中でRTCBuilderを選択し，「Data type: IDL File Directories」というところに手動でrtmのidlの場所を追加する．「New」ボタンを押し，/usr/include/rtm/idl（ソースからインストールの場合は/usr/local/include/rtm/idl）を追加してOKボタンを押す．これで，RTCBuilderを一旦閉じ，再び開けば選択できるようになっているはず．どうしてもうまくいかない場合は，後述のCUIによる雛形生成を行うと良い．
+
+HelloWorldRecv側も同様にOutPortの代わりにInPortを一つもつコンポーネントとして雛形を作成するが，C++ばかりでかいていてもつまらないので，このサンプルでは言語としてPythonを選んでみる．
+
+== 通信サンプル編集 ==
+
+作成された雛形の中から，HelloWorldSend.cpp，HelloWorldRecv.pyを編集するが，データポートに関して共通のAPIとして幾つか重要なものがあるので，ここで紹介したい．
+
+=== C++の場合の記述 ===
+
+まず，C++の出力の場合，雛形として生成されたヘッダファイルに
+
+{{{
+TimedString m_StringData;
+OutPort<TimedString> m_StringDataOut;
+}}}
+
+のようにデータポートが定義されているとすると，.cppの周期実行部（OnExecute())において，
+
+{{{
+m_StringData.data=“test”
+m_StringDataOut.write()
+}}}
+
+のようにすることで，データポート内のデータを更新し，ポートから出力を行うことができる．データポートで使われる型が変わっても，dataという名前のメンバ変数でその中身の値にアクセスできることは変わらない．
+
+一方，入力の側は，同じく，雛形のヘッダで以下のようにInPortが定義されているとすると，
+
+{{{
+TimedString m_StringData;
+InPort<TimedString> m_StringDataIn;
+}}}
+
+.cppのOnExecute()の中では，
+
+{{{
+if(m_StringDataIn.isNew()){
+  m_StringDataIn.read();
+  std::cerr << m_sStringData.data << std::endl;
+}
+}}}
+
+のように記述することでデータを受取り，処理することができる．isNew()は新規データの到着の有無をチェックする関数であり，read()はデータをポートから読み出し，m_StringDataに格納する関数である．一度readすれば，OutPortの時と同じようにdataという名前のメンバ変数で値にアクセスすることができる．
+
+=== Pythonの場合の記述 ===
+
+一方，全く同じことをPythonでも記述できる．ここでは，簡単に紹介する程度に留めるが， 出力側は，
+
+{{{
+def onExecute(self, ec_id):
+     self.sendmsg.data = “HelloWorld”
+     OpenRTM_aist.setTimeStamp(self.sendmsg)
+     self._outport.write()
+     return RTC.RTC_OK
+}}}
+
+のようにC++の場合と同じように.dataでデータの中身にアクセスし，write()でアウトポートに書きだす．
+
+同様に入力側もC++と同じようにisNew(), read()というメンバ関数を利用することができる．
+
+{{{
+def onExecute(self, ec_id):
+  if self._inport.isNew():
+      rcvmsg = self._inport.read()
+      print rcvmsg.data
+  return RTC.RTC_OK
+}}}
+
+== CUIによる雛形の生成 ==
+
+RTMでは，コマンドラインからソースの雛形を生成する方法も用意されている．例えば，先のHelloWorldSendは以下のように作ることができる．
+
+{{{
+$ rtc-template -bcxx --module-name=HelloWorldSend --module-type='DataFlowComponent' --module-desc='HelloWorldSend' --module-version=1.0 --module-vendor='JSK' --module-category=example --module-comp-type=DataFlowComponent --module-act-type=SPORADIC --module-max-inst=10 --outport=SendMsg:TimedString
+}}}
+
+-bcxxを-bpythonとするとpythonコードもできるが，現状，生成されるPythonコードは最新版に対応していないようなので，注意が必要．UbuntuでPython版を使って開発を行っていく場合には，/usr/share/OpenRTM-aist/examples/python/に.pyのサンプルスクリプトがそれを適宜参照していくのが良い．
+
+== テスト ==
+
+Windows版，Ubuntu版の片側のみで試すだけでなく，HelloWorldSendはWindows，HelloWorldRecvはUbuntuのような組合せも試してみよう．VMWareを利用して，VMWare側のネットワーク設定をブリッジにすれば，Windows側ネームサーバとUbuntu側ネームサーバの両方が見えるので，マルチプラットフォーム接続を簡単に試すことができる．
+
+== ソースコード ==
+
+通信サンプルに関しても，参考のためソースコード一式を置いたので，必要な人は利用してほしい．
+
+Windows版は以下のもの，
+
+http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldSend_Win.zip
+
+http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldRecv_Win.zip
+
+Ubuntu版は以下のものになる．
+
+http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldSend_Ubuntu.tar.gz
+
+http://rtm-ros-robotics.googlecode.com/svn/wiki/HelloWorldRecv_Ubuntu.tar.gz
+
+各々解凍すれば，すぐにコンパイル・実行して挙動が確かめられるようになっている．
+

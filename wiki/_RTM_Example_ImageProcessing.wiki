@@ -1,0 +1,88 @@
+*summary RTMでの画像処理サンプル*
+
+= 概要 =
+
+ハローワールド通信サンプルより一歩進んだサンプルとして，RTMにおける画像処理プログラムの書き方について紹介する．
+
+= 準備 =
+
+USBカメラのキャプチャとその表示が行うプログラムを用意して，動作確認を行う．
+
+== Windowsの場合 ==
+
+C++版に付属のサンプルコンポーネントを使う．キャプチャは，スタートメニューから，OpenRTM-aist　→ C++ → components → examples → USBCameraAqcuireComp.exe で起動する．一方，その表示は，スタートメニューから辿れる，OpenRTM-aist　→ C++ → components → examples → USBCameraMonitorComp.exe　を利用する．
+
+ネームサーバ起動後，両方のコンポーネントを起動，RT System Editorにてデータポート接続，Activateを行って，カメラ画像がキャプチャできることを確認する．
+
+尚，このサンプルは，OpenCV1.0用なので注意すること．OpenCV1.0に関しては，インストーラがOpenRTM-aistの公式ページに置いてあるので，それを利用する．
+
+http://www.openrtm.org/openrtm/ja/node/849#toc10
+
+また，同じくOpenCV1.0を用いたサンプルの画像処理プログラムを http://rtm-ros-robotics.googlecode.com/svn/wiki/Flip100_Win.zip に置いたので，それをダウンロードして，利用してほしい．
+
+== Ubuntuの場合 ==
+
+付属のサンプルコンポーネントにUSBのキャプチャ・表示を行うコンポーネントがないためこちらで新たに用意した． http://rtm-ros-robotics.googlecode.com/svn/wiki/UsbCameraAcquire_Ubuntu.tar.gz がキャプチャプログラム， http://rtm-ros-robotics.googlecode.com/svn/wiki/UsbCameraMonitor_Ubuntu.tar.gz が表示プログラム， http://rtm-ros-robotics.googlecode.com/svn/wiki/Flip_Ubuntu.tar.gz が画像処理サンプルプログラムである．
+
+tar.gzを解凍し，それぞれmakeすることで，表示とキャプチャの動作確認を行う．
+
+表示側は以下．
+
+{{{
+$ tar xvzf UsbCameraAcquire_Ubuntu.tar.gz
+$ cd UsbCameraAcquire
+$ make
+$ ./build/bin/UsbCameraAcquireComp
+}}}
+
+モニタ側も同様に行う．
+
+{{{
+$ tar xvzf UsbCameraMonitor_Ubuntu.tar.gz
+$ cd UsbCameraMonitor
+$ make
+$ ./build/bin/UsbCameraMonitorComp
+}}}
+
+RTSystemEditorにて接続・動作確認を行う．
+
+表示されない場合は適切なカメラドライバが入っていない可能性がある．少なくともxawtvなどで表示されない場合は，このコンポーネントも動作しないので，注意する必要がある．
+
+= 画像処理サンプル =
+
+今回はOpenCVを利用して入力画像をひっくり返す（Flipする）コンポーネントを サンプルとして作成した．中身の処理としては，入力データポート(InPort)で受 け取った画像データをIplImage形式に変換し，cvFlip()を適用した後，出力デー タポート(OutPort)にiplImage形式のデータから書きだして出力する．
+
+Windowsの場合は，zip解凍後，ソリューションファイルをダブルクリックし，ビ ルドを行うことで，exeファイルができるので，それをダブルクリックすると RTSystemEditorにコンポーネントが出現するので，それをキャプチャと表示のコ ンポーネントの間に挟む．
+
+Ubuntuの場合も同様にtar解凍後，makeすればbuild/bin以下に実行ファイル FlipCompができるので，それを実行して，キャプチャと表示の間に挟む．
+
+接続のインタフェースさえ揃っていれば，幾つでもコンポーネントを中間に挟ん で処理を行うことが可能である．
+
+== コンフィギュレーションインタフェース ==
+
+RTMでは，外部から実行中に適宜コンポーネントの状態を変更するための機構と してコンフィギュレーションインタフェースという仕組みを用意している．今回 のサンプルではFlipの方向を外から与えることができるようにしてある．
+
+C++の場合，コンフィギュレーションインタフェースは以下の手続きを踏ん で.cppを編集することで利用することができるようになる．
+
+1, Static_const char* xx_spec[] の中での記述として
+
+{{{
+“conf.default.flipMode”, “1”,
+
+のようにconf.default.変数名とする
+}}}
+
+2, onInitialize()の中での記述として，
+
+{{{
+bindParameter(“flipMode”, m_flipMode, “1”);
+}}}
+
+のようにして，メンバ変数との対応付けを行う
+
+3, onExecute()の中での記述として周期実行の際にm_flipModeの値に応じた処理 を書くことで外部からの制御が可能になる
+
+勿論，RTCBuilderのコンフィギュレーションタブで設定しても問題なく動作する．
+
+先のFlipCompの例では，flipModeの値を変えることで，下記の図のように変わるはずである．
+

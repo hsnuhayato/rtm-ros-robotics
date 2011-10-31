@@ -1,0 +1,154 @@
+*summary 宿題の目的はロボットの知的な動作をOpenRAVEの計画アルゴリズムを使って実現することです。*
+
+= 課題 =
+
+hironxの双腕ロボットで箱の六つ平面を指で触る動作。
+
+  * （1点）環境作成、ロボットがプランナーで動く
+  * （3点）ロボットの知的な動作の完成、両腕出来るようにする
+  * （1点）障害物を入れて、任意な箱の位置への対応
+  * （2点）環境のランダム生成（障害物入り）、テスト結果
+  * （1点）ドキュメント
+
+
+合計点数：8点
+
+締切り：6月5日23:59時
+
+= プロジェクトの仕様 =
+
+touchplanning.pyの実行スクリプトで全部書くことです。使い方は：
+
+{{{
+python touchplanning.py --scene=test.env.xml --manip=leftarm2
+}}}
+
+  * myscene.env.xmlは [http://openrave.programmingvision.com/wiki/index.php/Format:XML OpenRAVE XML] で書いてある環境です。
+
+
+  * manipはアームの指定。
+
+
+目的をクリアする経路の必須項目：
+
+  * 障害物の回避
+  * 六つの平面が指で接触される
+
+
+== ロボットの定義 ==
+
+rtm-ros-robotics/agentsystem_openrave_tutorials/touchplanning/hironx.robot.xmlを使ってください。
+
+ロボットの関節はマニピュレータで整理されています。この宿題では特別にrightarm2とleftarm2のマニピュレーターが定義されています。両方のマニピュレーターは指の表面上を表しています。
+
+== 箱の定義 ==
+
+箱のXML形式定義は：
+
+{{{
+<kinbody name="box">
+  <translation>0 0 0</translation>
+  <rotationmat>1 0 0   0 1 0    0 0 1</rotationmat>
+  <body>
+    <geom type="box">
+      <extents>0.1 0.1 0.1</extents>
+    </geom>
+  </body>
+</kinbody>
+}}}
+
+translation, rotationmat, extentsで箱の位置、姿勢、寸法が定義されます。
+
+環境の**box**の名前を持っている物体を対象として使ってください。
+
+== 目的地の定義 ==
+
+マニピュレーターの原点は指の表面上に定義されています。その３次元の位置を箱の平面のどこに接触してもいいです。ハンドの姿勢も関係ないです。
+
+動作計画は衝突していないことを目的にしているため、 *接触* を行う時に目的地を箱の表面から少し離れた位置にする必要があります。1mm以内は大丈夫です。
+
+= 準備・設定 =
+
+今回Pythonでの実装がお勧めです。C++で実装するのも可能ですが、非常に難しくなるため、気をつけてください。
+
+== Python ==
+
+[http://montpython.s13.xrea.com/ipython/usage.html ipython] でPythonを使うのがお勧めです。
+
+{{{
+sudo apt-get install ipython
+}}}
+
+[http://www.python.jp/doc/release/tutorial/index.html Pythonチュートリアル #1]
+
+[http://kanaya.naist.jp/nishio/LearnPythonInAnHour.html Pythonチュートリアル #2]
+
+== OpenRAVE ==
+
+[http://openrave.org/en/main/install.html#install OpenRAVEをインストール] し、簡単な [OpenRAVE_Example.html サンプルプログラム] を試してみましょう。
+
+LAPACKが必要ので、以下のようにインストールしてください
+
+{{{
+sudo apt-get install liblapack-dev
+}}}
+
+環境をランダム生成する時にpythonで以下のように物体を入れられます：
+
+{{{
+kinbody = RaveCreateKinBody(env,'')
+kinbody.InitFromBoxes(array([[0,0,0,0.2,0.5,0.01]]),True)
+kinbody.SetName('box')
+env.AddKinBody(kinbody,True)
+}}}
+
+箱の寸法を取り出す時に以下のコマンドを利用してください
+
+{{{
+with box:
+    box.SetTransform(eye(4))
+    ab = box.ComputeAABB()
+    ab.extents()
+globalpos = transformPoints(box.GetTransform(),[ab.pos()])
+}}}
+
+== 初めてのスクリプト ==
+
+rtm-ros-robotics/agentsystem_openrave_tutorials/touchplanningには宿題のサンプルコードが入っています。
+
+{{{
+python touchplanning.py
+}}}
+
+を実行すればロボットがロードされ、単純な動作が行われます。最初に実行する時にIKの生成で5分間待つ必要があります。
+
+ここで一つ重要な関数は：
+
+{{{
+self.showgrasp(Tgrasp)
+}}}
+
+この関数を利用すればハンドの到達位置姿勢が一時的に表示されます。
+
+= 提出項目 =
+
+touchplanning.pyの実行スクリプト（C++の場合はtouchplanningのプログラムです）。個人レポジトリのrtmrosXX/touchplanningフォルダーに入れてください。
+
+ドキュメントはtouchplanning.pyの中にreStructuredTextとしてコメントを書く（C++の場合はdoxygenで書いてください）。ドキュメントの作成は以下のように行われます：
+
+{{{
+sphinx-build -b html . doc
+}}}
+
+確認は
+
+{{{
+firefox doc/index.html
+}}}
+
+sphinxのインストールは
+
+{{{
+sudo apt-get install python-sphinx
+}}}
+

@@ -1,0 +1,52 @@
+*summary 4月27日宿題*
+
+= ROS宿題 =
+
+  * 基本課題 (1pt)
+
+
+  * ホームページ>ROSサンプルプログラム>画像処理サンプル( http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_ImageProcessing ) を参考に,画面中の小さい丸で8の字を書くようにする.
+
+
+  * 応用課題 (2pt)
+
+
+  * https://code.ros.org/svn/opencv/trunk/opencv/samples/cpp/ にあるサンプルプログラムを参考に画像処理ノードを作る.
+  * 顔認識,領域分割,オプティカルフロー,ステレオ処理等
+  * 結果をmpegにして来週発表
+
+
+  * 先端課題(5/11追加)
+
+
+  * 画像処理結果をPublishする (3pt)
+  * パラメータの設定をGUIから出きるようにする． http://www.ros.org/wiki/dynamic_reconfigure/Tutorials/SettingUpDynamicReconfigureForANode (4pt)
+  * プログラムをMLに添付して随時発表
+
+
+= RTM宿題 =
+
+以下の宿題に関して，面白いものを作ったら，作った物の概要と処理結果の画像をメーリングリストに投げてください．
+
+ソースコードは，講義第三回で作成したレポジトリに，my-rtm-packages というフォルダを作ってその下にコミットしていってください．http://svn.programmingvision.com/rtmrosXX/my-rtm-packages/ 以下に各宿題に対応したフォルダを作ってコミットしてもらえればと思います．各々の名前のつけ方は自由ですが，どの宿題かわかるような名前にしてください．
+
+  * 基本課題(1pt)
+
+
+  * ホームページ>RTMサンプルプログラム>画像処理( http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Example_ImageProcessing ) を参考にして，USBカメラでキャプチャした画像に対してFlip以外の処理を行って，それを表示する
+  * 顔認識，色ヒストグラム，エッジ抽出等
+
+
+  * 応用課題(2pt)
+
+
+  * マルチプラットフォーム環境を用意し（例えば，Windows+VMWare Ubuntuなど），一方でキャプチャした画像に対して他方で画像処理を行うコンポーネントを書いてみる．
+
+
+  * 先端課題（5/17追加）
+
+
+  * windowsでしか動かないソフトウェアライブラリ（音声合成器，高機能顔認識ライブラリ，など何でも可）をRTコンポーネント化して，その結果を他のプラットフォームのRTコンポーネントで受取り表示する（3pt)，或いは逆にUbuntuのRTコンポーネントから，windowsでしか動かないソフトウェアライブラリをRTコンポーネント化して，操作する(3pt)，両方できればextraで追加1ptとします．
+  * 商用ソフトで，すぐに試せない場合には，動作状態がわかるようなmpgを作ってくれればOKです．ただし，容量が大きくなりすぎないよう注意してください．
+
+

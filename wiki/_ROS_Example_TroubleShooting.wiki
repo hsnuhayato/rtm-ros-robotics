@@ -1,0 +1,215 @@
+*summary 困ったときは*
+
+まずは， http://groups.google.com/group/rtm-ros-robotics にメールしよう．メールでの質問の仕方が分からないときは，メールでの質問の仕方が分からないと書けば良い．
+
+= インストール編 =
+
+== ソースコードの再インストール ==
+
+{{{
+rosinstall ~/prog/rtm-ros-robotics /opt/ros/diamondback http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+}}}
+
+とすると，新しいソースがインストールされる．このとき ROSの起動に必要な環境変数が更新されるため，既に立ち上がっている ターミナルでは
+
+{{{
+source ~/.bashrc
+}}}
+
+とすること．新たにターミナルを起動する場合はこの必要はない． 一度，全てのターミナルを消して，新たに立ち上げることを勧める．
+
+== ソースコードの更新 ==
+
+{{{
+rosinstall ~/prog/rtm-ros-robotics
+}}}
+
+とするとソースコードを最新の物にしてくれる．
+
+== インストール中に何か聞かれた ==
+
+rosinstall ~/prog/rtm-ros-robotics/ として各ソースの中身を更新する途中で，
+
+{{{
+error: Your local changes to 'CMakeLists.txt' would be overwritten by merge.  Aborting.
+Please, commit your changes or stash them before you can merge.
+Checkout of http://ram.umd.edu/git/ros/camera_umd.git into /home/k-okada/prog/rtm-ros-robotics/camera_umd failed. (d)elete, (a)bort, (b)ackup:
+}}}
+
+などと聞かれたら`d`を選択すればよい
+
+== `roscd: command not found` と出る． ==
+
+{{{
+roscd move_base_stage_tutorial
+}}}
+
+として，`roscd: command not found`と出る人は~/.bashrcの最後に
+
+{{{
+source ~/prog/rtm-ros-robotics/setup.bash
+}}}
+
+という [ROS_Install.html 行があるか] 確認しましょう．
+
+= コンパイル編 =
+
+== eclipseが動かない ==
+
+{{{
+roscd openhrp3; make eclipse-clean; make wipe; roscd hrpsys; make wipe; rosmake --rosdep-install
+}}}
+
+として、ソースツリーの更新とeclipseの環境の刷新が行えます．
+
+また、始めてeclipseを動かす人、上のコマンドで刷新した人、両方共以下の様にしてeclipse環境を整えてください。
+
+{{{
+rosmake hrpsys
+}}}
+
+としてコンパイルし，
+
+{{{
+rosrun openhrp3 eclipse.sh
+}}}
+
+としてeclipseを立ち上げたあと，
+
+{{{
+Help -> Install New Softare -> Add -> Location
+}}}
+
+として
+
+http://download.eclipse.org/modeling/emf/updates/releases/ (EMF SDK 2.5.0)(10.04ユーザのみ),
+
+http://download.eclipse.org/tools/gef/updates/releases/ (GEF SDK 3.6.2),
+
+を選択，インストールし，
+
+{{{
+Help -> Install New Softare -> Add -> Archive
+}}}
+
+として
+
+`<openhrp3>/build/rtmtools_eclipse.zip`,
+
+`<openhrp3>/build/java3declipse-20090302.zip`,
+
+`<openhrp3>/build/grxui_eclipse.zip`,
+
+`<hrpsys>/build/robothardware_eclipse.zip`
+
+をEclipseにインストールしてください．
+
+== openhrp3のmakeが通らない． ==
+
+{{{
+roscd openhrp3;svn up make wipe
+make
+}}}
+
+としてください． 他のパッケージも同様です．あるいは，
+
+{{{
+roscd openhrp3;svn up; make wipe; rm -fr build
+make
+}}}
+
+というのも試してみてください．
+
+== hrpsysのmakeが通らない ==
+
+{{{
+roscd rtmros_common; svn up
+roscd hrpsys; make wipe;
+roscd openhrp3; rm build/grxui_eclipse.zip
+rosmake hrpsys_ros_bridge
+}}}
+
+とするとよい．
+
+== euscollada でコンパイルが失敗する ==
+
+{{{
+roscd euslisp; svn up; make clean; make
+rosmake euscollada
+}}}
+
+で成功するはずだが， これはとりあえずは無視して，そのまま先にすすんでもよい．
+
+= 実行編 =
+
+== `roseus : command not found` と言われる． ==
+
+~/.bashrc に
+
+{{{
+export PATH=$PATH:`rospack find roseus`/bin
+}}}
+
+を追加すれば良い．あるいは
+
+{{{
+rosrun roseus roseus
+}}}
+
+として立ち上げよう．
+
+== roseusを立ち上げる`no such package`とエラーになる ==
+
+{{{
+EusLisp 8.26(r476M 636) for Linux created on U64-leus(Wed May 4 15:29:52 JST 2011)
+roseus ;; loading roseus(r1433) on euslisp((8.26 U64-leus Wed May 4 15:29:52 JST 2011 r476M 636))
+eustf /home/leus/prog/rtm-ros-robotics/jsk-ros-pkg/euslisp/jskeus/eus/Linux/bin/irteusgl: ERROR th=0 no such package "SOUND_PLAY""SOUND_PLAY" in #<compiled-code #X8b653c8>E:
+}}}
+
+等のエラーが出る場合は以下の様にする．
+
+{{{
+rosrun roseus generate-all-msg-srv.sh
+}}}
+
+これでも解決しなければ
+
+{{{
+$ rm ~/.ros/roseus/.generated
+$ rosrun roseus generate-all-msg-srv.sh
+}}}
+
+としてみる．
+
+== eclipseが立ち上がらない ==
+
+{{{
+rosrun openhrp3 eclipse.sh
+}}}
+
+として、エラーも吐かないのにeclipseが立ち上がらない場合は javaの確認をしてみる. http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_RTMIntegration を参考に
+
+{{{
+$ rosdep install openhrp3
+$ java -version
+}}}
+
+としたときに、
+
+{{{
+java version "1.6.0_24"
+Java(TM) SE Runtime Environment (build 1.6.0_24-b07)
+Java HotSpot(TM) 64-Bit Server VM (build 19.1-b02, mixed mode)
+}}}
+
+となっていればよい．SE という文字がなかったり1.6で無い場合は
+
+{{{
+$ rosdep install openrhp3
+$ sudo update-java-alternatives -s java-6-sun
+}}}
+
+として必要なソフトをインストール
+
+SEという文字があっても，64bit環境でJavaが32bit環境という問題がある場合もある．
+
