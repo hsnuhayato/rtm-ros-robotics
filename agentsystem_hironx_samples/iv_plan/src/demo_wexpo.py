@@ -72,9 +72,9 @@ except:
 # normal version
 tms = {'preapproach1': 1.2,
        'preapproach2': 2.0,
-       'pick': 1.0,
-       'transport': 1.2,
-       'place': 1.0,
+       'pick': 0.8,
+       'transport': 1.0,
+       'place': 0.8,
        'pregrasp': 0.7,
        'look_for': 0.65}
 
@@ -290,7 +290,7 @@ def choose_objs(n=0):
 
     return None
 
-def grasp_plan(o, long_side=False):
+def grasp_plan(o, long_side=False, hand='right'):
     objfrm = o.where()
 
     if long_side:
@@ -299,27 +299,40 @@ def grasp_plan(o, long_side=False):
     else:
         gwidth = 35
 
-    gfrm = objfrm*(-r.Twrist_ef)
-    afrm = FRAME(gfrm)
-    afrm.vec[2] += 40
+    if hand == 'right':
+        Twrist_ef = r.Trwrist_ef
+    else:
+        Twrist_ef = r.Tlwrist_ef
+
     awidth = 80.0
 
-    afrm2 = afrm*FRAME(xyzabc=[0,0,0,pi,0,0])
-    gfrm2 = gfrm*FRAME(xyzabc=[0,0,0,pi,0,0])
+    gfrm = objfrm*(-Twrist_ef)
+    afrm = FRAME(gfrm)
+    afrm2 = objfrm*FRAME(xyzabc=[0,0,0,0,0,pi])*(-Twrist_ef)
+    gfrm2 = objfrm*FRAME(xyzabc=[0,0,0,0,0,pi])*(-Twrist_ef)
+    afrm.vec[2] += 40
+    afrm2.vec[2] += 40
     return (afrm,gfrm,awidth,gwidth),(afrm2,gfrm2,awidth,gwidth)
 
-def place_plan(p):
+def place_plan(p, hand='right'):
     plcfrm = p.where()
 
-    gfrm = plcfrm*(-r.Twrist_ef)
-    gfrm.vec[2] += 30/2
+    if hand == 'right':
+	Twrist_ef = r.Trwrist_ef
+    else:
+        Twrist_ef = r.Tlwrist_ef
 
+    gfrm = plcfrm*(-Twrist_ef)
+    gfrm.vec[2] += 30/2
     afrm = FRAME(gfrm)
     afrm.vec[2] += 60
-    rwidth = 80
 
-    afrm2 = afrm*FRAME(xyzabc=[0,0,0,pi,0,0])
-    gfrm2 = gfrm*FRAME(xyzabc=[0,0,0,pi,0,0])
+    gfrm2 = plcfrm*FRAME(xyzabc=[0,0,0,0,0,pi])*(-Twrist_ef)
+    gfrm2.vec[2] += 30/2
+    afrm2 = FRAME(gfrm2)
+    afrm2.vec[2] += 60
+
+    rwidth = 80
     return (afrm,gfrm,rwidth),(afrm2,gfrm2,rwidth)
 
 rwp = FRAME(xyzabc=[200,-110,1049,0,-pi/2,0])
@@ -352,7 +365,7 @@ def demo(recognition=True):
             warn('ik failed, right arm')
             return
 
-    s1, s2 = grasp_plan(o2)
+    s1, s2 = grasp_plan(o2, hand='left')
     jts = 'larm'
     try:
         afrm,gfrm,awidth,gwidth = s1
@@ -410,10 +423,14 @@ def demo(recognition=True):
     P3 = env.get_object('P3')
     P0 = env.get_object('P0')
     while recognition:
-        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20,
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+15,
                        constraint=(pltaxis,0.9))
-        lpfrm = detect(hand='left', zmin=tblheight-20, zmax=tblheight+20,
+        lpfrm = detect(hand='left', zmin=tblheight-20, zmax=tblheight+15,
                        constraint=(pltaxis,0.9))
+        rpfrm.vec[0] += 1.5 # offset of 2D <=> 3D recognition
+        rpfrm.vec[1] -= 1.5
+        lpfrm.vec[0] += 1.5
+        lpfrm.vec[1] -= 1.5
         rpfrm.vec[2] = tblheight+15
         lpfrm.vec[2] = tblheight+15
         P3.locate(rpfrm, world=True)
@@ -438,7 +455,7 @@ def demo(recognition=True):
             warn('ik failed, right arm')
             return
 
-    s1, s2 = place_plan(P0)
+    s1, s2 = place_plan(P0, hand='left')
     jts = 'larm'
     try:
         afrm,gfrm,rwidth = s1
@@ -550,8 +567,11 @@ def demo(recognition=True):
 
     P2 = env.get_object('P2')
     if recognition:
-        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20, 
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+15,
                        constraint=(pltaxis,0.9))
+        rpfrm.vec[0] += 1.5 # offset of 2D <=> 3D recognition
+        rpfrm.vec[1] -= 1.5
+
         rpfrm.vec[2] = tblheight+15
         P2.locate(rpfrm, world=True)
 
@@ -588,7 +608,7 @@ def demo(recognition=True):
     r.set_joint_angles(r.ik(f, joints='rarm')[0], joints='rarm')
     sync(joints='torso_arms', duration=tms['pick'])
 
-    f = FRAME(xyzabc=[lwp.vec[0],-90,lwp.vec[2],pi,0,pi/2])
+    f = FRAME(xyzabc=[lwp.vec[0],-92,lwp.vec[2],pi,0,pi/2])
     r.set_joint_angles(r.ik(f, joints='rarm')[0], joints='rarm')
     sync(joints='rarm', duration=tms['pick'])
     r.grasp(34)
@@ -607,8 +627,11 @@ def demo(recognition=True):
 
     P1 = env.get_object('P1')
     if recognition:
-        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+20,
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+15,
                        constraint=(pltaxis,0.9))
+        rpfrm.vec[0] += 1.5 # offset of 2D <=> 3D recognition
+        rpfrm.vec[1] -= 1.5
+
         rpfrm.vec[2] = tblheight+15
         P1.locate(rpfrm, world=True)
 
