@@ -30,17 +30,17 @@ height = 1100
 
 # after r.prepare()
 rhand_angles1 = [
-    [270,-400,height,0,-pi/2,-pi/6],
+    [270,-320,height,0,-pi/2,-pi/8],
     [270,-200,height,0,-pi/2,0],
-    [270,0,height,0,-pi/2,pi/6],
+    [270,-80,height,0,-pi/2,pi/8],
     [180,-200,height-20,0,-pi/2-pi/8,0],
     [380,-200,height-40,0,-pi/2+pi/8,0]
     ]
 
 lhand_angles1 = [
-    [270,400,height,0,-pi/2,pi/6],
+    [270,320,height,0,-pi/2,pi/8],
     [270,200,height,0,-pi/2,0],
-    [270,0,height,0,-pi/2,-pi/6],
+    [270,80,height,0,-pi/2,-pi/8],
     [180,200,height-20,0,-pi/2-pi/8,0],
     [380,200,height-40,0,-pi/2+pi/8,0]
     ]
@@ -72,7 +72,7 @@ def one_shot(sensor='kinect'):
         show_frame(Twld_lh * r.Tlh_cam * Tsen_tgt)
         return r.get_joint_angles(), Tsen_tgt
 
-def record_data(sensor='kinect', waitTime=1.5):
+def record_data(sensor='kinect', waitTime=2.0):
     res = []
     if sensor == 'kinect':
         for y,p in neck_angles2:
