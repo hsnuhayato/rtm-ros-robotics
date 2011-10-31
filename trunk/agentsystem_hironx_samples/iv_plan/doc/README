@@ -17,3 +17,11 @@
 - 認識器が固まる問題(hiroのソフトウェアをバージョンアップしたら直った？)
 - 1394とUSBを同時につないだとき、0,1,2=>1394, -1=>USBを開けた
   - 仕様では-1=>ANY, 0,1,2,...=>0番,1番,2番,...な気が...
+
+* USBカメラの設定
+- udevadm info -a -p `udevadm info -q path -n /dev/video0`
+
+# ID eb1a:7770 eMPIA Technology, Inc.  RHAND
+SUBSYSTEMS=="usb",ATTRS{serial}=="0000:00:1d.7",SYMLINK="video0" 
+# ID eb1a:7770 eMPIA Technology, Inc.  LHAND
+SUBSYSTEMS=="usb",ATTRS{serial}=="0000:03:00.2",SYMLINK="video1" 
