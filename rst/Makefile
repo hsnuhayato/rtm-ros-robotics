@@ -14,6 +14,11 @@ ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
 .PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest
 
+all:
+	svn up
+	make aptget
+	make latexja
+
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  html       to make standalone HTML files"
@@ -34,9 +39,10 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
 aptget:
+	sudo easy_install --upgrade sphinx
 	sudo add-apt-repository ppa:cosmos-door/dvipsk-ja
-	sudo apt-get update
-	sudo apt-get install nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja 
+	sudo apt-get -y update
+	sudo apt-get install -y nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja ghostscript
 
 clean:
 	-rm -rf $(BUILDDIR)/*
@@ -141,3 +147,4 @@ doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
+
