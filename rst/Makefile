@@ -33,6 +33,11 @@ help:
 	@echo "  linkcheck  to check all external links for integrity"
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
+aptget:
+	sudo add-apt-repository ppa:cosmos-door/dvipsk-ja
+	sudo apt-get update
+	sudo apt-get install nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja 
+
 clean:
 	-rm -rf $(BUILDDIR)/*
 
