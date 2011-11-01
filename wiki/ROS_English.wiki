@@ -34,7 +34,7 @@ $ rosmake --rosdep-install --rosdep-yes hrpsys_ros_bridge
 == Setup Eclipse ==
 type
 {{{
-$ rosrun openrhp3 eclipse.sh
+$ rosrun openhrp3 eclipse.sh
 }}}
 then you'll see eclipse interface.
 Then you select
