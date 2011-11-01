@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# denso_palletizing_optimization documentation build configuration file, created by
+# rtm_ros_robotics documentation build configuration file, created by
 # sphinx-quickstart on Fri Jul  1 22:02:58 2011.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -47,8 +47,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'denso_palletizing_optimization'
-copyright = u'2011, Rosen Diankov'
+project = u'rtm_ros_robotics'
+copyright = u'2011, 東京大学、株式会社セック'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -171,7 +171,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'denso_palletizing_optimizationdoc'
+htmlhelp_basename = 'rtm_ros_roboticsdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
