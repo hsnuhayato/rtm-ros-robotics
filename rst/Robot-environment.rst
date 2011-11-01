@@ -92,6 +92,14 @@
 
   http://sphinx-users.jp/gettingstarted/make_project.html
 
+日本語のコンパイル
+
+.. code-block:: bash
+
+  sudo add-apt-repository ppa:cosmos-door/dvipsk-ja
+  sudo apt-get update
+  sudo apt-get install nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja 
+
 ------------------------------
 6.2 テスティングフレームワーク
 ------------------------------
