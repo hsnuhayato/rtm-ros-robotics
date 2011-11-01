@@ -200,7 +200,7 @@ def exec_traj(traj, duration=0.05, joints='rarm', use_armcontrol=False, draw_tra
     frames = CoordinateObjects(name)
 
     if rr:
-        duration = 0.5
+        duration = 0.15
 
     if use_armcontrol:
         rr.send_trajectory(robot_relative_traj(traj), duration=duration)
@@ -263,8 +263,8 @@ def release(hand='right'):
     r.grabbed_obj[hand] = None
     unfix(obj, hand=hand)
     r.release_collision_object(obj, hand=hand)
-    for obj2 in env.collidable_objects:
-        if obj.name != obj2.name:
-            r.remove_collision_pair(obj2, obj)
+    # for obj2 in env.collidable_objects:
+    #     if obj.name != obj2.name:
+    #         r.remove_collision_pair(obj2, obj)
     return True
 
