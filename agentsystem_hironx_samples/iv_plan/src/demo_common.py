@@ -27,7 +27,7 @@ r.go_pos(-150, 0, 0)
 pl = CSPlanner(env)
 
 
-def sync(duration=4.0, joints='all', wait=True, waitkey=True):
+def sync_main(duration=4.0, joints='all', wait=True, waitkey=True):
     '''synchronize the real robot with the model in "duration" [sec]'''
     if rr:
         js = r.get_joint_angles()
@@ -64,6 +64,19 @@ def sync(duration=4.0, joints='all', wait=True, waitkey=True):
             raw_input('type any key to continue')
         else:
             time.sleep(duration)
+
+# def sync(duration=4.0, joints='all', wait=True, waitkey=True, goalthresh=0.2):
+#     while True:
+#         sync_main(duration=duration, joints=joints, wait=wait, waitkey=waitkey)
+#         qs = r.get_joint_angles(joints='all')
+#         qr = rr.get_joint_angles()
+#         if numpy.linalg.norm(array(qr) - array(qs)) < goalthresh:
+#             return
+#         else:
+#             time.sleep(1)
+
+def sync(duration=4.0, joints='all', wait=True, waitkey=True, goalthresh=0.2):
+    sync_main(duration=duration, joints=joints, wait=wait, waitkey=waitkey)
 
 
 # def release(hand='right', width=80, unfixobj=True,name='box0'):
