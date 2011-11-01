@@ -11,7 +11,8 @@ from setup_rtchandle import *
 
 
 class HIROController:
-    def __init__(self, nameserver, seq_proxy_host='150.29.146.166', seq_proxy_port=10103):
+    # def __init__(self, nameserver, seq_proxy_host='150.29.146.166', seq_proxy_port=10103):
+    def __init__(self, nameserver, seq_proxy_host='192.168.128.253', seq_proxy_port=10103):
         try:
             self.seq_proxy_address = socket.gethostbyname(seq_proxy_host)
         except:
@@ -22,21 +23,23 @@ class HIROController:
     def connect(self):
         h_rh = get_handle('RobotHardware0.rtc', ns)
         self.jstt_port = h_rh.outports['jointDatOut']
+        h_fc = get_handle('force.rtc', ns)
+        self.force_port = h_fc.outports['dataout']
+
         # h_rh = get_handle('HIRONXController(Robot)0.rtc', ns)
         # self.jstt_port = h_rh.outports['q']
         # rospy.Subscriber('/hiro/joint_state', JointState, self.update_joint_state)
 
     def read_joint_state(self):
         data = self.jstt_port.read()
-        # not yet used
         # secs = data.tm.sec
         # nsecs = data.tm.nsec
         self.joint_states = reduce(operator.__concat__, data.qState)
         # self.joint_states = data.data
         # velocity = reduce(operator.__concat__, data.dqState)
 
-    # def update_joint_state(self, joint_state_msg):
-    #     self.joint_states = joint_state_msg.position
+    def get_force_data(self):
+        return self.force_port.read()
 
     def get_joint_angles(self):
         self.read_joint_state()
