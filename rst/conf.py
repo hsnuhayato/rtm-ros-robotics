@@ -199,7 +199,7 @@ latex_documents = [
 
 
 # Additional stuff for the LaTeX preamble.
-latex_preamble = """\\usepackage{graphics}
+latex_preamble = """
 
 \\usepackage{float}
 

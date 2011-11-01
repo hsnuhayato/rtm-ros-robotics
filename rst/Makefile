@@ -38,6 +38,7 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
 aptget:
+	sudo apt-get remove python-sphinx
 	sudo easy_install sphinx
 	sudo add-apt-repository ppa:cosmos-door/dvipsk-ja
 	sudo apt-get -y update

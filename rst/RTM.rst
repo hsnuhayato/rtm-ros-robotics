@@ -48,7 +48,7 @@ RTミドルウェアとは？
 RTミドルウェアのプログラミングモデル
 ----------------------------------------
 
-.. image:: images/RTCBuilder1.png
+. . image:: images/RTCBuilder1.eps
 
   これはキャプションです。
 
