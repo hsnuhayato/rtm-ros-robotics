@@ -14,9 +14,7 @@ ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
 .PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest
 
-all:
-	svn up
-	make latexja
+all: latexja
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -38,12 +36,12 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
 aptget:
-	sudo apt-get remove python-sphinx
+	sudo apt-get remove -y python-sphinx
 	sudo easy_install sphinx
 	sudo add-apt-repository ppa:cosmos-door/dvipsk-ja
 	sudo apt-get -y update
 	sudo apt-get install -y nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja ghostscript
-	sudo cp -v pdfglyphlist.txt glyphlist.txt /etc/texmf/dvipdfmx
+	sudo cp -v pdfglyphlist.txt glyphlist.txt /etc/texmf/dvipdfmx/
 	sudo updatetexmf.py
 	sudo update-texmf
 
