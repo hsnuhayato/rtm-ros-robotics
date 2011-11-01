@@ -152,7 +152,7 @@ def error_fun_t2(v, qs, fs, Rx, h, link='HEAD_JOINT1_Link'):
     return [e(v,q,f) for (q,f) in zip(qs,fs)]
 
 def calibrate(res, maxfev=2000, link='HEAD_JOINT1_Link', tf0=r.Thd_kinectrgb, height = 705.0):
-    # height = 960 (on a box)
+    # height = 788 (on a pallete)
 
     qs,fs = unzip(res)
     B0 = []
@@ -164,10 +164,6 @@ def calibrate(res, maxfev=2000, link='HEAD_JOINT1_Link', tf0=r.Thd_kinectrgb, he
 
     B = [(-x)*y for (x,y) in zip(B0[:-1],B0[1:])]
     A = [x*(-y) for (x,y) in zip(fs[:-1],fs[1:])]
-
-    # X = r.Thd_kinectrgb.mat
-    # for a,b in zip(A,B):
-    #     print distSO3(X*a.mat,b.mat*X)
 
     Rb = [b.mat for b in B]
     Ra = [a.mat for a in A]
