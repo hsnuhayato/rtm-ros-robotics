@@ -40,7 +40,7 @@ aptget:
 	sudo easy_install sphinx
 	sudo add-apt-repository ppa:cosmos-door/dvipsk-ja
 	sudo apt-get -y update
-	sudo apt-get install -y nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja ghostscript python-roman ptex-jtex jbibtex-bin ptex-jisfonts texlive-latex-extra
+	sudo apt-get install -y nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja ghostscript python-roman ptex-jtex jbibtex-bin ptex-jisfonts texlive-latex-extra texlive-fonts-recommended
 	sudo cp -v pdfglyphlist.txt glyphlist.txt /etc/texmf/dvipdfmx/
 	sudo ./updatetexmf.py
 	sudo update-texmf
