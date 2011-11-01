@@ -32,31 +32,31 @@ def setup_puzzle_scene():
     # green piece
     env.insert_object(generate_piece('green', (0.0, 0.392, 0.0),
                                      [(0,0,0,0,0,0),(0,0,l,0,0,0),(l,0,0,0,0,0),(0,l,0,0,0,0)]),
-                      FRAME(xyzabc=[-310,-80,z,0,0,-pi/2]), tbl)
+                      FRAME(xyzabc=[-160,-80,z,0,0,-pi/2]), tbl)
     # yellow green piece
     env.insert_object(generate_piece('yellow-green', (0.0, 1.0, 0.0),
                                      [(0,0,0,0,0,0),(0,l,0,0,0,0),(l,0,0,0,0,0)]),
-                      FRAME(xyzabc=[-180,0,z+l,-pi/2,pi,0]), tbl)
+                      FRAME(xyzabc=[-130,70,z+l,-pi/2,pi,0]), tbl)
     # red piece
     env.insert_object(generate_piece('red', (1.0, 0.0, 0.0),
                                      [(0,0,0,0,0,0),(l,0,0,0,0,0),(l,l,0,0,0,0),(2*l,l,0,0,0,0)]),
-                      FRAME(xyzabc=[-310,-180,z+l,-pi/2,0,0])*FRAME(xyzabc=[0,0,0,0,pi/3,0]), tbl)
+                      FRAME(xyzabc=[-160,-180,z+l,-pi/2,0,0])*FRAME(xyzabc=[0,0,0,0,pi/3,0]), tbl)
     # purple piece
     env.insert_object(generate_piece('purple', (0.6, 0.196, 0.8),
                                      [(0,0,0,0,0,0),(l,0,0,0,0,0),(l,l,0,0,0,0),(0,0,l,0,0,0)]),
-                      FRAME(xyzabc=[-160,-130,z,0,-pi/2,0]), tbl)
+                      FRAME(xyzabc=[-10,-130,z,0,-pi/2,0]), tbl)
     # aqua piece
     env.insert_object(generate_piece('aqua', (0.0, 1.0, 1.0),
                                      [(0,0,0,0,0,0),(0,l,0,0,0,0),(0,2*l,0,0,0,0),(l,l,0,0,0,0)]),
-                      FRAME(xyzabc=[-330,-280,z,pi/2,0,0]), tbl)
+                      FRAME(xyzabc=[-200,-280,z,pi/2,0,0]), tbl)
     # brown piece
     env.insert_object(generate_piece('brown', (0.545, 0.27, 0.075),
                                      [(0,0,0,0,0,0),(l,0,0,0,0,0),(l,l,0,0,0,0),(0,l,0,0,0,0)]),
-                      FRAME(xyzabc=[-210,-260,z,0,0,0]), tbl)
+                      FRAME(xyzabc=[-60,-260,z,0,0,0]), tbl)
     # yellow piece
     env.insert_object(generate_piece('yellow', (1.0, 1.0, 0.0),
                                      [(0,0,0,0,0,0),(0,l,0,0,0,0),(0,2*l,0,0,0,0),(l,0,0,0,0,0)]),
-                      FRAME(xyzabc=[-350,0,z,0,0,-pi/2]), tbl)
+                      FRAME(xyzabc=[-250,0,z,0,0,-pi/2]), tbl)
 
     # remember the initial positions of the pieces in world frame
     for p in env.get_objects('^piece'):
@@ -83,9 +83,9 @@ def grasp_plan(obj):
     l = 30
     d = 30
 
-    w1 = (80, 26)
-    w2 = (100, 56)
-    w3 = (110, 86)
+    w1 = (80, 24)
+    w2 = (100, 54)
+    w3 = (110, 84)
 
     grspposs = {
         'piece-green': (FRAME(xyzabc=[0,0,l,0,0,pi/2]), w1),
@@ -94,7 +94,7 @@ def grasp_plan(obj):
         'piece-purple': (FRAME(xyzabc=[l,0,0,0,pi/2,pi/2]), w1),
         'piece-aqua': (FRAME(xyzabc=[0,2*l,0,-pi/2,0,-pi/2]), w1),
         'piece-brown': (FRAME(xyzabc=[0.5*l,l,0,0,0,pi/2]), w2),
-        'piece-yellow': (FRAME(xyzabc=[l,l,0,0,0,pi]), w3)
+        'piece-yellow': (FRAME(xyzabc=[0,l,0,0,0,pi]), w3)
     }
 
     f, (awidth,gwidth) = grspposs[obj.name]
@@ -106,7 +106,7 @@ def grasp_plan(obj):
 
 def place_plan(obj, hand='right'):
     l = 30
-    d = 30
+    d = 25
 
     tbl = env.get_object('table')
     tbltop = env.get_object('table top')
@@ -126,11 +126,21 @@ def place_plan(obj, hand='right'):
         'piece-yellow':FRAME(xyzabc=[0,0,2*l,0,0,0])
     }
 
+    appvec = {
+        'piece-green':FRAME(xyzabc=[0,0,0,0,0,0]),
+        'piece-yellow-green':FRAME(xyzabc=[d,d,-d,0,0,0]),
+        'piece-red':FRAME(xyzabc=[-d,d,d,0,0,0]),
+        'piece-purple':FRAME(xyzabc=[-d,d,d,0,0,0]),
+        'piece-aqua':FRAME(xyzabc=[d,-d,-d,0,0,0]),
+        'piece-brown':FRAME(xyzabc=[-d,-d,-d,0,0,0]),
+        'piece-yellow':FRAME(xyzabc=[d,d,-d,0,0,0])
+    }
+    
     handfrm = r.get_link(hand[0].upper()+'ARM_JOINT5_Link').where()
     objfrm = obj.where()
 
     gfrm = rfrm*plcposs[obj.name]*(-objfrm)*handfrm
-    afrm = gfrm*FRAME(xyzabc=[d,0,0,0,0,0])
+    afrm = rfrm*plcposs[obj.name]*(-appvec[obj.name])*(-objfrm)*handfrm
     width = 80.0 # hand width when releasing a piece
     return afrm,gfrm,width
 
@@ -166,7 +176,7 @@ def place_piece(obj, p=FRAME(xyzabc=[0,0,0,0,0,0]), jts='rarm', hand='right'):
 def demo(jts='rarm'):
     hand = 'right' if re.match('.*rarm', jts) else 'left'
     
-    cl = ['green','yellow-green','red','purple','aqua','brown','yellow']
+    cl = ['yellow-green','red','purple','aqua','brown','yellow']
     for c in cl:
         obj = env.get_object('piece-'+c)
         r.grasp(80, hand=hand)
@@ -196,6 +206,68 @@ def parse_solution(sol, step=True):
         if step:
             raw_input(); print('hit any key')
 
+
+import operator
+
+def spaces(n):
+    return reduce(operator.__add__, map(lambda x: ' ', range(n)))
+
+def format_vertice(v, ident_level=1):
+    return spaces(ident_level*2)+'{%f, %f, %f}'%(v[0],v[1],v[2])
+
+def format_vertices(vs, name='vertices'):
+    code = reduce(lambda x,y: x+',\n'+y, map(format_vertice, vs))
+    return 'double ' + name + '[][3] = {\n' + code + '\n};'
+
+def format_edge(e, ident_level=1):
+    return spaces(ident_level*2)+'{%d, %d}'%(e[0],e[1])
+
+def format_edges(es, name='edges'):
+    code = reduce(lambda x,y: x+',\n'+y, map(format_edge, es))
+    return 'int ' + name + '[][2] = {\n' + code + '\n};'
+
+def generate_piece_defs():
+    print format_vertices(piecered['vertices'], 'redvertices')
+    print format_edges(piecered['edges'], 'rededges')
+    print format_vertices(pieceaqua['vertices'], 'aquavertices')
+    print format_edges(pieceaqua['edges'], 'aquaedges')
+    print format_vertices(pieceyellow['vertices'], 'yellowvertices')
+    print format_edges(pieceyellow['edges'], 'yellowedges')
+    print format_vertices(pieceyellowgreen['vertices'], 'yellowgreenvertices')
+    print format_edges(pieceyellowgreen['edges'], 'yellowgreenedges')
+    print format_vertices(piecebrown['vertices'], 'brownvertices')
+    print format_edges(piecebrown['edges'], 'brownedges')
+
+def dump_body(body):
+    body.rel_trans
+    lx,ly,lz = body.vbody.size
+    x = lx/2
+    y = ly/2
+    z = lz/2
+    vertices = [[x,y,z],[x,y,-z],
+                [x,-y,z],[x,-y,-z],
+                [-x,y,z],[-x,y,-z],
+                [-x,-y,z],[-x,-y,-z]]
+    edges = [[1,2],[2,4],[4,3],[3,1],
+             [5,6],[6,8],[8,7],[7,5],
+             [1,5],[2,6],[3,7],[4,8]]
+
+    for vertice in vertices:
+        print format_vertice((body.rel_trans*FRAME(vec=vertice)).vec), ','
+
+    # for edge in edges:
+    #     print edge[0], '=>', edge[1]
+
+def dump_piece_model(piece):
+    name = piece.name
+    print 'int ' + name + '[][2] = {'
+    bodies = piece.children
+    for body in bodies:
+        dump_body(body)
+    print '};'
+    
+        
+        
 
 setup_puzzle_scene()
 r.prepare()
