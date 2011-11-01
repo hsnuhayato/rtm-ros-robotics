@@ -16,7 +16,6 @@ ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
 all:
 	svn up
-	make aptget
 	make latexja
 
 help:
@@ -39,7 +38,7 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
 aptget:
-	sudo easy_install --upgrade sphinx
+	sudo easy_install sphinx
 	sudo add-apt-repository ppa:cosmos-door/dvipsk-ja
 	sudo apt-get -y update
 	sudo apt-get install -y nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja ghostscript

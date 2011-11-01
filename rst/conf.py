@@ -199,7 +199,10 @@ latex_documents = [
 
 
 # Additional stuff for the LaTeX preamble.
-latex_preamble = """\\usepackage{float}
+latex_preamble = """\\usepackage{graphics}
+
+\\usepackage{float}
+
 \\let\\origfigure=\\figure
 \\renewenvironment{figure}[6]{
 \\origfigure[H]}
