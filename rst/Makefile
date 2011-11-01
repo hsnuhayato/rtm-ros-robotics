@@ -43,6 +43,9 @@ aptget:
 	sudo add-apt-repository ppa:cosmos-door/dvipsk-ja
 	sudo apt-get -y update
 	sudo apt-get install -y nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja ghostscript
+	sudo cp -v pdfglyphlist.txt glyphlist.txt /etc/texmf/dvipdfmx
+	sudo updatetexmf.py
+	sudo update-texmf
 
 clean:
 	-rm -rf $(BUILDDIR)/*
@@ -110,11 +113,11 @@ latex:
 
 latexja:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
+	cd $(BUILDDIR)/latex && ebb -b ../../images/RTCBuilder1.png; mv ../../images/RTCBuilder1.bb .
 	export PATH=$$PATH:$(CURDIR) && cd $(BUILDDIR)/latex && for f in *.tex; do platex.sh $$f; done
 	export PATH=$$PATH:$(CURDIR) && cd $(BUILDDIR)/latex && for f in *.tex; do platex.sh $$f; done
 	export PATH=$$PATH:$(CURDIR) && cd $(BUILDDIR)/latex && for f in *.tex; do platex.sh $$f; done
-	cd $(BUILDDIR)/latex && for f in *.dvi; do pdvips $$f; done
-	cd $(BUILDDIR)/latex && for f in *.ps; do ps2pdf -sPAPERSIZE=a4 $$f; done
+	cd $(BUILDDIR)/latex && for f in *.dvi; do dvipdfmx $$f; done
 
 latexpdf:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
