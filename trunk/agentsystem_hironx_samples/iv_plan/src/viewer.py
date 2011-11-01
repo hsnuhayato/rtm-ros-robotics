@@ -283,7 +283,7 @@ def set_view(camera='world'):
 ## viewer settings
 ## 
 visual.scene.center = [0,0,900.0]
-visual.scene.forward = [-1,-1,-0.3]
+visual.scene.forward = [-0.8,0.5,-0.22]
 visual.scene.up = [0,0,1]
 visual.scene.show_rendertime = True
 visual.scene.ambient = visual.color.gray(0.4)
