@@ -42,7 +42,7 @@ aptget:
 	sudo apt-get -y update
 	sudo apt-get install -y nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja ghostscript
 	sudo cp -v pdfglyphlist.txt glyphlist.txt /etc/texmf/dvipdfmx/
-	sudo updatetexmf.py
+	sudo ./updatetexmf.py
 	sudo update-texmf
 
 clean:
