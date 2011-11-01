@@ -36,7 +36,7 @@ def setup_puzzle_scene():
     # yellow green piece
     env.insert_object(generate_piece('yellow-green', (0.0, 1.0, 0.0),
                                      [(0,0,0,0,0,0),(0,l,0,0,0,0),(l,0,0,0,0,0)]),
-                      FRAME(xyzabc=[-130,70,z+l,-pi/2,pi,0]), tbl)
+                      FRAME(xyzabc=[-130,70,z+l,-pi/2,pi,0])*FRAME(xyzabc=[0,0,0,0,-0.5,0]), tbl)
     # red piece
     env.insert_object(generate_piece('red', (1.0, 0.0, 0.0),
                                      [(0,0,0,0,0,0),(l,0,0,0,0,0),(l,l,0,0,0,0),(2*l,l,0,0,0,0)]),
@@ -44,19 +44,20 @@ def setup_puzzle_scene():
     # purple piece
     env.insert_object(generate_piece('purple', (0.6, 0.196, 0.8),
                                      [(0,0,0,0,0,0),(l,0,0,0,0,0),(l,l,0,0,0,0),(0,0,l,0,0,0)]),
-                      FRAME(xyzabc=[-10,-130,z,0,-pi/2,0]), tbl)
+                      FRAME(xyzabc=[-10,-130,z,0,-pi/2,0])*FRAME(xyzabc=[0,0,0,-1,0,0]), tbl)
     # aqua piece
     env.insert_object(generate_piece('aqua', (0.0, 1.0, 1.0),
                                      [(0,0,0,0,0,0),(0,l,0,0,0,0),(0,2*l,0,0,0,0),(l,l,0,0,0,0)]),
-                      FRAME(xyzabc=[-200,-280,z,pi/2,0,0]), tbl)
+                      FRAME(xyzabc=[-200,-280,z,pi/2,0.3,0]), tbl)
     # brown piece
     env.insert_object(generate_piece('brown', (0.545, 0.27, 0.075),
                                      [(0,0,0,0,0,0),(l,0,0,0,0,0),(l,l,0,0,0,0),(0,l,0,0,0,0)]),
-                      FRAME(xyzabc=[-60,-260,z,0,0,0]), tbl)
+                      FRAME(xyzabc=[-60,-260,z,0,0,-1.0]), tbl)
     # yellow piece
     env.insert_object(generate_piece('yellow', (1.0, 1.0, 0.0),
                                      [(0,0,0,0,0,0),(0,l,0,0,0,0),(0,2*l,0,0,0,0),(l,0,0,0,0,0)]),
                       FRAME(xyzabc=[-250,0,z,0,0,-pi/2]), tbl)
+
 
     # remember the initial positions of the pieces in world frame
     for p in env.get_objects('^piece'):
@@ -77,25 +78,25 @@ def reset_puzzle():
     for p in env.get_objects('^piece'):
         p.locate(init_frames[p.name], world=True)
 
+w1 = (80, 24)
+w2 = (100, 54)
+w3 = (110, 84)
+l = 30
+
+grspposs = {
+    'piece-green': (FRAME(xyzabc=[0,0,l,0,0,pi/2]), w1),
+    'piece-yellow-green': (FRAME(xyzabc=[0,0,0,-pi/2,pi,0]), w1),
+    'piece-red': (FRAME(xyzabc=[0.5*l,0,0,pi/2,0,pi/2]), w2),
+    'piece-purple': (FRAME(xyzabc=[l,0,0,0,pi/2,pi/2]), w1),
+    'piece-aqua': (FRAME(xyzabc=[0,2*l,0,-pi/2,0,-pi/2]), w1),
+    'piece-brown': (FRAME(xyzabc=[0.5*l,l,-2,0,0,pi/2]), w2),
+    'piece-yellow': (FRAME(xyzabc=[0,l,-0.5*l,0,0,pi]), w3)
+    }
+
 
 def grasp_plan(obj):
     '''given an object, compute handlink frame and distance between fingers to pick the piece'''
-    l = 30
     d = 30
-
-    w1 = (80, 24)
-    w2 = (100, 54)
-    w3 = (110, 84)
-
-    grspposs = {
-        'piece-green': (FRAME(xyzabc=[0,0,l,0,0,pi/2]), w1),
-        'piece-yellow-green': (FRAME(xyzabc=[0,0,0,-pi/2,pi,0]), w1),
-        'piece-red': (FRAME(xyzabc=[0.5*l,0,0,pi/2,0,pi/2]), w2),
-        'piece-purple': (FRAME(xyzabc=[l,0,0,0,pi/2,pi/2]), w1),
-        'piece-aqua': (FRAME(xyzabc=[0,2*l,0,-pi/2,0,-pi/2]), w1),
-        'piece-brown': (FRAME(xyzabc=[0.5*l,l,0,0,0,pi/2]), w2),
-        'piece-yellow': (FRAME(xyzabc=[0,l,0,0,0,pi]), w3)
-    }
 
     f, (awidth,gwidth) = grspposs[obj.name]
 
@@ -106,7 +107,7 @@ def grasp_plan(obj):
 
 def place_plan(obj, hand='right'):
     l = 30
-    d = 25
+    d = 30
 
     tbl = env.get_object('table')
     tbltop = env.get_object('table top')
@@ -135,20 +136,26 @@ def place_plan(obj, hand='right'):
         'piece-brown':FRAME(xyzabc=[-d,-d,-d,0,0,0]),
         'piece-yellow':FRAME(xyzabc=[d,d,-d,0,0,0])
     }
-    
+
     handfrm = r.get_link(hand[0].upper()+'ARM_JOINT5_Link').where()
     objfrm = obj.where()
 
     gfrm = rfrm*plcposs[obj.name]*(-objfrm)*handfrm
     afrm = rfrm*plcposs[obj.name]*(-appvec[obj.name])*(-objfrm)*handfrm
-    width = 80.0 # hand width when releasing a piece
-    return afrm,gfrm,width
+
+    _, (awidth,gwidth) = grspposs[obj.name]
+    return afrm,gfrm,awidth,gwidth
+
+tms = {'app':0.8,
+       'hand':0.3
+       }
 
 def pick_piece(obj, jts='rarm', hand='right'):
     # determine grasp position & hand width
     afrm,gfrm,awidth,gwidth = grasp_plan(obj)
 
     r.grasp(awidth, hand=hand)
+    sync(duration=tms['hand'])
 
     # initial configuration
     q0 = r.get_joint_angles(joints=jts)
@@ -161,30 +168,43 @@ def pick_piece(obj, jts='rarm', hand='right'):
     exec_traj(traj, joints=jts)
 
     r.set_joint_angles(r.ik(gfrm, joints=jts)[0], joints=jts)
+    sync(duration=tms['app'])
+    r.grasp(gwidth+10, hand=hand)
+    sync(duration=tms['hand'])
     r.grasp(gwidth, hand=hand)
+    sync(duration=tms['hand'])
+    grab(hand=hand)
+    r.set_joint_angles(r.ik(afrm, joints=jts)[0], joints=jts)
+    sync(duration=tms['app'])
 
 def place_piece(obj, p=FRAME(xyzabc=[0,0,0,0,0,0]), jts='rarm', hand='right'):
-    afrm,gfrm,width = place_plan(obj, hand)
+    afrm,gfrm,awidth,gwidth = place_plan(obj, hand)
     q0 = r.get_joint_angles(joints=jts)
     q1 = r.ik(afrm, joints=jts)[0]
     traj = pl.make_plan(q0, q1, joints=jts)
     exec_traj(traj, joints=jts)
-    
+
     r.set_joint_angles(r.ik(gfrm, joints=jts)[0], joints=jts)
-    r.grasp(width, hand=hand)
+    sync(duration=tms['app'])
+    r.grasp(gwidth+10, hand=hand)
+    sync(duration=tms['hand'])
+    r.grasp(awidth, hand=hand)
+    sync(duration=tms['hand'])
+    release(hand=hand)
+    r.set_joint_angles(r.ik(afrm, joints=jts)[0], joints=jts)
+    sync(duration=tms['app'])
 
 def demo(jts='rarm'):
     hand = 'right' if re.match('.*rarm', jts) else 'left'
-    
+
     cl = ['yellow-green','red','purple','aqua','brown','yellow']
     for c in cl:
         obj = env.get_object('piece-'+c)
-        r.grasp(80, hand=hand)
+        sync()
         pick_piece(obj, jts=jts, hand=hand)
-        grab(hand=hand)
         place_piece(obj, jts=jts, hand=hand)
-        release(hand=hand)
     r.prepare()
+    sync()
 
 
 import discrete_puzzle
