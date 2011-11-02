@@ -1,5 +1,162 @@
 #summary One-sentence summary of this page.
 
+= 10/26 =
+ * ARマーカをノートPCで使う
+  * カメラが /dev/video0で利用できるとする
+   * xawtv -C /dev/video0 などでキャプチャできていればOK
+  * マーカ定義ファイルを ar_pose パッケージの data ディレクトリにコピー
+{{{
+  $ roscd Sense  # agentsystem_hironx_samples/Senseがなければ svn up
+  $ cp data/object_4x4_0.024 `rospack find ar_pose`/data/ # ar_poseをdebパッケージでインストールしている場合はsudoが必要
+  $ roslaunch Sense ar_pose.launch
+  $ rostopic echo /ar_pose_marker # 別ターミナルで実行
+}}}
+
+ * デフォルトのカメラパラメータはHIROのハンドカメラのものなので、正しい位置を出すには利用しているカメラのパラメータを記入する必要がある
+
+ * カメラキャリブレーション
+{{{
+ $ rosrun camera_calibration cameracalibrator.py --size 7x10 --square 0.025 image:=/usb_cam/image_raw
+}}}
+  * チェッカーボードの格子の数、マスの大きさはキャリブレーションに利用するボードにあわせる
+
+  * 出力された /tmp/calibrationdata.tar.gz を解凍してできる ost.txt の数値を agensystem_hironx_samples/Sense/ar_pose.launch に書き入れる
+
+ * 複数マーカ認識のar_multiはmarker_width, marker_center_x, marker_center_yなどのparameterを見ない。
+ * data/object_4x4などのマーカ定義ファイル中の記述を参照する。
+ * マーカデータファイルは ar_pose/data/4x4 の中にgif,psがあるので、これを印刷して使う。
+ * マーカ周囲の白枠は重要。これがないと正しく認識されない。
+
+
+= 11/01 =
+
+ * 自分のマシンをHIRONXネットワークに入れる
+ 
+  * ネットワークを設定する
+   * IPアドレスとgateway, ネームサーバを設定
+  * roscoreの場所を指定する
+   * export ROS_MASTER_URI=http://VisionPC:11311 
+  * rostopic list で確認
+
+ * サンプルプログラム
+  * iv_plan/examples/pick_piece.py
+  * rr.connect()
+   * rr.connect()をファイル中に書いてimportすると固まる問題があるので注意
+  * detect_pose() # pieceを認識出来る姿勢に移動
+  * demo() # 黄緑piece（marker 2）を見るけ、水色piece（marker7）の上にのせる
+
+ * HIRONX実機とのインタフェース
+  * RT-componentでシステムは作られている
+  * 基本的にpython上でrtc-handleを使うか、コマンドラインでrtshellを使う
+   * iv_plan/src/hiro_controller.py, iv_plan/src/setup_rtchandle.py
+  * ロボットの関節角の取得
+   * rr.get_joint_angles()
+  * 力センサの値を読む
+   * rr.get_force_data()
+  * ロボットへの関節角指令の送信
+   * rr.send_goal(目標姿勢と時間) # 引数の例はpick_piece.pyを参照
+
+  * 下位レベルのインタフェース
+   * RobotHardware0.jointDatOutデータポートを読む
+   * force....データポートを読む
+   * seqへの通信を仲介するjython上のサーバにソケットでコマンドを送る
+
+
+ * Pythonプログラムでのセンサデータの受信
+  * ROSのtopicに対してcallbackを登録する
+  * 例(iv_plan/examples/pick_piece.py)：
+{{{
+# -*- coding: utf-8 -*-
+
+import roslib; roslib.load_manifest('iv_plan')
+import set_env
+from ivutils import *
+from hiro_controller import *
+
+import rospy
+from ar_pose.msg import ARMarkers
+from tf.transformations import *
+
+class MyRobotInterface(HIROController):
+    def __init__(self, nameserver):
+        HIROController.__init__(self, nameserver)
+        self.lhand_markers = []
+
+    def connect(self):
+        HIROController.connect(self)
+        rospy.init_node('pick_piece')
+        rospy.Subscriber('/hiro/lhand/ar_pose_marker', ARMarkers, self.lhand_callback)
+
+    def lhand_callback(self, msg):
+        if len(msg.markers) > 0:
+            self.lhand_markers = msg.markers
+
+    def recognize(self, camera='lhand', thre=1.5):
+        def parse_marker(marker):
+            if rospy.Time.now().to_sec() - marker.header.stamp.to_sec() > thre:
+                return None
+            else:
+                p = marker.pose.pose.position
+                trans = 1000.0 * array([p.x, p.y, p.z])
+                q = marker.pose.pose.orientation
+                rot = [q.x, q.y, q.z, q.w]
+
+                return (marker.id,
+                        FRAME(mat=MATRIX(mat=quaternion_matrix(rot)[0:3,0:3].tolist()),
+                              vec=VECTOR(vec=(trans.tolist()))))
+
+        if camera == 'lhand':
+            return filter(None, [parse_marker(m) for m in self.lhand_markers])
+        else:
+            return filter(None, [parse_marker(m) for m in self.rhand_markers])
+
+
+rr = MyRobotInterface(set_env.nameserver)
+rr.connect()
+
+}}}
+
+
+= Recognition =
+
+* HIRONXハンドカメラのキャプチャノードとマーカ認識器の起動
+
+vision@VisionPCで、
+{{{
+ $ roslaunch Sense sense_hiro_ar.launch
+ $ rostopic list
+
+/hiro/lhand/ar_pose_marker
+/hiro/lhand/usb_cam/camera_info
+/hiro/lhand/usb_cam/image_raw
+/hiro/lhand/usb_cam/image_raw/compressed
+/hiro/lhand/usb_cam/image_raw/compressed/parameter_descriptions
+/hiro/lhand/usb_cam/image_raw/compressed/parameter_updates
+/hiro/lhand/usb_cam/image_raw/theora
+/hiro/lhand/usb_cam/image_raw/theora/parameter_descriptions
+/hiro/lhand/usb_cam/image_raw/theora/parameter_updates
+/hiro/lhand/visualization_marker
+/hiro/rhand/ar_pose_marker
+/hiro/rhand/usb_cam/camera_info
+/hiro/rhand/usb_cam/image_raw
+/hiro/rhand/usb_cam/image_raw/compressed
+/hiro/rhand/usb_cam/image_raw/compressed/parameter_descriptions
+/hiro/rhand/usb_cam/image_raw/compressed/parameter_updates
+/hiro/rhand/usb_cam/image_raw/theora
+/hiro/rhand/usb_cam/image_raw/theora/parameter_descriptions
+/hiro/rhand/usb_cam/image_raw/theora/parameter_updates
+/hiro/rhand/visualization_marker
+/rosout
+/rosout_agg
+/tf
+
+ $ rostopic echo /hiro/lhand/ar_pose_marker
+ $ rostopic echo /hiro/rhand/ar_pose_marker
+ $ rostopic echo /tf
+
+}}}
+
+
 = ROS how to =
  * ROS_MASTER_URIの設定例
   * export ROS_MASTER_URI=http://lupus:11311
@@ -70,137 +227,16 @@
    * 解除後、GUIで一度servoOffボタンをして再度servoOnを押すことで、たいてい復帰できる。復帰できなければ、ロボットを再起動する。
 
 
-= 自分のマシンをHIRONXネットワークに入れる =
- 
- * ネットワークを設定する
- * roscoreの場所を指定する
-  * export ROS_MASTER_URI=http://VisionPC:11311 
 
-
-= HIRONX実機とのインタフェース =
- * RT-componentでシステムは作られている
- * 基本的にpython上でrtc-handleを使うか、コマンドラインでrtshellを使う
-  * iv_plan/src/hiro_controller.py, iv_plan/src/setup_rtchandle.py
- * ロボットの関節角の取得
- * 力センサの値を読む
- * ロボットへの関節角指令の送信
-
- * 下位レベルのインタフェース
-  * RobotHardware0.jointDatOutデータポートを読む
-  * force....データポートを読む
-  * seqへの通信を仲介するjython上のサーバにソケットでコマンドを送る
-
-
-= Recognition =
-
-* HIRONXハンドカメラのキャプチャノードとマーカ認識器の起動
-
-vision@VisionPCで、
-{{{
- $ roslaunch Sense sense_hiro_ar.launch
- $ rostopic list
-
-/hiro/lhand/ar_pose_marker
-/hiro/lhand/usb_cam/camera_info
-/hiro/lhand/usb_cam/image_raw
-/hiro/lhand/usb_cam/image_raw/compressed
-/hiro/lhand/usb_cam/image_raw/compressed/parameter_descriptions
-/hiro/lhand/usb_cam/image_raw/compressed/parameter_updates
-/hiro/lhand/usb_cam/image_raw/theora
-/hiro/lhand/usb_cam/image_raw/theora/parameter_descriptions
-/hiro/lhand/usb_cam/image_raw/theora/parameter_updates
-/hiro/lhand/visualization_marker
-/hiro/rhand/ar_pose_marker
-/hiro/rhand/usb_cam/camera_info
-/hiro/rhand/usb_cam/image_raw
-/hiro/rhand/usb_cam/image_raw/compressed
-/hiro/rhand/usb_cam/image_raw/compressed/parameter_descriptions
-/hiro/rhand/usb_cam/image_raw/compressed/parameter_updates
-/hiro/rhand/usb_cam/image_raw/theora
-/hiro/rhand/usb_cam/image_raw/theora/parameter_descriptions
-/hiro/rhand/usb_cam/image_raw/theora/parameter_updates
-/hiro/rhand/visualization_marker
-/rosout
-/rosout_agg
-/tf
-
- $ rostopic echo /hiro/lhand/ar_pose_marker
- $ rostopic echo /hiro/rhand/ar_pose_marker
- $ rostopic echo /tf
-
-}}}
-
- * 複数マーカ認識のar_multiはmarker_width, marker_center_x, marker_center_yなどのparameterを見ない。
- * data/object_4x4などのマーカ定義ファイル中の記述を参照する。
- * マーカデータファイルは ar_pose/data/4x4 の中にgif,psがあるので、これを印刷して使う。
- * マーカ周囲の白枠は重要。これがないと正しく認識されない。
 
 * 画像の保存（ROS）
  * rosrun image_view image_view image:=/hiro/rhand/usb_cam/image_raw
   * ウィンドウ上で右クリック 
  * rosrun image_view extract_images image:=/hiro/rhand/usb_cam/image_raw
 
-* Pythonプログラムでのセンサデータの受信
- * ROSのtopicに対してcallbackを登録する
- * 例(iv_plan/examples/robot_if_sample.py)：
-{{{
-# -*- coding: utf-8 -*-
 
-import roslib; roslib.load_manifest('iv_plan')
-import set_env
-from ivutils import *
-from hiro_controller import *
-
-import rospy
-from ar_pose.msg import ARMarkers
-from tf.transformations import *
-
-class MyRobotInterface(HIROController):
-    def __init__(self, nameserver):
-        HIROController.__init__(self, nameserver)
-        self.lhand_markers = []
-
-    def connect(self):
-        HIROController.connect(self)
-        rospy.init_node('pick_piece')
-        rospy.Subscriber('/hiro/lhand/ar_pose_marker', ARMarkers, self.lhand_callback)
-
-    def lhand_callback(self, msg):
-        if len(msg.markers) > 0:
-            self.lhand_markers = msg.markers
-
-    def recognize(self, camera='lhand', thre=1.5):
-        def parse_marker(marker):
-            if rospy.Time.now().to_sec() - marker.header.stamp.to_sec() > thre:
-                return None
-            else:
-                p = marker.pose.pose.position
-                trans = 1000.0 * array([p.x, p.y, p.z])
-                q = marker.pose.pose.orientation
-                rot = [q.x, q.y, q.z, q.w]
-
-                return (marker.id,
-                        FRAME(mat=MATRIX(mat=quaternion_matrix(rot)[0:3,0:3].tolist()),
-                              vec=VECTOR(vec=(trans.tolist()))))
-
-        if camera == 'lhand':
-            return filter(None, [parse_marker(m) for m in self.lhand_markers])
-        else:
-            return filter(None, [parse_marker(m) for m in self.rhand_markers])
-
-
-rr = MyRobotInterface(set_env.nameserver)
-rr.connect()
-
-}}}
  * 認識結果をロボットのモデルを用いて世界座標に変換し，pieceを把持する例(iv_plan/examples/pick_piece.py)
 
-* カメラキャリブレーション
-
-{{{
- $ rosrun camera_calibration cameracalibrator.py --size 7x10 --square 0.025 image:=/hiro/rhand/usb_cam/image_raw
-}}}
- * アルポリックA4版ボードの設定
 
 * Kinect
 
