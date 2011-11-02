@@ -96,8 +96,8 @@ def show_frame(frm, name='frame0'):
     obj.vframe.resize(60.0)
     env.insert_object(obj, frm, env.get_world())
 
-def piece_frame(f):
-    return f * FRAME(xyzabc=[0,-30,0,0,0,-pi/2])
+def grasp_frame(f):
+    return f * FRAME(xyzabc=[0,-30,-2,0,0,-pi/2])
 
 def world_frame(Tcam_piece, js):
     r.set_joint_angles(js)
@@ -157,8 +157,10 @@ def demo():
         return
     print res
     q = rr.get_joint_angles()
-    frame2 = world_frame(piece_frame(frame_by_id(res, 2)), q)
-    frame4 = world_frame(piece_frame(frame_by_id(res, 4)), q)
+    frame2 = world_frame(grasp_frame(frame_by_id(res, 2)), q)
+    frame4 = world_frame(grasp_frame(frame_by_id(res, 7)), q)
+    show_frame(frame2)
+    show_frame(frame4)
     pick(frame2)
     place(frame4)
 
