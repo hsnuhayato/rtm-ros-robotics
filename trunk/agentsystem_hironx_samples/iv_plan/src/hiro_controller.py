@@ -11,6 +11,7 @@ from setup_rtchandle import *
 
 
 class HIROController:
+=======
     # def __init__(self, nameserver, seq_proxy_host='150.29.146.166', seq_proxy_port=10103):
     def __init__(self, nameserver, seq_proxy_host='192.168.128.253', seq_proxy_port=10103):
         try:
