@@ -1,0 +1,12 @@
+<launch>
+  <include file="$(find hrpsys_ros_bridge)/launch/hrpsys_ros_bridge.launch">
+    <arg name="ROBOT_NAME" value="Darwin" />
+    <arg name="MODEL_FILE" value="$(env CVSDIR)/OpenHRP2/etc/DARWIN/DARWINmain.wrl" />
+    <arg name="COLLADA_FILE" value="$(find hrpsys)/scripts/DarwinC.dae" />
+  </include>
+
+  <node name="darwin_rviz" pkg="rviz" type="rviz" respawn="true"
+	args="--sync -d $(find hrpsys_ros_bridge)/launch/hrp4c.vcg" />
+</launch>
+
+
