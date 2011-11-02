@@ -11,6 +11,8 @@ from setup_rtchandle import *
 tblheight = 700 # tuniv
 #tblheight = 735 # aist
 fsoffset = 59
+rubberheight = 19
+holeheight = 10
 
 def init_palletizing_scene():
     tbl = env.get_object('table')
@@ -75,7 +77,7 @@ tms = {'preapproach1': 1.2,
        'pick': 0.8,
        'transport': 1.0,
        'place': 0.8,
-       'pregrasp': 0.7,
+       'pregrasp': 0.8,
        'look_for': 0.65}
 
 # slow version
@@ -323,12 +325,12 @@ def place_plan(p, hand='right'):
         Twrist_ef = r.Tlwrist_ef
 
     gfrm = plcfrm*(-Twrist_ef)
-    gfrm.vec[2] += 30/2
+    gfrm.vec[2] += ((rubberheight-holeheight) + 30/2)
     afrm = FRAME(gfrm)
     afrm.vec[2] += 60
 
     gfrm2 = plcfrm*FRAME(xyzabc=[0,0,0,0,0,pi])*(-Twrist_ef)
-    gfrm2.vec[2] += 30/2
+    gfrm2.vec[2] += ((rubberheight-holeheight) + 30/2)
     afrm2 = FRAME(gfrm2)
     afrm2.vec[2] += 60
 
@@ -395,7 +397,7 @@ def demo(recognition=True):
     r.set_joint_angles(lgsol, joints='larm')
     sync(duration=tms['pregrasp'])
 
-    for w in [80,60,50,44,39,34]:
+    for w in [75,60,50,44,39,34]:
         r.grasp(w, hand='right')
         r.grasp(w, hand='left')
         sync(duration=0.1)
@@ -423,9 +425,9 @@ def demo(recognition=True):
     P3 = env.get_object('P3')
     P0 = env.get_object('P0')
     while recognition:
-        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+15,
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+rubberheight+15,
                        constraint=(pltaxis,0.9))
-        lpfrm = detect(hand='left', zmin=tblheight-20, zmax=tblheight+15,
+        lpfrm = detect(hand='left', zmin=tblheight-20, zmax=tblheight+rubberheight+15,
                        constraint=(pltaxis,0.9))
         rpfrm.vec[0] += 1.5 # offset of 2D <=> 3D recognition
         rpfrm.vec[1] -= 1.5
@@ -485,7 +487,7 @@ def demo(recognition=True):
     r.set_joint_angles(lgsol, joints='larm')
     sync(joints='torso_arms', duration=tms['pregrasp'])
 
-    for w in [38,40,46,80]:
+    for w in [38,40,46,75]:
         r.grasp(w, hand='right')
         r.grasp(w, hand='left')
         sync(duration=0.1)
@@ -544,7 +546,7 @@ def demo(recognition=True):
     r.set_joint_angles(lgsol, joints='larm')
     sync(duration=tms['pregrasp'])
 
-    for rw,lw in zip([80,60,50,44,39,34],[80,65,55,50,46,43]):
+    for rw,lw in zip([75,60,50,44,39,34],[75,65,55,50,46,43]):
         r.grasp(rw, hand='right')
         r.grasp(lw, hand='left')
         sync(duration=0.1)
@@ -567,7 +569,7 @@ def demo(recognition=True):
 
     P2 = env.get_object('P2')
     if recognition:
-        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+15,
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+rubberheight+15,
                        constraint=(pltaxis,0.9))
         rpfrm.vec[0] += 1.5 # offset of 2D <=> 3D recognition
         rpfrm.vec[1] -= 1.5
@@ -595,7 +597,7 @@ def demo(recognition=True):
     r.set_joint_angles(rgsol, joints='rarm')
     sync(joints='rarm', duration=tms['pregrasp'])
 
-    for w in [38,40,46,80]:
+    for w in [38,40,46,75]:
         r.grasp(w, hand='right')
         sync(joints='rhand', duration=0.1)
 
@@ -603,17 +605,18 @@ def demo(recognition=True):
     sync(joints='rarm', duration=tms['pregrasp'])
 
     f = r.fk(arm='left')*FRAME(xyzabc=[0,0,0,0,0,pi/2])
-    r.set_joint_angles(r.ik(f,joints='larm')[0], joints='larm')
+    r.set_joint_angles(r.ik(f, joints='larm')[0], joints='larm')
     f = FRAME(xyzabc=[lwp.vec[0],-160,lwp.vec[2],pi,0,pi/2])
     r.set_joint_angles(r.ik(f, joints='rarm')[0], joints='rarm')
     sync(joints='torso_arms', duration=tms['pick'])
 
-    f = FRAME(xyzabc=[lwp.vec[0],-92,lwp.vec[2],pi,0,pi/2])
+    f = FRAME(xyzabc=[lwp.vec[0],-95,lwp.vec[2],pi,0,pi/2])
     r.set_joint_angles(r.ik(f, joints='rarm')[0], joints='rarm')
     sync(joints='rarm', duration=tms['pick'])
     r.grasp(34)
     sync(joints='rhand', duration=0.1)
-    r.grasp(80, hand='left')
+    time.sleep(0.3)
+    r.grasp(75, hand='left')
     sync(joints='lhand', duration=0.1)
 
     f = FRAME(xyzabc=[lwp.vec[0],-200,lwp.vec[2],pi,0,pi/2])
@@ -627,7 +630,7 @@ def demo(recognition=True):
 
     P1 = env.get_object('P1')
     if recognition:
-        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+15,
+        rpfrm = detect(hand='right', zmin=tblheight-20, zmax=tblheight+rubberheight+15,
                        constraint=(pltaxis,0.9))
         rpfrm.vec[0] += 1.5 # offset of 2D <=> 3D recognition
         rpfrm.vec[1] -= 1.5
@@ -655,7 +658,7 @@ def demo(recognition=True):
     r.set_joint_angles(rgsol, joints='rarm')
     sync(joints='rarm', duration=tms['pregrasp'])
 
-    for w in [38,40,46,80]:
+    for w in [38,40,46,75]:
         r.grasp(w, hand='right')
         sync(duration=0.1)
 
@@ -851,8 +854,8 @@ def dual_arm_pick_and_place_plan(oname00='A0', oname01='A2',
     r.set_joint_angles(gfrm_rarm_sol, joints='rarm')
     r.set_joint_angles(gfrm_larm_sol, joints='larm')
     sync(duration=0.5, joints='torso_arms')
-    r.grasp(width=80, hand='right')
-    r.grasp(width=80, hand='left')
+    r.grasp(width=75, hand='right')
+    r.grasp(width=75, hand='left')
     sync(duration=0.5)
     release(hand='right')
     release(hand='left')
