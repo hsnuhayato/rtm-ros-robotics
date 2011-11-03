@@ -154,28 +154,69 @@ rosrun openhrp3 eclipse.sh
  Window -> Open Perspective -> Other 
 で、GRXUIが入っていることを確認する。
 
-= 5. GRXUI 動作確認 =
+= 5. GRXUIとOpenHRPの動作確認 =
+== Sample mrobot_simulator ==
 <wiki:video url="http://www.youtube.com/watch?v=6wEH-41rw74" />
 
 {{{
 roslaunch mrobot_ros_bridge mrobot_simulator.launch 
 }}}
 として、視点を下に移すと台車ロボットが見えればOK.wiimoteがないと言われる場合は，`aptittude install ros-diamondback-joystick-drivers`とするとよい．
+
+
+== Sample HRP4C ==
+{{{
+roslaunch hrpsys hrp4c.launch
+}}}
+として，左上の→が描いてあるシミュレーション開始ボタンを押し，
+中心にあるExecute scriptボタンをおして下図のようにロボットが歩けば成功です．
+このとき、右上にあるFPSのつまみの50を1～10程度にするとシミュレーション速度が速くなります。
+
+Execute scriptボタンの代わりに
+{{{
+roscd hrpsys/share/hrpsys/samples/HRP-4C;
+rosrun hrpsys hrpsyspy ./HRP4C.py
+}}}
+とすることもできます。
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/hrp4c_02.jpg]
+== Sample PA10 ==
 {{{
 roslaunch hrpsys pa10.launch
 または
 roslaunch openhrp3 pa10.launch
 }}}
-としてPA10が画面に表示され動けばOK
+としてPA10が画面に表示され、左上のシミュレーション開始ボタンを押し動けばOK
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/roslaunch_openhrp3_pa10.jpg]
 
-あるいは，
+== Sample sample-vehicle ==
 {{{
-roslaunch hrpsys hrp4c.launch
+roslaunch openhrp3 sample-vehicle.launch
 }}}
-として，左上の→が描いてあるシミュレーション開始ボタンを押し，
-中心にあるExecute scriptボタンをおしてロボットが歩けば成功です．
+左上のシミュレーション開始ボタンを押し動けばOK.
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/roslaunch_openhrp3_sample_vehicle.jpg]
+
+
+== Sample Humanoid Robot ==
+{{{
+roslaunch openhrp3 samplerobot-walk.launch
+}}}
+左上のシミュレーション開始ボタンを押してしばらく待つとロボットが歩きだす。
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/sample_robot_walk.jpg]
+
+{{{
+roslaunch openhrp3 samplerobot-pickupbox.launch
+}}}
+左上のシミュレーション開始ボタンを押してしばらく待つとロボットが箱を持ち上げる。
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/sample_robot_pickupbox.jpg]
+
+{{{
+roslaunch openhrp3 samplerobot-inhouse.launch
+}}}
+左上のシミュレーション開始ボタンを押してしばらく待つとロボットが机の上の箱をつかみにいく。
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/sample_robot_inhouse.jpg]
 
 = 6. トラブルシューティング =
 == モデルが表示されないときは... ==
