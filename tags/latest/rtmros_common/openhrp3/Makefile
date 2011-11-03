@@ -5,6 +5,7 @@ INSTALL_DIR=`rospack find openhrp3`
 HG_DIR = openhrp-aist-grx-svn
 HG_URL = https://openhrp-aist-grx.googlecode.com/hg/
 HG_PATCH =
+HG_REVISION=d2238a6a6df1
 #HG_REVISION=@REVISION@
 include $(shell rospack find mk)/hg_checkout.mk
 
