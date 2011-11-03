@@ -12,7 +12,7 @@ tblheight = 700 # tuniv
 #tblheight = 735 # aist
 fsoffset = 59
 rubberheight = 19
-holeheight = 10
+holeheight = 11
 
 def init_palletizing_scene():
     tbl = env.get_object('table')
@@ -94,7 +94,8 @@ detectposs = [(190,-60),(260,-60),
 
 
 detectposs_dual = [[(180,-35),(180,150)],
-                   [(260,-35),(260,150)]]
+                   [(230,-35),(230,150)],
+                   [(280,-35),(280,150)]]
 
 # pocketposs = [(200,-300),(120,-300),
 #               (200,-380),(120,-380)]
@@ -238,11 +239,15 @@ def detect(timeout=0, zmin=tblheight, zmax=tblheight+250,
                 return f
 
 def look_for():
+    def already_detected(o, detected):
+        for p in detected:
+            if numpy.linalg.norm(p.vec - o.vec) < 40:
+                return True
+        return False
+
     r.prepare(width=80)
     detected = []
     for rpos,lpos in detectposs_dual:
-        print rpos
-        print lpos
         jts = 'rarm'
         fr = FRAME(xyzabc=[rpos[0], rpos[1], tblheight+fsoffset+290, 0, -pi/2,0])
         r.set_joint_angles(r.ik(fr, joints=jts)[0], joints=jts)
@@ -250,13 +255,18 @@ def look_for():
         fl = FRAME(xyzabc=[lpos[0], lpos[1], tblheight+fsoffset+290, 0, -pi/2,0])
         r.set_joint_angles(r.ik(fl, joints=jts)[0], joints=jts)
         sync(duration=tms['look_for'])
-        time.sleep(2) # this is aweful
-        obj_fr = detect(hand='right', timeout=2.0)
-        obj_fl = detect(hand='left', timeout=2.0)
+        time.sleep(1.5) # this is aweful
+        obj_fr = detect(hand='right', timeout=1.5)
+        obj_fl = detect(hand='left', timeout=1.5)
         if obj_fr:
-            detected.append(obj_fr)
+            if not already_detected(obj_fr, detected):
+                detected.append(obj_fr)
         if obj_fl:
-            detected.append(obj_fl)
+            if not already_detected(obj_fl, detected):
+                detected.append(obj_fl)
+
+        if len(detected) == 4:
+            break
 
     for i,f in enumerate(detected):
         f.vec[2] = tblheight + 15
