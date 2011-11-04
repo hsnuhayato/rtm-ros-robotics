@@ -156,13 +156,13 @@ you need to change  `bridge = findRTC("HRP-4C(Robot)0")` to `bridge = findRTC("H
 
 try
 {{{
-$ rosrun hrpsys_ros_bridge hironx.launch
+$ roslaunch hrpsys_ros_bridge hironx.launch
 }}}
 to see Eclipse simulation. 
 
 Then type
 {{{
-$ rosrun hrpsys_ros_bridge hironx_ros_bridge.launch
+$ roslaunch hrpsys_ros_bridge hironx_ros_bridge.launch
 }}}
 to see Hiro robot on Rviz.
 since we still have timing isseus
