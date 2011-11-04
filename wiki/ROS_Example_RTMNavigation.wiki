@@ -124,11 +124,11 @@ PS3コントローラを最初に使うときは[http://www.ros.org/wiki/ps3joy/
 外部PCを無線LANにつないで，Beego上のLinux機(192.168.0.10)にSSHする．
 SSH先で
 {{{
-roslaunch mrobot_ros_bridge beego_kinect.launch　
+roslaunch beego_navigation setup_kinect.launch　
 }}}
 さらに同じSSH先で
 {{{
-roslaunch mrobot_ros_bridge beego_camera.launch
+roslaunch beego_navigation setup_camera.launch
 }}}
 とうつ．外部PCのWEBブラウザのアドレス欄に
 {{{
@@ -153,7 +153,7 @@ $ roslaunch mrobot_ros_bridge mrobot_ros_bridge.launch
 
 その後Linux機でterminalを開いて
 {{{
-roslaunch mrobot_ros_bridge make_map.launch 
+roslaunch beego_navigation start_make_map.launch 
 }}}
 とうつ．別のterminalで
 {{{
@@ -177,7 +177,7 @@ $ roslaunch mrobot_ros_bridge mrobot_ros_bridge.launch
 
 その後別のターミナルで
 {{{
-roslaunch mrobot_ros_bridge_ start_nav_beego.launch
+roslaunch beego_navigation start_nav_beego.launch
 }}}
 とうつ． 別のterminalで
 {{{
