@@ -1,0 +1,37 @@
+#summary One-sentence summary of this page.
+
+= RTM-ROSシステムにおけるAndroidの利用サンプル =
+
+== HRP-4CをAndroidで動かす ==
+
+=== インストール ===
+rtm-ros-roboticsのソースツリーを最新にする。（[ROS_Install]を参照）
+{{{
+ rosmake local_app_manager
+}}}
+HRP-4のモデルファイルhrp4c.lとhrp4c.daeが`roscd hrpsys/scripts`以下にインストールされていることを確認する
+
+=== Android端末との接続 ===
+AndroidマーケットでROS App ChooserとPR2 Pan Tiltをインストールする
+{{{
+ roslaunch local_app_manager app_manager.launch
+}}}
+
+次にサーバを指定するためのQRコードを生成する
+{{{
+ rosrun local_app_manager qrcode.sh
+}}}
+
+ROS App Chooserを起動し、Add a Robotを選択しQRコードの入力を選ぶ。
+上で表示されたQRコードを読み込ませるとlocal_computerという項目が表示されるので選択する。
+PCの電池残量が右上に見えると接続できていることが確認できる。
+
+=== HRP-4Cとの接続 ===
+（[ROS_Example_OpenHRPIntegration]を参照）
+{{{
+ roslaunch hrpsys_ros_bridge hrp4r.launch
+ roslaunch hrpsys_ros_bridge hrp4r_ros_bridge.launch
+}}}
+
+=== Androidアプリの実行 ===
+HRP-4C Pan Tiltのアイコンをタップし数秒待つと、タブレットに応じて首が動く
