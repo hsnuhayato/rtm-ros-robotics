@@ -13,7 +13,7 @@ import wrl_loader
 from pqp_if import *
 import libik_hiro as ikfast
 
-def get_AABB(vs, padding=8.0):
+def get_AABB(vs, padding=4.0):
     xlb = ylb = zlb = inf
     xub = yub = zub = -inf
 
@@ -32,7 +32,14 @@ def get_AABB(vs, padding=8.0):
             if v[2] > zub:
                 zub = v[2]
     else:
-        if vs.vbody.__class__ == visual.cylinder:
+        if vs.vbody.__class__ == visual.box:
+            xlb = vs.vbody.x - vs.vbody.length/2.0
+            ylb = vs.vbody.y - vs.vbody.height/2.0
+            zlb = vs.vbody.z - vs.vbody.width/2.0
+            xub = vs.vbody.x + vs.vbody.length/2.0
+            yub = vs.vbody.y + vs.vbody.height/2.0
+            zub = vs.vbody.z + vs.vbody.width/2.0
+        elif vs.vbody.__class__ == visual.cylinder:
             r = vs.vbody.radius
             z = vs.vbody.axis[2]
             xlb = -r
@@ -79,28 +86,40 @@ def gen_collision_body(obj):
         b.MemUsage(1)
         return b
 
+    def points_from_AABB(aabb):
+        [[x0,x1],[y0,y1],[z0,z1]] = aabb
+        lx = x1-x0
+        ly = y1-y0
+        lz = z1-z0
+        pts = [[x0+lx,y0,   z0+lz],
+               [x0+lx,y0+ly,z0+lz],
+               [x0,   y0+ly,z0+lz],
+               [x0,   y0,   z0+lz],
+               [x0+lx,y0,   z0   ],
+               [x0+lx,y0+ly,z0   ],
+               [x0,   y0+ly,z0   ],
+               [x0,   y0,   z0   ]]
+        return pts
+
     def gen_cbody(obj):
-        if obj.vbody.__class__ == visual.box:
-            x0 = obj.vbody.x - obj.vbody.length/2.0
-            y0 = obj.vbody.y - obj.vbody.height/2.0
-            z0 = obj.vbody.z - obj.vbody.width/2.0
-            x1 = obj.vbody.x + obj.vbody.length/2.0
-            y1 = obj.vbody.y + obj.vbody.height/2.0
-            z1 = obj.vbody.z + obj.vbody.width/2.0
-            return gen_cbody_from_AABB([[x0,x1],[y0,y1],[z0,z1]])
-        else:
-            #warn(str(obj.vbody.__class__)+' is not supported for collision body')
-            return gen_cbody_from_AABB(get_AABB(obj))
+        return gen_cbody_from_AABB(get_AABB(obj))
 
     def gen_cbody_link(l, simple=False):
         pts = []
         for tf,shp in l.shapes:
-            # print shp.vbody.__class__
+            invmat = -tf.mat
             if shp.vbody.__class__ == visual.faces:
                 # transform all the 'pos' and add them to pts
                 for pos in shp.vbody.pos:
-                    # print pos
-                    pts.append(pos)
+                    pts.append(invmat*VECTOR(vec=pos.tolist())+tf.vec)
+                    # pts.append(pos)
+            elif shp.vbody.__class__ == visual.box or shp.vbody.__class__ == visual.cylinder:
+                aabb = get_AABB(shp)
+                pts = points_from_AABB(aabb)
+                for tri in tris:
+                    pts.append(invmat*VECTOR(vec=pts[tri[0]])+tf.vec)
+                    pts.append(invmat*VECTOR(vec=pts[tri[1]])+tf.vec)
+                    pts.append(invmat*VECTOR(vec=pts[tri[2]])+tf.vec)
 
         if len(pts) == 0:
             return
@@ -260,11 +279,13 @@ class VRobot(JointObject):
             self.add_collision_pair(lnk, obj)
 
     def add_collision_pair(self, obj1, obj2):
-        obj1.cb = gen_collision_body(obj1)
+        if obj1.cb == None:
+            obj1.cb = gen_collision_body(obj1)
         for cobj in obj1.children:
             if isinstance(cobj, KinbodyObject) and (not cobj.cb):
                 cobj.cb = gen_collision_body(cobj)
-        obj2.cb = gen_collision_body(obj2)
+        if obj2.cb == None:
+            obj2.cb = gen_collision_body(obj2)
         for cobj in obj2.children:
             if isinstance(cobj, KinbodyObject) and (not cobj.cb):
                 cobj.cb = gen_collision_body(cobj)

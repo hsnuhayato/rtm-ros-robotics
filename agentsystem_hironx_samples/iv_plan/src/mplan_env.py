@@ -68,7 +68,7 @@ class MPlanEnv:
                     delete_object_aux(cobj)
 
             try:
-                obj.set_visible(False)
+                obj.vframe.set_visible(False)
             except:
                 pass
 
