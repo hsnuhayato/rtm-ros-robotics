@@ -24,6 +24,6 @@
   * [ROS_Example_RTMIntegration RTM統合]
   * [ROS_Example_RTMNavigation ROSナビゲーションRTM移動台車統合]
   * [ROS_Example_OpenHRPIntegration OpenHRP統合]
-  * [ROS_Example_Android_Application Androidの利用]
+  * [ROS_Example_Android_Applications Androidの利用]
   * [ROS_Example_TroubleShooting 困ったときは]
  * [ROS_English OpenRTM/OpenHRP/ROS Install and Example]
