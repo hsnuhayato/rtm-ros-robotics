@@ -29,8 +29,8 @@ PCの電池残量が右上に見えると接続できていることが確認で
 === HRP-4Cとの接続 ===
 （[ROS_Example_OpenHRPIntegration]を参照）
 {{{
- roslaunch hrpsys_ros_bridge hrp4r.launch
- roslaunch hrpsys_ros_bridge hrp4r_ros_bridge.launch
+ roslaunch hrpsys_ros_bridge hrp4c-nosim.launch
+ roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
 }}}
 
 === Androidアプリの実行 ===
