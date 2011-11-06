@@ -79,6 +79,12 @@ class WrlLoader():
                 W = self.scale * W
                 body = visual.box(pos=(0,0,0), axis=(1,0,0), color=col,
                                   length=L, height=H, width=W)
+            elif geotyp == 'Cylinder':
+                R = prop['radius']
+                R = self.scale * R
+                H = prop['height']
+                H = self.scale * H
+                body = visual.cylinder(axis=(0,0,H), radius=R, color=col)
 
         obj = PartsObjectWithName(vbody=body)
         return obj
