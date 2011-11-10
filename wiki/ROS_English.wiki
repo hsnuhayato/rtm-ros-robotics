@@ -14,7 +14,7 @@ wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install python-setuptools
 sudo easy_install -U rosinstall
-sudo apt-get install ros-electric-wg-pr2-apps ros-electric-pr2-apps ros-electric-pr2-desktop ros-electric-openni-kinect ros-electric-sound-drivers
+sudo apt-get install ros-electric-wg-pr2-apps ros-electric-pr2-apps ros-electric-pr2-desktop ros-electric-openni-kinect ros-electric-sound-drivers ros-electric-turtlebot
 }}}
 and install `rtm-ros-robotics` software
 {{{
