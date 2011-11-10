@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary OpenRTM-ROS Integration for Humanoid/Mobile Manipulator Robotics
 
 <wiki:toc max_depth="3" />
 
