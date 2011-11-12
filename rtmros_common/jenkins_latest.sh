@@ -1,3 +1,7 @@
+#!/bin/bash
+
+trap 'exit 1' ERR
+
 UPSTREAM=$HOME/jobs/agentsystem
 BUILD_NUMBER=`grep number $UPSTREAM/lastSuccessful/build.xml | sed 's/[^0-9]//g'`
 . $UPSTREAM/workspace/rtm-ros-robotics-$BUILD_NUMBER/setup.sh
@@ -6,7 +10,7 @@ BUILD_NUMBER=`grep number $UPSTREAM/lastSuccessful/build.xml | sed 's/[^0-9]//g'
 hrpsys_revision=`python -c "import pysvn; print pysvn.Client().info('\`rospack find hrpsys\`/build/hrpsys-base').revision.number"`
 
 # openhrp3
-openhrp3_revision=`LANG=C hg -R \`rospack find openhrp3\`/openhrp-aist-grx-svn tip | head -1 | cut -d\: -f3`
+openhrp3_revision=`LANG=C hg -R \`rospack find openhrp3\`/build/openhrp-aist-grx-svn tip | head -1 | cut -d\: -f3`
 
 #
 echo ";;   hrpsys revision : $hrpsys_revision"
@@ -14,10 +18,10 @@ echo ";; openrhp3 revision : $openhrp3_revision"
 
 # download and merge
 latest_uri=https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common
-latest=$WORKSPACE/rtmros_common
+latest=$WORKSPACE/rtmros_common-latest
 target=$HOME/jobs/agentsystem/workspace/rtm-ros-robotics-$BUILD_NUMBER/rtmros_common
 
-rm -fr rtmros_common ; svn co $latest_uri rtmros_common;
+rm -fr rtmros_common-latest ; svn co $latest_uri rtmros_common-latest;
 
 latest_revision=`python -c "import pysvn; print pysvn.Client().info('$latest').commit_revision.number"`
 target_revision=`python -c "import pysvn; print pysvn.Client().info('$target').commit_revision.number"`
