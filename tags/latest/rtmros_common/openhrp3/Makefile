@@ -2,11 +2,17 @@ Ball: installed java3d plugin_archives all
 include $(shell rospack find mk)/cmake.mk
 
 INSTALL_DIR=`rospack find openhrp3`
-HG_DIR = openhrp-aist-grx-svn
+HG_DIR = build/openhrp-aist-grx-svn
 HG_URL = https://openhrp-aist-grx.googlecode.com/hg/
 HG_PATCH =patch/PD_HGtest.xml.patch patch/Sample.xml.patch patch/SampleHG.xml.patch patch/SampleLF.xml.patch patch/SamplePD.xml.patch patch/SamplePD_HG.xml.patch patch/SampleSV.xml.patch
 HG_REVISION=d2238a6a6df1
 include $(shell rospack find mk)/hg_checkout.mk
+
+# https://code.ros.org/trac/ros/ticket/3748
+$(HG_DIR):
+	mkdir -p `dirname $(HG_DIR)`; hg clone $(HG_URL) $(HG_DIR)
+	cd $(HG_DIR) && hg update $(HG_BRANCH) && hg update $(HG_REVISION)
+	touch rospack_nosubdirs
 
 check-java-version:
 	@if [ ! "`java -version 2>&1 | grep Java\(TM\)\ SE`" ]; then \
@@ -76,7 +82,7 @@ wipe: clean
 	touch wiped
 
 clean:
-	-rm -fr installed patched include bin lib idl idl_gen workspace
+	-rm -fr installed patched include bin lib idl idl_gen workspace build/CMakeCache.txt
 	-cd $(HG_DIR) && make clean
 
 eclipse-clean:
