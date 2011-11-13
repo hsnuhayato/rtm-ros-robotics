@@ -18,31 +18,30 @@ if [ $# -gt 0 ] ; then
 fi
 
 
-TEST_DIR=`rospack find openhrp3`/test
+TEST_DIR=`rospack find hrpsys`/test
 
 cat <<EOF > $TEST_DIR/index.rst
-OpenHPR3 examples
+hrpsys examples
 =================
 EOF
 
-for filename in `rospack find openhrp3`/share/OpenHRP-3.1/sample/project/*.xml
+for filename in `rospack find hrpsys`/launch/*.launch
 do
-    if [ -f $TEST_DIR/project-`basename $filename .xml`.png ]; then
+    if [ -f $TEST_DIR/`basename $filename .launch`-grxui.png ]; then
 	cat <<EOF >> $TEST_DIR/index.rst
-`basename $filename .xml`
+`basename $filename .launch`
 -------------------------
 
 .. code-block:: bash
 
-  roscd openhrp3/share/OpenHRP-3.1/sample/project/
-  rosrun openhrp3 grxui.sh `basename $filename`
+  rosrun hrpsys `basename $filename`
 
-.. image :: project-`basename $filename .xml`.png
+.. image :: `basename $filename .launch`-grxui.png
     :width: 500pt
 EOF
 	else
 	cat <<EOF >> $TEST_DIR/index.rst
-`basename $filename .xml` (not tested)
+`basename $filename .launch` (not tested)
 --------------------------------------
 
 EOF
@@ -51,7 +50,7 @@ EOF
 
 Download \``basename $filename`\`_ file
 
-.. _\``basename $filename`\`: ../../share/OpenHRP-3.1/sample/project/`basename $filename`
+.. _\``basename $filename`\`: ../../launch/`basename $filename`
 
 -------------------
 
@@ -59,4 +58,5 @@ EOF
 
 done
 
-sphinx-build  -b singlehtml -d `rospack find openhrp3`/build/doctrees $TEST_DIR `rospack find openhrp3`/build/html
+sphinx-build  -b singlehtml -d `rospack find hrpsys`/build/doctrees $TEST_DIR `rospack find hrpsys`/build/html
+
