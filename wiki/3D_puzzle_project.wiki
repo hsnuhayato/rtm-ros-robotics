@@ -239,11 +239,22 @@ vision@VisionPCで、
 = 11/16 =
 
 * HIRONXネットワークの変更
- * dhcp, dns
+ * VisionPCでHIROネットワーク用のdhcp,dnsサーバを立てた
+ * dhcp設定でネットワークに接続すると，dhcp経由でDNS,gateway,domain等の情報を自動で取得する
 
 * AR markerでピースの姿勢認識
 
 * OpenRAVEとHIRONX実機の接続
+
+ * 実機に様々な軌道を送ってみる
+
+* cube assemblyの座標系を図に書く
+
+* 把持可能なシーンを作成する
+
+* ピースを１つずつ把持し、箱に入れる
+
+= その他 =
 
 * 画像によるピース認識
 
