@@ -227,8 +227,6 @@ vision@VisionPCで、
    * 解除後、GUIで一度servoOffボタンをして再度servoOnを押すことで、たいてい復帰できる。復帰できなければ、ロボットを再起動する。
 
 
-
-
 * 画像の保存（ROS）
  * rosrun image_view image_view image:=/hiro/rhand/usb_cam/image_raw
   * ウィンドウ上で右クリック 
@@ -238,12 +236,18 @@ vision@VisionPCで、
  * 認識結果をロボットのモデルを用いて世界座標に変換し，pieceを把持する例(iv_plan/examples/pick_piece.py)
 
 
-* Kinect
+= 11/16 =
 
- * camera_infoは設定ファイルから読み込めるように作られていないので、openni_nodelet.cppを直接編集して書きこむ (diamondback)
+* HIRONXネットワークの変更
+ * dhcp, dns
 
+* AR markerでピースの姿勢認識
 
-* 平面的なピース認識(yellow,red,brown,aqua,yellowgreen)
+* OpenRAVEとHIRONX実機の接続
+
+* 画像によるピース認識
+
+ * 平面的なピース認識(yellow,red,brown,aqua,yellowgreen)
 {{{
  roscd piece_recog
  rosmake
@@ -253,4 +257,10 @@ vision@VisionPCで、
  rosrun rviz rviz  # /camera->/piece を表示してみる
 }}}
 
+
+* Kinect
+
+ * camera_infoは設定ファイルから読み込めるように作られていないので、openni_nodelet.cppを直接編集して書きこむ (diamondback)
+
+* ステレオ視
  
