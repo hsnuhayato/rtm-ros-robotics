@@ -30,6 +30,8 @@
 
 = 11/01 =
 
+ * 目標：grasp one piece, put in container
+
  * 自分のマシンをHIRONXネットワークに入れる
  
   * ネットワークを設定する
@@ -238,17 +240,25 @@ vision@VisionPCで、
 
 = 11/16 =
 
-* HIRONXネットワークの変更
- * VisionPCでHIROネットワーク用のdhcp,dnsサーバを立てた
- * dhcp設定でネットワークに接続すると，dhcp経由でDNS,gateway,domain等の情報を自動で取得する
+ * 目標：environment with multiple pieces, grasp one piece, put in container
 
-* AR markerでピースの姿勢認識
+ * HIRONXネットワークの変更
+  * VisionPCでHIROネットワーク用のdhcp,dnsサーバを立てた
+  * dhcp設定でネットワークに接続すると，dhcp経由でDNS,gateway,domain等の情報を自動で取得する
 
-* OpenRAVEとHIRONX実機の接続
+ * cube assemblyの座標系を図に書く(cubeassembly.py)
 
- * 実機に様々な軌道を送ってみる
+ * AR markerでピースの姿勢認識
+  * マーカを全面に貼り、piece姿勢の認識を可能とする
+  * cubeassembly.pyとの整合性をとる
+  * 適宜、実機で正しく認識できるかどうか確認する
 
-* cube assemblyの座標系を図に書く
+ * OpenRAVEとHIRONX実機の接続
+  * 手が台車部に当たらないようにモデルを修正する
+  * 出力された軌道ファイルからcopy&pasteして実機に送ってみる
+  * 実機に様々な軌道を送ってみる
+  
+ * controller
 
 * 把持可能なシーンを作成する
 
