@@ -354,7 +354,7 @@ def pick(Tgoal):
 def execute(traj):
     robot.GetController().SetPath(traj)
 
-    rtcvalues = spec.ExtractJointValues(data,robot,ordertoopenrave,0)
+    rtcvalues = spec.ExtractJointValues(data,robot,ordertortc,0)
     spec.ExtractDeltaTime(data)
     
     waypointoffset=spec.GetGroupFromName("iswaypoint").offset
