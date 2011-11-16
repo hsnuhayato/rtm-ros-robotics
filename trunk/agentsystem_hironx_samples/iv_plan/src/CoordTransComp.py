@@ -51,7 +51,7 @@ def decode_FRAME(f):
 class CoordTransServiceSVC_impl(_GlobalIDL__POA.CoordTransService):
     def __init__(self):
         return
-    
+
     def __del__(self):
         pass
 
@@ -60,9 +60,10 @@ class CoordTransServiceSVC_impl(_GlobalIDL__POA.CoordTransService):
         Trobo = decode_FRAME(robotframe)
         r.locate(Trobo)
         r.set_joint_angles(jointangles)
-        res = encode_FRAME(r.get_sensor(sensor).where() * Tobj)
+        res = r.get_sensor(sensor).where() * Tobj
         print res
-        return res
+        show_frame(res)
+        return encode_FRAME(res)
 
 class CoordTransServiceProvider(OpenRTM_aist.DataFlowComponentBase):
     def __init__(self, manager):
