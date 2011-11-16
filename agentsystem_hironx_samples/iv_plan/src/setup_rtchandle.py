@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from set_env import *
+from ivutils import *
 from rtc_handle import *
 import RTC
 import Img
@@ -14,9 +15,7 @@ try:
     ns.list_obj()
 except:
     warn('HIRO-NX base system is not running')
-    if ros_available:
-        warn ('or ROS_MASTER_URI is not set correctly, maybe ...')
-
+    warn('or rtc.conf is not correctly configured')
 
 def get_handle(name, nspace):
     return nspace.rtc_handles[name]
