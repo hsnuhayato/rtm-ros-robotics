@@ -253,7 +253,7 @@ vision@VisionPCで、
 {{{
  適当なディレクトリで作業するための準備
  $ cd <適当なディレクトリ>
- $ cp `rospack find iv_plan`/src/rtc.conf
+ $ cp `rospack find iv_plan`/src/rtc.conf .
  mytest.pyに適当なコードを書く
 
  $ ipython mytest.py
