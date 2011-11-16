@@ -325,7 +325,6 @@ orrobot.SetDOFValues(array(rr.get_joint_angles())[ordertoopenrave])
 }}}
 
  * HIRONX実機のコントローラ
-
   * 腰首、右腕、左腕、右手、左手の5個の配列
   * 動かさないところは空でよい
   * 第3引数は動作に要する時間（目標値）
