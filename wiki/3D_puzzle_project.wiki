@@ -284,7 +284,14 @@ from hironx_if import *
   * 環境中に箱を入れる
   
  * controller
-  * ~/.openraveに出力される軌道を理解する
+  * openraveの軌道を変換する。
+{{{
+# openravepy
+trajdata = basemanip.MoveManipulator(...)
+traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
+print traj.GetNumWaypoins()
+print traj.GetWaypoint(0)
+}}}
   * 簡単な軌道を生成し、出力された軌道をcopy&pasteして実機に送ってみる
 
 {{{
