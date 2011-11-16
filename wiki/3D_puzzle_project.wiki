@@ -349,7 +349,7 @@ def pick(Tgoal):
     traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
     return traj
 
-def execute():
+def execute(traj):
     robot.GetController().SetPath(traj)
 
     print traj.GetNumWaypoins()
