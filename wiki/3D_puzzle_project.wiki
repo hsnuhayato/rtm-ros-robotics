@@ -246,7 +246,31 @@ vision@VisionPCで、
   * VisionPCでHIROネットワーク用のdhcp,dnsサーバを立てた
   * dhcp設定でネットワークに接続すると，dhcp経由でDNS,gateway,domain等の情報を自動で取得する
 
- * cube assemblyの座標系を図に書く(cubeassembly.py)
+ * カメラ座標系から世界座標系への座標変換RT-component
+  * 入力・出力ともに4x4行列を一次元配列にしたもの
+  * 認識に使ったカメラ、認識結果、ロボット位置、ロボットの関節角度を引数として、認識結果を世界座標系に変換する
+
+{{{
+ 適当なディレクトリで作業するための準備
+ $ cd <適当なディレクトリ>
+ $ cp `rospack find iv_plan`/src/rtc.conf
+ mytest.pyに適当なコードを書く
+
+ $ ipython mytest.py
+ $ rr.connect()
+ $ pose = rr.recognize('rhand')[0][1]
+ $ ctsvc.ref.Query('rhandcam', pose2mat(pose), robotframe, rr.get_joint_angles())
+}}}
+
+ * mytest.py
+{{{
+# -*- coding: utf-8 -*-
+
+import roslib; roslib.load_manifest('iv_plan')
+from hironx_if import *
+}}}
+
+ * cube assemblyで定義された各ピースの座標系を図に書く(cubeassembly.py)
 
  * AR markerでピースの姿勢認識
   * マーカを全面に貼り、piece姿勢の認識を可能とする
@@ -254,9 +278,9 @@ vision@VisionPCで、
   * 適宜、実機で正しく認識できるかどうか確認する
 
  * OpenRAVEとHIRONX実機の接続
+  * 認識結果をシミュレータ内に反映させる
   * 手が台車部に当たらないようにモデルを修正する
   * 出力された軌道ファイルからcopy&pasteして実機に送ってみる
-  * 実機に様々な軌道を送ってみる
   
  * controller
 
