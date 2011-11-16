@@ -284,13 +284,13 @@ from hironx_if import *
   * 環境中に箱を入れる
 
 {{{
+rr.connect()
 # openravepy
 from openravepy import *
 env=Environment()
 env.SetViewer('qtcoin')
 env.Load('robots/kawada-hironx.zae')
 robot=env.GetRobots()[0]
-rr.connect()
 robot.SetDOFValues(rr.get_joint_angles())
 }}}
   
