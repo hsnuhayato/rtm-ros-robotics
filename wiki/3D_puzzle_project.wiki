@@ -298,7 +298,9 @@ robot.SetDOFValues(rr.get_joint_angles())
   * openraveの軌道を変換する。 [http://openrave.org/en/main/openravepy/openravepy_int.html#openravepy.openravepy_int.Trajectory Trajectory参照]
 {{{
 # openravepy
-trajdata = basemanip.MoveManipulator(...)
+Tgoal = eye(4) # hand goal
+basemanip = interfaces.BaseManipulation(robot)
+trajdata = basemanip.MoveToHandPosition(matrices=[Tgoal],execute=True,outputtraj=True)
 traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
 print traj.GetNumWaypoins()
 print traj.GetWaypoint(0)
