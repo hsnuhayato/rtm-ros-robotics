@@ -285,6 +285,7 @@ from hironx_if import *
 
 {{{
 # openravepy
+from openravepy import *
 env=Environment()
 env.SetViewer('qtcoin')
 env.Load('robots/kawada-hironx.zae')
