@@ -282,6 +282,16 @@ from hironx_if import *
   * 手が台車部に当たらないようにモデルを修正し、実機で実行可能な軌道を生成する
   * できるだけ容易に把持可能なシーンを作成する
   * 環境中に箱を入れる
+
+{{{
+# openravepy
+env=Environment()
+env.SetViewer('qtcoin')
+env.Load('robots/kawada-hironx.zae')
+robot=env.GetRobots()[0]
+rr.connect()
+robot.SetDOFValues(rr.get_joint_angles())
+}}}
   
  * controller
   * openraveの軌道を変換する。 [http://openrave.org/en/main/openravepy/openravepy_int.html#openravepy.openravepy_int.Trajectory Trajectory参照]
