@@ -353,7 +353,15 @@ def pick(Tgoal):
 def execute(traj):
     robot.GetController().SetPath(traj)
 
-    print traj.GetNumWaypoins()
+    rtcvalues = spec.ExtractJointValues(data,robot,ordertoopenrave,0)
+    spec.ExtractDeltaTime(data)
+    
+    waypointoffset=spec.GetGroupFromName("iswaypoint").offset
+    if data[waypointoffset]:
+        print "is waypoint"
+    else:
+        print "can be ignored"
+    print traj.GetNumWaypoints()
     print traj.GetWaypoint(0)
 
 }}}
