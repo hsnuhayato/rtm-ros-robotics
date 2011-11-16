@@ -270,7 +270,8 @@ import roslib; roslib.load_manifest('iv_plan')
 from hironx_if import *
 }}}
 
- * cube assemblyで定義された各ピースの座標系を図に書く(cubeassembly.py)
+ * 各ピースの座標系(cubeassembly.py)
+  * cubeassembly.py を実行して，self.ShowGoal(eye(4)) をして確認する
 
  * AR markerでピースの姿勢認識
   * マーカを全面に貼り、piece姿勢の認識を可能とする
