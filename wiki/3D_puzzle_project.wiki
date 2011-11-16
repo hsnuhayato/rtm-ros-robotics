@@ -284,7 +284,7 @@ from hironx_if import *
   * 環境中に箱を入れる
   
  * controller
-  * openraveの軌道を変換する。
+  * openraveの軌道を変換する。 [http://openrave.org/en/main/openravepy/openravepy_int.html#openravepy.openravepy_int.Trajectory Trajectory参照]
 {{{
 # openravepy
 trajdata = basemanip.MoveManipulator(...)
