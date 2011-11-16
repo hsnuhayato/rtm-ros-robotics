@@ -345,7 +345,7 @@ def recognize():
 def pick(Tgoal):
     # openravepy
     basemanip = interfaces.BaseManipulation(robot)
-    trajdata = basemanip.MoveToHandPosition(matrices[Tgoal],execute=False,outputtraj=True)
+    trajdata = basemanip.MoveToHandPosition(matrices=[Tgoal],execute=False,outputtraj=True)
     traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
     return traj
 
