@@ -312,8 +312,10 @@ robot.SetDOFValues(array(rr.get_joint_angles())[ordertoopenrave])
 # openravepy
 Tgoal = eye(4) # hand goal
 basemanip = interfaces.BaseManipulation(robot)
-trajdata = basemanip.MoveToHandPosition(matrices=[Tgoal],execute=True,outputtraj=True)
+trajdata = basemanip.MoveToHandPosition(matrices=[Tgoal],execute=False,outputtraj=True)
 traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
+robot.GetController().SetPath(traj)
+
 print traj.GetNumWaypoins()
 print traj.GetWaypoint(0)
 }}}
