@@ -258,8 +258,8 @@ vision@VisionPCで、
 
  $ ipython mytest.py
  $ rr.connect()
- $ pose = rr.recognize('rhand')[0][1]
- $ ctsvc.ref.Query('rhandcam', pose2mat(pose), robotframe, rr.get_joint_angles())
+ pose = rr.recognize('rhand')[0][1]
+ ctsvc.ref.Query('rhandcam', pose2mat(pose), robotframe, rr.get_joint_angles())
 }}}
 
  * mytest.py
@@ -286,6 +286,19 @@ from hironx_if import *
  * controller
   * ~/.openraveに出力される軌道を理解する
   * 簡単な軌道を生成し、出力された軌道をcopy&pasteして実機に送ってみる
+
+{{{
+ $ ipython mytest.py
+ $ rr.connect()
+ q = rr.get_joint_angles()
+ q[0] += 0.2
+ rr.send_goal([q[0:3],[],[],[],[]], 3.0, True)
+}}}
+
+  * 腰首、右腕、左腕、右手、左手の5個の配列
+  * 動かさないところは空でよい
+  * 第3引数は動作に要する時間（目標値）
+  * 第4引数は動作終了まで待つかどうか（Trueなら待つ）
 
 
 = その他 =
