@@ -308,7 +308,8 @@ orrobot.SetDOFValues(array(rr.get_joint_angles())[ordertoopenrave])
 }}}
   
  * controller
-  * openraveの軌道を変換する。 [http://openrave.org/en/main/openravepy/openravepy_int.html#openravepy.openravepy_int.Trajectory Trajectory関数参照]
+  * openraveの軌道を変換する。 [http://openrave.org/en/main/openravepy/openravepy_int.html#openravepy.openravepy_int.Trajectory Trajectory関数参照], [http://openrave.org/en/main/openravepy/openravepy_int.html#openravepy.openravepy_int.ConfigurationSpecification ConfigurationSpecification関数参照]
+
 {{{
 # -*- coding: utf-8 -*-
 
