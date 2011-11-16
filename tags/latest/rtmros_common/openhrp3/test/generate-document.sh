@@ -1,12 +1,14 @@
 #!/bin/bash -x
 
 if [ $# -gt 0 ] ; then
-    GETOPT=`getopt -l gtest_output: -- dummy "$@"` ; [ $? != 0 ] && exit 1
+    GETOPT=`getopt -l gtest_output:,text -- dummy "$@"` ; [ $? != 0 ] && exit 1
     eval set -- "$GETOPT"
     while true
     do
 	case $1 in
 	    --gtest_output)  TEST_OUTPUT=`echo $2|sed s/^xml\://`     ; shift 2
+		;;
+	    --text)  shift 1
 		;;
 	    --)  shift; break;
 		;;
@@ -19,11 +21,9 @@ fi
 
 
 TEST_DIR=`rospack find openhrp3`/test
-
-cat <<EOF > $TEST_DIR/index.rst
-OpenHPR3 examples
-=================
-EOF
+rev=`LANG=C svn info \`rospack find openhrp3\` | grep ^Revision`
+echo "OpenHPR3 examples ($rev)" > $TEST_DIR/index.rst
+echo "==========================" >> $TEST_DIR/index.rst
 
 for filename in `rospack find openhrp3`/share/OpenHRP-3.1/sample/project/*.xml
 do
