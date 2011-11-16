@@ -289,13 +289,14 @@ from hironx_if import *
 import roslib; roslib.load_manifest('iv_plan')
 from hironx_if import *
 
+rr.connect()
+
 # openravepy
 from openravepy import *
 env=Environment()
 env.SetViewer('qtcoin')
 env.Load('robots/kawada-hironx.zae')
 orrobot=env.GetRobots()[0]
-rr.connect()
 
 # write your own code
 
