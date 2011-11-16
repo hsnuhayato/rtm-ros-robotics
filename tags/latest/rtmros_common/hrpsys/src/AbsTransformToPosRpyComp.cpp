@@ -66,6 +66,7 @@ void MyModuleInit(RTC::Manager* manager)
 
 int main (int argc, char** argv)
 {
+#if 0
   { // wait for ClockGenerator
     CORBA::ORB_var orb;
     orb = CORBA::ORB_init(argc, argv);
@@ -87,6 +88,7 @@ int main (int argc, char** argv)
     } while ( obj == NULL );
     std::cerr << "[" << argv[0] << "] found ClockGenerator" << std::endl;
   }
+#endif
 
   RTC::Manager* manager;
   manager = RTC::Manager::init(argc, argv);
