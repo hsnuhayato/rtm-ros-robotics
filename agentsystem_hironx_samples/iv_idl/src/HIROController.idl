@@ -42,8 +42,10 @@ interface MotionCommands {
   RETURN_ID moveLinearCartesianRel(in CarPosWithElbow rArm, in CarPosWithElbow lArm); //とりあえず最初のバージョンでは実装せず。
   RETURN_ID movePTPJointAbs(in JointPos jointPoints); //実装する。HIROの場合はlength(29)関節定義の順番はbodyinfo.pyと同じ。deg単位
   RETURN_ID movePTPJointRel(in JointPos jointPoints); //実装する。関節定義の順番はbodyinfo.pyと同じ。deg単位
-  RETURN_ID movePTPJointAbsSeq(in JointPosSeq jointPointsSeq); //実装する。関節定義の順番はbodyinfo.pyと同じ。deg単位
+  RETURN_ID movePTPJointAbsSeq(in JointPosSeq jointPointsSeq, in DoubleSeq timeSeq); //実装する。関節定義の順番はbodyinfo.pyと同じ。deg単位
   RETURN_ID openGripper(); //実装せず。
+  RETURN_ID setSpeedCartesian(in ULONG spdRatio);//実装せず
+  RETURN_ID setSpeedJoint(in ULONG spdRatio); //実装する
 	
 };
 	  
