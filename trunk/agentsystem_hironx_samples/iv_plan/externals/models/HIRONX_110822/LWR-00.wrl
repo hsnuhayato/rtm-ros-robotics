@@ -8,8 +8,6 @@ NavigationInfo {
 Transform {
    scale 1 1 1
    translation 0 0 0
-   children[
-   ]
    children
    [
       Transform {
@@ -17,6 +15,28 @@ Transform {
 	 rotation 0 1 0 0 
 	 children [
 	    Inline { url "LHANDCAM_01.wrl" }
+	 ]
+      }
+      Transform {
+	 translation 0.075 0 0
+	 rotation 0 1 0 -1.57079
+	 children [
+	    Shape {
+	       geometry Cylinder {
+		  height 0.06
+		  radius 0.01
+	       }
+	       appearance Appearance
+	       {     
+	       	    material Material
+		    {
+		           ambientIntensity 0.2
+			   diffuseColor 0.6 0.6 0.7
+			   specularColor .1 .1 .1
+			   shininess .5
+		    }
+	       }
+            }
 	 ]
       }
       Shape
