@@ -3,7 +3,7 @@ IDL_INCDIR = `rtm-config --prefix`/include/rtm/idl
 IDLS = JointDataTypes.idl RobotHardwareService.idl \
 	SequencePlayerService.idl VideoStreamService.idl \
 	ArmMotion.idl GraspController.idl Img.idl ForceSensor.idl \
-	CoordTransService.idl
+	CoordTransService.idl HIROController.idl HiroNX.idl
 
 all: idlcompile
 
