@@ -213,3 +213,53 @@ rosrun rviz rviz
 注意　2011/09/17現在，Windows機を閉じたまま動かすとBeegoが指令通りに動かないバグが確認されているので，とりあえずWindows機はディスプレイを開けておくほうがよい．無線アクセスポインタはWindows機に両面テープで固定してある．
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_hardware_configuration.ppt http://rtm-ros-robotics.googlecode.com/svn/wiki/beego_hardware_configuration.png]
+
+
+= 新RTM-ROS Beego 実験環境セットアップ =
+Windows機のドライバのLinuxバージョンが使えるようになったので、Linux機のみでのセットアップの紹介
+
+== beego最新版覚え書き ==
+* もうwindows機はいらないです
+
+** 32bit rt-linuxを起動,Beegoの起動 (Linux版の場合Beegoの４つのスイッチ
+は初めから赤いスイッチはつけておいてよい)
+** 白いコネクタで1)のノートPCとBeegoをつなぐ
+
+ここからノートPCでの作業 (コネクタを外す度にやる）
+{{{
+$ echo "i 0x0014 e" > /dev/pcan32
+$ sudo ifconfig can0 down
+$ sudo ifconfig can0 up
+$ rosrun openrtm rtm-naming-restart
+$ roscd rtmros_common
+$ cd rtc_canopen/work
+$ ./0.AutoRun.sh
+}}}
+
+ここで大量のwindowが立ち上がる。
+その中のstatas manegerで4つの項目がすべてactiveであるかどうか確認。
+dead、inactiveなどがでた場合。
+
+{{{
+$ ./10.KillAll.sh
+$ echo "i 0x0014 e" > /dev/pcan32
+$ sudo ifconfig can0 down
+$ sudo ifconfig can0 up
+$ rosrun openrtm rtm-naming-restart
+}}}
+を行う。
+
+Beegoの2つの緑色スイッチをつける
+
+{{{
+$ roslaunch mrobot_ros_bridge mrobot_ros_bridge.launch
+}}}
+
+ここまででps3コントローラで動かせるはず
+
+{{{
+$ roslaunch beego_navigation start_make_map.launch
+}}}
+
+これで動かないときは
+緑のスイッチをoff/onするといい、
