@@ -6,6 +6,8 @@
 * 目標：environment with multiple pieces, grasp one piece, put in container
    （先週のつづき）
 
+ * ロボットのモデルに力センサのオフセット(z=-59)を加える
+
  * AR markerでピースの姿勢認識
   * すべてのpieceについて、marker->pieceの座標変換を入れる
    * 水色pieceはmytest3.py中に記載
@@ -25,6 +27,8 @@
 
  * pieceの認識結果のOpenRAVE環境に反映する(recognize)
   * 水色pieceに貼られたARマーカ(ID=7)を左手カメラで認識する
+  * VPython環境とOpenRAVE環境の座標系、マーカとピース座標系の違いを考慮し、OpenRAVE環境の机上の認識位置へpieceを移動させる
+  * 返り値はpieceの姿勢
  * 作り込みの把持位置(手首位置・姿勢)へ左手を動かす軌道を生成(plan)
  * 生成した軌道を実行(execute)
   * 引数realrobot=Trueで実機に動作指令を送る
@@ -48,6 +52,7 @@ $ ipython mytest3.py
 }}}
 
  * mysample3.py
+  * 実行前にシミュレータ内ロボット、実機の姿勢を確認しましょう
 {{{
 # -*- coding: utf-8 -*-
 
@@ -60,7 +65,17 @@ env=Environment()
 env.SetViewer('qtcoin')
 env.Load('data/hironxtable.env.xml')
 robot=env.GetRobots()[0]
+T = robot.GetTransform()
+T[2,3] = 0.09
+robot.SetTransform(T)
+
 rr.connect()
+
+detectpose = [0.0, 0.0, 1.1,
+              0.70, -0.38, -2.23, 0.52, 1.16, -0.23,
+              -0.42, -0.42, -2.31, -0.69, 1.20, -0.22,
+              0.64, -0.63, -0.62, 0.63,
+              0.62, -0.63, -0.64, 0.64]
 
 orderednames = ['CHEST_JOINT0', 'HEAD_JOINT0', 'HEAD_JOINT1', 'RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'RHAND_JOINT0', 'RHAND_JOINT1', 'RHAND_JOINT2', 'RHAND_JOINT3', 'LHAND_JOINT0', 'LHAND_JOINT1', 'LHAND_JOINT2', 'LHAND_JOINT3']
 ordertortc = array([robot.GetJoint(name).GetDOFIndex() for name in orderednames],int32)
@@ -69,8 +84,8 @@ robot.SetDOFValues(array(rr.get_joint_angles())[ordertoopenrave])
 
 manip=robot.SetActiveManipulator("leftarm_torso")
 ikmodel=databases.inversekinematics.InverseKinematicsModel(robot,freeindices=manip.GetArmIndices()[:-6])
-if not ikmodel.load():
-    ikmodel.autogenerate()
+#if not ikmodel.load():
+#    ikmodel.autogenerate()
 
 self = CubeAssembly(robot)
 self.CreateBlocks()
@@ -81,18 +96,26 @@ def recognize(camera='lhand'):
     f = ctsvc.ref.Query(camera+'cam', pose2mat(pose), robotframe, rr.get_joint_angles())
     f = reshape(f, (4,4))
 
-    relvec = array([150,0,0]) + array([-450,0,-800])
+    # vpython env => openrave env
+    relvec = array([150,0,0]) + array([-450,0,-710])
     f[0:3,3] += relvec
     f[0:3,3] /= 1000
 
-    self.gmodels[4].target.SetTransform(f)
-    return f
+    # marker => piece
+    Tp_m = eye(4)
+    Tp_m[0:3,0:3] = rotationMatrixFromAxisAngle([0,0,1],pi)
+    Tp_m[0:3,3] = [0.045, -0.015, 0.09]
+    Tp = dot(f,inverse_matrix(Tp_m))
+
+    # aqua piece
+    self.gmodels[4].target.SetTransform(Tp)
+    return Tp
 
 def plan(f):
     g = eye(4)
-    g[0:3,3] = [0.03,-0.03,0.12]
+    g[0:3,3] = [0.045,-0.015,0.12+0.059]
     f = dot(f,g)
-    h = dot(dot(f[0:3,0:3], rotationMatrixFromAxisAngle([1,0,0],pi)), rotationMatrixFromAxisAngle([0,0,1],-pi/2))
+    h = dot(dot(f[0:3,0:3], rotationMatrixFromAxisAngle([1,0,0],pi)), rotationMatrixFromAxisAngle([0,0,1],pi/2))
     f[0:3,0:3] = h
     Tgoal = f
 
@@ -103,18 +126,24 @@ def plan(f):
     return f, traj
 
 def execute(traj, realrobot=False):
+    spec = traj.GetConfigurationSpecification()
+    n = traj.GetNumWaypoints()
+
+    for i in range(1,n):
+        data = traj.GetWaypoint(i)
+        # rtcvalues = spec.ExtractJointValues(data,robot,ordertoopenrave,0)
+        dt = spec.ExtractDeltaTime(data)
+        print dt
+        print data
+        if realrobot:
+            q = rr.get_joint_angles()
+            q[0] = data[0]
+            q[9:15] = data[1:7]
+            rr.send_goal(q, 20.0*dt, True)
+
     robot.GetController().SetPath(traj)
     robot.WaitForController(0)
     robot.GetController().Reset(0)
-
-    spec = traj.GetConfigurationSpecification()
-    n = traj.GetNumWaypoints()
-    for i in range(n):
-        data = traj.GetWaypoint(i)
-        rtcvalues = spec.ExtractJointValues(data,robot,ordertoopenrave,0)
-        dt = spec.ExtractDeltaTime(data)
-        print dt
-        print rtcvalues
 }}}
 
 
@@ -156,4 +185,24 @@ def execute(traj, realrobot=False):
  q[0] += 0.2
  rr.send_goal(q, 3.0, True)
 }}}
+
+* HIRONXのベースシステムの起動(@VisionPC)
+
+{{{
+ $ roscd HandRcg/script
+ $ ./run -c
+}}}
+
+ * HiroNXProvider0.rtcとHiroNXGUI0.rtcが起動
+  * 起動したGUIでjoint calib等を行う。
+  * GUI上で関節を動かすこともできる。
+ * run.shに-cを与えるとCoordTransComp0.rtcも起動
+  * 認識結果を世界座標に直すために使う
+ * run.shに-rを与えると手先カメラで部品を認識するRTCが起動する
+  * ゼミでは使わない
+
+{{{
+ $ roslaunch Sense sense_hiro_ar.launch
+}}}
  
+ * ROSのUSBカメラキャプチャノードとARマーカ認識器を起動
