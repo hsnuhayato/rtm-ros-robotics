@@ -7,7 +7,8 @@
    （先週のつづき）
 
  * AR markerでピースの姿勢認識
-  * marker->pieceの座標変換を入れる
+  * すべてのpieceについて、marker->pieceの座標変換を入れる
+   * 水色pieceはmytest3.py中に記載
   * 適宜、実機で正しく認識できるかどうか確認する
   * 机上の複数のpieceを探す動作を実装する
    * 机上をスキャンし、7つのpieceを正しい姿勢でシミュレータ内に配置するプログラムを作成する
@@ -23,11 +24,30 @@
 * サンプルプログラム(mytest3.py)
 
  * pieceの認識結果のOpenRAVE環境に反映する(recognize)
-  * ARマーカ=>pieceのtransformは考慮していない(認識したmarker位置へpieceを置くだけ)
+  * 水色pieceに貼られたARマーカ(ID=7)を左手カメラで認識する
  * 作り込みの把持位置(手首位置・姿勢)へ左手を動かす軌道を生成(plan)
  * 生成した軌道を実行(execute)
   * 引数realrobot=Trueで実機に動作指令を送る
 
+{{{
+$ ipython mytest3.py
+
+  f = recognize()
+  f,traj = plan(f)
+  execute(traj)
+}}}
+
+ * 実機をpieceを認識する姿勢にする
+{{{
+  rr.send_goal(detectpose, 4.0)
+}}}
+
+ * OpenRAVE内のロボットを実機の姿勢にあわせる
+{{{
+  robot.SetDOFValues(array(rr.get_joint_angles())[ordertoopenrave])
+}}}
+
+ * mysample3.py
 {{{
 # -*- coding: utf-8 -*-
 
