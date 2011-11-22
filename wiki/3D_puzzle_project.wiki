@@ -423,7 +423,6 @@ def execute(traj):
 
 
  * pieceの認識結果のOpenRAVE環境に反映する(mytest3.py)
-
   * ARマーカ=>pieceのtransformは考慮していない
 
 
@@ -459,7 +458,6 @@ def execute(traj):
 * ステレオ視
 
 * HiroNX制御RTC(Act共通インタフェース)
-
  * OpenRTM-javaでRTC実装された制御モジュール
  * 今後、こちらに置き換えていく
  * フラットな関節角度ベクトルを引数に与える
