@@ -21,23 +21,21 @@ fi
 
 
 TEST_DIR=`rospack find hrpsys`/test
-
-cat <<EOF > $TEST_DIR/index.rst
-hrpsys examples
-=================
-EOF
+rev=`LANG=C svn info \`rospack find hrpsys\` | grep ^Revision`
+echo "hrpsys examples ($rev)" > $TEST_DIR/index.rst
+echo "==========================" >> $TEST_DIR/index.rst
 
 for filename in `rospack find hrpsys`/launch/*.launch
 do
     if [ -f $TEST_DIR/`basename $filename .launch`-grxui.png ]; then
-	convert -delay 10 -loop 0 $TEST_DIR/`basename $filename .launch`-grxui-*.png $TEST_DIR/`basename $filename .launchl`-grxui.gif
+	convert -delay 10 -loop 0 $TEST_DIR/`basename $filename .launch`-grxui-*.png $TEST_DIR/`basename $filename .launch`-grxui.gif
 	cat <<EOF >> $TEST_DIR/index.rst
 `basename $filename .launch`
 -------------------------
 
 .. code-block:: bash
 
-  rosrun hrpsys `basename $filename`
+  roslaunch hrpsys `basename $filename`
 
 .. image :: `basename $filename .launch`-grxui.gif
     :width: 500pt
