@@ -49,6 +49,11 @@
     uri: https://ua-ros-pkg.googlecode.com/svn/trunk/arrg
     local-name: ua-ros-pkg
 ##
+## ar pose
+- git:
+    uri: http://robotics.ccny.cuny.edu/git/ccny-ros-pkg/ccny_vision.git
+    local-name: ccny-vision
+##
 ## collada visualization
 ##
 - hg:
