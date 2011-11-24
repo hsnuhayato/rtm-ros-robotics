@@ -2,38 +2,38 @@
 
 from optparse import OptionParser
 from omniidl import idlast, idlvisitor, idlutil, idltype
+from omniidl_be import cxx
 import _omniidl
 import os, os.path, sys, string, re
 
 # TODO
 #  multi dimensional array -> *MultiArray.msg # ??
-#  how to manipulate namespace
-#  include idl ??
-#  unit conversion, mm<->m
+#  how to manipulate namespace -> under score concat
+#  unit conversion, mm<->m -> OK??
 
-TypeNameMap = {} # for ROS msg/srv
-TypeNameMap[idltype.tk_boolean] = 'bool'
-TypeNameMap[idltype.tk_char] = 'int8'
-TypeNameMap[idltype.tk_octet] = 'uint8'
-TypeNameMap[idltype.tk_wchar] = 'int16'
-TypeNameMap[idltype.tk_short] = 'int16'
-TypeNameMap[idltype.tk_ushort] = 'uint16'
-TypeNameMap[idltype.tk_long] = 'int32'
-TypeNameMap[idltype.tk_ulong] = 'uint32'
-TypeNameMap[idltype.tk_longlong] = 'int64'
-TypeNameMap[idltype.tk_ulonglong] = 'uint64'
-TypeNameMap[idltype.tk_float] = 'float32'
-TypeNameMap[idltype.tk_double] = 'float64'
-TypeNameMap[idltype.tk_string] = 'string'
-TypeNameMap[idltype.tk_wstring] = 'string'
-TypeNameMap[idltype.tk_any] = 'string' # ??
-TypeNameMap[idltype.tk_TypeCode] = 'uint64' # ??
-TypeNameMap[idltype.tk_enum] = 'uint64'
+TypeNameMap = { # for ROS msg/srv
+    idltype.tk_boolean: 'bool',
+    idltype.tk_char: 'int8',
+    idltype.tk_octet: 'uint8',
+    idltype.tk_wchar: 'int16',
+    idltype.tk_short: 'int16',
+    idltype.tk_ushort: 'uint16',
+    idltype.tk_long: 'int32',
+    idltype.tk_ulong: 'uint32',
+    idltype.tk_longlong: 'int64',
+    idltype.tk_ulonglong: 'uint64',
+    idltype.tk_float: 'float32',
+    idltype.tk_double: 'float64',
+    idltype.tk_string: 'string',
+    idltype.tk_wstring: 'string',
+    idltype.tk_any: 'string', # ??
+    idltype.tk_TypeCode: 'uint64', # ??
+    idltype.tk_enum: 'uint64' }
 
 # convert functions for IDL/ROS
 convert_functions = """\n
 template<class T1, class T2> inline
-void convert(T1& in, T2& out){ out = (T2)in; }
+void convert(T1& in, T2& out){ out = static_cast<T2>(in); }
 template<>
 void convert(char*& in, std::string& out){ out = std::string(in); }
 template<>
@@ -44,14 +44,20 @@ template<>
 void convert(std::string& in, CORBA::String_member& out){ out = (char*)in.c_str(); }
 template<class S,class T>
 void convert(S& s, std::vector<T>& v){
-  int size = s->length();
-  v = std::vector<T>(s->length());
-  for(int i=0; i<size; i++) convert((*s)[i],v[i]);}
+  int size = s.length();
+  v = std::vector<T>(s.length());
+  for(int i=0; i<size; i++) convert(s[i],v[i]);}
 template<class S,class T>
 void convert(std::vector<T>& v, S& s){
   int size = v.size();
   s = S(size, size, S::allocbuf(size), 1);
-  for(int i=0; i<=size; i++) convert(v[i],s[i]);}
+  for(int i=0; i<size; i++) convert(v[i],s[i]);}
+template<class S,class T,std::size_t n>
+void convert(S& s, boost::array<T,n>& v){
+  for(std::size_t i=0; i<n; i++) convert(s[i],v[i]);}
+template<class S,class T,std::size_t n>
+void convert(boost::array<T,n>& v, S& s){
+  for(std::size_t i=0; i<n; i++) convert(v[i],s[i]);}
 """
 
 # visitor for generate msg/srv/cpp/h for bridge compornents
@@ -83,30 +89,20 @@ class ServiceVisitor (idlvisitor.AstVisitor):
 ##
 ##
 ##
-    def isCorbaPointer(self, typ, out):
-        if isinstance(typ, idltype.Sequence):
-            return out
-        if isinstance(typ, idltype.Declared):
-            if isinstance(typ.unalias(), idltype.Sequence):
-                return out
-            return self.isCorbaPointer(typ.decl(), out)
-        if isinstance(typ, idlast.Struct):
-            return out
-        return False
-
     def getCppTypeText(self, typ, out=False, full=False):
-        if isinstance(typ, idltype.Sequence):
-            return ('%s*' if out else '%s') % self.getCppTypeText(typ.seqType(), False, full)
+#        if isinstance(typ, idltype.Sequence):
+#            return ('%s*' if out else '%s') % self.getCppTypeText(typ.seqType(), False, full)
         if isinstance(typ, idltype.String):
             return 'char*' # ??
         if isinstance(typ, idltype.Declared):
-            postfix = '*' if out and isinstance(typ.unalias(), idltype.Sequence) else ''
+            postfix = ('*' if out and cxx.types.variableDecl(typ.decl()) else '')
             return self.getCppTypeText(typ.decl(), False, full) + postfix
+
         if isinstance(typ, idlast.Struct):
             name = (idlutil.ccolonName(typ.scopedName()) if full else typ.identifier())
-            return name
+            return name + ('*' if out and cxx.types.variableDecl(typ) else '')
         if isinstance(typ, idlast.Enum):
-            return 'int64_t' # enum is int64 ??
+            return idlutil.ccolonName(typ.scopedName())
         if isinstance(typ, idlast.Typedef):
             if full:
                 return idlutil.ccolonName(typ.declarators()[0].scopedName())
@@ -152,7 +148,7 @@ class ServiceVisitor (idlvisitor.AstVisitor):
         if isinstance(typ, idlast.Const):
             return TypeNameMap[typ.constKind()]
         if isinstance(typ, idlast.Enum):
-            return TypeNameMap[idltype.tk_longlong] # enum is int64
+            return TypeNameMap[idltype.tk_longlong] # enum is int64 ??
         if isinstance(typ, idlast.Union):
             return TypeNameMap[idltype.tk_double] # union is not in ROS
         if isinstance(typ, idlast.Typedef):
@@ -261,23 +257,53 @@ class ServiceVisitor (idlvisitor.AstVisitor):
                     params += [par.identifier()]
                 else:
                     params += [('res.' if is_out else 'req.') + par.identifier()]
-            if isinstance(ptype.unalias(), idltype.Sequence) or isinstance(ptype.unalias(), idltype.String) or isinstance(ptype.unalias(), idltype.Declared):
+            if isinstance(ptype.unalias(), idltype.String) or \
+               isinstance(ptype.unalias(), idltype.Sequence) or \
+               isinstance(ptype.unalias(), idltype.Declared):
                 code += '  %s %s;\n' % (self.getCppTypeText(ptype, out=is_out, full=True), var)
+                params += [var]
+            if isinstance(ptype.unalias(), idltype.String):
                 if is_out:
-                    #ptr = ('*' if self.isCorbaPointer(ptype, is_out) else '')
-                    res_code += '  convert(%s%s, res.%s);\n' % ('', var, var)
+                    res_code += '  convert(%s, res.%s);\n' % (var, var)
                 else:
                     req_code += '  convert(req.%s, %s);\n' % (var, var)
-                params += [var]
+            if isinstance(ptype.unalias(), idltype.Sequence):
+                if is_out:
+                    res_code += '  convert(*%s, res.%s);\n' % (var, var)
+                else:
+                    req_code += '  convert(req.%s, %s);\n' % (var, var)
+            if isinstance(ptype.unalias(), idltype.Declared):
+                if is_out:
+                    ptr = ('*' if cxx.types.variableDecl(ptype.decl()) else '')
+                    res_code += '  convert(%s%s, res.%s);\n' % (ptr, var, var)
+
+                else:
+                    req_code += '  convert(req.%s, %s);\n' % (var, var)
+
         if len(params) == 0:
             params = ''
         else:
             params = reduce(lambda a,b:a+', '+b, params)
 
         code += ('  ROS_INFO("call %s");\n' % op.identifier()) + '\n' + req_code
-        if not (op.oneway() or op.returnType().kind() == idltype.tk_void):
-            code += '\n  res.operation_return = '
-        code += '  m_service0->%s(%s);\n' % (op.identifier(), params)
+
+        if op.oneway() or op.returnType().kind() == idltype.tk_void:
+            code += '  m_service0->%s(%s);\n' % (op.identifier(), params)
+        elif isinstance(op.returnType().unalias(), idltype.Base):
+            code += '  res.operation_return = m_service0->%s(%s);\n' % (op.identifier(), params)
+        else:
+            rtype = op.returnType()
+            if isinstance(rtype.unalias(), idltype.String):
+                ptr = ''
+            elif isinstance(rtype.unalias(), idltype.Sequence):
+                ptr = '*'
+            elif isinstance(rtype.unalias(), idltype.Declared):
+                ptr = ('*' if cxx.types.variableDecl(rtype.decl()) else '')
+            else: ptr = ''
+            code += '  %s operation_return;\n' % self.getCppTypeText(rtype, out=True, full=True)
+            code += '  operation_return = m_service0->%s(%s);\n' % (op.identifier(), params)
+            code += '  convert(%soperation_return, res.operation_return);\n' % ptr
+
 
         code += res_code
 
@@ -392,7 +418,9 @@ class DependencyVisitor (idlvisitor.AstVisitor):
             self.checkBasicType(n)
 
     def visitStruct(self, node):
-        if not node in self.allmsg:
+        for mem in node.members():
+            self.checkBasicType(mem.memberType())
+        if not node in self.allmsg: # add self after all members
             self.allmsg += [node]
 
     def visitSequenceType(self, node):
