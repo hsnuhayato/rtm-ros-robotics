@@ -49,12 +49,12 @@ roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
 == DARWIN シミュレーション ==
 
 {{{
-roslaunch hrpsys darwin.launch
-# シミュレーション開始ボタンをおす
-# Execute script file ボタンをおす
+roslaunch hrpsys_ros_bridge darwin.launch
+#シミュレータの起動
 roslaunch hrpsys_ros_bridge darwin_ros_bridge.launch
-roscd hrpsys/scripts/Darwin
-roseus sample.l
+#rviz(ros用のviewer)の起動
+roscd hrpsys_ros_bridge/scripts
+rosrun roseus roseus darwin-pickup.l
 }}}
 
 {{{
@@ -62,7 +62,7 @@ roseus sample.l
 roscd rtmros_common; svn up
 rosmake hrpsys_ros_bridge
 rosmake hrpsys
-roscd hrpsys/scripts/Darwin; make
+roscd hrpsys/scripts/; make
 などを行っておく．
 }}}
 
