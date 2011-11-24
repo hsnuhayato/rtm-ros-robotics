@@ -1,3 +1,5 @@
+- other: {local-name: /opt/ros/electric/ros}
+- other: {local-name: /opt/ros/electric/stacks}
 - svn: {local-name: agentsystem_ros_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
     version: -r1852}
