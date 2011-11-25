@@ -1,9 +1,10 @@
 <package>
   <description brief="openhrp3">
 
-     "OpenHRP3" : Robot software platform
+   OpenHRP3 : Robot software platform
 
 http://www.openrtp.jp/openhrp3/en/index.html
+
 http://code.google.com/p/openhrp-aist-grx/
 
   </description>
@@ -18,6 +19,10 @@ http://code.google.com/p/openhrp-aist-grx/
 
   <depend package="rosunit" />
   <depend package="roscpp" />
+  <depend package="rospy" />
+  <depend package="tf" />
+
+  <!-- openhrp3 -->
   <depend package="tvmet" />
   <depend package="openrtm" />
   <depend package="common_rosdeps" />
