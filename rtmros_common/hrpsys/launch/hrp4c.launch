@@ -7,11 +7,13 @@
   <node name="grxui" pkg="openhrp3" type="grxui.sh" args="$(arg MODEL_FILE)" />
 
   <sphinxdoc><![CDATA[
-.. code-block: bash
-  roslaunch hrpsys hrp4c.launch
+This scripts starts HRP-4C.xml hrpsys-base sample project file. First, 
+select StartSimulation sub-menu from GrxUI menu, or clock Simulation Start button to start simulation, then execute `HRP4C.py` program as followings to make the robot walk.
+
+.. code-block:: bash
+
   rosrun hrpsys hrpsyspy `rospack find hrpsys`/share/hrpsys/samples/HRP-4C/HRP4C.py
 
-This scripts starts HRP-4C.xml hrpsys-base sample project file, the robot picks up the yellow box from the ground by selecting StartSimulation sub-menu from GrxUI menu, or clock simulation start button.
 
 .. image:: build/images/HRP4C.gif
   :width: 600
@@ -19,7 +21,7 @@ This scripts starts HRP-4C.xml hrpsys-base sample project file, the robot picks 
   ]]></sphinxdoc>
   <test type="test-grxui.py" pkg="openhrp3" time-limit="300" retry="2"
    test-name="HRP4C"
-   args="--start-simulation --max-time=60
+   args="--start-simulation --max-time=50
 	 --target-directory=$(find hrpsys)/build/images
 	 --script='rosrun hrpsys hrpsyspy $(find hrpsys)/share/hrpsys/samples/HRP-4C/HRP4C.py'"
    />

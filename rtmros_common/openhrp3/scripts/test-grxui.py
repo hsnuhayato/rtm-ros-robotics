@@ -10,7 +10,8 @@ from optparse import OptionParser
 ##
 
 class TestGrxUIProject(unittest.TestCase):
-    proc = None;
+    script_procs = [];
+    init_proc = None
     name = ""
 
     def setUp(self):
@@ -21,7 +22,9 @@ class TestGrxUIProject(unittest.TestCase):
                           help='wait sec until exit from grxui')
         parser.add_option('--target-directory',action="store",type='string',dest='target_directory',default='../build/images/',
                           help='directory to write results')
-        parser.add_option('--script',action="store",type='string',dest='script',default=None,
+        parser.add_option('--init-script',action="store",type='string',dest='init_script',default=None,
+                          help='init script to execute before test')
+        parser.add_option('--script',action="store",type='string',dest='scripts',default=None,
                           help='sample script to execute during test')
         parser.add_option('--no-start-simulation',action="store_false",dest='simulation_start', default=False);
         parser.add_option('--start-simulation',action="store_true",dest='simulation_start');
@@ -34,8 +37,9 @@ class TestGrxUIProject(unittest.TestCase):
         (options, args) = parser.parse_args()
         self.simulation_start = options.simulation_start
         self.target_directory = options.target_directory
+        self.init_script = options.init_script
         self.max_time = options.max_time
-        self.script = options.script
+        self.scripts = options.scripts
         self.capture_window = options.capture_window
 
     def xdotool(self,name,action):
@@ -86,19 +90,27 @@ class TestGrxUIProject(unittest.TestCase):
 	key --clearmodifiers alt+g \
 	key --clearmodifiers s")
 
+    def execute_scripts(self):
+        scripts = shlex.shlex(self.scripts)
+        whitespace = scripts.whitespace
+        scripts.whitespace = ';'
+        scripts.whitespace_split = True
+        self.script_procs = []
+        for script in scripts:
+            args = shlex.split(script)
+            self.script_procs.append(subprocess.Popen(args))
+        print "proc->",self.script_procs
+
     def wait_times_is_up(self):
         i = 0
         if not os.path.isdir(self.target_directory) :
             os.mkdir(self.target_directory)
         subprocess.call('rm -f %s/%s*.png'%(self.target_directory,self.name),shell=True)
         self.xdotool(self.capture_window, "windowactivate --sync")
-        if self.script:
-            args = shlex.split(self.script)
-            print "execute script",self.script
-            self.proc = subprocess.Popen(args)
+        if self.scripts: self.execute_scripts()
         while (not self.check_window("Time is up")) and (i < self.max_time) :
             print "wait for \"Time is up\" (%d/%d) ..."%(i, self.max_time)
-            for camera_window in ["VISION_SENSOR1"]:
+            for camera_window in ["VISION_SENSOR1","VISION_SENSOR2"]:
                 if self.check_window(camera_window, visible=True):
                     if self.simulation_start :
                         self.move_window(camera_window,679,509)
@@ -107,10 +119,11 @@ class TestGrxUIProject(unittest.TestCase):
             filename="%s-%03d.png"%(self.name, i)
             print "write to ",filename
             subprocess.call('import -frame -screen -window %s %s/%s'%(self.capture_window, self.target_directory, filename), shell=True)
-            if self.proc and self.proc.poll() != None:
-                print repr(self.proc.communicate()[0])
-                print "execute script",self.script
-                self.proc = subprocess.Popen(args)
+            if self.script_procs and all(map(lambda x: x.poll()!=None, self.script_procs)) :
+                for p in self.script_procs:
+                    print "proc message",repr(p.communicate()[0])
+                print "execute script",self.scripts
+                self.execute_scripts()
             i+=1
         print "wait for \"Time is up\" ... done"
         self.unmap_window("Time is up")
@@ -131,12 +144,17 @@ class TestGrxUIProject(unittest.TestCase):
         i = 0
         subprocess.call("pkill omniNames", shell=True)
         # wait scripts
-        if self.proc: self.proc.terminate()
-        while self.proc and self.proc.poll() == None and i < 10:
-            time.sleep(1)
-            i += 1
+        if self.init_proc: self.init_proc.terminate()
+        for p in self.script_procs:
+            if p: p.terminate()
+            while p and p.poll() == None and i < 10:
+                time.sleep(1)
+                i += 1
 
     def test_grxui_simulation(self):
+        if self.init_script :
+            print shlex.split(self.init_script)
+            self.init_proc = subprocess.Popen(shlex.split(self.init_script))
         import check_online_viewer
         # wait online viewer
         check_online_viewer.waitOnlineViewer()
@@ -153,9 +171,13 @@ class TestGrxUIProject(unittest.TestCase):
     def __del__(self):
         subprocess.call("pkill omniNames", shell=True)
         # wait scripts
-        if self.proc and self.proc.poll() == None:
-            self.proc.terminate()
-            self.proc.kill()
+        if self.init_proc and self.init_proc.poll() == None:
+            self.init_proc.terminate()
+            self.init_proc.kill()
+        for p in self.script_procs:
+            if p and p.poll() == None:
+                p.terminate()
+                p.kill()
 
 
 if __name__ == '__main__':

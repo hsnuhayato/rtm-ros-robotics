@@ -150,7 +150,7 @@
 
 (define-vrml-node-spec Servo
   nil
-  (field SFRotation rotation 0)
+  (field SFRotation rotation (0 1 0 0))
   (field SFVec3f translation 0)
   (field SFString name "")
   (field SFFloat maxForce 0.0)
@@ -524,6 +524,7 @@
 ;;      -> Enclose Webot's Shape nodes with Segment in (insert-segment) function
 ;;   3. Servo (Webots) -> Joint (OpenHRP3)
 ;;      -> Rename Servo -> Joint and define jointType, jointAxis, and jointId in (convert-servo->joint) function
+;;         Joint axis definition ;; webots -> (almost) all joints asymmetorical ;; OpenHRP3 and euslisp -> pitch is ssymnetrical
 ;;   4. Difference in PROTO
 ;;      -> Convert Accelerometer -> Accelerationsenso
 ;;         Convert Gyro2 -> Gyro
@@ -626,6 +627,34 @@
       )
     file-names<->webots-segment-name-map))
 
+(defun darwin-min-max-lists () ;; (list min-angle max-angle) [deg]
+  '((DWAIST ())
+    (DNECK (-45 45))
+    (DHEAD (-45 45))
+    (DPELVYL (-45 45))
+    (DPELVYR (-45 45))
+    (DPELVL (-45 45))
+    (DPELVR (-45 45))
+    (DLEGUPPERL (-90 90))
+    (DLEGUPPERR (-90 90))
+    (DLEGLOWERL (0 90))
+    (DLEGLOWERR (0 90))
+    (DANKLEL (-90 90))
+    (DANKLER (-90 90))
+    (DFOOTL (-45 45))
+    (DFOOTR (-45 45))
+    (DSHOULDERL (-90 90))
+    (DSHOULDERR (-90 90))
+    (DARMUPPERL (0 180))
+    (DARMUPPERR (-180 0))
+    (DARMLOWERL (-90 0))
+    (DARMLOWERR (-90 0))
+    ))
+
+(defun darwin-joint-rotation-lists ()
+  '((DARMLOWERR (1 0 0 0)) (DARMLOWERL (1 0 0 0)))
+  )
+
 (defun append-openhrp3-humanoid (rb-lis robot-name)
   (list
    (append
@@ -656,34 +685,42 @@
 		      (t (eq (elt x 0) node-name))))
 		 lis))
 
-(defun replace-servo->joint (rb-lis)
+(defun replace-servo->joint
+  (rb-lis &optional (min-max-lists (darwin-min-max-lists)) (origin-list (darwin-joint-rotation-lists)))
   (let ((node-fields (mapcar 'car (cdr (assoc 'field (send 'joint :get :vrml-node-spec)))))
+	(default-roation-value (caddr (cadr (assoc 'field (get 'servo :vrml-node-spec)))))
 	(jointid -1))
     (labels ((find-servo
 	      (l)
 	      (let ((sv-l (find-vrml-node-from-node-list l 'servo)))
 		(when sv-l
 		  (dolist (sv sv-l)
-		    ;; here is only for DARwInOP.proto !! -->
-		    ;; origin of elbow joints in Webots model are incorrect??
-		    (if (memq (elt sv 1) '(darmlowerl darmlowerr))
-			(delete-if #'(lambda (x) (eq (car x) 'rotation))
-				   (cdddr sv)))
-		    ;; <-- here is only for DARwInOP.proto !!
 		    (delete-if #'(lambda (x) (not (memq (car x) node-fields)))
 			       (cdddr sv))
 		    (push (if (= jointid -1)
 			      (list 'jointType "free")
 			    (list 'jointType "rotate"))
 			  (cdddr sv))
+		    (let ((mml (assoc (elt sv 1) min-max-lists)))
+		      (when mml
+			(push (append (list 'llimit)
+				      (list (list 'aref (deg2rad (car (cadr mml))))))
+			      (cdddr sv))
+			(push (append (list 'ulimit)
+				      (list (list 'aref (deg2rad (cadr (cadr mml))))))
+			      (cdddr sv))))
+		    (let ((jol (assoc (elt sv 1) origin-list)))
+		      (when jol
+			(dotimes (i 4)
+			  (setf (elt (assoc 'rotation sv) (1+ i)) (elt (cadr jol) i)))))
 		    (push (append (list 'jointaxis)
 				  (cond
 				   ((and (assoc 'rotation sv) (/= jointid -1))
-				    (mapcar #'abs (subseq (assoc 'rotation sv) 1 4)))
-				   ;; here is only for DARwInOP.proto !! -->
-				   ((memq (elt sv 1) '(dpelvyl dpelvyr)) (list 0 1 0))
-				   ;; <-- here is only for DARwInOP.proto !!
-				   (t (list 1 0 0)))) (cdddr sv))
+				    (mapcar #'abs (subseq (assoc 'rotation sv) 1 4)) ;; OpenHRP3, eus
+				    ;;(subseq (assoc 'rotation sv) 1 4) ;; default
+				    )
+				   (t (subseq default-roation-value 0 3))))
+			  (cdddr sv))
 		    (push (list 'jointid jointid) (cdddr sv))
 		    (incf jointid)
 		    (setf (elt sv 2) 'joint)
