@@ -1,16 +1,16 @@
 - other: {local-name: /opt/ros/electric/ros}
 - other: {local-name: /opt/ros/electric/stacks}
 - svn: {local-name: rtm-ros-robotics/rtmros_common,
-    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r1950}
+    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r1954}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r1950}
+    version: -r1954}
 - svn: {local-name: rtm-ros-robotics/agentsystem_openrave_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_openrave_tutorials',
-    version: -r1950}
+    version: -r1954}
 - svn: {local-name: rtm-ros-robotics/agentsystem_hironx_samples,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_hironx_samples',
-    version: -r1950}
+    version: -r1954}
 - svn: {local-name: jsk-ros-pkg,
     uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk', version: -r2328}
 - git: {local-name: umd-ros-pkg/camera_umd,
@@ -29,7 +29,7 @@
 - git: {local-name: ccny-vision,
     uri: 'http://robotics.ccny.cuny.edu/git/ccny-ros-pkg/ccny_vision.git', version: 142f1f91efc8244ebafed021fa9b0932d0ffcbbe}
 - hg: {local-name: robot_model,
-    uri: 'http://kforge.ros.org/robotmodel/robot_model', version: 860301d5b544}
+    uri: 'http://kforge.ros.org/robotmodel/robot_model', version: 5224051e19d7}
 - svn: {local-name: visualization,
     uri: 'https://code.ros.org/svn/ros-pkg/stacks/visualization/tags/visualization-1.6.5',
     version: -r38270}
