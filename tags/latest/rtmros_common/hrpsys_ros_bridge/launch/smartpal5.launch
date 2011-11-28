@@ -1,0 +1,10 @@
+<launch>
+  <include file="$(find hrpsys_ros_bridge)/launch/smartpal5_startup.launch" />
+  <include file="$(find hrpsys_ros_bridge)/launch/smartpal5_ros_bridge.launch" />
+
+  <sphinxdoc><![CDATA[
+
+  ]]></sphinxdoc>
+</launch>
+
+

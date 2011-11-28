@@ -1,0 +1,12 @@
+<launch>
+  <include file="$(find hrpsys_ros_bridge)/launch/pa10_startup.launch" />
+  <include file="$(find hrpsys_ros_bridge)/launch/pa10_ros_bridge.launch" />
+
+  <sphinxdoc><![CDATA[
+
+This launch file shows an example of ros bridge for pa10 robot
+
+  ]]></sphinxdoc>
+</launch>
+
+

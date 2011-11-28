@@ -12,12 +12,7 @@
   <export>
     <rosdoc config="rosdoc.yaml" />
   </export>
-
   <depend package="openhrp3"/>
-
-  <depend package="roseus"/>
-  <depend package="euscollada"/>
-  <depend package="collada_robots"/>
 
   <rosdep name="doxygen" />
 </package>

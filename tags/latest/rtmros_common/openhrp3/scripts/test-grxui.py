@@ -45,10 +45,11 @@ class TestGrxUIProject(unittest.TestCase):
         self.check_tf = options.check_tf
         self.capture_window = options.capture_window
 
-    def xdotool(self,name,action):
+    def xdotool(self,name,action,visible=""):
         ret = 1
+        if visible : visible = "--onlyvisible"
         while 1 :
-            ret = subprocess.call("xdotool search --name \"%s\" %s"%(name,action), shell=True)
+            ret = subprocess.call("xdotool search %s --name \"%s\" %s"%(visible,name,action), shell=True)
             if ret != 1 : break
             time.sleep(1)
         return ret
@@ -141,8 +142,9 @@ class TestGrxUIProject(unittest.TestCase):
                         self.unmap_window(camera_window)
             filename="%s-%03d.png"%(self.name, i)
             print "[%s] write to %s"%(self.id(), filename)
-            self.xdotool(self.capture_window, "windowactivate --sync")
-            ret = subprocess.call('import -frame -screen -window %s %s/%s'%(self.capture_window, self.target_directory, filename), shell=True)
+            self.xdotool(self.capture_window, "windowactivate --sync", visible=True)
+            #ret = subprocess.call('import -frame -screen -window %s %s/%s'%(self.capture_window, self.target_directory, filename), shell=True)
+            ret = subprocess.call('import -frame -screen -window root %s/%s'%(self.target_directory, filename), shell=True)
             print "[%s] import returns %s"%(self.id(), ret)
             self.assertEqual(ret, 0) #
             if self.script_procs and all(map(lambda x: x.poll()!=None, self.script_procs)) :
