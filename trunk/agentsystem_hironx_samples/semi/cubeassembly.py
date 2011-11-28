@@ -41,7 +41,7 @@ else:
 
 import multiprocessing
 
-from openravepy.examples import graspplanning
+import graspplanning
 
 class CubeAssembly(object):#metaclass.AutoReloader):
     def __init__(self,robot):
