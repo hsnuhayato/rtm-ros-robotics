@@ -1,6 +1,6 @@
 (ros::roseus "darwin_pickup")
 (load "package://hrpsys_ros_bridge/scripts/rtm-ros-robot-interface.l")
-(require :darwin "package://hrpsys/scripts/darwin.l")
+(require :darwin "package://hrpsys_ros_bridge/models/darwin.l")
 
 (defclass darwin-interface
   :super robot-interface
@@ -10,16 +10,22 @@
 	  (send-super :init :robot darwin-robot)))
 
 (setq *ri* (instance darwin-interface :init))
-(setq *sr* (instance darwin-robot :init))
-(send *sr* :reset-pose)
-(objects (list *sr*))
-(send *sr* :rarm :shoulder-p :joint-angle 40)
-(send *sr* :rarm :elbow-p :joint-angle -130)
-(send *ri* :angle-vector (send *sr* :angle-vector) 3000)
+(setq *darwin* (instance darwin-robot :init))
+(send *darwin* :reset-pose)
+(objects (list *darwin*))
+(send *ri* :angle-vector (send *darwin* :angle-vector) 3000)
 (send *ri* :wait-interpolation)
-(send *sr* :rarm :shoulder-p :joint-angle -65)
-(send *sr* :rarm :shoulder-r :joint-angle -60)
-(send *sr* :rarm :elbow-p :joint-angle -40)
-(send *ri* :angle-vector (send *sr* :angle-vector) 3000)
+;;
+(send *darwin* :rarm :shoulder-p :joint-angle 40)
+(send *darwin* :rarm :elbow-p :joint-angle -130)
+(objects (list *darwin*))
+(send *ri* :angle-vector (send *darwin* :angle-vector) 3000)
+(send *ri* :wait-interpolation)
+;;
+(send *darwin* :rarm :shoulder-p :joint-angle -65)
+(send *darwin* :rarm :shoulder-r :joint-angle -60)
+(send *darwin* :rarm :elbow-p :joint-angle -40)
+(objects (list *darwin*))
+(send *ri* :angle-vector (send *darwin* :angle-vector) 3000)
 (send *ri* :wait-interpolation)
 
