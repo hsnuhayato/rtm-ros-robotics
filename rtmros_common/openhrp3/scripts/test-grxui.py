@@ -79,8 +79,14 @@ class TestGrxUIProject(unittest.TestCase):
 
     def return_window(self,name):
         if self.check_window(name):
+            print "[%s] activate for return %s"%(self.id(),name)
+            self.xdotool(name, "windowactivate --sync")
+        if self.check_window(name):
             print "[%s] send return %s"%(self.id(),name)
-            self.xdotool(name, "windowactivate --sync key --clearmodifiers Return")
+            self.xdotool(name, "key Return",visible=True)
+        if self.check_window(name):
+            print "[%s] send return %s"%(self.id(),name)
+            self.xdotool(name, "key --clearmodifiers Return",visible=True)
 
     def start_simulation(self):
         print "[%s] start simulation"%(self.id())
@@ -139,11 +145,13 @@ class TestGrxUIProject(unittest.TestCase):
                         self.move_window(camera_window,679,509)
                     else:
                         self.unmap_window(camera_window)
+            if self.check_window("Setup Controller", visible=True):
+                self.xdotool("Setup Controller", "key --clearmodifiers Tab key --clearmodifiers Return",visible=True)
             filename="%s-%03d.png"%(self.name, i)
             print "[%s] write %s to %s"%(self.id(), self.capture_window, filename)
             self.xdotool(self.capture_window, "windowactivate --sync", visible=True)
             #ret = subprocess.call('import -frame -screen -window %s %s/%s'%(self.capture_window, self.target_directory, filename), shell=True)
-            ret = subprocess.call('import -frame -screen -window root %s/%s'%(self.target_directory, filename), shell=True)
+            ret = subprocess.call('import -frame -resize 50%% -screen -window root %s/%s'%(self.target_directory, filename), shell=True)
             print "[%s] import returns %s"%(self.id(), ret)
             self.assertEqual(ret, 0) #
             if self.script_procs and all(map(lambda x: x.poll()!=None, self.script_procs)) :
