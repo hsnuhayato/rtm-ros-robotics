@@ -23,7 +23,7 @@ rosinstall ~/prog/rtm-ros-robotics /opt/ros/electric http://rtm-ros-robotics.goo
 
 For update installed packages 
 {{{
-rosinstall ~/prog/rtm-ros-robotics 
+rosinstall ~/prog/rtm-ros-robotics http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 
 Load environment variables used for ROS system
@@ -70,43 +70,62 @@ Lastly, you have to install following software as well from Install
 `<hrpsys>/build/robothardware_eclipse.zip`<br>
 
 = Example =
-== OpenHRP Simulation ===
+== OpenHRP3 Simulation ===
 
-* PA10
+=== Falling Boxes  ===
+{{{
+roslaunch openhrp3 falling-box.launch
+}}}
+press `Start Simulation` button 
+
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/falling-box.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.gif]
+
+
+=== PA10 ===
 {{{
 roslaunch openhrp3 pa10.launch
 }}}
 press `Start Simulation` button 
+
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/pa10.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.gif]
 
 === Sample Vehicle ===
 {{{
 roslaunch openhrp3 sample-vehicle.launch
 }}}
 
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/sample-vehicle.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleSV_RangeSensor.gif]
+
 === Sample Humanoid Robot ===
+
+Launch following launch script and press `Start Simulation` button 
+
 {{{
 roslaunch openhrp3 samplerobot-walk.launch
 }}}
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-walk.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SamplePD.gif]
+
 {{{
 roslaunch openhrp3 samplerobot-pickupbox.launch
 }}}
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-pickupbox.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleLF.gif]
+
 {{{
 roslaunch openhrp3 samplerobot-inhouse.launch
 }}}
-press `Start Simulation` button 
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-inhouse.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleRobot_inHouse.gif]
 
 Change FPS from 50 to 1-10 to speed up simulation.
 
 == hrpsys Simulation ==
 
-<wiki:comment>
 === PA10 ===
 {{{
 roslaunch hrpsys pa10.launch
 }}}
 press `Start Simulation` button,
 then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/PA10; rosrun hrpsys hrpsyspy ./PA10.py`
-</wiki:comment>
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/pa10.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp0:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/PA10.gif]
 
 === HRP-4C walking ===
 {{{
@@ -115,26 +134,33 @@ roslaunch hrpsys hrp4c.launch
 press `Start Simulation` button,
 then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/HRP-4C; rosrun hrpsys hrpsyspy ./HRP4C.py`
 
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp0:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/HRP4C.gif]
+
+=== Sample Robot Walking and Grasping===
+{{{
+roslaunch hrpsys samplerobot.launch
+}}}
+press `Start Simulation` button,
+then press `execute script file` or tpe
+{{{
+rosrun hrpsys hrpsyspy `rospack find hrpsys`/scripts/hrpsys.py `rospack find hrpsys`/scripts/SampleRobot_inHouse.xml
+}}}
+to start controller, then
+{{{
+rosrun hrpsys SampleRobot_walk.sh
+}}}
+to start walking.
+
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/samplerobot.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp0:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/SampleRobot.gif]
+
 == RTM/ROS Integration ===
 
 === Sample Robot ===
 {{{
 roslaunch hrpsys_ros_bridge samplerobot.launch
 }}}
-and if you see following message as well as eclipse OpenHRP simulaiton
-{{{
-[openhrp-scheduler]   129, time:  0.258, controlTime:  0.258, control : true
-@Execute name : AbsTransformToPosRpy0/0, pr:1
-1.9 -0.397999 0.717624 3.12594e-07 -1 3.52344e-08 1 3.12594e-07 .03301e-09 -2.03302e-09 3.52344e-08 1 
-[openhrp-scheduler]   130, time:  0.260, controlTime:  0.260, control : true
-@Execute name : AbsTransformToPosRpy0/0, pr:1
-1.9 -0.397999 0.717626 3.12604e-07 -1 3.4962e-08 1 3.12604e-07 .0601e-09 -2.06011e-09 3.4962e-08 1 
-}}}
+and if you see sample robot in RViz viewer, 
 Then type
-{{{
-roslaunch hrpsys_ros_bridge samplerobot_ros_bridge.launch
-}}}
-to see Sample robot in rviz.
 {{{
 rosrun hrpsys SampleRobot_walk.sh
 }}}
@@ -149,42 +175,40 @@ If you do not need dynamics simulation, start `samplerobot.launch` with `--nosim
 roslaunch hrpsys_ros_bridge samplerobot.launch SCHEDULER_ARGS:=--nosim
 }}}
 
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/samplerobot.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/SampleRobot_PickUp.gif]
+
 === HRP4 ===
 {{{
 roslaunch hrpsys_ros_bridge hrp4c.launch
-roslaunch hrpsys_ros_bridge hrp4c_ros_bridge.launch
+}}}
+to setup simulator and rviz viewer. Sample client program is
+{{{
 rosrun hrpsys hrp4c_walk.sh 
 }}}
+or
+{{{
+rosrun roseus roseus `rospack find hrpsys_ros_bridge`/scripts/hrp4c-pickup.l
+}}}
 
-Note: `rosrun hrpsys hrpsyspy ./HRP4C.py` does not work. 
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/HRP4C.gif]
+
+Note: when `rosrun hrpsys hrpsyspy ./HRP4C.py` does not work. 
 you need to change  `bridge = findRTC("HRP-4C(Robot)0")` to `bridge = findRTC("HRP4(Robot)0")` and pass absolute path of "data/walk2m" to `loadPattern` function
 
 === Kawada HIRONX ===
 
-try
 {{{
 $ roslaunch hrpsys_ros_bridge hironx.launch
 }}}
-to see Eclipse simulation. 
+to launch rviz viewer with Kawada HiroNx robot
 
-Then type
-{{{
-$ roslaunch hrpsys_ros_bridge hironx_ros_bridge.launch
-}}}
-to see Hiro robot on Rviz.
-since we still have timing isseus
-try to launch `hironx_ros_bridge.launch` immediately after you see
-following message.
-{{{
-[openhrp-scheduler]     1, time:  0.005, controlTime:  0.005, control : true
-[openhrp-scheduler]     2, time:  0.010, controlTime:  0.010, control : true
-}}}
-
-Type
+then, type
 {{{
 $ roscd hrpsys_ros_bridge/scrips; rosrun roseus roseus  kawada-hironx-example.l
 }}}
 to  see the robot is moving.
+
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hironx.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/HIRONX_Example.gif]
 
 = Troubleshooting =
 
