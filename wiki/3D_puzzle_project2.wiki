@@ -6,8 +6,6 @@
 * 目標：environment with multiple pieces, grasp one piece, put in container
    （先週のつづき）
 
- * ロボットのモデルに力センサのオフセット(z=-59)を加える
-
  * AR markerでピースの姿勢認識
   * すべてのpieceについて、marker->pieceの座標変換を入れる
    * 水色pieceはmytest3.py中に記載
@@ -16,9 +14,14 @@
    * 机上をスキャンし、7つのpieceを正しい姿勢でシミュレータ内に配置するプログラムを作成する
 
  * OpenRAVEとHIRONX実機の接続
+  * ロボットのモデルに力センサのオフセット(z=-59)を加える
+   * RARM_JOINT5_LinkとLARM_JOINT5_Linkの-0.04を-0.099にする
+   * 形状はどうやって変更する？
+  * CloseFingerで実行されるハンドの軌道も実機に送る
   * 容易に把持可能なシーンを作る
   * (箱のモデルを入れる)
   * 実機で掴みやすい配置のpieceを１つずつ把持し，箱に入れるプログラムを作成する
+  * 上の認識グループとつないで実機でpieceを箱に入れる
   * 把持プランナを使う
   * cubeassembly.pyのgraspAndPlaceObjectで生成した動作を実機で実行できるようにする
   * (手が台車部に当たらないようにモデルを修正し、実機で実行可能な軌道を生成する)
@@ -150,6 +153,30 @@ def execute(traj, realrobot=False):
 }}}
 
 
+* HIRONXのベースシステムの起動(@VisionPC)
+
+{{{
+ $ roscd HandRcg/script
+ $ ./run -c
+}}}
+
+ * HiroNXProvider0.rtcとHiroNXGUI0.rtcが起動
+  * 起動したGUIでjoint calib等を行う．
+  * GUI上で関節を動かすこともできる．
+ * run.shに-cを与えるとCoordTransComp0.rtcも起動
+  * 認識結果を世界座標に直すためのRTC
+  * サンプル中で，recognize()後の以下のコードがこのRTCのサービスを利用している．
+{{{
+  ctsvc.ref.Query(camera+'cam', pose2mat(pose), robotframe, rr.get_joint_angles())
+}}}
+ * run.shに-rを与えると手先カメラで部品を認識するRTCが起動する
+  * ゼミでは使わない
+
+ * 画像のキャプチャとARマーカ認識器の起動は以下のコードで行う．
+{{{
+ $ roslaunch Sense sense_hiro_ar.launch
+}}}
+
 = 今後の目標 =
 
  * Nicely-ordered pieces (easy-solution exists). Put in goal (cube) configuration
@@ -189,23 +216,6 @@ def execute(traj, realrobot=False):
  rr.send_goal(q, 3.0, True)
 }}}
 
-* HIRONXのベースシステムの起動(@VisionPC)
 
-{{{
- $ roscd HandRcg/script
- $ ./run -c
-}}}
-
- * HiroNXProvider0.rtcとHiroNXGUI0.rtcが起動
-  * 起動したGUIでjoint calib等を行う。
-  * GUI上で関節を動かすこともできる。
- * run.shに-cを与えるとCoordTransComp0.rtcも起動
-  * 認識結果を世界座標に直すために使う
- * run.shに-rを与えると手先カメラで部品を認識するRTCが起動する
-  * ゼミでは使わない
-
-{{{
- $ roslaunch Sense sense_hiro_ar.launch
-}}}
  
  * ROSのUSBカメラキャプチャノードとARマーカ認識器を起動
