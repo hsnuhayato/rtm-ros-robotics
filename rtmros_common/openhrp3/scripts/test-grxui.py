@@ -133,7 +133,6 @@ class TestGrxUIProject(unittest.TestCase):
         if self.scripts: self.execute_scripts()
         while (not self.check_window("Time is up")) and (i < self.max_time) :
             print "[%s] wait for \"Time is up\" (%d/%d) ..."%(self.id(), i, self.max_time)
-            print self.check_tf
             for camera_window in ["VISION_SENSOR1","VISION_SENSOR2"]:
                 if self.check_window(camera_window, visible=True):
                     if self.simulation_start :
@@ -141,7 +140,7 @@ class TestGrxUIProject(unittest.TestCase):
                     else:
                         self.unmap_window(camera_window)
             filename="%s-%03d.png"%(self.name, i)
-            print "[%s] write to %s"%(self.id(), filename)
+            print "[%s] write %s to %s"%(self.id(), self.capture_window, filename)
             self.xdotool(self.capture_window, "windowactivate --sync", visible=True)
             #ret = subprocess.call('import -frame -screen -window %s %s/%s'%(self.capture_window, self.target_directory, filename), shell=True)
             ret = subprocess.call('import -frame -screen -window root %s/%s'%(self.target_directory, filename), shell=True)
