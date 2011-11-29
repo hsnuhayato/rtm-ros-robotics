@@ -177,6 +177,15 @@ def execute(traj, realrobot=False):
  $ roslaunch Sense sense_hiro_ar.launch
 }}}
 
+* HiroNX制御RTC(Act共通インタフェース)
+ * OpenRTM-javaでRTC実装された制御モジュール
+ * フラットな関節角度ベクトルを引数に与える（前回のコントローラのように腰首，腕，手などの部位ごとのリストとして送ってもよい）
+{{{
+ q = rr.get_joint_angles()
+ q[0] += 0.2
+ rr.send_goal(q, 3.0, True)
+}}}
+
 = 今後の目標 =
 
  * Nicely-ordered pieces (easy-solution exists). Put in goal (cube) configuration
@@ -205,17 +214,6 @@ def execute(traj, realrobot=False):
  * camera_infoは設定ファイルから読み込めるように作られていないので、openni_nodelet.cppを直接編集して書きこむ (diamondback)
 
 * ステレオ視
-
-* HiroNX制御RTC(Act共通インタフェース)
- * OpenRTM-javaでRTC実装された制御モジュール
- * 今後、こちらに置き換えていく
- * フラットな関節角度ベクトルを引数に与える
-{{{
- q = rr.get_joint_angles()
- q[0] += 0.2
- rr.send_goal(q, 3.0, True)
-}}}
-
 
  
  * ROSのUSBカメラキャプチャノードとARマーカ認識器を起動
