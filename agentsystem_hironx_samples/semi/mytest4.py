@@ -1,3 +1,4 @@
+###########python嫌い###############
 # -*- coding: utf-8 -*-
 
 import roslib; roslib.load_manifest('iv_plan')
@@ -58,12 +59,17 @@ def recognize(camera='lhand'):
     self.gmodels[4].target.SetTransform(Tw_p)
     return Tw_p
 
-def plan(Tw_p_list): #Tw_p_list ---(eg) [["1",Tw_p-1],["3",Tw_p-3]]
+deletedlist = []
+def post_plan:
     basemanip = interfaces.BaseManipulation(orrobot)
-    trajlist = []
-    
+    # trajdataはXML式です
+    # http://openrave.org/en/main/architecture/trajectory.html?highlight=trajectory%20xml
+    traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
+    trajdata = basemanip.MoveToHandPosition(matrices=[Tw_h],execute=False,outputtraj=True)
+    return traj
+
+def plan1(Tw_p_list): #Tw_p_list ---(eg) [["1",Tw_p-1],["3",Tw_p-3]]
     Tw_p = Tw_p_list[0][1] #TODO
-    deletedlist=[]
     for l in Tw_p_list:
         if l[0]==4:
             Tw_p=l[1]
@@ -73,7 +79,6 @@ def plan(Tw_p_list): #Tw_p_list ---(eg) [["1",Tw_p-1],["3",Tw_p-3]]
     #4番のpieceを捕むためのハンドのワールド座標を生成
     #4番以外のpieceが邪魔にならないかどうか調べる
     
-
     #まず目標座標
     Tp_h = eye(4)
     Tp_h[0:3,3] = [0.045,-0.015,0.12+0.059]
@@ -81,18 +86,11 @@ def plan(Tw_p_list): #Tw_p_list ---(eg) [["1",Tw_p-1],["3",Tw_p-3]]
     h = dot(dot(f[0:3,0:3], rotationMatrixFromAxisAngle([1,0,0],pi)), rotationMatrixFromAxisAngle([0,0,1],pi/2))
     f[0:3,0:3] = h
     Tw_h = f
-    #4番への行列ができる
 
+    post_plan
+    return Tw_h, traj
 
-    trajdata = basemanip.MoveToHandPosition(matrices=[Tw_h],execute=False,outputtraj=True)
-    # trajdataはXML式です
-    # http://openrave.org/en/main/architecture/trajectory.html?highlight=trajectory%20xml
-    traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
-    trajlist.append([traj,True])
-
-    #plan1 おしまい
-
-    #plan2
+def plan2:
     #4番から他のpieceへの行列を求める
     Tw_p = deletedlist[0]
     Tp_h = eye(4)
@@ -103,16 +101,8 @@ def plan(Tw_p_list): #Tw_p_list ---(eg) [["1",Tw_p-1],["3",Tw_p-3]]
     Tw_h = f
     Tw_h[2][3] += 30  # z方向に少し足しこむ(mm)
 
-    trajdata = basemanip.MoveToHandPosition(matrices=[Tw_h],execute=False,outputtraj=True)
-    # trajdataはXML式です
-    # http://openrave.org/en/main/architecture/trajectory.html?highlight=trajectory%20xml
-    traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
-    trajlist.append([traj,False])
-
-    #plan2 おしまい
-
-    return trajlist
-    #return Tw_h, traj
+    post_plan
+    return Tw_h, traj
 
 def pick(LorR="L"):
     if LorR == "L":
