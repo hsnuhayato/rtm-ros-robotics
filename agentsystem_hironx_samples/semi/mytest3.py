@@ -3,15 +3,17 @@
 import roslib; roslib.load_manifest('iv_plan')
 from hironx_if import *
 
-from cubeassembly import *
+from openravepy import *
+from numpy import *
+import cubeassembly
 
 env=Environment()
 env.SetViewer('qtcoin')
 env.Load('data/hironxtable.env.xml')
-robot=env.GetRobots()[0]
-T = robot.GetTransform()
+orrobot=env.GetRobots()[0]
+T = orrobot.GetTransform()
 T[2,3] = 0.09
-robot.SetTransform(T)
+orrobot.SetTransform(T)
 
 rr.connect()
 
@@ -22,18 +24,18 @@ detectpose = [0.0, 0.0, 1.1,
               0.62, -0.63, -0.64, 0.64]
 
 orderednames = ['CHEST_JOINT0', 'HEAD_JOINT0', 'HEAD_JOINT1', 'RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'RHAND_JOINT0', 'RHAND_JOINT1', 'RHAND_JOINT2', 'RHAND_JOINT3', 'LHAND_JOINT0', 'LHAND_JOINT1', 'LHAND_JOINT2', 'LHAND_JOINT3']
-ordertortc = array([robot.GetJoint(name).GetDOFIndex() for name in orderednames],int32)
-ordertoopenrave = [orderednames.index(j.GetName()) for j in robot.GetJoints()]
-robot.SetDOFValues(array(rr.get_joint_angles())[ordertoopenrave])
+ordertoopenrave = [orderednames.index(j.GetName()) for j in orrobot.GetJoints()]
+ordertortc = array([orrobot.GetJoint(name).GetDOFIndex() for name in orderednames],int32)
 
-manip=robot.SetActiveManipulator("leftarm_torso")
-ikmodel=databases.inversekinematics.InverseKinematicsModel(robot,freeindices=manip.GetArmIndices()[:-6])
-#if not ikmodel.load():
-#    ikmodel.autogenerate()
+orrobot.SetDOFValues(array(rr.get_joint_angles())[ordertoopenrave])
 
-self = CubeAssembly(robot)
+manip=orrobot.SetActiveManipulator("leftarm_torso")
+ikmodel=databases.inversekinematics.InverseKinematicsModel(orrobot,freeindices=manip.GetArmIndices()[:-6])
+if not ikmodel.load():
+    ikmodel.autogenerate()
+
+self = cubeassembly.CubeAssembly(orrobot)
 self.CreateBlocks()
-
 
 def recognize(camera='lhand'):
     pose = rr.recognize(camera)[0][1]
@@ -49,25 +51,29 @@ def recognize(camera='lhand'):
     Tp_m = eye(4)
     Tp_m[0:3,0:3] = rotationMatrixFromAxisAngle([0,0,1],pi)
     Tp_m[0:3,3] = [0.045, -0.015, 0.09]
-    Tp = dot(f,inverse_matrix(Tp_m))
+    # f * Tp_m^-1
+    Tw_p = dot(f,inverse_matrix(Tp_m))
 
     # aqua piece
-    self.gmodels[4].target.SetTransform(Tp)
-    return Tp
+    self.gmodels[4].target.SetTransform(Tw_p)
+    return Tw_p
 
-def plan(f):
-    g = eye(4)
-    g[0:3,3] = [0.045,-0.015,0.12+0.059]
-    f = dot(f,g)
+def plan(Tw_p):
+    # self.gmodelsから計算されます
+    Tp_h = eye(4)
+    Tp_h[0:3,3] = [0.045,-0.015,0.12+0.059]
+    f = dot(Tw_p,Tp_h)
     h = dot(dot(f[0:3,0:3], rotationMatrixFromAxisAngle([1,0,0],pi)), rotationMatrixFromAxisAngle([0,0,1],pi/2))
     f[0:3,0:3] = h
-    Tgoal = f
+    Tw_h = f
 
-    basemanip = interfaces.BaseManipulation(robot)
-    trajdata = basemanip.MoveToHandPosition(matrices=[Tgoal],execute=False,outputtraj=True)
+    basemanip = interfaces.BaseManipulation(orrobot)
+    trajdata = basemanip.MoveToHandPosition(matrices=[Tw_h],execute=False,outputtraj=True)
+    # trajdataはXML式です
+    # http://openrave.org/en/main/architecture/trajectory.html?highlight=trajectory%20xml
     traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
 
-    return f, traj
+    return Tw_h, traj
 
 def execute(traj, realrobot=False):
     spec = traj.GetConfigurationSpecification()
@@ -75,7 +81,7 @@ def execute(traj, realrobot=False):
 
     for i in range(1,n):
         data = traj.GetWaypoint(i)
-        # rtcvalues = spec.ExtractJointValues(data,robot,ordertoopenrave,0)
+        rtcvalues = spec.ExtractJointValues(data,robot,ordertoopenrave,0)
         dt = spec.ExtractDeltaTime(data)
         print dt
         print data
@@ -85,6 +91,7 @@ def execute(traj, realrobot=False):
             q[9:15] = data[1:7]
             rr.send_goal(q, 20.0*dt, True)
 
-    robot.GetController().SetPath(traj)
-    robot.WaitForController(0)
-    robot.GetController().Reset(0)
+    # optional
+    orrobot.GetController().SetPath(traj)
+    orrobot.WaitForController(0)
+    orrobot.GetController().Reset(0)
