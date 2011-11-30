@@ -47,4 +47,4 @@ rosbuild_add_executable(region
 	blob/BlobResult.cpp
 	)
 
-#target_link_libraries(example ${PROJECT_NAME})
+##target_link_libraries(example ${PROJECT_NAME})
