@@ -125,6 +125,7 @@ roslaunch hrpsys pa10.launch
 }}}
 press `Start Simulation` button,
 then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/PA10; rosrun hrpsys hrpsyspy ./PA10.py`
+
 [http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/pa10.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/PA10.gif]
 
 === HRP-4C walking ===
@@ -190,7 +191,7 @@ or
 rosrun roseus roseus `rospack find hrpsys_ros_bridge`/scripts/hrp4c-pickup.l
 }}}
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/HRP4C.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/HRP4C_PickUp.gif]
 
 Note: when `rosrun hrpsys hrpsyspy ./HRP4C.py` does not work. 
 you need to change  `bridge = findRTC("HRP-4C(Robot)0")` to `bridge = findRTC("HRP4(Robot)0")` and pass absolute path of "data/walk2m" to `loadPattern` function
