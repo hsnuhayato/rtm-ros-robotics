@@ -157,7 +157,7 @@ def execute(traj, realrobot=False):
 
 {{{
  $ roscd HandRcg/script
- $ ./run -c
+ $ ./run.sh -c
 }}}
 
  * HiroNXProvider0.rtcとHiroNXGUI0.rtcが起動
