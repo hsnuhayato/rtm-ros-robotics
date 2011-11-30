@@ -124,6 +124,17 @@ def pick(LorR="L"):
         angles(orderednames.index("LHAND_JOINT3")) = 0
         orrobot.send_goal(angles,5.0,True)
 
+#手の経路上の点のリストを入れると経路のリストが返る
+def compose(Tw_hboollist):
+    trajs=[]
+    for Tw_h in Tw_hboollist:
+        trajdata = basemanip.MoveToHandPosition(matrices=[Tw_h[0]],execute=False,outputtraj=True)
+    # trajdataはXML式です
+    # http://openrave.org/en/main/architecture/trajectory.html?highlight=trajectory%20xml
+        traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
+        trajs.append([traj,Tw_h[1]])
+    return trajs
+
 def execute(traj, realrobot=False,grasppiece=False):
     spec = traj.GetConfigurationSpecification()
     n = traj.GetNumWaypoints()
