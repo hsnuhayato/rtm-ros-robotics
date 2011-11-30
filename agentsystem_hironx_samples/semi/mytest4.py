@@ -1,4 +1,3 @@
-###########python嫌い###############
 # -*- coding: utf-8 -*-
 
 import roslib; roslib.load_manifest('iv_plan')
@@ -60,7 +59,7 @@ def recognize(camera='lhand'):
     return Tw_p
 
 deletedlist = []
-def post_plan:
+def post_plan() :
     basemanip = interfaces.BaseManipulation(orrobot)
     # trajdataはXML式です
     # http://openrave.org/en/main/architecture/trajectory.html?highlight=trajectory%20xml
@@ -90,7 +89,7 @@ def plan1(Tw_p_list): #Tw_p_list ---(eg) [["1",Tw_p-1],["3",Tw_p-3]]
     post_plan
     return Tw_h, traj
 
-def plan2:
+def plan2(Tw_p_list):
     #4番から他のpieceへの行列を求める
     Tw_p = deletedlist[0]
     Tp_h = eye(4)
@@ -108,10 +107,10 @@ def pick(LorR="L"):
     if LorR == "L":
         interfaces.CloseFingers()
         angles = orrobot.get_joint_angles()
-        angles(orderednames.index("LHAND_JOINT0")) = 0 
-        angles(orderednames.index("LHAND_JOINT1")) = 0
-        angles(orderednames.index("LHAND_JOINT2")) = 0 
-        angles(orderednames.index("LHAND_JOINT3")) = 0
+        angles[orderednames.index("LHAND_JOINT0")] = 0 
+        angles[orderednames.index("LHAND_JOINT1")] = 0
+        angles[orderednames.index("LHAND_JOINT2")] = 0 
+        angles[orderednames.index("LHAND_JOINT3")] = 0
         orrobot.send_goal(angles,5.0,True)
         
 
