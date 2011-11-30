@@ -125,7 +125,7 @@ roslaunch hrpsys pa10.launch
 }}}
 press `Start Simulation` button,
 then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/PA10; rosrun hrpsys hrpsyspy ./PA10.py`
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/pa10.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp0:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/PA10.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/pa10.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/PA10.gif]
 
 === HRP-4C walking ===
 {{{
@@ -134,7 +134,7 @@ roslaunch hrpsys hrp4c.launch
 press `Start Simulation` button,
 then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/HRP-4C; rosrun hrpsys hrpsyspy ./HRP4C.py`
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp0:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/HRP4C.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/HRP4C.gif]
 
 === Sample Robot Walking and Grasping===
 {{{
@@ -151,7 +151,7 @@ rosrun hrpsys SampleRobot_walk.sh
 }}}
 to start walking.
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/samplerobot.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp0:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/SampleRobot.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/samplerobot.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/SampleRobot.gif]
 
 == RTM/ROS Integration ===
 
