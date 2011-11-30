@@ -1,16 +1,16 @@
 - other: {local-name: /opt/ros/electric/ros}
 - other: {local-name: /opt/ros/electric/stacks}
 - svn: {local-name: rtm-ros-robotics/rtmros_common,
-    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2010}
+    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2016}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r2010}
+    version: -r2016}
 - svn: {local-name: rtm-ros-robotics/agentsystem_openrave_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_openrave_tutorials',
-    version: -r2010}
+    version: -r2016}
 - svn: {local-name: rtm-ros-robotics/agentsystem_hironx_samples,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_hironx_samples',
-    version: -r2010}
+    version: -r2016}
 - svn: {local-name: jsk-ros-pkg,
     uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk', version: -r2332}
 - git: {local-name: umd-ros-pkg/camera_umd,
@@ -25,7 +25,7 @@
 - svn: {local-name: tum-ros-pkg,
     uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg', version: -r979}
 - svn: {local-name: ua-ros-pkg,
-    uri: 'https://ua-ros-pkg.googlecode.com/svn/trunk/arrg', version: -r1563}
+    uri: 'https://ua-ros-pkg.googlecode.com/svn/trunk/arrg', version: -r1565}
 - git: {local-name: ccny-vision,
     uri: 'http://robotics.ccny.cuny.edu/git/ccny-ros-pkg/ccny_vision.git', version: 142f1f91efc8244ebafed021fa9b0932d0ffcbbe}
 - hg: {local-name: robot_model,
