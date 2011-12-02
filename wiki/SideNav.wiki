@@ -1,5 +1,3 @@
- * * [CreatePrivateRepository 個人レポジトリー作成] *
- * [Homework_List 宿題リスト]
  * *RTM*
  * [RTM_Install RTMのインストール]
  * [RTM_Example RTMのサンプルプログラム]
@@ -27,3 +25,6 @@
   * [ROS_Example_Android_Applications Androidの利用]
   * [ROS_Example_TroubleShooting 困ったときは]
  * [ROS_English OpenRTM/OpenHRP/ROS Install and Example]
+
+ * [CreatePrivateRepository 個人レポジトリー作成]
+ * [Homework_List 宿題リスト]
