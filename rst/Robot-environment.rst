@@ -1,112 +1,290 @@
-==================
-6 ロボット開発環境
-==================
+ドキュメンテーションフレームワーク
+==================================
 
---------------------------------------
-6.1 ドキュメンテーションフレームワーク
---------------------------------------
+ドキュメントの必要性
+--------------------
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-6.1.1 ドキュメントの必要性
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+ - ドキュメントを通してソフトウェア利用者と効率良くコミュニケーションをとることができる。
+ - ドキュメントを作る行為は設計をすること
+ - ドキュメントはメンテナンス時に必要なもの。
 
-**Ｔ．Ｂ．Ｄ**
+.. todo:: ドキュメントの必要性の記述を行う
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-6.1.2 reStructured Text / Sphinx
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+reStructuredText / Sphinx
+--------------------------
 
-*概要*
+概要
+~~~~
 
-- 以下の文書を記述
+ reStructuredTextとは、文書の構造や表示の仕方などを定義したマークアップ言語のひとつである。
+ reStructuredText は RST、ReST、reSTと略されることもある。
+ reStructuredTextの特徴は以下の通り。
 
- http://www.planewave.org/translations/rst/quickstart.ja.html
+ - テキスト形式で記述するため、OSに標準でインストールされているメモ帳などのテキストエディタで作成することができる。
+ - ソースコードの状態でも高い可読性を持っている。
+ - reStructuredTextで記述された文書はPDF、HTML、XML、LaTeXなど複数の形式の文書に変換することができる。
+ - reStructuredTextを他の形式の文書に変換するパーサは、テキスト処理フレームワークである Docutils のコンポーネントの一つであり、Pythonにより実装されている。 
 
- http://sphinx-users.jp/
+.. figure:: images/RTCBuilder1.*
 
- reStructured Textとは、首尾一貫したパターンを使う "Relaxed Text" （形式ばらないテキスト）とでも
- 呼ぶべきものです。
+  reStructuredTextの記述例
 
-*導入*
+.. todo:: reStructuredTextの記述例を表示する
 
-1 Sphinxのインストール
+ Sphinxはドキュメントを簡単に作れるようにするためのツールである。
+ SphinxはreStructuredTextをマークアップ言語として使用しており、作成したドキュメントをHTML、LaTeX、PDFなどの形式に変換することができる。
+ SphinxはreStructuredTextの特徴は以下の通り。
 
-- Linux
+ - 実行環境はWindows/Linux/Mac OSであり、Python 2.4のインストールが必要である。
+ - BSDライセンスを適用している。
+ - reStructuredTextの変換プログラムはDocutilsを利用している。
+ - 出力フォーマットはHTML、LaTeX、PDF、ePubなどをサポートしている。
+ - 引用、用語解説、ソースコードへのクロスリファレンス機能。
+ - 引用したソースコードを自動でハイライトする機能。
+ - 章などのインデックスを自動で設定する機能。
 
-- Windows
+導入
+~~~~
 
-1.1 Pythonのインストール
+ SphinxはPythonを利用して作成されていることから、SphinxのインストールにはPython、Sphinxの両方が必要となる。インストール手順(Windows編、Linux編)を以降に示す。
 
-  - http://python.org からWindows Installerをダウンロードし、インストールする。
-  - 環境変数のパスに追加する。
+ 1. Sphinxのインストール(Windows編)
+  WindowsにSphinxをインストールする手順は以下の通り。
+   - Pythonのインストール
+   - easy_installのインストール
+   - Sphinxのインストール
 
-   - マイコンピュータのアイコンを右クリックして、プロパティダイアログを開きます
-   - 詳細タブの下の方にある環境変数ボタンをクリックします
-   - システム変数のPATHに以下を追加
-   
-   ::
-   
-     C:\Python27
-     C:\Python27\Scripts
+ 1.1 Pythonのインストール
+  Pythonのインストール手順を示す。なお、既にインストールされている場合は、本手順は不要である。
 
-  - インストール確認
+  (1) Pythonのインストーラのダウンロード
+   - Internet Explorer等のWebブラウザを利用し、http://python.org の画面を開く。
+   - 画面左端の「Download」リンクをクリックする。
+   - 画面上部の「Python 2.7.2 Windows Installer」リンク(2011年12月 執筆時点の最新版)をクリックする。
+   - ダウンロード画面が表示されるため、「OK」ボタンを押す。
 
-   スタートメニューから、 コマンドプロンプト を起動するか、「名前を指定して実行」で cmd と入力して
-   みましょう。ウィンドウが表れたら、 python[Enter] とタイプします。インストールしたPythonの
-   バージョンを表す文章に続いて、 >>> という文字が表示されればインストールは成功です。 
-   Ctrl+Z キーを押して終了しましょう。
+  (2) Pythonのインストール
+   - ダウンロードした「python-2.7.2.msi」ファイルをダブルクリックする。
+   - 指示に従ってインストールを行う。なお、インストール画面は以下の通り。
 
-1.2 easy_installコマンドのインストール
+.. warning::
 
-  Pythonには easy-install という、外部ライブラリをインストールするのに便利なコマンドがあります。
-  何かインストールしたいプログラムやライブラリがあったとすると、コマンドを一つ入力するだけで、
-  実行するのに必要なものも一緒にダウンロードしてくれます。
+   上記のインストーラは32bit版であり、64bit版を利用している場合は「Python 2.7.2 Windows X86-64 Installer 」リンクをクリックすること。
+
+.. figure:: images/doc_python_install-1.*
+.. figure:: images/doc_python_install-2.*
+.. figure:: images/doc_python_install-3.*
+.. figure:: images/doc_python_install-4.*
+
+ 1.2 easy_installのインストール
+  easy_installとは、パッケージ管理システムからPythonのモジュールを自動で検索し、インストールやアップデートをするツールである。
+  Sphinxはこのツールを利用してインストールする。
+  easy_installのインストール手順を示す。なお、既にインストールされている場合は、本手順は不要である。
+
+  (1) easy_installファイルのダウンロード
+   - Internet Explorer等のWebブラウザを利用し、http://peak.telecommunity.com/dist/ez_setup.py の画面を開く。
+   - 表示された画面上で右クリックをし、「名前を付けてページを保存」を実行する。なお、その際に保存するファイル名は「ez_setup.py」とし、Cドライブ直下に保存する。
+
+  (2) easy_installのインストール
+   - コマンドプロンプト画面を開く。（コマンドプロンプト画面は、スタート->プログラム->アクセサリ->コマンドプロンプト の手順で表示することができる）
+   - コマンドプロンプト画面からCドライブ直下に移動する。(コマンドプロンプト画面で「cd C:\」を入力後、Enterを押すことでCドライブ直下に移動できる)
+   - コマンドプロンプト画面で「python ez_setup.py」を入力後、Enterを押す。
+
+.. figure:: images/doc_easy_install_install.*
+
+  easy_installのインストール画面
+
+ 1.3 Sphinxのインストール
+  Sphinxのインストール手順を示す。
+
+  (1) Sphinxのインストール
+   - コマンドプロンプト画面を開く。
+   - コマンドプロンプト画面で「easy_install sphinx」を入力後、Enterを押す。
+
+.. figure:: images/doc_sphinx_install.*
+
+  Sphinxのインストール画面
+
+ 2. Sphinxのインストール(Linux編)
+
+.. todo:: Sphinxのインストール(Linux編)の記述を追加する
+
+ 3. Sphinxのプロジェクト作成
+  Sphinxではプロジェクトという単位で関連ドキュメントを作成する。
+  プロジェクトを作成する手順は以下の通り。
+   - sphinx-quickstartの実行
+   - ページ構成の作成
+
+  なお、プロジェクト情報は以下として作成する。
+
+.. csv-table:: Frozen Delights!
+   :header: "項目", "内容"
+   :widths: 20, 20
+
+   "プロジェクトの作成場所","C:\sample-project"
+   "プロジェクト名","sample-project"
+   "バージョン番号","2011.01.01"
+   "著者の名前","sample"
+
+ 3.1 sphinx-quickstartの実行
+  sphinx-quickstartとは、Sphinxのプロジェクトを作成するコマンドである。実行手順を以下に示す。
+
+  (1) sphinx-quickstartの実行
+
+   - コマンドプロンプト画面を開く。
+   - コマンドプロンプト画面で「mkdir C:\sample-project」を入力後、Enterを押し、プロジェクトフォルダを作成する。
+   - コマンドプロンプト画面からC:\sample-project直下に移動する。(コマンドプロンプト画面で「cd C:\sample-project」を入力後、Enterを押すことで移動できる)
+   - コマンドプロンプト画面で「sphinx-quickstart」を入力後、Enterを押し、プロジェクト情報を入力する。なお、以降の★で示す、「プロジェクト名」、「バージョン番号」、「著者の名前」以外はデフォルトでも特に問題ない。詳細は 「Sphinxの日本ユーザ会」のページを参照。http://sphinx-users.jp/gettingstarted/sphinxquickstart.html。
+
+   - Internet Explorer等のWebブラウザを利用し、http://python.org の画面を開く。
+   - 画面左端の「Download」リンクをクリックする。
+   - 画面上部の「Python 2.7.2 Windows Installer」リンク(2011年12月 執筆時点の最新版)をクリックする。
+   - ダウンロード画面が表示されるため、「OK」ボタンを押す。
+
+::
+
+  C:\sample-project>sphinx-quickstart
+  Welcome to the Sphinx 1.1 quickstart utility.
   
-   http://peak.telecommunity.com/dist/ez_setup.py
-
-  上記のリンクを右クリックして保存します。URLを開くと、ブラウザによってはそのままダウンロードできます。
-  ファイルの中身が見えても、おちついて、右クリックで保存をすれば大丈夫です。
-  ダウンロードしたら、コマンドラインを起動し、該当のファイルのあるところまで移動してから、以下のように
-  実行します。
+  Please enter values for the following settings (just press Enter to
+  accept a default value, if one is given in brackets).
   
-  ::
+  Enter the root path for documentation.
+  > Root path for the documentation [.]:
   
-    > python ez_setup.py
-
-  これで easy_install コマンドがインストールされます。ここまで行けば次はとうとうSphinxのインストール
-  になります。
-
-1.3 Sphinxのインストール
-
-  setuptoolsまでインストールされていれば、後は一瞬です。コマンドラインから以下のようにタイプします。
-
-  ::
+  You have two options for placing the build directory for Sphinx output.
+  Either, you use a directory "_build" within the root path, or you separate
+  "source" and "build" directories within the root path.
+  > Separate source and build directories (y/N) [n]:
   
-    > easy_install sphinx
+  Inside the root directory, two more directories will be created; "_templates"
+  for custom HTML templates and "_static" for custom stylesheets and other static
+  files. You can enter another prefix (such as ".") to replace the underscore.
+  > Name prefix for templates and static dir [_]:
   
-  これで完了です。インストールが終わったら、コマンドラインから、 sphinx-quickstart[エンター] とタイプ
-  してみます。以下のように表示されていればインストールは成功です。Ctrl+Cキーを押して中断しましょう。
-  インストール作業は以上です。次は プロジェクトを作る に進んでください。
+  The project name will occur in several places in the built documentation.
+  > Project name: sample-project  <--- ★プロジェクト名
+  > Author name(s): sample        <--- ★著者の名前
+  
+  Sphinx has the notion of a "version" and a "release" for the
+  software. Each version can have multiple releases. For example, for
+  Python the version is something like 2.5 or 3.0, while the release is
+  something like 2.5.1 or 3.0a1.  If you don't need this dual structure,
+  just set both to the same value.
+  > Project version: 2012.01.01   <--- ★バージョン番号
+  > Project release [2012.01.01]:
+  
+  The file name suffix for source files. Commonly, this is either ".txt"
+  or ".rst".  Only files with this suffix are considered documents.
+  > Source file suffix [.rst]:
+  
+  One document is special in that it is considered the top node of the
+  "contents tree", that is, it is the root of the hierarchical structure
+  of the documents. Normally, this is "index", but if your "index"
+  document is a custom template, you can also set this to another filename.
+  > Name of your master document (without suffix) [index]:
+  
+  Sphinx can also add configuration for epub output:
+  > Do you want to use the epub builder (y/N) [n]:
+  
+  Please indicate if you want to use one of the following Sphinx extensions:
+  > autodoc: automatically insert docstrings from modules (y/N) [n]:
+  > doctest: automatically test code snippets in doctest blocks (y/N) [n]:
+  > intersphinx: link between Sphinx documentation of different projects (y/N) [n]:
+  > todo: write "todo" entries that can be shown or hidden on build (y/N) [n]:
+  > coverage: checks for documentation coverage (y/N) [n]:
+  > pngmath: include math, rendered as PNG images (y/N) [n]:
+  > mathjax: include math, rendered in the browser by MathJax (y/N) [n]:
+  > ifconfig: conditional inclusion of content based on config values (y/N) [n]:
+  > viewcode: include links to the source code of documented Python objects (y/N) [n]:
+  
+  A Makefile and a Windows command file can be generated for you so that you
+  only have to run e.g. `make html' instead of invoking sphinx-build
+  directly.
+  > Create Makefile? (Y/n) [y]:
+  > Create Windows command file? (Y/n) [y]:
+  
+  Creating file .\conf.py.
+  Creating file .\index.rst.
+  Creating file .\Makefile.
+  Creating file .\make.bat.
+  
+  Finished: An initial directory structure has been created.
+  
+  You should now populate your master file .\index.rst and create other documentation
+  source files. Use the Makefile to build the docs, like so:
+     make builder
+  where "builder" is one of the supported builders, e.g. html, latex or linkcheck.
+  
+  
+  C:\sample-project>
 
-1.4 Sphinxのプロジェクト作成
+ 3.2 ページ構成の作成
+  sphinx-quickstartで作成したプロジェクト内にドキュメントを作成する。
+  なお、ページ構成は以下とする。
 
-  http://sphinx-users.jp/gettingstarted/make_project.html
+::
 
-日本語のコンパイル
+  index.rst
+    +- sample1.rst
+    +- sample2.rst
 
-.. code-block:: bash
+  (1) rstファイルの作成
+   - C:\sample-project直下にindex.rst、sample1.rst、sample2.rstファイルを作成する。
 
-  sudo add-apt-repository ppa:cosmos-door/dvipsk-ja
-  sudo apt-get update
-  sudo apt-get install nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja 
+**index.rst**
 
-------------------------------
-6.2 テスティングフレームワーク
-------------------------------
+.. code-block:: rst
+   :linenos:
 
-~~~~~~~~~~~~~~~~~~~~
-6.2.1 テストの必要性
-~~~~~~~~~~~~~~~~~~~~
+   ロボット開発環境
+   ----------------
+
+   Contents:
+
+   .. toctree::
+      :maxdepth: 2
+
+      sample1
+      sample2
+
+**sample1.rst**
+
+.. code-block:: rst
+   :linenos:
+
+   ==================================
+   ドキュメンテーションフレームワーク
+   ==================================
+
+**sample2.rst**
+
+.. code-block:: rst
+   :linenos:
+
+   ==========================
+   テスティングフレームワーク
+   ==========================
+
+  (2) htmlファイルの作成
+   - コマンドプロンプト画面を開き、C:\sample-projectに移動する。
+   - コマンドプロンプト画面に「make html」を入力後、Enterを押し、htmlファイルを作成する。
+
+テスティングフレームワーク
+==========================
+
+テストの必要性
+--------------
+
+ - プログラムには必ず変更がある
+ - プログラムには通常バグも含まれる
+ - リファクタリングが登場する以前は、一度正常な動作をしたプログラムは二度と手を触れるべきではないと言われていた。下手に手を加えて動作が変わってしまうと、それに伴って関連する部分にも修正が加えられ、やがて修正はプロジェクト全体に波及し対処しきれなくなるかも知れない
+ - 
+
+.. todo:: テストの必要性を記述する
+
+
+ * 
 
 - 以下の文書を記述
 
@@ -132,16 +310,16 @@ CIは開発の現場で実用可能なレベルに到達してきました。
 
 **Ｔ．Ｂ．Ｄ**
 
-~~~~~~~~~~~~~
-6.2.2 Jenkins
-~~~~~~~~~~~~~
+Jenkins
+-------
 
 - 以下の文書を記述
 
  https://wiki.jenkins-ci.org/display/JA/Meet+Jenkins
 
 
-*概要*
+概要
+~~~~
 
  Jenkinsは、ソフトウェアのビルドやcronで起動するジョブなどの繰り返しのジョブの実行を監視します。
  これらのうち、Jenkinsは現在次の2つのジョブに重点を置いています。
@@ -189,7 +367,8 @@ CIは開発の現場で実用可能なレベルに到達してきました。
     や処理をサポートするプラグインを書くこともできます。
 
 
-*導入*
+導入
+~~~~
 
 - 以下の文書を記述
 
@@ -206,13 +385,11 @@ CIは開発の現場で実用可能なレベルに到達してきました。
 
  ※ apacheの記述も必要
 
---------------------------
-6.3 ソースコードリポジトリ
---------------------------
+ソースコードリポジトリ
+======================
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-6.3.1 ソースコードのバージョン管理
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ソースコードのバージョン管理
+----------------------------
 
 - 以下の文書を記述
 
@@ -229,9 +406,8 @@ CIは開発の現場で実用可能なレベルに到達してきました。
 する。ただし、バージョン管理システムを個人のファイル管理に使用することも可能であるし、ソフトウェアの
 ソースコードだけでなく、設定ファイルや原稿の管理などにも使うことも可能である。
 
-~~~~~~~~~~~~~~~~
-6.3.2 Subversion
-~~~~~~~~~~~~~~~~
+Subversion
+----------
 
 - 以下の文書を記述
 
@@ -252,9 +428,8 @@ Subversionは集中型（クライアント・サーバ型）であるが、そ�
 管理にはMercurial、MySQLの管理にはBazaarが使われている。
 
 
-~~~~~~~~~~~~~~~~~
-6.3.3 Sourceforge
-~~~~~~~~~~~~~~~~~
+Sourceforge
+-----------
 
 - 以下の文書を記述
 
@@ -277,9 +452,8 @@ SourceForge.JPではホスティング費用は発生しないが、オープン
 
 2008年8月現在の登録プロジェクト数は3,263、登録ユーザ数は30,035。
 
-~~~~~~~~~
-6.3.4 Git
-~~~~~~~~~
+Git
+---
 
 - 以下の文書を記述
 
