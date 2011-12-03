@@ -111,7 +111,9 @@ latex:
 
 latexja:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
-	cd $(BUILDDIR)/latex && ebb -b ../../images/RTCBuilder1.png; mv ../../images/RTCBuilder1.bb .
+	cd $(BUILDDIR)/latex && for f in ../../images/*.png; do ebb -b $$f; done
+	cd $(BUILDDIR)/latex && for f in ../../images/*.jpg; do ebb -b $$f; done
+	cd $(BUILDDIR)/latex && mv ../../images/*.bb .
 	export PATH=$$PATH:$(CURDIR) && cd $(BUILDDIR)/latex && for f in *.tex; do platex.sh $$f; done
 	export PATH=$$PATH:$(CURDIR) && cd $(BUILDDIR)/latex && for f in *.tex; do platex.sh $$f; done
 	export PATH=$$PATH:$(CURDIR) && cd $(BUILDDIR)/latex && for f in *.tex; do platex.sh $$f; done

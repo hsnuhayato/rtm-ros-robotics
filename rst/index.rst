@@ -2,13 +2,21 @@
 ---------------------------------
 
 
-ロボット開発の現状
+はじめに
 ---------------------------------
 
 .. toctree:: 
   :maxdepth: 2
 
   Introduction
+
+ロボット開発の現状
+---------------------------------
+
+.. toctree:: 
+  :maxdepth: 2
+
+  Robot-situation
 
 RTミドルウェア
 ---------------------------------
@@ -21,11 +29,26 @@ RTミドルウェア
 ROS
 ---------------------------------
 
+.. toctree:: 
+  :maxdepth: 2
+
+  ROS
+
 OpenRAVE
 ---------------------------------
 
+.. toctree:: 
+  :maxdepth: 2
+
+  OpenRave
+
 ロボット開発実践
 ---------------------------------
+
+.. toctree:: 
+  :maxdepth: 2
+
+  Robot-development
 
 ロボット開発環境
 ---------------------------------
@@ -38,18 +61,15 @@ OpenRAVE
 おわりに
 ---------------------------------
 
+.. toctree:: 
+  :maxdepth: 2
 
-.. todolist::
+  Conclusion
 
+Appendix
+---------------------------------
 
 無効です
 
-  Robot-situation
-  RTM
-  ROS
-  OpenRave
-  Robot-development
-  Robot-environment
-  Conclusion
-  Appendix
+
 
