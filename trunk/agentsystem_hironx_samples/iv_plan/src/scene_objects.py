@@ -35,6 +35,7 @@ def floor():
 # Table with 4 legs
 def high_table():
     w,d,h,r = 1400, 700, 700, 16
+    #w,d,h,r = 1400, 700, 735, 16
     thickness = 40
     l = h - thickness
     a = w/2.0 -100
