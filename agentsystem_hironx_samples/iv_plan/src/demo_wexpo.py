@@ -8,8 +8,8 @@ from demo_common import *
 from setup_rtchandle import *
 
 
-tblheight = 700 # tuniv
-#tblheight = 735 # aist
+#tblheight = 700 # tuniv
+tblheight = 735 # aist
 fsoffset = 59
 rubberheight = 19
 holeheight = 11
@@ -23,7 +23,7 @@ def reset_parts():
 def reset_parts_randomly():
     def is_occupied(f, objs):
         for o in objs:
-            if numpy.linalg.norm(f.vec - o.where().vec) < 60:
+            if numpy.linalg.norm(f.vec - o.where().vec) < 70:
                 return True
         return False
     objs = env.get_objects('^A')
@@ -31,7 +31,7 @@ def reset_parts_randomly():
         while True:
             x = 150*random.random()+140
             y = 300*random.random()-80
-            z = 715
+            z = tblheight + 15
             c = 2*pi*random.random()
             f = FRAME(xyzabc=[x,y,z,0,0,c])
             if not is_occupied(f, objs):
