@@ -107,7 +107,8 @@ def unfix(obj, hand='right'):
     wldfrm = obj.where()
     obj.unfix()
     wld = env.get_world()
-    wld.children.append(obj)
+    if not (obj in wld.children):
+        wld.children.append(obj)
     obj.affix(wld, wldfrm)
 
 
