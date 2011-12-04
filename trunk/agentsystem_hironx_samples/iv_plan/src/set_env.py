@@ -4,11 +4,13 @@ import os
 import sys
 from os import path
 
-real_robot = True
-ros_available = False
+real_robot = False
+ros_available = True
 
-ivpkgdir = os.path.abspath('../..')
+#ivpkgdir = os.path.abspath('../..')
 #ivpkgdir = os.environ['IV_PKG_DIR']
+ivpkgdir = os.path.dirname(os.path.abspath(__file__))+'/../..'
+print 'IVPKGDIR2:', ivpkgdir
 ivpkgs = ['/iv_plan','/iv_idl','/rtc_handle','/rmrc_geo_model','/tfpy']
 
 if ros_available:
