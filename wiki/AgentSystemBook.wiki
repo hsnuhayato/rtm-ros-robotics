@@ -1,0 +1,24 @@
+#summary 　エージェントシステム本の作成
+
+= reStructuredTextノート =
+
+
+# 改行を入れなければならないときに以下を..使ってください。前行と後行をブランクラインにする必要があるかもしれません。例えば
+
+ * my text
+
+..
+
+.. figure:: image
+
+# Code-blocks:
+
+.. code-block:: python
+    :include: ../rst2pdf/flowables.py
+    :start-at: class Separation(Flowable):
+    :end-before: class Reference(Flowable):
+
+
+# [http://www.scribd.com/doc/47589989/sphinx sphinx book]
+
+# セクション、code-block、リンクの色を変えられます。定義はconf.pyファイルの\definecolorのところです。
