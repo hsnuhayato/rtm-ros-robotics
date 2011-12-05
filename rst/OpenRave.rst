@@ -1,20 +1,16 @@
-OpenRave
+OpenRAVE
 ========
 
 OpenRaveとは？
 --------------
 
-- 以下の文書を記述
-
- http://openrave.org/en/main/overview.html
+`OpenRAVE Overview <http://openrave.org/en/main/overview.html>`_
 
 
 OpenRaveのプログラミングモデル
 ------------------------------
 
-- 以下の文書を記述
-
- http://openrave.programmingvision.com/en/main/install.html
+`OpenRAVE Install <http://openrave.programmingvision.com/en/main/install.html>`_
 
 OpenRaveを使ってみよう！
 ------------------------
@@ -22,13 +18,11 @@ OpenRaveを使ってみよう！
 インストール
 ^^^^^^^^^^^^
 
-1 OpenRaveのインストール
-
 - Linux
 
  Official Release PPA. Execute the following to add the OpenRAVE repository:
 
- ::
+ .. code-block:: bash
 
    sudo add-apt-repository ppa:openrave/release
    sudo apt-get update
@@ -36,9 +30,7 @@ OpenRaveを使ってみよう！
 
 - Windows
 
- `Windows Installers`_ are compiled for every Visual Studio version.
-
-.. _`Windows Installers`: http://sourceforge.net/projects/openrave/files/latest_stable
+`Windows Installers <http://sourceforge.net/projects/openrave/files/latest_stable>`_ are compiled for every Visual Studio version.
 
 
 サンプルプログラム
@@ -48,11 +40,13 @@ OpenRaveを使ってみよう！
 
  ** Ｔ．Ｂ．Ｄ **
 
- http://code.google.com/p/rtm-ros-robotics/wiki/OpenRAVE_Example
 
 - マニピュレーション
 
  ** Ｔ．Ｂ．Ｄ **
 
- http://code.google.com/p/rtm-ros-robotics/wiki/OpenRAVE_Example
+DIAで作成された図です．
 
+.. figure:: images/test_component.eps
+
+  OpenRAVEコンポーネント

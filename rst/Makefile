@@ -40,7 +40,7 @@ aptget:
 	sudo easy_install sphinx
 	sudo add-apt-repository ppa:cosmos-door/dvipsk-ja
 	sudo apt-get -y update
-	sudo apt-get install -y nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja ghostscript python-roman ptex-jtex jbibtex-bin ptex-jisfonts texlive-latex-extra texlive-fonts-recommended
+	sudo apt-get install -y nkf ptex-bin dvipsk-ja xpdf-japanese gs-cjk-resource latex-cjk-japanese language-pack-ja ghostscript python-roman ptex-jtex jbibtex-bin ptex-jisfonts texlive-latex-extra texlive-fonts-recommended dia-gnome
 	sudo cp -v pdfglyphlist.txt glyphlist.txt /etc/texmf/dvipdfmx/
 	sudo ./updatetexmf.py
 	sudo update-texmf
@@ -111,6 +111,9 @@ latex:
 
 latexja:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
+	dia -e images/test_component.eps figs/test_component.dia
+	#python process_dia_figures.py 
+	cd $(BUILDDIR)/latex && for f in ../../images/*.eps; do ebb -b $$f; done
 	cd $(BUILDDIR)/latex && for f in ../../images/*.png; do ebb -b $$f; done
 	cd $(BUILDDIR)/latex && for f in ../../images/*.jpg; do ebb -b $$f; done
 	cd $(BUILDDIR)/latex && mv ../../images/*.bb .

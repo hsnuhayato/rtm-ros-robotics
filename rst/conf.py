@@ -25,14 +25,7 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.pngmath', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode']
-
-# Additional stuff for the LaTeX preamble.
-pngmath_latex_preamble = """
-   \usepackage{amsmath}
-   \usepackage{amsfonts}
-   \usepackage{amssymb}
-"""
+extensions = ['sphinx.ext.pngmath', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode', 'sphinx.ext.todo', 'sphinx.ext.extlinks']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -98,7 +91,8 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+html_theme = 'sphinxdoc'
+html_style='book_sphinx.css'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -191,16 +185,25 @@ latex_documents = [
    u'著者', 'manual'),
 ]
 
+# latex_elements = {
+#     'fontpkg': '\\usepackage{palatino}',
+# }
+
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
 #latex_logo = 'logos/logo.eps'
 
 # http://docutils.sourceforge.net/docs/user/latex.html#figure-placement
 
+latex_show_urls = 'footnote'
 
 # Additional stuff for the LaTeX preamble.
 latex_preamble = """\\usepackage{graphicx}
 
+\\usepackage{amsmath}
+\\usepackage{amsfonts}
+\\usepackage{amssymb}
+   
 \\usepackage{float}
 
 \\let\\origfigure=\\figure
@@ -208,6 +211,41 @@ latex_preamble = """\\usepackage{graphicx}
 \\origfigure[H]}
 {\\endlist}
 
+\\usepackage{color}
+
+\\definecolor{MyDarkRed}{rgb}{0.6,0,0.0} 
+\\definecolor{MyRed}{rgb}{1,0,0}
+\\definecolor{MyDarkGreen}{rgb}{0,0.4,0} 
+\\definecolor{MyGreen}{rgb}{0,1,0} 
+\\definecolor{MyDarkBlue}{rgb}{0,0,0.4} 
+\\definecolor{MyBlue}{rgb}{0,0,1} 
+
+% this command is overwritten from the python docutils one since couldn't get other to work
+\\renewcommand{\\DUspan}[2]{
+ \\csname docutilsrole#1\\endcsname{#2}
+}
+
+
+\\providecommand{\\docutilsrolered}{\\textcolor{red}}
+\\providecommand{\\docutilsrolegreen}{\\textcolor{green}}
+\\providecommand{\\docutilsroleblue}{\\textcolor{blue}}
+
+% background and border for code examples.
+\\definecolor{VerbatimColor}{rgb}{0.97,0.97,1.0}
+\\definecolor{VerbatimBorderColor}{rgb}{0.8,0.7,1.0}
+
+\\definecolor{TitleColor}{rgb}{0.126,0.263,0.361}
+\\definecolor{InnerLinkColor}{rgb}{0.208,0.374,0.486}
+\\definecolor{OuterLinkColor}{rgb}{0.216,0.439,1.0}
+
+\\def\\secNormalColor{\\color[rgb]{0.0,0.0,0.0}}
+\\def\\secTitleColor{\\color{TitleColor}}
+  
+\\titleformat{\\section}{\\Large\\sffamily\\bfseries}{\\secTitleColor\\thesection}{0.5em}{\\secTitleColor}{\\secNormalColor}
+\\titleformat{\\subsection}{\\large\\sffamily\\bfseries}{\\secTitleColor\\thesubsection}{0.5em}{\\secTitleColor}{\\secNormalColor}
+\\titleformat{\\subsubsection}{\\sffamily\\bfseries}{\\secTitleColor\\thesubsubsection}{0.5em}{\\secTitleColor}{\\secNormalColor}
+\\titleformat{\\paragraph}{\\small\\sffamily\\bfseries}{\\secTitleColor}{0em}{\\secTitleColor}{\\secNormalColor}
+            
 """
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
@@ -226,6 +264,7 @@ latex_preamble = """\\usepackage{graphicx}
 # If false, no module index is generated.
 #latex_domain_indices = True
 
+# subsubsubsection: http://d.hatena.ne.jp/yoppiblog/20091229/1262088390
 
 # -- Options for manual page output --------------------------------------------
 
@@ -235,3 +274,13 @@ man_pages = [
     ('index', 'rtm_ros_robotics', u'ロボットシステム Documentation',
      [u'著者'], 1)
 ]
+
+rst_epilog = """
+
+.. role:: red
+
+.. role:: green
+
+.. role:: blue
+
+"""
