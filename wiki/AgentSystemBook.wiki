@@ -31,6 +31,8 @@
   :end-before: class Reference(Flowable):
 }}}
 
-  * [http://www.scribd.com/doc/47589989/sphinx sphinx book]
-
   * セクション、code-block、リンクの色を変えられます。定義はconf.pyファイルの\definecolorのところです。
+
+= 参照 =
+
+  * [http://www.scribd.com/doc/47589989/sphinx sphinx book]
