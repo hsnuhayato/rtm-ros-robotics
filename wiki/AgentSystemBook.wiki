@@ -33,6 +33,12 @@
 
   * セクション、code-block、リンクの色を変えられます。定義はconf.pyファイルの\definecolorのところです。
 
+  * 色付けのテクスト
+{{{
+:red:`これは赤いテキスト` これは普通です。
+}}}
+
+
 = 参照 =
 
   * [http://www.scribd.com/doc/47589989/sphinx sphinx book]
