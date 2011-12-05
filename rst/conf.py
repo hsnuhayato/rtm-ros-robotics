@@ -245,7 +245,13 @@ latex_preamble = """\\usepackage{graphicx}
 \\titleformat{\\subsection}{\\large\\sffamily\\bfseries}{\\secTitleColor\\thesubsection}{0.5em}{\\secTitleColor}{\\secNormalColor}
 \\titleformat{\\subsubsection}{\\sffamily\\bfseries}{\\secTitleColor\\thesubsubsection}{0.5em}{\\secTitleColor}{\\secNormalColor}
 \\titleformat{\\paragraph}{\\small\\sffamily\\bfseries}{\\secTitleColor}{0em}{\\secTitleColor}{\\secNormalColor}
-            
+
+\\renewenvironment{notice}[2]{
+  \\def\\py@noticetype{#1}
+  \\csname py@noticestart@#1\\endcsname
+  \\strong{\\textcolor{red}{#2}}
+}{\\csname py@noticeend@\\py@noticetype\\endcsname}
+
 """
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
