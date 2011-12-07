@@ -69,7 +69,7 @@ def compose(realrobot=False):
     for p in pickuporder:
         seelist = recognize()
         try:
-            Tw_p = [i[1] for i in seelist if seelist[i][0] == p]
+            Tw_p = [i[1] for i in seelist if i[0] == p][0]
         except:
             print "No piece  can be grabbed!"
             #search()
