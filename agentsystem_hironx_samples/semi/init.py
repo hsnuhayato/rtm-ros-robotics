@@ -39,7 +39,7 @@ manip=orrobot.SetActiveManipulator("leftarm_torso")
 #     ikmodel.autogenerate()
 
 self = cubeassembly.CubeAssembly(orrobot)
-self.CreateBlocks(generategrasps=False)
+self.CreateBlocks(generategrasps=True)
 
 Tworld_goal = eye(4)
 Tworld_goal[0:3,3] = [0.4,0,0] # 編集が必要です
