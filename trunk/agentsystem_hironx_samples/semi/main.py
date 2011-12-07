@@ -27,7 +27,7 @@ ikmodel=databases.inversekinematics.InverseKinematicsModel(orrobot,freeindices=m
 # if not ikmodel.load():
 #     ikmodel.autogenerate()
 
-import recognize
-import plan
+from recognize import * 
+from plan import *
 
 recognize.rr=rr
