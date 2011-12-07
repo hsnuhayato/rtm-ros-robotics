@@ -48,7 +48,7 @@ self.CreateBlocks()
 Tworld_goal = eye(4)
 Tworld_goal[0:3,3] = [0.4,0,0] # 編集が必要です
 
-import 'recognize'
-import 'plan'
+import recognize
+import plan
 
 
