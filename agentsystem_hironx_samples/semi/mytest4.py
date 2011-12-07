@@ -30,6 +30,9 @@ detectpose2 = [0.0, 0.0, 1.1,
 
 orderednames = ['CHEST_JOINT0', 'HEAD_JOINT0', 'HEAD_JOINT1', 'RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'RHAND_JOINT0', 'RHAND_JOINT1', 'RHAND_JOINT2', 'RHAND_JOINT3', 'LHAND_JOINT0', 'LHAND_JOINT1', 'LHAND_JOINT2', 'LHAND_JOINT3']
 ordertoopenrave = [orderednames.index(j.GetName()) for j in orrobot.GetJoints()]
+
+# 受動関節がー１の値をとるのでorrobot.GetPassiveJoints()で処理してください
+# orrobot.GetPassiveJoints()[0].GetValues()
 ordertortc = array([orrobot.GetJoint(name).GetDOFIndex() for name in orderednames],int32)
 
 orrobot.SetDOFValues(array(rr.get_joint_angles())[ordertoopenrave])
