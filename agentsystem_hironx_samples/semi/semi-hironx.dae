@@ -136,7 +136,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 												</bind_material>
 											</instance_geometry>
 											<node id="v1.node9" name="RARM_JOINT5_Link" sid="node9">
-												<translate>-0.04 0 -0.09</translate>
+												<translate>-0.097 0 -0.09</translate>
 												<rotate>0 0 1 0</rotate>
 												<rotate sid="node_joint9_axis0">1 0 0 0</rotate>
 												<instance_geometry url="#g1_9_geom0">
@@ -256,7 +256,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 												</bind_material>
 											</instance_geometry>
 											<node id="v1.node19" name="LARM_JOINT5_Link" sid="node19">
-												<translate>-0.04 0 -0.09</translate>
+												<translate>-0.097 0 -0.09</translate>
 												<rotate>0 0 1 0</rotate>
 												<rotate sid="node_joint19_axis0">1 0 0 0</rotate>
 												<instance_geometry url="#g1_19_geom0">
@@ -1693,7 +1693,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 																		<rotate>0 0 1 0</rotate>
 																		<link sid="link9" name="RARM_JOINT5_Link">
 																			<attachment_full joint="kmodel1/jointsid10">
-																				<translate>-0.0299 -0.033 0</translate>
+																				<translate>-0.0869 -0.033 0</translate>
 																				<rotate>0 0 1 0</rotate>
 																				<link sid="link10" name="RHAND_JOINT0_Link">
 																					<attachment_full joint="kmodel1/jointsid11">
@@ -1751,7 +1751,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 																		<rotate>0 0 1 0</rotate>
 																		<link sid="link19" name="LARM_JOINT5_Link">
 																			<attachment_full joint="kmodel1/jointsid20">
-																				<translate>-0.0299 -0.033 0</translate>
+																				<translate>-0.0869 -0.033 0</translate>
 																				<rotate>0 0 1 0</rotate>
 																				<link sid="link20" name="LHAND_JOINT0_Link">
 																					<attachment_full joint="kmodel1/jointsid21">
@@ -2106,7 +2106,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 				<technique profile="OpenRAVE">
 					<frame_origin link="kmodel1/link1"/>
 					<frame_tip link="kmodel1/link9">
-						<translate>-0.05 0 0</translate>
+						<translate>-0.107 0 0</translate>
 						<rotate>0 1 0 -90</rotate>
 					</frame_tip>
 					<gripper_joint joint="kmodel1/jointsid10">
@@ -2125,7 +2125,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 				<technique profile="OpenRAVE">
 					<frame_origin link="kmodel1/link0"/>
 					<frame_tip link="kmodel1/link9">
-						<translate>-0.05 0 0</translate>
+						<translate>-0.107 0 0</translate>
 						<rotate>0 1 0 -90</rotate>
 					</frame_tip>
 					<gripper_joint joint="kmodel1/jointsid10">
@@ -2144,7 +2144,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 				<technique profile="OpenRAVE">
 					<frame_origin link="kmodel1/link1"/>
 					<frame_tip link="kmodel1/link19">
-						<translate>-0.05 0 0</translate>
+						<translate>-0.107 0 0</translate>
 						<rotate>0 1 0 -90</rotate>
 					</frame_tip>
 					<gripper_joint joint="kmodel1/jointsid20">
@@ -2163,7 +2163,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 				<technique profile="OpenRAVE">
 					<frame_origin link="kmodel1/link0"/>
 					<frame_tip link="kmodel1/link19">
-						<translate>-0.05 0 0</translate>
+						<translate>-0.107 0 0</translate>
 						<rotate>0 1 0 -90</rotate>
 					</frame_tip>
 					<gripper_joint joint="kmodel1/jointsid20">
