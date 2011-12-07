@@ -11,7 +11,10 @@ def plan(Tw_p,index): #Tw_p_list ---(eg) [["1",Tw_p-1],["3",Tw_p-3]]
     gmodel=self.gmodels[index]
 #    Tworld_goal=piecelist[0][1]
     Tworld_goal=eye(4)
-    Tworld_goal[0:3][3]=[0.1,-0.07,0]#    Tworld_goal[2][3]+=100
+    Tworld_goal[0][3]=-0.2
+    Tworld_goal[1][3]=-0.07
+    Tworld_goal[2][3]=0.2
+    #    Tworld_goal[2][3]+=100
     success = False
     for validgrasp,validindex in gmodel.validGraspIterator():
         # 目的地への検証：目的地計算、逆運動学
