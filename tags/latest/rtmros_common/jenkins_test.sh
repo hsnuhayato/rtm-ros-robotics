@@ -5,10 +5,12 @@ trap 'rosrun rosunit clean_junit_xml.py; exit 1' ERR
 function test-grxui {
     local package=$1
     rosmake --status-rate=0 --test-only $package
-    (cd `rospack find $dir`; rosrun rosdoc rosdoc $package)
+    (cd `rospack find $package`; rosrun rosdoc rosdoc $package)
 
-#    rm -fr $WORKSPACE/$package-example
-#    cp -r `rospack find $dir`/doc/$package/html $WORKSPACE/$dir-example
+    if [ -n "$WORKSPACE" ]; then # only for jenkins to copy to results
+	rm -fr $WORKSPACE/$package-example
+	cp -r `rospack find $package`/doc/$package/html $WORKSPACE/$package-example
+    fi
 }
 
 # do test
