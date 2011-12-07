@@ -146,7 +146,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 														</technique_common>
 													</bind_material>
 												</instance_geometry>
-												<node id="v1.node10" name="RHAND_JOINT0_Link" sid="node10">
+												<node id="v1.node10" name="RHAND_JOINT0_Link" sid="node0">
 													<translate>-0.0299 -0.033 0</translate>
 													<rotate>0 0 1 0</rotate>
 													<rotate sid="node_joint10_axis0">0 0 1 0</rotate>
@@ -1704,7 +1704,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 																				</link>
 																			</attachment_full>
 																			<attachment_full joint="kmodel1/jointsid12">
-																				<translate>-0.0299 0.033 0</translate>
+																				<translate>-0.0869 0.033 0</translate>
 																				<rotate>0 0 1 0</rotate>
 																				<link sid="link12" name="RHAND_JOINT2_Link">
 																					<attachment_full joint="kmodel1/jointsid13">
@@ -1762,7 +1762,7 @@ available at http://www.eclipse.org/legal/epl-v10.html
 																				</link>
 																			</attachment_full>
 																			<attachment_full joint="kmodel1/jointsid22">
-																				<translate>-0.0299 0.033 0</translate>
+																				<translate>-0.0869 0.033 0</translate>
 																				<rotate>0 0 1 0</rotate>
 																				<link sid="link22" name="LHAND_JOINT2_Link">
 																					<attachment_full joint="kmodel1/jointsid23">
