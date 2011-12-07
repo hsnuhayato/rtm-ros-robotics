@@ -9,7 +9,7 @@ import cubeassembly
 
 env=Environment()
 env.SetViewer('qtcoin')
-env.Load('data/hironxtable.env.xml')
+env.Load('hironxtable.env.xml')
 orrobot=env.GetRobots()[0]
 T = orrobot.GetTransform()
 T[2,3] = 0.09
@@ -41,6 +41,9 @@ ikmodel=databases.inversekinematics.InverseKinematicsModel(orrobot,freeindices=m
 
 self = cubeassembly.CubeAssembly(orrobot)
 self.CreateBlocks()
+
+Tworld_goal = eye(4)
+Tworld_goal[0:3,3] = [0.4,0,0] # 編集が必要です
 
 def recognize(camera='lhand'):
 #マーカとブロックの座標の対応配列 [ブロック番号,原点のずれ,回転のずれ（オイラー角）]
@@ -86,28 +89,51 @@ deletedlist = []
 
 def plan1(Tw_p_list): #Tw_p_list ---(eg) [["1",Tw_p-1],["3",Tw_p-3]]
     Tw_p = Tw_p_list[0][1] #TODO
+    index = Tw_p_list[0][0]
     for l in Tw_p_list:
         if l[0]==4:
             Tw_p=l[1]
         else: deletedlist.append(l)
 
+    gmodel=self.gmodels[index]
+    success = False
+    for validgrasp,validindex in gmodel.validGraspIterator():
+        # 目的地への検証：目的地計算、逆運動学
+        Tw_h2 = gmodel.getGlobalGraspTransform(validgrasp,collisionfree=True)
+        Tw_h1 = eye(4) # TODO
+        with orrobot:
+            gmodel.setPreshape(validgrasp)
+            with gmodel.target:
+                gmodel.target.SetTransform(Tworld_goal)
+                sol = manip.FindIKSolution(Tw_h1,IkFilterOption.CheckEnvCollision)
+                if sol is None:
+                    success = True
+                    break
+                
+    assert(success)
+    gmodel.showgrasp(validgrasp) # show the grasp
+
+    trajdata = basemanip.MoveToHandPosition(matrices=[Tw_h2],execute=False,outputtraj=True)
+    traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
+    return traj,Tw_h2,Tw_h1
+
     #self.gmodelsから計算されます
     #4番のpieceを捕むためのハンドのワールド座標を生成
     #4番以外のpieceが邪魔にならないかどうか調べる
     
-    #まず目標座標
-    Tp_h = eye(4)
-    Tp_h[0:3,3] = [0.045,-0.015,0.12+0.059]
-    f = dot(Tw_p,Tp_h)
-    h = dot(dot(f[0:3,0:3], rotationMatrixFromAxisAngle([1,0,0],pi)), rotationMatrixFromAxisAngle([0,0,1],pi/2))
-    f[0:3,0:3] = h
-    Tw_h = f
-
-    basemanip = interfaces.BaseManipulation(orrobot)
-    # trajdataはXML式です
-    # http://openrave.org/en/main/architecture/trajectory.html?highlight=trajectory%20xml
-    trajdata = basemanip.MoveToHandPosition(matrices=[Tw_h],execute=False,outputtraj=True)
-    traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
+#     #まず目標座標
+#     Tp_h = eye(4)
+#     Tp_h[0:3,3] = [0.045,-0.015,0.12+0.059]
+#     f = dot(Tw_p,Tp_h)
+#     h = dot(dot(f[0:3,0:3], rotationMatrixFromAxisAngle([1,0,0],pi)), rotationMatrixFromAxisAngle([0,0,1],pi/2))
+#     f[0:3,0:3] = h
+#     Tw_h = f
+# 
+#     basemanip = interfaces.BaseManipulation(orrobot)
+#     # trajdataはXML式です
+#     # http://openrave.org/en/main/architecture/trajectory.html?highlight=trajectory%20xml
+#     trajdata = basemanip.MoveToHandPosition(matrices=[Tw_h],execute=False,outputtraj=True)
+#     traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
 
     return Tw_h, traj
 
