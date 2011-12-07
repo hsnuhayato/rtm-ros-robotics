@@ -37,10 +37,13 @@ def recognize(camera='lhand'):
 
     poselist=rr.recognize(camera)
 
+    k=0
     for i in range(0,len(poselist)):#i:何番目に認識したブロックか
         f = ctsvc.ref.Query(camera+'cam', pose2mat(poselist[i][1]), robotframe, rr.get_joint_angles())
         f = reshape(f, (4,4))
 
+        if poselist[i][0] not in id_index:
+            continue
         #注目マーカーのあるブロックの番号
         blocknum=Tp_m_list[ id_index.index(poselist[i][0]) ][0]
         #注目マーカーの回転軸リスト
@@ -65,15 +68,14 @@ def recognize(camera='lhand'):
 
         
     # aqua piece
-        # self.gmodels[Tw_p_list[i][0]].target.SetTransform(Tw_p_list[i][1])
-
+        self.gmodels[Tw_p_list[k][0]].target.SetTransform(Tw_p_list[k][1])
+        k=k+1
     # for i in range(0,len(poselist)):
-        # z=f*[0,0,1]
-        # if block_index_list.index(blocknum) :
-        #     block_index_list.append(blocknum)
-        # Tw_p_list.insert( [blocknum,Tw_p] ,blocknum)         
+    #     z=f*[0,0,1]
+    #     if block_index_list.index(blocknum) :
+    #         block_index_list.append(blocknum)
+    #     Tw_p_list.insert( [blocknum,Tw_p] ,blocknum)         
 
 
     return Tw_p_list
 
-self = cubeassembly.CubeAssembly(orrobot)
