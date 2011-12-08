@@ -38,6 +38,7 @@
 
 を使うより
 
+{{{
 .. code-block:: bash
 
   rosinstall ~/prog
@@ -45,6 +46,7 @@
 .. code-block:: c++
 
   Robot* robot = new Robot();
+}}}
 
 どのコードかで分ければ、syntax highlightingがもっと綺麗になれるし、言語の種類を有効か無効に出来ます。
 
