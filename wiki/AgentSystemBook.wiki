@@ -13,7 +13,42 @@
 .. figure:: image
 }}}
 
+  * イメージ
+
+{{{
+.. figure:: images/name.*
+ :width: 640
+
+  This is a caption.
+}}}
+
+時々.*でイメージが見つからないので
+
+{{{
+.. figure:: images/name.eps
+}}}
+
+を指定する必要があります。
+
   * Code-blocks:
+
+::
+
+  rosinstall ~/prog
+
+を使うより
+
+.. code-block:: bash
+
+  rosinstall ~/prog
+
+.. code-block:: c++
+
+  Robot* robot = new Robot();
+
+どのコードかで分ければ、syntax highlightingがもっと綺麗になれるし、言語の種類を有効か無効に出来ます。
+
+ファイルを参照することも出来ます
 
 {{{
 .. code-block:: python
@@ -43,6 +78,17 @@
 {{{
 `これはリンクです <http://google.com>`_ 普通のテキスト。
 }}}
+
+ * タイトル
+
+===============
+ROS関連コマンド
+===============
+
+より
+
+ROS関連コマンド
+===============
 
 = 参照 =
 
