@@ -1,5 +1,6 @@
+
 <launch>
-  <!-- Run Kinect -->
+  <!-- Run Kinect ,including image_proc, mjpeg_server (port:8081) -->
   <include file="$(find beego_navigation)/setup_kinect.launch" />
   <!-- Run the map server -->
   <include file="$(find beego_navigation)/load_map.xml" />

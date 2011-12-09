@@ -1,5 +1,5 @@
 <launch>
-  <!--- Run AMCL -->
+  <!-- Run AMCL -->
   <include file="$(find beego_navigation)/beego_amcl_omni.xml" />
   <!-- Run move_base -->
   <node pkg="move_base" type="move_base" respawn="false"
