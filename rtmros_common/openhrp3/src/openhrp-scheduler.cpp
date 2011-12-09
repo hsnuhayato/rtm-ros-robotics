@@ -213,17 +213,19 @@ public:
 	ClockGenerator_impl* clockGeneratorImpl;
 	OnlineViewer_var olv;
 	ViewSimulator_var vs;
+	DynamicsSimulator::IntegrateMethod i_meth;
 
     OpenHRPScheduler()
 	{
-		gravity = 0.9;
+		gravity = 9.8;
 		totalTime = 10.0;
-		timeStep = 0.05;
-		controlTimeStep = 0.05;
-		logTimeStep = 0.100;
+		timeStep = 0.005;
+		controlTimeStep = 0.005;
+		logTimeStep = 0.050;
 		dynamicsSimulator = NULL;
 		olv = NULL;
 		vs = NULL;
+		i_meth = DynamicsSimulator::EULER;
 	}
 
     ~OpenHRPScheduler()
@@ -282,6 +284,7 @@ public:
 						} else if ( xmlStrEqual(xmlGetProp(cur_node, (xmlChar *)"name"),(xmlChar *)"gravity") ) {
 							gravity = atof((char *)(xmlGetProp(cur_node, (xmlChar *)"value")));
 						} else if ( xmlStrEqual(xmlGetProp(cur_node, (xmlChar *)"name"),(xmlChar *)"method") ) {
+							i_meth = (std::string((char *)(xmlGetProp(cur_node, (xmlChar *)"value"))) == std::string("EULER") ? DynamicsSimulator::EULER : DynamicsSimulator::RUNGE_KUTTA);
 						} else {
 							std::cerr << "[openhrp-scheduler] "
 									  << "Unknown tag : " << cur_node->name << " "
@@ -591,7 +594,7 @@ public:
 			dynamicsSimulator->registerCharacter(it->first.c_str(), it->second.body);
 		}
 
-		dynamicsSimulator->init(timeStep, DynamicsSimulator::RUNGE_KUTTA, DynamicsSimulator::ENABLE_SENSOR);
+		dynamicsSimulator->init(timeStep, i_meth, DynamicsSimulator::ENABLE_SENSOR);
 		DblSequence3 g;
 		g.length(3);
 		g[0] = 0.0;
@@ -741,7 +744,7 @@ int main(int argc, char* argv[])
 	bool use_dynamics = true, verbose = false;
 	double gravity   = 9.8;
 	double totalTime = -1;
-	double timeStep  = 0.05;
+	double timeStep  = 0.005;
 
 	struct option lngopt[] = {
 		{"nosim",     0, NULL, 0},
