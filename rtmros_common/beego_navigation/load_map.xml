@@ -1,6 +1,6 @@
 <launch>
   <node name="map_server" pkg="map_server" type="map_server"
-	args="$(find beego_navigation)/map.yaml" >
+	args="$(find beego_navigation)/akiba.yaml" >
     <param name="frame_id" value="/map"/>
   </node>
 </launch>
