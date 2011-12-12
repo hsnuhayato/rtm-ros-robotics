@@ -186,6 +186,28 @@
   (exposedfield SFVec2f windowPosition ())
   )
 
+(define-vrml-node-spec Receiver
+  nil
+  (field SFString type "radio")
+  (field SFFloat aperture -1)
+  (field SFInt32 channel 0)
+  (field SFInt32 baudRate -1)
+  (field SFInt32 byteSize 8)
+  (field SFInt32 bufferSize 4096)
+  )
+
+(define-vrml-node-spec Emitter
+  nil
+  (field SFString type "radio")
+  (field SFFloat range -1)
+  (field SFFloat maxRange -1)
+  (field SFFloat aperture -1)
+  (field SFInt32 channel 0)
+  (field SFInt32 baudRate -1)
+  (field SFInt32 byteSize 8)
+  (field SFInt32 bufferSize 4096)
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; VRML Parser
 ;;   Read VRML file and convert s-expression.
@@ -320,8 +342,9 @@
 
 (defun preprocess-for-vrml-convert-for-darwin ()
   (preprocess-for-vrml-convert (format nil "~A/build/webots/resources/projects/robots/darwin-op/protos/DARwInOP.proto" (get-rospack-find-str "webots_simulator")))
+  ;; remove subdivision field from Cylinder Node in webots vrml because subdivision field does not exist in default VRML specification. Why?
+  (unix:system "grep -v \"subdivision\" $(rospack find webots_simulator)/build/webots/resources/projects/robots/darwin-op/protos/DARwInOP.proto > /tmp/DARwInOP.proto")
   ;; rename webots Gyro -> Gyro2 because the name 'Gyro' is duplicate name
-  (unix:system "cp $(rospack find webots_simulator)/build/webots/resources/projects/robots/darwin-op/protos/DARwInOP.proto /tmp/DARwInOP.proto")
   (unix:system "sed -i -e s/Gyro/Gyro2/g /tmp/DARwInOP.proto")
   t)
 
@@ -448,6 +471,7 @@
   (send 'humanoid :put :print-field-upcase (list 'joints 'segments))
   (send 'segment :put :print-field-varname-upcase t)
   (send 'joint :put :print-field-varname-upcase t)
+  (send 'cylinder :put :print-field-upcase (list 'bottom 'side 'top))
   )
 
 ;; convert "string" -> "String"
@@ -584,11 +608,13 @@
 
 (defun replace-all-objects-for-Webots->OpenHRP3
   (rb-lis &optional (min-max-lists) (origin-list))
-  (replace-Camera->VisionSensor
-   (replace-Led->VisionSensor
-    (replace-gyro2->gyro
-     (replace-Accelerometer->AccelerationSensor
-      (replace-servo->joint rb-lis min-max-lists origin-list))))))
+  (replace-Emitter->nil
+   (replace-Receiver->nil
+    (replace-Camera->VisionSensor
+     (replace-Led->VisionSensor
+      (replace-gyro2->gyro
+       (replace-Accelerometer->AccelerationSensor
+        (replace-servo->joint rb-lis min-max-lists origin-list))))))))
 
 (defun find-vrml-node-from-node-list (lis node-name)
   (remove-if-not #'(lambda (x)
@@ -650,6 +676,10 @@
 	      (l)
 	      (let* ((sv-l (find-vrml-node-from-node-list l 'joint)))
 		(dolist (sv sv-l)
+                  (when (not openhrp-node-name)
+                    (delete-if
+                     #'(lambda (x) (find-vrml-node-from-node-list (list x) webots-node-name))
+                     (cadr (assoc 'children sv))))
 		  (let ((sv2-l (find-vrml-node-from-node-list (cadr (assoc 'children sv)) webots-node-name)))
 		    (dolist (sv2 sv2-l)
 		      ;; update node's fields
@@ -703,6 +733,20 @@
    'camera
    'visionsensor
    'camera
+   ))
+
+(defun replace-Receiver->nil (rb-lis)
+  (replace-webots-node->openhrp3-node
+   rb-lis
+   'Receiver
+   nil
+   ))
+
+(defun replace-Emitter->nil (rb-lis)
+  (replace-webots-node->openhrp3-node
+   rb-lis
+   'Emitter
+   nil
    ))
 
 (defun gather-all-objecet (rb-lis sym)
