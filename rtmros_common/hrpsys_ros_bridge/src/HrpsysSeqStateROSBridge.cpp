@@ -30,31 +30,32 @@ HrpsysSeqStateROSBridge::HrpsysSeqStateROSBridge(RTC::Manager* manager) :
   server(nh, "fullbody_controller/joint_trajectory_action", false),
   HrpsysSeqStateROSBridgeImpl(manager)
 {
+  // ros
   server.registerGoalCallback(boost::bind(&HrpsysSeqStateROSBridge::onJointTrajectoryActionGoal, this));
   server.registerPreemptCallback(boost::bind(&HrpsysSeqStateROSBridge::onJointTrajectoryActionPreempt, this));
   sendmsg_srv = nh.advertiseService(std::string("sendmsg"), &HrpsysSeqStateROSBridge::sendMsg, this);
+  joint_state_pub = nh.advertise<sensor_msgs::JointState>("joint_states", 1);
+
+  server.start();
 }
 
 HrpsysSeqStateROSBridge::~HrpsysSeqStateROSBridge() {};
 
 RTC::ReturnCode_t HrpsysSeqStateROSBridge::onFinalize() {
-  ROS_ERROR_STREAM("[HrpsysSeqStateROSBridge] @Initilize name : " << getInstanceName());
+  ROS_ERROR_STREAM("[HrpsysSeqStateROSBridge] @onFinalize : " << getInstanceName());
   server.setPreempted();
+  return RTC_OK;
 }
 
 RTC::ReturnCode_t HrpsysSeqStateROSBridge::onInitialize() {
-  // ros
-  joint_state_pub = nh.advertise<sensor_msgs::JointState>("joint_states", 1);
-
   // impl
   HrpsysSeqStateROSBridgeImpl::onInitialize();
 
   // initialize
   ROS_INFO_STREAM("[HrpsysSeqStateROSBridge] @Initilize name : " << getInstanceName());
 
-
-  RTC::Properties& prop = getProperties();
   body = new hrp::Body();
+
   std::string nameServer = m_pManager->getConfig ()["corba.nameservers"];
   int comPos = nameServer.find (",");
   if (comPos < 0)
@@ -64,9 +65,8 @@ RTC::ReturnCode_t HrpsysSeqStateROSBridge::onInitialize() {
   nameServer = nameServer.substr(0, comPos);
   ROS_INFO_STREAM("[HrpsysSeqStateROSBridge] nameserver " << nameServer.c_str());
   RTC::CorbaNaming naming(m_pManager->getORB(), nameServer.c_str());
-  CosNaming::NamingContext::_duplicate(naming.getRootContext());
   std::string modelfile =  m_pManager->getConfig ()["model"];
-  ROS_INFO_STREAM("[HrpsysSeqStateROSBridge] Errror on loading " << body);
+
   bool ret = false;
   while ( ! ret ) {
     try  {
@@ -77,12 +77,12 @@ RTC::ReturnCode_t HrpsysSeqStateROSBridge::onInitialize() {
       ROS_ERROR_STREAM("[HrpsysSeqStateROSBridge] CORBA::SystemException " << ex._name());
       sleep(1);
     } catch ( ... ) {
-      ROS_ERROR_STREAM("[HrpsysSeqStateROSBridge] failed to load model[" << prop["model"] << "]");
+      ROS_ERROR_STREAM("[HrpsysSeqStateROSBridge] failed to load model[" << modelfile << "]");
       sleep(1);
     }
   }
   if ( body == NULL ) {
-    ROS_FATAL_STREAM("[HrpsysSeqStateROSBridge] Errror on loading " << modelfile);
+    ROS_FATAL_STREAM("[HrpsysSeqStateROSBridge] Error on loading " << modelfile);
     return RTC::RTC_ERROR;
   }
 
@@ -91,8 +91,9 @@ RTC::ReturnCode_t HrpsysSeqStateROSBridge::onInitialize() {
 
   tm.tick();
 
-  server.start();
   interpolationp = false;
+
+  ROS_INFO_STREAM("[HrpsysSeqStateROSBridge] @Initilize name : " << getInstanceName() << " done");
 
   return RTC::RTC_OK;
 }
