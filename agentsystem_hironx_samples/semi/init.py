@@ -44,4 +44,5 @@ self.CreateBlocks(generategrasps=True)
 Tworld_goal = eye(4)
 Tworld_goal[0:3,3] = [0.4,0,0] # 編集が必要です
 
-
+basemanip = interfaces.BaseManipulation(orrobot)
+taskmanip=interfaces.TaskManipulation(orrobot)

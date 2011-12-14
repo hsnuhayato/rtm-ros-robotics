@@ -11,26 +11,26 @@ def plan(Tw_p,index): #Tw_p_list ---(eg) [["1",Tw_p-1],["3",Tw_p-3]]
     gmodel=self.gmodels[index]
 #    Tworld_goal=piecelist[0][1]
     Tworld_goal=eye(4)
-    Tworld_goal[0][3]=-0.2
+    Tworld_goal[0][3]=-0.1
     Tworld_goal[1][3]=-0.07
     Tworld_goal[2][3]=0.2
     #    Tworld_goal[2][3]+=100
     success = False
     for validgrasp,validindex in gmodel.validGraspIterator():
-        # 目的地への検証：目的地計算、逆運動学
+        gmodel.showgrasp(validgrasp)
         Tw_h2 = gmodel.getGlobalGraspTransform(validgrasp,collisionfree=True)
         Tw_h1 = dot(Tworld_goal, dot(inverse_matrix(Tw_p),Tw_h2)) # TODO
         with orrobot:
             gmodel.setPreshape(validgrasp)
             with gmodel.target:
                 gmodel.target.SetTransform(Tworld_goal)
-                sol = manip.FindIKSolution(Tw_h1,IkFilterOption.CheckEnvCollision)
-                if sol is None:
+                sol = manip.FindIKSolution(Tw_h1,IkFilterOptions.CheckEnvCollisions)
+                if sol is not None:
                     success = True
                     break
     assert(success)
     gmodel.showgrasp(validgrasp) # show the grasp
-
+    
     trajdata = basemanip.MoveToHandPosition(matrices=[Tw_h2],execute=False,outputtraj=True)
     traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
     return traj,Tw_h2,Tw_h1,piece_list
@@ -40,6 +40,11 @@ def plan(Tw_p,index): #Tw_p_list ---(eg) [["1",Tw_p-1],["3",Tw_p-3]]
     #4番以外のpieceが邪魔にならないかどうか調べる
 
 def pick(LorR="L"):
+    trajdata = taskmanip.CloseFingers(execute=False,outputtraj=True)[1]
+    traj = RaveCreateTrajectory(env,'').deserialize(trajdata)
+    grippervalues = traj.GetConfigurationSpecification().ExtractJointValues(traj.GetWaypoint(-1),orrobot,manip.GetGripperIndices(),0)
+    grippernames = [orrobot.GetJointFromDOFIndex(i).GetName() for i in manip.GetGripperIndices()]
+
     if LorR == "L":
         #interfaces.CloseFingers()
         angles = rr.get_joint_angles()
@@ -53,10 +58,10 @@ def release(LorR="L"):
     if LorR == "L":
         #interfaces.CloseFingers()
         angles = rr.get_joint_angles()
-#        angles[orderednames.index("LHAND_JOINT0")] = -6*pi/180
-        angles[orderednames.index("LHAND_JOINT1")] = -6*pi/180
-#        angles[orderednames.index("LHAND_JOINT2")] = 6*pi/180 
-        angles[orderednames.index("LHAND_JOINT3")] = 6*pi/180
+        angles[orderednames.index("LHAND_JOINT0")] = 16*pi/180
+        angles[orderednames.index("LHAND_JOINT1")] = 16*pi/180
+        angles[orderednames.index("LHAND_JOINT2")] = -16*pi/180 
+        angles[orderednames.index("LHAND_JOINT3")] = -16*pi/180
         rr.send_goal(angles,5.0,True)
 
 pickuporder= [5,6,2,4,1,3,0]
@@ -98,6 +103,7 @@ def execute(traj, realrobot=False,grasppiece=False):
         print dt
         print data
         if realrobot:
+
             q = rr.get_joint_angles()
             q[0] = data[0]
             q[9:15] = data[1:7]
