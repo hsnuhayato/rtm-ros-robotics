@@ -8,22 +8,25 @@ from hironx_if import *
 from openravepy import *
 
 import cubeassembly
+import time
 
 from init import *
 
 def recognize(camera='lhand'):
-    #マーカとブロックの座標の対応配列 [ブロック番号,[原点のずれ],[回転のずれ 軸,角度]]
+    #マーカとブロックの座標の対応配列 [ブロック番号,[原点のずれ],[回転のずれ]]
     Tp_m_list=[
         [0,[-0.015,-0.015,0.06],[[1,0,0],[0,1,0],[0,0,1] ],26],
         [0,[0.03,-0.015,0.015],[ [0,0,1],[1,0,0],[0,1,0] ],28],
         [0,[-0.03,-0.015,0.015],[ [0,0,-1],[0,-1,0],[-1,0,0] ],29],
         [0,[-0.015,-0.015,0.00],[ [-1,0,0],[0,1,0],[0,0,-1] ],27],
+        [0,[-0.015,-0.03,0.015],[ [0,-1,0],[0,0,-1],[1,0,0] ],7],
+        [0,[-0.015,0.03,0.015],[ [1,0,0],[0,0,1],[0,-1,0] ],30],
 
         [1,[-0.015,0.015,0.03],[ [1,0,0],[0,-1,0],[0,0,-1] ],1],
         [1,[0,0.015,0.045],[ [0,0,1],[0,-1,0],[1,0,0] ],2],
         [1,[-0.015,0.015,0.06],[ [-1,0,0],[0,-1,0],[0,0,1] ],3],
         [1,[-0.015,0.06,0.045],[ [-1,0,0],[0,0,1],[0,1,0] ],4],
-        [1,[-0.03,0.015,0.045],[ [0,0,-1],[-1,0,0],[0,1,0] ],5],
+        [1,[-0.03,0.015,0.045],[ [0,0,-1],[0,-1,0],[-1,0,0] ],5],
         [1,[-0.015,0.06,0.045],[ [1,0,0],[0,0,-1],[0,1,0] ],6],
 
         [2,[0.015,0.015,0.06],[ [1,0,0],[0,1,0],[0,0,1] ],34],
@@ -70,18 +73,35 @@ def recognize(camera='lhand'):
 
     poselist=rr.recognize(camera)
 
+    marker_id_list=[]
+
+    turn=2# 確認回数
+    for j in range(turn):
+        time.sleep(0.1) # 0.1秒置きに再認識
+        marker_id_list+=[ (rr.recognize(camera)[i][0]+1) for i in range(len(rr.recognize(camera))) ]
+    print [ (poselist[i][0]+1)  for i in range(len(poselist)) ]
+    print marker_id_list# 再認識したリスト表示
+
     Tw_p_list=[]#Tw_pのリスト
     block_index_list=[]
     k=0
 
     for i in range(0,len(poselist)):#i:何番目に認識したブロックか
+        if marker_id_list.count(poselist[i][0]+1) != turn:# 確認した回数分見えていないものは除外
+            print "mistooken.",poselist[i][0]+1,"'s marker count is",marker_id_list.count(poselist[i][0]+1)
+            continue
+
         f=ctsvc.ref.Query(camera+'cam', pose2mat(poselist[i][1]), robotframe, rr.get_joint_angles())
         f = reshape(f, (4,4))
 
+        #使ってないマーカーが見えたときはスルー
         if poselist[i][0] not in id_index:
+            print "misdiscovered",poselist[i][0]+1
             continue
 
-        blocknum=Tp_m_list[ id_index.index(poselist[i][0]) ][0]
+        print poselist[i][0]+1
+
+        blocknum=Tp_m_list[ id_index.index(poselist[i][0]) ][0]#注目しているブロック番号
 
         # vpython env => openrave env
         relvec = array([150,0,0]) + array([-450,0,-710])
