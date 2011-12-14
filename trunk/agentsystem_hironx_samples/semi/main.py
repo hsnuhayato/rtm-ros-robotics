@@ -9,9 +9,9 @@ import cubeassembly
 
 from init import *
 
-T = orrobot.GetTransform()
-T[2,3] = 0.09
-orrobot.SetTransform(T)
+#T = orrobot.GetTransform()
+#T[2,3] = 0.09
+#orrobot.SetTransform(T)
 
 rr.connect()
 
