@@ -1,11 +1,13 @@
 
 <launch>
-  <!-- Run Kinect ,including image_proc, mjpeg_server (port:8081) -->
+  <!-- Run Kinect ,including image_proc, mjpeg_server (port:8081) 
   <include file="$(find beego_navigation)/setup_kinect.launch" />
+  -->
   <!-- Run the map server -->
   <include file="$(find beego_navigation)/load_map.xml" />
   <!-- Run move_base with amcl -->
   <include file="$(find beego_navigation)/beego_move_base.xml" />
-  <!-- Run mrobot controller -->
+  <!-- Run mrobot controller 
   <include file="$(find beego_navigation)/beego_ros_bridge.launch" />
+  -->
 </launch>

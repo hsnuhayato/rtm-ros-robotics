@@ -19,10 +19,11 @@
   <node pkg="ps3joy" name="ps3joy" type="ps3joy.py" output="screen" machine="localhost"/>
   <node pkg="joy" name="joy_node" type="joy_node" output="screen"/>
   <node pkg="mrobot_ros_bridge" name="joy_teleop" type="joy_teleop.py" output="screen"/>
-  <!-- connect bridge -->
+  <!-- connect bridge
   <node name="hrpsys" pkg="hrpsys" type="hrpsyspy" output="screen"
 	args="$(find beego_navigation)/beego-connect.py" />
+   -->
   <sphinxdoc><![CDATA[
-This script starts rtm-ros bridge component, you nedd to launch joystcik related software to control the real robot.
+This script starts rtm-ros bridge component, you need to launch joystcik related software to control the real robot.
   ]]></sphinxdoc>
 </launch>
