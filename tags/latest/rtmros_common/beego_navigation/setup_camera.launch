@@ -5,4 +5,6 @@
 	name="mjpeg_server" output="screen">
     <param name="port" type="int" value="8081" />
   </node>
+  <node name="camera_throttle" pkg="topic_tools" type="throttle"
+	args="messages /camera/rgb/image_rect_color 2.0" />
 </launch>
