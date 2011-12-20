@@ -31,6 +31,9 @@ def sync_main(duration=4.0, joints='all', wait=True, waitkey=True):
     '''synchronize the real robot with the model in "duration" [sec]'''
     if rr:
         js = r.get_joint_angles()
+        rr.send_goal(js, duration, wait=wait)
+        return
+
         if joints == 'torso':
             rr.send_goal([js[0:3],[],[],[],[]], duration, wait=wait)
         elif joints == 'rarm':
@@ -107,8 +110,7 @@ def unfix(obj, hand='right'):
     wldfrm = obj.where()
     obj.unfix()
     wld = env.get_world()
-    if not (obj in wld.children):
-        wld.children.append(obj)
+    wld.children.append(obj)
     obj.affix(wld, wldfrm)
 
 
