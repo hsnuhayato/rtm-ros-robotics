@@ -603,8 +603,38 @@ Subversionは以下のような特徴を持つ．
 * 管理対象のファイル・ディレクトリの移動や削除を行うことができるため，開発するフォルダの構成が決まっていない開発初期段階からバージョン管理を行うことができる．
 * クライアントとサーバの通信にsshをサポートしているため，インターネットを介したサーバとのデータのやりとりもセキュリティを保つことができる．
 
+以下にSubversionを利用する場合のシステム構成について示す．
+
+.. figure:: images/doc_subversion_structure.*
+
+  Subversionのシステム構成
+
+      .. csv-table:: Subversionクライアントソフトウェアの操作一覧
+         :header: "操作名", "内容"
+         :widths: 30, 80
+
+         "checkout","リポジトリから作業コピーをチェックアウトします"
+         "commit","作業コピーの変更点をリポジトリに送り，変更点を確定する"
+         "update","作業コピーを更新します"
+         "add","ファイル，ディレクトリ，シンボリックリンクをバージョン管理対象に追加します(commitで確定)"
+         "delete","作業コピーやリポジトリから項目(ファイルなど)を削除します(commitで確定)"
+         "copy","作業コピーやリポジトリ中の，ファイルやディレクトリをコピーします(commitで確定)"
+         "move","ファイルやディレクトリを移動します(commitで確定)"
+         "mkdir","バージョン管理下に新しいディレクトリを作成します(commitで確定)"
+         "revert","ローカルファイルへのすべての編集を取り消します"
+         "import","バージョン管理外のファイルやツリーを，リポジトリにコミットします"
+         "diff","二つのパスやリビジョン間の差分を表示します"
+         "status","作業コピーにあるファイルやディレクトリの状態を表示します"
+         "info","ローカル，あるいはリモートパスにある項目についての情報を表示します"
+
 導入
 ^^^^
+
+Subversionはクライアント-サーバのシステム構成をとるため，本誌ではSubversionのクライアントソフトウェア，サーバソフトウェアを以下の構成で導入する．
+
+.. figure:: images/doc_subversion_install_structure.*
+
+  Subversion導入時のシステム構成
 
 Subversionの導入手順(Windows編，Linux編)を以降に示す．
 
@@ -612,32 +642,229 @@ Subversionの導入手順(Windows編，Linux編)を以降に示す．
 
 WindowsにSubversionを導入する手順は以下の通り．
 
-* Subversionのインストール
-* Subversionの利用例
+* Subversionサーバソフトウェアのインストール
+* Subversionクライアントソフトウェアのインストール
 
-1 *Subversionのインストール*
+1 *Subversionサーバソフトウェアのインストール*
 
-2 *Subversionの利用例*
+\(1\) Subversionサーバソフトウェアのインストーラのダウンロード
+
+* Internet Explorer等のWebブラウザを利用し，http://subversion.apache.org/packages.htmlの画面を開く．
+* 画面下部にあるWindowsから環境に応じて以下のソフトウェアのいずれかのリンクをクリックする．
+  (本誌ではVisualSVNを利用する．)
+
+      .. csv-table:: Subversionサーバソフトウェアの一覧
+         :header: "ソフトウェア", "内容"
+         :widths: 100, 200
+
+         "VisualSVN","VisualSVNによってサポート/メンテナンスされている．client and serverを含む．"
+         "WANdisco","WANdiscoによってサポート/メンテナンスされている．32/64-bit client and serverを含む．"
+         "Win32Svn","David Darjによってメンテナンスされている．32-bit client, server and bindings, MSI and ZIPs．"
+
+* ダウンロード画面から「Apache Subversion command line tools」の右のDownloadリンクをクリックする．(2011年12月執筆時点の最新版Apache-Subversion-1.7.2.zipを取得)
+
+\(2\) Subversionサーバソフトウェアのインストール
+
+* ダウンロードした「Apache-Subversion-1.7.2.zip」を解凍する．
+* 解凍したフォルダのbinをPATH環境変数に追加する．例) C:\Apache-Subversion-1.7.2\binをPATHに追加する．
+
+2 *Subversionクライアントソフトウェアのインストール*
+
+\(1\) Subversionクライアントソフトウェアのインストーラのダウンロード
+
+* Internet Explorer等のWebブラウザを利用し，http://tortoisesvn.net/の画面を開く．
+* 画面上部のDownloadsリンクをクリックし，表示された画面の「TortoiseSVN 32-Bit」のリンクをクリックする．
+
+  .. warning::
+
+     上記のインストーラは32bit版であり，64bit版を利用している場合は「TortoiseSVN 64-Bit」リンクをクリックすること．
+
+* ダウンロードした「TortoiseSVN-1.7.3.22386-win32-svn-1.7.2.msi」ファイルをダブルクリックする．
+* 支持に従ってインストールを行う．なお，インストール画面は以下の通り．
+
+.. figure:: images/doc_tortoiseclient_install-1.*
+
+  Subversionクライアントソフトウェアのインストール(その1)
+
+.. figure:: images/doc_tortoiseclient_install-2.*
+
+  Subversionクライアントソフトウェアのインストール(その2)
+
+.. figure:: images/doc_tortoiseclient_install-3.*
+
+  Subversionクライアントソフトウェアのインストール(その3)
+
+.. figure:: images/doc_tortoiseclient_install-4.*
+
+  Subversionクライアントソフトウェアのインストール(その4)
+
+.. figure:: images/doc_tortoiseclient_install-5.*
+
+  Subversionクライアントソフトウェアのインストール(その5)
+
+..
+
 
 `Linux編`
 
-LinuxにSubversionを導入する手順は以下の通り．
+ ※ Linux(Ubuntu)にはSubversionのクライアント/サーバソフトウェアがデフォルトでインストールされているため実施事項はない．
 
-* Subversionのインストール
-* Subversionの利用例
+利用例
+^^^^^^
 
-1 *Subversionのインストール*
+Subversionの利用例(Windows編，Linux編)を以降に示す．
 
-2 *Subversionの利用例*
+`Windows編`
+
+\(1\) Subversion利用準備
+
+* リポジトリディレクトリの作成
+.. code-block:: commandprompt
+
+   svnadmin  create C:\repository
+
+- 匿名アクセスのアクセス権限の設定(匿名ユーザにコミット権限を与える場合)
+
+ - 「C:\repository\conf\svnserve.conf」ファイルを開く
+ - 19行目あたりの行を以下のように修正し，保存する．
+.. code-block:: commandprompt
+
+   修正前 : # anon-access = read
+   修正後 : anon-access = write
+
+- trunkディレクトリの作成
+.. code-block:: commandprompt
+
+   svn mkdir file:///C:\repository/trunk -m "mkdir trunk"
+
+* リポジトリに「trunk」フォルダをimportする．(trunk/testDir/a.txtというデータを用意しておくこと)
+.. code-block:: commandprompt
+
+   svn import trunk file:///C:\repository/trunk/ -m "Initial import"
+
+\(2\) Subversionサーバソフトウェアの準備
+
+* Subversionサーバソフトウェアの起動
+.. code-block:: commandprompt
+
+   svnserve -d -r C:\repository\
+
+   ※ Subversionサーバソフトウェアの停止は，svnserveプロセスの停止で行う．
+
+\(3\) Subversionクライアントソフトウェアの利用例
+
+* リポジトリから作業コピーディレクトリにcheckout
+
+ * Cドライブ直下にsampleフォルダを作成する．(任意)
+ * sampleフォルダ内に移動し，右クリック＞「SVN Checkout...」の選択する．
+ * Checkout画面のURL of repository下のテキストフィールドに「svn://localhost/trunk」と入力し，OKボタンを押す．
+
+.. figure:: images/doc_subversion_usecase-1.*
+
+  Subversionチェックアウト画面
+
+* ファイルの修正/コミット
+
+ * testDir/a.txtを修正する．
+ * testDirフォルダ上で右クリック＞「SVN Commit...」を選択する．
+ * 表示された画面でOKボタンを押す．
+
+* 新しいファイルの追加/コミット
+
+ * testDirフォルダ内にb.txtを作成する．
+ * b.txtを選択し，右クリック＞「TortoiseSVN＞「Add」を選択する．
+ * testDirフォルダ上で右クリック＞「SVN Commit...」を選択する．
+ * 表示された画面でOKボタンを押す．
+
+.. figure:: images/doc_subversion_usecase-2.*
+
+  Subversion登録後の画面
+
+* 他の人が修正したファイルの取得
+
+ * 他の人がa.txtファイルを修正し，コミットしていた場合，testDirフォルダ上で，右クリック＞「SVN Update...」を選択する．
 
 
+`Linux編`
+
+\(1\) Subversion利用準備
+
+* リポジトリディレクトリの作成
+.. code-block:: commandprompt
+
+   svnadmin  create /var/svn_rep/repository
+
+* 匿名アクセスのアクセス権限の設定(匿名ユーザにコミット権限を与える場合)
+
+ * 「./repository/conf/svnserve.conf」ファイルを開く
+ * 12行目あたりの行を以下のように修正し，保存する．
+.. code-block:: bash
+
+   修正前 : # anon-access = read
+   修正後 : anon-access = write
+
+* trunkディレクトリの作成
+.. code-block:: commandprompt
+
+   svn mkdir file:///var/svn_rep/repository/trunk -m "mkdir trunk"
+
+* リポジトリに「trunk」ディレクトリをimportする．(trunk/testDir/a.txtというデータを用意しておくこと)
+.. code-block:: commandprompt
+
+   svn import trunk file:///var/svn_rep/repository/trunk/ -m "Initial import"
+
+\(2\) Subversionサーバソフトウェアの準備
+
+* Subversionサーバソフトウェアの起動
+.. code-block:: commandprompt
+
+   svnserve -d -r /var/svn_rep/repository
+
+   ※ Subversionサーバソフトウェアの停止は，svnserveプロセスの停止で行う．
+
+\(3\) Subversionクライアントソフトウェアの利用例
+
+* リポジトリから作業コピーディレクトリにcheckout
+
+ * ホーム直下にsampleディレクトリを作成する．(任意)
+ * sampleディレクトリに移動し，データをチェックアウトする．
+.. code-block:: bash
+
+   svn checkout svn://localhost/trunk
+
+* ファイルの修正/コミット
+
+ * testDir/a.txtを修正する．
+ * コミットする
+.. code-block:: bash
+
+   svn status
+   M     testDir/a.txt  <-- Mは修正されていることを意味する
+
+   svn commit -m "test commit"
+
+* 新しいファイルの追加/コミット
+
+ * testDirディレクトリ内にb.txtを作成する．
+ * b.txtを追加し、コミットする．
+.. code-block:: bash
+
+   svn add testDir/b.txt
+   A     testDir/b.txt
+   svn commit testDir/b.txt -m "test commit"
+
+* 他の人が修正したファイルの取得
+
+ * 他の人がa.txtファイルを修正し，コミットしていた場合updateする．
+.. code-block:: bash
+
+   svn update
 
 Git
 ---
 
 概要
 ^^^^
-
 Gitとは，無償で利用できる分散型のバージョン管理システムの一つであり，Linuxカーネルのソースコード管理を目的として，リーナス・トーバルズによって開発された．
 Windows，Mac，Linuxなど多くのOS上で利用することができる．
 Gitはクライアント-サーバモデルというシステム構成をとり，バージョン管理するデータはサーバ側の中央リポジトリ，クライアント側のローカルリポジトリと呼ばれるところでGitにより管理される．
@@ -653,8 +880,38 @@ Gitは以下のような特徴を持つ．
 * 動作速度に重点が置かれたシステムである．
 * リポジトリへのアクセスプロトコルには，ローカル，ssh，rsync，Git 独自プロトコル，WebDAVなどがある．
 
+以下にGitを利用する場合のシステム構成について示す．
+
+.. comment
+
+   .. figure:: images/doc_git_structure.*
+
+   Gitのシステム構成
+
+..
+
+      .. csv-table:: Gitクライアントソフトウェアの操作一覧
+         :header: "操作名", "内容"
+         :widths: 30, 80
+
+         "add","ファイル，ディレクトリ，シンボリックリンクをバージョン管理対象に追加する"
+         "clone","新しいディレクトリ内にリポジトリのクローンを作成する"
+         "commit","作業コピーの変更点をリポジトリに送り，変更点を確定する"
+         "diff","二つのパスやリビジョン間の差分を表示する"
+         "init","空のリポジトリを作成する"
+         "mv","ファイルやディレクトリを移動する(commitで確定)"
+         "pull","MasterリポジトリからLocalリポジトリにデータを転送する"
+         "push","LocalリポジトリからMasterリポジトリにデータを転送する"
+         "rm","作業コピーやリポジトリから項目(ファイルなど)を削除する(commitで確定)"
+
 導入
 ^^^^
+
+Gitはクライアント-サーバのシステム構成をとるため，本誌ではGitのクライアントソフトウェア，サーバソフトウェアを以下の構成で導入する．
+
+.. figure:: images/doc_git_install_structure.*
+
+  Git導入時のシステム構成
 
 Gitの導入手順(Windows編，Linux編)を以降に示す．
 
@@ -662,25 +919,244 @@ Gitの導入手順(Windows編，Linux編)を以降に示す．
 
 WindowsにGitを導入する手順は以下の通り．
 
-* Gitのインストール
-* Gitの利用例
+* Gitサーバソフトウェアのインストール
+* Gitクライアントソフトウェアのインストール
 
-1 *Gitのインストール*
+1 *Gitサーバソフトウェアのインストール*
 
-2 *Gitの利用例*
+\(1\) Gitサーバソフトウェアのインストーラのダウンロード
+
+* Internet Explorer等のWebブラウザを利用し，Gitのサーバソフトウェアであるmsysgitをダウンロードするhttp://code.google.com/p/msysgit/downloads/listの画面を開く．
+* Git-1.7.8-preview20111206.exe(2011年12月執筆時点)のリンクをクリックする．
+
+\(2\) Gitサーバソフトウェアのインストール
+
+* ダウンロードした「Git-1.7.8-preview20111206.exe」を実行する．
+* 支持に従ってインストールを行う．なお，インストール画面は以下の通り．
+
+.. figure:: images/doc_git_install-1.*
+
+  Gitクライアントソフトウェアのインストール(その1)
+
+.. figure:: images/doc_git_install-2.*
+
+  Gitクライアントソフトウェアのインストール(その2)
+
+.. figure:: images/doc_git_install-3.*
+
+  Gitクライアントソフトウェアのインストール(その3)
+
+.. figure:: images/doc_git_install-4.*
+
+  Gitクライアントソフトウェアのインストール(その4)
+
+.. figure:: images/doc_git_install-5.*
+
+  Gitクライアントソフトウェアのインストール(その5)
+
+.. figure:: images/doc_git_install-6.*
+
+  Gitクライアントソフトウェアのインストール(その6)
+
+.. figure:: images/doc_git_install-7.*
+
+  Gitクライアントソフトウェアのインストール(その7)
+
+..
+
+2 *Gitクライアントソフトウェアのインストール*
+
+ ※ msysgitはGitクライアントソフトウェアの機能も持つため，本作業は不要．
 
 `Linux編`
 
-LinuxにGitを導入する手順は以下の通り．
-
-* Gitのインストール
-* Gitの利用例
-
 1 *Gitのインストール*
 
-2 *Gitの利用例*
+\(1\) Gitのインストール
+.. code-block:: bash
 
+   sudo aptitude install git-core
 
+.. comment
+
+   p1414@p1414-desktop:~$ sudo aptitude install git-core
+   [sudo] password for p1414:
+   Sorry, try again.
+   [sudo] password for p1414:
+   パッケージリストを読み込んでいます... 完了
+   依存関係ツリーを作成しています
+   状態情報を読み取っています... 完了
+   拡張状態情報を読み込んでいます
+   パッケージの状態を初期化しています... 完了
+   拡張状態情報を書き込んでいます... 完了
+   以下の新規パッケージがインストールされます:
+     git-core libdigest-sha1-perl{a} liberror-perl{a} patch{a}
+   0 個のパッケージを更新、 4 個を新たにインストール、 0 個を削除予定、206 個が更新されていない。
+   6,315kB のアーカイブを取得する必要があります。 展開後に 13.1MB のディスク領域が新たに消費されます。
+   先に進みますか? [Y/n/?] Y
+   拡張状態情報を書き込んでいます... 完了
+   取得:1 http://jp.archive.ubuntu.com/ubuntu/ lucid/main liberror-perl 0.17-1 [23.8kB]
+   取得:2 http://jp.archive.ubuntu.com/ubuntu/ lucid/main libdigest-sha1-perl 2.12-1build1 [26.7kB]
+   取得:3 http://jp.archive.ubuntu.com/ubuntu/ lucid-updates/main git-core 1:1.7.0.4-1ubuntu0.2 [6,143kB]
+   取得:4 http://jp.archive.ubuntu.com/ubuntu/ lucid/main patch 2.6-2ubuntu1 [121kB]
+   6,315kB を 15s 秒でダウンロードしました (406kB/s)
+   未選択パッケージ liberror-perl を選択しています。
+   (データベースを読み込んでいます ... 現在 156889 個のファイルとディレクトリがインストールされています。)
+   (.../liberror-perl_0.17-1_all.deb から) liberror-perl を展開しています...
+   未選択パッケージ libdigest-sha1-perl を選択しています。
+   (.../libdigest-sha1-perl_2.12-1build1_amd64.deb から) libdigest-sha1-perl を展開しています...
+   未選択パッケージ git-core を選択しています。
+   (.../git-core_1%3a1.7.0.4-1ubuntu0.2_amd64.deb から) git-core を展開しています...
+   未選択パッケージ patch を選択しています。
+   (.../patch_2.6-2ubuntu1_amd64.deb から) patch を展開しています...
+   man-db のトリガを処理しています ...
+   liberror-perl (0.17-1) を設定しています ...
+   libdigest-sha1-perl (2.12-1build1) を設定しています ...
+   git-core (1:1.7.0.4-1ubuntu0.2) を設定しています ...
+   patch (2.6-2ubuntu1) を設定しています ...
+   パッケージリストを読み込んでいます... 完了
+   依存関係ツリーを作成しています
+   状態情報を読み取っています... 完了
+   拡張状態情報を読み込んでいます
+   パッケージの状態を初期化しています... 完了
+   拡張状態情報を書き込んでいます... 完了
+
+   p1414@p1414-desktop:~$
+
+..
+
+利用例
+^^^^^^
+
+Gitの利用例(Windows編，Linux編)を以降に示す．
+
+`Windows編`
+
+\(1\) Git利用例
+
+* Gitユーザの登録
+ * Git Bashの実行
+ * Gitユーザの登録
+.. code-block:: bash
+
+   git config --global user.name "testUser"
+
+* Local1リポジトリディレクトリの作成
+ * Git Bashを実行し、Git Bash画面から「C:\gitrep\」フォルダ，リポジトリの作成を行う．
+.. code-block:: bash
+
+   mkdir /c/glocal1
+   cd /c/glocal1
+   git init
+
+* Masterリポジトリディレクトリの作成
+ * Git Bashを実行し、Git Bash画面から「C:\gitrep\」フォルダ，リポジトリの作成を行う．
+.. code-block:: bash
+
+   mkdir /c/gmaster
+   cd /c/gmaster
+   git --bare init
+
+* Local1リポジトリにファイルのコミット
+ * Git Bashを起動し，以下を実行する．
+.. code-block:: bash
+
+   cd /c/glocal1
+   touch first
+   git add first
+   git commit first -m "first commit"
+
+* Local1リポジトリ(master)をMasterリポジトリ(origin)にプッシュ
+ * Git Bashを起動し，以下を実行する．
+
+.. code-block:: bash
+
+   cd /c/glocal1
+   git remote add origin /c/gmaster
+   git push origin master
+
+* Masterリポジトリ(origin)の作業コピーディレクトリ(Local2リポジトリ)を作成する．
+ * Git Bashを起動し，以下を実行する．
+.. code-block:: bash
+
+   mkdir /c/glocal2
+   cd /c/glocal2
+   git clone /c/gmaster
+
+* Local2リポジトリに追加したファイルをLocal1リポジトリに反映
+ * Git Bashを起動し，以下を実行する．
+.. code-block:: bash
+
+   cd /c/glocal2/gmaster
+   touch second
+   git add second
+   git commit second -m "second commit"
+   git push origin master 
+
+   cd /c/glocal1
+   git pull origin master
+
+..
+
+`Linux編`
+
+\(1\) Git利用例
+
+* Gitユーザの登録
+.. code-block:: bash
+
+   git config --global user.name "testUser"
+
+* Local1リポジトリディレクトリの作成
+ * /home/p1414/glocal1というリポジトリの作成を行う．
+.. code-block:: bash
+
+   mkdir /home/p1414/glocal1
+   cd /home/p1414/glocal1
+   git init
+
+* Masterリポジトリディレクトリの作成
+ * /home/p1414/gmasterというリポジトリの作成を行う．
+.. code-block:: bash
+
+   mkdir /home/p1414/gmaster
+   cd /home/p1414/gmaster
+   git --bare init
+
+* Local1リポジトリにファイルのコミット
+.. code-block:: bash
+
+   cd /home/p1414/glocal1
+   touch first
+   git add first
+   git commit first -m "first commit"
+
+* Local1リポジトリ(master)をMasterリポジトリ(origin)にプッシュ
+.. code-block:: bash
+
+   cd /home/p1414/glocal1
+   git remote add origin /home/p1414/gmaster
+   git push origin master
+
+* Masterリポジトリ(origin)の作業コピーディレクトリ(Local2リポジトリ)を作成する．
+ * Git Bashを起動し，以下を実行する．
+.. code-block:: bash
+
+   mkdir /home/p1414/glocal2
+   cd /home/p1414/glocal2
+   git clone /home/p1414/gmaster
+
+* Local2リポジトリに追加したファイルをLocal1リポジトリに反映
+.. code-block:: bash
+
+   cd /home/p1414/glocal2/gmaster
+   touch second
+   git add second
+   git commit second -m "second commit"
+   git push origin master 
+
+   cd /home/p1414/glocal1
+   git pull origin master
 
 Sourceforge.JP
 --------------
