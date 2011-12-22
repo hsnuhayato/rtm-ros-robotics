@@ -4,20 +4,20 @@
 ドキュメントの必要性
 --------------------
 
-ソフトウェア開発には以下のような特徴がある．
+ソフトウェア開発におけるドキュメント(主に，設計書を示す）の必要性について示す．
+まず，ソフトウェア開発には以下のような特徴がある．
 
 * ソフトウェア開発は，「設計」→「実装」→「試験」の手順で行う．
 * ソフトウェア開発は，作成するソフトウェアの規模，期間に応じ，1人から複数人で行う．
 * 一度作成したソフトウェアに対する不具合の対応，機能追加を行うことがある．機能追加前後の開発者が異なることもある．
 
-よって，以下の理由により，ドキュメントが必要である．
+複数の人で開発を行う場合は，ソフトウェアの設計情報を共有する必要があり，また，一度作成したソフトウェアに対する不具合の対応，機能追加を行うような場合，どのような構成でソフトウェアが作成されているかを確認する必要があるため．
+よって，ソフトウェア開発を行う際には，ドキュメントをしっかり作成しておく必要がある．
 
-* 複数の人で開発を行う場合は，ソフトウェアの設計情報を共有する必要があるため．
-* 一度作成したソフトウェアに対する不具合の対応，機能追加を行うような場合，どのような構成でソフトウェアが作成されているかを確認する必要があるため．
+..
 
-ここで，ドキュメントの作成には，従来Microsoft OfficeのWordなどの専用のソフトウェアを利用することが多かったと思われる．専用のソフトウェアの場合，ソフトウェアがインストールされた端末でしかドキュメントが作成できない，GUIの作業環境が必要であるなどの問題点があった．
-
-これらの問題を解決する方法の一つとして，現在注目を浴びているreStructruedTextというマークアップ言語，Sphinxというソフトウェアを以降の章で紹介する．
+ここで，ドキュメントの作成には，従来Microsoft OfficeのWordなどの専用のソフトウェアを利用することが多かったと思われる．専用のソフトウェアの場合，ソフトウェアがインストールされた計算機上でしかドキュメントを作成することができない，また，GUIの作業環境が必要であるなどの問題点があった．
+これらの問題を解決する方法の一つとして，現在注目を浴びているreStructruedTextというマークアップ言語，Sphinxというソフトウェアを用いたドキュメント作成方法を以降の章で紹介する．
 
 reStructuredText / Sphinx
 --------------------------
@@ -29,15 +29,15 @@ reStructuredTextとは，文書の構造や表示の仕方などを定義した�
 reStructuredText は RST，ReST，reSTと略されることもある．
 reStructuredTextの特徴は以下の通り．
 
-* テキスト形式で記述するため，OSに標準でインストールされているメモ帳などのテキストエディタで作成することができる．(専用のソフトウェアのインストールは不要)
+* テキスト形式で記述するため，計算機に標準でインストールされているメモ帳などのテキストエディタで作成することができる．(専用のソフトウェアのインストールは不要．つまり，ドキュメント開発を行う計算機はどれでも良い)
 * ソースコードの状態でも高い可読性を持っている．
 * reStructuredTextで記述された文書はPDF，HTML，XML，LaTeXなど複数の形式の文書に変換することができる．
 
-Sphinxはドキュメントを簡単に作れるようにするためのソフトウェアである．
+Sphinxとはドキュメントを簡単に作れるようにするためのソフトウェアである．
 SphinxはreStructuredTextをマークアップ言語として使用しており，作成したドキュメントをHTML，PDFなどの形式に変換することができる．
-SphinxはreStructuredTextの特徴は以下の通り．
+Sphinxの特徴は以下の通り．
 
-* 実行環境はWindows/Linux/Mac OS，Python 2.4以上(TODO: 再度確認)のインストールが必要である．
+* 実行環境はWindows/Linux/Mac OS，Python 2.4以上のインストールが必要である．
 * 出力フォーマットはPDF，HTML，XML，LaTeX，ePubなどをサポートしている．
 * 引用，用語解説，ソースコードへのクロスリファレンス機能．
 * 引用したソースコードを自動でハイライトする機能．
@@ -46,19 +46,19 @@ SphinxはreStructuredTextの特徴は以下の通り．
 導入
 ^^^^
 
-SphinxはPythonを利用して作成されていることから，SphinxのインストールにはPython，Sphinxの両方が必要となる．Sphinxの導入手順(Windows編，Linux編)を以降に示す．
+以降に，Sphinxを導入するための手順を示す．なお，SphinxはPythonで作成されていることからPythonが実行できる環境であればどこでも動作する．
+よって，本誌ではWindows，Linuxそれぞれの環境にPythonのeasy_install(パッケージ管理システムからPythonのモジュールを自動で検索してインストールやアップデートしてくれるツール)を利用した導入手順を示す．
 
-`Windows編`
+`Windows`
 
 WindowsにSphinxを導入する手順は以下の通り．
 
 * Pythonのインストール
 * easy_installのインストール
 * Sphinxのインストール
-* Sphinxプロジェクトの作成
 
 1 *Pythonのインストール*
-  
+
 Pythonのインストール手順を示す．なお，既にインストールされている場合は，本手順は不要である．
 
 \(1\) Pythonのインストーラのダウンロード
@@ -103,14 +103,14 @@ easy_installのインストール手順を示す．なお，既にインスト�
 
 \(1\) easy_installファイルのダウンロード
 
- * Internet Explorer等のWebブラウザを利用し，http://peak.telecommunity.com/dist/ez_setup.py の画面を開く．
- * 表示された画面上で右クリックをし，「名前を付けてページを保存」を実行する．なお，その際に保存するファイル名は「ez_setup.py」とし，Cドライブ直下に保存する．
+* Internet Explorer等のWebブラウザを利用し，http://peak.telecommunity.com/dist/ez_setup.py の画面を開く．
+* 表示された画面上で右クリックをし，「名前を付けてページを保存」を実行する．なお，その際に保存するファイル名は「ez_setup.py」とし，Cドライブ直下に保存する．
 
 \(2\) easy_installのインストール
 
- * コマンドプロンプト画面を開く．（コマンドプロンプト画面は，スタート->プログラム->アクセサリ->コマンドプロンプト の手順で表示することができる）
- * コマンドプロンプト画面からCドライブ直下に移動する．(コマンドプロンプト画面で「cd C:\\」を入力後，Enterを押すことでCドライブ直下に移動できる)
- * コマンドプロンプト画面で「python ez_setup.py」を入力後，Enterを押す．
+* コマンドプロンプト画面を開く．（コマンドプロンプト画面は，スタート->プログラム->アクセサリ->コマンドプロンプト の手順で表示することができる）
+* コマンドプロンプト画面からCドライブ直下に移動する．(コマンドプロンプト画面で「cd C:\\」を入力後，Enterを押すことでCドライブ直下に移動できる)
+* コマンドプロンプト画面で「python ez_setup.py」を入力後，Enterを押す．
 
 ..
 
@@ -120,10 +120,7 @@ easy_installのインストール手順を示す．なお，既にインスト�
 
 ..
 
-
 3 *Sphinxのインストール*
-
-Sphinxのインストール手順を示す．
 
 \(1\) Sphinxのインストール
 
@@ -136,186 +133,10 @@ Sphinxのインストール手順を示す．
 
 ..
 
+`Linux`
 
-4 *Sphinxのプロジェクト作成*
-
-Sphinxではプロジェクトという単位で関連ドキュメントを作成する．プロジェクトを作成する手順は以下の通り．
-
-* sphinx-quickstartの実行
-* ページ構成の作成
-
-なお，プロジェクト情報は以下として作成する．
-
-      .. csv-table:: Sphinxのプロジェクト情報(Windows編)
-         :header: "項目", "内容"
-         :widths: 20, 20
-
-         "プロジェクトの作成場所","C:\\sample-project"
-         "プロジェクト名","sample-project"
-         "バージョン番号","2012.01.01"
-
-..
-..
-
-4.1 *sphinx-quickstartの実行*
-
-sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンドである．実行手順を以下に示す．
-
-\(1\) sphinx-quickstartの実行
-
-* sphinx-quickstartの実行
-* ページ構成の作成
-* コマンドプロンプト画面を開く．
-* コマンドプロンプト画面で「mkdir C:\\sample-project」を入力後，Enterを押し，プロジェクトフォルダを作成する．
-* コマンドプロンプト画面からC:\\sample-project直下に移動する．(コマンドプロンプト画面で「cd C:\\sample-project」を入力後，Enterを押すことで移動できる)
-* コマンドプロンプト画面で「sphinx-quickstart」を入力後，Enterを押し，プロジェクト情報を入力する．なお，以降の★で示す，「プロジェクト名」，「バージョン番号」，「著者の名前」以外はデフォルトでも特に問題ない．詳細は 「Sphinxの日本ユーザ会」のページを参照．http://sphinx-users.jp/gettingstarted/sphinxquickstart.html．
-
-   .. code-block:: bash
-     :linenos:
-   
-     C:\sample-project>sphinx-quickstart
-     Welcome to the Sphinx 1.1 quickstart utility.
-   
-     Please enter values for the following settings (just press Enter to
-     accept a default value, if one is given in brackets).
-   
-     Enter the root path for documentation.
-     > Root path for the documentation [.]:
-   
-     You have two options for placing the build directory for Sphinx output.
-     Either, you use a directory "_build" within the root path, or you separate
-     "source" and "build" directories within the root path.
-     > Separate source and build directories (y/N) [n]:
-   
-     Inside the root directory, two more directories will be created; 
-     "_templates"
-     for custom HTML templates and "_static" for custom stylesheets and other 
-     static files. You can enter another prefix (such as ".") to replace 
-     the underscore.
-     > Name prefix for templates and static dir [_]:
-   
-     The project name will occur in several places in the built documentation.
-     > Project name: sample-project  <--- ★プロジェクト名
-     > Author name(s): sample        <--- ★著者の名前
-   
-     Sphinx has the notion of a "version" and a "release" for the
-     software. Each version can have multiple releases. For example, for
-     Python the version is something like 2.5 or 3.0, while the release is
-     something like 2.5.1 or 3.0a1.  If you do not need this dual structure,
-     just set both to the same value.
-     > Project version: 2012.01.01   <--- ★バージョン番号
-     > Project release [2012.01.01]:
-   
-     The file name suffix for source files. Commonly, this is either ".txt"
-     or ".rst".  Only files with this suffix are considered documents.
-     > Source file suffix [.rst]:
-   
-     One document is special in that it is considered the top node of the
-     "contents tree", that is, it is the root of the hierarchical structure
-     of the documents. Normally, this is "index", but if your "index"
-     document is a custom template, you can also set this to another filename.
-     > Name of your master document (without suffix) [index]:
-   
-     Sphinx can also add configuration for epub output:
-     > Do you want to use the epub builder (y/N) [n]:
-   
-     Please indicate if you want to use one of the following Sphinx extensions:
-     > autodoc: automatically insert docstrings from modules (y/N) [n]:
-     > doctest: automatically test code snippets in doctest blocks (y/N) [n]:
-     > intersphinx: link between 
-     > Sphinx documentation of different projects (y/N) [n]:
-     > todo: write "todo" entries that can be shown or hidden on build (y/N) [n]:
-     > coverage: checks for documentation coverage (y/N) [n]:
-     > pngmath: include math, rendered as PNG images (y/N) [n]:
-     > mathjax: include math, rendered in the browser by MathJax (y/N) [n]:
-     > ifconfig: conditional inclusion of content based on 
-     > config values (y/N) [n]:
-     > viewcode: include links to the source code of documented 
-     > Python objects (y/N) [n]:
-   
-     A Makefile and a Windows command file can be generated for you so that you
-     only have to run e.g. make html instead of invoking sphinx-build
-     directly.
-     > Create Makefile? (Y/n) [y]:
-     > Create Windows command file? (Y/n) [y]:
-   
-     Creating file .\conf.py.
-     Creating file .\index.rst.
-     Creating file .\Makefile.
-     Creating file .\make.bat.
-   
-     Finished: An initial directory structure has been created.
-   
-     You should now populate your master file .\index.rst and create other 
-     documentation source files. Use the Makefile to build the docs, like so:
-        make builder
-     where "builder" is one of the supported builders, 
-     e.g. html, latex or linkcheck.
-   
-   
-     C:\sample-project>
-
-4.2 *ページ構成の作成*
-
-sphinx-quickstartで作成したプロジェクト内にドキュメントを作成する．
-なお，ページ構成は以下とする．
-
-  ::
-
-    index.rst
-      +- sample1.rst
-      +- sample2.rst
-
-\(1\) rstファイルの作成
-
-* C:\\sample-project直下にindex.rst，sample1.rst，sample2.rstファイルを作成する．
-
-     *index.rst*
-
-     .. code-block:: rst
-        :linenos:
-
-        ロボット開発環境
-        ----------------
-
-        Contents:
-
-        .. toctree::
-           :maxdepth: 2
-
-           sample1
-           sample2
-
-     *sample1.rst*
-
-     .. code-block:: rst
-        :linenos:
-
-        ==================================
-        ドキュメンテーションフレームワーク
-        ==================================
-
-     *sample2.rst*
-
-     .. code-block:: rst
-        :linenos:
-
-        ==========================
-        テスティングフレームワーク
-        ==========================
-
-..
-
-\(2\) htmlファイルの作成
-
-* コマンドプロンプト画面を開き，C:\\sample-projectに移動する．
-* コマンドプロンプト画面に「make html」を入力後，Enterを押し，htmlファイルを作成する．(C:\\sample-project\\_build\\html\\index.htmlがある)
-
-
-`Linux編`
-
-Linux(Ubuntu)にSphinxをインストールする方法は，「パッケージシステムを利用したインストール」と「手動インストール」の2つある．
-「手動インストール」については，Sphinxのインストール(Windows編)の「2 easy_installのインストール」，「3 Sphinxのインストール」と同様である．
+Linux(Ubuntu)にSphinxをインストールする方法は，「パッケージシステムを利用したインストール」と「手動インストール」の2つがある．
+「手動インストール」については，Sphinxのインストール(Windows)の「2 easy_installのインストール」，「3 Sphinxのインストール」と同様である．
 以降には，「パッケージシステムを利用したインストール」手順を示す．
 
 1 *パッケージシステムを利用したインストール*
@@ -401,16 +222,188 @@ Linux(Ubuntu)にSphinxをインストールする方法は，「パッケージ�
 
 ..
 
-2 *Sphinxのプロジェクト作成*
+ドキュメント作成
+^^^^^^^^^^^^^^^^
 
-Sphinxではプロジェクトという単位で関連ドキュメントを作成する．プロジェクトを作成する手順は以下の通り．
+Sphinxを利用したドキュメント作成方法をWindows，Linuxそれぞれの環境に分けて以降に示す．なお，作成するドキュメントの構成は，目次，章が2つのものである．
 
-* sphinx-quickstartの実行
-* ページ構成の作成
+`Windows`
 
-なお，プロジェクト情報は以下として作成する．
+1 *プロジェクトの作成*
 
-      .. csv-table:: Sphinxのプロジェクト情報(Linux編)
+Sphinxではプロジェクトという単位でドキュメントを作成する．
+プロジェクト情報は以下として作成する．
+
+      .. csv-table:: Sphinxのプロジェクト情報(Windows)
+         :header: "項目", "内容"
+         :widths: 20, 20
+
+         "プロジェクトの作成場所","C:\\sample-project"
+         "プロジェクト名","sample-project"
+         "バージョン番号","2012.01.01"
+
+..
+..
+
+\(1\) sphinx-quickstartの実行
+
+sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンドである．実行手順を以下に示す．
+
+* コマンドプロンプト画面を開く．
+* コマンドプロンプト画面で「mkdir C:\\sample-project」を入力後，Enterを押し，プロジェクトフォルダを作成する．
+* コマンドプロンプト画面からC:\\sample-project直下に移動する．(コマンドプロンプト画面で「cd C:\\sample-project」を入力後，Enterを押すことで移動できる)
+* コマンドプロンプト画面で「sphinx-quickstart」を入力後，Enterを押し，プロジェクト情報を入力する．なお，以降の★で示す，「プロジェクト名」，「バージョン番号」，「著者の名前」以外はデフォルトでも特に問題ない．詳細は 「Sphinxの日本ユーザ会」のページを参照．http://sphinx-users.jp/gettingstarted/sphinxquickstart.html．
+
+ .. code-block:: bash
+   :linenos:
+   
+   C:\sample-project>sphinx-quickstart
+   Welcome to the Sphinx 1.1 quickstart utility.
+ 
+   Please enter values for the following settings (just press Enter to
+   accept a default value, if one is given in brackets).
+ 
+   Enter the root path for documentation.
+   > Root path for the documentation [.]:
+ 
+   You have two options for placing the build directory for Sphinx output.
+   Either, you use a directory "_build" within the root path, or you separate
+   "source" and "build" directories within the root path.
+   > Separate source and build directories (y/N) [n]:
+ 
+   Inside the root directory, two more directories will be created; 
+   "_templates"
+   for custom HTML templates and "_static" for custom stylesheets and other 
+   static files. You can enter another prefix (such as ".") to replace 
+   the underscore.
+   > Name prefix for templates and static dir [_]:
+ 
+   The project name will occur in several places in the built documentation.
+   > Project name: sample-project  <--- ★プロジェクト名
+   > Author name(s): sample        <--- ★著者の名前
+ 
+   Sphinx has the notion of a "version" and a "release" for the
+   software. Each version can have multiple releases. For example, for
+   Python the version is something like 2.5 or 3.0, while the release is
+   something like 2.5.1 or 3.0a1.  If you do not need this dual structure,
+   just set both to the same value.
+   > Project version: 2012.01.01   <--- ★バージョン番号
+   > Project release [2012.01.01]:
+ 
+   The file name suffix for source files. Commonly, this is either ".txt"
+   or ".rst".  Only files with this suffix are considered documents.
+   > Source file suffix [.rst]:
+ 
+   One document is special in that it is considered the top node of the
+   "contents tree", that is, it is the root of the hierarchical structure
+   of the documents. Normally, this is "index", but if your "index"
+   document is a custom template, you can also set this to another filename.
+   > Name of your master document (without suffix) [index]:
+ 
+   Sphinx can also add configuration for epub output:
+   > Do you want to use the epub builder (y/N) [n]:
+ 
+   Please indicate if you want to use one of the following Sphinx extensions:
+   > autodoc: automatically insert docstrings from modules (y/N) [n]:
+   > doctest: automatically test code snippets in doctest blocks (y/N) [n]:
+   > intersphinx: link between 
+   > Sphinx documentation of different projects (y/N) [n]:
+   > todo: write "todo" entries that can be shown or hidden on build (y/N) [n]:
+   > coverage: checks for documentation coverage (y/N) [n]:
+   > pngmath: include math, rendered as PNG images (y/N) [n]:
+   > mathjax: include math, rendered in the browser by MathJax (y/N) [n]:
+   > ifconfig: conditional inclusion of content based on 
+   > config values (y/N) [n]:
+   > viewcode: include links to the source code of documented 
+   > Python objects (y/N) [n]:
+ 
+   A Makefile and a Windows command file can be generated for you so that you
+   only have to run e.g. make html instead of invoking sphinx-build
+   directly.
+   > Create Makefile? (Y/n) [y]:
+   > Create Windows command file? (Y/n) [y]:
+ 
+   Creating file .\conf.py.
+   Creating file .\index.rst.
+   Creating file .\Makefile.
+   Creating file .\make.bat.
+ 
+   Finished: An initial directory structure has been created.
+ 
+   You should now populate your master file .\index.rst and create other 
+   documentation source files. Use the Makefile to build the docs, like so:
+      make builder
+   where "builder" is one of the supported builders, 
+   e.g. html, latex or linkcheck.
+ 
+ 
+   C:\sample-project>
+
+2 *ドキュメントの作成*
+
+sphinx-quickstartで作成したプロジェクト内にドキュメントを作成する．
+なお，ページ構成は以下とする．
+
+  ::
+
+    index.rst
+      +- sample1.rst
+      +- sample2.rst
+
+\(1\) rstファイルの作成
+
+* C:\\sample-project直下にindex.rst，sample1.rst，sample2.rstファイルを作成する．
+
+     *index.rst*
+
+     .. code-block:: rst
+        :linenos:
+
+        ロボット開発環境
+        ----------------
+
+        Contents:
+
+        .. toctree::
+           :maxdepth: 2
+
+           sample1
+           sample2
+
+     *sample1.rst*
+
+     .. code-block:: rst
+        :linenos:
+
+        ==================================
+        ドキュメンテーションフレームワーク
+        ==================================
+
+     *sample2.rst*
+
+     .. code-block:: rst
+        :linenos:
+
+        ==========================
+        テスティングフレームワーク
+        ==========================
+
+..
+
+\(2\) htmlファイルの作成
+
+* コマンドプロンプト画面を開き，C:\\sample-projectに移動する．
+* コマンドプロンプト画面に「make html」を入力後，Enterを押し，htmlファイルを作成する．(C:\\sample-project\\_build\\html\\index.htmlがある)
+* 以後，rstファイルを修正していけば良い．
+
+`Linux`
+
+1 *プロジェクト作成*
+
+Sphinxではプロジェクトという単位でドキュメントを作成する．
+プロジェクト情報は以下として作成する．
+
+      .. csv-table:: Sphinxのプロジェクト情報(Linux)
          :header: "項目", "内容"
          :widths: 20, 20
 
@@ -419,93 +412,94 @@ Sphinxではプロジェクトという単位で関連ドキュメントを作�
          "バージョン番号","2012.01.01"
          "著者の名前","sample"
 
-2.1 *sphinx-quickstartの実行*
-
-sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンドである．実行手順を以下に示す．
+..
+..
 
 \(1\) sphinx-quickstartの実行
+
+sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンドである．実行手順を以下に示す．
 
 * ターミナル画面を開く．
 * ターミナル画面でtestUserユーザのホームディレクトリ(/home/testUser)に移動し，ホームディレクトリ直下にsample-projectディレクトリを作成する．(mkdir sample-project)
 * ターミナル画面で「sphinx-quickstart」を入力後，Enterを押し，プロジェクト情報を入力する．なお，以降の★で示す，「プロジェクト名」，「バージョン番号」，「著者の名前」以外はデフォルトでも特に問題ない．詳細は 「Sphinxの日本ユーザ会」のページを参照．http://sphinx-users.jp/gettingstarted/sphinxquickstart.html．
 
-   .. code-block:: bash
-     :linenos:
-   
-     testUser@testUser-desktop:~/sample-project$ sphinx-quickstart
-     Welcome to the Sphinx quickstart utility.
-   
-     Please enter values for the following settings (just press Enter to
-     accept a default value, if one is given in brackets).
-   
-     Enter the root path for documentation.
-     > Root path for the documentation [.]:
-   
-     You have two options for placing the build directory for Sphinx output.
-     Either, you use a directory "_build" within the root path, or you separate
-     "source" and "build" directories within the root path.
-     > Separate source and build directories (y/N) [n]:
-   
-     Inside the root directory, 
-     two more directories will be created; "_templates"
-     for custom HTML templates and "_static" for custom stylesheets 
-     and other static files. You can enter another prefix (such as ".") 
-     to replace the underscore.
-     > Name prefix for templates and static dir [_]:
-   
-     The project name will occur in several places in the built documentation.
-     > Project name: sample-project
-     > Author name(s): sample
-   
-     Sphinx has the notion of a "version" and a "release" for the
-     software. Each version can have multiple releases. For example, for
-     Python the version is something like 2.5 or 3.0, while the release is
-     something like 2.5.1 or 3.0a1.  If you do not need this dual structure,
-     just set both to the same value.
-     > Project version: 2012.01.01
-     > Project release [2012.01.01]:
-   
-     The file name suffix for source files. Commonly, this is either ".txt"
-     or ".rst".  Only files with this suffix are considered documents.
-     > Source file suffix [.rst]:
-   
-   
-     One document is special in that it is considered the top node of the
-     "contents tree", that is, it is the root of the hierarchical structure
-     of the documents. Normally, this is "index", but if your "index"
-     document is a custom template, you can also set this to another filename.
-     > Name of your master document (without suffix) [index]:
-   
-     Please indicate if you want to use one of the following Sphinx extensions:
-     > autodoc: automatically insert docstrings from modules (y/N) [n]:
-     > doctest: automatically test code snippets in doctest blocks (y/N) [n]:
-     > intersphinx: link between Sphinx documentation 
-     > of different projects (y/N) [n]:
-     > todo: write "todo" entries that can be shown or hidden on build (y/N) [n]:
-     > coverage: checks for documentation coverage (y/N) [n]:
-     > pngmath: include math, rendered as PNG images (y/N) [n]:
-     > jsmath: include math, rendered in the browser by JSMath (y/N) [n]:
-     > ifconfig: conditional inclusion of content based on 
-     > config values (y/N) [n]:
-   
-     A Makefile and a Windows command file can be generated for you so that you
-     only have to run e.g. make html instead of invoking sphinx-build
-     directly.
-     > Create Makefile? (Y/n) [y]:
-     > Create Windows command file? (Y/n) [y]:
-   
-     Finished: An initial directory structure has been created.
-   
-     You should now populate your master file ./index.rst and 
-     create other documentation
-     source files. Use the Makefile to build the docs, like so:
-        make builder
-     where "builder" is one of the supported builders, 
-     e.g. html, latex or linkcheck.
-   
-     testUser@testUser-desktop:~/sample-project$
+ .. code-block:: bash
+   :linenos:
+ 
+   testUser@testUser-desktop:~/sample-project$ sphinx-quickstart
+   Welcome to the Sphinx quickstart utility.
+ 
+   Please enter values for the following settings (just press Enter to
+   accept a default value, if one is given in brackets).
+ 
+   Enter the root path for documentation.
+   > Root path for the documentation [.]:
+ 
+   You have two options for placing the build directory for Sphinx output.
+   Either, you use a directory "_build" within the root path, or you separate
+   "source" and "build" directories within the root path.
+   > Separate source and build directories (y/N) [n]:
+ 
+   Inside the root directory, 
+   two more directories will be created; "_templates"
+   for custom HTML templates and "_static" for custom stylesheets 
+   and other static files. You can enter another prefix (such as ".") 
+   to replace the underscore.
+   > Name prefix for templates and static dir [_]:
+ 
+   The project name will occur in several places in the built documentation.
+   > Project name: sample-project
+   > Author name(s): sample
+ 
+   Sphinx has the notion of a "version" and a "release" for the
+   software. Each version can have multiple releases. For example, for
+   Python the version is something like 2.5 or 3.0, while the release is
+   something like 2.5.1 or 3.0a1.  If you do not need this dual structure,
+   just set both to the same value.
+   > Project version: 2012.01.01
+   > Project release [2012.01.01]:
+ 
+   The file name suffix for source files. Commonly, this is either ".txt"
+   or ".rst".  Only files with this suffix are considered documents.
+   > Source file suffix [.rst]:
+ 
+ 
+   One document is special in that it is considered the top node of the
+   "contents tree", that is, it is the root of the hierarchical structure
+   of the documents. Normally, this is "index", but if your "index"
+   document is a custom template, you can also set this to another filename.
+   > Name of your master document (without suffix) [index]:
+ 
+   Please indicate if you want to use one of the following Sphinx extensions:
+   > autodoc: automatically insert docstrings from modules (y/N) [n]:
+   > doctest: automatically test code snippets in doctest blocks (y/N) [n]:
+   > intersphinx: link between Sphinx documentation 
+   > of different projects (y/N) [n]:
+   > todo: write "todo" entries that can be shown or hidden on build (y/N) [n]:
+   > coverage: checks for documentation coverage (y/N) [n]:
+   > pngmath: include math, rendered as PNG images (y/N) [n]:
+   > jsmath: include math, rendered in the browser by JSMath (y/N) [n]:
+   > ifconfig: conditional inclusion of content based on 
+   > config values (y/N) [n]:
+ 
+   A Makefile and a Windows command file can be generated for you so that you
+   only have to run e.g. make html instead of invoking sphinx-build
+   directly.
+   > Create Makefile? (Y/n) [y]:
+   > Create Windows command file? (Y/n) [y]:
+ 
+   Finished: An initial directory structure has been created.
+ 
+   You should now populate your master file ./index.rst and 
+   create other documentation
+   source files. Use the Makefile to build the docs, like so:
+      make builder
+   where "builder" is one of the supported builders, 
+   e.g. html, latex or linkcheck.
+ 
+   testUser@testUser-desktop:~/sample-project$
 
-2.2 *ページ構成の作成*
+2 *ドキュメントの作成*
 
 sphinx-quickstartで作成したプロジェクト内にドキュメントを作成する．
 なお，ページ構成は以下とする．
@@ -571,7 +565,7 @@ sphinx-quickstartで作成したプロジェクト内にドキュメントを作
 * 前回のバックアップからの変更点がわからない．(変更履歴の問題)
 * 毎回全てのデータを保存することになるため，ディスク容量を必要以上に使用してしまう．(ディスク容量の問題)
 
-上記の問題を解決するためのシステムをバージョン管理システムと呼び，現在のソフトウェア開発では日常的に利用されている．バージョン管理システムには以下のような特徴がある．
+上記の問題を解決するためのシステムをバージョン管理システムと呼び，現在のソフトウェア開発では日常的に利用されている．ここで，バージョン管理システムには以下のような特徴がある．
 
 * ファイルの変更履歴を管理し，変更履歴から変更点の比較が行える．また，過去のファイルを取り出すこともできる．誤って削除してしまっても元に戻すことができる．
 * ファイルの変更点の管理は，通常前回データの差分のみであり，ディスク容量を必要以上に使用しない．
@@ -609,43 +603,55 @@ Subversionは以下のような特徴を持つ．
 
   Subversionのシステム構成
 
-      .. csv-table:: Subversionクライアントソフトウェアの操作一覧
-         :header: "操作名", "内容"
-         :widths: 30, 80
+以降でSubversionを利用する前に，Subversionについて最低限理解しておくべき概念，用語を以下に示す．
 
-         "checkout","リポジトリから作業コピーをチェックアウトします"
-         "commit","作業コピーの変更点をリポジトリに送り，変更点を確定する"
-         "update","作業コピーを更新します"
-         "add","ファイル，ディレクトリ，シンボリックリンクをバージョン管理対象に追加します(commitで確定)"
-         "delete","作業コピーやリポジトリから項目(ファイルなど)を削除します(commitで確定)"
-         "copy","作業コピーやリポジトリ中の，ファイルやディレクトリをコピーします(commitで確定)"
-         "move","ファイルやディレクトリを移動します(commitで確定)"
-         "mkdir","バージョン管理下に新しいディレクトリを作成します(commitで確定)"
-         "revert","ローカルファイルへのすべての編集を取り消します"
-         "import","バージョン管理外のファイルやツリーを，リポジトリにコミットします"
-         "diff","二つのパスやリビジョン間の差分を表示します"
-         "status","作業コピーにあるファイルやディレクトリの状態を表示します"
-         "info","ローカル，あるいはリモートパスにある項目についての情報を表示します"
+..
+
+ *リポジトリ*
+  Subversion で管理されるファイルの格納場所．変更履歴をリビジョンという番号を付与して管理している．
+
+ *作業コピー*
+
+  作業を行うために，リポジトリから取得したファイルを示す．Subversionはリポジトリのファイルを直接変更することはできないため，いったんリポジトリから作業コピーを作成し，これらのファイルに対して変更を加え，変更内容をリポジトリに反映させる．
+
+ *checkout*
+
+  リポジトリで管理されるファイルを全て取得する操作．
+
+ *update*
+
+  作業コピーとリポジトリの差分を比較し，作業コピーにある最新版以外のファイルをリポジトリから取得する操作．最初にckeckoutし，その後は，updateして作業コピーを最新版に保つ．
+
+ *commit*
+
+  作業コピーに対する変更操作をリポジトリに反映する操作．commitした時にcommitしたファイル群に新しいリビジョンが設定される．
+ 
+ *import*
+
+  Subversion管理対象外（リポジトリで管理されていない）のファイルをリポジトリにcommitする操作．
+ 
+ *add*
+
+  Subversion管理対象外（リポジトリで管理されていない）のファイルを管理対象とする操作．
+
+
 
 導入
 ^^^^
 
-Subversionはクライアント-サーバのシステム構成をとるため，本誌ではSubversionのクライアントソフトウェア，サーバソフトウェアを以下の構成で導入する．
+以降に，Subversionを導入するための手順を示す．なお，Subversionのインストールには様々な方法があるが，本誌ではSubversionクライアント-サーバ計算機の構成が共にWindows，Linuxの場合それぞれについて示す．
 
-.. figure:: images/doc_subversion_install_structure.*
+`Windows`
 
-  Subversion導入時のシステム構成
+以下の図に示す構成でSubversionの導入を行う．
 
-Subversionの導入手順(Windows編，Linux編)を以降に示す．
+.. figure:: images/doc_subversion_structure-install-win.*
 
-`Windows編`
-
-WindowsにSubversionを導入する手順は以下の通り．
-
-* Subversionサーバソフトウェアのインストール
-* Subversionクライアントソフトウェアのインストール
+  WindowsにSubversionを導入する場合のシステム構成
 
 1 *Subversionサーバソフトウェアのインストール*
+
+本作業はwsv計算機上で行うこと．
 
 \(1\) Subversionサーバソフトウェアのインストーラのダウンロード
 
@@ -669,6 +675,8 @@ WindowsにSubversionを導入する手順は以下の通り．
 * 解凍したフォルダのbinをPATH環境変数に追加する．例) C:\Apache-Subversion-1.7.2\binをPATHに追加する．
 
 2 *Subversionクライアントソフトウェアのインストール*
+
+本作業はwcl計算機上で行うこと．
 
 \(1\) Subversionクライアントソフトウェアのインストーラのダウンロード
 
@@ -704,35 +712,44 @@ WindowsにSubversionを導入する手順は以下の通り．
 
 ..
 
+`Linux`
 
-`Linux編`
+以下の図に示す構成でSubversionの導入を行う．
 
- ※ Linux(Ubuntu)にはSubversionのクライアント/サーバソフトウェアがデフォルトでインストールされているため実施事項はない．
+.. figure:: images/doc_subversion_structure-install-linux.*
+
+  LinuxにSubversionを導入する場合のシステム構成
+
+..
+
+ ※ Ubuntu 10.04にはSubversionのクライアント/サーバソフトウェアであるsvnがデフォルトでインストールされているため実施事項はない．
 
 利用例
 ^^^^^^
 
-Subversionの利用例(Windows編，Linux編)を以降に示す．
+Subversionの利用例をWindows，Linuxそれぞれの環境に分けて以降に示す．
 
-`Windows編`
+`Windows`
 
-\(1\) Subversion利用準備
+\(1\) Subversionサーバソフトウェアの利用準備
 
-* リポジトリディレクトリの作成
+本作業はwsv計算機上で行うこと．
+
+* リポジトリの作成
 .. code-block:: commandprompt
 
    svnadmin  create C:\repository
 
-- 匿名アクセスのアクセス権限の設定(匿名ユーザにコミット権限を与える場合)
+* 匿名アクセスのアクセス権限の設定(匿名ユーザにコミット権限を与える場合)
 
- - 「C:\repository\conf\svnserve.conf」ファイルを開く
- - 19行目あたりの行を以下のように修正し，保存する．
+  * 「C:\repository\conf\svnserve.conf」ファイルを開く
+  * 19行目あたりの行を以下のように修正し，保存する．
 .. code-block:: commandprompt
 
    修正前 : # anon-access = read
    修正後 : anon-access = write
 
-- trunkディレクトリの作成
+* trunkディレクトリの作成
 .. code-block:: commandprompt
 
    svn mkdir file:///C:\repository/trunk -m "mkdir trunk"
@@ -742,8 +759,6 @@ Subversionの利用例(Windows編，Linux編)を以降に示す．
 
    svn import trunk file:///C:\repository/trunk/ -m "Initial import"
 
-\(2\) Subversionサーバソフトウェアの準備
-
 * Subversionサーバソフトウェアの起動
 .. code-block:: commandprompt
 
@@ -751,13 +766,15 @@ Subversionの利用例(Windows編，Linux編)を以降に示す．
 
    ※ Subversionサーバソフトウェアの停止は，svnserveプロセスの停止で行う．
 
-\(3\) Subversionクライアントソフトウェアの利用例
+\(2\) Subversionクライアントソフトウェアの利用例
+
+本作業はwcl計算機上で行うこと．
 
 * リポジトリから作業コピーディレクトリにcheckout
 
- * Cドライブ直下にsampleフォルダを作成する．(任意)
- * sampleフォルダ内に移動し，右クリック＞「SVN Checkout...」の選択する．
- * Checkout画面のURL of repository下のテキストフィールドに「svn://localhost/trunk」と入力し，OKボタンを押す．
+  * Cドライブ直下にsampleフォルダを作成する．(任意)
+  * sampleフォルダ内に移動し，右クリック＞「SVN Checkout...」の選択する．
+  * Checkout画面のURL of repository下のテキストフィールドに「svn://wsv/trunk」と入力し，OKボタンを押す．
 
 .. figure:: images/doc_subversion_usecase-1.*
 
@@ -765,16 +782,16 @@ Subversionの利用例(Windows編，Linux編)を以降に示す．
 
 * ファイルの修正/コミット
 
- * testDir/a.txtを修正する．
- * testDirフォルダ上で右クリック＞「SVN Commit...」を選択する．
- * 表示された画面でOKボタンを押す．
+  * testDir/a.txtを修正する．
+  * testDirフォルダ上で右クリック＞「SVN Commit...」を選択する．
+  * 表示された画面でOKボタンを押す．
 
 * 新しいファイルの追加/コミット
 
- * testDirフォルダ内にb.txtを作成する．
- * b.txtを選択し，右クリック＞「TortoiseSVN＞「Add」を選択する．
- * testDirフォルダ上で右クリック＞「SVN Commit...」を選択する．
- * 表示された画面でOKボタンを押す．
+  * testDirフォルダ内にb.txtを作成する．
+  * b.txtを選択し，右クリック＞「TortoiseSVN＞「Add」を選択する．
+  * testDirフォルダ上で右クリック＞「SVN Commit...」を選択する．
+  * 表示された画面でOKボタンを押す．
 
 .. figure:: images/doc_subversion_usecase-2.*
 
@@ -782,12 +799,14 @@ Subversionの利用例(Windows編，Linux編)を以降に示す．
 
 * 他の人が修正したファイルの取得
 
- * 他の人がa.txtファイルを修正し，コミットしていた場合，testDirフォルダ上で，右クリック＞「SVN Update...」を選択する．
+  * 他の人がa.txtファイルを修正し，コミットしていた場合，testDirフォルダ上で，右クリック＞「SVN Update...」を選択する．
 
 
-`Linux編`
+`Linux`
 
-\(1\) Subversion利用準備
+\(1\) Subversionサーバソフトウェアの利用準備
+
+本作業はwsv計算機上で行うこと．
 
 * リポジトリディレクトリの作成
 .. code-block:: commandprompt
@@ -796,8 +815,8 @@ Subversionの利用例(Windows編，Linux編)を以降に示す．
 
 * 匿名アクセスのアクセス権限の設定(匿名ユーザにコミット権限を与える場合)
 
- * 「./repository/conf/svnserve.conf」ファイルを開く
- * 12行目あたりの行を以下のように修正し，保存する．
+  * 「./repository/conf/svnserve.conf」ファイルを開く
+  * 12行目あたりの行を以下のように修正し，保存する．
 .. code-block:: bash
 
    修正前 : # anon-access = read
@@ -813,8 +832,6 @@ Subversionの利用例(Windows編，Linux編)を以降に示す．
 
    svn import trunk file:///var/svn_rep/repository/trunk/ -m "Initial import"
 
-\(2\) Subversionサーバソフトウェアの準備
-
 * Subversionサーバソフトウェアの起動
 .. code-block:: commandprompt
 
@@ -822,20 +839,22 @@ Subversionの利用例(Windows編，Linux編)を以降に示す．
 
    ※ Subversionサーバソフトウェアの停止は，svnserveプロセスの停止で行う．
 
-\(3\) Subversionクライアントソフトウェアの利用例
+\(2\) Subversionクライアントソフトウェアの利用例
+
+本作業はwcl計算機上で行うこと．
 
 * リポジトリから作業コピーディレクトリにcheckout
 
- * ホーム直下にsampleディレクトリを作成する．(任意)
- * sampleディレクトリに移動し，データをチェックアウトする．
+  * ホーム直下にsampleディレクトリを作成する．(任意)
+  * sampleディレクトリに移動し，データをチェックアウトする．
 .. code-block:: bash
 
-   svn checkout svn://localhost/trunk
+   svn checkout svn://wsv/trunk
 
 * ファイルの修正/コミット
 
- * testDir/a.txtを修正する．
- * コミットする
+  * testDir/a.txtを修正する．
+  * コミットする
 .. code-block:: bash
 
    svn status
@@ -845,8 +864,8 @@ Subversionの利用例(Windows編，Linux編)を以降に示す．
 
 * 新しいファイルの追加/コミット
 
- * testDirディレクトリ内にb.txtを作成する．
- * b.txtを追加し、コミットする．
+  * testDirディレクトリ内にb.txtを作成する．
+  * b.txtを追加し，コミットする．
 .. code-block:: bash
 
    svn add testDir/b.txt
@@ -855,7 +874,7 @@ Subversionの利用例(Windows編，Linux編)を以降に示す．
 
 * 他の人が修正したファイルの取得
 
- * 他の人がa.txtファイルを修正し，コミットしていた場合updateする．
+  * 他の人がa.txtファイルを修正し，コミットしていた場合updateする．
 .. code-block:: bash
 
    svn update
@@ -882,47 +901,63 @@ Gitは以下のような特徴を持つ．
 
 以下にGitを利用する場合のシステム構成について示す．
 
-.. comment
 
-   .. figure:: images/doc_git_structure.*
+.. figure:: images/doc_git_structure.*
 
    Gitのシステム構成
 
 ..
 
-      .. csv-table:: Gitクライアントソフトウェアの操作一覧
-         :header: "操作名", "内容"
-         :widths: 30, 80
+以降でGitを利用する前に，Gitについて最低限理解しておくべき概念，用語を以下に示す．
 
-         "add","ファイル，ディレクトリ，シンボリックリンクをバージョン管理対象に追加する"
-         "clone","新しいディレクトリ内にリポジトリのクローンを作成する"
-         "commit","作業コピーの変更点をリポジトリに送り，変更点を確定する"
-         "diff","二つのパスやリビジョン間の差分を表示する"
-         "init","空のリポジトリを作成する"
-         "mv","ファイルやディレクトリを移動する(commitで確定)"
-         "pull","MasterリポジトリからLocalリポジトリにデータを転送する"
-         "push","LocalリポジトリからMasterリポジトリにデータを転送する"
-         "rm","作業コピーやリポジトリから項目(ファイルなど)を削除する(commitで確定)"
+ *中央リポジトリ*
+
+  Gitで管理されるファイルの格納場所．変更履歴をリビジョンという番号を付与して管理している．
+
+ *ローカルリポジトリ*
+
+  中央リポジトリのcloneとして作成したGitで管理されるファイルの格納場所．中央リポジトリ，ローカルリポジトリと呼び方は変えているが，どちらを中央と考えるかは利用者次第である．ローカルリポジトリ内でも変更履歴をリビジョンという番号を付与して管理している．
+
+ *init*
+
+  空のリポジトリを作成する．
+
+ *clone*
+
+  新しいディレクトリ内にリポジトリのクローンを作成する．
+
+ *push*
+
+  ローカルリポジトリから中央リポジトリにデータを転送する．
+
+ *pull*
+
+  中央リポジトリからローカルリポジトリにデータを転送する．
+
+ *commit*
+
+  作業コピーの変更点をローカルリポジトリに送り，変更点を確定する
+
+ *add*
+
+  Git管理対象外（リポジトリで管理されていない）のファイルを管理対象とする操作．
+
 
 導入
 ^^^^
+以降に，Gitを導入するための手順を示す．なお，Gitのインストールには様々な方法があるが，本誌ではGitクライアント-サーバ計算機の構成が共にWindows，Linuxの場合それぞれについて示す．
 
-Gitはクライアント-サーバのシステム構成をとるため，本誌ではGitのクライアントソフトウェア，サーバソフトウェアを以下の構成で導入する．
+`Windows`
 
-.. figure:: images/doc_git_install_structure.*
+以下の図に示す構成でGitの導入を行う．
 
-  Git導入時のシステム構成
+.. figure:: images/doc_git_structure-install-win.*
 
-Gitの導入手順(Windows編，Linux編)を以降に示す．
-
-`Windows編`
-
-WindowsにGitを導入する手順は以下の通り．
-
-* Gitサーバソフトウェアのインストール
-* Gitクライアントソフトウェアのインストール
+  WindowsにGitを導入する場合のシステム構成
 
 1 *Gitサーバソフトウェアのインストール*
+
+本作業はwsv計算機上で行うこと．
 
 \(1\) Gitサーバソフトウェアのインストーラのダウンロード
 
@@ -966,13 +1001,23 @@ WindowsにGitを導入する手順は以下の通り．
 
 2 *Gitクライアントソフトウェアのインストール*
 
- ※ msysgitはGitクライアントソフトウェアの機能も持つため，本作業は不要．
+本作業はwcl計算機上で行うこと．
+なお，作業手順は「1 Git サーバソフトウェアのインストール」と同様．
 
-`Linux編`
+`Linux`
 
-1 *Gitのインストール*
+以下の図に示す構成でGitの導入を行う．
 
-\(1\) Gitのインストール
+.. figure:: images/doc_git_structure-install-linux.*
+
+  LinuxにGitを導入する場合のシステム構成
+
+1 *Gitサーバソフトウェアのインストール*
+
+本作業はwsv計算機上で行うこと．
+
+\(1\) Gitサーバソフトウェアのインストール
+
 .. code-block:: bash
 
    sudo aptitude install git-core
@@ -991,8 +1036,8 @@ WindowsにGitを導入する手順は以下の通り．
    拡張状態情報を書き込んでいます... 完了
    以下の新規パッケージがインストールされます:
      git-core libdigest-sha1-perl{a} liberror-perl{a} patch{a}
-   0 個のパッケージを更新、 4 個を新たにインストール、 0 個を削除予定、206 個が更新されていない。
-   6,315kB のアーカイブを取得する必要があります。 展開後に 13.1MB のディスク領域が新たに消費されます。
+   0 個のパッケージを更新， 4 個を新たにインストール， 0 個を削除予定，206 個が更新されていない．
+   6,315kB のアーカイブを取得する必要があります． 展開後に 13.1MB のディスク領域が新たに消費されます．
    先に進みますか? [Y/n/?] Y
    拡張状態情報を書き込んでいます... 完了
    取得:1 http://jp.archive.ubuntu.com/ubuntu/ lucid/main liberror-perl 0.17-1 [23.8kB]
@@ -1000,14 +1045,14 @@ WindowsにGitを導入する手順は以下の通り．
    取得:3 http://jp.archive.ubuntu.com/ubuntu/ lucid-updates/main git-core 1:1.7.0.4-1ubuntu0.2 [6,143kB]
    取得:4 http://jp.archive.ubuntu.com/ubuntu/ lucid/main patch 2.6-2ubuntu1 [121kB]
    6,315kB を 15s 秒でダウンロードしました (406kB/s)
-   未選択パッケージ liberror-perl を選択しています。
-   (データベースを読み込んでいます ... 現在 156889 個のファイルとディレクトリがインストールされています。)
+   未選択パッケージ liberror-perl を選択しています．
+   (データベースを読み込んでいます ... 現在 156889 個のファイルとディレクトリがインストールされています．)
    (.../liberror-perl_0.17-1_all.deb から) liberror-perl を展開しています...
-   未選択パッケージ libdigest-sha1-perl を選択しています。
+   未選択パッケージ libdigest-sha1-perl を選択しています．
    (.../libdigest-sha1-perl_2.12-1build1_amd64.deb から) libdigest-sha1-perl を展開しています...
-   未選択パッケージ git-core を選択しています。
+   未選択パッケージ git-core を選択しています．
    (.../git-core_1%3a1.7.0.4-1ubuntu0.2_amd64.deb から) git-core を展開しています...
-   未選択パッケージ patch を選択しています。
+   未選択パッケージ patch を選択しています．
    (.../patch_2.6-2ubuntu1_amd64.deb から) patch を展開しています...
    man-db のトリガを処理しています ...
    liberror-perl (0.17-1) を設定しています ...
@@ -1025,40 +1070,54 @@ WindowsにGitを導入する手順は以下の通り．
 
 ..
 
+2 *Gitクライアントソフトウェアのインストール*
+
+本作業はwcl計算機上で行うこと．
+なお，作業手順は「1 Git サーバソフトウェアのインストール」と同様．
+
+
 利用例
 ^^^^^^
 
-Gitの利用例(Windows編，Linux編)を以降に示す．
+Gitの利用例(Windows，Linux)を以降に示す．
 
-`Windows編`
+`Windows`
 
 \(1\) Git利用例
 
 * Gitユーザの登録
- * Git Bashの実行
- * Gitユーザの登録
+
+  * Git Bashの実行
+  * Gitユーザの登録
+
 .. code-block:: bash
 
    git config --global user.name "testUser"
 
-* Local1リポジトリディレクトリの作成
- * Git Bashを実行し、Git Bash画面から「C:\gitrep\」フォルダ，リポジトリの作成を行う．
+* ローカル1リポジトリディレクトリの作成
+
+  * Git Bashを実行し，Git Bash画面から「C:\gitrep\」フォルダ，リポジトリの作成を行う．
+
 .. code-block:: bash
 
    mkdir /c/glocal1
    cd /c/glocal1
    git init
 
-* Masterリポジトリディレクトリの作成
- * Git Bashを実行し、Git Bash画面から「C:\gitrep\」フォルダ，リポジトリの作成を行う．
+* 中央リポジトリディレクトリの作成
+
+  * Git Bashを実行し，Git Bash画面から「C:\gitrep\」フォルダ，リポジトリの作成を行う．
+
 .. code-block:: bash
 
-   mkdir /c/gmaster
-   cd /c/gmaster
+   mkdir /c/gcenter
+   cd /c/gcenter
    git --bare init
 
-* Local1リポジトリにファイルのコミット
- * Git Bashを起動し，以下を実行する．
+* ローカル1リポジトリにファイルのコミット
+
+  * Git Bashを起動し，以下を実行する．
+
 .. code-block:: bash
 
    cd /c/glocal1
@@ -1066,28 +1125,33 @@ Gitの利用例(Windows編，Linux編)を以降に示す．
    git add first
    git commit first -m "first commit"
 
-* Local1リポジトリ(master)をMasterリポジトリ(origin)にプッシュ
- * Git Bashを起動し，以下を実行する．
+* ローカル1リポジトリ(master)を中央リポジトリ(origin)にプッシュ
+
+  * Git Bashを起動し，以下を実行する．
 
 .. code-block:: bash
 
    cd /c/glocal1
-   git remote add origin /c/gmaster
+   git remote add origin /c/gcenter
    git push origin master
 
-* Masterリポジトリ(origin)の作業コピーディレクトリ(Local2リポジトリ)を作成する．
- * Git Bashを起動し，以下を実行する．
+* 中央リポジトリ(origin)の作業コピーディレクトリ(ローカル2リポジトリ)を作成する．
+
+  * Git Bashを起動し，以下を実行する．
+
 .. code-block:: bash
 
    mkdir /c/glocal2
    cd /c/glocal2
-   git clone /c/gmaster
+   git clone /c/gcenter
 
-* Local2リポジトリに追加したファイルをLocal1リポジトリに反映
- * Git Bashを起動し，以下を実行する．
+* ローカル2リポジトリに追加したファイルをローカル1リポジトリに反映
+
+  * Git Bashを起動し，以下を実行する．
+
 .. code-block:: bash
 
-   cd /c/glocal2/gmaster
+   cd /c/glocal2/gcenter
    touch second
    git add second
    git commit second -m "second commit"
@@ -1098,7 +1162,7 @@ Gitの利用例(Windows編，Linux編)を以降に示す．
 
 ..
 
-`Linux編`
+`Linux`
 
 \(1\) Git利用例
 
@@ -1107,23 +1171,28 @@ Gitの利用例(Windows編，Linux編)を以降に示す．
 
    git config --global user.name "testUser"
 
-* Local1リポジトリディレクトリの作成
- * /home/p1414/glocal1というリポジトリの作成を行う．
+* ローカル1リポジトリディレクトリの作成
+
+  * /home/p1414/glocal1というリポジトリの作成を行う．
+
 .. code-block:: bash
 
    mkdir /home/p1414/glocal1
    cd /home/p1414/glocal1
    git init
 
-* Masterリポジトリディレクトリの作成
- * /home/p1414/gmasterというリポジトリの作成を行う．
+* 中央リポジトリディレクトリの作成
+
+  * /home/p1414/gcenterというリポジトリの作成を行う．
+
 .. code-block:: bash
 
-   mkdir /home/p1414/gmaster
-   cd /home/p1414/gmaster
+   mkdir /home/p1414/gcenter
+   cd /home/p1414/gcenter
    git --bare init
 
-* Local1リポジトリにファイルのコミット
+* ローカル1リポジトリにファイルのコミット
+
 .. code-block:: bash
 
    cd /home/p1414/glocal1
@@ -1131,25 +1200,29 @@ Gitの利用例(Windows編，Linux編)を以降に示す．
    git add first
    git commit first -m "first commit"
 
-* Local1リポジトリ(master)をMasterリポジトリ(origin)にプッシュ
+* ローカル1リポジトリ(master)を中央リポジトリ(origin)にプッシュ
+
 .. code-block:: bash
 
    cd /home/p1414/glocal1
-   git remote add origin /home/p1414/gmaster
+   git remote add origin /home/p1414/gcenter
    git push origin master
 
-* Masterリポジトリ(origin)の作業コピーディレクトリ(Local2リポジトリ)を作成する．
- * Git Bashを起動し，以下を実行する．
+* 中央リポジトリ(origin)の作業コピーディレクトリ(ローカル2リポジトリ)を作成する．
+
+  * Git Bashを起動し，以下を実行する．
+
 .. code-block:: bash
 
    mkdir /home/p1414/glocal2
    cd /home/p1414/glocal2
-   git clone /home/p1414/gmaster
+   git clone /home/p1414/gcenter
 
-* Local2リポジトリに追加したファイルをLocal1リポジトリに反映
+* ローカル2リポジトリに追加したファイルをローカル1リポジトリに反映
+
 .. code-block:: bash
 
-   cd /home/p1414/glocal2/gmaster
+   cd /home/p1414/glocal2/gcenter
    touch second
    git add second
    git commit second -m "second commit"
@@ -1189,13 +1262,8 @@ SourceForge.JPのサービスを利用するにあたりホスティング費用
 テストの必要性
 --------------
 
-ソフトウェアの開発は通常以下の手順で行われる．
-
-* ソフトウェアの設計
-* ソフトウェアの作成
-* ソフトウェアのテスト
-* ソフトウェアの利用
-
+ソフトウェア開発におけるテストの必要性について示す．
+ソフトウェア開発は，「設計」→「実装」→「試験」→「利用」の手順で行われる．
 ソフトウェアを利用していると，不具合，使い勝手が悪い，追加の機能が欲しいなどの理由から
 再度上記の手順を繰り返す場合が多い．その手順を繰り返していくと徐々にソフトウェアの
 規模が大きくなり，修正したプログラムが他のプログラムに与える影響を把握することが難しくなっていく．
@@ -1220,8 +1288,7 @@ Jenkins
 ^^^^
 
 Jenkinsとは，継続的インテグレーションのためのソフトウェアである．
-Jenkinsはソフトウェアのビルド，テストを継続的に行うための仕組みを持ち，
-エラーが発生した場合，ユーザに通知したりすることができる．
+Jenkinsはソフトウェアのビルド，テストを継続的に行うための仕組みを持ち，エラーが発生した場合，ユーザに通知したりすることができる．
  
 Jenkinsの特徴を以下に示す．
 
@@ -1233,6 +1300,10 @@ Jenkinsの特徴を以下に示す．
 
 導入
 ^^^^
+
+以降に，JenkinsをLinuxに導入するための手順を示す．なお，Subversion のインストールには様々な方法がある
+が，本誌ではSubversion クライアント-サーバ計算機の構成が共にWindows，Linux の場合それぞれについ
+て示す．
 
 JenkinsをLinuxにインストール・起動する手順を以降に示す．
 
