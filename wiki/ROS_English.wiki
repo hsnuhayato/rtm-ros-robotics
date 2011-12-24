@@ -50,7 +50,7 @@ from menu bar. and add
  `http://download.eclipse.org/tools/gef/updates/releases/`
 to the Location and select GEF SDK 3.6.2, install and restart eclipse.
 
-If you're using 10.04 Ubuntu, you also need to add
+You also need to add
  `http://download.eclipse.org/modeling/emf/updates/releases/`
 to the Location and select SDK EMF SDK 2.5.0.
 
