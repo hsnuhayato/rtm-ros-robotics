@@ -67,7 +67,7 @@
 
 としてみよう．以下のような画面が現れるはずだ．
 
-.. image :: opencv_ros_bridge_tutorial_rxgraph.png
+.. figure :: images/opencv_ros_bridge_tutorial_rxgraph.png
 
 丸で囲まれたものが ノード_ を示し，それらの間の矢印が トピック_ を表す．ノードはプロセスと同義であり，トピックはノード間でメッセージ（データ型）を交換するための名前付きバスである．ノードはトピックをSubscribeあるいは，Publishする．
 
@@ -118,7 +118,7 @@ rosnode listとすると，現在のノードの一覧が，rostopic listとす�
 
 とすると，画面の左上に小さい丸が表示されているはずである．
 
-.. image :: opencv_ros_bridge_tutorial_image_painted.png
+.. figure :: images/opencv_ros_bridge_tutorial_image_painted.png
 
 image:=/image_rectの部分は リマップ_ と呼ばれる大変便利な機能である．
 これはプログラム中に埋め込まれたトピック名等の名前を，プログラムの実行時に変更することが出来，これにより同じノードを複数の設定で実行することが出来る．例えば，このプログラムのコードでは it\_.subscribe("image", 1, &ImagePainter::imageCb, this);とimageという名前のトピックをSubscribeしているが，上の様に実行することでimage_rectという名前のトピックをSubscribeするよう設定し実行している．
@@ -338,7 +338,7 @@ _`Writing a Simple Publisher and Subscriber (Python)` を見よう．
 
 とすると以下のような視覚化が可能である．
 
-.. image :: opencv_ros_bridge_tutorial_screenpoint_rxplot.png
+.. figure :: images/opencv_ros_bridge_tutorial_screenpoint_rxplot.png
 
 その他のツールについては http://www.ros.org/wiki/ROS/CommandLineTools を見てみよう．
 
@@ -407,12 +407,12 @@ OpenCVの サンプルプログラム_
 
 (laplacian結果)
 
-.. image :: Laplacian.png
+.. figure :: images/Laplacian.png
    :width: 320
 
 (sobel結果)
 
-.. image :: Sobel.png
+.. figure :: images/Sobel.png
    :width: 320
 
 (canny結果)
@@ -424,10 +424,10 @@ checkerboard検出
 
 腱駆動ヒューマノイド：腱臓で手先認識のためにcheckerboard検出を利用
 
-.. image :: junbi.jpg
+.. figure :: images/junbi.jpg
    :width: 240
 
-.. image :: board.png
+.. figure :: images/board.png
    :width: 320
 
 ::

@@ -37,7 +37,7 @@ ROS_Install_ にしたがってROSと講義関連パッケージがインスト�
 とします．
 以下の様な初期画面が現れると思います．
 
-.. image :: move_base_stage_tutorial_init.png
+.. figure :: images/move_base_stage_tutorial_init.png
 
 最後に
 ::
@@ -49,7 +49,7 @@ ROS_Install_ にしたがってROSと講義関連パッケージがインスト�
 ここで左上の2D Nav Goalを押して地図上の任意の場所をクリックすると
 その場所まで移動します．
 
-.. image :: move_base_stage_tutorial_rviz.png
+.. figure :: images/move_base_stage_tutorial_rviz.png
 
 また，
 ::

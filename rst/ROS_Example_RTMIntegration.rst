@@ -1,20 +1,13 @@
-*summary RTM-ROS Integration*
 
-.. <wiki:toc max_depth="2" />
 
-====
-概要
-====
 
-====================
-1.OpenHRP 環境の構築
-====================
 
-----------
-環境の確認
-----------
+OpenHRP 環境の構築
+^^^^^^^^^^^^^^^^^^
 
-- 自分のつかっているUbuntuのバージョンを調べて下さい．
+- 環境の確認
+
+-- 自分のつかっているUbuntuのバージョンを調べて下さい．
 
 ::
 
@@ -22,9 +15,9 @@
 
 です．10.04か10.10であることが期待されています．
 
------------------------------
-ipv6 の設定の確認(10.04限定）
------------------------------
+
+- ipv6 の設定の確認(10.04限定）
+
 
 10.04の人は，
 http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Install 
@@ -41,9 +34,8 @@ http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Install
 
 と変更して保存する．Makefileでチェックしているので，変更していないとMakeが通りません．
 
------------
-Java の確認
------------
+- Java の確認
+
 
 ::
 
@@ -66,9 +58,8 @@ Java の確認
 とする
 
 
-------------------------------------------------------------
-旧バージョンOpenRTMの確認(インストールしたことがある人限定) 
-------------------------------------------------------------
+- 旧バージョンOpenRTMの確認(インストールしたことがある人限定) 
+
 
 ::
 
@@ -87,9 +78,7 @@ Java の確認
 
 としてください
 
--------------------------------------------------------------
-Eclipse環境のクリーンアップ(インストールしたことがある人限定) 
--------------------------------------------------------------
+- Eclipse環境のクリーンアップ(インストールしたことがある人限定) 
 
 いままでEclipseを使ったことがある人は
 ::
@@ -99,26 +88,24 @@ Eclipse環境のクリーンアップ(インストールしたことがある人
 
 として環境をクリーンにしてください．
 
-======================
-2. OpenHRPのコンパイル
-======================
+OpenHRPのコンパイル
+^^^^^^^^^^^^^^^^^^^
 
 ::
 
   rosmake rtmros_common
 
-====================================
-3. Eclipseの設定(RT System Editor編)
-====================================
+Eclipseの設定(RT System Editor編)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. <wiki:video url="http://www.youtube.com/watch?v=Majjva2YhX4" />
 
 動画(youtube)
  http://www.youtube.com/watch?v=Majjva2YhX4
 
---------------------------------------------------
+
 外部プラグインのインストール for RT System Editor 
---------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -155,9 +142,8 @@ http://download.eclipse.org/tools/gef/updates/releases/
 
 で、RT System Editorが入っていることが確認できる
 
--------------------------
 RT System Editor 動作確認
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 以前講義で試したサンプル
 http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Example
@@ -177,19 +163,17 @@ http://code.google.com/p/rtm-ros-robotics/wiki/RTM_2DSimulator_Example
 
 がある。
 
-.. image :: MobileRobot_2DSimulator_Example.png
+.. figure :: images/MobileRobot_2DSimulator_Example.png
 
-.. image :: Slider_and_Motor_Example.png
+.. figure :: images/Slider_and_Motor_Example.png
 
-.. image :: Seq_Example.png
+.. figure :: images/Seq_Example.png
 
-=========================
 4. Eclipseの設定(GXUI編) 
-=========================
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-------------------------------------------------------
 外部プラグイン並びにのJava環境のインストール for GRXUI
-------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 (10.04/10.10ユーザ共通)
 Help -> Install New Softare -> Add -> Archive から
@@ -211,9 +195,8 @@ Help -> Install New Softare -> Add -> Archive から
 
 で、GRXUIが入っていることを確認する。
 
-==================
-5. GRXUI 動作確認 
-==================
+GRXUI 動作確認
+^^^^^^^^^^^^^^^
 
 .. <wiki:video url="http://www.youtube.com/watch?v=6wEH-41rw74" />
 
@@ -227,55 +210,158 @@ youtube
 として、視点を下に移すと台車ロボットが見えればOK.wiimoteがないと言われる場合は，`aptittude install ros-diamondback-joystick-drivers`とするとよい．
 ::
 
-  roslaunch hrpsys pa10.launch
-  または、
-  roslaunch openhrp3 pa10.launch
 
 
-としてPA10が画面に表示され動けばOK
+Sample HRP4C
+^^^^^^^^^^^^
 
-.. image :: http://rtm-ros-robotics.googlecode.com/svn/wiki/roslaunch_openhrp3_pa10.jpg
+roslaunch hrpsys hrp4c.launch
 
-あるいは，
-::
+として，左上の→が描いてあるシミュレーション開始ボタンを押し， 中心に
+  あるExecute scriptボタンをおして下図のようにロボットが歩けば成功です．
+  このとき、右上にあるFPSのつまみの50を1～10程度にするとシミュレーショ
+  ン速度が速くなります。
 
-  roslaunch hrpsys hrp4c.launch
+Execute scriptボタンの代わりに
 
-として，左上の→が描いてあるシミュレーション開始ボタンを押し，
-中心にあるExecute scriptボタンをおしてロボットが歩けば成功です．
+roscd hrpsys/share/hrpsys/samples/HRP-4C;
+rosrun hrpsys hrpsyspy ./HRP4C.py
 
-=========================
-6. トラブルシューティング
-=========================
+とすることもできます。
 
-------------------------------
-モデルが表示されないときは... 
-------------------------------
+.. image :: ../wiki/hrp4c_02.jpg
 
-- "LoadProject"で"FallingBoxes"を選択しても3DViewにモデルがでない。
+Sample PA10
+^^^^^^^^^^^
 
-::
+roslaunch hrpsys pa10.launch
+または
+roslaunch openhrp3 pa10.launch
 
-  roscd openhrp3; bin/openhrp-model-loader 
+としてPA10が画面に表示され、左上のシミュレーション開始ボタンを押し動け
+  ばOK
 
-として
-::
+.. image :: ../wiki/roslaunch_openhrp3_pa10.jpg
 
-  ready
+Sample sample-vehicle
+^^^^^^^^^^^^^^^^^^^^^
 
-がでているか確認。でていない場合は、
-::
+roslaunch openhrp3 sample-vehicle.launch
 
-  $ sudo /etc/init.d/omniorb4-nameserver stop
-  $ pkill -KILL omniNames
-  $ rtm-naming
+左上のシミュレーション開始ボタンを押し動けばOK.
 
-とする．10.04の人は/etc/hostsの::1から始まる行がコメントアウトされているか再確認．
+.. image :: ../wiki/roslaunch_openhrp3_sample_vehicle.jpg
 
-- "FallingBoxes"のシミュレーションは表示されるけど、"SampleRobot_inHouse.xml"をロードしてもロボットが表示されない場合、
+Sample Humanoid Robot
+^^^^^^^^^^^^^^^^^^^^^
 
-::
+roslaunch openhrp3 samplerobot-walk.launch
 
-  roscd openhrp3; make eclipse-clean; make wipe; roscd hrpsys; make wipe; rosmake
+左上のシミュレーション開始ボタンを押してしばらく待つとロボットが歩きだ
+  す。
 
-としてクリーンな環境をつくり必要なプラグインをインストール
+.. image :: ../wiki/sample_robot_walk.jpg
+
+roslaunch openhrp3 samplerobot-pickupbox.launch
+
+左上のシミュレーション開始ボタンを押してしばらく待つとロボットが箱を持
+  ち上げる。
+
+.. image :: ../wiki/sample_robot_pickupbox.jpg
+
+roslaunch openhrp3 samplerobot-inhouse.launch
+
+左上のシミュレーション開始ボタンを押してしばらく待つとロボットが机の上
+  の箱をつかみにいく。 
+
+.. image :: ../wiki/sample_robot_inhouse.jpg
+
+
+
+トラブルシューティング
+^^^^^^^^^^^^^^^^^^^^^^
+
+- Check OmniORB bug
+
+
+$ rosrun openrtm rtm-naming-restart
+
+and start following command from different terminal
+
+$ rosrun openhrp3 openhrp-aist-dynamics-simulator -ORBInitRef
+NameService=corbaloc:iiop:localhost:2809/NameService
+
+If you see "ready", than it ok, if you see
+"IDL:omg.org/CORBA/TRANSIENT:1.0", that's would be omniorb bug in
+ubuntu package.
+
+Please comment out
+
+::1     localhost ip6-localhost ip6-loopback
+
+line from /etc/hosts file
+Check SVN version
+
+make sure that you have downloaded latest version of repository
+
+$ roscd rtmros_common; svn up
+
+if you have find any update, then rosmake hrpsys hrpsys_ros_bridge
+again
+
+- Check Java version
+
+
+OpenHRP3 assume SUN version of java and not GNU or other
+implementation.
+
+$ java -version
+  java version "1.6.0_26"
+ Java(TM) SE Runtime Environment (build 1.6.0_26-b03)
+ Java HotSpot(TM) 64-Bit Server VM (build 20.1-b02, mixed mode)
+
+if it is not sun java, rosdep install openhrp3 or `sudo
+update-java-alternatives -s java-6-sun`
+
+- Check OpenHRP simulation
+
+
+Please make sure that OpenHRP simulation works.
+
+$ rosrun openhrp3 grxui.sh
+
+select "GrxUI -> Load Project" menu and select FallingBoxes?.xml Then
+press "Start Simulation" button, to see if the 3 yellow boxes falling
+down.
+
+Then select SampleRobot?_inHouse.xml file and press "Start Simulation"
+button to see that robot start walking.
+
+If this not working, you may fail to install eclipse plugin
+
+rm -fr ~/.eclipse
+roscd openhrp3; rm -fr workspace
+
+and then setup eclipse to install the plugins again.
+
+- Check HiroNX collada file
+
+Make sure that you have downloaded HiroNX collada file
+
+ rosls collada_robots/data/robots/kawada-hironx.dae
+
+if not, roscd collada_robots; rm installed; make
+Check OpenHRP Collada support
+
+Make sure that your openrhp3 support to load collada files
+
+$ roslaunch openhrp3 grxui.launch
+
+and right click Model menu on the left "Item View" and select "load",
+
+Select kawada-hironx.dae under
+jsk-ros-pkg/openrave_planning/collada_robots/data/robots directory
+
+Select *.dae from buttom left menu, that currently shown as *.wrl, and
+choose kawada-hironx.dae model, then confurm if you can see kawada
+robot model on the screen. 
