@@ -282,12 +282,14 @@ man_pages = [
      [u'著者'], 1)
 ]
 
-rst_epilog = """
+rst_epilog = u"""
 
 .. role:: red
 
 .. role:: green
 
 .. role:: blue
+
+.. |RTMW| replace:: RTミドルウェア
 
 """

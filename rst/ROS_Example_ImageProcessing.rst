@@ -379,7 +379,9 @@ _`Writing a Simple Publisher and Subscriber (Python)` を見よう．
 としてキャプチャできる．mpegファイルに変換するには
 ::
 
-  mencoder imgae_color.ogv -o output.mpg -speed 15 -ofps 30 -ovc lavc -lavcopts vcodec=mpeg2video:vbitrate=2500 -oac copy -of mpeg
+  mencoder imgae_color.ogv -o output.mpg -speed 15 -ofps 30
+    -ovc lavc -lavcopts vcodec=mpeg2video:vbitrate=2500
+    -oac copy -of mpeg
 
 とすることで出来る．
 
