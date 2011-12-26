@@ -94,4 +94,4 @@ ROS関連コマンド
 
 = 参照 =
 
-  * [http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&ved=0CD8QFjAE&url=http%3A%2F%2Fsphinx.pocoo.org%2Fsphinx.pdf&ei=GXH4TqfpNI7ymAWP7JmuAg&usg=AFQjCNHOlLSoItxpJVVeOdrx3WGG6tbifA sphinx book]
+  * [http://sphinx.pocoo.org/sphinx.pdf sphinx book]
