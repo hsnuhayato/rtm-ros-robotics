@@ -95,3 +95,5 @@ ROS関連コマンド
 = 参照 =
 
   * [http://sphinx.pocoo.org/sphinx.pdf sphinx book], [http://sphinx.shibu.jp/ Sphinx日本語HTML]
+
+  * [http://docutils.sourceforge.net/docs/user/rst/quickref.html#substitution-references-and-definitions Quick reStructuredText]
