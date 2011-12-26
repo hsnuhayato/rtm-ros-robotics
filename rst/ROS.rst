@@ -271,8 +271,8 @@ ROS_IP/ROS_HOSTNAME : ROSのノードのネットワークアドレスを指定�
 
 
 
-   出版されたメッセージを購読するためにはrostopic コマンドを利用する．もう一つ
-   新しいターミナルを立ち上げて
+  出版されたメッセージを購読するためにはrostopic コマンドを利用する．もう一つ
+  新しいターミナルを立ち上げて
 
   ::
 
@@ -716,21 +716,6 @@ RTMROS統合環境
 .. _サンプルプログラム: ROS_Example.html
 
 
-ROSは豊富なTutorialのページ(
-http://www.ros.org/wiki/ROS/Tutorials)
-，
-C++, Python以外にも，
-CommonLisp(http://www.ros.org/wiki/roslisp),
-Java(http://www.ros.org/wiki/rosjava),
-Lua(http://www.ros.org/wiki/roslua),
-EusLisp(http://ros.org/doc/api/roseus\_tutorials/html/)
-等のクライアントライブラリがあり，
-ロボット(http://www.ros.org/wiki/Robots)以外にも
-Android(
-http://www.ros.org/wiki/ApplicationsPlatform/Clients/Android),
-
-Aruduino(
-http://www.ros.org/wiki/rosserial\_arduino)
-などのデバイスが利用できる
+ROSは豊富な `Tutorialのページ <http://www.ros.org/wiki/ROS/Tutorials>`_, C++, Python以外にも, `CommonLisp <http://www.ros.org/wiki/roslisp>`_, `Java <http://www.ros.org/wiki/rosjava>`_, `Lua <http://www.ros.org/wiki/roslua>`_, `EusLisp <http://ros.org/doc/api/roseus/_tutorials/html/>`_, 等のクライアントライブラリがあり， `ロボット <http://www.ros.org/wiki/Robots>`_, 以外にも `Android <http://www.ros.org/wiki/ApplicationsPlatform/Clients/Android>`_, `Aruduino <http://www.ros.org/wiki/rosserial/_arduino>`_  などのデバイスが利用できる
 
 
