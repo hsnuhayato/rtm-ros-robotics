@@ -4,15 +4,15 @@
 ドキュメントの必要性
 --------------------
 
-ソフトウェア開発におけるドキュメント(主に，設計書を示す）の必要性について示す．
+ソフトウェア開発におけるドキュメントの必要性について示す．
 まず，ソフトウェア開発には以下のような特徴がある．
 
 * ソフトウェア開発は，「設計」→「実装」→「試験」の手順で行う．
-* ソフトウェア開発は，作成するソフトウェアの規模，期間に応じ，1人から複数人で行う．
+* ソフトウェア開発は，作成するソフトウェアの規模，期間に応じて，1人から複数の人で行う．
 * 一度作成したソフトウェアに対する不具合の対応，機能追加を行うことがある．機能追加前後の開発者が異なることもある．
 
-複数の人で開発を行う場合は，ソフトウェアの設計情報を共有する必要があり，また，一度作成したソフトウェアに対する不具合の対応，機能追加を行うような場合，どのような構成でソフトウェアが作成されているかを確認する必要があるため．
-よって，ソフトウェア開発を行う際には，ドキュメントをしっかり作成しておく必要がある．
+複数の人で開発を行う場合は，ソフトウェアの設計情報を共有する必要があり，また，一度作成したソフトウェアに対する機能追加を行うような場合，どのような構成でソフトウェアが作成されているかを確認する必要がある．
+よって，ソフトウェア開発を行う際には，ソフトウェアの構成等を示すドキュメントを作成しておく必要がある．
 
 ..
 
@@ -29,12 +29,12 @@ reStructuredTextとは，文書の構造や表示の仕方などを定義した�
 reStructuredText は RST，ReST，reSTと略されることもある．
 reStructuredTextの特徴は以下の通り．
 
-* テキスト形式で記述するため，計算機に標準でインストールされているメモ帳などのテキストエディタで作成することができる．(専用のソフトウェアのインストールは不要．つまり，ドキュメント開発を行う計算機はどれでも良い)
+* テキスト形式で記述するため，計算機に標準でインストールされているメモ帳などのテキストエディタで作成することができる．(専用のソフトウェアのインストールは不要．つまり，文章が作成できるあらゆる計算機でドキュメントを作成できる．)
 * ソースコードの状態でも高い可読性を持っている．
 * reStructuredTextで記述された文書はPDF，HTML，XML，LaTeXなど複数の形式の文書に変換することができる．
 
-Sphinxとはドキュメントを簡単に作れるようにするためのソフトウェアである．
-SphinxはreStructuredTextをマークアップ言語として使用しており，作成したドキュメントをHTML，PDFなどの形式に変換することができる．
+Sphinxとはドキュメントを簡単に作成できるようにするためのソフトウェアである．
+SphinxはドキュメントをreStructuredTextで記述し，作成したドキュメントをHTML，PDFなどの形式に変換することができる．
 Sphinxの特徴は以下の通り．
 
 * 実行環境はWindows/Linux/Mac OS，Python 2.4以上のインストールが必要である．
@@ -47,7 +47,7 @@ Sphinxの特徴は以下の通り．
 ^^^^
 
 以降に，Sphinxを導入するための手順を示す．なお，SphinxはPythonで作成されていることからPythonが実行できる環境であればどこでも動作する．
-よって，本誌ではWindows，Linuxそれぞれの環境にPythonのeasy_install(パッケージ管理システムからPythonのモジュールを自動で検索してインストールやアップデートしてくれるツール)を利用した導入手順を示す．
+よって，本誌ではWindows，Linuxそれぞれの環境にPythonのeasy_install(パッケージ管理システムからPythonのモジュールを自動で検索してインストールやアップデートしてくれるツール)を利用したSphinxの導入手順を示す．
 
 `Windows`
 
@@ -64,8 +64,21 @@ Pythonのインストール手順を示す．なお，既にインストール�
 \(1\) Pythonのインストーラのダウンロード
 
 * Internet Explorer等のWebブラウザを利用し，http://python.org の画面を開く．
+
+.. comment
+
+  .. figure:: images/doc_python_install-1.*
+
+  Pythonのインストール画面(1/6)
+
 * 画面左端の「Download」リンクをクリックする．
 * 画面上部の「Python 2.7.2 Windows Installer」リンク(2011年12月 執筆時点の最新版)をクリックする．
+
+.. comment
+  .. figure:: images/doc_python_install-2.*
+
+  Pythonのインストール画面(2/6)
+
 * ダウンロード画面が表示されるため，「OK」ボタンを押す．
 
   .. warning::
@@ -77,21 +90,21 @@ Pythonのインストール手順を示す．なお，既にインストール�
 * ダウンロードした「python-2.7.2.msi」ファイルをダブルクリックする．
 * 指示に従ってインストールを行う．なお，インストール画面は以下の通り．
 
-.. figure:: images/doc_python_install-1.*
-
-  Pythonのインストール画面(1/4)
-
-.. figure:: images/doc_python_install-2.*
-
-  Pythonのインストール画面(2/4)
-
 .. figure:: images/doc_python_install-3.*
 
-  Pythonのインストール画面(3/4)
+  Pythonのインストール画面(3/6)
 
 .. figure:: images/doc_python_install-4.*
 
-  Pythonのインストール画面(4/4)
+  Pythonのインストール画面(4/6)
+
+.. figure:: images/doc_python_install-5.*
+
+  Pythonのインストール画面(5/6)
+
+.. figure:: images/doc_python_install-6.*
+
+  Pythonのインストール画面(6/6)
 
 ..
 
@@ -99,11 +112,18 @@ Pythonのインストール手順を示す．なお，既にインストール�
 
 easy_installとは，パッケージ管理システムからPythonのモジュールを自動で検索し，インストールやアップデートをするツールである．
 Sphinxはこのツールを利用してインストールする．
-easy_installのインストール手順を示す．なお，既にインストールされている場合は，本手順は不要である．
+以降に，easy_installのインストール手順を示す．なお，既にインストールされている場合は，本手順は不要である．
 
 \(1\) easy_installファイルのダウンロード
 
 * Internet Explorer等のWebブラウザを利用し，http://peak.telecommunity.com/dist/ez_setup.py の画面を開く．
+
+.. comment
+
+  .. figure:: images/doc_easy_install_install-1.*
+
+  easy_installのインストール画面(1/2)
+
 * 表示された画面上で右クリックをし，「名前を付けてページを保存」を実行する．なお，その際に保存するファイル名は「ez_setup.py」とし，Cドライブ直下に保存する．
 
 \(2\) easy_installのインストール
@@ -114,9 +134,9 @@ easy_installのインストール手順を示す．なお，既にインスト�
 
 ..
 
-   .. figure:: images/doc_easy_install_install.*
+   .. figure:: images/doc_easy_install_install-2.*
   
-     easy_installのインストール画面
+     easy_installのインストール画面(2/2)
 
 ..
 
@@ -147,9 +167,10 @@ Linux(Ubuntu)にSphinxをインストールする方法は，「パッケージ�
 
     aptitude install python-sphinx
 
-上記コマンドの実行結果の内容は以下の通り．
-
 .. 以下コメントアウト
+ 
+   上記コマンドの実行結果の内容は以下の通り．
+
    testUser@testUser-desktop:~$ sudo aptitude install python-sphinx
    パッケージリストを読み込んでいます... 完了
    依存関係ツリーを作成しています
@@ -232,7 +253,7 @@ Sphinxを利用したドキュメント作成方法をWindows，Linuxそれぞ�
 1 *プロジェクトの作成*
 
 Sphinxではプロジェクトという単位でドキュメントを作成する．
-プロジェクト情報は以下として作成する．
+プロジェクト情報は以下とする．
 
       .. csv-table:: Sphinxのプロジェクト情報(Windows)
          :header: "項目", "内容"
@@ -251,8 +272,8 @@ sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンド
 
 * コマンドプロンプト画面を開く．
 * コマンドプロンプト画面で「mkdir C:\\sample-project」を入力後，Enterを押し，プロジェクトフォルダを作成する．
-* コマンドプロンプト画面からC:\\sample-project直下に移動する．(コマンドプロンプト画面で「cd C:\\sample-project」を入力後，Enterを押すことで移動できる)
-* コマンドプロンプト画面で「sphinx-quickstart」を入力後，Enterを押し，プロジェクト情報を入力する．なお，以降の★で示す，「プロジェクト名」，「バージョン番号」，「著者の名前」以外はデフォルトでも特に問題ない．詳細は 「Sphinxの日本ユーザ会」のページを参照．http://sphinx-users.jp/gettingstarted/sphinxquickstart.html．
+* コマンドプロンプト画面でC:\\sample-project直下に移動する．(コマンドプロンプト画面で「cd C:\\sample-project」を入力後，Enterを押すことで移動できる)
+* コマンドプロンプト画面で「sphinx-quickstart」を入力後，Enterを押し，プロジェクト情報を入力する．なお，以降の★で示す，「プロジェクト名」，「バージョン番号」，「著者の名前」以外はデフォルトでも特に問題ない．設定内容の詳細は 「Sphinxの日本ユーザ会」のページを参照．http://sphinx-users.jp/gettingstarted/sphinxquickstart.html．
 
  .. code-block:: bash
    :linenos:
@@ -342,7 +363,7 @@ sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンド
 2 *ドキュメントの作成*
 
 sphinx-quickstartで作成したプロジェクト内にドキュメントを作成する．
-なお，ページ構成は以下とする．
+なお，ドキュメント構成は以下とする．
 
   ::
 
@@ -396,12 +417,18 @@ sphinx-quickstartで作成したプロジェクト内にドキュメントを作
 * コマンドプロンプト画面に「make html」を入力後，Enterを押し，htmlファイルを作成する．(C:\\sample-project\\_build\\html\\index.htmlがある)
 * 以後，rstファイルを修正していけば良い．
 
+.. comment
+
+  .. figure:: images/doc_sphinx_html-1.*
+
+  Sphinxで作成した画面
+
 `Linux`
 
 1 *プロジェクト作成*
 
 Sphinxではプロジェクトという単位でドキュメントを作成する．
-プロジェクト情報は以下として作成する．
+プロジェクト情報は以下とする．
 
       .. csv-table:: Sphinxのプロジェクト情報(Linux)
          :header: "項目", "内容"
@@ -421,7 +448,7 @@ sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンド
 
 * ターミナル画面を開く．
 * ターミナル画面でtestUserユーザのホームディレクトリ(/home/testUser)に移動し，ホームディレクトリ直下にsample-projectディレクトリを作成する．(mkdir sample-project)
-* ターミナル画面で「sphinx-quickstart」を入力後，Enterを押し，プロジェクト情報を入力する．なお，以降の★で示す，「プロジェクト名」，「バージョン番号」，「著者の名前」以外はデフォルトでも特に問題ない．詳細は 「Sphinxの日本ユーザ会」のページを参照．http://sphinx-users.jp/gettingstarted/sphinxquickstart.html．
+* ターミナル画面で「sphinx-quickstart」を入力後，Enterを押し，プロジェクト情報を入力する．なお，以降の★で示す，「プロジェクト名」，「バージョン番号」，「著者の名前」以外はデフォルトでも特に問題ない．設定内容の詳細は 「Sphinxの日本ユーザ会」のページを参照．http://sphinx-users.jp/gettingstarted/sphinxquickstart.html．
 
  .. code-block:: bash
    :linenos:
@@ -502,7 +529,7 @@ sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンド
 2 *ドキュメントの作成*
 
 sphinx-quickstartで作成したプロジェクト内にドキュメントを作成する．
-なお，ページ構成は以下とする．
+なお，ドキュメント構成は以下とする．
 
   ::
 
@@ -553,6 +580,11 @@ sphinx-quickstartで作成したプロジェクト内にドキュメントを作
 * ターミナル画面を開き，/home/testUser/sample-projectディレクトリに移動する．
 * ターミナル画面で「make html」を入力後，Enterを押し，htmlファイルを作成する．(/home/testUser/sample-project/_build/html/index.htmlがある)
 
+.. comment
+
+  .. figure:: images/doc_sphinx_html-1.*
+
+  Sphinxで作成した画面
 
 ソースコードリポジトリ
 ======================
@@ -565,11 +597,11 @@ sphinx-quickstartで作成したプロジェクト内にドキュメントを作
 * 前回のバックアップからの変更点がわからない．(変更履歴の問題)
 * 毎回全てのデータを保存することになるため，ディスク容量を必要以上に使用してしまう．(ディスク容量の問題)
 
-上記の問題を解決するためのシステムをバージョン管理システムと呼び，現在のソフトウェア開発では日常的に利用されている．ここで，バージョン管理システムには以下のような特徴がある．
+上記の問題を解決するためのシステムをバージョン管理システムと呼び，現在のソフトウェア開発では一般的に利用されている．ここで，バージョン管理システムには以下のような特徴がある．
 
 * ファイルの変更履歴を管理し，変更履歴から変更点の比較が行える．また，過去のファイルを取り出すこともできる．誤って削除してしまっても元に戻すことができる．
 * ファイルの変更点の管理は，通常前回データの差分のみであり，ディスク容量を必要以上に使用しない．
-* 多くのバージョン管理システムは複数人の利用を想定しており，複数の人が同時に同一のファイルを修正した場合の問題を解決する仕組みを提供している．
+* 多くのバージョン管理システムは複数の人の利用を想定しており，複数の人が同時に同一のファイルを修正した場合の問題を解決する仕組みを提供している．
 * バージョン管理システムは，通常クライアント-サーバモデルであり，サーバ側にマスターデータを持ち，各開発者はそのサーバからソースを取得し，修正が完了したらコミットする．
 
 バージョン管理システムを利用すると良いことばかりのようであるが，
@@ -596,6 +628,7 @@ Subversionは以下のような特徴を持つ．
 * バージョン番号はファイル単位ではなく，ソースツリー全体に対して設定する．つまり，誰かがソースツリーのどこかのファイルを変更する度にバージョン番号が増える．
 * 管理対象のファイル・ディレクトリの移動や削除を行うことができるため，開発するフォルダの構成が決まっていない開発初期段階からバージョン管理を行うことができる．
 * クライアントとサーバの通信にsshをサポートしているため，インターネットを介したサーバとのデータのやりとりもセキュリティを保つことができる．
+* リポジトリへのアクセスプロトコルには，ローカル，Subversion 独自プロトコル(sshあり、なし)，http，https．
 
 以下にSubversionを利用する場合のシステム構成について示す．
 
@@ -608,15 +641,16 @@ Subversionは以下のような特徴を持つ．
 ..
 
  *リポジトリ*
+
   Subversion で管理されるファイルの格納場所．変更履歴をリビジョンという番号を付与して管理している．
 
  *作業コピー*
 
-  作業を行うために，リポジトリから取得したファイルを示す．Subversionはリポジトリのファイルを直接変更することはできないため，いったんリポジトリから作業コピーを作成し，これらのファイルに対して変更を加え，変更内容をリポジトリに反映させる．
+  作業を行うために，リポジトリから取得したファイルを示す．Subversionはリポジトリのファイルを直接変更することはできないため，一旦リポジトリから作業コピーを作成し，これらのファイルに対して変更を加え，変更内容をリポジトリに反映させる．
 
  *checkout*
 
-  リポジトリで管理されるファイルを全て取得する操作．
+  リポジトリで管理されるファイルをSubversionクライアント計算機に全て取得する操作．
 
  *update*
 
@@ -639,7 +673,7 @@ Subversionは以下のような特徴を持つ．
 導入
 ^^^^
 
-以降に，Subversionを導入するための手順を示す．なお，Subversionのインストールには様々な方法があるが，本誌ではSubversionクライアント-サーバ計算機の構成が共にWindows，Linuxの場合それぞれについて示す．
+以降に，Subversionを導入するための手順を示す．なお，Subversionのインストールには様々な方法があるが，本誌ではSubversionクライアント-サーバ計算機の構成が共にWindows，Linuxの場合について示す．
 
 `Windows`
 
@@ -661,13 +695,19 @@ Subversionは以下のような特徴を持つ．
 
       .. csv-table:: Subversionサーバソフトウェアの一覧
          :header: "ソフトウェア", "内容"
-         :widths: 100, 200
+         :widths: 150, 200
 
          "VisualSVN","VisualSVNによってサポート/メンテナンスされている．client and serverを含む．"
          "WANdisco","WANdiscoによってサポート/メンテナンスされている．32/64-bit client and serverを含む．"
          "Win32Svn","David Darjによってメンテナンスされている．32-bit client, server and bindings, MSI and ZIPs．"
 
 * ダウンロード画面から「Apache Subversion command line tools」の右のDownloadリンクをクリックする．(2011年12月執筆時点の最新版Apache-Subversion-1.7.2.zipを取得)
+
+.. comment
+
+  .. figure:: images/doc_subversion_install-1.*
+
+  Subversionのインストール(1/1)
 
 \(2\) Subversionサーバソフトウェアのインストール
 
@@ -683,6 +723,12 @@ Subversionは以下のような特徴を持つ．
 * Internet Explorer等のWebブラウザを利用し，http://tortoisesvn.net/の画面を開く．
 * 画面上部のDownloadsリンクをクリックし，表示された画面の「TortoiseSVN 32-Bit」のリンクをクリックする．
 
+.. comment
+
+  .. figure:: images/doc_tortoiseclient_install-1.*
+
+  Subversionクライアントソフトウェアのインストール(1/6)
+
   .. warning::
 
      上記のインストーラは32bit版であり，64bit版を利用している場合は「TortoiseSVN 64-Bit」リンクをクリックすること．
@@ -690,25 +736,25 @@ Subversionは以下のような特徴を持つ．
 * ダウンロードした「TortoiseSVN-1.7.3.22386-win32-svn-1.7.2.msi」ファイルをダブルクリックする．
 * 支持に従ってインストールを行う．なお，インストール画面は以下の通り．
 
-.. figure:: images/doc_tortoiseclient_install-1.*
-
-  Subversionクライアントソフトウェアのインストール(その1)
-
 .. figure:: images/doc_tortoiseclient_install-2.*
 
-  Subversionクライアントソフトウェアのインストール(その2)
+  Subversionクライアントソフトウェアのインストール(2/6)
 
 .. figure:: images/doc_tortoiseclient_install-3.*
 
-  Subversionクライアントソフトウェアのインストール(その3)
+  Subversionクライアントソフトウェアのインストール(3/6)
 
 .. figure:: images/doc_tortoiseclient_install-4.*
 
-  Subversionクライアントソフトウェアのインストール(その4)
+  Subversionクライアントソフトウェアのインストール(4/6)
 
 .. figure:: images/doc_tortoiseclient_install-5.*
 
-  Subversionクライアントソフトウェアのインストール(その5)
+  Subversionクライアントソフトウェアのインストール(5/6)
+
+.. figure:: images/doc_tortoiseclient_install-6.*
+
+  Subversionクライアントソフトウェアのインストール(6/6)
 
 ..
 
@@ -738,7 +784,7 @@ Subversionの利用例をWindows，Linuxそれぞれの環境に分けて以降�
 * リポジトリの作成
 .. code-block:: commandprompt
 
-   svnadmin  create C:\repository
+   svnadmin  create C:\\repository
 
 * 匿名アクセスのアクセス権限の設定(匿名ユーザにコミット権限を与える場合)
 
@@ -784,6 +830,13 @@ Subversionの利用例をWindows，Linuxそれぞれの環境に分けて以降�
 
   * testDir/a.txtを修正する．
   * testDirフォルダ上で右クリック＞「SVN Commit...」を選択する．
+
+.. comment
+
+  .. figure:: images/doc_subversion_commit.*
+
+  Subversionのコミット画面
+
   * 表示された画面でOKボタンを押す．
 
 * 新しいファイルの追加/コミット
@@ -891,7 +944,7 @@ Gitはクライアント-サーバモデルというシステム構成をとり�
 
 なお，Subersionでは，データの変更は必ずサーバのリポジトリにコミットすることになるが，Gitの場合は，ローカルリポジトリにコミットし，その後，ローカルのリポジトリのデータをサーバ側の中央リポジトリに反映する．
 Subersionでは，ソースコードを管理するためにはコミットする必要があるため，例えば，テストが実施できていないソースもバージョン管理するためにはコミットする必要があり，この操作が他の開発者に影響を与えることがあった．
-Gitでは，ローカルリポジトリだけでバージョン管理することができるため，左記の問題を解消することができる．テストが完了した後に中央リポジトリに反映すればよい．
+Gitでは，ローカルリポジトリだけでバージョン管理することができるため，テストが完了した後に中央リポジトリに反映するなどの対応で，上記の問題を解消することができる
 
 Gitは以下のような特徴を持つ．
 
@@ -916,7 +969,7 @@ Gitは以下のような特徴を持つ．
 
  *ローカルリポジトリ*
 
-  中央リポジトリのcloneとして作成したGitで管理されるファイルの格納場所．中央リポジトリ，ローカルリポジトリと呼び方は変えているが，どちらを中央と考えるかは利用者次第である．ローカルリポジトリ内でも変更履歴をリビジョンという番号を付与して管理している．
+  中央リポジトリのcloneとして作成したGitで管理されるファイルの格納場所．中央リポジトリ，ローカルリポジトリと呼び方は変えているが，管理上の呼び方を変えているだけである．どちらを中央と考えるかは利用者次第である．ローカルリポジトリ内でも変更履歴をリビジョンという番号を付与して管理している．
 
  *init*
 
@@ -945,7 +998,7 @@ Gitは以下のような特徴を持つ．
 
 導入
 ^^^^
-以降に，Gitを導入するための手順を示す．なお，Gitのインストールには様々な方法があるが，本誌ではGitクライアント-サーバ計算機の構成が共にWindows，Linuxの場合それぞれについて示す．
+以降に，Gitを導入するための手順を示す．なお，Gitのインストールには様々な方法があるが，本誌ではGitクライアント-サーバ計算機の構成が共にWindows，Linuxの場合について示す．
 
 `Windows`
 
@@ -964,38 +1017,48 @@ Gitは以下のような特徴を持つ．
 * Internet Explorer等のWebブラウザを利用し，Gitのサーバソフトウェアであるmsysgitをダウンロードするhttp://code.google.com/p/msysgit/downloads/listの画面を開く．
 * Git-1.7.8-preview20111206.exe(2011年12月執筆時点)のリンクをクリックする．
 
+.. comment
+
+  .. figure:: images/doc_git_install-1.*
+
+  Gitクライアントソフトウェアのインストール(1/9)
+
 \(2\) Gitサーバソフトウェアのインストール
 
 * ダウンロードした「Git-1.7.8-preview20111206.exe」を実行する．
 * 支持に従ってインストールを行う．なお，インストール画面は以下の通り．
 
-.. figure:: images/doc_git_install-1.*
-
-  Gitクライアントソフトウェアのインストール(その1)
-
 .. figure:: images/doc_git_install-2.*
 
-  Gitクライアントソフトウェアのインストール(その2)
+  Gitクライアントソフトウェアのインストール(2/9)
 
 .. figure:: images/doc_git_install-3.*
 
-  Gitクライアントソフトウェアのインストール(その3)
+  Gitクライアントソフトウェアのインストール(3/9)
 
 .. figure:: images/doc_git_install-4.*
 
-  Gitクライアントソフトウェアのインストール(その4)
+  Gitクライアントソフトウェアのインストール(4/9)
 
 .. figure:: images/doc_git_install-5.*
 
-  Gitクライアントソフトウェアのインストール(その5)
+  Gitクライアントソフトウェアのインストール(5/9)
 
 .. figure:: images/doc_git_install-6.*
 
-  Gitクライアントソフトウェアのインストール(その6)
+  Gitクライアントソフトウェアのインストール(6/9)
 
 .. figure:: images/doc_git_install-7.*
 
-  Gitクライアントソフトウェアのインストール(その7)
+  Gitクライアントソフトウェアのインストール(7/9)
+
+.. figure:: images/doc_git_install-8.*
+
+  Gitクライアントソフトウェアのインストール(8/9)
+
+.. figure:: images/doc_git_install-9.*
+
+  Gitクライアントソフトウェアのインストール(9/9)
 
 ..
 
