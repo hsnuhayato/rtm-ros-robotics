@@ -23,9 +23,10 @@ import sys, os
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
+import roslib; roslib.load_manifest('jsk_tools')
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.pngmath', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode', 'sphinx.ext.todo', 'sphinx.ext.extlinks']
+extensions = ['sphinx.ext.pngmath', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode', 'sphinx.ext.todo', 'sphinx.ext.extlinks', 'jsk_tools.shellblock_directive', 'jsk_tools.rosfile_directive']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
