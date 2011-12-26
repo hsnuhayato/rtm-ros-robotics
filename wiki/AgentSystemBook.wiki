@@ -96,4 +96,4 @@ ROS関連コマンド
 
   * [http://sphinx.pocoo.org/sphinx.pdf sphinx book], [http://sphinx.shibu.jp/ Sphinx日本語HTML]
 
-  * [http://docutils.sourceforge.net/docs/user/rst/quickref.html#substitution-references-and-definitions Quick reStructuredText]
+  * [http://docutils.sourceforge.net/docs/user/rst/quickref.html Quick reStructuredText]
