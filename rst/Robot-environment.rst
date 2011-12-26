@@ -65,17 +65,14 @@ Pythonのインストール手順を示す．なお，既にインストール�
 
 * Internet Explorer等のWebブラウザを利用し，http://python.org の画面を開く．
 
-.. comment
-
-  .. figure:: images/doc_python_install-1.*
+.. figure:: images/doc_python_install-1.*
 
   Pythonのインストール画面(1/6)
 
 * 画面左端の「Download」リンクをクリックする．
 * 画面上部の「Python 2.7.2 Windows Installer」リンク(2011年12月 執筆時点の最新版)をクリックする．
 
-.. comment
-  .. figure:: images/doc_python_install-2.*
+.. figure:: images/doc_python_install-2.*
 
   Pythonのインストール画面(2/6)
 
@@ -118,9 +115,7 @@ Sphinxはこのツールを利用してインストールする．
 
 * Internet Explorer等のWebブラウザを利用し，http://peak.telecommunity.com/dist/ez_setup.py の画面を開く．
 
-.. comment
-
-  .. figure:: images/doc_easy_install_install-1.*
+.. figure:: images/doc_easy_install_install-1.*
 
   easy_installのインストール画面(1/2)
 
@@ -417,9 +412,7 @@ sphinx-quickstartで作成したプロジェクト内にドキュメントを作
 * コマンドプロンプト画面に「make html」を入力後，Enterを押し，htmlファイルを作成する．(C:\\sample-project\\_build\\html\\index.htmlがある)
 * 以後，rstファイルを修正していけば良い．
 
-.. comment
-
-  .. figure:: images/doc_sphinx_html-1.*
+.. figure:: images/doc_sphinx_win-html-1.*
 
   Sphinxで作成した画面
 
@@ -580,9 +573,7 @@ sphinx-quickstartで作成したプロジェクト内にドキュメントを作
 * ターミナル画面を開き，/home/testUser/sample-projectディレクトリに移動する．
 * ターミナル画面で「make html」を入力後，Enterを押し，htmlファイルを作成する．(/home/testUser/sample-project/_build/html/index.htmlがある)
 
-.. comment
-
-  .. figure:: images/doc_sphinx_html-1.*
+.. figure:: images/doc_sphinx_linux-html-1.*
 
   Sphinxで作成した画面
 
@@ -703,9 +694,7 @@ Subversionは以下のような特徴を持つ．
 
 * ダウンロード画面から「Apache Subversion command line tools」の右のDownloadリンクをクリックする．(2011年12月執筆時点の最新版Apache-Subversion-1.7.2.zipを取得)
 
-.. comment
-
-  .. figure:: images/doc_subversion_install-1.*
+.. figure:: images/doc_subversion_install-1.*
 
   Subversionのインストール(1/1)
 
@@ -723,11 +712,11 @@ Subversionは以下のような特徴を持つ．
 * Internet Explorer等のWebブラウザを利用し，http://tortoisesvn.net/の画面を開く．
 * 画面上部のDownloadsリンクをクリックし，表示された画面の「TortoiseSVN 32-Bit」のリンクをクリックする．
 
-.. comment
-
-  .. figure:: images/doc_tortoiseclient_install-1.*
+.. figure:: images/doc_tortoiseclient_install-1.*
 
   Subversionクライアントソフトウェアのインストール(1/6)
+
+..
 
   .. warning::
 
@@ -831,9 +820,7 @@ Subversionの利用例をWindows，Linuxそれぞれの環境に分けて以降�
   * testDir/a.txtを修正する．
   * testDirフォルダ上で右クリック＞「SVN Commit...」を選択する．
 
-.. comment
-
-  .. figure:: images/doc_subversion_commit.*
+.. figure:: images/doc_subversion_commit.*
 
   Subversionのコミット画面
 
@@ -1017,9 +1004,7 @@ Gitは以下のような特徴を持つ．
 * Internet Explorer等のWebブラウザを利用し，Gitのサーバソフトウェアであるmsysgitをダウンロードするhttp://code.google.com/p/msysgit/downloads/listの画面を開く．
 * Git-1.7.8-preview20111206.exe(2011年12月執筆時点)のリンクをクリックする．
 
-.. comment
-
-  .. figure:: images/doc_git_install-1.*
+.. figure:: images/doc_git_install-1.*
 
   Gitクライアントソフトウェアのインストール(1/9)
 
