@@ -148,21 +148,15 @@ http://www.ros.org/wiki/ROS/Concepts
   より抜粋
 
   まずは簡単なサンプルプログラムを実効するために必要なパッケージをインス
-  トールする。まずは以下の様にaptのリポジトリを登録し，
+  トールする。まずは以下の様にaptのリポジトリを登録し，rosinstallをイ
+  ンストールする．
+
+  .. shell-block:: bash -c '$ROS_WORKSPACE/jsk-ros-pkg/jsk.rosbuild -i'
+
+  次に以下の作業を行い必要なROSファイルをインストールする
 
   ::
 
-    sudo apt-get install build-essential python-yaml cmake subversion wget python-setuptools git-core mercurial aptitude
-    sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros-latest.list'
-    wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
-
-  次に以下の作業を行う．
-
-  ::
-
-    sudo apt-get update
-    sudo apt-get install python-setuptools
-    sudo easy_install -U rosinstall
     sudo apt-get install ros-electric-ros-tutorials ros-electric-rx
 
   これができたら，
