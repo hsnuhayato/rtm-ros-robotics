@@ -5,7 +5,7 @@ INSTALL_DIR=`rospack find openhrp3`
 HG_DIR = build/openhrp-aist-grx-svn
 HG_URL = https://openhrp-aist-grx.googlecode.com/hg/
 HG_PATCH =patch/PD_HGtest.xml.patch patch/Sample.xml.patch patch/SampleHG.xml.patch patch/SampleLF.xml.patch patch/SamplePD.xml.patch patch/SamplePD_HG.xml.patch patch/SampleSV.xml.patch patch/PA10Sample.xml.patch patch/SampleRobot_inHouse.xml.patch
-HG_REVISION=c8698c0419fb
+HG_REVISION=158f6537d0af
 include $(shell rospack find mk)/hg_checkout.mk
 
 # https://code.ros.org/trac/ros/ticket/3748
@@ -31,8 +31,6 @@ installed: $(HG_DIR) patched
 	mkdir -p $(CURDIR)/idl && cp -p $(CURDIR)/share/OpenHRP-3.1/idl/OpenHRP/* ./idl/
 	# add link
 	ln -sf $(CURDIR)/lib/SimulationEC.so $(CURDIR)/lib/libSimulationEC.so
-	# clean
-	cd $(HG_DIR) ;make clean
 	#
 	touch installed
 
