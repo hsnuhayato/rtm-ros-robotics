@@ -1,16 +1,16 @@
 - other: {local-name: /opt/ros/electric/ros}
 - other: {local-name: /opt/ros/electric/stacks}
 - svn: {local-name: rtm-ros-robotics/rtmros_common,
-    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2323}
+    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2328}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r2323}
+    version: -r2328}
 - svn: {local-name: rtm-ros-robotics/agentsystem_openrave_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_openrave_tutorials',
-    version: -r2323}
+    version: -r2328}
 - svn: {local-name: rtm-ros-robotics/agentsystem_hironx_samples,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_hironx_samples',
-    version: -r2323}
+    version: -r2328}
 - svn: {local-name: jsk-ros-pkg,
     uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk', version: -r2557}
 - git: {local-name: umd-ros-pkg/camera_umd,
@@ -18,10 +18,10 @@
 - svn: {local-name: cmu-ros-pkg,
     uri: 'https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk', version: -r435}
 - svn: {local-name: wg-ros-pkg-cturtle/vision,
-    uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision', version: -r53803}
+    uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision', version: -r53805}
 - svn: {local-name: wg-ros-pkg-cturtle/sandbox/checkerboad_pose,
     uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboard_pose',
-    version: -r53803}
+    version: -r53805}
 - svn: {local-name: tum-ros-pkg,
     uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg', version: -r981}
 - svn: {local-name: ua-ros-pkg,
@@ -31,10 +31,10 @@
 - hg: {local-name: robot_model,
     uri: 'http://kforge.ros.org/robotmodel/robot_model', version: e9c6927f8d34}
 - svn: {local-name: visualization,
-    uri: 'https://code.ros.org/svn/ros-pkg/stacks/visualization/tags/visualization-1.6.5',
-    version: -r38383}
+    uri: 'https://code.ros.org/svn/ros-pkg/stacks/visualization/tags/visualization-1.6.7',
+    version: -r38387}
 - svn: {local-name: multimaster_experimental,
-    uri: 'https://code.ros.org/svn/ros/stacks/multimaster_experimental/trunk', version: -r15464}
+    uri: 'https://code.ros.org/svn/ros/stacks/multimaster_experimental/trunk', version: -r15513}
 - hg: {local-name: turtlebot,
     uri: 'https://kforge.ros.org/turtlebot/turtlebot', version: 306d01c3450c}
 - svn: {local-name: webots-ros-pkg,
