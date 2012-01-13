@@ -8,18 +8,17 @@ import time
 
 from set_env import *
 
-import RTC
-import _GlobalIDL, _GlobalIDL__POA
-import OpenRTM_aist
-
 ##
 ## Important:
 ##  RTM-related packages must be imported before those of vpython.
 ##  Otherwise, SEGV occurs when sending a CORBA message.
 ##
 
-from demo_common import *
+# from demo_common import *
 
+import RTC
+import _GlobalIDL, _GlobalIDL__POA
+import OpenRTM_aist
 
 # Module specification
 mplanserviceprovider_spec = ["implementation_id", "ArmPlan",
@@ -180,13 +179,14 @@ class ArmPlanServiceProvider(OpenRTM_aist.DataFlowComponentBase):
         # initialization of CORBA Port
         self._armPlanServicePort = OpenRTM_aist.CorbaPort("ArmPlanService")
         self._seqPlayServicePort = OpenRTM_aist.CorbaPort("SeqPlayService")
+        self._hiroControllerServicePort = OpenRTM_aist.CorbaPort("HiroControllerService")
         
         # initialization of Provider
         self._service0 = ArmPlanServiceSVC_impl()
 
         # initialization of Consumer
         self._service1 = OpenRTM_aist.CorbaConsumer(interfaceType=_GlobalIDL.SequencePlayerService)
-
+        self._service2 = OpenRTM_aist.CorbaConsumer(interfaceType=_GlobalIDL.MotionCommands)
         # Set service providers to Ports
         self._armPlanServicePort.registerProvider("ArmPlanService0",
                                                   "ArmPlanService",
@@ -197,9 +197,14 @@ class ArmPlanServiceProvider(OpenRTM_aist.DataFlowComponentBase):
                                                   "SeqPlayService",
                                                   self._service1)
 
+        self._hiroControllerServicePort.registerConsumer("HiroControllerService0",
+                                                         "HiroControllerService",
+                                                         self._service2)
+
         # Set CORBA Service Ports
         self.addPort(self._armPlanServicePort)
         self.addPort(self._seqPlayServicePort)
+        self.addPort(self._hiroControllerServicePort)
 
         return RTC.RTC_OK
 
