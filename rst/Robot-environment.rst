@@ -1,7 +1,6 @@
 ロボット開発環境
 ================
 
-
 ドキュメンテーションフレームワーク
 ----------------------------------
 
@@ -33,7 +32,7 @@ reStructuredText は RST，ReST，reSTと略されることもある．
 reStructuredTextの特徴は以下の通り．
 
 * テキスト形式で記述するため，計算機に標準でインストールされているメモ帳などのテキストエディタで作成することができる．(専用のソフトウェアのインストールは不要．つまり，文章が作成できるあらゆる計算機でドキュメントを作成できる．)
-* reStructuredTextで記述された文書は，ソースコードの状態でも高い可読性を持っている．
+* ソースコードの状態でも高い可読性を持っている．
 * reStructuredTextで記述された文書はPDF，HTML，XML，LaTeXなど複数の形式の文書に変換することができる．
 
 Sphinxとはドキュメントを簡単に作成できるようにするためのソフトウェアである．
@@ -50,8 +49,6 @@ Sphinxの特徴は以下の通り．
 
 以降に，Sphinxを導入するための手順を示す．なお，SphinxはPythonで作成されていることからPythonが実行できる環境であればどこでも動作する．
 よって，本誌ではWindows，Linuxそれぞれの環境にPythonのeasy_install(パッケージ管理システムからPythonのモジュールを自動で検索してインストールやアップデートしてくれるツール)を利用したSphinxの導入手順を示す．
-
-..
 
 `Windows`
 
@@ -84,12 +81,12 @@ Pythonのインストール手順を示す．なお，既にインストール�
 
   .. warning::
 
-     上記はWindows 32bit版のインストーラであり，Windows 64bit版のOSを利用している場合は，Windows 64bit版のインストーラ「Python 2.7.2 Windows X86-64 Installer 」リンクをクリックすること．
+     上記のインストーラは32bit版であり，64bit版を利用している場合は「Python 2.7.2 Windows X86-64 Installer 」リンクをクリックすること．
 
 \(2\) Pythonのインストール
 
 * ダウンロードした「python-2.7.2.msi」ファイルをダブルクリックする．
-* 指示に従ってインストールを行う．なお，インストール手順は以下の通り．
+* 指示に従ってインストールを行う．なお，インストール画面は以下の通り．
 
 .. figure:: images/doc_python_install-3.*
 
@@ -244,7 +241,7 @@ Linux(Ubuntu)にSphinxをインストールする方法は，「パッケージ�
 
 *ドキュメント作成*
 
-Sphinxを利用したドキュメント作成方法をWindows，Linuxそれぞれの環境に分けて以降に示す．なお，作成するドキュメントは目次，章が2つの構成とする．
+Sphinxを利用したドキュメント作成方法をWindows，Linuxそれぞれの環境に分けて以降に示す．なお，作成するドキュメントの構成は，目次，章が2つのものである．
 
 `Windows`
 
@@ -279,76 +276,66 @@ sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンド
    C:\sample-project>sphinx-quickstart
    Welcome to the Sphinx 1.1 quickstart utility.
  
-   Please enter values for the following settings (just press Enter 
-   to accept a default value, if one is given in brackets).
+   Please enter values for the following settings (just press Enter to
+   accept a default value, if one is given in brackets).
  
    Enter the root path for documentation.
    > Root path for the documentation [.]:
  
-   You have two options for placing the build directory for Sphinx 
-   output.
-   Either, you use a directory "_build" within the root path, or 
-   you separate "source" and "build" directories within the root 
-   path.
+   You have two options for placing the build directory for Sphinx output.
+   Either, you use a directory "_build" within the root path, or you separate
+   "source" and "build" directories within the root path.
    > Separate source and build directories (y/N) [n]:
  
    Inside the root directory, two more directories will be created; 
    "_templates"
-   for custom HTML templates and "_static" for custom stylesheets 
-   and other static files. You can enter another prefix 
-   (such as ".") to replace the underscore.
+   for custom HTML templates and "_static" for custom stylesheets and other 
+   static files. You can enter another prefix (such as ".") to replace 
+   the underscore.
    > Name prefix for templates and static dir [_]:
  
-   The project name will occur in several places in the built 
-   documentation.
+   The project name will occur in several places in the built documentation.
    > Project name: sample-project  <--- ★プロジェクト名
    > Author name(s): sample        <--- ★著者の名前
  
    Sphinx has the notion of a "version" and a "release" for the
-   software. Each version can have multiple releases. For example, 
-   for Python the version is something like 2.5 or 3.0, while the 
-   release is something like 2.5.1 or 3.0a1.  If you do not need 
-   this dual structure, just set both to the same value.
+   software. Each version can have multiple releases. For example, for
+   Python the version is something like 2.5 or 3.0, while the release is
+   something like 2.5.1 or 3.0a1.  If you do not need this dual structure,
+   just set both to the same value.
    > Project version: 2012.01.01   <--- ★バージョン番号
    > Project release [2012.01.01]:
  
-   The file name suffix for source files. Commonly, this is either
-   ".txt" or ".rst".  Only files with this suffix are considered 
-   documents.
+   The file name suffix for source files. Commonly, this is either ".txt"
+   or ".rst".  Only files with this suffix are considered documents.
    > Source file suffix [.rst]:
  
-   One document is special in that it is considered the top node 
-   of the "contents tree", that is, it is the root of the 
-   hierarchical structure of the documents. Normally, this is 
-   "index", but if your "index" document is a custom template, 
-   you can also set this to another filename.
+   One document is special in that it is considered the top node of the
+   "contents tree", that is, it is the root of the hierarchical structure
+   of the documents. Normally, this is "index", but if your "index"
+   document is a custom template, you can also set this to another filename.
    > Name of your master document (without suffix) [index]:
  
    Sphinx can also add configuration for epub output:
    > Do you want to use the epub builder (y/N) [n]:
  
-   Please indicate if you want to use one of the following Sphinx 
-   extensions:
-   > autodoc: automatically insert docstrings from modules 
-   > (y/N) [n]:
-   > doctest: automatically test code snippets in doctest blocks 
-   > (y/N) [n]:
+   Please indicate if you want to use one of the following Sphinx extensions:
+   > autodoc: automatically insert docstrings from modules (y/N) [n]:
+   > doctest: automatically test code snippets in doctest blocks (y/N) [n]:
    > intersphinx: link between 
    > Sphinx documentation of different projects (y/N) [n]:
-   > todo: write "todo" entries that can be shown or hidden on build 
-   > (y/N) [n]:
+   > todo: write "todo" entries that can be shown or hidden on build (y/N) [n]:
    > coverage: checks for documentation coverage (y/N) [n]:
    > pngmath: include math, rendered as PNG images (y/N) [n]:
-   > mathjax: include math, rendered in the browser by MathJax 
-   > (y/N) [n]:
+   > mathjax: include math, rendered in the browser by MathJax (y/N) [n]:
    > ifconfig: conditional inclusion of content based on 
    > config values (y/N) [n]:
    > viewcode: include links to the source code of documented 
    > Python objects (y/N) [n]:
  
-   A Makefile and a Windows command file can be generated for you 
-   so that you only have to run e.g. make html instead of invoking 
-   sphinx-build directly.
+   A Makefile and a Windows command file can be generated for you so that you
+   only have to run e.g. make html instead of invoking sphinx-build
+   directly.
    > Create Makefile? (Y/n) [y]:
    > Create Windows command file? (Y/n) [y]:
  
@@ -359,9 +346,9 @@ sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンド
  
    Finished: An initial directory structure has been created.
  
-   You should now populate your master file .\index.rst and create 
-   other documentation source files. Use the Makefile to build the 
-   docs, like so: make builder
+   You should now populate your master file .\index.rst and create other 
+   documentation source files. Use the Makefile to build the docs, like so:
+      make builder
    where "builder" is one of the supported builders, 
    e.g. html, latex or linkcheck.
  
@@ -462,70 +449,62 @@ sphinx-quickstartとは，Sphinxのプロジェクトを作成するコマンド
    testUser@testUser-desktop:~/sample-project$ sphinx-quickstart
    Welcome to the Sphinx quickstart utility.
  
-   Please enter values for the following settings (just press Enter
-   to accept a default value, if one is given in brackets).
+   Please enter values for the following settings (just press Enter to
+   accept a default value, if one is given in brackets).
  
    Enter the root path for documentation.
    > Root path for the documentation [.]:
  
-   You have two options for placing the build directory for Sphinx 
-   output. Either, you use a directory "_build" within the root path, 
-   or you separate "source" and "build" directories within the root 
-   path.
+   You have two options for placing the build directory for Sphinx output.
+   Either, you use a directory "_build" within the root path, or you separate
+   "source" and "build" directories within the root path.
    > Separate source and build directories (y/N) [n]:
  
    Inside the root directory, 
    two more directories will be created; "_templates"
    for custom HTML templates and "_static" for custom stylesheets 
-   and other static files. You can enter another prefix 
-   (such as ".") to replace the underscore.
+   and other static files. You can enter another prefix (such as ".") 
+   to replace the underscore.
    > Name prefix for templates and static dir [_]:
  
-   The project name will occur in several places in the built 
-   documentation.
+   The project name will occur in several places in the built documentation.
    > Project name: sample-project
    > Author name(s): sample
  
    Sphinx has the notion of a "version" and a "release" for the
-   software. Each version can have multiple releases. For example, 
-   for Python the version is something like 2.5 or 3.0, while the 
-   release is something like 2.5.1 or 3.0a1.  If you do not need 
-   this dual structure, just set both to the same value.
+   software. Each version can have multiple releases. For example, for
+   Python the version is something like 2.5 or 3.0, while the release is
+   something like 2.5.1 or 3.0a1.  If you do not need this dual structure,
+   just set both to the same value.
    > Project version: 2012.01.01
    > Project release [2012.01.01]:
  
-   The file name suffix for source files. Commonly, this is either 
-   ".txt" or ".rst".  Only files with this suffix are considered 
-   documents.
+   The file name suffix for source files. Commonly, this is either ".txt"
+   or ".rst".  Only files with this suffix are considered documents.
    > Source file suffix [.rst]:
  
  
-   One document is special in that it is considered the top node 
-   of the "contents tree", that is, it is the root of the 
-   hierarchical structure of the documents. Normally, this is 
-   "index", but if your "index" document is a custom template, 
-   you can also set this to another filename.
+   One document is special in that it is considered the top node of the
+   "contents tree", that is, it is the root of the hierarchical structure
+   of the documents. Normally, this is "index", but if your "index"
+   document is a custom template, you can also set this to another filename.
    > Name of your master document (without suffix) [index]:
  
-   Please indicate if you want to use one of the following Sphinx 
-   extensions:
+   Please indicate if you want to use one of the following Sphinx extensions:
    > autodoc: automatically insert docstrings from modules (y/N) [n]:
-   > doctest: automatically test code snippets in doctest blocks 
-   > (y/N) [n]:
+   > doctest: automatically test code snippets in doctest blocks (y/N) [n]:
    > intersphinx: link between Sphinx documentation 
    > of different projects (y/N) [n]:
-   > todo: write "todo" entries that can be shown or hidden on build 
-   > (y/N) [n]:
+   > todo: write "todo" entries that can be shown or hidden on build (y/N) [n]:
    > coverage: checks for documentation coverage (y/N) [n]:
    > pngmath: include math, rendered as PNG images (y/N) [n]:
-   > jsmath: include math, rendered in the browser by JSMath 
-   > (y/N) [n]:
+   > jsmath: include math, rendered in the browser by JSMath (y/N) [n]:
    > ifconfig: conditional inclusion of content based on 
    > config values (y/N) [n]:
  
-   A Makefile and a Windows command file can be generated for you 
-   so that you only have to run e.g. make html instead of invoking 
-   sphinx-build directly.
+   A Makefile and a Windows command file can be generated for you so that you
+   only have to run e.g. make html instead of invoking sphinx-build
+   directly.
    > Create Makefile? (Y/n) [y]:
    > Create Windows command file? (Y/n) [y]:
  
@@ -604,15 +583,15 @@ sphinx-quickstartで作成したプロジェクト内にドキュメントを作
 ソースコードのバージョン管理
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-ソフトウェアの開発では日常的にファイルの追加，修正を行うため，定期的にバックアップを行うことが重要である．バックアップを行う場合，通常ファイル名やフォルダ名に日付などを追加するが，この方法には以下のような問題がある．
+ソフトウェアの開発では日常的にファイルの追加，修正を行うため，定期的にバックアップを取ることが重要である．バックアップをとる場合，通常ファイル名やフォルダ名に日付などを追加するが，この方法には以下のような問題がある．
 
 * 前回のバックアップからの変更点がわからない．(変更履歴の問題)
 * 毎回全てのデータを保存することになるため，ディスク容量を必要以上に使用してしまう．(ディスク容量の問題)
 
-上記の問題を解決するためのシステムをバージョン管理システムと呼び，現在のソフトウェア開発では一般的に利用されている．バージョン管理システムには以下のような特徴がある．
+上記の問題を解決するためのシステムをバージョン管理システムと呼び，現在のソフトウェア開発では一般的に利用されている．ここで，バージョン管理システムには以下のような特徴がある．
 
-* ファイルの変更履歴を管理し，変更履歴から変更点の比較が行える．また，過去のファイルを取り出すこともできる．誤って削除してしまっても，前回管理した時点までには復元することができる．
-* ファイルの変更点の管理は，通常前回データからの差分データのみであり，ディスク容量を必要以上に使用しない．
+* ファイルの変更履歴を管理し，変更履歴から変更点の比較が行える．また，過去のファイルを取り出すこともできる．誤って削除してしまっても元に戻すことができる．
+* ファイルの変更点の管理は，通常前回データの差分のみであり，ディスク容量を必要以上に使用しない．
 * 多くのバージョン管理システムは複数の人の利用を想定しており，複数の人が同時に同一のファイルを修正した場合の問題を解決する仕組みを提供している．
 * バージョン管理システムは，通常クライアント-サーバモデルであり，サーバ側にマスターデータを持ち，各開発者はそのサーバからソースを取得し，修正が完了したらコミットする．
 
@@ -620,10 +599,10 @@ sphinx-quickstartで作成したプロジェクト内にドキュメントを作
 以下のような短所もある．
 
 * サーバで管理されているデータを取得するためにはバージョン管理システム専用のクライアントツールをインストールして利用する必要がある．
-* バージョン管理システムの利用方法を習得する必要がある．
+* 利用方法を習得する必要がある．
 
 但し，上記の短所については，バージョンシステム自体が広く利用されているシステムであることから，大きな問題となることは通常ない．
-以降に，バージョン管理システムとして良く利用されているSubversion，Git，Sourceforgeについて説明する．
+以降に，バージョン管理システムとして良く利用されているSubersion，Git，Sourceforgeについて説明する．
 
 Subversion
 ^^^^^^^^^^
@@ -632,14 +611,14 @@ Subversion
 
 Subversionとは，無償で利用できる集中型のバージョン管理システムの一つであり，Windows，Mac，Linuxなど多くのOS上で利用することができる．
 Subversionはクライアント-サーバモデルというシステムの構成をとり，バージョン管理するデータはサーバ側のリポジトリと呼ばれるところでSubversionにより集中管理される．
-クライアント側にはSubversion用の専用ツールをインストールし，サーバ側のリポジトリからデータを取得，修正後にコミットする．
+クライアント側にはSubersion用の専用ツールをインストールし，サーバ側のリポジトリからデータを取得，修正後にコミットする．
 
 Subversionは以下のような特徴を持つ．
 
 * バージョン番号はファイル単位ではなく，ソースツリー全体に対して設定する．つまり，誰かがソースツリーのどこかのファイルを変更する度にバージョン番号が増える．
 * 管理対象のファイル・ディレクトリの移動や削除を行うことができるため，開発するフォルダの構成が決まっていない開発初期段階からバージョン管理を行うことができる．
 * クライアントとサーバの通信にsshをサポートしているため，インターネットを介したサーバとのデータのやりとりもセキュリティを保つことができる．
-* リポジトリへのアクセス手段としてサポートされているプロトコルは，ローカル，Subversion 独自プロトコル(sshあり，なし)，http，httpsがある
+* リポジトリへのアクセスプロトコルには，ローカル，Subversion 独自プロトコル(sshあり、なし)，http，https．
 
 以下にSubversionを利用する場合のシステム構成について示す．
 
@@ -647,7 +626,7 @@ Subversionは以下のような特徴を持つ．
 
   Subversionのシステム構成
 
-Subversionを利用する際に，Subversionについて最低限理解しておくべき概念，用語を以下に示す．
+以降でSubversionを利用する前に，Subversionについて最低限理解しておくべき概念，用語を以下に示す．
 
 ..
 
@@ -705,7 +684,7 @@ Subversionを利用する際に，Subversionについて最低限理解してお
 
       .. csv-table:: Subversionサーバソフトウェアの一覧
          :header: "ソフトウェア", "内容"
-         :widths: 200, 200
+         :widths: 150, 200
 
          "VisualSVN","VisualSVNによってサポート/メンテナンスされている．client and serverを含む．"
          "WANdisco","WANdiscoによってサポート/メンテナンスされている．32/64-bit client and serverを含む．"
@@ -739,10 +718,10 @@ Subversionを利用する際に，Subversionについて最低限理解してお
 
   .. warning::
 
-     上記はWindows 32bit版のインストーラであり，Windows 64bit版のOSを利用している場合は，Windows 64bit版のインストーラ「TortoiseSVN 64-Bit」リンクをクリックすること．
+     上記のインストーラは32bit版であり，64bit版を利用している場合は「TortoiseSVN 64-Bit」リンクをクリックすること．
 
 * ダウンロードした「TortoiseSVN-1.7.3.22386-win32-svn-1.7.2.msi」ファイルをダブルクリックする．
-* 支持に従ってインストールを行う．なお，インストール手順は以下の通り．
+* 支持に従ってインストールを行う．なお，インストール画面は以下の通り．
 
 .. figure:: images/doc_tortoiseclient_install-2.*
 
@@ -795,7 +774,7 @@ Subversionの利用例をWindows，Linuxそれぞれの環境に分けて以降�
 
 * 匿名アクセスのアクセス権限の設定(匿名ユーザにコミット権限を与える場合)
 
-  * 「C:\\repository\\conf\\svnserve.conf」ファイルを開く
+  * 「C:\repository\conf\svnserve.conf」ファイルを開く
   * 19行目あたりの行を以下のように修正し，保存する．
 .. code-block:: commandprompt
 
@@ -817,7 +796,7 @@ Subversionの利用例をWindows，Linuxそれぞれの環境に分けて以降�
 
    svnserve -d -r C:\repository\
 
-   ※ Subversionサーバソフトウェアを停止したい場合は，svnserveのプロセスをkillする．
+   ※ Subversionサーバソフトウェアの停止は，svnserveプロセスの停止で行う．
 
 \(2\) Subversionクライアントソフトウェアの利用例
 
@@ -895,7 +874,7 @@ Subversionの利用例をWindows，Linuxそれぞれの環境に分けて以降�
 
    svnserve -d -r /var/svn_rep/repository
 
-   ※ Subversionサーバソフトウェアを停止したい場合は，svnserveのプロセスをkillする．
+   ※ Subversionサーバソフトウェアの停止は，svnserveプロセスの停止で行う．
 
 \(2\) Subversionクライアントソフトウェアの利用例
 
@@ -947,15 +926,15 @@ Windows，Mac，Linuxなど多くのOS上で利用することができる．
 Gitはクライアント-サーバモデルというシステム構成をとり，バージョン管理するデータはサーバ側の中央リポジトリ，クライアント側のローカルリポジトリと呼ばれるところでGitにより管理される．
 クライアント側にはGit用の専用ツールをインストールし，リポジトリからデータを取得，修正後にコミットする．
 
-なお，Subversionでは，データの変更は必ずサーバのリポジトリにコミットすることになるが，Gitの場合は，ローカルリポジトリにコミットし，その後，ローカルのリポジトリのデータをサーバ側の中央リポジトリに反映する．
-Subversionでは，ソースコードを管理するためにはコミットする必要があるため，例えば，テストが実施できていないソースもバージョン管理するためにはコミットする必要があり，この操作が他の開発者に影響を与えることがあった．
+なお，Subersionでは，データの変更は必ずサーバのリポジトリにコミットすることになるが，Gitの場合は，ローカルリポジトリにコミットし，その後，ローカルのリポジトリのデータをサーバ側の中央リポジトリに反映する．
+Subersionでは，ソースコードを管理するためにはコミットする必要があるため，例えば，テストが実施できていないソースもバージョン管理するためにはコミットする必要があり，この操作が他の開発者に影響を与えることがあった．
 Gitでは，ローカルリポジトリだけでバージョン管理することができるため，テストが完了した後に中央リポジトリに反映するなどの対応で，上記の問題を解消することができる
 
 Gitは以下のような特徴を持つ．
 
 * リポジトリがローカル，中央に分かれており，ローカルリポジトリだけでもバージョン管理ができる．
 * 動作速度に重点が置かれたシステムである．
-* リポジトリへのアクセス手段としてサポートされているプロトコルには，ローカル，ssh，rsync，Git 独自プロトコル，WebDAVなどがある．
+* リポジトリへのアクセスプロトコルには，ローカル，ssh，rsync，Git 独自プロトコル，WebDAVなどがある．
 
 以下にGitを利用する場合のシステム構成について示す．
 
@@ -966,7 +945,7 @@ Gitは以下のような特徴を持つ．
 
 ..
 
-Gitを利用する際に，Gitについて最低限理解しておくべき概念，用語を以下に示す．
+以降でGitを利用する前に，Gitについて最低限理解しておくべき概念，用語を以下に示す．
 
  *中央リポジトリ*
 
@@ -1161,7 +1140,7 @@ Gitの利用例(Windows，Linux)を以降に示す．
 
 * ローカル1リポジトリディレクトリの作成
 
-  * Git Bashを実行し，Git Bash画面から「C:\\gitrep\\」フォルダ，リポジトリの作成を行う．
+  * Git Bashを実行し，Git Bash画面から「C:\gitrep\」フォルダ，リポジトリの作成を行う．
 
 .. code-block:: bash
 
@@ -1171,7 +1150,7 @@ Gitの利用例(Windows，Linux)を以降に示す．
 
 * 中央リポジトリディレクトリの作成
 
-  * Git Bashを実行し，Git Bash画面から「C:\\gitrep\\」フォルダ，リポジトリの作成を行う．
+  * Git Bashを実行し，Git Bash画面から「C:\gitrep\」フォルダ，リポジトリの作成を行う．
 
 .. code-block:: bash
 
@@ -1330,7 +1309,7 @@ SourceForge.JPのサービスを利用するにあたりホスティング費用
 ソフトウェア開発は，「設計」→「実装」→「試験」→「利用」の手順で行われる．
 ソフトウェアを利用していると，不具合，使い勝手が悪い，追加の機能が欲しいなどの理由から
 再度上記の手順を繰り返す場合が多い．その手順を繰り返していくと徐々にソフトウェアの
-規模が大きくなり，修正したプログラムが他のプログラムに与える影響範囲を把握することが難しくなっていく．
+規模が大きくなり，修正したプログラムが他のプログラムに与える影響を把握することが難しくなっていく．
 結果として，修正したプログラムの問題により，他のプログラムが正常に動かなくなることもある．
 
 よって，ソフトウェアの変更を行う際には，ソフトウェアの品質を維持するために変更した部分のみならず，変更していない部分のテストも行う必要がある．
@@ -1357,7 +1336,7 @@ Jenkinsの特徴を以下に示す．
 
 * インストールが容易．
 * Javaで記述されているが，Java以外の言語でもCIを実践できる．
-* 設定が容易．全てWeb上から設定することができ，XML形式のファイルなどを修正する必要はない．
+* 設定が容易．XMLなどのファイルを修正する必要はない．
 * RSS/メールでビルド結果(成功，失敗)を通知することができる．
 * ビルド結果等を可視化するためのレポート機能を持つ．
 * Subversion，Git，Mercurial，Bazaarなどのソースコード管理ツールと連携し，自動で最新のテスト対象のソースを取得することができる．
@@ -1377,10 +1356,10 @@ Jenkinsの特徴を以下に示す．
 Jenkinsは様々な環境に導入することができるが，本誌ではLinuxに導入する手順について示す．
 また，Jenkinsを利用するためには，Apache/Tomcat等のWebアプリケーションサーバを用意する必要があるが，本誌ではこれらの
 Webアプリケーションサーバを利用せず，Jenkinsに同胞されているWinstoneという軽量Servletコンテナを利用する．
-導入時の構成を以下に示す．
+導入時の構成を以下に示す。
 
 
-      .. csv-table:: Jenkinsの構成
+      .. csv-table:: Sphinxのプロジェクト情報(Linux)
          :header: "項目", "内容"
          :widths: 20, 20
 
@@ -1388,10 +1367,13 @@ Webアプリケーションサーバを利用せず，Jenkinsに同胞されて�
          "Webアプリケーションサーバ","Winstone"
 
 ..
+..
+
 
 1 *Jenkinsのインストール*
 
   .. code-block:: bash
+    :linenos:
  
     wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | 
       sudo apt-key add -
@@ -1409,6 +1391,7 @@ Webアプリケーションサーバを利用せず，Jenkinsに同胞されて�
 \(1\) 起動
 
   .. code-block:: bash
+    :linenos:
 
     sudo /etc/init.d/jenkins start
 
@@ -1442,6 +1425,7 @@ Webアプリケーションサーバを利用せず，Jenkinsに同胞されて�
 \(2\) 停止
 
   .. code-block:: bash
+    :linenos:
 
     sudo /etc/init.d/jenkins stop
 
@@ -1455,10 +1439,6 @@ Jenkinsの利用例
 東京大学情報システム工学研究室(略称 JSK)の「RTM-ROS 相互運用プロジェクト」で作成したソースコードを利用する．
 
 「RTM-ROS 相互運用プロジェクト」で作成したソースコードは以下のような機能を持つ．
-
- * xxx
- * yyy
- * zzz
 
 .. todo:: ソースコードの機能例について記述する
 
@@ -1474,17 +1454,17 @@ http://code.google.com/p/rtm-ros-robotics/
 
 「RTM-ROS 相互運用プロジェクト」で開発しているソースコードをJenkinsでビルド・テストするための開発環境を示す．
 
+  絵を描く
+
 .. figure:: images/doc_jenkins_example_structure.*
 
   Jenkinsの利用構成
 
-..
-
-      .. csv-table:: Jenkinsの利用構成
+      .. csv-table:: Sphinxのプロジェクト情報(Linux)
          :header: "項目", "内容"
          :widths: 20, 20
 
-         "OS","Linux(Ubuntu 10.04)"
+         "OS","Ubuntu 10.04"
          "継続的インテグレーション","Jenkins version 1.441"
          "ビルドシステム","bash"
          "ソースコード管理システム","Subversion(Google Codeで実行)"
@@ -1534,36 +1514,6 @@ http://code.google.com/p/rtm-ros-robotics/
 
 \(\4) Jenkinsの起動
 
- 「2 *Jenkinsの起動/停止* 」の\(1\) 起動を実行する．
+ 「2 *Jenkinsの起動/停止*」の\(1\) 起動を実行する．
 
-*ジョブの作成*
-
-Jenkinsでビルドを実行するためには「ジョブ」というものを設定する必要がある．
-ジョブとはJenkisが一度に実行する処理の集まりであり，複数作成することができる．
-
-ジョブの作成方法には，テンプレートをベースする方法と，まっさらな状態から作成する方法がある．
-以降では「まっさらな状態から作成する方法」で示す．
-
-(1) Jenkinsのダッシュボードを開き，「新規ジョブ作成」リンクをクリックする．
-
-.. comment
-
-  .. figure:: images/doc_jenkins_job-1.*
-
-  Jenkinsジョブ作成手順RP4Cモデルのダウンロード画面(1/2)
-
-..
-
-(2) 
-
-なお，ジョブ作成時の設定情報は以下とする．
-
-- ジョブの作成には5つのステップ
-  ・新規ジョブを作成する
-  ・ソースコード管理システムを設定する
-  ・ビルド・トリガを設定する
-  ・ビルドタスクを設定する
-  ・ビルド後の処理を設定する
-
-*ビルド*
 
