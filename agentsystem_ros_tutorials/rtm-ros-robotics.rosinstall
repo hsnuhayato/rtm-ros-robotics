@@ -24,6 +24,11 @@
     local-name: umd-ros-pkg/camera_umd
     version: master
 ##
+## for 1394 camera (openvgr)
+- svn:
+    uri: https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0
+    local-name: stacks/camera1394
+##
 ## cmu for imagesift
 - svn:
     uri: https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk
