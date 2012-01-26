@@ -9,6 +9,18 @@ RTM-ROS setup
 
 http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English#Setup_Eclipse
 
+rosrun openhrp3 rtsysedit.sh
+
+press right button, and select "Add Name Server"
+
+enter RTM name server (192.168.128.14, for example)
+
+press ON button upper the eclipse
+
+start gui.sh
+
+
+
 Jan 26, Afternoon 1
 Jan 26, Afternoon 2
 Jan 27, Morning
@@ -18,8 +30,6 @@ Jan 27, Afternoon 2
 = Details =
 
 Add your content here.  Format your content with:
-* install rtm-ros-robotics
- 
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
