@@ -25,6 +25,7 @@
   * [ROS_Example_Android_Applications Androidの利用]
   * [ROS_Example_TroubleShooting 困ったときは]
  * [ROS_English OpenRTM/OpenHRP/ROS Install and Example]
+ * [HIRO_Workshop]
 
  * [CreatePrivateRepository 個人レポジトリー作成]
  * [Homework_List 宿題リスト]
