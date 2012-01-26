@@ -1,31 +1,43 @@
-#summary One-sentence summary of this page.
-
+#summary HIRO workshop with tecnallia, corporation in Italy
 = Introduction =
 
-Date 2012/01/26,27
+* Date: 2012/01/26(Tue),27(Fri)
 
-Jan 26, Morning
-RTM-ROS setup
+* Participants:
+
+- Mr. Urko Esnaola, Dr. Damien Salle (tecnallia),
+
+- Mr. Saito, Mr. Kawasumi (GRX), 
+
+- Mr. Okada, Mr. Diankov, Tsuda (JSK, Univ. of Tokyo)
+
+* Jan 26, Morning (RTM-ROS setup)
 
 http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English#Setup_Eclipse
 
-rosrun openhrp3 rtsysedit.sh
+- rosrun openhrp3 rtsysedit.sh
 
-press right button, and select "Add Name Server"
+-- press right button, and select "Add Name Server"
 
-enter RTM name server (192.168.128.14, for example)
+-- enter RTM name server (192.168.128.14, for example)
 
-press ON button upper the eclipse
+-- press ON button upper the eclipse
 
-start gui.sh
+- start gui.sh
+
+- rosmake hrpsys_ros_bridge --rosdep-install --rosdep-yes
 
 
 
-Jan 26, Afternoon 1
-Jan 26, Afternoon 2
-Jan 27, Morning
-Jan 27, Afternoon 1
-Jan 27, Afternoon 2
+* Jan 26, Afternoon 1
+
+* Jan 26, Afternoon 2
+
+* Jan 27, Morning
+
+* Jan 27, Afternoon 1
+
+* Jan 27, Afternoon 2
 
 = Details =
 
