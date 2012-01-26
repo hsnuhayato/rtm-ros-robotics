@@ -9,7 +9,7 @@
 
 - Mr. Saito, Mr. Kawasumi (GRX), 
 
-- Mr. Okada, Mr. Diankov, Tsuda (JSK, Univ. of Tokyo)
+- Mr. Okada, Mr. Diankov, Tsuda, Nozawa, Chen (JSK, Univ. of Tokyo)
 
 * Jan 26, Morning (RTM-ROS setup)
 
