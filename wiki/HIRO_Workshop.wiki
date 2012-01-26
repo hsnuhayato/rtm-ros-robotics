@@ -29,9 +29,19 @@ http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English#Setup_Eclipse
 
 
 
-* Jan 26, Afternoon 1
+* Jan 26, Afternoon (move real robot)
 
-* Jan 26, Afternoon 2
+$ roslaunch hironx_ros_bridge hironx.launch
+
+You can view the robot state in rviz.
+
+In another terminal,
+
+$ roscd hironx_ros_bridge/scripts
+
+$ rosrun roseus roseus kawada-hironx-sample.l
+
+
 
 * Jan 27, Morning
 
