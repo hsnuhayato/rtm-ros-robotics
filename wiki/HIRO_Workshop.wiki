@@ -60,4 +60,4 @@ JSK HIRO robot software was updated.
 
 -- python example code http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/sample.py
 
---- `rosrun hrpsys hrpsyspy sample.py`
+--- roscd hironx_ros_bridge/scripts; `rosrun hrpsys hrpsyspy sample.py`
