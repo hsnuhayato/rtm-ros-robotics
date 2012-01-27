@@ -63,7 +63,7 @@ to the Location and select EMF SDK 2.5.0.
 
 Then select
 `Help -> Install New Softare -> Add`
-and press "Location" button, and select the archive.
+and press "Archive" button, and select the archive.
 
 `<openhrp3>/build/rtmtools_eclipse.zip`
 
