@@ -9,7 +9,7 @@
 
 - Mr. Saito, Mr. Kawasumi (GRX), 
 
-- Mr. Okada, Mr. Diankov, Tsuda, Nozawa, Chen (JSK, Univ. of Tokyo)
+- Dr. Okada, Dr. Diankov, Mr. Tsuda, Mr. Nozawa, Mr. Chen (JSK, Univ. of Tokyo)
 
 = HIRO STARTUP TUTORIAL =
 [hiro_startup_tutorial]
