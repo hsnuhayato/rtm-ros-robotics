@@ -44,8 +44,8 @@ $ rosrun roseus roseus kawada-hironx-sample.l
 
 OpenRAVE introduction
 
-** http://openrave.programmingvision.com/en/main/plugin_interfaces.html
-** http://openrave.programmingvision.com/en/main/examples.html
+- http://openrave.programmingvision.com/en/main/plugin_interfaces.html
+- http://openrave.programmingvision.com/en/main/examples.html
 
 * Jan 27, Afternoon 1
 
@@ -53,6 +53,6 @@ OpenRAVE introduction
 
 = Details =
 
-** you need custom(?) version of seq for ROS, and need to update /opt/grx/HIRONX/script/bodyinfo.py by http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/bodyinfo.py
+-- you need custom(?) version of seq for ROS, and need to update /opt/grx/HIRONX/script/bodyinfo.py by http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/bodyinfo.py
 
-** python example code http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/sample.py
+-- python example code http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/sample.py
