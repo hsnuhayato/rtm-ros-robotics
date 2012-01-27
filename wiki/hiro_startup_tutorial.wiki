@@ -3,44 +3,44 @@
 
 == QNX PC ==
 
-# QNX PC Power on:
-## All light blinking
-## If red light static means emergency stop pressed
-## After that green and white
-# IP should be: 10.254.19.1 submask: 255.255.255.0
-# write the name + IP of the computer we are using in the /etc/hosts of the QNX computer if the interface is used from a computer that is not the KAWADA vision PC
+  #QNX PC Power on:
+  ##All light blinking
+  ##If red light static means emergency stop pressed
+  ##After that green and white
+  #IP should be: 10.254.19.1 submask: 255.255.255.0
+  #write the name + IP of the computer we are using in the /etc/hosts of the QNX computer if the interface is used from a computer that is not the KAWADA vision PC
 
 == VISION PC ==
 
-# IP: 10.254.19.2 submask: 255.255.255.0
-# KAWADA Vision PC Switch On <br />
-## user = vision <br /> passwd = vision <br />
-## launch python gui on vision PC
-##* We should have shortcut on desktop or,
-##* command line:  
+  # IP: 10.254.19.2 submask: 255.255.255.0
+  # KAWADA Vision PC Switch On <br />
+  ## user = vision <br /> passwd = vision <br />
+  ## launch python gui on vision PC
+  ##* We should have shortcut on desktop or,
+  ##* command line:  
              $ cd /opt/grx/HIRONX/script 
              $ ./gui.py
-## Check hostname hiro019
-## click 'setup rt-system' button: Loads all the RTM components and restarts them <br /> OK if button gets un-clicked and in command line we see [setup rt-system] xxxx sec.
-## CalibrateJoint:
-##* Take emergency stop on hand and check that servo lock switch is off and emergency stop is released
-##* Verify environment is clear of obstacles
-##* Click on 'CalibrateJoint' -> it will move to calibration position (hand to the front)
-##* Calibration is OK if the white light disappears and green light stays on not blinking
-# Validate every thing is OK by clicking 'goInitial' - The robot should move to the starting position
+  ## Check hostname hiro019
+  ## click 'setup rt-system' button: Loads all the RTM components and restarts them   <br /> OK if button gets un-clicked and in command line we see [setup rt-system] xxxx sec.
+  ## CalibrateJoint:
+  ##* Take emergency stop on hand and check that servo lock switch is off and emergency stop is released
+  ##* Verify environment is clear of obstacles
+  ##* Click on 'CalibrateJoint' -> it will move to calibration position (hand to the front)
+  ##* Calibration is OK if the white light disappears and green light stays on not blinking
+  # Validate every thing is OK by clicking 'goInitial' - The robot should move to the starting position
 
 == PROBLEM SOLVING ==
 
-* If by any reason emergency process starts, means red light blinks:
-** Click 'ServoOff' button -> green light should be blinking and red light dissapear
-** Click 'ServoOn' button -> green light will be ON permanently (stop blinking)
+  * If by any reason emergency process starts, means red light blinks:
+  ** Click 'ServoOff' button -> green light should be blinking and red light dissapear
+  ** Click 'ServoOn' button -> green light will be ON permanently (stop blinking)
 
 == CONNECTING THROUGH ROS ==
 
-# The process done through vision robot can be done through an external computer:  
-       $ roscd hironx_ros_bridge/gui/
+  # The process done through vision robot can be done through an external computer:  
+{{{       $ roscd hironx_ros_bridge/gui/
        $ ./gui.sh
-# run hironx_ros_bridge:  
+  # run hironx_ros_bridge:  
        $ rosmake hironx_ros_bridge
        $ roslaunch hironx_ros_bridge hironx.launch     This must always be running even to use the lisp system alone in simulation. As simulation also publishes topics make sure this is running firs other wise it might get confusing.  
        #see the published topics
@@ -49,17 +49,19 @@
        $ rosnode list
        # check in the output of info command that HrpsysSeqStateROSBridge is as suscriber
        $ rostopic  info /fullbody_controller/joint_trajectory_action/cancel
-# Checking the rtm components are running OK:  rosrun openhrp3 rtsysedit.sh
-#* Click ON Button
-#* Add name of corba server of HIRO: ej: 192.168.128.14
-#* grab the components to the diagram window to see the connections
-#* check their states at the menu on the right side of the screen
-# MOVING THE ARTICULATIONS
-## Using ROS C++
-##* c++ [http://www.ros.org/wiki/pr2_controllers/Tutorials/Moving20arm20the20Trajectory%20Action ROS arm moving]
-## Use the lisp connection: <br />[lisp_node.htm LISP NODE TUTORIAL]
-# TESTING THE KINECT BASED ar_pose ROS package
-#*  
+}}}
+  # Checking the rtm components are running OK:  rosrun openhrp3 rtsysedit.sh
+  #* Click ON Button
+  #* Add name of corba server of HIRO: ej: 192.168.128.14
+  #* grab the components to the diagram window to see the connections
+  #* check their states at the menu on the right side of the screen
+  # MOVING THE ARTICULATIONS
+  ## Using ROS C++
+  ##* c++ [http://www.ros.org/wiki/pr2_controllers/Tutorials/Moving20arm20the20Trajectory%20Action ROS arm moving]
+  ## Use the lisp connection: <br />[lisp_node.htm LISP NODE TUTORIAL]
+  # TESTING THE KINECT BASED ar_pose ROS package
+  #*  
+{{{
            $ rosmake ar_pose
            $ export ROS_MASTER_URI=http://192.168.128.254:11311
            $ export ROS_IP=192.168.128.133p
@@ -75,3 +77,4 @@
            $ roscd hironx_ros_bridge/scripts
            $ rosrun roseus roseus ar-pose.l
           chrony synchornoize the clock between computers using ros
+}}}
