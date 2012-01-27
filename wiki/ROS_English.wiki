@@ -54,19 +54,21 @@ Then you select
 `Help -> Install New Softare -> Add`
 from menu bar. and add
  `http://download.eclipse.org/tools/gef/updates/releases/`
-to the Location and select GEF SDK 3.6.2, install and restart eclipse.
+to the Location and uncheck "show only the latest version" .
+Then GEF SDK 3.6.2 become available, install and restart eclipse.
 
 You also need to add
  `http://download.eclipse.org/modeling/emf/updates/releases/`
-to the Location and select SDK EMF SDK 2.5.0.
+to the Location and select EMF SDK 2.5.0.
 
 Then select
 `Help -> Install New Softare -> Add`
-and add
+and press "Location" button, and select the archive.
 
 `<openhrp3>/build/rtmtools_eclipse.zip`
 
-to the Add menu and select everything.
+Then check everything to install.
+`<openhrp3>` is a install directory for openhrp3. (roscd openhrp3)
 
 Lastly, you have to install following software as well from Install
 `New Software -> Add`
