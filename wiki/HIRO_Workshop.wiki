@@ -28,7 +28,6 @@ http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English#Setup_Eclipse
 - rosmake hrpsys_ros_bridge --rosdep-install --rosdep-yes
 
 
-
 * Jan 26, Afternoon (move real robot)
 
 $ roslaunch hironx_ros_bridge hironx.launch
@@ -41,9 +40,12 @@ $ roscd hironx_ros_bridge/scripts
 
 $ rosrun roseus roseus kawada-hironx-sample.l
 
-
-
 * Jan 27, Morning
+
+OpenRAVE introduction
+
+** http://openrave.programmingvision.com/en/main/plugin_interfaces.html
+** http://openrave.programmingvision.com/en/main/examples.html
 
 * Jan 27, Afternoon 1
 
@@ -51,7 +53,5 @@ $ rosrun roseus roseus kawada-hironx-sample.l
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+** you need custom(?) version of seq for ROS, and need to update /opt/grx/HIRONX/script/bodyinfo.py by http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/bodyinfo.py
+** python example code http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/sample.py
