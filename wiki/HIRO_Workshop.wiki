@@ -13,6 +13,11 @@
 
 * Jan 26, Morning (RTM-ROS setup)
 
+[http://domain/page label]
+http://domain/page
+
+[hiro_startup_tutorial]
+
 http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English#Setup_Eclipse
 
 - rosrun openhrp3 rtsysedit.sh
