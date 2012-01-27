@@ -5,7 +5,7 @@
 
 * Participants:
 
-- Mr. Urko Esnaola, Dr. Damien Salle (tecnallia),
+- Dr. Urko Esnaola, Dr. Damien Salle (tecnallia),
 
 - Mr. Saito, Mr. Kawasumi (GRX), 
 
@@ -61,6 +61,11 @@ JSK HIRO robot software was updated.
 * Jan 27, Afternoon 2
 
 = Details =
+
+Best order to install would be,
+
+- $ rosmake hrpsys_ros_bridge --rosdep-install --rosdep-yes
+- $ roslaunch hironx_ros_bridge hironx.launch
 
 -- you need custom(?) version of seq for ROS, and need to update /opt/grx/HIRONX/script/bodyinfo.py by http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/bodyinfo.py
 
