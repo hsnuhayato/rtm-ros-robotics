@@ -11,12 +11,13 @@
 
 - Mr. Okada, Mr. Diankov, Tsuda, Nozawa, Chen (JSK, Univ. of Tokyo)
 
+= HIRO STARTUP TUTORIAL =
+[hiro_startup_tutorial]
+
 * Jan 26, Morning (RTM-ROS setup)
 
-[http://domain/page label]
-http://domain/page
 
-[hiro_startup_tutorial]
+
 
 http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English#Setup_Eclipse
 
