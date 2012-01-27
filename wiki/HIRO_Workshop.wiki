@@ -47,6 +47,9 @@ OpenRAVE introduction
 - http://openrave.programmingvision.com/en/main/plugin_interfaces.html
 - http://openrave.programmingvision.com/en/main/examples.html
 
+JSK HIRO robot software was updated.
+
+
 * Jan 27, Afternoon 1
 
 * Jan 27, Afternoon 2
