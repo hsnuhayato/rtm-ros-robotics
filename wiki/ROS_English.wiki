@@ -41,6 +41,9 @@ $ rosmake --rosdep-install --rosdep-yes hrpsys_ros_bridge
 If rosmake failed to install sun-java6-{jdk,fonts,plugin},
 please install from Synaptic package manager.
 
+When you use Ubuntu 11.04 or later and failed to make euslisp,
+reboot and rosmake again.
+
 == Setup Eclipse ==
 type
 {{{
