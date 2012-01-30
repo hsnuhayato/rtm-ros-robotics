@@ -143,6 +143,8 @@ roslaunch hrpsys hrp4c.launch
 press `Start Simulation` button,
 then press `execute script file` or command `roscd hrpsys/share/hrpsys/samples/HRP-4C; rosrun hrpsys hrpsyspy ./HRP4C.py` in new terminal
 
+If failed to load HRP-4C model, rosmake hrpsys_ros_bridge again.
+
 [http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/HRP4C.gif]
 
 === Sample Robot Walking and Grasping===
