@@ -38,30 +38,36 @@
 == CONNECTING THROUGH ROS ==
 
   # The process done through vision robot can be done through an external computer:  
-{{{    $ roscd hironx_ros_bridge/gui/
+{{{   
+       $ roscd hironx_ros_bridge/gui/
        $ ./gui.sh
-}}}
-  # run hironx_ros_bridge:  
+# run hironx_ros_bridge:  
        $ rosmake hironx_ros_bridge
-       $ roslaunch hironx_ros_bridge hironx.launch     This must always be running even to use the lisp system alone in simulation. As simulation also publishes topics make sure this is running firs other wise it might get confusing.  
+       $ roslaunch hironx_ros_bridge hironx.launch     
+#This must always be running even to use the lisp system alone in simulation. 
+#As simulation also publishes topics make sure this is running firs other wise 
+#it might lead to confusion.  
        #see the published topics
        $ rostopic list
        # make sure HrpsysSeqStateROSBridge node is there
        $ rosnode list
        # check in the output of info command that HrpsysSeqStateROSBridge is as suscriber
        $ rostopic  info /fullbody_controller/joint_trajectory_action/cancel
-  }}}
-  # Checking the rtm components are running OK:  rosrun openhrp3 rtsysedit.sh
+}}}
+  # Checking the rtm components are running OK:  
+{{{
+       $ rosrun openhrp3 rtsysedit.sh
+}}}
   #* Click ON Button
   #* Add name of corba server of HIRO: ej: 192.168.128.14
   #* grab the components to the diagram window to see the connections
   #* check their states at the menu on the right side of the screen
   # MOVING THE ARTICULATIONS
-  ## Using ROS C++
-  ##* c++ [http://www.ros.org/wiki/pr2_controllers/Tutorials/Moving20arm20the20Trajectory%20Action ROS arm moving]
-  ## Use the lisp connection: <br />[lisp_node.htm LISP NODE TUTORIAL]
+    * Using ROS C++
+      * c++ [http://www.ros.org/wiki/pr2_controllers/Tutorials/Moving20arm20the20Trajectory%20Action ROS arm moving]
+    * Use the lisp connection: <br />[lisp_node_tutorial LISP NODE TUTORIAL]
   # TESTING THE KINECT BASED ar_pose ROS package
-  #*  
+    
 {{{
            $ rosmake ar_pose
            $ export ROS_MASTER_URI=http://192.168.128.254:11311
