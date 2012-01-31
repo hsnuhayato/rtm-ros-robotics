@@ -3,12 +3,12 @@
 
 == QNX PC ==
 
-  #QNX PC Power on:
-  ##All light blinking
-  ##If red light static means emergency stop pressed
-  ##After that green and white
-  #IP should be: 10.254.19.1 submask: 255.255.255.0
-  #write the name + IP of the computer we are using in the /etc/hosts of the QNX computer if the interface is used from a computer that is not the KAWADA vision PC
+  # QNX PC Power on:
+  ## All light blinking
+  ## If red light static means emergency stop pressed
+  ## After that green and white
+  # IP should be: 10.254.19.1 submask: 255.255.255.0
+  # Write the name + IP of the computer we are using in the /etc/hosts of the QNX computer if the interface is used from a computer that is not the KAWADA vision PC
 
 == VISION PC ==
 
