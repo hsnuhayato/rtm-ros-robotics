@@ -42,7 +42,7 @@ You can view the robot state in rviz.
 
 In another terminal,
 
-$ roscd hironx_ros_bridge/scripts
+$ roscd hrpsys_ros_bridge/scripts
 
 $ rosrun roseus roseus kawada-hironx-sample.l
 
