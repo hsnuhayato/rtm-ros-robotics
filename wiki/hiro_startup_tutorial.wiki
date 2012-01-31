@@ -38,8 +38,9 @@
 == CONNECTING THROUGH ROS ==
 
   # The process done through vision robot can be done through an external computer:  
-  {{{       $ roscd hironx_ros_bridge/gui/
+{{{    $ roscd hironx_ros_bridge/gui/
        $ ./gui.sh
+}}}
   # run hironx_ros_bridge:  
        $ rosmake hironx_ros_bridge
        $ roslaunch hironx_ros_bridge hironx.launch     This must always be running even to use the lisp system alone in simulation. As simulation also publishes topics make sure this is running firs other wise it might get confusing.  
