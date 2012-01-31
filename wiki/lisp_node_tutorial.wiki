@@ -1,0 +1,32 @@
+#summary Tutorial of the ros lisp node
+
+*Note: If hiro_ros_bridge is running, (see Startup Tutorial) this node connects to the topics published by it, other wise it starts its own simulation*
+
+  * Start Node and load hiro script
+{{{
+  $ roscd hironx_ros_bridge/scripts
+  $ rosrun roseus roseus
+  $ load "kawada-hironx-example.l"
+}}}
+  * Starting commands for some movements
+{{{
+  $ rosrun roseus roseus
+  #load objects
+  $ objects (list *hiro*)
+  # send new elbow angle to visualization in lisp
+  $ send *hiro* :arms :elbow-p :joint-angle -120
+  # get real robot joint angles
+  $ send *ri* :state :potentio-vector
+  # send lisp position vector to real robot (3000 ms to reach the point)
+  $ send *ri* :angle-vector (send *hiro* :angle-vector) 3000  
+}}}
+  * Draw a cube 
+{{{
+  # make a cube in lisp visualization
+  $ setq a (make-cube 100 100 100)
+  # visualize the cube in the visualiztion  
+  $ objects (list *hiro* a)
+  # send location for the cube 
+  $ send a :locate #f(200 200 200)
+  # do invers kinematics with target
+}}}        
