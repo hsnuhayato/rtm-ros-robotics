@@ -38,7 +38,7 @@
 == CONNECTING THROUGH ROS ==
 
   # The process done through vision robot can be done through an external computer:  
-{{{       $ roscd hironx_ros_bridge/gui/
+  {{{       $ roscd hironx_ros_bridge/gui/
        $ ./gui.sh
   # run hironx_ros_bridge:  
        $ rosmake hironx_ros_bridge
@@ -49,7 +49,7 @@
        $ rosnode list
        # check in the output of info command that HrpsysSeqStateROSBridge is as suscriber
        $ rostopic  info /fullbody_controller/joint_trajectory_action/cancel
-}}}
+  }}}
   # Checking the rtm components are running OK:  rosrun openhrp3 rtsysedit.sh
   #* Click ON Button
   #* Add name of corba server of HIRO: ej: 192.168.128.14
