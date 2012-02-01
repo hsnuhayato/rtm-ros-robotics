@@ -1,0 +1,82 @@
+#summary Building ROS with Nao SDK
+
+<wiki:toc max_depth="2" />
+
+= Problem =
+When trying to use Nao Sdk with ROS, library conflicts may cause your program to crash. This is due to the fact that Nao Aldebaran libraries (alcommon...) are supposed to link against their own versions of shared libraries (that you can find under the lib folder of the Sdk like boost libraries) while ROS is set to use different versions (usually the ones under /usr/lib).
+To visualize that add SET(CMAKE_VERBOSE_MAKEFILE ON) to your CMakeLists.txt and try to compile your program.
+
+= Solution =
+We will in the following compile ROS from sources setting it to link against the Aldebaran libraries. The following was tested in Ubuntu Lucid assuming you want to download the electric version of ROS. 
+
+First of all install a local version of your Nao Sdk, for example create a folder called nao in your home directory, download the naoqi-sdk-X.X.X-linux.tar.gz and untar it there.
+
+Then create a folder where you want ROS to get installed, we will call it for instance ros_nao.
+Go to the ros_nao folder then create a .bashrc file. Copy the following (supposing our nao sdk version is 1.10.37):
+{{{
+export BOOST_ROOT=~/nao/naoqi-sdk-1.10.37-linux
+export ROS_BOOST_ROOT=$BOOST_ROOT
+export CPATH=~/nao/naoqi-sdk-1.10.37-linux/include:~/ros_nao/include
+export LIBRARY_PATH=~/nao/naoqi-sdk-1.10.37-linux/lib:~/ros_nao/lib
+export LD_LIBRARY_PATH=~/nao/naoqi-sdk-1.10.37-linux/lib:~/ros_nao/lib:${LD_LIBRARY_PATH}
+}}}
+The original step here is to set the ROS_BOOST_ROOT variable telling ROS to use the Nao Sdk's version of boost. Notice that we appended at the beginning of the LD_LIBRARY_PATH. 
+Save your .bashrc and add it to you ~/.bashrc:
+{{{
+echo "source ~/ros_nao/.bashrc" >> ~/.bashrc
+}}}
+You can take the opportunity to append some helpful variable to your ~/.bashrc, you can add for instance:
+{{{
+export ROS_PARALLEL_JOBS=-j4 //check your /proc/cpuinfo file
+export ROS_PACKAGE_PATH=~/ros_workspace:$ROS_PACKAGE_PATH //i you have a personal worspace
+export EDITOR='emacs -nw' //set ros editor
+}}}
+We will then download the ROS source. Do as instructed in http://www.ros.org/wiki/electric/Installation/Ubuntu/Source :
+
+{{{
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+sudo apt-get install build-essential python-yaml cmake subversion wget python-setuptools mercurial git-core
+sudo easy_install -U rosinstall
+}}}
+
+We are ready to download the sources. Create a bash script in ros_nao folder, call it for instance install.bash then copy the following :
+ 
+{{{
+#!/bin/bash
+rosinstall --rosdep-yes  --continue-on-error ~/ros_nao "http://packages.ros.org/cgi-bin/gen_rosinstall.py?rosdistro=electric&variant=desktop&overlay=no" custom.rosinstall
+}}}
+
+As an example we are downloading the Desktop configuration that contains rviz.
+You have probably noticed the custom.rosinstall file at the end. Create it and add inside it any package you would like to use, for openCV for instance copy:
+
+{{{
+- svn:
+    uri: https://code.ros.org/svn/ros-pkg/stacks/vision_opencv/tags/electric/
+    local-name: opencv2
+}}}
+
+Set the rights:
+{{{
+chmod +x install.bash
+}}}
+
+Then run the script. When it ends append the freshly created setup.bash to your ros_nao /bashrc :
+
+{{{
+echo "source ~/ros/setup.bash" >> ~/.bashrc
+}}}
+
+When this step is finished your local ROS version is normally set up to work correctly with Nao SDK.
+You can check if everything is correctly linked:
+{{{
+roscd roscpp
+ldd lib/libros.so
+}}}
+you should see something like :
+{{{
+libboost_signals-mt.so => /home/youssef/nao/naoqi-sdk-1.10.37-linux/lib/
+}}}
+
+=rviz=
+
+If you want to run rviz you have a little more work to do.
