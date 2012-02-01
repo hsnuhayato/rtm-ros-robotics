@@ -28,7 +28,7 @@ echo "source ~/ros_nao/.bashrc" >> ~/.bashrc
 You can take the opportunity to append some helpful variable to your ~/.bashrc, you can add for instance:
 {{{
 export ROS_PARALLEL_JOBS=-j4 //check your /proc/cpuinfo file
-export ROS_PACKAGE_PATH=~/ros_workspace:$ROS_PACKAGE_PATH //i you have a personal worspace
+export ROS_PACKAGE_PATH=~/ros_workspace:$ROS_PACKAGE_PATH //if you have a personal workspace
 export EDITOR='emacs -nw' //set ros editor
 }}}
 We will then download the ROS source. Do as instructed in http://www.ros.org/wiki/electric/Installation/Ubuntu/Source :
@@ -39,7 +39,7 @@ sudo apt-get install build-essential python-yaml cmake subversion wget python-se
 sudo easy_install -U rosinstall
 }}}
 
-We are ready to download the sources. Create a bash script in ros_nao folder, call it for instance install.bash then copy the following :
+We are ready to download the sources. Create a bash script in ros_nao folder, call it for instance install.bash then paste the following :
  
 {{{
 #!/bin/bash
@@ -47,7 +47,7 @@ rosinstall --rosdep-yes  --continue-on-error ~/ros_nao "http://packages.ros.org/
 }}}
 
 As an example we are downloading the Desktop configuration that contains rviz.
-You have probably noticed the custom.rosinstall file at the end. Create it and add inside it any package you would like to use, for openCV for instance copy:
+You have probably noticed the custom.rosinstall file at the end. Create it and add inside it any package you would like to use, for openCV for instance paste:
 
 {{{
 - svn:
@@ -80,3 +80,35 @@ libboost_signals-mt.so => /home/youssef/nao/naoqi-sdk-1.10.37-linux/lib/
 =rviz=
 
 If you want to run rviz you have a little more work to do.
+Try to make rviz run :
+{{{
+rosmake rviz
+}}}
+If you get erros then proceed as follows if you problems come from colladadom. First check which packages depend on colladadom:
+{{{
+rospack depends-on1 colladadom
+}}}
+Let's assume that you get the following packages:  collada_parser, collada_urdf, urdf. Go to each of these packages then remove the dependency in the manifest.xml. We will download colladadom manually.
+Install collaladom:
+{{{
+svn co https://collada-dom.svn.sourceforge.net/svnroot/collada-dom/trunk ~/ros_nao/collada-dom
+mkdir -p ~/ros_nao/collada-dom/build
+cd ~/ros_nao/collada-dom/build
+cmake -DCMAKE_INSTALL_PREFIX=~/ros_nao -DOPT_COLLADA14=OFF ..
+make install
+}}}
+In each of the depending packages CMakeLists.txt add after rosbuild_init() :
+{{{
+find_package(COLLADA_DOM 2.3 COMPONENTS 1.5 REQUIRED)
+include_directories(${COLLADA_DOM_INCLUDE_DIRS})
+link_directories(${COLLADA_DOM_LIBRARY_DIRS})
+link_libraries(${COLLADA_DOM_LIBRARIES})
+}}}
+Try again
+{{{
+rosmake --pre-clean rviz rviz
+}}}
+If no error and if your graphic drivers are correctly installed you can run rviz:
+{{{
+rosrun rviz rviz
+}}}
