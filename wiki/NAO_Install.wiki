@@ -63,7 +63,7 @@ chmod +x install.bash
 Then run the script. When it ends append the freshly created setup.bash to your ros_nao /bashrc :
 
 {{{
-echo "source ~/ros/setup.bash" >> ~/.bashrc
+echo "source ~/ros_nao/setup.bash" >> ~/ros_nao/.bashrc
 }}}
 
 When this step is finished your local ROS version is normally set up to work correctly with Nao SDK.
