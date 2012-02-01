@@ -80,7 +80,7 @@ libboost_signals-mt.so => /home/youssef/nao/naoqi-sdk-1.10.37-linux/lib/
 =rviz=
 
 If you want to run rviz you have a little more work to do.
-Try to make rviz run :
+Try to make rviz :
 {{{
 rosmake rviz
 }}}
