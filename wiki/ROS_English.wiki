@@ -38,6 +38,8 @@ build source code and install related packages
 $ rosmake --rosdep-install --rosdep-yes hrpsys_ros_bridge
 }}}
 
+If something seems to be wrong in rosmake, add --pre-clean option to cleanup all depend packages and make again.
+
 If rosmake failed to install sun-java6-{jdk,fonts,plugin},
 please install from Synaptic package manager.
 
