@@ -13,7 +13,7 @@ import wrl_loader
 from pqp_if import *
 import libik_hiro as ikfast
 
-def get_AABB(vs, padding=4.0):
+def get_AABB(vs, padding=3.0):
     xlb = ylb = zlb = inf
     xub = yub = zub = -inf
 
@@ -331,7 +331,7 @@ class VRobot(JointObject):
         for lnk in self.get_links():
             lnk.cb = gen_collision_body(lnk)
 
-    def set_joint_angles(self, ths, joints='all', flush=True):
+    def set_joint_angles(self, ths, joints='all', flush=True, check_collision=True):
         if joints == 'rarm':
             js = self.joints[3:9]
         elif joints == 'larm':
@@ -345,16 +345,37 @@ class VRobot(JointObject):
         else:
             js = self.joints
 
+        if check_collision:
+            ths_old = self.get_joint_angles(joints=joints)
+
         for j,th in zip(js,ths):
             j.angle = th
-
         if flush:
             self.refresh()
 
-    def set_joint_angle(self, id, th, flush=True):
+        if check_collision and self.in_collision():
+            warn('collision detected')
+
+            for j,th in zip(js,ths_old):
+                j.angle = th
+            if flush:
+                self.refresh()
+
+    def set_joint_angle(self, id, th, flush=True, check_collision=True):
         self.joints[id].angle = th
+
+        if check_collision:
+            th_old = self.get_joint_angle(id)
+
         if flush:
             self.refresh()
+
+        if check_collision and self.in_collision():
+            warn('collision detected')
+
+            self.joints[id].angle = th_old
+            if flush:
+                self.refresh()
 
     def refresh(self):
         for j in self.joints:
