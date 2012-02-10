@@ -37,7 +37,7 @@ http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English#Setup_Eclipse
 
 * Jan 26, Afternoon (move real robot)
 
-$ roslaunch hironx_ros_bridge hironx.launch
+$ roslaunch hrpsys_ros_bridge hironx.launch
 
 You can view the robot state in rviz.
 
