@@ -37,7 +37,7 @@ http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English#Setup_Eclipse
 
 * Jan 26, Afternoon (move real robot)
 
-$ roslaunch hrpsys_ros_bridge hironx.launch
+$ roslaunch hironx_ros_bridge hironx.launch
 
 You can view the robot state in rviz.
 
@@ -68,7 +68,7 @@ Best order to install would be,
 -- $ rosmake hrpsys_ros_bridge --rosdep-install --rosdep-yes
 
 -- $ roslaunch hrpsys_ros_bridge hironx.launch (for simulation)
--- $ roslaunch hrpsys_ros_bridge hironx.launch (for real robot)
+-- $ roslaunch hironx_ros_bridge hironx.launch (for real robot)
 
 -- you need custom(?) version of seq for ROS, and need to update /opt/grx/HIRONX/script/bodyinfo.py by http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/bodyinfo.py
 
