@@ -24,14 +24,15 @@ Then type `rosrun hrpsys hrpsyspy hrpsys.py <project xml file>` to start Sequenc
 
 Finally, `rosrun hrpsys SampleRobot_walk.sh` read walking pattern data and send to `seq` component.
 
-.. image:: build/images/SampleRobot.gif
+.. video:: build/images/SampleRobot
   :width: 600
 
   ]]></sphinxdoc>
   <test type="test-grxui.py" pkg="openhrp3" time-limit="600"
    test-name="SampleRobot"
-   args="--start-simulation --max-time=100
+   args="--start-simulation --max-time=300
 	 --target-directory=$(find hrpsys)/build/images
 	 --script='sleep 5; rosrun hrpsys hrpsyspy $(find hrpsys)/scripts/hrpsys.py $(find hrpsys)/scripts/SampleRobot_inHouse.xml; rosrun hrpsys SampleRobot_walk.sh'"
    />
+  <test type="ogv_encode.sh" pkg="jsk_tools" test-name="z_SampleRobot" args="$(find hrpsys)/build/images/SampleRobot.ogv" time-limit="1000"/>
 </launch>

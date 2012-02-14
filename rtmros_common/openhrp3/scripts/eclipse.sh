@@ -10,10 +10,12 @@ export LD_LIBRARY_PATH=`rospack find openhrp3`/lib/amd64:$LD_LIBRARY_PATH
 
 #
 export LANG=C
+export LC_CTYPE="en_US.UTF-8"
 export GDK_NATIVE_WINDOWS=1
 export ORBgiopMaxMsgSize=2147483648
 
 #
+mkdir -p `rospack find openhrp3`/workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings/
 {
 cat <<EOF
 eclipse.preferences.version=1

@@ -2,7 +2,7 @@ sun-java6-jdk:
   ubuntu: |
    #!/bin/bash
    if [ ! -f /etc/apt/sources.list.d/ferramroberto-java-`lsb_release -cs`.list ] ; then
-   echo "Y" | sudo add-apt-repository ppa:ferramroberto/java
+     yes | sudo add-apt-repository ppa:ferramroberto/java
      sudo aptitude update
    fi
    echo "sun-java6-jdk shared/accepted-sun-dlj-v1-1 select true" | sudo debconf-set-selections
@@ -80,6 +80,10 @@ python-omniorb:
    oneiric: python-omniorb
 python-tk:
   ubuntu: python-tk
+python-psutil:
+  ubuntu: python-psutil
+python-svn:
+  ubuntu: python-svn
 
 # math
 liblapack3gf:
@@ -159,6 +163,8 @@ xdotool:
       wget http://semicomplete.googlecode.com/files/xdotool-2.20110530.1.tar.gz -O /tmp/xdotool-2.2-$$.tar.gz
       mkdir /tmp/xdotool-2.2-$$; tar -C /tmp/xdotool-2.2-$$ -xvzf /tmp/xdotool-2.2-$$.tar.gz; cd /tmp/xdotool-2.2-$$/xdotool-2.20110530.1; ./configure; make; sudo mkdir -p /usr/local/man/man1; sudo mkdir -p /usr/local/lib; sudo mkdir -p /usr/local/include; sudo checkinstall -y
     fi
+libxtst-dev:
+  ubuntu: libxtst-dev
 
 # openrtm
 #openrtm-aist
@@ -208,4 +214,10 @@ libsimage-dev:
   ubuntu: libsimage-dev
 libqt4-opengl:
   ubuntu: libqt4-opengl-dev
+wx-common:
+  ubuntu: wx-common
+libqhull-dev:
+  ubuntu: libqhull-dev
+qhull-bin:
+  ubuntu: qhull-bin
 
