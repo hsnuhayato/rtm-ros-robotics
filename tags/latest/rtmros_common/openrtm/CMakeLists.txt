@@ -12,13 +12,20 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 rosbuild_init()
 
 set(OPENRTM_BIN_PATH "${PROJECT_SOURCE_DIR}/bin")
-configure_file(openrtm-bin.patch.in openrtm-bin.patch)
-add_custom_target(ALL DEPENDS openrtm-bin.patch)
 
+if("$ENV{OPENRTM_VERSION}" STREQUAL "")
+  set(OPENRTM_VERSION "1.0.0")
+else("$ENV{OPENRTM_VERSION}" STREQUAL "")
+  set(OPENRTM_VERSION $ENV{OPENRTM_VERSION})
+endif("$ENV{OPENRTM_VERSION}" STREQUAL "")
+
+
+configure_file(openrtm-bin.patch-${OPENRTM_VERSION}.in openrtm-bin-${OPENRTM_VERSION}.patch)
+add_custom_target(ALL DEPENDS openrtm-bin-${OPENRTM_VERSION}.patch)
 
 # openrtm-c++ is installed via apt-get system
 # Build OpenHRP3
-execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm-c++
+execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm-c++-${OPENRTM_VERSION}
                 RESULT_VARIABLE _make_failed)
 if (_make_failed)
   message(FATAL_ERROR "Build of OpenRTM C++ failed")

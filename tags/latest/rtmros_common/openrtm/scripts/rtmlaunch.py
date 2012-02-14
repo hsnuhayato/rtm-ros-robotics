@@ -82,9 +82,16 @@ def rtconnect(nameserver, tags):
         print >>sys.stderr, "Connect from ",source_path,"to",dest_path
         #print source_path, source_full_path, dest_path, dest_full_path;
         try:
+            sub_type = str(sub_type)
             props = {'dataport.subscription_type': sub_type}
             if sub_type == 'new':
                 props['dataport.publisher.push_policy'] = 'all'
+            elif sub_type == 'periodic':
+                props['dataport.publisher.push_policy'] = 'all'
+                if tag.attributes.get("push_rate") != None:
+                    props['dataport.push_rate'] = tag.attributes.get("push_rate").value
+                else:
+                    props['dataport.push_rate'] = '50.0'
             options = optparse.Values({'verbose': False, 'id': '', 'name': None, 'properties': props})
             rtcon.connect_ports(source_path, source_full_path, dest_path, dest_full_path, options, tree=None)
         except Exception, e:
