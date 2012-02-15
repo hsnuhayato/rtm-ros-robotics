@@ -3,6 +3,291 @@
 = Ros Node code for for Hironx =
 
 
+{{{
+#include <vector>
+#include <ros/ros.h>
+#include <pr2_controllers_msgs/JointTrajectoryAction.h>
+#include <actionlib/client/simple_action_client.h>
+
+#include <iostream>
+
+typedef actionlib::SimpleActionClient< pr2_controllers_msgs::JointTrajectoryAction > TrajClient;
+
+template <class T>
+bool from_string(T& t, 
+                 const std::string& s, 
+                 std::ios_base& (*f)(std::ios_base&))
+{
+  std::istringstream iss(s);
+  return !(iss >> f >> t).fail();
+}
+
+class RobotArm
+{
+private:
+  // Action client for the joint trajectory action 
+  // used to trigger the arm movement action
+  TrajClient* traj_client_;
+  // Vector for to store joint names
+  std::vector <std::string> joint_names_;
+  // Variable to store joint vector size
+  size_t jn_size_;
+public:
+  std::vector <double> joint_angles_;
+public:
+  size_t get_jn_size()
+  {
+    return jn_size_;
+  }
+  //! Initialize the action client and wait for action server to come up
+  RobotArm() 
+  {
+    // Set the joint names, which apply to all waypoints
+    // HEAD AND CHEST
+    joint_names_.push_back("CHEST_JOINT0");
+    joint_names_.push_back("HEAD_JOINT0");
+    joint_names_.push_back("HEAD_JOINT1");
+    // RIGHT ARM
+    joint_names_.push_back("RARM_JOINT0");
+    joint_names_.push_back("RARM_JOINT1");
+    joint_names_.push_back("RARM_JOINT2");
+    joint_names_.push_back("RARM_JOINT3");
+    joint_names_.push_back("RARM_JOINT4");
+    joint_names_.push_back("RARM_JOINT5");
+    // RIGHT HAND
+    joint_names_.push_back("RHAND_JOINT0");
+    joint_names_.push_back("RHAND_JOINT1");
+    joint_names_.push_back("RHAND_JOINT2");
+    joint_names_.push_back("RHAND_JOINT3");
+    // LEFT ARM
+    joint_names_.push_back("LARM_JOINT0");
+    joint_names_.push_back("LARM_JOINT1");
+    joint_names_.push_back("LARM_JOINT2");
+    joint_names_.push_back("LARM_JOINT3");
+    joint_names_.push_back("LARM_JOINT4");
+    joint_names_.push_back("LARM_JOINT5");
+    // LEFT HAND
+    joint_names_.push_back("LHAND_JOINT0");
+    joint_names_.push_back("LHAND_JOINT1");
+    joint_names_.push_back("LHAND_JOINT2");
+    joint_names_.push_back("LHAND_JOINT3");
+
+    // Set jn_size_ 
+    jn_size_ = joint_names_.size();
+
+    // Create joint_angles_ vector
+    for( size_t j=0; j<jn_size_; j++ )
+      {
+	joint_angles_.push_back(0.0);	
+      }
+
+    // tell the action client that we want to spin a thread by default
+    traj_client_ = new TrajClient("fullbody_controller/joint_trajectory_action", true);
+
+    // wait for action server to come up
+    while(!traj_client_->waitForServer(ros::Duration(5.0)) ){
+      ROS_INFO("Waiting for the joint_trajectory_action server");
+      if( !ros::ok() )
+      {
+        exit(0);
+      }
+    }
+
+  }
+
+  
+
+  //! Clean up the action client
+  ~RobotArm()
+  {
+    delete traj_client_;
+  }
+
+  //! Sends the command to start a given trajectory
+  void startTrajectory(pr2_controllers_msgs::JointTrajectoryGoal goal)
+  {
+    // When to start the trajectory: 1s from now
+    goal.trajectory.header.stamp = ros::Time::now() + ros::Duration(1.0);
+    traj_client_->sendGoal(goal);
+  }
+
+  //! Generates a simple trajectory with two waypoints, used as an example
+  /*! Note that this trajectory contains two waypoints, joined together
+    as a single trajectory. Alternatively, each of these waypoints could
+    be in its own trajectory - a trajectory can have one or more waypoints
+    depending on the desired application.
+  */
+  pr2_controllers_msgs::JointTrajectoryGoal armExtensionTrajectory()
+  {
+    //our goal variable
+    pr2_controllers_msgs::JointTrajectoryGoal goal;
+
+    // First, the joint names, which apply to all waypoints
+    // copy the names stored in joint_names_
+    for( size_t j=0; j<jn_size_; j++)
+      {
+	goal.trajectory.joint_names.push_back(joint_names_[j]);
+      }
+
+    // We will have two waypoints in this goal trajectory
+    goal.trajectory.points.resize(2);
+
+    // First trajectory point
+    // Positions
+    int ind = 0;
+    goal.trajectory.points[ind].positions.resize(jn_size_);
+    for(size_t j=0; j<jn_size_; j++)
+      {
+	goal.trajectory.points[ind].positions[j] = 0.0;
+      } 
+    // Velocities
+    goal.trajectory.points[ind].velocities.resize(jn_size_);
+    for (size_t j = 0; j < jn_size_; ++j)
+    {
+      goal.trajectory.points[ind].velocities[j] = 0.0;
+    }
+    // To be reached 1 second after starting along the trajectory
+    goal.trajectory.points[ind].time_from_start = ros::Duration(1.0);
+
+    // Second trajectory point
+    // Positions
+    ind += 1;
+    goal.trajectory.points[ind].positions.resize(jn_size_);
+    for(size_t j=0; j< jn_size_; j++)
+      {
+	goal.trajectory.points[ind].positions[j] = joint_angles_[j];
+      }
+
+    // Velocities
+    goal.trajectory.points[ind].velocities.resize(jn_size_);
+    for (size_t j = 0; j < jn_size_; ++j)
+    {
+      goal.trajectory.points[ind].velocities[j] = 0.0;
+    }
+    // To be reached 2 seconds after starting along the trajectory
+    goal.trajectory.points[ind].time_from_start = ros::Duration(2.0);
+
+    //we are done; return the goal
+    return goal;
+  }
+
+  //! Returns the current state of the action
+  actionlib::SimpleClientGoalState getState()
+  {
+    return traj_client_->getState();
+  }
+ 
+};
+
+//using namespace std;
+
+
+
+int main(int argc, char** argv)
+{
+  // Init the ROS node
+  ros::init(argc, argv, "robot_driver");
+
+  RobotArm arm;
+  std::string cmd;
+
+  // Creating easier to type commands. ra0 same position as RIGHT_ARM etc.
+  std::vector <std::string> arm_command;
+  // HEAD AND CHEST
+  arm_command.push_back("c0");
+  arm_command.push_back("h0");
+  arm_command.push_back("h1");
+  // RIGHT ARM
+  arm_command.push_back("ra0");
+  arm_command.push_back("ra1");
+  arm_command.push_back("ra2");
+  arm_command.push_back("ra3");
+  arm_command.push_back("ra4");
+  arm_command.push_back("ra5");
+  // RIGHT HAND
+  arm_command.push_back("rh0");
+  arm_command.push_back("rh1");
+  arm_command.push_back("rh2");
+  arm_command.push_back("rh3");
+  // LEFT ARM
+  arm_command.push_back("la0");
+  arm_command.push_back("la1");
+  arm_command.push_back("la2");
+  arm_command.push_back("la3");
+  arm_command.push_back("la4");
+  arm_command.push_back("la5");
+  // LEFT HAND
+  arm_command.push_back("lh0");
+  arm_command.push_back("lh1");
+  arm_command.push_back("lh2");
+  arm_command.push_back("lh3");
+
+  // check arm_command vector size is correct
+  if( arm_command.size() != arm.get_jn_size() )
+    {
+      std::cout<<"arm_command size is not same as joint_names vector size \n Will exit program\n";
+      exit(0);
+    }
+
+  while(ros::ok())
+  {
+    std::cout<<"type joint angle: "<<std::endl;
+    std::getline (std::cin,cmd);
+      
+    size_t second_word = cmd.find(' ');
+    int index = 0;
+    bool index_found = false;
+    
+    for( unsigned int i=0; i<arm_command.size(); i++ )
+    {
+      if( cmd.substr(0, second_word) == arm_command[i] )
+      {
+        index = (int)i;
+        index_found = true;
+        break;
+      }
+    }
+    
+    if( cmd.substr(0, second_word) == "exit" )
+    {
+      break;
+    }
+    else if (index_found == false )
+    {
+      std::cout<<"Wrong Command, type again"<<std::endl;
+    }
+    else // do the operation
+    {
+      int joint_angle;
+      std::string angle_str = cmd.substr(second_word, (cmd.size()-second_word));
+      if(! from_string<int>(joint_angle, angle_str, std::dec))
+      {
+        std::cout<<"Wrong command parameter\n";
+      }
+      else
+      {
+        std::cout <<"index: "<<index<<" angle: "<<joint_angle<<std::endl;
+        arm.joint_angles_[index] = joint_angle * M_PI / 180.0;
+
+	// Start the trajectory
+	arm.startTrajectory(arm.armExtensionTrajectory());
+	// Wait for trajectory completion
+	
+	while(!arm.getState().isDone() && ros::ok())
+	  {
+        usleep(50000);
+      }
+
+      }
+
+
+    }
+  }
+}
+
+
+}}}
+
 Add your content here.DFSFS
 
 
