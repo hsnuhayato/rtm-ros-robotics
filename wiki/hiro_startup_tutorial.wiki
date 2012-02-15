@@ -64,7 +64,7 @@
   #* check their states at the menu on the right side of the screen
   # MOVING THE ARTICULATIONS
     * Using ROS C++
-      * c++ [http://www.ros.org/wiki/pr2_controllers/Tutorials/Moving%20the%20arm%20using%20the%20Joint%20Trajectory%20Action Moving the arm using the Joint Trajectory Action]
+      * c++ Read ROS tutorial for PR2 to understand the topics [http://www.ros.org/wiki/pr2_controllers/Tutorials/Moving%20the%20arm%20using%20the%20Joint%20Trajectory%20Action Moving the arm using the Joint Trajectory Action] and replace code by ---- 
     * Use the lisp connection: <br />[lisp_node_tutorial LISP NODE TUTORIAL]
   # TESTING THE KINECT BASED ar_pose ROS package
     
