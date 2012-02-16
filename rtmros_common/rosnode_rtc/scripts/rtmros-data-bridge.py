@@ -14,13 +14,10 @@ import math
 from subprocess import *
 
 # ros modules
-import roslib;
-roslib.load_manifest('rospy')
-roslib.load_manifest('rostopic')
+rospackage='rosnode_rtc'
+import roslib; roslib.load_manifest(rospackage)
 import rospy
 import rostopic
-
-rospackage='dataport_ros_bridge'
 
 # rtm modules
 import RTC
@@ -55,6 +52,7 @@ class RtmRosDataBridge(OpenRTM_aist.DataFlowComponentBase):
     def onInitialize(self):
         input_topic  = rospy.get_param('~input_topic','').split(' ')
         output_topic = rospy.get_param('~output_topic','').split(' ')
+        rospy.loginfo('onInitialize Start')
         self.update_ports(input_topic, output_topic)
         rospy.loginfo('onInitialize Finished')
         return RTC.RTC_OK
@@ -62,30 +60,32 @@ class RtmRosDataBridge(OpenRTM_aist.DataFlowComponentBase):
     def update_ports(self, in_topic, out_topic):
 
         for topic in in_topic:
-            if topic in self.outports.keys(): continue
-            if not (topic in idlman.topicinfo.keys()): continue
-            topic_type = idlman.topicinfo[topic]
-
             port = topic.lstrip('/').replace('/','_')
+            topic_type = idlman.topicinfo.get(topic, None)
+            if (topic in self.outports.keys()) or not topic_type:
+                rospy.loginfo('Failed to add OutPort "%s"', port)
+                continue
+
             _data = idlman.get_rtmobj(topic_type)
             _outport = OpenRTM_aist.OutPort(port, _data)
             self.registerOutPort(port, _outport)
             self.outports[topic] = (_outport, _data)
             self.add_sub(topic)
-            rospy.loginfo('Add OutPort %s' % port)
+            rospy.loginfo('Add OutPort "%s"[%s]', port, topic_type)
 
-        for topic in out_topic: # TODO not working
-            if topic in self.inports.keys(): continue
-            if not (topic in idlman.topicinfo.keys()): continue
-            topic_type = idlman.topicinfo[topic]
-
+        for topic in out_topic:
             port = topic.lstrip('/').replace('/','_')
+            topic_type = idlman.topicinfo.get(topic, None)
+            if topic in self.inports.keys() or not topic_type:
+                rospy.loginfo('Failed to add InPort "%s"', port)
+                continue
+
             _data = idlman.get_rtmobj(topic_type)
             _inport = OpenRTM_aist.InPort(port, _data)
             self.registerInPort(port, _inport)
             self.inports[topic] = (_inport, _data)
             self.add_pub(topic)
-            rospy.loginfo('Add InPort %s' % port)
+            rospy.loginfo('Add InPort "%s"[%s]', port, topic_type)
 
         return
 
@@ -136,6 +136,7 @@ class RtmRosDataBridge(OpenRTM_aist.DataFlowComponentBase):
 
 #
 # topic(ROS) -> idl(RTM) converter methods
+#   `rosmsg show` -> .idl -> python module
 #
 class RtmRosDataIdl:
     def __init__(self, idldir, idlfile='rosbridge.idl'):
@@ -162,6 +163,8 @@ class RtmRosDataIdl:
             'byte'   : 'octet',         # deplicated
             'time'   : 'RTC::Time',     # builtin
             'duration' : 'RTC::Time'}   # builtin
+        self.dummyslot = 'dummy_padding_' # for empty message
+
         self.topicinfo = {} # topicname: msgtype, msgclass
         self.msg2obj = {}   # msgname: -> (rostype, rtmtype)
 
@@ -177,16 +180,15 @@ class RtmRosDataIdl:
         self.update_idl(new_topic_type)
 
     def rtm2ros(self, data, output=None):
+        datatype = str(data).split('(')[0].split('.')[1]
         for msgtype in self.msg2obj.keys():
-            # TODO incomplete type estimation
-            rosobj = self.msg2obj[msgtype][0]()
-            rtmslot = [s for s in dir(data) if s[0]!='_']
-            if set(rosobj.__slots__) == set(rtmslot):
-                output = rosobj
+            if datatype == msgtype.replace('/','_'):
+                output = self.msg2obj[msgtype][0]()
                 break
         if not output: return None
         for slot in output.__slots__:
             var = getattr(data, slot)
+            ovar = getattr(output, slot)
             typ = type(var)
             if typ in [bool, int, long, float, str]:
                 arg = var
@@ -197,8 +199,8 @@ class RtmRosDataIdl:
                     arg = var
                 else:
                     arg = [self.rtm2ros(da) for da in list(var)]
-            elif typ == RTC.Time:
-                arg = roslib.rostime.Time(var.secs, var.nsecs)
+            elif type(ovar) in [roslib.rostime.Time, roslib.rostime.Duration]:
+                arg = roslib.rostime.Time(var.sec, var.nsec)
             else:
                 arg = self.rtm2ros(var)
             setattr(output, slot, arg)
@@ -217,7 +219,7 @@ class RtmRosDataIdl:
                     arg = var
                 else:
                     arg = [self.ros2rtm(da) for da in list(var)]
-            elif typ == roslib.rostime.Time:
+            elif typ in [roslib.rostime.Time, roslib.rostime.Duration]:
                 arg = RTC.Time(var.secs, var.nsecs)
             else:
                 arg = self.ros2rtm(var)
@@ -225,6 +227,8 @@ class RtmRosDataIdl:
                 setattr(output, slot, arg)
             else:
                 args += [arg]
+        if args == []:
+            args += [''] # for dummy slot in empty message
         if output:
             return output
         else:
@@ -236,11 +240,14 @@ class RtmRosDataIdl:
     def update_idl(self, msgnames=[]):
         for msg in msgnames:
             self.add_msg_definition(msg)
+            rospy.loginfo('Data[%s] in RTC = "%s"', msg, self.get_rtmobj(msg))
 
     def get_message_definition(self, msg):
         text = Popen(['rosmsg','show',msg], stdout=PIPE, stderr=PIPE).communicate()[0]
-        text = '\n'.join([l for l in text.split('\n')
-                          if not ((len(l) == 0) or (l[0] in ' [') or ('=' in l))]) + '\n'
+        text = ''.join([l+'\n' for l in text.split('\n')
+                          if not ((len(l) == 0) or (l[0] in ' [') or ('=' in l))])
+        if text == '':
+            text = 'string %s\n' % self.dummyslot
         p = re.compile( '(^|\n)Header[ ]')
         text = p.sub( r'\1std_msgs/Header ', text)
         return text
@@ -313,7 +320,7 @@ module RTMROSDataBridge
             exec('import ' + ros_typ_tuple[0] + '.msg')
             self.msg2obj[msg] = (eval(ros_typ), eval(rtm_typ))
 
-        rospy.loginfo('Data[%s] in RTC = "%s"', msg, self.get_rtmobj(msg))
+        return True
 
 #
 def RTMROSDataBridgeInit(manager):

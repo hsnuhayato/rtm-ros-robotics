@@ -1,0 +1,40 @@
+<launch>
+
+  <!-- PYTHONPATH must contains path for rtshell  -->
+  <env name="PYTHONPATH" value="$(env PYTHONPATH)" />
+  <node name="rtm_naming" pkg="openrtm" type="rtm-naming-restart" />
+
+  <!-- Dataport bridge node -->
+  <node pkg="rosnode_rtc" type="rtmros-data-bridge.py" name="bridge"
+	clear_params="true" cwd="node" output="screen">
+    <param name="~input_topic" value="/odom /move_base/result" />
+    <param name="~output_topic" value="/cmd_vel /move_base_simple/goal" />
+  </node>
+
+  <!-- BEGIN:openrtm connection -->
+  <node name="rtmlaunch_data_bridge" pkg="openrtm" type="rtmlaunch.py"
+	args="$(find rosnode_rtc)/sample/stage_sample.launch"/>
+  <rtactivate component="RTMROSDataBridge0.rtc" />
+  <!-- END:openrtm connection -->
+
+  <sphinxdoc><![CDATA[
+
+To use this RTC, run the below command each bash terminal.
+
+  source `rospack find openrtm`/scripts/rtshell-setup.sh
+
+Usage:
+
+1. roslaunch move_base_stage_tutorial robot.launch
+
+2. roslaunch rosnode_rtc stage_sample.launch
+
+Launch this configuration file and confirm the bridge node is Activated
+
+3. rosrun rosnode_rtc stage_sample_send_goal.sh
+
+Send navigation target pose from RT-Component
+
+  ]]></sphinxdoc>
+
+</launch>
