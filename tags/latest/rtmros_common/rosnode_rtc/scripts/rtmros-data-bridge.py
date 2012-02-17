@@ -52,9 +52,13 @@ def get_topicname_by_node(nodename):
 def get_topic_names_by_param():
     input_topic  = rospy.get_param('~input_topic','').split(' ')
     output_topic = rospy.get_param('~output_topic','').split(' ')
-    wrap_node = rospy.get_param('~wrap_node','')
-    node_in, node_out = get_topicname_by_node(wrap_node)
-    return input_topic+node_in, output_topic+node_out
+    wrap_node = rospy.get_param('~wrap_node',None)
+    if wrap_node:
+        node_in, node_out = get_topicname_by_node(wrap_node)
+        node_in  = [t for t in node_in if not (t in output_topic)]
+        node_out = [t for t in node_out if not (t in input_topic)]
+        return input_topic+node_in, output_topic+node_out
+    return input_topic, output_topic
 
 #
 # RTM <-> ROS Dataport Bridge Component
@@ -79,33 +83,31 @@ class RtmRosDataBridge(OpenRTM_aist.DataFlowComponentBase):
 
     def update_ports(self, in_topic, out_topic):
 
-        for topic in in_topic:
-            port = topic.lstrip('/').replace('/','_')
-            topic_type = idlman.topicinfo.get(topic, None)
-            if (topic in self.outports.keys()) or not topic_type:
-                rospy.loginfo('Failed to add OutPort "%s"', port)
-                continue
-
-            _data = idlman.get_rtmobj(topic_type)
-            _outport = OpenRTM_aist.OutPort(port, _data)
-            self.registerOutPort(port, _outport)
-            self.outports[topic] = (_outport, _data)
-            self.add_sub(topic)
-            rospy.loginfo('Add OutPort "%s"[%s]', port, topic_type)
-
         for topic in out_topic:
             port = topic.lstrip('/').replace('/','_')
             topic_type = idlman.topicinfo.get(topic, None)
-            if topic in self.inports.keys() or not topic_type:
+            _data = idlman.get_rtmobj(topic_type)
+            if topic in self.inports.keys() or not topic_type or not _data:
                 rospy.loginfo('Failed to add InPort "%s"', port)
                 continue
-
-            _data = idlman.get_rtmobj(topic_type)
+            rospy.loginfo('Add InPort "%s"[%s]', port, topic_type)
             _inport = OpenRTM_aist.InPort(port, _data)
             self.registerInPort(port, _inport)
             self.inports[topic] = (_inport, _data)
             self.add_pub(topic)
-            rospy.loginfo('Add InPort "%s"[%s]', port, topic_type)
+
+        for topic in in_topic:
+            port = topic.lstrip('/').replace('/','_')
+            topic_type = idlman.topicinfo.get(topic, None)
+            _data = idlman.get_rtmobj(topic_type)
+            if (topic in self.outports.keys()) or not topic_type or not _data:
+                rospy.loginfo('Failed to add OutPort "%s"', port)
+                continue
+            rospy.loginfo('Add OutPort "%s"[%s]', port, topic_type)
+            _outport = OpenRTM_aist.OutPort(port, _data)
+            self.registerOutPort(port, _outport)
+            self.outports[topic] = (_outport, _data)
+            self.add_sub(topic)
 
         return
 
@@ -160,6 +162,7 @@ class RtmRosDataBridge(OpenRTM_aist.DataFlowComponentBase):
 #
 class RtmRosDataIdl:
     def __init__(self, idldir, idlfile='rosbridge.idl'):
+        self.ignore_unbound_type = rospy.get_param('~ignore_unbound',True)
         self.idldir  = idldir
         self.idlfile = idlfile
         site.addsitedir(self.idldir)
@@ -255,6 +258,8 @@ class RtmRosDataIdl:
             return self.msg2obj[data._type][1](*args)
 
     def get_rtmobj(self, msg):
+        if not msg in self.msg2obj.keys():
+            return None
         return self.ros2rtm(self.msg2obj[msg][0]())
 
     def update_idl(self, msgnames=[]):
@@ -274,10 +279,13 @@ class RtmRosDataIdl:
 
     def gen_struct_text(self, msg):
         if msg in (self.generated + self.basictab.keys()):
-            return None
+            return True
 
-        rospy.loginfo('Generating IDL for "%s"', msg)
         defmsg = self.get_message_definition(msg)
+
+        # ignore unbound type mode
+        if self.ignore_unbound_type and '[]' in defmsg:
+            return False
 
         # add inner message
         for var in defmsg.split('\n'):
@@ -285,8 +293,10 @@ class RtmRosDataIdl:
                 typ = var.split(' ')[0]
                 if typ.find('[') != -1:
                     typ = typ[:typ.find('[')]
-                self.gen_struct_text(typ)
+                if not self.gen_struct_text(typ):
+                    return False
 
+        rospy.loginfo('Generating IDL for "%s"', msg)
         self.generated.append(msg)
 
         msg = msg.replace('/','_')
