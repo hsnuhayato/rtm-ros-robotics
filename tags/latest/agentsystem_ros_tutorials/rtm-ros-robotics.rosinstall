@@ -1,18 +1,18 @@
 - other: {local-name: /opt/ros/electric/ros}
 - other: {local-name: /opt/ros/electric/stacks}
 - svn: {local-name: rtm-ros-robotics/rtmros_common,
-    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2639}
+    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2646}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r2641}
+    version: -r2646}
 - svn: {local-name: rtm-ros-robotics/agentsystem_openrave_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_openrave_tutorials',
-    version: -r2641}
+    version: -r2646}
 - svn: {local-name: rtm-ros-robotics/agentsystem_hironx_samples,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_hironx_samples',
-    version: -r2641}
+    version: -r2646}
 - svn: {local-name: jsk-ros-pkg,
-    uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk', version: -r2909}
+    uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk', version: -r2910}
 - git: {local-name: umd-ros-pkg/camera_umd,
     uri: 'http://ram.umd.edu/git/ros/camera_umd.git', version: 65d69a4ffda0ab74cd1b861c6bd76d59ccd61c4a}
 - svn: {local-name: stacks/camera1394,
@@ -37,7 +37,7 @@
     uri: 'https://code.ros.org/svn/ros-pkg/stacks/visualization/tags/visualization-1.6.7',
     version: -r38872}
 - svn: {local-name: multimaster_experimental,
-    uri: 'https://code.ros.org/svn/ros/stacks/multimaster_experimental/trunk', version: -r16322}
+    uri: 'https://code.ros.org/svn/ros/stacks/multimaster_experimental/trunk', version: -r16332}
 - hg: {local-name: turtlebot,
     uri: 'https://kforge.ros.org/turtlebot/turtlebot', version: 247a858a6a90}
 - svn: {local-name: webots-ros-pkg,
