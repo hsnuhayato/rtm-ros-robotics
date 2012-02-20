@@ -70,7 +70,17 @@ Best order to install would be,
 -- $ roslaunch hrpsys_ros_bridge hironx.launch (for simulation)
 -- $ roslaunch hironx_ros_bridge hironx.launch (for real robot)
 
--- you need custom(?) version of seq for ROS, and need to update /opt/grx/HIRONX/script/bodyinfo.py by http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/bodyinfo.py
+~~-- you need custom(?) version of seq for ROS, and need to update /opt/grx/HIRONX/script/bodyinfo.py by http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/bodyinfo.py~~
+
+-- The newest version of the HIRO software allows you to switch the Sequence Player RTC. The steps to use this are as follows.
+ # On the Robot do, 
+   $ touch /opt/grx/HIRONX/bin/use_ros<br>
+   $ cd /opt/grx/HIRONX/bin; ./setupRos.sh on<br>
+ # On the vision PC do, 
+   $ touch /opt/grx/HIRONX/bin/use_ros<br>
+   $ cd /opt/grx/HIRONX/bin; ./setupRos.sh on<br>
+   $ cd /opt/grx/HIRONX/script; rm {{{*}}}.class<br>
+ # start gui.py and press "restart rtcd"
 
 -- python example code http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/sample.py
 
