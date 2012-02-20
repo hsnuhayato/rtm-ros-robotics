@@ -81,6 +81,7 @@ Best order to install would be,
    $ cd /opt/grx/HIRONX/bin; ./setupRos.sh on<br>
    $ cd /opt/grx/HIRONX/script; rm {{{*}}}.class<br>
  # start gui.py and press "restart rtcd"
+ sample.py has a wrapper class for the SequencePlayer used for the ROS connection, so you do not have to change bodyinfo.py. This is a preliminary release before switching to the open version.
 
 -- python example code http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/sample.py
 
