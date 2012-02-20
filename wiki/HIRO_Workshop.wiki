@@ -86,3 +86,5 @@ Best order to install would be,
 -- python example code http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_common/hironx_ros_bridge/scripts/sample.py
 
 --- roscd hironx_ros_bridge/scripts; `rosrun hrpsys hrpsyspy sample.py`
+
+<g:plusone></g:plusone>
