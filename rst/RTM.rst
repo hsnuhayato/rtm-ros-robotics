@@ -6,6 +6,8 @@ RTミドルウェアとは？
 
 - 以下の文書を抜粋したURL
 
+  編集中です。
+
   http://rtm-ros-robotics.googlecode.com/svn/wiki/20110420-rtmros-yoshikai.pdf
 
   分散オブジェクト指向システムのための技術であるCORBAをベースにしたRT(Robot Technology)分野のアプリケーションの共通ミドルウェアを提供する枠組み
@@ -27,7 +29,7 @@ RTミドルウェアとは？
   レベル、機能、価格のものはいまだほとんど世に出ていないのが現状です。
   RTミドルウエアは、様々なロボット要素（RTコンポーネント）を通信ネットワークを介して自由に組み合わせる
   ことで、多様なネットワークロボットシステムの構築を可能にする、ネットワーク分散コンポーネント化技術に
-  よる共通プラットフォームを確立することを目指しています。 
+  よる共通プラットフォームを確立することを目指しています。
   ここでいうロボットシステムとは、必ずしも移動ロボットやヒューマノイドロボットといった単体のロボットの
   みを想定している訳ではなく、「ロボット技術を活用した、実世界に働きかける機能を持つネットワーク化され
   た知能化システム」の総体としてのロボットシステムを指しています。例えばセンサ、アクチュエータを生活空
@@ -68,30 +70,30 @@ RTミドルウェアを使ってみよう！
   インストーラを利用する．Visual Studio2008ならば，
   http://www.openrtm.org/pub/Windows/OpenRTM-aist/cxx/OpenRTM-aist-1.0.0-RELEASE_vc9_100212.msi
   をダウンロードして，標準を選択して，インストールを実行する．
-  その他のもの（Vineなど他のLinuxディストリビューションやMacOSなど）はhttp://www.openrtm.org/openrtm/ja/node/849#toc2 を参照のこと． 
+  その他のもの（Vineなど他のLinuxディストリビューションやMacOSなど）はhttp://www.openrtm.org/openrtm/ja/node/849#toc2 を参照のこと．
 
  - Linux
   一括インストールスクリプトを利用する。
 
-  :: 
-  
+  ::
+
     > wget http://www.openrtm.org/pub/OpenRTM-aist/cxx/install_scripts/pkg_install100_ubuntu.sh
     > sudo sh ./pkg_install100_ubuntu.sh
 
-  途中，いくつかの質問をたずねられるので，''y'' あるいは ''Y'' を入力しながら完了させる． 
+  途中，いくつかの質問をたずねられるので，''y'' あるいは ''Y'' を入力しながら完了させる．
 
 - Python版
 
  - Windows
   インストーラを利用する
   http://www.openrtm.org/pub/Windows/OpenRTM-aist/python/OpenRTM-aist-Python-1.0.1.msi
-  をダウンロードして，標準を選択して，インストールを実行． 
+  をダウンロードして，標準を選択して，インストールを実行．
 
  - Linux
   一括インストールスクリプトを利用する。
 
   ::
-  
+
     > wget http://www.openrtm.org/pub/OpenRTM-aist/python/install_scripts/pkg_install_python_ubuntu.sh
     > sudo sh ./pkg_install_python_ubuntu.sh
 
@@ -110,32 +112,32 @@ RTミドルウェアを使ってみよう！
 2 RTCBuilder/RTSystemEditorのインストール
 
  eclipseからグラフィカルにコンポーネントを生成するツールとしてRTCBuilder，操作するツールとして
- RTSystemEditorが公開されている． 
+ RTSystemEditorが公開されている．
 
 - Linux
 
  公式ページにおいてあるEclipse3.4.2の全部入りパッケージでは，そのままでは9.10で以降で動かない
  ため，Eclipse3.6にバイナリのjarファイルを展開して用いるのが良い．そのためのシェルスクリプトを
- 用意したので，それをダウンロードして実行する． 
+ 用意したので，それをダウンロードして実行する．
 
  ::
 
    > sh ./setup-eclipse.sh
 
  また，ipv6の設定によりlocalhostという名前解決ができないことがあるため，その場合，root権限で
- /etc/hostsの5行目をコメントアウトする．即ち， 
+ /etc/hostsの5行目をコメントアウトする．即ち，
 
  ::
- 
-   ::1     localhost ip6-localhost ip6-loopback   
+
+   ::1     localhost ip6-localhost ip6-loopback
 
  を
- 
- ::
- 
-   #::1     localhost ip6-localhost ip6-loopback   
 
- と変更して保存する． 
+ ::
+
+   #::1     localhost ip6-localhost ip6-loopback
+
+ と変更して保存する．
 
 - RTCBuilderの説明
 
