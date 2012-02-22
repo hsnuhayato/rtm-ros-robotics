@@ -1517,3 +1517,7 @@ http://code.google.com/p/rtm-ros-robotics/
  「2 *Jenkinsの起動/停止*」の\(1\) 起動を実行する．
 
 
+.. include:: ROS_Jenkins.rst
+
+
+

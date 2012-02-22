@@ -361,6 +361,7 @@ ROS_IP/ROS_HOSTNAME : ROSのノードのネットワークアドレスを指定�
 
    .. figure:: images/rxgraph_talker_listener.png
 
+
 自分のパッケージを作成する
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -546,43 +547,6 @@ RTMROS統合環境
 
 
 .. include:: ROS_Example_RTMIntegration.rst
-
-.. include:: ROS_Jenkins.rst
-
-
-
-- 以下の文書を抜粋したURL
-
- http://rtm-ros-robotics.googlecode.com/svn/wiki/20110420-rtmros-okada.pdf
-
- - 2007年Switchyard Stanford AI研M.Quigley
- - 2008年WillowGarage社がサポート開始,Brian Gerkey（Stage/Player）がWG社に参画
- - ロボットアプリケーションを作成するソフトウェア開発者のためのライブラリとツール．ハードウェア抽象化，デバイスドライバ，ライブラリ，視覚化ツール，メッセージ通信，パッケージ管理等
- - http://www.ros.org/news/2010/11/happy-3rd-anniversary-ros.html
- - http://www.willowgarage.com/
-
-- 以下の文書を抜粋したURL
-
- http://www.ros.org/wiki/ja/ROS/Introduction
-
-  ROSはあなたのロボットのための，オープン・ソースのメタ-オペレーティング・システムです．ROSはあなた
-  がオペレーティングシステムに望んでいたであろう，ハードウェア抽象化や低レベルデバイス制御・よく使
-  われる組み込み関数・プロセス間通信・パッケージ管理の機能を持っています．さらにROSは多様な
-  コンピュータ間を横断して適用したり，ビルドしたり，記述したり，実行したりするコードのためのツール
-  やライブラリも提供します．「ROS」はPlayerやYARP・CARMEN・Orca・MOOS・Microsoft Robotics Studioと
-  いった，”ロボットフレームワーク”といくつかの点で似ています．
-  ROSのランタイム"graph"はROSコミュニケーション・インフラを用いて接合されたプロセス同士の，ゆるい
-  Peer-to-Peerネットワークで成り立っています．ROSには，サービスごしの同期RPC形式の通信やトピックご
-  しの非同期データ・ストリーミング・パラメータ サーバ上のデータ・ストレージといった，幾つかの異なる
-  タイプの通信方法が実装されています．これらについてはROS のコンセプトに詳細な説明があります．
-  ROSはリアルタイムのフレームワークではありませんが，ROSにはリアルタイムのコードを含めることができます．
-  Willow GarageのPR2ロボットはpr2_etherCATと言うシステムを使用していますが，これはリアルタイム・プロ
-  セスへROSのメッセージを送受信するものです．さらにROSはOrocosのリアルタイム・ツールキットとシームレス
-  に統合します． 
-
-  代表的なROSのスタックリストの紹介も含む
-
-    http://www.ros.org/wiki/StackList
 
 サンプルプログラム
 ~~~~~~~~~~~~~~~~~~
