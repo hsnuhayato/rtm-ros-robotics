@@ -113,6 +113,7 @@ latexja:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	dia -e images/test_component.eps figs/test_component.dia
 	dia -e images/openrave_libraries_jp.eps figs/openrave_libraries_jp.dia
+	dia -e images/openrave_robot_jp.eps figs/openrave_robot_jp.dia
 	#python process_dia_figures.py 
 	cd $(BUILDDIR)/latex && for f in ../../images/*.eps; do ebb -b $$f; done
 	cd $(BUILDDIR)/latex && for f in ../../images/*.png; do ebb -b $$f; done

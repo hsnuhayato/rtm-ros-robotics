@@ -50,3 +50,8 @@ DIAで作成された図です．
 .. figure:: images/openrave_libraries_jp.eps
 
   OpenRAVEライブラリ構成
+
+
+.. figure:: images/openrave_robot_jp.eps
+
+  OpenRAVE物体とロボット構成
