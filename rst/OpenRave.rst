@@ -47,6 +47,6 @@ OpenRaveを使ってみよう！
 
 DIAで作成された図です．
 
-.. figure:: images/test_component.eps
+.. figure:: images/openrave_libraries_jp.eps
 
-  OpenRAVEコンポーネント
+  OpenRAVEライブラリ構成
