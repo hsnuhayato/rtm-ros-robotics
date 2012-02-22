@@ -1,10 +1,17 @@
 #!/usr/bin/env python
 
 from optparse import OptionParser
+import os, os.path, sys, string, re
+
+# resolve library path, copied from omniidl (ubuntu 11.10)
+# Try a path based on the installation prefix, customised for Debian
+sppath = "/usr/lib/omniidl"
+if os.path.isdir(sppath):
+    sys.path.append(sppath)
+
 from omniidl import idlast, idlvisitor, idlutil, idltype
 from omniidl_be import cxx
 import _omniidl
-import os, os.path, sys, string, re
 
 # TODO
 # not generate unused msgs
@@ -602,7 +609,10 @@ if __name__ == '__main__':
         option = ''
 
     fd = os.popen('/usr/bin/omnicpp %s "%s"' % (option, idlfile), 'r')
-    tree = _omniidl.compile(fd)
+    try:
+        tree = _omniidl.compile(fd, idlfile) # newer version API
+    except:
+        tree = _omniidl.compile(fd)          # old version API
 
     # output msg/srv and bridge component src
     if options.interfaces:
