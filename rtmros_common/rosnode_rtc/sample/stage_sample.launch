@@ -24,18 +24,27 @@
   <!-- END:openrtm connection -->
 
   <sphinxdoc><![CDATA[
-TODO
-rxgraphとsystemEditorの対応関係を画像にする
-ROS-navが動いているような画像
-ドキュメント
+
+
+ROSのノードが送受信するトピックをRTMのデータポートとしての利用を実現するRTコンポーネントです。
+
+.. image:: sample/image/rosnode_rtc_ros.png
+  :width: 400
+
+.. image:: sample/image/rosnode_rtc_rtm.png
+  :width: 400
+
+上記の図の様に本RTCのデータポートがROSトピックと１対１対応します。
 
 To use this RTC, run the below command each bash terminal.
 
-  source `rospack find openrtm`/scripts/rtshell-setup.sh
+  source \`rospack find openrtm\`/scripts/rtshell-setup.sh
 
 Usage:
 
 1. roslaunch move_base_stage_tutorial robot.launch
+
+   (rosrun rviz rviz -d \`rospack find move_base_stage_tutorial\`/config/rviz.vcg )
 
 2. roslaunch rosnode_rtc stage_sample.launch
 
