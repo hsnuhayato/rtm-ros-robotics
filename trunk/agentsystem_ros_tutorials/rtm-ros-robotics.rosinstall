@@ -6,12 +6,6 @@
 - svn:
     uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials
     local-name: rtm-ros-robotics/agentsystem_ros_tutorials
-- svn:
-    uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_openrave_tutorials
-    local-name: rtm-ros-robotics/agentsystem_openrave_tutorials
-- svn:
-    uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_hironx_samples
-    local-name: rtm-ros-robotics/agentsystem_hironx_samples
 ##
 ## jsk ros packages
 - svn:
