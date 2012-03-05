@@ -160,10 +160,14 @@ http://www.ros.org/wiki/ROS/Concepts
     sudo apt-get install ros-electric-ros-tutorials ros-electric-rx
 
   これができたら，
+  ::
+
+    echo "source /opt/ros/electric/setup.bash" >> ~/.bashrc
+  として
 
   ::
 
-    $ source /opt/ros/electric/setup.bash
+    $ source ~/.bashrc
 
 
   としてROS環境のセットアップを行う．これにより以下の重要な環境変数
@@ -224,7 +228,6 @@ ROS_IP/ROS_HOSTNAME : ROSのノードのネットワークアドレスを指定�
 
 
   ::
-
     $ roscd rospy_tutorials/001_talker_listener
     $ python ./talker.py
 
@@ -355,9 +358,13 @@ ROS_IP/ROS_HOSTNAME : ROSのノードのネットワークアドレスを指定�
     $ rosmsg show std_msgs/String
     string data
 
+  また
 
-  またrxgraphというコマンドで，現在のROSノードとトピックの関係を以下の
-  様に視覚的に表示できる
+  ::
+
+    $ rxgraph
+
+   というコマンドで，現在のROSノードとトピックの関係を以下の様に視覚的に表示できる
 
    .. figure:: images/rxgraph_talker_listener.png
 
