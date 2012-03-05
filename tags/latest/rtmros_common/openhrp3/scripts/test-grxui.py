@@ -51,19 +51,19 @@ class TestGrxUIProject(unittest.TestCase):
         ret = 1
         if visible : visible = "--onlyvisible"
         while 1 :
-            ret = subprocess.call("xdotool search %s --name \"%s\" %s"%(visible,name,action), shell=True)
+            ret = subprocess.call("xdotool search %s --maxdepth 3 --name \"%s\" %s"%(visible,name,action), shell=True)
             if ret != 1 : break
             time.sleep(1)
         return ret
 
     def check_window(self,name,visible=""):
         if visible : visible = "--onlyvisible"
-        ret = subprocess.call("xdotool search "+visible+" --maxdepth 3 --name \""+name+"\"", shell=True) != 1
+        ret = subprocess.call("xdotool search %s --maxdepth 3 --name \"%s\""%(visible,name), shell=True) != 1
         print "[%s] check window %s -> %s"%(self.id(),name, ret)
         return ret
 
     def wait_for_window(self,name):
-        while subprocess.call("xdotool search --name \""+name+"\"", shell=True) == 1:
+        while subprocess.call("xdotool search --maxdepth 3 --name \""+name+"\"", shell=True) == 1:
             print "[%s] wait for %s ..."%(self.id(),name)
             time.sleep(1)
         print "[%s] wait for %s ... done"%(self.id(),name)
@@ -141,9 +141,13 @@ class TestGrxUIProject(unittest.TestCase):
         else:
             time.sleep(10)
         # check window id
-        winid = subprocess.check_output("xdotool search \"%s\""%(self.capture_window), shell=True).rstrip()
-        print "[%s] eclipse winid %s"%(self.id(), winid)
-
+        winid = None
+        while winid == None:
+            try:
+                winid = subprocess.check_output("xdotool search \"%s\""%(self.capture_window), shell=True).rstrip()
+                print "[%s] eclipse winid %s"%(self.id(), winid)
+            except:
+                print "[%s] eclipse winid %s .. retry"%(self.id(), winid)
         # for pa10
         if self.check_window("Restoring Problems") :
             print "[%s] Restoring Problems"%(self.id())
@@ -172,7 +176,7 @@ class TestGrxUIProject(unittest.TestCase):
             time.sleep(1);
             subprocess.call("xdotool key --clearmodifiers \"shift+F8\"", shell=True)
             time.sleep(1);
-            self.xdotool("Eclipse ", "windowactivate --sync",visible=True)
+            self.xdotool(self.capture_window, "windowactivate --sync",visible=True)
 
         # start scripts
         if self.scripts:
@@ -206,6 +210,7 @@ class TestGrxUIProject(unittest.TestCase):
                 self.xdotool("Setup Controller", "key Return",visible=True)
 
         # stop terminal
+        print "[%s] killing script? .. %s"%(self.id(),self.script_proc)
         if self.script_proc :
             self.script_proc.communicate("\u0003\n")
 
@@ -214,8 +219,8 @@ class TestGrxUIProject(unittest.TestCase):
         subprocess.call("pkill recordmydesktop", shell=True)
 
         # wait for record my desktop
-        if self.simulation_start :
-            self.exit_eclipse()
+        #if self.simulation_start :
+        #    self.exit_eclipse()
         print "[%s] wait for recordmydesktop encoding..."%(self.id())
         wait_for_recordmydesktop = True
         while wait_for_recordmydesktop :
@@ -236,7 +241,7 @@ class TestGrxUIProject(unittest.TestCase):
         subprocess.call("pkill recordmydesktop", shell=True)
         subprocess.call("pkill recordmydesktop", shell=True)
         # wait scripts
-        #self.terminate_scripts()
+        self.terminate_scripts()
 
 
 if __name__ == '__main__':
