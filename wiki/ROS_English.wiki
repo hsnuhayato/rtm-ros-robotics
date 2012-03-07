@@ -96,8 +96,7 @@ roslaunch openhrp3 p10.launch
 }}}
 press `Start Simulation` button 
 
-[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.mp4
-http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.png]
+[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.png]
 
 === Sample Vehicle ===
 {{{
