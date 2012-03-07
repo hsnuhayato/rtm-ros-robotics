@@ -88,7 +88,7 @@ roslaunch openhrp3 falling-box.launch
 }}}
 press `Start Simulation` button 
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/falling-box.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/falling-box.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.png]
 
 
 === PA10 ===
@@ -97,14 +97,14 @@ roslaunch openhrp3 pa10.launch
 }}}
 press `Start Simulation` button 
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/pa10.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/pa10.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.png]
 
 === Sample Vehicle ===
 {{{
 roslaunch openhrp3 sample-vehicle.launch
 }}}
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/sample-vehicle.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleSV_RangeSensor.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/sample-vehicle.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleSV_RangeSensor.png]
 
 === Sample Humanoid Robot ===
 
@@ -113,17 +113,17 @@ Launch following launch script and press `Start Simulation` button
 {{{
 roslaunch openhrp3 samplerobot-walk.launch
 }}}
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-walk.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SamplePD.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-walk.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SamplePD.png]
 
 {{{
 roslaunch openhrp3 samplerobot-pickupbox.launch
 }}}
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-pickupbox.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleLF.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-pickupbox.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleLF.png]
 
 {{{
 roslaunch openhrp3 samplerobot-inhouse.launch
 }}}
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-inhouse.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleRobot_inHouse.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-inhouse.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleRobot_inHouse.png]
 
 Change FPS from 50 to 1-10 to speed up simulation.
 
@@ -136,7 +136,7 @@ roslaunch hrpsys pa10.launch
 press `Start Simulation` button,
 then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/PA10; rosrun hrpsys hrpsyspy ./PA10.py`
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/pa10.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/PA10.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/pa10.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/PA10.png]
 
 === HRP-4C walking ===
 {{{
@@ -147,7 +147,7 @@ then press `execute script file` or command `roscd hrpsys/share/hrpsys/samples/H
 
 If failed to load HRP-4C model, rosmake hrpsys_ros_bridge again.
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/HRP4C.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/HRP4C.png]
 
 === Sample Robot Walking and Grasping===
 {{{
@@ -164,7 +164,7 @@ rosrun hrpsys SampleRobot_walk.sh
 }}}
 to start walking.
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/samplerobot.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/SampleRobot.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/samplerobot.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/SampleRobot.png]
 
 == RTM/ROS Integration ===
 
@@ -188,7 +188,7 @@ If you do not need dynamics simulation, start `samplerobot.launch` with `--nosim
 roslaunch hrpsys_ros_bridge samplerobot.launch SCHEDULER_ARGS:=--nosim
 }}}
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/samplerobot.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/SampleRobot_PickUp.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/samplerobot.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/SampleRobot_PickUp.png]
 
 === HRP4 ===
 {{{
@@ -203,7 +203,7 @@ or
 rosrun roseus roseus `rospack find hrpsys_ros_bridge`/scripts/hrp4c-pickup.l
 }}}
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/HRP4C_PickUp.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hrp4c.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/HRP4C_PickUp.png]
 
 Note: when `rosrun hrpsys hrpsyspy ./HRP4C.py` does not work. 
 you need to change  `bridge = findRTC("HRP-4C(Robot)0")` to `bridge = findRTC("HRP4(Robot)0")` and pass absolute path of "data/walk2m" to `loadPattern` function
@@ -221,7 +221,7 @@ $ roscd hrpsys_ros_bridge/scrips; rosrun roseus roseus  kawada-hironx-example.l
 }}}
 to  see the robot is moving.
 
-[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hironx.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/HIRONX_Example.gif]
+[http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hironx.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/HIRONX_Example.png]
 
 = Troubleshooting =
 
