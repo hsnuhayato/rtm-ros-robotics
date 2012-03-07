@@ -90,8 +90,7 @@ press `Start Simulation` button
 
 [http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/falling-box.launch http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.png]
 
-<wiki:gadget url="http://google-code-project-hosting-gadgets.googlecode.com/svn/trunk/video/gcVideo.xml" height="200" border="0" /> 
-<wiki:video url="http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.mp4"/>
+<wiki:gadget url="http://google-code-project-hosting-gadgets.googlecode.com/svn/trunk/video/gcVideo.xml" up_video="http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.mp4"/>
 
 === PA10 ===
 {{{
