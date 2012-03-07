@@ -90,9 +90,9 @@ press `Start Simulation` button
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.png]
 
-=== PA10 ===
+=== [http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/pa10.launch PA10] ===
 {{{
-roslaunch openhrp3 [http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/pa10.launch pa10.launch]
+roslaunch openhrp3 p10.launch
 }}}
 press `Start Simulation` button 
 
