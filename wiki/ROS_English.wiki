@@ -88,13 +88,13 @@ roslaunch openhrp3 falling-box.launch
 }}}
 press `Start Simulation` button 
 
-`<video controls autoplay poster="http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.png" width="600">
-    <source src="http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.ogv" >
-    <source src="http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.mp4" >
-    <p> Your browser does not support the <code>video</code> element. 
-    <a href="http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.mp4"> FallingBoxes.mp4 </a>
-    </p>
-  </video>`
+`<video controls autoplay poster="http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.png" width="600">`
+`<source src="http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.ogv" >`
+`<source src="http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.mp4" >`
+`<p> Your browser does not support the <code>video</code> element.`
+`<a href="http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.mp4"> FallingBoxes.mp4 </a>`
+`</p>`
+`</video>`
 
 [http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/falling-box.launch falling-box.launch]
 
