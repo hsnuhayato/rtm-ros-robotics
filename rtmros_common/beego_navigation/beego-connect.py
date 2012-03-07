@@ -30,11 +30,7 @@ if __name__ == '__main__':
              'MobileRobotROSBridge0', 'out']]
 
     for node1, port1, node2, port2 in conn:
-        #    print [node1,port1,node2,port2]
-        connectPorts(findRTC(node1,rootnc).port(port1),
-                     findRTC(node2,rootnc).port(port2), subscription='flush')
-    time.sleep(1)
-    
-    bridge = findRTC("MobileRobotROSBridge0",rootnc)
-    bridge.start()
+    print [node1,port1,node2,port2]
+    connectPorts(findRTC(node1,rootnc).port(port1),
+                 findRTC(node2,rootnc).port(port2), subscription='flush')
 
