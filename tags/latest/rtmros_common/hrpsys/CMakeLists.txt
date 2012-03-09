@@ -3,7 +3,6 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 rosbuild_find_ros_package(rtmbuild)
 include(${rtmbuild_PACKAGE_PATH}/cmake/rtmbuild.cmake)
 
-
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
 #  Debug          : w/ debug symbols, w/o optimization
@@ -12,15 +11,14 @@ include(${rtmbuild_PACKAGE_PATH}/cmake/rtmbuild.cmake)
 #  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
 #set(ROS_BUILD_TYPE RelWithDebInfo)
 
-rtmbuild_init()
-
-# Build OpenHRP3
+# Build hrpsys before rtmbuild_init
 execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.hrpsys-base
                 RESULT_VARIABLE _make_failed)
 if (_make_failed)
   message(FATAL_ERROR "Build of hrpsys failed")
 endif(_make_failed)
 
+rtmbuild_init()
 
 #set the default path for built executables to the "bin" directory
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
@@ -47,6 +45,21 @@ rtmbuild_genidl()
 ##
 rtmbuild_add_executable(AbsTransformToPosRpy src/AbsTransformToPosRpy.cpp src/AbsTransformToPosRpyComp.cpp)
 
+rtmbuild_genbridge()
+
+#macro(rtmbridge interface)
+#  rtmbuild_add_executable(${interface}Comp src/${interface}.cpp src/${interface}Comp.cpp)
+#endmacro(rtmbridge)
+#rtmbridge(CameraCaptureServiceROSBridge)
+#rtmbridge(DataLoggerServiceROSBridge) # OK, but name space is collide
+#rtmbridge(ExecutionProfileServiceROSBridge)
+#rtmbridge(ForwardKinematicsServiceROSBridge) # error -> array
+#rtmbridge(NullServiceROSBridge)
+#rtmbridge(OGMap3DServiceROSBridge)
+#rtmbridge(RobotHardwareServiceROSBridge) # error -> multi dimensional seq
+#rtmbridge(SequencePlayerServiceROSBridge) # error -> multi dimensional seq
+#rtmbridge(StateHolderServiceROSBridge)
+#rtmbridge(WavPlayerServiceROSBridge)
 
 ##
 ## download models
