@@ -60,7 +60,7 @@ macro(rtmbuild_genidl)
     add_custom_command(OUTPUT ${_output_stub_cpp} ${_output_skel_cpp}
       COMMAND cp ${_input_idl} ${_output_cpp_dir}
       COMMAND ${_openrtm_pkg_dir}/bin/rtm-skelwrapper --include-dir="" --skel-suffix=Skel --stub-suffix=Stub  --idl-file=${_idl}
-      COMMAND rm ${_output_cpp_dir}/${_idl}
+      #COMMAND rm ${_output_cpp_dir}/${_idl} # does not work in parallel make
       WORKING_DIRECTORY ${_output_cpp_dir}
       DEPENDS ${_output_idl_hh})
     add_custom_command(OUTPUT ${_output_stub_lib}
@@ -93,9 +93,24 @@ endmacro(rtmbuild_genidl)
 
 ##
 macro(rtmbuild_init)
+  ## use pkgconfig with openhrp3.1 and openrtm-aist
+  # catch the error output to suppress it
+  include($ENV{ROS_ROOT}/core/rosbuild/FindPkgConfig.cmake)
+  execute_process(COMMAND rospack find openrtm OUTPUT_VARIABLE _openrtm_pkg_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
+  execute_process(COMMAND rospack find openhrp3 OUTPUT_VARIABLE _openhrp3_pkg_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
+  set(ENV{PKG_CONFIG_PATH} "${_openhrp3_pkg_dir}/lib/pkgconfig:${_openrtm_pkg_dir}/lib/pkgconfig")
+  #set(ENV{PKG_CONFIG_PATH} "${_openhrp3_pkg_dir}/lib/pkgconfig:/opt/grx/lib/pkgconfig")
+  pkg_check_modules(OPENRTM REQUIRED openrtm-aist)
+  pkg_check_modules(OPENHRP openhrp3.1)
+
+  # for rosbridge
+  rtmbuild_genbridge_init()
+
+  #
   rosbuild_init()
   message("[rtmbuild] Building package ${_project}")
   add_custom_target(rtmbuild_genidl ALL)
+  add_custom_target(rtmbuild_genbridge ALL)
   file(REMOVE ${PROJECT_SOURCE_DIR}/idl_gen/generated)
 
   list(APPEND ${_prefix}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/idl_gen/cpp/${_prefix}/idl)
@@ -114,15 +129,6 @@ macro(rtmbuild_init)
     list(APPEND ${_prefix}_IDL_DIRS ${_idl_dir})
   endforeach(_dir)
 
-  ## use pkgconfig with openhrp3.1 and openrtm-aist
-  # catch the error output to suppress it
-  include($ENV{ROS_ROOT}/core/rosbuild/FindPkgConfig.cmake)
-  execute_process(COMMAND rospack find openrtm OUTPUT_VARIABLE _openrtm_pkg_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
-  execute_process(COMMAND rospack find openhrp3 OUTPUT_VARIABLE _openhrp3_pkg_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
-  set(ENV{PKG_CONFIG_PATH} "${_openhrp3_pkg_dir}/lib/pkgconfig:${_openrtm_pkg_dir}/lib/pkgconfig")
-  #set(ENV{PKG_CONFIG_PATH} "${_openhrp3_pkg_dir}/lib/pkgconfig:/opt/grx/lib/pkgconfig")
-  pkg_check_modules(OPENRTM REQUIRED openrtm-aist)
-  pkg_check_modules(OPENHRP openhrp3.1)
   list(APPEND ${_prefix}_INCLUDE_DIRS ${OPENRTM_INCLUDE_DIRS})
   list(APPEND ${_prefix}_INCLUDE_DIRS ${OPENHRP_INCLUDE_DIRS})
   list(APPEND ${_prefix}_LIBRARY_DIRS ${OPENRTM_LIBRARY_DIRS})
@@ -176,8 +182,8 @@ endmacro(rtmbuild_add_library)
 
 
 # generate msg/srv files from idl, must be called before rosbuild_init
-macro(rtmbuild_genbridge)
-  message("[rtmbuild_genbridge] Generating bridge compornents from idl in package ${_project}")
+macro(rtmbuild_genbridge_init)
+  message("[rtmbuild_genbridge_init] Generating bridge compornents from idl")
   rtmbuild_get_idls(_idllist)
   if(NOT _idllist)
     _rosbuild_warn("rtmbuild_genbridge() was called, but no .idl files ware found")
@@ -186,23 +192,44 @@ macro(rtmbuild_genbridge)
     file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/srv)
   endif(NOT _idllist)
 
-  execute_process(COMMAND rospack find openhrp3 OUTPUT_VARIABLE _openhrp3_pkg_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
-  execute_process(COMMAND rosrun openrtm rtm-config --cflags | sed 's/ -[^I]\\S*//g' | sed 's/^-[^I]\\S*//g' | sed 's/-I//g' OUTPUT_VARIABLE _rtm_include_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
+  execute_process(COMMAND ${_openrtm_pkg_dir}/bin/rtm-config --cflags OUTPUT_VARIABLE _rtm_include_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
+  execute_process(COMMAND sh -c "echo ${_rtm_include_dir} | sed 's/^-[^I]\\S*//g' | sed 's/\ -[^I]\\S*//g' | sed 's/-I//g'" OUTPUT_VARIABLE _rtm_include_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
   set(_include_dirs "${_rtm_include_dir} ${_openhrp3_pkg_dir}/share/OpenHRP-3.1/idl")
 
   set(_autogen "")
-  include($ENV{ROS_ROOT}/core/rosbuild/FindPkgConfig.cmake)
   foreach(_idl ${_idllist})
-    message("[rtmbuild_genbridge] Generate srvs from ${_idl}")
-    execute_process(COMMAND rosrun rtmbuild idl2srv.py --filenames -i ${PROJECT_SOURCE_DIR}/idl/${_idl} --include-dirs="${_include_dirs}" OUTPUT_VARIABLE _autogen_files
-      OUTPUT_STRIP_TRAILING_WHITESPACE)
-    string(REPLACE "\n" ";" _autogen_files  ${_autogen_files})
-    #add_custom_target(OUTPUT ${_autogen_files}
-    #  COMMAND rosrun rtmbuild idl2srv.py -i ${PROJECT_SOURCE_DIR}/idl/${_idl} --include-dirs="${_include_dirs}"
-    #  DEPENDS ${PROJECT_SOURCE_DIR}/idl/${_idl})
-    message("rosrun rtmbuild idl2srv.py -i ${PROJECT_SOURCE_DIR}/idl/${_idl} --include-dirs=\"${_include_dirs}\"")
-    execute_process(COMMAND rosrun rtmbuild idl2srv.py -i ${PROJECT_SOURCE_DIR}/idl/${_idl} --include-dirs="${_include_dirs}")
-    list(APPEND _autogen ${_autogen_files})
+    message("[rtmbuild_genbridge_init] Generate msgs/srvs from ${_idl}")
+    message("[rtmbuild_genbridge_init] rosrun rtmbuild idl2srv.py --filenames -i ${PROJECT_SOURCE_DIR}/idl/${_idl} --include-dirs=\"${_include_dirs}\"")
+    execute_process(COMMAND rosrun rtmbuild idl2srv.py --filenames -i ${PROJECT_SOURCE_DIR}/idl/${_idl} --include-dirs="${_include_dirs}" OUTPUT_VARIABLE _autogen_files OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(_autogen_files)
+      string(REPLACE "\n" ";" _autogen_files  ${_autogen_files})
+      # remove already generated msg(_autogen) from _autogen_files
+      foreach(_autogen_file ${_autogen_files})
+	list(FIND _autogen ${_autogen_file} _found_autogen_file)
+	if(${_found_autogen_file} GREATER -1)
+	  list(REMOVE_ITEM _autogen_files ${_autogen_file})
+	  message("[rtmbuild_genbridge_init] remove already generated file ${_autogen_file}")
+	endif(${_found_autogen_file} GREATER -1)
+      endforeach(_autogen_file ${_autogen_files})
+      #
+      list(APPEND _autogen ${_autogen_files})
+      get_filename_component(_project_name ${CMAKE_SOURCE_DIR} NAME)
+      add_custom_command(OUTPUT ${_autogen_files}
+	COMMAND rosrun rtmbuild idl2srv.py -i ${PROJECT_SOURCE_DIR}/idl/${_idl} --include-dirs=${_include_dirs} --tmpdir="/tmp/idl2srv/${_project_name}"
+	DEPENDS ${PROJECT_SOURCE_DIR}/idl/${_idl})
+    endif(_autogen_files)
+    foreach(_autogen_file ${_autogen_files})
+      if(${_autogen_file} MATCHES "^.*/msg/[^\\.].*\\.msg$")
+	string(REPLACE "${PROJECT_SOURCE_DIR}/msg/" "" _msg ${_autogen_file})
+	rosbuild_add_generated_msgs(${_msg})
+	message("[rtmbuild_genbridge_init] generate ${_msg} from ${_idl}")
+      endif()
+      if(${_autogen_file} MATCHES "^.*/srv/[^\\.].*\\.srv$")
+	string(REPLACE "${PROJECT_SOURCE_DIR}/srv/" "" _srv ${_autogen_file})
+	rosbuild_add_generated_srvs(${_srv})
+	message("[rtmbuild_genbridge_init] generate ${_srv} from ${_idl}")
+      endif()
+    endforeach(_autogen_file ${_autogen_files})
   endforeach(_idl)
 
   if(_autogen)
@@ -211,22 +238,31 @@ macro(rtmbuild_genbridge)
     list(APPEND _old_clean_files ${_autogen})
     set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${_old_clean_files}")
   endif(_autogen)
+endmacro(rtmbuild_genbridge_init)
 
-endmacro(rtmbuild_genbridge)
-
-# rtm/ros bridge executables
-macro(rtmros_bridge_executables)
-  rosbuild_genmsg() # where to call ?
-  rosbuild_gensrv() #
+macro(rtmbuild_genbridge)
+  rosbuild_genmsg()
+  rosbuild_gensrv()
   rtmbuild_get_idls(_idllist)
+  # rm tmp/idl2srv
+  add_custom_command(OUTPUT /_tmp/idl2srv
+    COMMAND rm -fr /tmp/idl2srv/${_project} DEPENDS ${_autogen})
+  add_dependencies(rtmbuild_genbridge RTMBUILD_rm_idl2srv)
+  add_custom_target(RTMBUILD_rm_idl2srv ALL DEPENDS /_tmp/idl2srv)
+  #
   foreach(_idl ${_idllist})
     execute_process(COMMAND rosrun rtmbuild idl2srv.py --interfaces -i ${PROJECT_SOURCE_DIR}/idl/${_idl} --include-dirs="${_include_dirs}" OUTPUT_VARIABLE _interface
       OUTPUT_STRIP_TRAILING_WHITESPACE)
-    string(REPLACE "\n" ";" _interface ${_interface})
-    foreach(_comp ${_interface})
-      message("[rtmbuild_bridge_executables] ${_idl} -> ${_comp}ROSBridgeComp")
-      rtmbuild_add_executable("${_comp}ROSBridgeComp" "src/${_comp}ROSBridge.cpp" "src/${_comp}ROSBridgeComp.cpp")
-    endforeach(_comp)
+    if(_interface)
+      string(REPLACE "\n" ";" _interface ${_interface})
+      foreach(_comp ${_interface})
+	message("[rtmbuild_genbridge] ${_idl} -> ${_comp}ROSBridgeComp")
+	rtmbuild_add_executable("${_comp}ROSBridgeComp" "src_gen/${_comp}ROSBridge.cpp" "src_gen/${_comp}ROSBridgeComp.cpp")
+      endforeach(_comp)
+    endif(_interface)
   endforeach(_idl)
-endmacro(rtmros_bridge_executables)
+  get_directory_property(_old_clean_files ADDITIONAL_MAKE_CLEAN_FILES)
+  list(APPEND _old_clean_files ${PROJECT_SOURCE_DIR}/src_gen)
+  set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${_old_clean_files}")
+endmacro(rtmbuild_genbridge)
 
