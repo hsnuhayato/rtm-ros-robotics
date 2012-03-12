@@ -12,7 +12,7 @@ function test-grxui {
     local package=$1
     trap error ERR
     rosmake --status-rate=0 --test-only $package
-    (cd `rospack find $package`; rosrun rosdoc rosdoc $package)
+    (cd `rospack find $package`; rosrun rosdoc rosdoc $package 2>&1 | tee build/rosdoc.log; [ `grep WARNING build/rosdoc.log | wc -l` -gt 1 ] && exit 1 || true) # we assume .static does not exist... warning
 
     if [ -n "$WORKSPACE" ]; then # only for jenkins to copy to results
 	rm -fr $WORKSPACE/$package-example
@@ -21,6 +21,7 @@ function test-grxui {
 }
 
 # do test
+set -x
 rm -fr `rospack find openhrp3`/workspace/
 test-grxui openhrp3
 test-grxui hrpsys
