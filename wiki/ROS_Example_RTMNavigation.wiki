@@ -228,12 +228,19 @@ Windows機のドライバのLinuxバージョンが使えるようになった�
 ここからノートPCでの作業 (コネクタを外す度にやる）
 {{{
 $ rosrun beego_navigation start_rtccan.sh
+}}}
+でcanまわりの設定。新しい端末を開いて
 $ roscd rtmros_common/rtc_canopen/work
 $ ./0.AutoRun.sh
 }}}
 
 ここで大量のwindowが立ち上がる。
 その中のstatus manegerで4つの項目がすべてactiveであるかどうか確認。
+失敗した場合は
+{{{
+$ ./10.KillAll.sh
+}}}
+してから最初からやり直してみる。
 
 {{{
 $ roslaunch beego_navigation beego_ros_bridge.launch
