@@ -5,20 +5,11 @@
 = Install =
 
 == Install source code ==
-Install ROS by following [http://www.ros.org/wiki/electric/Installation/Ubuntu], install related ros packages
+Install ROS by following [http://www.ros.org/wiki/electric/Installation/Ubuntu], install related ros packages and install `rtm-ros-robotics` software
 
 {{{
-sudo apt-get install build-essential python-yaml cmake subversion wget python-setuptools git-core mercurial aptitude
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros-latest.list'
-wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install python-setuptools
-sudo easy_install -U rosinstall
-sudo apt-get install ros-electric-wg-pr2-apps ros-electric-pr2-apps ros-electric-pr2-desktop ros-electric-openni-kinect ros-electric-sound-drivers ros-electric-turtlebot ros-electric-remote-lab
-}}}
-and install `rtm-ros-robotics` software
-{{{
-rosinstall ~/prog/rtm-ros-robotics /opt/ros/electric http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
+bash /tmp/jsk.rosbuild --show-install | sh
 }}}
 
 For update installed packages 
