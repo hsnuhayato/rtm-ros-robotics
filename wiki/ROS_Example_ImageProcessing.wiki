@@ -67,6 +67,12 @@ $ rxgraph
 == 基本となるサンプルプログラム ==
 
 簡単なサンプルプログラムをopencv_ros_bridge_tutorialに置いた．
+
+まずはプログラムをコンパイルする.
+{{{
+rosmake opencv_ros_bridge_tutorial
+}}}
+
 新しいソースのインストールと動作確認の所で実行した
 {{{
 roscore
