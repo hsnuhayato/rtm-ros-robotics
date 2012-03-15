@@ -41,6 +41,7 @@ sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
 = ROS外部パッケージのインストール =
 
 {{{
+sudo easy_install "rosinstall==0.5.30"
 rosinstall ~/prog/rtm-ros-robotics /opt/ros/electric http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 <wiki:comment>
