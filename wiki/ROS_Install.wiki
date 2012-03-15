@@ -23,12 +23,19 @@ sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
 {{{
 wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
 bash /tmp/jsk.rosbuild --show-install | sh
+bash /tmp/jsk.rosbuild --show-package | sh
 }}}
 このコマンドを実行すると
 (1)aptのリポジトリ登録
 (2)aptによるROS本体のインストール
-(3)ROS外部パッケージのインストール
 が行われる.
+
+= ROS外部パッケージのインストール =
+
+{{{
+rosinstall ~/prog/rtm-ros-robotics http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall 
+}}}
+とすることで,外部パッケージのソースコードをインストールする.
 
 また,
 {{{
