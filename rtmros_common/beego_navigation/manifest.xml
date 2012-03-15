@@ -1,13 +1,13 @@
 <package>
-  <description brief="beego_simulation">
+  <description brief="beego_navigation">
 
-     beego_simulation
+     beego_navigation
 
   </description>
   <author>chen</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/beego_simulation</url>
+  <url>http://ros.org/wiki/beego_navigation</url>
   <depend package="move_base"/>
   <depend package="map_server"/>
   <depend package="amcl"/>
