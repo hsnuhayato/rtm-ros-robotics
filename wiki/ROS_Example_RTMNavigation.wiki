@@ -229,7 +229,10 @@ Windows機のドライバのLinuxバージョンが使えるようになった�
 {{{
 $ rosrun beego_navigation start_rtccan.sh
 }}}
+
 でcanまわりの設定。新しい端末を開いて
+
+{{{
 $ roscd rtmros_common/rtc_canopen/work
 $ ./0.AutoRun.sh
 }}}
@@ -237,14 +240,17 @@ $ ./0.AutoRun.sh
 ここで大量のwindowが立ち上がる。
 その中のstatus manegerで4つの項目がすべてactiveであるかどうか確認。
 失敗した場合は
+
 {{{
 $ ./10.KillAll.sh
 }}}
+
 してから最初からやり直してみる。
 
 {{{
 $ roslaunch beego_navigation beego_ros_bridge.launch
 }}}
+
 とすると、RTMとROSがつながる。xtermが立ち上がるので、Q,W,E,Sなどを押してbeegoが動くことを確認。
 車輪にサーボが入っていない場合は2つの緑のボタンをONOFFすれば入る。
 
