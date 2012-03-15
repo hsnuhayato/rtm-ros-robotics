@@ -33,10 +33,10 @@
     uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision
     local-name: wg-ros-pkg-cturtle/vision
 ##
-## for checkerboad_pose
+## for checkerboard_pose
 - svn:
     uri: https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboard_pose
-    local-name: wg-ros-pkg-cturtle/sandbox/checkerboad_pose
+    local-name: wg-ros-pkg-cturtle/sandbox/checkerboard_pose
 ##
 ## for face detector
 - svn:
