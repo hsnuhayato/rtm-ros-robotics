@@ -10,6 +10,7 @@ Install ROS by following [http://www.ros.org/wiki/electric/Installation/Ubuntu],
 {{{
 wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
 bash /tmp/jsk.rosbuild --show-install | sh
+bash /tmp/jsk.rosbuild --show-package | sh
 }}}
 
 For update installed packages 
