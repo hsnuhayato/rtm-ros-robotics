@@ -1,9 +1,5 @@
 #summary One-sentence summary of this page.
 open_rtm_ros_bridge for hiro
-= Introduction =
-
-Add your content here.
-
 
 =Installation and testing=
 
@@ -12,6 +8,8 @@ $ rosmake openrtm_ros_bridge
 }}}
 
 ===Testing ===
+
+1:
 {{{
 $ roslaunch openrtm_ros_bridge myservice_example.launch
 Then
@@ -25,3 +23,21 @@ after that, you can call openrtm service from ros command
 $ rosservice  list
 $ rosservice call /bridge/echo "hello , this is echo sample"
 }}}
+2:
+Ok, then you can go to hrpsys directory
+
+you can see
+ rtmbuild_genbridge()
+in CMakeLists.txt. this converts all idl files to msg/srv with make
+command and generate ROSBridge source code under src_gen directory.
+
+hrpsys/sample/hrp4c-rosbridge.launch is the example.
+first you select ServiceBridgeComponent for corresponding OpenRTM
+service under src_gen directory
+  <node name="SequencePlayerServiceROSBridgeComp" pkg="hrpsys"
+type="SequencePlayerServiceROSBridgeComp"
+        args='$(arg openrtm_args)'>
+    <param name="service_port" value="service0"/>
+  </node>
+
+and then you modify rtactivate and rtconnect tag for your Bridge Component
