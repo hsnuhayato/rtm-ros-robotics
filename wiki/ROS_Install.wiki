@@ -13,20 +13,7 @@ http://www.ros.org/wiki/electric/Installation/Ubuntu
 
 ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公開されているパッケージをソースでインストールする
 
-ubuntuをあたらしくいれた場合はaptitudeを更新したのち、
-sshとsubversionを入れること.
-{{{
-sudo aptitude update;sudo aptitude upgrade
-sudo apt-get install ssh subversion
-}}}
-
-まず11.04ユーザは，
-{{{
-sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
-}}}
-をしてリブートしておく必要がある．
-
-以下のコマンドを入力する.
+これらの手続きは，以下のコマンドを入力することで実行される．
 {{{
 wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
 bash /tmp/jsk.rosbuild --show-install | sh
@@ -36,6 +23,14 @@ bash /tmp/jsk.rosbuild --show-package | sh
 (1)aptのリポジトリ登録
 (2)aptによるROS本体のインストール
 が行われる.
+
+
+また11.04ユーザは，
+{{{
+sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
+}}}
+をしてリブートしておく必要がある．
+
 
 = ROS外部パッケージのインストール =
 
