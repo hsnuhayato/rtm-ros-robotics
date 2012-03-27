@@ -36,13 +36,14 @@ open CMakeList.txt. You will find the function
 It converts all idl files to msg/srv with make
 command and generate ROSBridge source code under src_gen directory.
 
-hrpsys/sample/hrp4c-rosbridge.launch is the example.
+*hrpsys/sample/hrp4c-rosbridge.launch* is the example.
 first you select ServiceBridgeComponent for corresponding OpenRTM
 service under src_gen directory
+{{{
   <node name="SequencePlayerServiceROSBridgeComp" pkg="hrpsys"
 type="SequencePlayerServiceROSBridgeComp"
         args='$(arg openrtm_args)'>
     <param name="service_port" value="service0"/>
   </node>
-
+}}}
 and then you modify rtactivate and rtconnect tag for your Bridge Component
