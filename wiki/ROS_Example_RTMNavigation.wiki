@@ -265,6 +265,11 @@ $ roslaunch beego_navigation start_make_map.launch
 $ rosrun rviz rviz 
 }}}
 でrvizにmapを追加して、frame_idを/mapにすれば作っている様子がわかる。
+{{{
+$ rosrun map_server map_saver
+}}}
+とうつと、今できている地図を保存する（map.pgmとmap.yaml）
+これらをbeego_navigationフォルダにコピーすれば下のナビゲーションにつかえるはずである。
 
 {{{
 $ roslaunch beego_navigation start_nav_beego.launch
