@@ -24,11 +24,16 @@ $ rosservice  list
 $ rosservice call /bridge/echo "hello , this is echo sample"
 }}}
 2:
-Ok, then you can go to hrpsys directory
+then 
 
-you can see
+{{{
+$ roscd hrpsys
+}}}
+open CMakeList.txt. You will find the function
+{{{
  rtmbuild_genbridge()
-in CMakeLists.txt. this converts all idl files to msg/srv with make
+}}}
+It converts all idl files to msg/srv with make
 command and generate ROSBridge source code under src_gen directory.
 
 hrpsys/sample/hrp4c-rosbridge.launch is the example.
