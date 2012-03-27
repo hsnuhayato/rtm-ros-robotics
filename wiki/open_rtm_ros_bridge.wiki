@@ -1,0 +1,27 @@
+#summary One-sentence summary of this page.
+open_rtm_ros_bridge for hiro
+= Introduction =
+
+Add your content here.
+
+
+=Installation and testing=
+
+{{{
+$ rosmake openrtm_ros_bridge
+}}}
+
+===Testing ===
+{{{
+$ roslaunch openrtm_ros_bridge myservice_example.launch
+Then
+$ roslaunch openrtm_ros_bridge myservice_rosbridge.launch
+should be ok. you can see three openrtm components as
+http://ros.org/doc/api/openrtm_ros_bridge/html/_images/service-rosbridge.png
+}}}
+
+after that, you can call openrtm service from ros command
+{{{
+$ rosservice  list
+$ rosservice call /bridge/echo "hello , this is echo sample"
+}}}
