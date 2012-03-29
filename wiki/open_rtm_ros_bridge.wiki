@@ -1,6 +1,14 @@
 #summary One-sentence summary of this page.
 open_rtm_ros_bridge for hiro
 
+[http://ros.org/doc/api/openrtm_ros_bridge/html/]
+this converts idl file to ros srv file and generate Python ros component that
+provides ROS service interfacing to OpenRTM service. This means that
+if you have existing OpenRTM service (in your case, hiro ik service), the
+system automatically generate ROS service node that you can call service
+from your ros python code.
+
+
 =Installation and testing=
 
 {{{
