@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.4.6)
 include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 rosbuild_find_ros_package(rtmbuild)
 include(${rtmbuild_PACKAGE_PATH}/cmake/rtmbuild.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/compile_robot_model.cmake)
 
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
@@ -42,64 +43,6 @@ rosbuild_find_ros_package(collada_robots)
 rosbuild_find_ros_package(choreonoid)
 rosbuild_find_ros_package(webots_simulator)
 
-##
-## define macros
-##
-macro(compile_openhrp_model wrlfile)
-  set(_workdir ${PROJECT_SOURCE_DIR}/models)
-  if("${ARGN}" STREQUAL "")
-    get_filename_component(_name ${wrlfile} NAME_WE)
-  else()
-    set(_name "${ARGN}")
-  endif()
-  set(_daefile "${_workdir}/${_name}.dae")
-  set(_xmlfile "${_workdir}/${_name}.xml")
-  string(TOLOWER ${_name} _name)
-  set(_yamlfile "${_workdir}/${_name}.yaml")
-  set(_lispfile "${_workdir}/${_name}.l")
-  if(EXISTS ${_yamlfile})
-    add_custom_command(OUTPUT ${_lispfile}
-      COMMAND rosrun euscollada collada2eus ${_daefile} ${_yamlfile} ${_lispfile}
-      DEPENDS ${_daefile})
-  else(EXISTS ${_yamlfile})
-    add_custom_command(OUTPUT ${_lispfile}
-      COMMAND rosrun euscollada collada2eus ${_daefile} ${_lispfile}
-      DEPENDS ${_daefile})
-  endif(EXISTS ${_yamlfile})
-  add_custom_command(OUTPUT ${_daefile}
-    COMMAND rosrun openhrp3 export-collada -i ${wrlfile} -o ${_daefile}
-    DEPENDS ${wrlfile})
-  add_custom_command(OUTPUT ${_xmlfile}
-    COMMAND rostest -t hrpsys _gen_project.launch INPUT:=${wrlfile} OUTPUT:=${_xmlfile}
-    DEPENDS ${wrlfile})
-  add_custom_target(${_name}_compile DEPENDS ${_lispfile} ${_xmlfile} ${_daefile})
-  list(APPEND compile_robots ${_name}_compile)
-endmacro(compile_openhrp_model)
-
-macro(compile_collada_robot daefile)
-  set(_workdir ${PROJECT_SOURCE_DIR}/models)
-  get_filename_component(_name ${daefile} NAME_WE)
-  set(_xmlfile "${_workdir}/${_name}.xml")
-  string(TOLOWER ${_name} _name)
-  set(_yamlfile "${_workdir}/${_name}.yaml")
-  set(_lispfile "${_workdir}/${_name}.l")
-
-  if(EXISTS ${_yamlfile})
-    add_custom_command(OUTPUT ${_lispfile}
-      COMMAND rosrun euscollada collada2eus ${daefile} ${_yamlfile} ${_lispfile}
-      DEPENDS ${daefile})
-  else(EXISTS ${_yamlfile})
-    add_custom_command(OUTPUT ${_lispfile}
-      COMMAND rosrun euscollada collada2eus ${daefile} ${_lispfile} || echo 'ok'
-      DEPENDS ${daefile})
-  endif(EXISTS ${_yamlfile})
-  add_custom_command(OUTPUT ${_xmlfile}
-    COMMAND rostest -t hrpsys _gen_project.launch INPUT:=${daefile} OUTPUT:=${_xmlfile}
-    DEPENDS ${daefile})
-  add_custom_target(${_name}_compile DEPENDS ${_lispfile} ${_xmlfile})
-  list(APPEND compile_robots ${_name}_compile)
-endmacro(compile_collada_robot daefile)
-
 ###
 ### convert
 ###
@@ -114,8 +57,8 @@ compile_openhrp_model(
 compile_openhrp_model(
   ${openhrp3_PACKAGE_PATH}/share/OpenHRP-3.1/sample/model/sample1.wrl SampleRobot)
 
-compile_collada_robot(${collada_robots_PACKAGE_PATH}/data/robots/kawada-hironx.dae)
-compile_collada_robot(${collada_robots_PACKAGE_PATH}/data/robots/willowgarage-pr2.dae)
+compile_collada_model(${collada_robots_PACKAGE_PATH}/data/robots/kawada-hironx.dae)
+compile_collada_model(${collada_robots_PACKAGE_PATH}/data/robots/willowgarage-pr2.dae)
 
 # generate webots model
 add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/models/DARWIN.wrl
@@ -159,6 +102,7 @@ rtmbuild_add_executable(ImageSensorROSBridge src/ImageSensorROSBridge.cpp src/Im
 
 rosbuild_check_for_display(disp)
 if(disp)
+  file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/build/images)
   rosbuild_add_rostest(launch/hrp4c.launch)
   rosbuild_add_rostest(launch/hrp4c_nosim.launch)
   # rosbuild_add_rostest(launch/pa10.launch) #segfault?

@@ -91,8 +91,6 @@ class HrpsysSeqStateROSBridgeImpl  : public RTC::DataFlowComponentBase
 
   // DataInPort declaration
   // <rtc-template block="inport_declare">
-  TimedDoubleSeq m_angle;
-  InPort<TimedDoubleSeq> m_angleIn;
   TimedDoubleSeq m_rsangle;
   InPort<TimedDoubleSeq> m_rsangleIn;
   TimedDoubleSeq m_mcangle;
@@ -111,13 +109,15 @@ class HrpsysSeqStateROSBridgeImpl  : public RTC::DataFlowComponentBase
   InPort<TimedDoubleSeq> m_gyrometerIn;
   TimedPose3D m_pose;
   InPort<TimedPose3D> m_poseIn;
+  TimedDoubleSeq m_rstorque;
+  InPort<TimedDoubleSeq> m_rstorqueIn;
 
   // </rtc-template>
 
   // DataOutPort declaration
   // <rtc-template block="outport_declare">
-  TimedDoubleSeq m_torque;
-  OutPort<TimedDoubleSeq> m_torqueOut;
+  TimedDoubleSeq m_mctorque;
+  OutPort<TimedDoubleSeq> m_mctorqueOut;
 
   // </rtc-template>
 
