@@ -29,7 +29,6 @@ static const char* hrpsysseqstaterosbridgeimpl_spec[] =
 HrpsysSeqStateROSBridgeImpl::HrpsysSeqStateROSBridgeImpl(RTC::Manager* manager)
     // <rtc-template block="initializer">
   : RTC::DataFlowComponentBase(manager),
-    m_angleIn("angle", m_angle),
     m_rsangleIn("rsangle", m_rsangle),
     m_mcangleIn("mcangle", m_mcangle),
     m_rsrfsensorIn("rsrfsensor", m_rsrfsensor),
@@ -39,7 +38,8 @@ HrpsysSeqStateROSBridgeImpl::HrpsysSeqStateROSBridgeImpl(RTC::Manager* manager)
     m_gsensorIn("gsensor", m_gsensor),
     m_gyrometerIn("gyrometer", m_gyrometer),
     m_poseIn("pose", m_pose),
-    m_torqueOut("torque", m_torque),
+    m_rstorqueIn("rstorque", m_rstorque),
+    m_mctorqueOut("mctorque", m_mctorque),
     m_SequencePlayerServicePort("SequencePlayerService")
 
     // </rtc-template>
@@ -56,7 +56,6 @@ RTC::ReturnCode_t HrpsysSeqStateROSBridgeImpl::onInitialize()
   // Registration: InPort/OutPort/Service
   // <rtc-template block="registration">
   // Set InPort buffers
-  addInPort("angle", m_angleIn);
   addInPort("rsangle", m_rsangleIn);
   addInPort("mcangle", m_mcangleIn);
   addInPort("rsrfsensor", m_rsrfsensorIn);
@@ -66,9 +65,10 @@ RTC::ReturnCode_t HrpsysSeqStateROSBridgeImpl::onInitialize()
   addInPort("gsensor", m_gsensorIn);
   addInPort("gyrometer", m_gyrometerIn);
   addInPort("pose", m_poseIn);
+  addInPort("rstorque", m_rstorqueIn);
 
   // Set OutPort buffer
-  addOutPort("torque", m_torqueOut);
+  addOutPort("mctorque", m_mctorqueOut);
 
   // Set service provider to Ports
 
