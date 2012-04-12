@@ -35,8 +35,18 @@ If something seems to be wrong in rosmake, add --pre-clean option to cleanup all
 If rosmake failed to install sun-java6-{jdk,fonts,plugin},
 please install from Synaptic package manager.
 
-When you use Ubuntu 11.04 or later and failed to make euslisp,
+When you use Ubuntu 11.04 or later and failed to make euslisp as follows,
 reboot and rosmake again.
+{{{
+  can't load font "*-courier-medium-r-*-8-*"can't load font "*-courier-medium-r-*-10-*"can't load font "*-courier-medium-r-*-12-*"can't load font "*-courier-medium-r-*-14-*"can't load font "*-courier-medium-r-*-18-*"can't load font "*-courier-bold-r-*-12-*"can't load font "*-courier\
+-bold-r-*-14-*"can't load font "*-courier-bold-r-*-18-*"can't load font "*-courier-bold-r-*-24-*"can't load font "*-times-medium-r-*-10-*"can't load font "*-times-medium-r-*-12-*"can't load font "*-times-bold-r-*-12-*"can't load font "*-times-bold-r-*-14-*"can't load font "*-times-b\
+old-r-*-18-*"can't load font "*-times-bold-r-*-24-*"can't load font "lucidasans-bold-12"can't load font "lucidasans-bold-14"can't load font "*-Helvetica-Bold-R-Normal-*-12-*"can't load font "*-Helvetica-Medium-R-Normal-*-12-*"X Error of failed request:  BadFont (invalid Font paramet\
+er)
+    Major opcode of failed request:  56 (X_ChangeGC)
+    Resource id in failed request:  0x0
+    Serial number of failed request:  49
+    Current serial number in output stream:  58
+}}}
 
 == Setup Eclipse ==
 type
