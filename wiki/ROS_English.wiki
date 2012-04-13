@@ -13,7 +13,7 @@ Make sure sun-java-jrk is installed and that it is the default java distribution
 $ sudo apt-add-repository ppa:flexiondotorg/java
 $ sudo apt-get update
 # install java 
-$ sudo apt-get install sun-java6-jdk sun-java6-jre sun-java6-source
+$ sudo apt-get install sun-java6-jdk sun-java6-jre sun-java6-plugin
 # select the sun distribution as default
 $ sudo update-java-alternatives -s java-6-sun
 # check it is the default
