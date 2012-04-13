@@ -9,6 +9,9 @@ Install ROS by following [http://www.ros.org/wiki/electric/Installation/Ubuntu],
 
 Make sure sun-java-jrk is installed and that it is the default java distribution chosen for your PC 
 {{{
+#add repository
+$ sudo apt-add-repository ppa:flexiondotorg/java
+$ sudo apt-get update
 # install java 
 $ sudo apt-get install sun-java6-jdk sun-java6-jre sun-java6-source
 # select the sun distribution as default
