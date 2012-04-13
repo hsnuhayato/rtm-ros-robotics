@@ -5,7 +5,19 @@
 = Install =
 
 == Install source code ==
-Install ROS by following [http://www.ros.org/wiki/electric/Installation/Ubuntu], install related ros packages and install `rtm-ros-robotics` software
+Install ROS by following [http://www.ros.org/wiki/electric/Installation/Ubuntu], 
+
+Make sure sun-java-jrk is installed and that it is the default java distribution chosen for your PC 
+{{{
+# install java 
+$ sudo apt-get install sun-java6-jdk sun-java6-jre sun-java6-source
+# select the sun distribution as default
+$ sudo update-java-alternatives -s java-6-sun
+# check it is the default
+$ java -version
+}}}
+
+install related ros packages and install `rtm-ros-robotics` software
 
 {{{
 wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
