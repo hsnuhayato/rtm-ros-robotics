@@ -1,24 +1,24 @@
 - other: {local-name: /opt/ros/electric/ros}
 - other: {local-name: /opt/ros/electric/stacks}
 - svn: {local-name: rtm-ros-robotics/rtmros_common,
-    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2854}
+    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2863}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r2858}
+    version: -r2863}
 - svn: {local-name: jsk-ros-pkg,
     uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk', version: -r3037}
 - git: {local-name: umd-ros-pkg/camera_umd,
     uri: 'http://ram.umd.edu/git/ros/camera_umd.git', version: ed1544a5f81356a4889e79a68783ebe1a359ce01}
 - svn: {local-name: stacks/camera1394,
     uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0',
-    version: -r39309}
+    version: -r39310}
 - svn: {local-name: cmu-ros-pkg,
     uri: 'https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk', version: -r435}
 - svn: {local-name: wg-ros-pkg-cturtle/vision,
-    uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision', version: -r54480}
+    uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision', version: -r54482}
 - svn: {local-name: wg-ros-pkg-cturtle/sandbox/checkerboard_pose,
     uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboard_pose',
-    version: -r54480}
+    version: -r54482}
 - svn: {local-name: tum-ros-pkg,
     uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg', version: -r998}
 - svn: {local-name: ua-ros-pkg,
@@ -28,6 +28,6 @@
 - svn: {local-name: multimaster_experimental,
     uri: 'https://code.ros.org/svn/ros/stacks/multimaster_experimental/trunk', version: -r16648}
 - hg: {local-name: turtlebot,
-    uri: 'https://kforge.ros.org/turtlebot/turtlebot', version: 7700ddd338db}
+    uri: 'https://kforge.ros.org/turtlebot/turtlebot', version: ''}
 - svn: {local-name: webots-ros-pkg,
     uri: 'http://webots-ros-pkg.svn.sourceforge.net/svnroot/webots-ros-pkg', version: -r10}
