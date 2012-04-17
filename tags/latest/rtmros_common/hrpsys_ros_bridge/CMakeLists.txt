@@ -49,7 +49,9 @@ rosbuild_find_ros_package(webots_simulator)
 if(EXISTS ${hrpsys_PACKAGE_PATH}/share/hrpsys/samples/HRP-4C/HRP4Cmain.wrl)
   compile_openhrp_model(
     ${hrpsys_PACKAGE_PATH}/share/hrpsys/samples/HRP-4C/HRP4Cmain.wrl
-    HRP4C)
+    HRP4C
+    -a rightarm_torso,BODY,R_WRIST_R_LINK,0,0,0,0.707,0,0.707,0 -a leftarm_torso,BODY,L_WRIST_R_LINK,0,0,0,0.707,0,0.707,0 -a rightarm,BODY,CHEST_Y_LINK,0,0,0,0.707,0,0.707,0 -a leftarm,CHEST_Y_LINK,L_WRIST_R_LINK,0,0,0,0.707,0,0.707,0
+)
 endif(EXISTS ${hrpsys_PACKAGE_PATH}/share/hrpsys/samples/HRP-4C/HRP4Cmain.wrl)
 
 compile_openhrp_model(
@@ -74,7 +76,9 @@ add_custom_command(
   COMMAND unzip -o ${PROJECT_SOURCE_DIR}/build/YaskawaSmartPal5.zip
   COMMAND cp    -rf ${PROJECT_SOURCE_DIR}/build/YaskawaSmartPal5/* ${PROJECT_SOURCE_DIR}/models/
   DEPENDS ${PROJECT_SOURCE_DIR}/build/YaskawaSmartPal5.zip)
-compile_openhrp_model(${PROJECT_SOURCE_DIR}/models/YaskawaSmartPal5.wrl)
+compile_openhrp_model(${PROJECT_SOURCE_DIR}/models/YaskawaSmartPal5.wrl
+  YaskawaSmartPal5
+  -a leftarm,WAIST_LINK2,LARM_LINK7,0,0,0,0.707,0,0.707,0,LARM_JOINTG,-1 -a leftarm_waist,WAIST_LINK0,LARM_LINK7,0,0,0,0.707,0,0.707,0,LARM_JOINTG,-1 -a rightarm,WAIST_LINK2,RARM_LINK7,0,0,0,0.707,0,0.707,0,RARM_JOINTG,-1 -a rightarm_waist,WAIST_LINK0,RARM_LINK7,0,0,0,0.707,0,0.707,0,RARM_JOINTG,-1)
 
 # choreonoid model
 compile_openhrp_model(${choreonoid_PACKAGE_PATH}/share/choreonoid-1.1/models/GR001/GR001.wrl)
