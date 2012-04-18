@@ -23,7 +23,7 @@
 
  * http://www.ros.org/wiki/ROS/Tutorials/BuildingPackages
 
-* ROSのプログラミングを学ぶ
+* ROSのプログラミング手法を学ぶ
 
   * http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29
 
