@@ -25,7 +25,7 @@
 
 * ROSのプログラミングを学ぶ
 
-  * http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber(python)
+  * http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29
 
  * http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29
 
