@@ -31,4 +31,4 @@
 
  * http://www.ros.org/wiki/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29
 
-* http://www.ros.org/wiki/ROS/Tutorials/Recording%20and%20playing%20back%20data
+ * http://www.ros.org/wiki/ROS/Tutorials/Recording%20and%20playing%20back%20data
