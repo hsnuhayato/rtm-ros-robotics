@@ -1,17 +1,17 @@
 - other: {local-name: /opt/ros/electric/ros}
 - other: {local-name: /opt/ros/electric/stacks}
 - svn: {local-name: rtm-ros-robotics/rtmros_common,
-    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2892}
+    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2895}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r2892}
+    version: -r2897}
 - svn: {local-name: jsk-ros-pkg,
     uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk', version: -r3063}
 - git: {local-name: umd-ros-pkg/camera_umd,
     uri: 'http://ram.umd.edu/git/ros/camera_umd.git', version: ed1544a5f81356a4889e79a68783ebe1a359ce01}
 - svn: {local-name: stacks/camera1394,
     uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0',
-    version: -r39334}
+    version: -r39335}
 - svn: {local-name: cmu-ros-pkg,
     uri: 'https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk', version: -r435}
 - svn: {local-name: wg-ros-pkg-cturtle/vision,
