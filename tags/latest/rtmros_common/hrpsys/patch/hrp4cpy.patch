@@ -37,5 +37,8 @@ Index: sample/HRP-4C/HRP4C.py
  
  init()
 -loadPattern("data/walk2m")
-+import subprocess
-+loadPattern(subprocess.check_output(["rospack","find","hrpsys"]).rstrip()+"/share/hrpsys/samples/HRP-4C/data/walk2m")
++import os
++loadPattern(os.popen("rospack find hrpsys").read().rstrip()+"/share/hrpsys/samples/HRP-4C/data/walk2m")
+
+
+
