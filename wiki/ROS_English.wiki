@@ -324,7 +324,7 @@ if not, `roscd collada_robots; rm installed; make`
 == Check OpenHRP Collada support ==
 Make sure that your openrhp3 support to load collada files
 {{{
-$ roslaunch openhrp3 grxui.launch
+$ rosrun openhrp3 grxui.sh
 }}}
 and right click Model menu on the left "Item View" and select "load",
 
