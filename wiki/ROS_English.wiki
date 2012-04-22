@@ -111,7 +111,7 @@ press `Start Simulation` button
 === PA10 ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/pa10.launch pa10.launch])
 {{{
-roslaunch openhrp3 p10.launch
+roslaunch openhrp3 pa10.launch
 }}}
 press `Start Simulation` button 
 
