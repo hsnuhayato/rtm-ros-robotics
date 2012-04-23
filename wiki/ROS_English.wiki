@@ -96,6 +96,8 @@ Lastly, you have to install following software as well from Install
 `<openhrp3>/build/grxui_eclipse.zip`<br>
 `<hrpsys>/build/robothardware_eclipse.zip`<br>
 
+Note: You must comment out the line "::1 localhost" in /etc/hosts to run following simulations.
+
 = Example =
 == OpenHRP3 Simulation ===
 
