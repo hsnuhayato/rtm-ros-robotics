@@ -26,7 +26,7 @@
 ## kinect
 - git:
     uri: https://github.com/ros-pkg-git/kinect.git
-    local-name: kinect
+    local-name: ros-pkg-git/kinect
 ##
 ## cmu for imagesift
 - svn:
