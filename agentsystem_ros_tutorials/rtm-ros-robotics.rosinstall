@@ -4,15 +4,15 @@
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2913}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials,
     uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r2927}
+    version: -r2930}
 - svn: {local-name: jsk-ros-pkg,
-    uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk', version: -r3077}
+    uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk', version: -r3081}
 - git: {local-name: umd-ros-pkg/camera_umd,
     uri: 'http://ram.umd.edu/git/ros/camera_umd.git', version: ed1544a5f81356a4889e79a68783ebe1a359ce01}
 - svn: {local-name: stacks/camera1394,
     uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0',
     version: -r39335}
-- git: {local-name: kinect,
+- git: {local-name: ros-pkg-git/kinect,
     uri: 'https://github.com/ros-pkg-git/kinect.git', version: e632ec653c47731217a8575c952d98c4570f0208}
 - svn: {local-name: cmu-ros-pkg,
     uri: 'https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk', version: -r435}
