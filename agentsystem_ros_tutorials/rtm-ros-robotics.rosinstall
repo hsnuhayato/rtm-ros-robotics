@@ -23,6 +23,11 @@
     uri: https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0
     local-name: stacks/camera1394
 ##
+## kinect
+- git:
+    uri: https://github.com/ros-pkg-git/kinect.git
+    local-name: kinect
+##
 ## cmu for imagesift
 - svn:
     uri: https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk
