@@ -285,7 +285,7 @@ map.yaml内に記された地図（pgm）を読み込む。
 $ roslaunch beego_navigation start_make_map_hokuyo.launch
 }}}
 
-}}}
+{{{
 $ roslaunch beego_navigation start_nav_beego_hokuyo.launch
 }}}
 
