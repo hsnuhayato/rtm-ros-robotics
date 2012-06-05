@@ -51,6 +51,7 @@ rosinstall ~/prog/rtm-ros-robotics /opt/ros/electric http://rtm-ros-robotics.goo
 rosmake mrobot_ros_bridge
 }}}
 これだけで必要なROSとRTMが全て入るようになっている．
+(LRFを追加で使う場合は[ROS_Install]が必須)
 
 なおLinux機の.bashrcに
 Windows, Linux機と外部PC間のROS,RTMの通信ができるように以下の行を加える
@@ -277,3 +278,16 @@ $ roslaunch beego_navigation start_nav_beego.launch
 でナビゲーションのノードが立ち上がる。
 map.yaml内に記された地図（pgm）を読み込む。
 ナビゲーションのゴール指定はrvizから行う。
+
+もしもkinectではなく、hokuyoのLRFを使いたい場合はそれぞれ
+
+{{{
+$ roslaunch beego_navigation start_make_map_hokuyo.launch
+}}}
+
+}}}
+$ roslaunch beego_navigation start_nav_beego_hokuyo.launch
+}}}
+
+を実行してください。
+LRF,kinectはともに/scanというトピックでLaserScanをだしている。
