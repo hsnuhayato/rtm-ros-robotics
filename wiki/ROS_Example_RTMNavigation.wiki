@@ -51,7 +51,16 @@ rosinstall ~/prog/rtm-ros-robotics /opt/ros/electric http://rtm-ros-robotics.goo
 rosmake mrobot_ros_bridge
 }}}
 これだけで必要なROSとRTMが全て入るようになっている．
-(LRFを追加で使う場合は[ROS_Install]が必須)
+(LRFを追加で使う場合は[ROS_Install]が必須
+実際は
+{{{
+svn co https://code.ros.org/svn/ros-pkg/stacks/laser_drivers/trunk
+}}}
+としてどこかにPATHを通せば良い
+{{{
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:path-to-laserdrivers
+}}}
+)
 
 なおLinux機の.bashrcに
 Windows, Linux機と外部PC間のROS,RTMの通信ができるように以下の行を加える
