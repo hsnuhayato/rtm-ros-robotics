@@ -31,13 +31,14 @@ HrpsysSeqStateROSBridgeImpl::HrpsysSeqStateROSBridgeImpl(RTC::Manager* manager)
   : RTC::DataFlowComponentBase(manager),
     m_rsangleIn("rsangle", m_rsangle),
     m_mcangleIn("mcangle", m_mcangle),
+    m_rsJointTemperatureIn("rsJointTemperature", m_rsJointTemperature),
     m_rsrfsensorIn("rsrfsensor", m_rsrfsensor),
     m_rslfsensorIn("rslfsensor", m_rslfsensor),
     m_rsrhsensorIn("rsrhsensor", m_rsrhsensor),
     m_rslhsensorIn("rslhsensor", m_rslhsensor),
     m_gsensorIn("gsensor", m_gsensor),
     m_gyrometerIn("gyrometer", m_gyrometer),
-    m_poseIn("pose", m_pose),
+    m_baseTformIn("baseTform", m_baseTform),
     m_rstorqueIn("rstorque", m_rstorque),
     m_mctorqueOut("mctorque", m_mctorque),
     m_SequencePlayerServicePort("SequencePlayerService")
@@ -58,13 +59,14 @@ RTC::ReturnCode_t HrpsysSeqStateROSBridgeImpl::onInitialize()
   // Set InPort buffers
   addInPort("rsangle", m_rsangleIn);
   addInPort("mcangle", m_mcangleIn);
+  addInPort("rsJointTemperature", m_rsJointTemperatureIn);
   addInPort("rsrfsensor", m_rsrfsensorIn);
   addInPort("rslfsensor", m_rslfsensorIn);
   addInPort("rsrhsensor", m_rsrhsensorIn);
   addInPort("rslhsensor", m_rslhsensorIn);
   addInPort("gsensor", m_gsensorIn);
   addInPort("gyrometer", m_gyrometerIn);
-  addInPort("pose", m_poseIn);
+  addInPort("baseTform", m_baseTformIn);
   addInPort("rstorque", m_rstorqueIn);
 
   // Set OutPort buffer
