@@ -1,35 +1,18 @@
 - other: {local-name: /opt/ros/electric/ros}
 - other: {local-name: /opt/ros/electric/stacks}
-- svn: {local-name: rtm-ros-robotics/rtmros_common,
-    uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common', version: -r2913}
-- svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials,
-    uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r2938}
-- svn: {local-name: jsk-ros-pkg,
-    uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk', version: -r3096}
-- git: {local-name: umd-ros-pkg/camera_umd,
-    uri: 'http://ram.umd.edu/git/ros/camera_umd.git', version: ed1544a5f81356a4889e79a68783ebe1a359ce01}
-- svn: {local-name: stacks/camera1394,
-    uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0',
-    version: -r39339}
-- git: {local-name: ros-pkg-git/kinect,
-    uri: 'https://github.com/ros-pkg-git/kinect.git', version: e632ec653c47731217a8575c952d98c4570f0208}
-- svn: {local-name: cmu-ros-pkg,
-    uri: 'https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk', version: -r435}
-- svn: {local-name: wg-ros-pkg-cturtle/vision,
-    uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision', version: -r54576}
-- svn: {local-name: wg-ros-pkg-cturtle/sandbox/checkerboard_pose,
-    uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboard_pose',
-    version: -r54576}
-- svn: {local-name: tum-ros-pkg,
-    uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg', version: -r1000}
-- svn: {local-name: ua-ros-pkg,
-    uri: 'https://ua-ros-pkg.googlecode.com/svn/trunk/arrg', version: -r1616}
-- git: {local-name: ccny-vision,
-    uri: 'http://robotics.ccny.cuny.edu/git/ccny-ros-pkg/ccny_vision.git', version: e03c2bf654d5a16073e9a90f875da728bcdda47a}
-- svn: {local-name: multimaster_experimental,
-    uri: 'https://code.ros.org/svn/ros/stacks/multimaster_experimental/trunk', version: -r16668}
-- hg: {local-name: turtlebot,
-    uri: 'https://kforge.ros.org/turtlebot/turtlebot', version: 7700ddd338db}
-- svn: {local-name: webots-ros-pkg,
-    uri: 'http://webots-ros-pkg.svn.sourceforge.net/svnroot/webots-ros-pkg', version: -r10}
+- svn: {local-name: rtm-ros-robotics/rtmros_common, uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common'}
+- svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials'}
+- svn: {local-name: jsk-ros-pkg, uri: 'https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk'}
+- git: {local-name: umd-ros-pkg/camera_umd, uri: 'http://ram.umd.edu/git/ros/camera_umd.git',
+    version: master}
+- svn: {local-name: stacks/camera1394, uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0'}
+- git: {local-name: ros-pkg-git/kinect, uri: 'https://github.com/ros-pkg-git/kinect.git'}
+- svn: {local-name: cmu-ros-pkg, uri: 'https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk'}
+- svn: {local-name: wg-ros-pkg-cturtle/vision, uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision'}
+- svn: {local-name: wg-ros-pkg-cturtle/sandbox/checkerboard_pose, uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboard_pose'}
+- svn: {local-name: tum-ros-pkg, uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg'}
+- svn: {local-name: ua-ros-pkg, uri: 'https://ua-ros-pkg.googlecode.com/svn/trunk/arrg'}
+- git: {local-name: ccny-vision, uri: 'http://robotics.ccny.cuny.edu/git/ccny-ros-pkg/ccny_vision.git'}
+- svn: {local-name: multimaster_experimental, uri: 'https://code.ros.org/svn/ros/stacks/multimaster_experimental/trunk'}
+- hg: {local-name: turtlebot, uri: 'https://kforge.ros.org/turtlebot/turtlebot'}
+- svn: {local-name: webots-ros-pkg, uri: 'http://webots-ros-pkg.svn.sourceforge.net/svnroot/webots-ros-pkg'}
