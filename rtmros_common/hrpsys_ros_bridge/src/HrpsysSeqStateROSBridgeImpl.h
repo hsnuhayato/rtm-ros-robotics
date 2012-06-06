@@ -95,6 +95,8 @@ class HrpsysSeqStateROSBridgeImpl  : public RTC::DataFlowComponentBase
   InPort<TimedDoubleSeq> m_rsangleIn;
   TimedDoubleSeq m_mcangle;
   InPort<TimedDoubleSeq> m_mcangleIn;
+  TimedDoubleSeq m_rsJointTemperature;
+  InPort<TimedDoubleSeq> m_rsJointTemperatureIn;
   TimedDoubleSeq m_rsrfsensor;
   InPort<TimedDoubleSeq> m_rsrfsensorIn;
   TimedDoubleSeq m_rslfsensor;
@@ -107,8 +109,8 @@ class HrpsysSeqStateROSBridgeImpl  : public RTC::DataFlowComponentBase
   InPort<TimedDoubleSeq> m_gsensorIn;
   TimedDoubleSeq m_gyrometer;
   InPort<TimedDoubleSeq> m_gyrometerIn;
-  TimedPose3D m_pose;
-  InPort<TimedPose3D> m_poseIn;
+  TimedDoubleSeq m_baseTform;
+  InPort<TimedDoubleSeq> m_baseTformIn;
   TimedDoubleSeq m_rstorque;
   InPort<TimedDoubleSeq> m_rstorqueIn;
 
