@@ -28,7 +28,7 @@ roslaunch move_base_stage_tutorial robot.launch
 以下の様なPlayer/Stageの初期画面が現れると思います．
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/move_base_stage_tutorial_init.png]
 
-また以下のrvizビューワが表示されるはずです．もし表示されなければ，
+また以下の[http://www.ros.org/wiki/rviz rviz]ビューワが表示されるはずです．もし表示されなければ，
 最後に
 {{{
 rosrun rviz rviz -d `rospack find move_base_stage_tutorial`/config/rviz.vcg 
