@@ -47,6 +47,11 @@ rosrun pr2_teleop teleop_pr2_keyboard
 
 = プログラミング =
 
+速度指令あるいは，目標位置を送るプログラムは
+http://code.google.com/p/rtm-ros-robotics/source/browse/#svn%2Ftrunk%2Fagentsystem_ros_tutorials%2Fmove_base_stage_tutorial%2Fscript
+にあります．それぞれ，[http://www.ros.org/wiki/rospy/Tutorials rospy], [http://www.ros.org/wiki/actionlib actionlib]の知識を前提としています．
+
+
 速度指令プログラムは
 {{{
 roscd pr2_teleop
