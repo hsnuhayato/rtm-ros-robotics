@@ -33,7 +33,7 @@ roslaunch move_base_stage_tutorial robot.launch
 {{{
 rosrun rviz rviz -d `rospack find move_base_stage_tutorial`/config/rviz.vcg 
 }}}
-としてビューワを表示します．(エラーになる人はrosmake rvizを実行する)
+としてビューワを表示します．(エラーが出た場合は下記を参照)
 
 rvizビューワで左上の`2D Nav Goal`を押して地図上の任意の場所をクリックすると
 その場所まで移動します．
@@ -44,6 +44,11 @@ rvizビューワで左上の`2D Nav Goal`を押して地図上の任意の場所
 rosrun pr2_teleop teleop_pr2_keyboard 
 }}}
 とすると，速度指令を送ることが出来ます．
+
+== rvizでエラーが出た場合の対応 == 
+ * rosmake rviz を実行する
+ * export OGRE_RTT_MODE=Copy として RTTモードをCopyに変更する 
+ * rviz に --sync オプションを付けて実行する
 
 = プログラミング =
 
