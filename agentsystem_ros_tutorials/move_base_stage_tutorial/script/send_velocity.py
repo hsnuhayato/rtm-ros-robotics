@@ -35,6 +35,7 @@ if __name__ == '__main__':
                 break
             elif key in move.keys() :
                 print key,move[key]()
+                cmd = Twist()
                 cmd.linear.x = move[key]()[0]
                 cmd.linear.y = move[key]()[1]
                 cmd.angular.z = move[key]()[2]
