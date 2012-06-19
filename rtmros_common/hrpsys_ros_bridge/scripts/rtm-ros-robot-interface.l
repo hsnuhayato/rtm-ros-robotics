@@ -1,7 +1,26 @@
 (load "package://pr2eus/robot-interface.l")
 
 (ros::load-ros-manifest "dynamic_reconfigure")
-(defmethod robot-interface
+(ros::roseus-add-msgs "hrpsys_ros_bridge")
+
+(defclass rtm-ros-robot-interface
+  :super robot-interface
+  :slots ()
+  )
+
+(defmethod rtm-ros-robot-interface
+  (:init
+   (&rest args)
+   (prog1
+       (send-super* :init args)
+     (ros::subscribe "/motor_states" hrpsys_ros_bridge::MotorStates
+       #'send self :ros-state-callback-rtmros :groupname groupname)
+     ))
+  (:ros-state-callback-rtmros
+   (msg)
+   (dolist (key '(:temperature))
+     (send self :set-robot-state1 key (send msg key))))
+  (:temperature-vector () (cdr (assoc :temperature robot-state)))
   (:sendmsg
    (strs &optional (service-name "sendmsg"))
    (ros::service-call
