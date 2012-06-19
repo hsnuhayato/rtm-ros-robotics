@@ -52,21 +52,21 @@ rtmbuild_add_executable(JoystickController share/OpenHRP-3.1/sample/JoystickCont
 pkg_check_modules(LIBXML2 REQUIRED libxml-2.0)
 rtmbuild_add_executable(openhrp-scheduler src/openhrp-scheduler.cpp)
 include_directories(${LIBXML2_INCLUDE_DIRS})
-target_link_libraries(openhrp-scheduler ${LIBXML2_LIBRARIES})
+target_link_libraries(openhrp-scheduler ${LIBXML2_LIBRARIES} rospack)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/OpenHRP-3.1)
 rtmbuild_add_executable(extract-robotname src/extract-modelfile.cpp)
 rtmbuild_add_executable(extract-modelpath src/extract-modelfile.cpp)
 rtmbuild_add_executable(extract-rootlink src/extract-modelfile.cpp)
-target_link_libraries(extract-robotname ${LIBXML2_LIBRARIES})
-target_link_libraries(extract-modelpath ${LIBXML2_LIBRARIES})
-target_link_libraries(extract-rootlink ${LIBXML2_LIBRARIES})
+target_link_libraries(extract-robotname ${LIBXML2_LIBRARIES} rospack)
+target_link_libraries(extract-modelpath ${LIBXML2_LIBRARIES} rospack)
+target_link_libraries(extract-rootlink ${LIBXML2_LIBRARIES} rospack)
 rosbuild_add_compile_flags(extract-robotname -DROBOTNAME)
 rosbuild_add_compile_flags(extract-modelpath -DMODELPATH)
 rosbuild_add_compile_flags(extract-rootlink -DROOTLINK)
 
 rosbuild_find_ros_package("jsk_tools")
-execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} python ${jsk_tools_PACKAGE_PATH}/bin/launchdoc-generator.py ${PROJECT_NAME} --output_dir=. --nomakefile RESULT_VARIABLE _make_failed)
+execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} python ${jsk_tools_PACKAGE_PATH}/bin/launchdoc-generator.py ${PROJECT_NAME} --output_dir=./build/ --nomakefile RESULT_VARIABLE _make_failed)
 
 
 rosbuild_check_for_display(disp)
