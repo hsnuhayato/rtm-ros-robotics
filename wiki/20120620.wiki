@@ -1,14 +1,12 @@
-
-
 = 20120620課題 =
 
 サンプルの実行
 
   * rosmake hrpsys
   * roslaunch hrpsys hrp4c.launch
-  * rosrun hrpsys hrp4c_walk.sh
+  * rosrun hrpsys hrp4c_walk\.sh
 
-SequencePlayerService.idlをみて別のメソッドを呼び出す
+SequencePlayerService\.idlをみて別のメソッドを呼び出す
 
 (SetJointAnglesなど)
 
