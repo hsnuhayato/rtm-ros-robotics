@@ -6,6 +6,7 @@
   * roslaunch hrpsys hrp4c.launch
   * rosrun hrpsys hrp4c_walk.sh
 
+
 sequencePlayerService.idlをみて別のメソッドを呼び出す
 
 (setJointAnglesなど)
