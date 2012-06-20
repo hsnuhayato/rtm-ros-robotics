@@ -1,0 +1,26 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+= 2012年6月13日課題 =
+ナビゲーションサンプル
+ * サンプルプログラムを実行せよ
+ * rxgraph
+　各ノードの役割を調べる
+    - amcl, move_base など
+ * 速度指令、目標指令のプログラミングを実行
+    - 別の言語　（Pythonのサンプルあり）
+
+
+ * 質問、あるいはwikiを編集する、またはソースコードを改良する
+   wikiの編集権取得はメールで連絡すること
