@@ -4,11 +4,11 @@
 
   * rosmake hrpsys
   * roslaunch hrpsys hrp4c.launch
-  * rosrun hrpsys hrp4c_walk\.sh
+  * rosrun hrpsys hrp4c_walk.sh
 
-SequencePlayerService\.idlをみて別のメソッドを呼び出す
+sequencePlayerService.idlをみて別のメソッドを呼び出す
 
-(SetJointAnglesなど)
+(setJointAnglesなど)
 
 サンプルの実行
   * rosmake hrpsys_ros_bridge
@@ -17,4 +17,4 @@ SequencePlayerService\.idlをみて別のメソッドを呼び出す
 
 http://www.ros.org/wiki/robot_mechanism_controllers
 
-またはJointTrajectoryActionで検索
+またはjointTrajectoryActionで検索
