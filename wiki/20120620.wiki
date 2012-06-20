@@ -1,25 +1,22 @@
-#summary One-sentence summary of this page.
 
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
 
 = 20120620課題 =
 
 サンプルの実行
-- rosmake hrpsys
-- roslaunch hrpsys hrp4c.launch
-- rosrun hrpsys hrp4c_walk.sh
+
+  * rosmake hrpsys
+  * roslaunch hrpsys hrp4c.launch
+  * rosrun hrpsys hrp4c_walk.sh
 
 SequencePlayerService.idlをみて別のメソッドを呼び出す
-SetJointAnglesなど
+
+(SetJointAnglesなど)
 
 サンプルの実行
-- rosmake hrpsys_ros_bridge
-- roslaunch hrpsys_ros_bridge hrp4c_nosim.launch
-- rostopic list
+  * rosmake hrpsys_ros_bridge
+  * roslaunch hrpsys_ros_bridge hrp4c_nosim.launch
+  * rostopic list
 
-http://www.ros.org/wiki/robot_mechanism_controllersまたは
-JointTrajectoryActionで検索
+http://www.ros.org/wiki/robot_mechanism_controllers
+
+またはJointTrajectoryActionで検索
