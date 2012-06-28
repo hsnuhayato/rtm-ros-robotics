@@ -6,7 +6,7 @@
 
 [20120620]
 
-[20120627]  [http://rtm-ros-robotics.googlecode.com/svn/wiki/openrave120627_ja.pdf OpenRAVE 講義スライド]
+20120627  [http://rtm-ros-robotics.googlecode.com/svn/wiki/openrave120627_ja.pdf OpenRAVE 講義スライド]
 
 === 参考・2011年度以前のもの ===
 
