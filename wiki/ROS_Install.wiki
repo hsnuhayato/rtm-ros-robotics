@@ -16,12 +16,15 @@ ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公
 これらの手続きは，以下のコマンドを入力することで実行される．
 {{{
 wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
-bash /tmp/jsk.rosbuild --show-install | sh
-bash /tmp/jsk.rosbuild --show-package | sh
+yes | bash /tmp/jsk.rosbuild 
+cd ros/electric
+source setup.bash
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 このコマンドを実行すると
 (1)aptのリポジトリ登録
 (2)aptによるROS本体のインストール
+(3)ROS外部パッケージのインストール
 が行われる.
 
 
@@ -32,23 +35,19 @@ sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
 をしてリブートしておく必要がある．
 
 
-= ROS外部パッケージのインストール =
-
-{{{
-rosinstall ~/prog/rtm-ros-robotics http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall 
-}}}
-とすることで,外部パッケージのソースコードをインストールする.
+= ROS外部パッケージの更新 =
 
 また,
 {{{
-rosinstall ~/prog/rtm-ros-robotics 
+cd ~/ros/electric
+rosws update
 }}}
 とすると,ROS外部パッケージのソースツリー更新が行われる.
-(rosinstallについては http://www.ros.org/wiki/rosinstall を参照)
+(roswsについては hhttp://www.ros.org/doc/api/rosinstall/html/rosws_tutorial.html を参照)
 
 ROS関連のプログラムを使うためには以下の様にして環境変数をセットする必要がある．
 {{{
-source ~/prog/rtm-ros-robotics/setup.bash
+source ~/ros/electric/setup.bash
 }}}
 この一行を ~/.bashrc に追加するとよいでしょう．
 
