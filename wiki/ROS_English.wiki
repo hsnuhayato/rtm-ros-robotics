@@ -268,8 +268,7 @@ $ rosrun openrtm rtm-naming-restart
 }}}
 and start following command from different terminal
 {{{
-$ rosrun openhrp3 openhrp-aist-dynamics-simulator -ORBInitRef
-NameService=corbaloc:iiop:localhost:2809/NameService
+$ rosrun openhrp3 openhrp-aist-dynamics-simulator -ORBInitRef NameService=corbaloc:iiop:localhost:2809/NameService
 }}}
 If you see "ready", than it ok,
 if you see "IDL:omg.org/CORBA/TRANSIENT:1.0", that's would be omniorb
