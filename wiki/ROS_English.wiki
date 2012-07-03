@@ -25,18 +25,21 @@ install related ros packages and install `rtm-ros-robotics` software
 
 {{{
 wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
-bash /tmp/jsk.rosbuild --show-install | sh
-bash /tmp/jsk.rosbuild --show-package | sh
+yes | bash /tmp/jsk.rosbuild
+cd ~/ros/electric
+source setup.bash
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 
 For update installed packages 
 {{{
-rosinstall ~/prog/rtm-ros-robotics http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+cd ~/ros/electric
+rosws update
 }}}
 
 Load environment variables used for ROS system
 {{{
-source ~/prog/rtm-ros-robotics/setup.bash
+source ~/ros/electric/setup.bash
 }}}
 Add this line to your ~/.bashrc
 
