@@ -8,6 +8,8 @@
 
 20120627  [http://rtm-ros-robotics.googlecode.com/svn/wiki/openrave120627_ja.pdf OpenRAVE 講義スライド]
 
+[20120711]
+
 === 参考・2011年度以前のもの ===
 
 [Homework_2 第2回宿題]  締切り：7月23日（土）23:59時
