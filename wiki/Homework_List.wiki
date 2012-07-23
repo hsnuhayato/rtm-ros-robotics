@@ -8,7 +8,7 @@
 
 20120627  [http://rtm-ros-robotics.googlecode.com/svn/wiki/openrave120627_ja.pdf OpenRAVE 講義スライド]
 
-[20120711]
+[20120711] レポート課題 : 締切り 7月末
 
 === 参考・2011年度以前のもの ===
 
