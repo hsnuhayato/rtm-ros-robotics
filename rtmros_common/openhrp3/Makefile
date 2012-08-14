@@ -4,7 +4,7 @@ include $(shell rospack find mk)/cmake.mk
 INSTALL_DIR=`rospack find openhrp3`
 HG_DIR = build/openhrp-aist-grx-svn
 HG_URL = https://openhrp-aist-grx.googlecode.com/hg/
-HG_PATCH =patch/PD_HGtest.xml.patch patch/Sample.xml.patch patch/SampleHG.xml.patch patch/SampleLF.xml.patch patch/SamplePD.xml.patch patch/SamplePD_HG.xml.patch patch/SampleSV.xml.patch patch/PA10Sample.xml.patch patch/SampleRobot_inHouse.xml.patch
+HG_PATCH =patch/PD_HGtest.xml.patch patch/Sample.xml.patch patch/SampleHG.xml.patch patch/SampleLF.xml.patch patch/SamplePD.xml.patch patch/SamplePD_HG.xml.patch patch/SampleSV.xml.patch patch/PA10Sample.xml.patch patch/SampleRobot_inHouse.xml.patch patch/FindCOLLADA_DOM.cmake.patch
 HG_REVISION=e4b1aba80949
 include $(shell rospack find mk)/hg_checkout.mk
 
@@ -23,7 +23,7 @@ check-java-version:
 installed: $(HG_DIR) patched
 	make check-java-version
 	-rm $(HG_DIR)/CMakeCache.txt
-	cd $(HG_DIR) && cmake -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DCMAKE_BUILD_TYPE=Debug -DTVMET_DIR=`rospack find tvmet` -DOPENRTM_DIR=`rospack find openrtm` -DODE_DIR=`rospack find opende`/opende
+	cd $(HG_DIR) && cmake -DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) -DCMAKE_BUILD_TYPE=Debug -DTVMET_DIR=`rospack find tvmet` -DOPENRTM_DIR=`rospack find openrtm` -DODE_DIR=`rospack find opende`/opende -DCOLLADA_DOM_DIR=`rospack find colladadom`
 	cd $(HG_DIR) && make $(ROS_PARALLEL_JOBS)
 	cd $(HG_DIR) && make install
 	#
