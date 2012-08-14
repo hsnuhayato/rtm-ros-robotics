@@ -1,44 +1,39 @@
-diff -r 2d0965523a12 cmake_modules/FindCOLLADA_DOM.cmake
+diff -r e4b1aba80949 cmake_modules/FindCOLLADA_DOM.cmake
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/cmake_modules/FindCOLLADA_DOM.cmake	Tue Aug 14 15:04:22 2012 +0900
-@@ -0,0 +1,40 @@
++++ b/cmake_modules/FindCOLLADA_DOM.cmake	Tue Aug 14 15:26:16 2012 +0900
+@@ -0,0 +1,35 @@
 +
 +# @author Shin'ichiro Nakaoka
 +
 +
-+if(NOT TVMET_DIR)
++if(NOT COLLADA_DOM_DIR)
 +    if(UNIX)
 +      find_path(
-+        TVMET_DIR
-+        NAMES include/tvmet/Vector.h
++        COLLADA_DOM_DIR
++        NAMES include/collada-dom/dom.h
 +        PATHS /usr/local /usr
-+        DOC "the top directory of tvmet")
-+    elseif(WIN32)
-+      find_path(
-+        TVMET_DIR 
-+        NAMES include/tvmet/Vector.h
-+        PATHS $ENV{HOMEDRIVE}/Program Files $ENV{HOMEDRIVE}/
-+        PATH_SUFFIXES tvmet tvmet1.7.2 tvmet-1.7.2 
-+        DOC "the top directory of tvmet")  
++        DOC "the top directory of collada")
 +     endif()
 +endif()
 +
-+if(TVMET_DIR)
-+  string(REGEX REPLACE "/$" "" TVMET_DIR ${TVMET_DIR})
-+  if(EXISTS ${TVMET_DIR}/include/tvmet/Vector.h)
-+    set(TVMET_FOUND TRUE)
++if(COLLADA_DOM_DIR)
++  string(REGEX REPLACE "/$" "" COLLADA_DOM_DIR ${COLLADA_DOM_DIR})
++  if(EXISTS ${COLLADA_DOM_DIR}/include/dom.h)
++    set(COLLADA_DOM_FOUND TRUE)
 +  endif()
 +endif()
 +
-+set(TVMET_DIR ${TVMET_DIR} CACHE PATH "The top directory of tvmet")
-+set(TVMET_INCLUDE_DIR ${TVMET_DIR}/include)
++set(COLLADA_DOM_DIR ${COLLADA_DOM_DIR} CACHE PATH "The top directory of collada")
++set(COLLADA_DOM_INCLUDE_DIRS ${COLLADA_DOM_DIR}/include ${COLLADA_DOM_DIR}/include/1.5)
++set(COLLADA_DOM_LIBRARY_DIRS ${COLLADA_DOM_DIR}/lib )
++set(COLLADA_DOM_LIBRARIES collada15dom)
 +
-+if(TVMET_FOUND)
-+  if(NOT Tvmet_FIND_QUIETLY)
-+    message(STATUS "Found tvment headers in ${TVMET_INCLUDE_DIR}")
++if(COLLADA_DOM_FOUND)
++  if(NOT Collada_FIND_QUIETLY)
++    message(STATUS "Found collada headers in ${COLLADA_DOM_INCLUDE_DIR}")
 +   endif()
 +else()
-+  if(Tvmet_FIND_REQUIRED)
-+    message(FATAL_ERROR "Could not find tvmet. Please set TVMET_DIR correctly")
++  if(Collada_FIND_REQUIRED)
++    message(FATAL_ERROR "Could not find collada. Please set COLLADA_DOM_DIR correctly")
 +  endif()
 +endif()
