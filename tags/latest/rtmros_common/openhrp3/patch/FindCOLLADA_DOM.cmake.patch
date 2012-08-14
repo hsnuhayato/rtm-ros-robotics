@@ -1,6 +1,6 @@
-diff -r 2d0965523a12 cmake_modules/FindCOLLADA_DOM.cmake~
+diff -r 2d0965523a12 cmake_modules/FindCOLLADA_DOM.cmake
 --- /dev/null	Thu Jan 01 00:00:00 1970 +0000
-+++ b/cmake_modules/FindCOLLADA_DOM.cmake~	Tue Aug 14 15:04:22 2012 +0900
++++ b/cmake_modules/FindCOLLADA_DOM.cmake	Tue Aug 14 15:04:22 2012 +0900
 @@ -0,0 +1,40 @@
 +
 +# @author Shin'ichiro Nakaoka
