@@ -72,3 +72,9 @@
 - svn: 
     uri: http://webots-ros-pkg.svn.sourceforge.net/svnroot/webots-ros-pkg
     local-name: webots-ros-pkg
+##
+## Albert-Ludwigs-Unversität in Freiburg, Germany.
+##
+- svn:
+    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk
+    local-name: alufr-ros-pkg
