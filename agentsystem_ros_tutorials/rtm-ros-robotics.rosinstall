@@ -76,44 +76,5 @@
 ## Albert-Ludwigs-Unversität in Freiburg, Germany.
 ##
 - svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/articulation
-    local-name: alufr-ros-pkg/articulation
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/cortex_stream
-    local-name: alufr-ros-pkg/cortex_stream
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/dynamic_voronoi
-    local-name: alufr-ros-pkg/dynamic_voronoi
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/freiburg_tools
-    local-name: alufr-ros-pkg/freiburg_tools
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/humanoid_stacks
-    local-name: alufr-ros-pkg/humanoid_stacks
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/octomap_stacks
-    local-name: alufr-ros-pkg/octomap_stacks
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/portrait_bot
-    local-name: alufr-ros-pkg/portrait_bot
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/pr2_teleop_imitation
-    local-name: alufr-ros-pkg/pr2_teleop_imitation
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/pr2_teleop_imitation
-    local-name: alufr-ros-pkg/pr2_teleop_imitation
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/pr2_teleop_imitation
-    local-name: alufr-ros-pkg/pr2_teleop_imitation
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/pr2_teleop_imitation
-    local-name: alufr-ros-pkg/pr2_teleop_imitation
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/rgbdslam_freiburg
-    local-name: alufr-ros-pkg/rgbdslam_freiburg
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/symbolic_planning
-    local-name: alufr-ros-pkg/symbolic_planning
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk/tidyup_robot
-    local-name: alufr-ros-pkg/tidyup_robot
+    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk
+    local-name: alufr-ros-pkg
