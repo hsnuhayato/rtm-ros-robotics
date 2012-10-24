@@ -13,11 +13,20 @@ http://www.ros.org/wiki/electric/Installation/Ubuntu
 
 ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公開されているパッケージをソースでインストールする
 
-これらの手続きは，以下のコマンドを入力することで実行される．
+これらの手続きは，以下のコマンドを入力することで実行される．(ROS Electric)
 {{{
 wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
-yes | bash /tmp/jsk.rosbuild 
+yes | bash /tmp/jsk.rosbuild
 cd ros/electric
+source setup.bash
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+}}}
+
+これらの手続きは，以下のコマンドを入力することで実行される．(ROS Fuerte)
+{{{
+wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
+yes | bash /tmp/jsk.rosbuild fuerte
+cd ros/fuerte
 source setup.bash
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
