@@ -20,6 +20,7 @@ yes | bash /tmp/jsk.rosbuild
 cd ros/electric
 source setup.bash
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosws update
 }}}
 
 これらの手続きは，以下のコマンドを入力することで実行される．(ROS Fuerte)
@@ -29,6 +30,7 @@ yes | bash /tmp/jsk.rosbuild fuerte
 cd ros/fuerte
 source setup.bash
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosws update
 }}}
 このコマンドを実行すると
 (1)aptのリポジトリ登録
