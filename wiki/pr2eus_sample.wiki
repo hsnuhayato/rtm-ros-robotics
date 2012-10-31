@@ -27,6 +27,19 @@ rosrun pr2eus pr2-send-joints.l  が動くか
 （ ウィンドウが１つでて、シミュレーション環境とrviz内の PR2が動くか？）
 }}}
 
+== pr2 を動かす準備 ==
+
+{{{
+rosrun roseus roseus (ターミナルで実行)
+
+(load "package://pr2eus/pr2-interface.l")
+
+(setq *ir* (instance pr2-interface: init))
+(pr2)
+
+;;; 以降 euslispのコマンドを参照してPR2を動かす
+}}}
+
 = euslispのコマンド =
 
 == 変数 ==
