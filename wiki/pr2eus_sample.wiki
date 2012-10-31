@@ -34,7 +34,7 @@ rosrun roseus roseus (ターミナルで実行)
 
 (load "package://pr2eus/pr2-interface.l")
 
-(setq *ir* (instance pr2-interface: init))
+(setq *ri* (instance pr2-interface: init))
 (pr2)
 
 ;;; 以降 euslispのコマンドを参照してPR2を動かす
