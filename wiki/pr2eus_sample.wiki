@@ -28,3 +28,62 @@ rosrun pr2eus pr2-send-joints.l  が動くか
 }}}
 
 = euslispのコマンド =
+
+== 変数 ==
+{{{
+*pr2* <- (pr2)
+*ri* <- (instance pr2-interface :init)
+*irtviewer* <- (make-irtviwer)
+}}}
+
+== メソッド == 
+;; *pr2*
+{{{
+(send *pr2* :reset-pose)
+(send *pr2* :angle-vector)
+
+(send *pr2* limb joint :joint-angle (angle))
+;; limb joint
+:torso :waist-z
+:larm
+:rarm :collor-y
+      :shoulder-p
+      :shoulder-y
+      :elbow-p
+      :elbow-r
+      :wrist-p
+      :wrist-r
+:head :neck-p
+      :neck-y
+
+(send *pr2* :torso :waist-z :joint-angle 100)
+
+(send *pr2* :rarm :move-end-pos #f(0  170 400) :world :rotation-axis nil)
+
+(send *pr2* :head :look-at
+      (apply 'midpoint 0.5 (send *pr2* :arms :end-coords :worldpos)))
+
+(send *pr2* :larm :end-coords)
+}}}
+
+;; *ri*
+{{{
+(send *ri* :angle-vector (send *pr2* :angle-vector) 3000)
+(send *ri* :wait-interpolation)
+(send *ri* :stop-grasp :rarm)
+(send *ri* :start-grasp :rarm)
+
+(send *ri* :go-pos 0 -0.04 0)
+(send *ri* :go-pos-unsafe -0.1 0 0)
+(send *ri* :state :potentio-vector)
+(send *ri* :angle-vector-sequence (list av0 av1 av2) (list tm0 tm1 tm2))
+
+(send *ri* :state :worldcoords)
+(send *ri* :move-to coords)
+}}}
+
+;; *irtviewer*
+{{{
+(send *irtviwer* :draw-objects)
+(objects (list *pr2* (make-cube) ..))
+}}}
