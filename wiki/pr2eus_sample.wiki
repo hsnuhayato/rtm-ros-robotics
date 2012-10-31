@@ -66,6 +66,7 @@ rosrun roseus roseus (ターミナルで実行)
       :elbow-r
       :wrist-p
       :wrist-r
+      :gripper
 :head :neck-p
       :neck-y
 
