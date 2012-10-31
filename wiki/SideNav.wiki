@@ -28,7 +28,7 @@
  * [ROS_English OpenRTM/OpenHRP/ROS Install and Example]
  * [HIRO_Workshop]
  * [open_rtm_ros_bridge]
- * [PR2_euslispのサンプルプログラム]
+ * [pr2eus_sample PR2 euslispのサンプルプログラム]
  * [CreatePrivateRepository 個人レポジトリー作成]
  * [Homework_List 宿題リスト]
  * [AgentSystemBook エージェントシステム本]
