@@ -2,4 +2,29 @@
 
 <wiki:toc max_depth="2" />
 
-= サンプル =
+= pr2eusの動かし方 =
+~/.bashrcに以下の2行を追加
+
+{{{
+source ~/ros/fuerte/setup.bash
+export PATH=$PATH:$(rospack find roseus)/bin
+}}}
+
+== pr2eus(eus単体で使う) ==
+source ~/.bashrcをする
+
+{{{
+１つのターミナルで roscore を立ち上げる
+別のターミナルで rosrun pr2eus pr2-send-joints.l がエラー無く動いたら成功
+（ ２つの ウインドウが出てきて pr２が動く）
+}}}
+
+== gazeboを使う ==
+
+{{{
+roslaunch pr2eus_tutorials pr2_gazebo_empty.launch ( pr2 のシミュレーション環境が立ち上がる）
+rosrun pr2eus pr2-send-joints.l  が動くか
+（ ウィンドウが１つでて、シミュレーション環境とrviz内の PR2が動くか？）
+}}}
+
+= euslispのコマンド =
