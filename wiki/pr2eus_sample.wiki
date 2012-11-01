@@ -59,7 +59,7 @@ rosrun roseus roseus (ターミナルで実行)
 ;; limb joint
 :torso :waist-z
 :larm
-:rarm :collor-y
+:rarm :collar-y
       :shoulder-p
       :shoulder-y
       :elbow-p
