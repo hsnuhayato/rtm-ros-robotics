@@ -107,13 +107,16 @@ rosrun roseus roseus (rossetpr2したのと同じターミナルで実行)
 
 (send *pr2* :torso :waist-z :joint-angle 100) # :torso(胴体) :waist-z（腰z軸方向）に 100mm 動く
 
-(send *pr2* :rarm :move-end-pos #f(0  170 400) :world :rotation-axis nil) # 手先を移動させる :world は世界座標系（指定しないと手先座標系） :rotation-axis 
+(send *pr2* :rarm :move-end-pos (float-vector 0  170 400) :world :rotation-axis nil)
+# 手先を移動させる :world は世界座標系（:localをと手先座標系） :rotation-axis 
 
 (send *pr2* :head :look-at
       (apply 'midpoint 0.5 (send *pr2* :arms :end-coords :worldpos)))
 # :head :look-at [ point or coordinate ] 指定された点に顔を向ける
 
 (send *pr2* :larm :end-coords) # 手先座標系を返す
+(send *pr2* :larm :inverse-kinematics coords [ :rotation-axis xx ] [ :use-torso t ]
+# 逆運動学 手先座標系を coords に合わせる :rotation-axis xx (xxはt,nil,:xなど、tにすると位置だけ合わせて回転は無視する） :use-torso t で腰関節を使う
 }}}
 
 ;; *ri*
