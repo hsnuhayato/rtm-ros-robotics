@@ -75,9 +75,9 @@ rosrun roseus roseus (rossetpr2したのと同じターミナルで実行)
 
 == 変数 ==
 {{{
-*pr2* <- (pr2)
-*ri* <- (instance pr2-interface :init)
-*irtviewer* <- (make-irtviwer)
+*pr2* <- (pr2) ## PR2のeuslispモデルを作る
+*ri* <- (instance pr2-interface :init) ## PR2とeuslispとロボットのインターフェースを作る
+*irtviewer* <- (make-irtviwer) ## viewerを作る
 }}}
 
 == メソッド == 
@@ -129,6 +129,6 @@ rosrun roseus roseus (rossetpr2したのと同じターミナルで実行)
 
 ;; *irtviewer*
 {{{
-(send *irtviwer* :draw-objects)
-(objects (list *pr2* (make-cube) ..))
+(send *irtviwer* :draw-objects) # viewerの更新
+(objects (list *pr2* (make-cube))) # viewerに表示するobjectを指定する
 }}}
