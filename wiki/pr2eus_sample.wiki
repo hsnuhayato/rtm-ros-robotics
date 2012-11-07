@@ -87,10 +87,10 @@ rosrun roseus roseus (rossetpr2したのと同じターミナルで実行)
 == メソッド == 
 ;; *pr2*
 {{{
-(send *pr2* :reset-pose)
-(send *pr2* :angle-vector)
+(send *pr2* :reset-pose)   # reset-pose(初期姿勢）になる
+(send *pr2* :angle-vector) # anglve-vector(関節角度列）を返す
 
-(send *pr2* limb joint :joint-angle [ angle ])
+(send *pr2* limb joint :joint-angle [ angle ]) # 1つの関節を動かす angleの単位系は degree または mm
 ;; limb joint
 :torso :waist-z
 :larm
@@ -105,30 +105,33 @@ rosrun roseus roseus (rossetpr2したのと同じターミナルで実行)
 :head :neck-p
       :neck-y
 
-(send *pr2* :torso :waist-z :joint-angle 100)
+(send *pr2* :torso :waist-z :joint-angle 100) # :torso(胴体) :waist-z（腰z軸方向）に 100mm 動く
 
-(send *pr2* :rarm :move-end-pos #f(0  170 400) :world :rotation-axis nil)
+(send *pr2* :rarm :move-end-pos #f(0  170 400) :world :rotation-axis nil) # 手先を移動させる :world は世界座標系（指定しないと手先座標系） :rotation-axis 
 
 (send *pr2* :head :look-at
       (apply 'midpoint 0.5 (send *pr2* :arms :end-coords :worldpos)))
+# :head :look-at [ point or coordinate ] 指定された点に顔を向ける
 
-(send *pr2* :larm :end-coords)
+(send *pr2* :larm :end-coords) # 手先座標系を返す
 }}}
 
 ;; *ri*
 {{{
-(send *ri* :angle-vector (send *pr2* :angle-vector) 3000)
-(send *ri* :wait-interpolation)
-(send *ri* :stop-grasp :rarm)
-(send *ri* :start-grasp :rarm)
+(send *ri* :angle-vector (send *pr2* :angle-vector) 3000) # ロボットに姿勢を送る（ロボットが動く） 3000 はかかる時間、単位はms(ミリ秒)
 
-(send *ri* :go-pos 0 -0.04 0)
-(send *ri* :go-pos-unsafe -0.1 0 0)
-(send *ri* :state :potentio-vector)
+(send *ri* :wait-interpolation) # ロボットが動き終わるのを待つ send *ri* :angle-vectorはすぐに返ってくる
+(send *ri* :start-grasp :rarm) # グリッパーを握る
+(send *ri* :stop-grasp :rarm) # グリッパーを開く
+
+(send *ri* :go-pos 0 -0.04 0) # 移動（障害物回避する） X方向 Y方向 回転 を指示する、方向の単位はm、回転はdegree
+(send *ri* :go-pos-unsafe -0.1 0 0) # 移動（障害物回避しない）、指示はgo-posと同じ
+(send *ri* :state :potentio-vector) # 実機の現在の姿勢を返す
 (send *ri* :angle-vector-sequence (list av0 av1 av2) (list tm0 tm1 tm2))
+# 関節角度列を送る（たくさんの姿勢を連続的に送る）
 
-(send *ri* :state :worldcoords)
-(send *ri* :move-to coords)
+(send *ri* :state :worldcoords) # ロボットの現在位置を返す
+(send *ri* :move-to coords) # ロボットをcoordsへ移動させる
 }}}
 
 ;; *irtviewer*
