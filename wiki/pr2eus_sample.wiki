@@ -43,8 +43,7 @@ function rossetlocal() {
     echo -e "\e[1;31mset ROS_MASTER_URI to $ROS_MASTER_URI\e[m"
 }
 function rossetip() {
-  export ROS_IP=`LANGUAGE=en LANG=C ifconfig | grep inet\  | grep -v 127.0.0.1 | sed 's/.*inet ad\
-dr:\([0-9\.]*\).*/\1/' | head -1`
+  export ROS_IP=`LANGUAGE=en LANG=C ifconfig | grep inet\  | grep -v 127.0.0.1 | sed 's/.*inet addr:\([0-9\.]*\).*/\1/' | head -1`
   export ROS_HOSTNAME=$ROS_IP
   echo -e "\e[1;31mset ROS_IP and ROS_HOSTNAME to $ROS_IP\e[m"
 }
