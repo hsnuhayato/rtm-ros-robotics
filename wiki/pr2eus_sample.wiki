@@ -90,7 +90,7 @@ rosrun roseus roseus (rossetpr2したのと同じターミナルで実行)
 (send *pr2* :reset-pose)
 (send *pr2* :angle-vector)
 
-(send *pr2* limb joint :joint-angle (angle))
+(send *pr2* limb joint :joint-angle [ angle ])
 ;; limb joint
 :torso :waist-z
 :larm
