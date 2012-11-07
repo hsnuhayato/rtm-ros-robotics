@@ -67,7 +67,7 @@ rosrun roseus roseus (rossetpr2したのと同じターミナルで実行)
 
 (setq *ri* (instance pr2-interface :init))
 (pr2)
-(objects (list pr2))
+(objects (list *pr2*))
 
 (send *ri* :angle-vector (send *pr2* :angle-vector)) ## ロボットがviewerのpr2と同じ姿勢になる
 (send *pr2* :angle-vector (send *ri* :state :potentio-vector)) ## viewerのpr2を実機と同じ姿勢にする
