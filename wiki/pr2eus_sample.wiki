@@ -28,6 +28,7 @@ rosrun pr2eus pr2-send-joints.l  が動くか
 }}}
 
 == pr2 を動かす準備 ==
+=== 初期設定 ===
 {{{
 .bashrcに以下を追加
 
@@ -53,8 +54,15 @@ function rossetpr2() {
 }
 }}}
 
+=== ロボットを動かす ===
 {{{
-rosrun roseus roseus (ターミナルで実行)
+rossetpr2
+  # メッセージが出る set ROS_IP and ROS_HOSTNAME to xxx.xxx.xxx.xxx
+  # xxx.xxx.xxx.xxxがPR2のアドレスと同じネットワークにあるか確認する
+}}}
+
+{{{
+rosrun roseus roseus (rossetpr2したのと同じターミナルで実行)
 
 (load "package://pr2eus/pr2-interface.l")
 
