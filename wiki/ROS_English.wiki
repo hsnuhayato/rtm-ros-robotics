@@ -21,6 +21,17 @@ $ sudo update-alternatives --config javac
 $ java -version
 }}}
 
+If you use Ubuntu 12.04, try below installation.
+{{{
+$ mkdir ~/src
+$ cd ~/src
+$ git clone https://github.com/flexiondotorg/oab-java6.git
+$ cd ~/src/oab-java6
+$ sudo ./oab-java.sh
+$ sudo apt-get install sun-java6-plugin sun-java6-jre sun-java6-bin sun-java6-jdk
+## reference: http://www.gaggl.com/2012/04/installing-java6-jdk-on-ubuntu-12-04/
+}}} 
+
 install related ros packages and install `rtm-ros-robotics` software
 
 {{{
