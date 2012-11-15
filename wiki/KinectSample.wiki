@@ -122,9 +122,9 @@ geometry_msgs/TransformStamped[] transforms
 [ INFO] [1352998662.710511745]: Calibration started for user 3
 [ INFO] [1352998664.822129074]: Calibration complete, start tracking user 3
 }}}
-などが表示されると思います。そうすると、/tfの値も変更されて、体の各部位の情報が表示される様になります。
+などが表示されると思います。そうすると、rostopic echo /tfを行ったターミナルを開いているならば、/tfの値も変更されて、ターミナルに体の各部位の情報が表示される様になります。
 
-ここで、tfの値を3Dで表示しましょう。
+ここで、tfでの値を3Dで表示しましょう。
 また新しいターミナルで以下のコマンドを実行してください。
 {{{
 rosrun rviz rviz
