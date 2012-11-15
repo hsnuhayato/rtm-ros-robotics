@@ -197,7 +197,7 @@ rosrun roseus_tutorials kinect-model-viewer.l "(test-kinect)"
 {{{
 roseus : command not found
 }}}
-[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_TroubleShooting#roseus_:_command_not_found_と言われる．]
+[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_TroubleShooting#roseus_:_command_not_found_と言われる． 困ったときは]
 を参考に.bashrcを更新してもう一度試して見てください。
 
 実行したら、IRT Viewerに棒人間が表示されると思います。
