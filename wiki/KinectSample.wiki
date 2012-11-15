@@ -165,4 +165,4 @@ rosnode list
 }}}
 を実行します。先ほど上にかかれたopenni_tracker openni_disparity_view map_openni_cameraを含めいくらかのnodeが確認できると思います。
 
-tfについての詳しいことは、ROSwikiを参照してください。
+tfについての詳しいことは、ROSwikiの[http://www.ros.org/wiki/tf/Tutorials/Introduction%20to%20tf tf]を参照してください。
