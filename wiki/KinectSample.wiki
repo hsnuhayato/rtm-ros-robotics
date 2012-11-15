@@ -283,12 +283,12 @@ kinect-model-viewer.lの中身を簡単に見ていきます。
 		 (send (send (send b :torso :end-coords) :transformation (send b :larm :end-coords)) :worldpos)
 		 (send (send (send b :torso :end-coords) :transformation (send b :rarm :end-coords)) :worldpos))
 }}}
-(send b :copy-state-from-tf *tl*)においては、「人のトラックができているなら」で条件になってます。トラックができているときに、その後のformat以下の命令が実行されます。
+(send b :copy-state-from-tf *tl*)においては、「人のトラックができているなら」で条件になってます。実際この関数では、kinectのトラッカーでの情報をbのロボットに対して反映させているものです。トラックができているときに、その後のformat以下の命令が実行されます。
 
 {{{
 (send b :larm :end-coords :worldpos)
 }}}
-で人間の左手の端点の絶対座標系の原点であり、カメラ原点の座標を取得することができます。
+で人間の左手の端点のカメラ原点の座標を取得することができます。
 ここでの流れは、
 
 kinect -> tf -> b（ロボットのモデル）->取得
@@ -301,9 +301,21 @@ kinect -> tf -> b（ロボットのモデル）->取得
 
 (send (send b :torso :end-coords) :transformation (send b :larm :end-coords))でそれらの相対的な位置関係を取得しています。ですので、絶対座標系の原点の位置にはよりません。
 
-その返り値に対して、send ~~ :worldposをすることで、coordsから３次元のベクトルのみを取り出してます。
+その返り値に対して、send  :worldposをすることで、coordsから３次元のベクトルのみを取り出してます。
+
+{{{
+(when robot
+	 (send b :copy-state-to robot))
+       (if (functionp loop-hook) (funcall loop-hook))
+       (send (get *viewer* :pickviewer) :look-all)
+       (x::window-main-one)
+       (if f (send b :dump-motion f))
+       ))
+}}}
+その後の部分では、画面の更新や、情報の更新を行っております。
 
 ==実機でやるときは==
+
 実機のpr2でコードを動かす際は以下の事に注意してください。
  * kinect-model-viewer.lの中の、座標系が、デフォルトでmapになっており、kinectでテストしているときは、kinect真下を座標の原点にしてますが、pr2でのmapはpr2の足元が原点とはなりません。/mapとなっているところはすべて/base_footprintに変えてください。
  * kinect.launchをpr2の方で起動する必要がありますので、kinect.launchがpr2で起動していることを確認してください。
