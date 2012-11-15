@@ -268,8 +268,40 @@ kinect-model-viewer.lの中身を簡単に見ていきます。
 
 ここでは、bの棒人間の準備をしたり、必要なものを準備してます。読み飛ばして構いませんが、ここで、IRT Viewerの表示するものも用意していることだけは知っておいてください。
 
+{{{
+    (do-until-key
+     (let ()
+}}}
+ここから、ループが始まります。
 
+{{{
+       (when (send b :copy-state-from-tf *tl*)
+	 (format t "kinect robot : larm pos=~A, rarm pos=~A (world)~%"
+		 (send b :larm :end-coords :worldpos)
+		 (send b :rarm :end-coords :worldpos))
+	 (format t "             : larm pos=~A, rarm pos=~A (local)~%"
+		 (send (send (send b :torso :end-coords) :transformation (send b :larm :end-coords)) :worldpos)
+		 (send (send (send b :torso :end-coords) :transformation (send b :rarm :end-coords)) :worldpos))
+}}}
+(send b :copy-state-from-tf *tl*)においては、「人のトラックができているなら」で条件になってます。トラックができているときに、その後のformat以下の命令が実行されます。
 
+{{{
+(send b :larm :end-coords :worldpos)
+}}}
+で人間の左手の端点の絶対座標系の原点であり、カメラ原点の座標を取得することができます。
+ここでの流れは、
+
+kinect -> tf -> b（ロボットのモデル）->取得
+
+というようになっています。それをformatで表示させています。
+{{{
+(send (send (send b :torso :end-coords) :transformation (send b :larm :end-coords)) :worldpos)
+}}}
+では、(send b :torso :end-coords)では、腰の座標系を取得、(send b :larm :end-coords)はさきほどと同じように、左手の端点の座標系を取得。
+
+(send (send b :torso :end-coords) :transformation (send b :larm :end-coords))でそれらの相対的な位置関係を取得しています。ですので、絶対座標系の原点の位置にはよりません。
+
+その返り値に対して、send ~~ :worldposをすることで、coordsから３次元のベクトルのみを取り出してます。
 
 ==実機でやるときは==
 実機のpr2でコードを動かす際は以下の事に注意してください。
