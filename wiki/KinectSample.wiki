@@ -203,4 +203,75 @@ roseus : command not found
 実行したら、IRT Viewerに棒人間が表示されると思います。
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/kinect_sample_model_view.png]
+
+
 ==ソース・概略==
+kinect-model-viewer.lの中身を簡単に見ていきます。
+
+かなりコードは長いですが、コードの最後の方の一部のみを見ていきたいと思います。
+
+{{{
+#-:ros
+(unless (find-package "ROS") (make-package "ROS"))
+#+:ros
+(defun test-kinect (&key robot fname loop-hook) ;; :fname "test-kinect.bvh", loop-hook is a function to call inside do-until-key loop
+  (let ((floor (make-cube 2000 1000 10 :pos #f(1000 0 0))) f)
+    (if fname (setq f (open fname :direction :output)))
+    (ros::roseus "kinect_bvh")
+    (if (not (boundp '*tl*))
+        (setq *tl* (instance ros::transform-listener :init)))
+    (setq b (make-kinect-bvh-robot-model))
+    (objects (list floor b))
+    (if robot (objects robot))
+    ;;(defun find-node (name) (find name *arrows* :key #'(lambda (x) (send x :name)) :test #'string=))
+    (if f (send b :dump-hierarchy f))
+    (do-until-key
+     (let ()
+       (when (send b :copy-state-from-tf *tl*)
+	 (format t "kinect robot : larm pos=~A, rarm pos=~A (world)~%"
+		 (send b :larm :end-coords :worldpos)
+		 (send b :rarm :end-coords :worldpos))
+	 (format t "             : larm pos=~A, rarm pos=~A (local)~%"
+		 (send (send (send b :torso :end-coords) :transformation (send b :larm :end-coords)) :worldpos)
+		 (send (send (send b :torso :end-coords) :transformation (send b :rarm :end-coords)) :worldpos)))
+       (when robot
+	 (send b :copy-state-to robot))
+       (if (functionp loop-hook) (funcall loop-hook))
+       (send (get *viewer* :pickviewer) :look-all)
+       (x::window-main-one)
+       (if f (send b :dump-motion f))
+       )) ;; do-until-key
+    ))
+
+;; (test-kinect)
+}}}
+
+ソースの上半分は、この上のコードで使用するためのクラスの定義や、tfからの情報の取得や反映をしてくれるものを実装してあり、このtest-kinectはそれらの関数を用いたプログラムを書いてます。
+
+一行ずつ見ていきます。
+
+{{{
+#-:ros
+(unless (find-package "ROS") (make-package "ROS"))
+#+:ros
+}}}
+この#-:rosは「rosがないならば次の（で始まるものを実行する」という意味で、#+:rosは素の反対に「rosがあるならば次の（で始まるものを実行する」という意味になります。
+
+{{{
+(if fname (setq f (open fname :direction :output)))
+    (ros::roseus "kinect_bvh")
+    (if (not (boundp '*tl*))
+        (setq *tl* (instance ros::transform-listener :init)))
+    (setq b (make-kinect-bvh-robot-model))
+    (objects (list floor b))
+}}}
+
+ここでは、bの棒人間の準備をしたり、必要なものを準備してます。読み飛ばして構いませんが、ここで、IRT Viewerの表示するものも用意していることだけは知っておいてください。
+
+
+
+
+==実機でやるときは==
+実機のpr2でコードを動かす際は以下の事に注意してください。
+ * kinect-model-viewer.lの中の、座標系が、デフォルトでmapになっており、kinectでテストしているときは、kinect真下を座標の原点にしてますが、pr2でのmapはpr2の足元が原点とはなりません。/mapとなっているところはすべて/base_footprintに変えてください。
+ * kinect.launchをpr2の方で起動する必要がありますので、kinect.launchがpr2で起動していることを確認してください。
