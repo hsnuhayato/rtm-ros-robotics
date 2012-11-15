@@ -202,4 +202,5 @@ roseus : command not found
 
 実行したら、IRT Viewerに棒人間が表示されると思います。
 
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/kinect_sample_model_view.png]
 ==ソース・概略==
