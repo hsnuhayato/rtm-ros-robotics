@@ -48,7 +48,14 @@ roslaunch roseus_tutorials  kinect.launch
 
 そうすると、小さな画面が表示され、デプスの値によって色が分けて表示されます。(Kinectの近くに手をざすとうまく動かないので、50cmほどkinectから離してかざしてみてください)
 
-動作がうまくいっていると、
+
+
+
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/kinect_launch_imageView.png]
+
+
+プログラムがうまくいく、手だけではなく全身を写す（上半身だけでも可）と、
 実行した二つ目のターミナルに
 {{{
 [ INFO] [1352997345.849554969]: New User 1
@@ -58,7 +65,7 @@ roslaunch roseus_tutorials  kinect.launch
 [ INFO] [1352997350.071990197]: Pose Psi detected for user 1
 [ INFO] [1352997364.279894287]: Lost user 1
 }}}
-などの表示が見られると思います。
+などの表示が見られると思います。（人によって表示される順番や事柄は変わります。）
 
 
 次にrostopicはどのようなものがあるかを確認します。
@@ -104,6 +111,13 @@ geometry_msgs/TransformStamped[] transforms
 
 ここで、roslaunch roseus_tutorials  kinect.launch
 を行ったターミナルを開きながら、カメラの前で肘を直角にして両腕をあげてジッとしてみてください。
+
+
+
+
+
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/kinect_sample_hangup_pose.png]
+
 {{{
 [ INFO] [1352998662.710511745]: Calibration started for user 3
 [ INFO] [1352998664.822129074]: Calibration complete, start tracking user 3
@@ -126,6 +140,7 @@ rosrun rviz rviz
 表してくれます。
 しっかりと、トラックが行われている状態であれば、
 体の表示がrvizの中に見れると思います。
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/kinect_sample_rviz_view.png]
 
 ==ソース・概略==
 roseus_tutorials/roskinect.launchの中を軽く見てます。
