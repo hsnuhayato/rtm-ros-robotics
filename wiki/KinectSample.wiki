@@ -10,7 +10,7 @@
 を紹介します。
 
 kinectの主なサンプルプログラム(launch)は、jsk-ros-pkg以下の
- * roseus/tutorialsのkinect.launch
+ * roseus_tutorialsのkinect.launch
 
 jsk-ros-pkg以下のcppのサンプルは、
  * jsk-openni-kinect/openni_pointer/src/openni_pointer.cpp
