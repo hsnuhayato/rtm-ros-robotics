@@ -138,8 +138,12 @@ rosrun rviz rviz
  * rviz/TF
 それぞれ、基準の座標、グリッド、カメラ、体の部位の表示を
 表してくれます。
+
 しっかりと、トラックが行われている状態であれば、
 体の表示がrvizの中に見れると思います。
+
+
+
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/kinect_sample_rviz_view.png]
 
 ==ソース・概略==
@@ -166,3 +170,35 @@ rosnode list
 を実行します。先ほど上にかかれたopenni_tracker openni_disparity_view map_openni_cameraを含めいくらかのnodeが確認できると思います。
 
 tfについての詳しいことは、ROSwikiの[http://www.ros.org/wiki/tf/Tutorials/Introduction%20to%20tf tf]を参照してください。
+
+
+
+=kinect-model-viewer.l=
+このサンプルは、kinect.launchで作られたtfの体各位の情報をとってきて、IRT Viewerで表示させるもので、上のrvizのような表示が見れます。
+== 実行 ==
+kinect.launchも実行する必要があるので、まず、それらを準備します。
+
+{{{
+roscore
+}}}
+{{{
+roslaunch roseus_tutorials kinect.launch
+}}}
+
+これでtfのtopicに必要な情報が送られます。
+
+そしたら次に、kinect-model-viewer.lを実行します。
+{{{
+rosrun roseus_tutorials kinect-model-viewer.l "(test-kinect)"
+}}}
+としてください。
+これは、kinect-model-viewer.lをroseusを立ち上げて、(test-kinect)をその中で実行しています。
+もし以下のエラーが出る人は、
+{{{
+roseus : command not found
+}}}
+を参考に.bashrcを更新してもう一度試して見てください。
+
+実行したら、IRT Viewerに棒人間が表示されると思います。
+
+==ソース・概略==
