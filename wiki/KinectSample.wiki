@@ -1,0 +1,153 @@
+#summary Kinectのサンプル
+<wiki:toc max_depth="2" />
+
+= 概要 =
+
+ここで紹介するKinectのサンプルは，
+現時点では、
+ * jsk-ros-pkgのroseus-tutorialsにあるkinect.launch 
+ * jsk-ros-pkgのroseus-tutorialsにあるkinect-model-viewer.l
+を紹介します。
+
+kinectの主なサンプルプログラム(launch)は、jsk-ros-pkg以下の
+ * roseus/tutorialsのkinect.launch
+
+jsk-ros-pkg以下のcppのサンプルは、
+ * jsk-openni-kinect/openni_pointer/src/openni_pointer.cpp
+ * jsk-openni-kinect/openni_scene/src/openni_scene.cpp
+ * jsk-openni-kinect/openni_swipe/src/openni_swipe.cpp
+/opt/ros/fuerte/stacks以下のcppのサンプルは、
+ * openni-tracker/src/openni_tracker.cpp
+
+jsk-ros-pkg以下のeusのサンプルは
+ * roseus_tutorials/kinect-model-view.l
+ * roseus_tutorials/openni-swipe.l
+ * roseus_tutorials/openni-pointer.l
+
+などがあると思いますので、適宜参照してみてください。
+
+= 準備 =
+ * [ROS_Install]にしたがってROSと講義関連パッケージがインストールされていることが前提です．
+ * Kinectを使います。特に必要な設定はありません。Kinect For Windowsでは動作がどうなるか確認できておりません。
+ * OSのバージョンによってはうまくいかないものもあります。
+
+=kinect.launch=
+== 実行 ==
+２つのターミナルを立ち上げます
+まずは，1つ目で
+{{{
+roscore
+}}}
+として下さい．
+
+次に2つ目のターミナルで
+{{{
+roslaunch roseus_tutorials  kinect.launch
+}}}
+とします．
+
+そうすると、小さな画面が表示され、デプスの値によって色が分けて表示されます。(Kinectの近くに手をざすとうまく動かないので、50cmほどkinectから離してかざしてみてください)
+
+動作がうまくいっていると、
+実行した二つ目のターミナルに
+{{{
+[ INFO] [1352997345.849554969]: New User 1
+[ INFO] [1352997349.105289471]: Pose Psi detected for user 1
+[ INFO] [1352997349.571060727]: Calibration started for user 1
+[ INFO] [1352997350.071415612]: Calibration failed for user 1
+[ INFO] [1352997350.071990197]: Pose Psi detected for user 1
+[ INFO] [1352997364.279894287]: Lost user 1
+}}}
+などの表示が見られると思います。
+
+
+次にrostopicはどのようなものがあるかを確認します。
+以下のコマンドを新しいターミナルで実行してください。
+{{{
+rostopic list
+}}}
+を行ってください。
+このサンプル以外のものを行っていなければ、大量に表示されるtopicの最後に/tfがあるのが確認できると思います。さらに、
+{{{
+rostopic echo /tf
+}}}
+を行うことでtfのtopicに今流れてきている値を確認できると思います。
+
+一応確認するために、/tfのmsgの形は、
+{{{
+rostopic type /tf
+}}}
+で、/tfのメッセージのタイプがわかりその内容は
+{{{
+rosmsg show tf/tfMessage
+}}}
+で見れます。
+{{{
+geometry_msgs/TransformStamped[] transforms
+  std_msgs/Header header
+    uint32 seq
+    time stamp
+    string frame_id
+  string child_frame_id
+  geometry_msgs/Transform transform
+    geometry_msgs/Vector3 translation
+      float64 x
+      float64 y
+      float64 z
+    geometry_msgs/Quaternion rotation
+      float64 x
+      float64 y
+      float64 z
+      float64 w
+}}}
+のようになります。
+
+ここで、roslaunch roseus_tutorials  kinect.launch
+を行ったターミナルを開きながら、カメラの前で肘を直角にして両腕をあげてジッとしてみてください。
+{{{
+[ INFO] [1352998662.710511745]: Calibration started for user 3
+[ INFO] [1352998664.822129074]: Calibration complete, start tracking user 3
+}}}
+などが表示されると思います。そうすると、/tfの値も変更されて、体の各部位の情報が表示される様になります。
+
+ここで、tfの値を3Dで表示しましょう。
+また新しいターミナルで以下のコマンドを実行してください。
+{{{
+rosrun rviz rviz
+}}}
+起動後に、左側のコラムのなかにaddのボタンがあると思います。
+
+以下のものを開いたウィンドウでaddしていってください。
+ * rviz/Axes
+ * rviz/Grid
+ * rviz/Camera
+ * rviz/TF
+それぞれ、基準の座標、グリッド、カメラ、体の部位の表示を
+表してくれます。
+しっかりと、トラックが行われている状態であれば、
+体の表示がrvizの中に見れると思います。
+
+==ソース・概略==
+roseus_tutorials/roskinect.launchの中を軽く見てます。
+{{{
+ <node name="openni_tracker" pkg="openni_tracker" type="openni_tracker" output="screen" respawn="true" >
+    <param name="camera_frame_id" value="camera_depth_frame"/>
+  </node>
+  <node name="openni_dispairty_view" pkg="image_view" type="disparity_view">
+    <remap from="image" to="/camera/depth/disparity" />
+  </node>
+  <node name="map_openni_camera" pkg="tf" type="static_transform_publisher"
+        args="0 0 1.5 0 0 0 /map /camera_link 100" />
+}}}
+となっているのが分かると思います。
+
+上から、nodeとして、pkg=""あたりで、openni_trackerと、image_viewと、tfに該当するものが、作られているのがわかります。openni_trackerは、roscd openni_trackerで分かると思いますが、/opt/ros/fuerte/stacksのなかにパッケージがあり、これは、ユーザーを検知に関するnodeです。image_viewは、depthの結果を表示するnodeです。tfは体の関節などの情報が送られるnodeです。
+
+何となく、どのようなnodeを呼び出しているかは簡単には分かったと思います。
+他にどのようなnodeが立ち上がるかを確認するには、新しいターミナルで
+{{{
+rosnode list
+}}}
+を実行します。先ほど上にかかれたopenni_tracker openni_disparity_view map_openni_cameraを含めいくらかのnodeが確認できると思います。
+
+tfについての詳しいことは、ROSwikiを参照してください。
