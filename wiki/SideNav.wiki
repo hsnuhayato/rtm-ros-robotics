@@ -20,6 +20,7 @@
   * [ROS_Example_Navigation ナビゲーション]
   * [ROS_Example_ImageProcessing 画像処理]
   * [ROS_Example_RecognitionAction 認識行動]
+  * [KinectSample Kinect]
   * [ROS_Example_RTMIntegration RTM統合]
   * [ROS_Example_RTMNavigation ROSナビゲーションRTM移動台車統合]
   * [ROS_Example_OpenHRPIntegration OpenHRP統合]
