@@ -313,6 +313,37 @@ kinect -> tf -> b（ロボットのモデル）->取得
        ))
 }}}
 その後の部分では、画面の更新や、情報の更新を行っております。
+===pr2も表示したい===
+IRT Viewerに棒人間モデルの他にpr2を表示したいときは
+先ほどの
+{{{
+#-:ros
+(unless (find-package "ROS") (make-package "ROS"))
+#+:ros
+}}}
+の部分を以下で上書きしてください。
+{{{
+#-:ros
+(unless (find-package "ROS") (make-package "ROS"))
+#+:ros
+(progn
+  (load "package://pr2eus/pr2-utils.l")
+  (load "package://pr2eus/pr2-interface.l")
+  )
+#+:ros
+}}}
+さらに、
+以下のコードを(do-until-keyの手前に追加してください。
+
+{{{
+    (pr2)
+    (if (not (boundp '*irtviewer*)) (make-irtviewer))
+    (objects (list *pr2* floor b))
+    (send *irtviewer* :draw-objects)
+}}}
+これで、先ほどのIRTViewerにpr2のモデルも表示されると思います。
+
+
 
 ==実機でやるときは==
 
