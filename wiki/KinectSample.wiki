@@ -5,8 +5,8 @@
 
 ここで紹介するKinectのサンプルは，
 現時点では、
- * jsk-ros-pkgのroseus-tutorialsにあるkinect.launch 
- * jsk-ros-pkgのroseus-tutorialsにあるkinect-model-viewer.l
+ * jsk-ros-pkgのroseus_tutorialsにあるkinect.launch 
+ * jsk-ros-pkgのroseus_tutorialsにあるkinect-model-viewer.l
 を紹介します。
 
 kinectの主なサンプルプログラム(launch)は、jsk-ros-pkg以下の
