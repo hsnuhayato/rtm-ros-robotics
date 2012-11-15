@@ -6,6 +6,7 @@
 == [ROS_Example_Navigation ナビゲーションサンプル] ==
 == [ROS_Example_ImageProcessing 画像処理サンプル] ==
 == [ROS_Example_RecognitionAction 認識行動サンプル] ==
+== [KinectSample Kinectサンプル] ==
 == [ROS_Example_RTMIntegration RTM統合サンプル] ==
 == [ROS_Example_RTMIntegration RTM統合サンプル] ==
 == [ROS_Example_RTMNavigation ROSナビゲーションRTM移動台車統合] ==
