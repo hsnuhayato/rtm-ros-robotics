@@ -32,7 +32,7 @@ jsk-ros-pkg以下のeusのサンプルは
  * OSのバージョンによってはうまくいかないものもあります。
 
 =kinect.launch=
-== 実行 ==
+==kinect.launchの実行 ==
 ２つのターミナルを立ち上げます
 まずは，1つ目で
 {{{
@@ -146,7 +146,7 @@ rosrun rviz rviz
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/kinect_sample_rviz_view.png]
 
-==ソース・概略==
+==kinect.launchのソース・概略==
 roseus_tutorials/roskinect.launchの中を軽く見てます。
 {{{
  <node name="openni_tracker" pkg="openni_tracker" type="openni_tracker" output="screen" respawn="true" >
@@ -175,7 +175,7 @@ tfについての詳しいことは、ROSwikiの[http://www.ros.org/wiki/tf/Tuto
 
 =kinect-model-viewer.l=
 このサンプルは、kinect.launchで作られたtfの体各位の情報をとってきて、IRT Viewerで表示させるもので、上のrvizのような表示が見れます。
-== 実行 ==
+== kinect-model-viewer.lの実行 ==
 kinect.launchも実行する必要があるので、まず、それらを準備します。
 
 {{{
@@ -205,7 +205,7 @@ roseus : command not found
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/kinect_sample_model_view.png]
 
 
-==ソース・概略==
+==kinect-model-viewer.lのソース・概略==
 kinect-model-viewer.lの中身を簡単に見ていきます。
 
 かなりコードは長いですが、コードの最後の方の一部のみを見ていきたいと思います。
@@ -255,7 +255,7 @@ kinect-model-viewer.lの中身を簡単に見ていきます。
 (unless (find-package "ROS") (make-package "ROS"))
 #+:ros
 }}}
-この#-:rosは「rosがないならば次の（で始まるものを実行する」という意味で、#+:rosは素の反対に「rosがあるならば次の（で始まるものを実行する」という意味になります。
+この#-:rosは「rosがないならば次の（で始まるものを実行する」という意味で、#+:rosはその反対に「rosがあるならば次の（で始まるものを実行する」という意味になります。
 
 {{{
 (if fname (setq f (open fname :direction :output)))
