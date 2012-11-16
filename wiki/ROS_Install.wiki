@@ -75,7 +75,9 @@ rosmake euslisp
 {{{
 roscd euslisp
 }}}
-とすればよい．また，euslispパッケージ以下のirteusglという実行ファイルを実行したければ
+とすればよい．
+[http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem ROSwikiのroscd]をより詳しく参照できます。
+また，euslispパッケージ以下のirteusglという実行ファイルを実行したければ
 {{{
 rosrun euslisp irteusgl
 }}}
