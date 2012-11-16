@@ -108,9 +108,41 @@ euslispが終了する。
  * 対象の実行ファイルがあるフォルダでファイル名を指定する。
 どの場合もrosを使うのであれば、masterであるroscoreは基本的に
 起動しておく必要がある。
+また、rosrun や roslaunchはroscdと同様に、パスが通ってなくてはならない。つまり、ROS_PACKAGE_PATHに該当するパッケージの親フォルダを指定する必要がある。
 
 ===rosrunを使う場合===
+cppをコンパイルした実行ファイルに対しては、
+{{{
+rosrun roscpp_tutorials talker
+}}}
+のようにすると、いかなるディレクトリにいても、talkerを実行することができる。
 
+lispの場合は以下二通りのやり方がある。
+{{{
+rosrun roseus roseus pr2-send-joints.l
+}}}
+この場合は、pr2-send-joints.lのあるディレクとにいなくてはなりません。
+一つ目のroseusがパッケージ名,二つ目のroseusが実行ファイル名、pr2-send-joints.lが今回は実行ファイルの引数として渡されて実行されてます。
+{{{
+rosrun pr2eus pr2-send-joints.l
+}}}
+この場合は、pr2eusはパッケージ名であり、pr2-send-joints.lが対象のスクリプトです。
+スクリプトのファイルしか指定されていないのに、なぜ、実行されるかと言いますと、shebangを利用していて、pr2-send-joints.lの1行目に
+{{{
+#!/usr/bin/env roseus
+}}}
+と書かれているからです。上記の記述がない、または、実行権限がない場合は実行はできません。
+もし、以下のようなエラーが出る場合は、
+{{{
+roseus : command not found
+}}}
+roseusのパスが通ってないので、PATHにroseusのパスを通す必要があります。[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_TroubleShooting#%E5%AE%9F%E8%A1%8C%E7%B7%A8 困ったときは]を参照して、.bashrcを再度読み込んでください。
+また、もちろん
+{{{
+roseus pr2-send-joints.l
+}}}
+でもできますが、同じく、カレントディレクトリにpr2-send-joints.lがないと実行できません。
+はじめてshebangを聞いた人は[http://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%90%E3%83%B3_%28Unix%29 wikipediaのシバン]を参照。
 ===roslaunchを使う場合===
 xml形式で書かれた.launchファイルを実行する。
 複数のnodeを一気に呼び出し、それぞれに名前をつけることができるものがlaunchの特徴である。使い方は[http://www.ros.org/wiki/ROS/Tutorials/UsingRxconsoleRoslaunch ROSwikiのroslaunch]の前後から参照するとわかりやすい。上のrosrunを複数回分を一つにまとめて行いそれぞれのnodeのつながりを書くことができる。
@@ -126,8 +158,8 @@ roslaunch pr2eus pr2-send-joints.launch
 }}}
 とすれば、実行をすることが可能である。
 
-また、上にあるように、shebangが記されていて、実行権限があれば、
+また、lispのファイルの場合、上にあるように、shebangが記されていて、実行権限があれば、
 {{{
 pr2-send-joints.l
 }}}
-で実行される。
+でも実行される。
