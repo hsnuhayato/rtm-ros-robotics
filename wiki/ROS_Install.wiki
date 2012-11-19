@@ -50,7 +50,7 @@ sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
 
 また,
 {{{
-cd ~/ros/electric
+cd ~/ros/fuerte
 rosws update
 }}}
 とすると,ROS外部パッケージのソースツリー更新が行われる.
@@ -58,7 +58,7 @@ rosws update
 
 ROS関連のプログラムを使うためには以下の様にして環境変数をセットする必要がある．
 {{{
-source ~/ros/electric/setup.bash
+source ~/ros/fuerte/setup.bash
 }}}
 この一行を ~/.bashrc に追加するとよいでしょう．
 
