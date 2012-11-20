@@ -139,6 +139,6 @@ rosrun roseus roseus (rossetpr2したのと同じターミナルで実行)
 
 ;; *irtviewer*
 {{{
-(send *irtviwer* :draw-objects) # viewerの更新
+(send *irtviewer* :draw-objects) # viewerの更新
 (objects (list *pr2* (make-cube))) # viewerに表示するobjectを指定する
 }}}
