@@ -1,6 +1,6 @@
 #summary ROSサンプルプログラム
 
-インストールが終わっていない人はは[ROS_Install] を見ること．
+インストールが終わっていない人は[ROS_Install] を見ること．
 
 == [ROS_Example_Basic ROSの基本プログラム] ==
 == [ROS_Example_Navigation ナビゲーションサンプル] ==
