@@ -4,4 +4,4 @@
 
 == [pr2eus_sample PR2 euslispのサンプルプログラム ] ==
 == [roseus_sample roseus を使ったサンプル] ==
-== [pr2_gazebo_sample gazeboを使ったサンプル] ==
+== [pr2_gazebo_sample gazeboを使った認識行動サンプル] ==
