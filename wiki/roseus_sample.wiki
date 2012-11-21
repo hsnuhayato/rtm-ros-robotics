@@ -1,0 +1,7 @@
+#summary roseus のサンプルプログラム
+
+<wiki:toc max_depth="2" />
+
+= PointCloudのsubscribe =
+
+= jsk_pcl_ros(pcl_ros)を使う =
