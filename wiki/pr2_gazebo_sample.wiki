@@ -17,7 +17,9 @@ roslaunch pr2eus_tutorials pr2_gazebo_objects.launch
 [http://www.ros.org/wiki/pr2_interactive_manipulation interactive_manipulation]をシミュレーション環境で試す
 {{{
 ROBOT=sim roslaunch pr2eus_tutorials pr2_interactive_manipulation_sim.launch
+#2dnavが無いと言われたら $ sudo apt-get install ros-fuerte-pr2-navigation-apps
 }}}
+http://rtm-ros-robotics.googlecode.com/svn/wiki/pr2_interactive_gazebo00.png
 
 = roseusを用いた認識行動 =
 認識(tabletop_segmentation)をもとに、roseusから指示を与えて、テーブル上の物をつかむ
