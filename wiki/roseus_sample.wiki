@@ -2,6 +2,6 @@
 
 <wiki:toc max_depth="2" />
 
-= PointCloudのsubscribe =
+= pointcloudのsubscribe =
 
 = jsk_pcl_ros(pcl_ros)を使う =
