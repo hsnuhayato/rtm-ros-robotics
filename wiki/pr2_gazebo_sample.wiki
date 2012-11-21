@@ -1,0 +1,9 @@
+#summary gazeboを使った認識行動のサンプルプログラム
+
+<wiki:toc max_depth="2" />
+
+= gazeboを使う =
+
+= gazeboを使ったinteracive_manipulation =
+
+= roseusを用いた認識行動 =
