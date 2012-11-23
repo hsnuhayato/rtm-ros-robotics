@@ -418,6 +418,7 @@ launchファイルの使い方も含めて、立ち上げかたを書いてみ�
 {{{
 roslaunch roseus_tutorials kinectImage.launch
 }}}
+roseus_tutorialsは保存したパッケージの名前に、kinectImage.launchは保存したファイル名に適宜置き換えてください。
 おそらく、カラー画像がimage_viewに見えていると思います。
 
 ===コード前半===
