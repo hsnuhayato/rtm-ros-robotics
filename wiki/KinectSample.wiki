@@ -357,7 +357,7 @@ IRT Viewerに棒人間モデルの他にpr2を表示したいときは
  * kinect.launchをpr2の方で起動する必要がありますので、kinect.launchがpr2で起動していることを確認してください。
 
 =Kinectからの画像をとりあえず見る。=
-Kinectから得られる画像をとりあえず見るだけです。
+Kinectから得られる画像をimage_view2を用いてとりあえず見るだけです。image_view2はimage_viewをjskで拡張したものです。
 簡単に、Kinectからの様々な画像がくるものをtopicにpublishしてもらうには、
 {{{
 roslaunch openni_launch openni.launch
@@ -420,7 +420,7 @@ roslaunch roseus_tutorials kinectImage.launch
 }}}
 おそらく、カラー画像がimage_viewに見えていると思います。
 
-===コード===
+===コード前半===
 初めのincludeの中から見ていきます。
 {{{
   <include file="$(find openni_launch)/launch/openni.launch">
@@ -486,3 +486,44 @@ $(arg bond)
   </include>
 }}}
 でもあるように、取得した値で、includeタグの中を使うかどうかをif分での分岐の条件に指定したりすることにも使えます。
+
+以上の様にして、includeタグの中では、openni.launchの立ち上げる準備をしていました。
+かなり簡単にしか説明してないので、ROSwikiの方を参考に見に行ってください。あくまで概略です。
+
+===コード後半===
+次に、image_view2の立ち上げる方を見ていきたいと思います。
+今度は、こちらでは、まずnodeタグからはじまり、新たにimage_viewのnodeを立ち上げる準備をしています。
+{{{
+  <node name="image_view2" pkg="image_view2" type="image_view2" output="screen" >
+    <!--remap from="image" to="/camera/rgb/image_rect" /-->
+    <remap from="image" to="/camera/rgb/image_rect_color/" />
+    <param name="autosize" value="true" />
+    <param name="blurry" value="false" />
+    <param name="window_name" value="image_view2">
+  </node>
+}}}
+nodeのタグは、rosrunのようにファイルを実行するために宣言するもので、nodeのタグの中で一つのプログラムの実行をさします。nameで、ノードの名前、pkgで実行するプログラムの入っているパッケージ名、typeで実行するファイル名を決めます。outputは今は無視してください。
+{{{
+    <remap from="image" to="/camera/rgb/image_rect_color/" />
+}}}
+ここの部分が、
+[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_ImageProcessing 画像処理のサンプル]でもあるように、リマップという機能です。
+image_view2の中のコードでimageからとってこいという命令を/camera/rgb/image_rectからとってこいに変えてしまう機能という程度の理解で大丈夫だと思います。もし、/camera/rgb/image_rect以外のものを写したいのであれば、ここを変えてください。実機であれば、/openni/rgb/image_rect_colorなどにすると、pr2のKinectカラー画像を見ることが出きると思います。名前が変わっているかもしれませんので
+{{{
+rostopic list | grep image
+}}}
+などとして、該当するものがないか探してみてください。
+
+次にparamタグです。
+{{{
+<param name="autosize" value="true" />
+}}}
+これは、コードの中で、コードの外で環境などの要因で設定されている値をを決めるものです。
+{{{
+<param name="window_name" value="image_view2">
+}}}
+などがわかりやすいと思いますが、これを書くことで、image_view2がウィンドウを作成するときにこの値が使われて、image_view2の名前が"image_view2"になると思います。
+image_viewの際に与えられるパラメーターは[http://www.ros.org/wiki/image_view ROSWikiのimage_view]などのParametersに書いてあります。参照してみてください。
+
+
+以上で、image_view2の方も立ち上がり、/camera/rgb/image_rectにpublishが始まると、image_view2の方に画像が流れはじめます。
