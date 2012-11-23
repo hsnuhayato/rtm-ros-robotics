@@ -38,3 +38,5 @@
  * http://www.ros.org/wiki/ROS/Tutorials/ExaminingServiceClient
 
  * http://www.ros.org/wiki/ROS/Tutorials/Recording%20and%20playing%20back%20data
+*roslaunch文法
+ * http://www.ros.org/wiki/roslaunch/XML
