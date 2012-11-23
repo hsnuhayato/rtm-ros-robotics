@@ -471,10 +471,12 @@ includeタグの中のargは、openni.launchの中の変数をvalue=以下の値
   <arg name="publish_tf" default="true" />
 }}}
 にたいして、さきほどのargタグで新たに値を設定しようとしていたということです。
+
+この中で出てきた
 {{{
 $(arg bond)
 }}}
-はいろいろ宣言されているargのvalueを取得するものです。この場合bondの値をとってます。
+は、いろいろ宣言されているargのvalueを取得するものです。この場合bondの値をとってます。
 {{{
 <arg name="respawn" default="$(arg bond)" />
 }}}
