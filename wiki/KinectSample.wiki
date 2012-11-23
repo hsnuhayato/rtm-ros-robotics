@@ -392,7 +392,7 @@ launchファイルの使い方も含めて、立ち上げかたを書いてみ�
 
 
 もし、roslaunchのタグや、文法について詳しく知りたい場合は、[http://www.ros.org/wiki/roslaunch/XML ROSWikiのroslaunch/XML]を参照してください。
-以下の内容のファイルを例えばjsk-ros-pkg/roseus_tutorials/launch（どこでもよいです。）などに保存してください。
+以下の内容のファイルを例えばjsk-ros-pkg/roseus_tutorials/launch（どこでもよいです。）などに保存してください。ここでは,kinectImage.launchとでもしておきます。
 
 {{{
 <launch>
@@ -413,3 +413,28 @@ launchファイルの使い方も含めて、立ち上げかたを書いてみ�
 </launch>
 }}}
 以上です。
+===実行===
+これをとりあえず、実行してみます。
+{{{
+roslaunch roseus_tutorials kinectImage.launch
+}}}
+おそらく、カラー画像がimage_viewに見えていると思います。
+
+===コード===
+初めのincludeの中から見ていきます。
+{{{
+  <include file="$(find openni_launch)/launch/openni.launch">
+    <arg name="respawn" value="true"/>
+    <arg name="publish_tf" value="true"/>
+  </include>
+}}}
+ですが、これは、先ほどのコメントにもあるように、openni.launchを実行して、kinectからの画像を得られるtopicを立ててもらってます。
+{{{
+$(find openni_launch)/launch/openni.launch
+}}}
+どこかにある"openni_launch"のパッケージを見つけだし、そのなかのlaunchフォルダのopenni.launchを実行させてます。includeタグは、既に作られている他のlaunchフォルダを含めるためのもので、launchファイルを再利用するのに便利です。
+{{{
+    <arg name="respawn" value="true"/>
+}}}
+includeタグの中のargは、openni.launchの中の変数をvalueに設定しなおしてます。
+おそらく何をしているかわからないと思うので、以下がopenni.launchの中の一部を持ってきました。
