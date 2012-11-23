@@ -388,3 +388,28 @@ image:=/camera/rgb/image_rect
 image_view2の中のコードでimageからとってこいという命令を/camera/rgb/image_rectからとってこいに変えてしまう機能という程度の理解で大丈夫だと思います。この部分を他の/camera/rgb/image_rect_colorなどに変え、メッセージの型があえば、表示されると思います。
 ==launchファイルから立ち上げる==
 launchファイルの使い方も含めて、立ち上げかたを書いてみようと思います。
+先ほど、立ち上げたopenni_launchは閉じていただいて大丈夫です。
+
+
+もし、roslaunchのタグや、文法について詳しく知りたい場合は、[http://www.ros.org/wiki/roslaunch/XML ROSWikiのroslaunch/XML]を参照してください。
+以下の内容のファイルを例えばjsk-ros-pkg/roseus_tutorials/launch（どこでもよいです。）などに保存してください。
+
+{{{
+<launch>
+  //以下のincludeタグはopenni.launchを立ち上げます。
+  <include file="$(find openni_launch)/launch/openni.launch">
+    <arg name="respawn" value="true"/>
+    <arg name="publish_tf" value="true"/>
+  </include>
+
+  //以下のnodeタグはimage_view2のnodeを立ち上げます。
+  <node name="image_view2" pkg="image_view2" type="image_view2" output="screen" >
+    <!--remap from="image" to="/camera/rgb/image_rect" /-->
+    <remap from="image" to="/camera/rgb/image_rect_color/" />
+    <param name="autosize" value="true" />
+    <param name="blurry" value="false" />
+    <param name="window_name" value="image_view2">
+  </node>
+</launch>
+}}}
+以上です。
