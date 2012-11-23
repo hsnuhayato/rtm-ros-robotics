@@ -435,6 +435,54 @@ $(find openni_launch)/launch/openni.launch
 どこかにある"openni_launch"のパッケージを見つけだし、そのなかのlaunchフォルダのopenni.launchを実行させてます。includeタグは、既に作られている他のlaunchフォルダを含めるためのもので、launchファイルを再利用するのに便利です。
 {{{
     <arg name="respawn" value="true"/>
+    <arg name="publish_tf" value="true"/>
 }}}
 includeタグの中のargは、openni.launchの中の変数をvalueに設定しなおしてます。
 おそらく何をしているかわからないと思うので、以下がopenni.launchの中の一部を持ってきました。
+{{{
+<launch>
+
+  <!-- "camera" should uniquely identify the device. All topics are pushed down
+       into the "camera" namespace, and it is prepended to tf frame ids. -->
+  <arg name="camera" default="camera" />
+...
+  <arg name="publish_tf" default="true" />
+
+  <!-- Disable bond topics by default -->
+  <arg name="bond" default="false" /> <!-- DEPRECATED, use respawn arg instead -->
+  <arg name="respawn" default="$(arg bond)" />
+
+  <!-- Start nodelet manager in top-level namespace -->
+  <arg name="manager" value="$(arg camera)_nodelet_manager" />
+...
+...
+  <!-- Load reasonable defaults for the relative pose between cameras -->
+  <include if="$(arg publish_tf)"
+	   file="$(find openni_launch)/launch/kinect_frames.launch">
+    <arg name="camera" value="$(arg camera)" />
+  </include>
+}}}
+となっており、この中にさきほどのkinectImage.launchにも出てきたrespawnやpublish_tfがあるのが、わかると思います。openni.launchで宣言していた
+{{{
+<arg name="respawn" default="$(arg bond)" />
+}}}
+{{{
+  <arg name="publish_tf" default="true" />
+}}}
+にたいして、さきほどのargタグで新たに値を設定しようとしていたということです。
+{{{
+$(arg bond)
+}}}
+はいろいろ宣言されているargのvalueを取得するものです。この場合bondの値をとってます。
+{{{
+<arg name="respawn" default="$(arg bond)" />
+}}}
+では、その取得した値をrespawnのデフォルト値に設定しています。
+また、
+{{{
+  <include if="$(arg publish_tf)"
+	   file="$(find openni_launch)/launch/kinect_frames.launch">
+    <arg name="camera" value="$(arg camera)" />
+  </include>
+}}}
+でもあるように、取得した値で、includeタグの中を使うかどうかをif分での分岐の条件に指定したりすることにも使えます。
