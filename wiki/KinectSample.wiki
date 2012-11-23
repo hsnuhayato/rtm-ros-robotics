@@ -396,13 +396,13 @@ launchファイルの使い方も含めて、立ち上げかたを書いてみ�
 
 {{{
 <launch>
-  //以下のincludeタグはopenni.launchを立ち上げます。
+  <!--以下のincludeタグはopenni.launchを立ち上げます。-->
   <include file="$(find openni_launch)/launch/openni.launch">
     <arg name="respawn" value="true"/>
     <arg name="publish_tf" value="true"/>
   </include>
 
-  //以下のnodeタグはimage_view2のnodeを立ち上げます。
+  <!--以下のnodeタグはimage_view2のnodeを立ち上げます。-->
   <node name="image_view2" pkg="image_view2" type="image_view2" output="screen" >
     <!--remap from="image" to="/camera/rgb/image_rect" /-->
     <remap from="image" to="/camera/rgb/image_rect_color/" />
