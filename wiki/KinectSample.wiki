@@ -355,3 +355,36 @@ IRT Viewerに棒人間モデルの他にpr2を表示したいときは
 実機のpr2でコードを動かす際は以下の事に注意してください。
  * kinect-model-viewer.lの中の、座標系が、デフォルトでmapになっており、kinectでテストしているときは、kinect真下を座標の原点にしてますが、pr2でのmapはpr2の足元が原点とはなりません。/mapとなっているところはすべて/base_footprintに変えてください。
  * kinect.launchをpr2の方で起動する必要がありますので、kinect.launchがpr2で起動していることを確認してください。
+
+=Kinectからの画像をとりあえず見る。=
+Kinectから得られる画像をとりあえず見るだけです。
+簡単に、Kinectからの様々な画像がくるものをtopicにpublishしてもらうには、
+{{{
+roslaunch openni_launch openni.launch
+}}}
+とすればよいです。
+そうすると、さまざまなtopicが以下のように打つことで立つことが確認できます。
+{{{
+rostopic list
+}}}
+代表的なところでは
+{{{
+/camera/rgb/image_rect_color
+/camera/rgb/image_rect
+}}}
+などが立ちあがっております。
+以下では、二通りで、image_view2で表示したいと思います。
+==rosrunからimage_view2==
+この場合、image_view2をさきほどのopenni_launchとは別のターミナルにimage_view2を立ち上げたいと思います。
+{{{
+rosrun image_view2 image_view2 image:=/camera/rgb/image_rect
+}}}
+としてください。
+そうすると、/camera/rgb/image_rectに流れてきているkinectからの画像を持ってきて、image_view2のウィンドウに表示します。
+{{{
+image:=/camera/rgb/image_rect
+}}}
+の部分ですが、[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_ImageProcessing 画像処理のサンプル]でもあるように、リマップという機能です。
+image_view2の中のコードでimageからとってこいという命令を/camera/rgb/image_rectからとってこいに変えてしまう機能という程度の理解で大丈夫だと思います。この部分を他の/camera/rgb/image_rect_colorなどに変え、メッセージの型があえば、表示されると思います。
+==launchファイルから立ち上げる==
+launchファイルの使い方も含めて、立ち上げかたを書いてみようと思います。
