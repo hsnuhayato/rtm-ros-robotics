@@ -438,7 +438,7 @@ $(find openni_launch)/launch/openni.launch
     <arg name="respawn" value="true"/>
     <arg name="publish_tf" value="true"/>
 }}}
-includeタグの中のargは、openni.launchの中の変数をvalueに設定しなおしてます。
+includeタグの中のargは、openni.launchの中の変数をvalue=以下の値(ここではtrue)に設定しなおしてます。
 おそらく何をしているかわからないと思うので、以下がopenni.launchの中の一部を持ってきました。
 {{{
 <launch>
