@@ -442,19 +442,12 @@ includeタグの中のargは、openni.launchの中の変数をvalue=以下の値
 おそらく何をしているかわからないと思うので、以下がopenni.launchの中の一部を持ってきました。
 {{{
 <launch>
-
-  <!-- "camera" should uniquely identify the device. All topics are pushed down
-       into the "camera" namespace, and it is prepended to tf frame ids. -->
-  <arg name="camera" default="camera" />
 ...
   <arg name="publish_tf" default="true" />
 
   <!-- Disable bond topics by default -->
   <arg name="bond" default="false" /> <!-- DEPRECATED, use respawn arg instead -->
   <arg name="respawn" default="$(arg bond)" />
-
-  <!-- Start nodelet manager in top-level namespace -->
-  <arg name="manager" value="$(arg camera)_nodelet_manager" />
 ...
 ...
   <!-- Load reasonable defaults for the relative pose between cameras -->
