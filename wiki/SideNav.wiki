@@ -18,6 +18,7 @@
  * [ROS_Example ROSのサンプルプログラム]
   * [ROS_Example_Basic ROSの基本]
    * [ROS_Example_ROS_TUTORIALS ROSのページのチュートリアル]
+   * [ROS_Example_PackageDirectory ROSのパッケージの構造]
    * [ROS_Example_Commands ROSの主なコマンド]
   * [ROS_Example_Navigation ナビゲーション]
   * [ROS_Example_ImageProcessing 画像処理]
