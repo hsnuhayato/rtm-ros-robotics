@@ -3,8 +3,8 @@
 <wiki:toc max_depth="2" />
 
 = pointcloudのsubscribe =
-プログラムは以下
-roseus_tutorials/src/subscribe-pointcloud.l
+  * プログラムは以下
+  * roseus_tutorials/src/subscribe-pointcloud.l
 
 {{{
 ;; kinectを先に立ち上げておく
@@ -15,3 +15,15 @@ roseus subscribe-pointcloud.l
 
 
 = jsk_pcl_ros(pcl_ros)を使う =
+  * launchファイルは以下
+  * roseus_tutorials/launch/kinect_color_filter.launch
+
+{{{
+roslaunch roseus_tutorials kinect_color_filter.launch
+
+/camera/depth_registered/poinsを読んで、
+subscribe-pointcloud.lも立ち上がって赤色の点群の重心が
+/red_centroidのtfとして出る
+
+rosrun dynamic_reconfigure reconfigure_guiでパラメータを変更することができる
+}}}
