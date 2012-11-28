@@ -20,10 +20,32 @@ rosls パッケージ名
 上のrosのコマンドなどと同じように、
 用意されているrosのそのほかのコマンドもさまざまなディレクトリに入っているパッケージ名を引数にすることがほとんどです。
 
-これらのパッケージが、さまざまなディレクトリにあるにもかかわらず、rosのコマンドがパッケージのパスを知っているのは、もちろんパスを環境変数として通してあるからです。
+これらのパッケージが、さまざまなディレクトリにあるにもかかわらず、rosのコマンドがそれぞれのパッケージのあるディレクトリを知っているのは、もちろんパスを環境変数として通してあるからです。
 {{{
 env | grep ROS
 }}}
 と打ってみてください。ご存知とは思いますが、envは環境変数を表示し、その中でROSの文字列を含むものをgrepで絞り込んで表示させています。
+
+その中に、
 {{{
+ROS_PACKAGE_PATH
 }}}
+があると思います。これに、それらのパッケージがあるとされるディレクトリのパスを書いていきます。
+{{{
+user@ubuntu:~/ros/fuerte/jsk-ros-pkg$ ls
+・・・
+elevator_move_base_pr2   jsk.rosbuild         pr2eus_tutorials
+euscollada               jsk.rosbuild~        pr2pose
+euslisp                  jsk.rosinstall       roseus
+jsk_common               jsk_semantic_maps    roseus_tutorials//←パッケージ名
+・・・
+}}}
+たとえば、おそらくよく使うパッケージのひとつとして、roseus_tutorialsがあるとおもいますが、これをroscdなどでパッケージとして認識してもらって使えるようにするには、これの親のディレクトリであるjsk-ros-pkgをROS_PACKAGE_PATHに登録しなくてはなりません。このroseus_tutorialsはすでに登録されているので、
+{{{
+roscd roseus_tu
+}}}
+ぐらいまで打って、TABキーを押せば自動に補完されて、実行をすると
+{{{
+~/ros/fuerte/jsk-ros-pkg/roseus_tutorials
+}}}
+などのように用意に目的のディレクトリに移動することができます。
