@@ -3,5 +3,15 @@
 <wiki:toc max_depth="2" />
 
 = pointcloudのsubscribe =
+プログラムは以下
+roseus_tutorials/src/subscribe-pointcloud.l
+
+{{{
+;; kinectを先に立ち上げておく
+roscd roseus_tutorials/src
+roseus subscribe-pointcloud.l
+/camera/depth_registered/pointsを読んで、重心のtfが/points_centroidに出る
+}}}
+
 
 = jsk_pcl_ros(pcl_ros)を使う =
