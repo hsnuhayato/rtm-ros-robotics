@@ -1,3 +1,10 @@
 #summary ROSの基本
 
 ==[ROS_Example_ROS_TUTORIALS ROSのページにあるチュートリアル]==
+英語のROSページへの移動をします。
+
+==[ROS_Example_PackageDirectory ROSのパッケージの構造]==
+はじめての人のためのパッケージの構造です。
+
+==[ROS_Example_Commands ROSの主なコマンド]==
+習いたての人のためのros専用のコマンドです。
