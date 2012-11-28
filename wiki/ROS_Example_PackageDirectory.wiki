@@ -13,10 +13,10 @@ rosでは大まかな機能ごとにパッケージというファイルのま�
 {{{
 roscreate-pkg
 }}}
-というコマンドも用意されています。
+というコマンドも用意されています。([http://www.ros.org/wiki/ROS/Tutorials/CreatingPackage ROSのPackage]を参照)
 
 
-これを用いて、実行をすると、主に以下のようなファイルを目にすると思います。
+これを用いて、実行をすると、指定した依存関係などにもよりますが、そのパッケージのディレクトリの中身では主に以下のようなファイルを目にすると思います。
 {{{
 bin    CMakeLists.txt  launch        Makefile      msg      src  srv_gen
 build  include         mainpage.dox  manifest.xml  msg_gen  srv  scripts
