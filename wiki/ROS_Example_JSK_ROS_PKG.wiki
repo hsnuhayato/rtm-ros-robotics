@@ -11,4 +11,4 @@
 = 構造 =
 jsk-ros-pkgは、パッケージという名前がpkgとしてついていますが、このディレクトリの中にさまざまなパッケージが入っており、実際にパッケージを指して使うときは、jsk-ros-pkgではなく、中身のroseus_tutorialsや、pr2eus_tutorialsを用います。
 
-jsk-ros-pkgは最近のrosの方針としてはpackagesの上位のディレクトリとしてのstacksの立場にあたるはずですが、jsk-ros-pkgが初期のころからあるため、stacksとして必要なことを施されていません。ですので、tutorialsを読んで[http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem ROSのファイルシステム]に書いてある構造と違うと思うかもしれませんが、これはもともとです。
+jsk-ros-pkgは最近のrosの方針としてはpackagesの上位のディレクトリとしてのstacksの立場にあたるはずですが、jsk-ros-pkgがrosの初期のころからあるため、stacksとして必要なことを施されていません。ですので、tutorialsを読んで[http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem ROSのファイルシステム]に書いてある構造と違うと思うかもしれませんが、これはもともとです。
