@@ -9,6 +9,48 @@ ROSの主なコマンドの紹介です。
 おそらく、ここで紹介するのは、とりあえずどんなコマンドがあるかを知るため
 程度と思ってください。
 
+= なぜ特別にros用のコマンドがあるのか =
+パッケージごとに扱うことが多いrosでは、どこのディレクトリにいてもパッケージにアクセスすることを容易にするためにあります。パッケージ名を知っていればそのパッケージの場所に移動したり、移動せずにその中のパッケージの中をみたり編集したりすることができます。
+
+= コマンドのテーブルでの概略機能紹介 =
+なるべくよく使うであろう順番に並べてあります。まだROSの習いはじめで、
+どんなコマンドがあるのかもわからないときに参照してください。
+||roscd || ディレクトリを移動する||
+||rosls || ディレクトリの中を表示する||
+||rosmake|| makeを依存関係を含めmakeを行ってくれる||
+||rosws|| ||
+||roscore|| rosのOSのような機能を起動する||
+||rosrun|| プログラムを実行する||
+||roslaunch|| launchファイルを実行する(複数のrosrunを一気に行うようなもの)||
+||rostopic|| topicに関する情報を得る||
+||rospack|| packageに関する情報を得る||
+||roscreate-pkg||　新たにパッケージを作る||
+||rosmsg|| メッセージに関する情報を得る||
+||roslocate|| ||
+||roscp|| コピーをする||
+||rosnode|| ノードに関する情報を得る||
+||rosed|| viライクのエディタをコマンドに開く||
+
+= 大まかなコマンド紹介 =
+あくまでここでも概略しか紹介していません。
+それぞれの詳しい情報は本来のROSのページを参照しにいってください。
+==roscd==
+==rosls==
+==rosmake==
+==rosws==
+==roscore==
+==rosrun==
+==roslaunch==
+==rostopic==
+==rospack==
+==roscreate-pkg==
+==rosmsg==
+==roslocate==
+==roscp==
+==rosnode==
+==rosed==
+
+
 
 = ROS_PACKAGE_PATHについて =
 {{{
@@ -40,7 +82,7 @@ euslisp                  jsk.rosinstall       roseus
 jsk_common               jsk_semantic_maps    roseus_tutorials//←パッケージ名
 ・・・
 }}}
-たとえば、おそらくよく使うパッケージのひとつとして、roseus_tutorialsがあるとおもいますが、これをroscdなどでパッケージとして認識してもらって使えるようにするには、これの親のディレクトリであるjsk-ros-pkgをROS_PACKAGE_PATHに登録しなくてはなりません。このroseus_tutorialsはすでに登録されているので、
+たとえば、おそらくよく使うパッケージのひとつとして、roseus_tutorialsがあるとおもいますが、これをroscdなどでパッケージとして認識してもらって使えるようにするには、これの親のディレクトリであるjsk-ros-pkgをROS_PACKAGE_PATHに登録しなくてはなりません。おそらく、さきほどのROS_PACKAGE_PATHにjsk-ros-pkgの文字も見られると思います。このroseus_tutorialsはすでに登録されているので、
 {{{
 roscd roseus_tu
 }}}
