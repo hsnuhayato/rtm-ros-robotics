@@ -125,7 +125,24 @@ roscore
 -----
 ==rosrun==
 [http://www.ros.org/wiki/rosrun ROSのrosrun]を詳しくは参照してください。
+
+一つの実行ファイルやスクリプトを実行し、nodeを立ち上げるためのコマンドです。
+
+c++とpython、lispも同じように実行することができます。
+
+[ROS_Install#実行に際して（困ったときに）実行に際して]で実行の仕方について書いてありますので、よかったら参考にしてみてください。
+
+
 ===主に使う形===
+{{{
+    rosrun パッケージ名 ファイル名
+ex) rosrun roseus_tutorials camshiftdemo.l
+    rosrun roscpp_tutorials listener
+    rosrun rospy_tutorials listener.py
+}}}
+
+
+
 ===参考===
 -----
 -----
