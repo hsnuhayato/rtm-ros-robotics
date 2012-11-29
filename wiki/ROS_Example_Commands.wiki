@@ -179,6 +179,34 @@ The name of the display window.
 -----
 ==roslaunch==
 [http://ros.org/wiki/roslaunch ROSのroslaunch]を詳しくは参照してください。
+
+.launchファイルというXML形式でかかれたさまざまな複数のnodeをパラメータを決めたりリマップをしつつ起動することについて書かれているファイルを実行する。
+
+rosrunとの違いは上にも書いたように、何度もrosrunを行わずに起動すべきnodeを.launchファイルに書いておけばすべてを一度のコマンドで実行してくれるという点である。また、設定の変更、リマップも容易に行うことができる点もある。
+
+ここでnodeの書かれている順番は、起動される順番とは関係ないので、各プログラムは起動順番にロバストである必要がある。
+以下がkinect.launchファイルの中身の一例である。
+{{{
+<launch>
+  <include file="$(find openni_launch)/launch/openni.launch">
+    <!--arg name="camera" value="openni"/-->
+    <arg name="respawn" value="true"/>
+    <arg name="publish_tf" value="true"/>
+  </include>
+
+  <node name="openni_tracker" pkg="openni_tracker" type="openni_tracker" output="screen" respawn="true" >
+    <param name="camera_frame_id" value="camera_depth_frame"/>
+  </node>
+  <node name="openni_dispairty_view" pkg="image_view" type="disparity_view">
+    <remap from="image" to="/camera/depth/disparity" />
+  </node>
+  <node name="map_openni_camera" pkg="tf" type="static_transform_publisher"
+        args="0 0 1.5 0 0 0 /map /camera_link 100" />
+</launch>
+
+}}}
+
+.launchファイルの文法について知りたい場合は、[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_ROS_TUTORIALS ROSのroslaunch文法]を見にいっていただければと思います。そのTagReferenceを読めば大事なことがわかると思います。
 ===主に使う形===
 ===参考===
 -----
