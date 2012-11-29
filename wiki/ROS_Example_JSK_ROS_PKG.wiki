@@ -55,11 +55,6 @@ elevator_move_base_pr2  jsk_android_apps_api9  jsk_pcl_ros              jsk_ros_
   * kinectを用い、手の動きを検出するサンプル。
 ---------
 ---------
-==pr2eus_tutorials==
-===代表的なソース===
----------
----------
-====launchファイル====
 ==pr2eus==
 ===代表的なソース===
 ====launchファイル====
