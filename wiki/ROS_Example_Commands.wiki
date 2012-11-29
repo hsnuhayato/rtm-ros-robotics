@@ -154,7 +154,7 @@ rosrun image_view image_view image:=/camera/image
 ===参考===
 rosrunでは立ち上げるプログラムそれぞれ特有のパラメータの値を設定することができます。
 
-たとえば、image_viewという画像データを受け取って画面を作り表示するプログラムを実行するときには以下のようになります。
+たとえば、image_viewという画像データを受け取って画面を作り表示するプログラムを実行するときには以下のようにできます（指定しないとデフォルト値が入ります）。
 {{{
 rosrun image_view image_view _window_name:="image_view2"
 }}}
