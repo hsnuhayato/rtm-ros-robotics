@@ -184,7 +184,7 @@ The name of the display window.
 
 rosrunとの違いは上にも書いたように、何度もrosrunを行わずに起動すべきnodeを.launchファイルに書いておけばすべてを一度のコマンドで実行してくれるという点である。また、設定の変更、リマップも容易に行うことができる点もある。
 
-ここでnodeの書かれている順番は、起動される順番とは関係ないので、各プログラムは起動順番にロバストである必要がある。
+ここでnodeの書かれている順番は、nodeが起動される順番とは関係ないので、各プログラムは起動順番にロバストである必要がある。
 以下がkinect.launchファイルの中身の一例である。
 {{{
 <launch>
@@ -210,12 +210,100 @@ rosrunとの違いは上にも書いたように、何度もrosrunを行わず�
 
 .launchファイルの文法について知りたい場合は、[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_ROS_TUTORIALS ROSのroslaunch文法]を見にいっていただければと思います。そのTagReferenceを読めば大事なことがわかると思います。
 ===主に使う形===
+{{{
+roslaunch roseus_tutorials kinect.launch
+}}}
+でおしまいです。これで一気に３つほどのnodeを立ち上げプログラムを実行してくれます。
 ===参考===
+コマンドを打っているときにTABによる補完ももちろんしてくれます。
 -----
 -----
 ==rostopic==
 [http://www.ros.org/wiki/rostopic ROSのrostopic]を詳しくは参照してください。
+
+topicの情報をさまざまに表示するものです。topicについてはmsg（メッセージ）を勉強したらわかると思います。
+
 ===主に使う形===
+{{{
+rostopic    //このままではなにもされません。
+}}}
+上記のコマンドではなにもされませんが、とりあえず打ってみてください。そうすると以下のようにUsageを表示してくれると思います。
+{{{
+rostopic is a command-line tool for printing information about ROS Topics.
+
+Commands:
+	rostopic bw	display bandwidth used by topic
+	rostopic echo	print messages to screen
+	rostopic find	find topics by type
+	rostopic hz	display publishing rate of topic    
+	rostopic info	print information about active topic
+	rostopic list	list active topics
+	rostopic pub	publish data to topic
+	rostopic type	print topic type
+
+Type rostopic <command> -h for more detailed usage, e.g. 'rostopic echo -h'
+
+}}}
+というように表示されると思います。rostopicは主にこれらの引数のどれかを指定して、何か情報を引き出すことになります。
+もう勉強しているとは思いますが、よく使うものだけを見ていきたいと思います。
+
+
+ここでは、roscpp_tutorialsのtalkerとlistenerを用いて、例を示してみたいと思います。
+{{{
+roscore
+}}}
+および、
+{{{
+rosrun roscpp_tutorials talker
+}}}
+と
+{{{
+rosrun roscpp_tutorials listener
+}}}
+
+をそれぞれ違うターミナルで実行してください。
+おそらく、talkerを実行したターミナルに以下のような表示が流れているかと思います。
+{{{
+[ INFO] [1353898053.206074705]: hello world 1425 //あくまで例です。
+}}}
+
+まず、この状態では、何のtopicがあるかわかりません。
+そこで、以下を実行して、すべてのtopicを表示します。
+{{{
+rostopic list
+}}}
+そうすると以下のようなリストが見れると思います。
+{{{
+/chatter      //talkerが作っているtopic
+/rosout       //roscoreが作っているtopic
+/rosout_agg   //・・・
+}}}
+これらのうち/chatterが今注目したい目的のtopicです。ここでrxgraphを行ったら、視覚的にどのようにnodeがつながっているかわかります。rxgpaphでnode同士をつないでいる線に書いてある名前がtopicです。
+
+今は、rxgraphで関係が確認ができますが、多くのプログラムでは、nodeが大量にたち、それぞれを結ぶ線が混雑しやすいため、rxgraphは役に立ちません。
+
+そこで、次に誰がそのtopicを出していて、誰が受け取っているかを見てみます。
+{{{
+   rostopic info topic名
+ex)rostopic info /chatter
+}}}
+を打ち込むと以下のように表示されると思います。
+{{{
+Type: std_msgs/String
+
+Publishers: 
+ * /talker (http://ubuntu:50585/)
+
+Subscribers: 
+ * /listener (http://ubuntu:34085/)
+}}}
+ここでの情報を整理すると
+ * メッセージのタイプはstd_msgs/Strinig
+ * topicにパブリッシュしているのはtakler
+ * topicからサブスクライブしているのはlistener
+のことがわかります。
+
+
 ===参考===
 -----
 -----
