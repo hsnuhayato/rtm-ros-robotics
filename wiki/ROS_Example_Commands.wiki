@@ -60,8 +60,25 @@ ROS_WORKSPACE=/home/mechuser/ros/fuerte
 -----
 ==rosls==
 [http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem ROSのrosls]を詳しくは参照してください。
+
+ディレクトリの中のものを表示するコマンドです。通常のlsと同じような機能です。
+
+引数はパッケージ名をしてすればよく、もしその下の階層のディレクトリを表示したい場合は、さらに、そのフォルダの名前を指定してください。
+
+ディレクトリを移動しないでも中を見れるのが強みです。
 ===主に使う形===
+{{{
+    rosls パッケージ名
+ex) rosls roseus_tutorials/build
+}}}
+のように使います。パッケージはROS_PACKAGE_PATHにパスが通ってなくてはなりません。
+
 ===参考===
+{{{
+rosls -latr
+rosls
+}}}
+通常通りのオプションをつけることもできますし、何も引数を与えない場合はlsと同じくカレントディレクトリの内容を表示します。
 -----
 ==rosmake==
 [http://www.ros.org/wiki/rosmake ROSのrosmake]を詳しくは参照してください。
