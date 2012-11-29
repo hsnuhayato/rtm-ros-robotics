@@ -18,7 +18,7 @@ ROSの主なコマンドの紹介です。
 ||[#roscd roscd] || ディレクトリを移動する||
 ||[#rosls rosls] || ディレクトリの中を表示する||
 ||[#rosmake rosmake]|| makeを依存関係を含めmakeを行ってくれる||
-||[#rosws rosws]|| ||
+||[#rosws rosws]|| パッケージのアップデートなどを行う||
 ||[#roscore roscore]|| rosのOSのような機能を起動する||
 ||[#rosrun rosrun]|| プログラムを実行する||
 ||[#roslaunch roslaunch]|| launchファイルを実行する(複数のrosrunを一気に行うようなもの)||
@@ -26,7 +26,7 @@ ROSの主なコマンドの紹介です。
 ||[#rospack rospack]|| packageに関する情報を得る||
 ||[#roscreate-pkg roscreate-pkg]||　新たにパッケージを作る||
 ||[#rosmsg rosmsg]|| メッセージに関する情報を得る||
-||[#roslocate roslocate]|| ||
+||[#roslocate roslocate]|| パッケージのインストールに関する情報等を得る||
 ||[#roscp roscp]|| コピーをする||
 ||[#rosnode rosnode]|| ノードに関する情報を得る||
 ||[#rosed rosed]|| viライクのエディタをコマンドに開く||
