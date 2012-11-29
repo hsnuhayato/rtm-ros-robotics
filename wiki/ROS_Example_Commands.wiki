@@ -83,7 +83,7 @@ ROSの主なコマンドの紹介です。
 ===主に使う形===
 ===参考===
 ==roscp==
-[http://www.ros.org/wiki/roscp ROSのroscp]を詳しくは参照してください。
+[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv ROSのroscp]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
 ==rosnode==
@@ -91,7 +91,7 @@ ROSの主なコマンドの紹介です。
 ===主に使う形===
 ===参考===
 ==rosed==
-[rosed ROSのrosed]を詳しくは参照してください。
+[http://www.ros.org/wiki/rosed ROSのrosed]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
 
