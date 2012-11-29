@@ -11,3 +11,6 @@ ROSで出てくる概念の簡単な説明です。
 
 ==[ROS_Example_Commands ROSの主なコマンド]==
 習いたての人のためのros専用のコマンドです。
+
+==[ROS_Example_Launch_Syntax launchファイルの文法]==
+簡単にlaunchファイルの文法をまとめてあります。
