@@ -189,16 +189,18 @@ rosrunとの違いは上にも書いたように、何度もrosrunを行わず�
 {{{
 <launch>
   <include file="$(find openni_launch)/launch/openni.launch">
-    <!--arg name="camera" value="openni"/-->
+    <!--arg name="camera" value="openni"/-->//この部分はコメントアウトされてます。
     <arg name="respawn" value="true"/>
     <arg name="publish_tf" value="true"/>
   </include>
 
+  //openni_trackerのパッケージからnodeを立ち上げます。
   <node name="openni_tracker" pkg="openni_tracker" type="openni_tracker" output="screen" respawn="true" >
-    <param name="camera_frame_id" value="camera_depth_frame"/>
+    <param name="camera_frame_id" value="camera_depth_frame"/>//これがパラメータを決めている部分
   </node>
+  //image_viewのパッケージからnodeを立ち上げます。
   <node name="openni_dispairty_view" pkg="image_view" type="disparity_view">
-    <remap from="image" to="/camera/depth/disparity" />
+    <remap from="image" to="/camera/depth/disparity" />//これがリマップを行っている部分
   </node>
   <node name="map_openni_camera" pkg="tf" type="static_transform_publisher"
         args="0 0 1.5 0 0 0 /map /camera_link 100" />
