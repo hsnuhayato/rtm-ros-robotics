@@ -35,6 +35,7 @@ ROSの主なコマンドの紹介です。
 あくまでここでも概略しか紹介していません。
 それぞれの詳しい情報は本来のROSのページを参照しにいってください。
 -----
+-----
 ==roscd==
 [http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem ROSのroscd]を詳しくは参照してください。
 
@@ -58,6 +59,7 @@ $env | grep ROS
 ROS_WORKSPACE=/home/mechuser/ros/fuerte
 }}}
 -----
+-----
 ==rosls==
 [http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem ROSのrosls]を詳しくは参照してください。
 
@@ -80,72 +82,85 @@ rosls
 }}}
 通常通りのオプションをつけることもできますし、何も引数を与えない場合はlsと同じくカレントディレクトリの内容を表示します。
 -----
+-----
 ==rosmake==
 [http://www.ros.org/wiki/rosmake ROSのrosmake]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
+-----
 -----
 ==rosws==
 [http://www.ros.org/wiki/rosws ROSのrosws]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
 -----
+-----
 ==roscore==
 [http://www.ros.org/wiki/roscore ROSのroscore]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
+-----
 -----
 ==rosrun==
 [http://www.ros.org/wiki/rosrun ROSのrosrun]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
 -----
+-----
 ==roslaunch==
 [http://ros.org/wiki/roslaunch ROSのroslaunch]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
+-----
 -----
 ==rostopic==
 [http://www.ros.org/wiki/rostopic ROSのrostopic]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
 -----
+-----
 ==rospack==
 [http://www.ros.org/wiki/rospack ROSのrospack]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
+-----
 -----
 ==roscreate-pkg==
 [http://www.ros.org/wiki/roscreate ROSのroscreate-pkg]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
 -----
+-----
 ==rosmsg==
 [http://www.ros.org/wiki/rosmsg ROSのrosmsg]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
+-----
 -----
 ==roslocate==
 [http://www.ros.org/wiki/roslocate ROSのroslocate]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
 -----
+-----
 ==roscp==
 [http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv ROSのroscp]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
+-----
 -----
 ==rosnode==
 [http://www.ros.org/wiki/rosnode ROSのrosnode]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
 -----
+-----
 ==rosed==
 [http://www.ros.org/wiki/ROS/Tutorials/UsingRosEd ROSのrosed]を詳しくは参照してください。
 ===主に使う形===
 ===参考===
 
-b
+
 
 = ROS_PACKAGE_PATHについて =
 {{{
