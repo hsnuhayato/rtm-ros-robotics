@@ -27,8 +27,41 @@ elevator_move_base_pr2  jsk_android_apps_api9  jsk_pcl_ros              jsk_ros_
 
 一部ですが、それぞれのパッケージの中になにがあるかを簡単によく使うであろう順番に紹介したいと思います。簡単に概要を書きますが、一概にもそのパッケージの中身を表せているとは限りません。
 ==roseus_tutorials==
+画像認識や、kinectやkinectの情報から３次元状に戻すpclを用いたサンプルが多い。ほぼすべてeuslispで書かれている。
+
+簡単なサンプルは以下。
+ * kinect.launch
+ * usb-camera.launch
+ * kinect-model-viewer.l
+===代表的なソース===
+====launchファイル====
+ * kinect.launch
+  * kienctを使い深度マップをimage_viewに表示するサンプル。
+ * kinect_color_filter.launch
+  * kinectとpclを用いて、3D形状にマッピングした画像のうち指定の色の部分のみ表示するサンプル。
+ * camshiftdemo.launch
+  * kinectとopenCVを用いてマウスでしたいした短形をヒストグラムを利用して追い続けるサンプル。
+ * tabletop-object-detector.launch
+  * kinectとpclを用いてテーブルの上のものを認識してその座標を取ることができるサンプル。
+ * usb-camera.launch
+  * usbカメラを用いて取ってきた画像をimage_viewに表示するサンプル。（リマップすればkinectも可）
+====.lファイル====
+ * kinect-model-viewer.l
+  * kinectを用い、openni-trackerで得られた対象の体位の情報から棒人間を3Dで表示するサンプル。
+ * openni-swipe.l
+  * kinectを用い、手の動きを検出するサンプル。
 ==pr2eus_tutorials==
+===代表的なソース===
+====launchファイル====
 ==pr2eus==
+===代表的なソース===
+====launchファイル====
 ==jsk_openni_kinect==
+===代表的なソース===
+====launchファイル====
 ==jsk_perception==
+===代表的なソース===
+====launchファイル====
 ==roseus==
+===代表的なソース===
+====launchファイル====
