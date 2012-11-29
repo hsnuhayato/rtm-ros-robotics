@@ -56,8 +56,17 @@ elevator_move_base_pr2  jsk_android_apps_api9  jsk_pcl_ros              jsk_ros_
 ---------
 ---------
 ==pr2eus==
+
+pr2の簡単な動作のシュミレーションするサンプルが入っている。
+見るべきファイルは、以下のみ
+
+ * pr2-send-joints.l
+です。
+pr2-send-joints.launchは.launchになっているだけなので結局pr2-send-joints.lを見ていただければいいです。
 ===代表的なソース===
-====launchファイル====
+====.lファイル====
+ * pr2-send-joints.l
+  * pr2のシュミレーションを行うもので、ここに書かれているコードで実機のロボットも同様に動かすことができる。
 ---------
 ---------
 ==jsk_openni_kinect==
