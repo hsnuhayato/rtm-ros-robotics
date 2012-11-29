@@ -140,10 +140,33 @@ ex) rosrun roseus_tutorials camshiftdemo.l
     rosrun roscpp_tutorials listener
     rosrun rospy_tutorials listener.py
 }}}
-
+のように使います。パッケージはROS_PACKAGE_PATHにパスが通ってなくてはなりません。
 
 
 ===参考===
+rosrunでは立ち上げるプログラムそれぞれ特有のパラメータをつけることができます。
+
+たとえば、image_viewという画像データを受け取って画面を作り表示するプログラムを実行するときには以下のようになります。
+{{{
+rosrun image_view image_view _window_name:="image_view2"
+}}}
+ここでは、image_viewのもともと設定できるとわかっている_window_nameに"image_view2"を設定しています。
+
+自分でプログラムを書く際はもちろん、どんなパラメータを設定してもらうかをコードの中に書くことで決めることができます。このimage_viewもどのようなパラメータがあるかはあらかじめ決められてます。以下は[http://www.ros.org/wiki/image_view ROSのimage_view]のページからとってきたものです。
+{{{
+Parameters
+
+~autosize (bool, default: false)
+Whether the window should autosize itself to the image or be resizeable by the user.
+~filename_format (string, default: "frame%04i.jpg")
+printf-style format for saved image names. Use to control name, location and format of saved images.
+~image_transport (string, default: "raw")
+Transport used for the image stream. image_view allows you to specify this as a simple command-line argument for convenience.
+~window_name (string, default: name of the image topic)
+The name of the display window.
+}}}
+ほかのROSの用意されているnodeを用いる場合も同じようにROSのページを探してみてください。
+
 -----
 -----
 ==roslaunch==
