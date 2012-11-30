@@ -3,7 +3,7 @@
 <wiki:toc max_depth="2" />
 
 = 概要 =
-launchファイルの文法は、英語のページですが、[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_ROS_TUTORIALS roslaunch文法]から見にいけてわかりやすいと思いますが、念のため日本語でも文法について書いてみたいと思います。.launchファイルは、rosで出てくるかなり大事なものだと思うので。
+launchファイルの文法は、英語のページではあるものの、[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_ROS_TUTORIALS roslaunch文法]から見にいけてわかりやすいと思いますが、念のため日本語でも文法について書いてみたいと思います。.launchファイルは、rosで出てくるかなり大事なものだと思うので。
 
 = launchファイルの役割 =
 さまざまなプログラムを組み合わせて複数のnodeを立ち上げたい場合に、一つのlaunchファイルに書いて
