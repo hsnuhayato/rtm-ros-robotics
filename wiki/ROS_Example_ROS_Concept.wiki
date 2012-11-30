@@ -10,7 +10,7 @@
 
 = nodeについて=
  rosではさまざまなプログラムが立ち上がり、お互いに違う言語同士でも情報を渡しあえるような工夫がされています。
-
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/talkerListenerChart.png]
 
 = msgについて=
 = srvについて=
