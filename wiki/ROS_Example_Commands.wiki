@@ -20,6 +20,7 @@ ROSの主なコマンドの紹介です。
 ||[#rosmake rosmake]|| makeを依存関係を含めmakeを行ってくれる||
 ||[#rosws rosws]|| パッケージのアップデートなどを行う||
 ||[#roscore roscore]|| rosのOSのような機能を起動する||
+||[#rxgraph rxgraph]|| 起動されているnodeやtopicの関係を図式化する||
 ||[#rosrun rosrun]|| プログラムを実行する||
 ||[#roslaunch roslaunch]|| launchファイルを実行する(複数のrosrunを一気に行うようなもの)||
 ||[#rostopic rostopic]|| topicに関する情報を得る||
@@ -119,7 +120,21 @@ rosの起動のような機能にあたるようなもので、ほかのどのno
 {{{
 roscore
 }}}
+-----
+-----
+==rxgraph==
+[http://www.ros.org/wiki/rxgraph ROSのrxgraph]を詳しくは参照してください。
 
+これは、nodeやtopicなどの関係を図式化するコマンドです。初めのうちは重宝すると思うので、使ってみてください。
+
+
+===主に使う形===
+表示したいプログラムを動かしている状態で、新しいターミナルで以下を実行します。
+{{{
+rxgraph
+}}}
+===参考===
+基本を終えて、例えばkinectなどを用い始めるとnodeが数１０個などと平気で立ち上がってしまい、topicの数もそれと同じくたくさんたってしまうので、図がぐちゃぐちゃになってしまい関係がわからず、実用性がなくなります。増えてきたら、rostopicなどを使ってみましょう。
 
 -----
 -----
