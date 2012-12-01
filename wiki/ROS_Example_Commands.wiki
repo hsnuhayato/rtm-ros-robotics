@@ -173,7 +173,14 @@ Transport used for the image stream. image_view allows you to specify this as a 
 ~window_name (string, default: name of the image topic)
 The name of the display window.
 }}}
+
 ほかのROSの用意されているnodeを用いる場合も同じようにROSのページを探してみてください。
+
+
+あと、もう一点、nodeを立ち上げるときの情報もいくらか編集することができ、例えば、同じプログラムを複数立ち上げたいときは、以下のようにしてデフォルトのnode名を変えます。
+{{{
+rosrun roscpp_tutorials listener __name:="listener23456"
+}}}
 
 -----
 -----
