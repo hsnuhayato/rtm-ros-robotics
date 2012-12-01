@@ -374,8 +374,17 @@ ex) rospack find roseus_tutorials
 -----
 ==roscreate-pkg==
 [http://www.ros.org/wiki/roscreate ROSのroscreate-pkg]を詳しくは参照してください。
+
+roscreate-pkgはパッケージの依存関係を記すのに必要なmanifest.xmlやmakeに必要なCMakeLists.txtや、そのほか必要なものをすべてパッケージの名前の指定のみで用意を行ってくれる便利なコマンド。
+
 ===主に使う形===
+{{{
+    roscreate-pkg 新規パッケージ名　依存パッケージ１　依存パッケージ２　・・・
+ex) roscreate-pkg my_package        std_msgs
+}}}
+以上のようにすると、std_msgsを依存するパッケージとして新しくmy_packageというパッケージを作成する。これはROS_PACKAGE_PATHの通っているディレクトリで行わないとうまくいかない。
 ===参考===
+roscreate-stackというものもあるが、これはスタックを使うものである。
 -----
 -----
 ==rosmsg==
