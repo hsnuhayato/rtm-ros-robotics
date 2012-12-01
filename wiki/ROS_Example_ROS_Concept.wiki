@@ -35,7 +35,7 @@ rosrun roscpp_tutorials listener  //listenerというプログラムを起動し
 
 最後のターミナルで
 {{{
-rxgraph
+rxgraph //立ち上げたプログラム同士の関係を図式化します。
 }}}
 と打って準備は終了です。以下ではそれらを見たまま読んでいってください。
 
