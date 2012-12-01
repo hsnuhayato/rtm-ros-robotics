@@ -39,4 +39,7 @@
 
  * http://www.ros.org/wiki/ROS/Tutorials/Recording%20and%20playing%20back%20data
 *roslaunch文法
+
  * http://www.ros.org/wiki/roslaunch/XML
+*一部日本語に翻訳されているページ郡
+ * http://www.ros.org/wiki/ja
