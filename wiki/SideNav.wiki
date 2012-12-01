@@ -22,6 +22,7 @@
    * [ROS_Example_PackageDirectory ROSのパッケージの構造]
    * [ROS_Example_Commands ROSの主なコマンド]
    * [ROS_Example_Launch_Syntax launchファイルの文法]
+  * [ROS_Example_Rviz  Rvizの使い方]
   * [ROS_Example_JSK_ROS_PKG JSK_ROS_PKGについて]
   * [ROS_Example_Navigation ナビゲーション]
   * [ROS_Example_ImageProcessing 画像処理]
