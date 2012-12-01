@@ -363,8 +363,13 @@ rostopicは、コマンドを打ってる最中にTABキーを押すと探して
 -----
 ==rospack==
 [http://www.ros.org/wiki/rospack ROSのrospack]を詳しくは参照してください。
+
+rospackの使い方は、ほとんどpackageのパスを表示するぐらしか使いません。
 ===主に使う形===
-===参考===
+{{{
+    rospack find パッケージ名
+ex) rospack find roseus_tutorials
+}}}
 -----
 -----
 ==roscreate-pkg==
