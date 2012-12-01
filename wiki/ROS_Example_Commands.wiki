@@ -389,8 +389,33 @@ roscreate-stackというものもあるが、これはスタックを使うも�
 -----
 ==rosmsg==
 [http://www.ros.org/wiki/rosmsg ROSのrosmsg]を詳しくは参照してください。
+
+topicの際にやり取りされるmsgについての情報を得るためのコマンド。
+
+とりあえず、rosmsgとだけ打つと、以下のようなUsageが表示される。
+{{{
+Commands:
+	rosmsg show	Show message description
+	rosmsg list	List all messages
+	rosmsg md5	Display message md5sum
+	rosmsg package	List messages in a package
+	rosmsg packages	List packages that contain messages
+
+Type rosmsg <command> -h for more detailed usage
+}}}
+以上のように、rosmsgのあとに上の第２引数を与えて使うことになります。主に使うのは、show用いてメッセージの形式の定義です。
+
 ===主に使う形===
+{{{
+    rosmsg show メッセージのtype
+ex) rosmsg show std_msgs/String
+}}}
+と行えば、どのようにメッセージの中身が決まっているかわかります。今回の場合は以下のようになっていて、dataに文字列が入ります。
+{{{
+string data
+}}}
 ===参考===
+[#rostopic rostopic] typeを用いてメッセージのtypeを求め、それをrosmsgのshowの引数に用いたりする。
 -----
 -----
 ==roslocate==
