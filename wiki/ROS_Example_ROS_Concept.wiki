@@ -14,19 +14,19 @@
 
 ここでは、ターミナルを全部で４つ開きます。まず一つ目で
 {{{
-roscore
+roscore  //rosのマスターの起動などrosを動かすのに必要なものをすべて起動します。
 }}}
 
 ２つ目で
 {{{
-rosrun roscpp_tutorials talker
+rosrun roscpp_tutorials talker  //talkerというプログラムを起動します。
 }}}
 
 この時点で今実行したターミナルにどんどん文字が流れているのが見えると思います。
 
 ３つ目で
 {{{
-rosrun roscpp_tutorials listener
+rosrun roscpp_tutorials listener  //listenerというプログラムを起動します。
 }}}
 
 と行うと、２つ目で流れているターミナルと同時に見ていただきたいのですが、おそらくほぼ同時のタイミングで同じ文字が出ているのが確認できると思います。
