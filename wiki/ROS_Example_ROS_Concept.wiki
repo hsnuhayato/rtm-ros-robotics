@@ -39,6 +39,8 @@ rxgraph //立ち上げたプログラム同士の関係を図式化します。
 }}}
 と打って準備は終了です。以下ではそれらを見たまま読んでいってください。
 
+===見に行くべきコマンド===
+ * [http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_Commands#roscore roscore]
 
 == node/topicについて==
  rosではさまざまなプログラムが立ち上がり、お互いに違う言語同士でも情報を渡しあえるような工夫がされています。この際に、簡単に言ってしまえば、それぞれのプログラムのことをnodeと呼んでいます。つまり、さまざまなところで、腕を動かすプログラム、画像を取ってくるプログラム、画像を加工するプログラムのようにばらばらに動いているそのプログラムそれぞれのことをひとつのnodeというように捉えます。
@@ -56,6 +58,11 @@ rxgraph //立ち上げたプログラム同士の関係を図式化します。
 
 これらはたとえ違う言語で書かれていても同じことをするプログラムであれば、まったく同様な表示のされ方をされます。c++からのHelloというのもpythonで受け取ることなどもできます。
 node名が違えば、同じプログラムでも複数起動することが可能です。
+
+====見に行くべきコマンド====
+ * [http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_Commands#rosrun rosrun]
+
+
 
 ===topic===
 そして次に注目をしていただきたいものが、node同士を結んでいる矢印です。この矢印は、node間で情報を渡していることを表しrosではこれはtopicと呼びます。矢印で書いてあるので通り抜けるイメージを持つかもしれませんが、どちらかというと、chatterというtopicにtalkerが渡して、chatterからlistenerに情報を渡すバケツリレーを想像するとわかりやすいかもしれません。それぞれの矢印には、名前が書いてありますが、ここには２種類あります。
@@ -85,6 +92,10 @@ rosrun roscpp_tutorials listener __name:="listener2"
 cameraImageMakerというnodeAが、/camera/image_rectというtopicにカメラから得た画像データを出せるときはいつもそこに流し込んでいるとします。ここで、ほかのnodeで、/camera/image_rectという名前のtopicからのカメラの画像からエッジ抽出をしたいnodeB1と、/openni/rgb/image_rectという名前のtopicからのカメラ画像から肌色検出したいというnodeB2が後からできたとします。
 
 すると、rosのmasterによって管理されているためnodeとtopic同士のそれぞれのつなぎ合わせが起こり、nodeB1の要求する/camera/image_rectというtopicは存在するので、常にnodeAからくるカメラ画像はnodeB1に流れ、一方、/openni/rgb/image_rectというtopicは存在しませんので、nodeB2への画像はこないままです。
+
+====見に行くべきコマンド====
+ * [http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_Commands#rostopic rostopic]
+
 
 == msgについて==
 msg（メッセージ）はtopicを用いてnode間で情報を届けるときに渡される情報のことです。それぞれのtopicを準備するときに、そのtopicの書き込むmsg(メッセージ)の形(type)を決めなくてはなりません。
@@ -117,6 +128,10 @@ string data
 topicの情報を受け取る側も、受け取る準備をするときに、何の形式（type）のメッセージを受け取るか指定する必要があります。もちろん今回の場合なら同様にstd_msgs/Stringになります。
 
 ここで、メッセージをtopicに送り出すことをpublish(パブリッシュ)、メッセージをtopicから受け取ることをsubscribe(サブスクライブ)と言うので押さえておいてください。
+
+====見に行くべきコマンド====
+ * [http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_Commands#rosmsg rosmsg]
+
 
 == srvについて==
 nodeの間では、もう一つお互いに情報を渡しあう、連絡をとりあう方法があります。それをService（サービス）というように呼びます。msgとsrvは簡単には以下のような違いがあります。
