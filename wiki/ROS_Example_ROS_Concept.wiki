@@ -65,8 +65,18 @@ rxgraph
 
 のような役割をしています。
 
+ここで、さきほどのnodeの/rosoutとtopicの/rosoutがかぶっていますが、問題ありません。nodeのrosoutが２つあったら一つは止められてしまいます。
+
 これらは、node同士がやりとりするためのmsg(メッセージ)を用いた手段のひとつです。例えていうならば、topicは掲示板のようなもので、この例ではtalkerが書き込み、これらに情報が書き込まれるたびに受け取り手のlistenerに情報が来たことが伝わり、listener側のプログラムで定義されるコールバック関数がよばれます。また、受け取り手が複数いてもよく、以下のような状況にすることも可能です。
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/talkerListenerChart2.png]
+
+受け取る側もどのnodeからデータを取りたいかをtopic名で決めなくてはならないため、もし、受取側が指定したtopic名が存在しなければ何の情報も流れてきません。
+
+
+実感がわかないかもしれないので念のためもう一例軽くあげておきますと、例えば
+cameraImageMakerというnodeAが、/camera/image_rectというtopicにカメラから得た画像データを出せるときはいつもそこに流し込んでいるとします。ここで、ほかのnodeで、/camera/image_rectという名前のtopicからカメラの画像からエッジ抽出をしたいnodeB1と、/openni/rgb/image_rectという名前のtopicからカメラ画像から肌色検出したいというnodeB2が後からできたとします。
+
+すると、rosのmasterによって、nodeB1のtopicは存在するので、常にnodeAからくるカメラ画像はnodeB1に流れ、一方、/openni/rgb/image_rectというtopicは存在しませんので、nodeB2への画像はこないままです。
 
 == msgについて==
 msg（メッセージ）はtopicを用いてnode間で情報を届けるときに渡される情報のことです。それぞれのtopicを準備するときに、そのtopicの書き込むmsg(メッセージ)の形(type)を決めなくてはなりません。
