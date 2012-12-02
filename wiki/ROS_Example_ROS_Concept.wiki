@@ -93,6 +93,8 @@ cameraImageMakerというnodeAが、/camera/image_rectというtopicにカメラ
 
 すると、rosのmasterによって管理されているためnodeとtopic同士のそれぞれのつなぎ合わせが起こり、nodeB1の要求する/camera/image_rectというtopicは存在するので、常にnodeAからくるカメラ画像はnodeB1に流れ、一方、/openni/rgb/image_rectというtopicは存在しませんので、nodeB2への画像はこないままです。
 
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/talkerListenerChart3.png]
+
 ====見に行くべきコマンド====
  * [http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_Commands#rostopic rostopic]
 
