@@ -438,8 +438,29 @@ string data
 -----
 ==rosed==
 [http://www.ros.org/wiki/ROS/Tutorials/UsingRosEd ROSのrosed]を詳しくは参照してください。
+
+移動せずに、指定したパッケージのファイルを編集することができる。そのパッケージ以下のどこかのディレクトリに入っていれば、launchフォルダや、srcフォルダ、パッケージ直下にあっても編集することができます。
+
+もちろんrosed使わずにいつもどおり、roscdして目的のディレクトリに移り、使いたいエディタを使うこともできます。
+
+デフォルトではviが開きます。
 ===主に使う形===
+{{{
+    rosed パッケージ名 対象ファイル名
+ex) rosed roseus_tutorials kinect.launch //これはroseus_tutorials/launch/以下にある。
+}}}
 ===参考===
+先ほども書いたようにデフォルトではviが開きますが、新たに環境変数EDITORを設定するとemacsも指定できます。
+{{{
+export EDITOR='emacs -nw'
+}}}
+をどこのディレクトリにいてもいいので実行していただくと、そのターミナルを開いている間は、rosedでemacsが開きます。
+
+常にemacsにしたい場合は、~/.bashrcの最後に先ほどの行を付け加えてください。次回からターミナルを開き、rosedを行うとemacsになります。
+
+--------
+--------
+--------
 
 
 
