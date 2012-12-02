@@ -89,9 +89,9 @@ rosrun roscpp_tutorials listener __name:="listener2"
 
 
 実感がわかないかもしれないので念のためもう一例軽くあげておきますと、例えば
-cameraImageMakerというnodeAが、/camera/image_rectというtopicにカメラから得た画像データを出せるときはいつもそこに流し込んでいるとします。ここで、ほかのnodeで、/camera/image_rectという名前のtopicからのカメラの画像からエッジ抽出をしたいnodeB1と、/openni/rgb/image_rectという名前のtopicからのカメラ画像から肌色検出したいというnodeB2が後からできたとします。
+cameraImageMakerというnodeが、/camera/image_rectというtopicにカメラから得た画像データを出せるときはいつもそこに流し込んでいるとします。ここで、ほかのnodeで、/camera/image_rectという名前のtopicからのカメラの画像からエッジ抽出をしたいnodeAと、/openni/rgb/image_rectという名前のtopicからのカメラ画像から肌色検出したいというnodeBが後からできたとします。
 
-すると、rosのmasterによって管理されているためnodeとtopic同士のそれぞれのつなぎ合わせが起こり、nodeB1の要求する/camera/image_rectというtopicは存在するので、常にnodeAからくるカメラ画像はnodeB1に流れ、一方、/openni/rgb/image_rectというtopicは存在しませんので、nodeB2への画像はこないままです。
+すると、rosのmasterによって管理されているためnodeとtopic同士のそれぞれのつなぎ合わせが起こり、nodeAの要求する/camera/image_rectというtopicは存在するので、常にnodeからくるカメラ画像はnodeAに流れ、一方、/openni/rgb/image_rectというtopicは存在しませんので、nodeBへの画像はこないままです。
 
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/talkerListenerChart3.png]
 
