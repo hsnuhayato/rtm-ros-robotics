@@ -438,7 +438,70 @@ ex) roscp roseus_tutorials kinect.launch ./launch
 -----
 ==rosnode==
 [http://www.ros.org/wiki/rosnode ROSのrosnode]を詳しくは参照してください。
+
+起動されているnodeの情報を表示したり、nodeに働きかけるコマンドです。
+
+とりあえず、以下を打ってみてください。Usageが示されます。
+{{{
+rosnode
+}}}
+と打つと、以下が表示されると思います。
+{{{
+rosnode is a command-line tool for printing information about ROS Nodes.
+
+Commands:
+	rosnode ping	test connectivity to node
+	rosnode list	list active nodes
+	rosnode info	print information about node
+	rosnode machine	list nodes running on a particular machine or list machines
+	rosnode kill	kill a running node
+
+Type rosnode <command> -h for more detailed usage, e.g. 'rosnode ping -h'
+}}}
+これらのどれかを引数として指定して使って行きます。
+
 ===主に使う形===
+お試しになる場合は、roscoreと何でもよい何かの他のnodeを立ち上げてください。ここでは、roscpp_tutorialsのtalkerとlistenerを実行する例を示します。
+{{{
+rosnode list
+}}}
+で、起動されているnodeが表示されます。例えば、以下の様に出ます。
+{{{
+/listener
+/rosout
+/talker
+}}}
+そしたら、次にinfoでtalkerの情報を表示してみます。
+{{{
+    rosnode info node名
+ex) rosnode info talker
+}}}
+そうすると以下の様に、パブリッシュしているものや、サブスクライブしているものに関する情報を表示します。
+{{{
+Node [/talker]
+Publications: 
+ * /chatter [std_msgs/String]
+ * /rosout [rosgraph_msgs/Log]
+
+Subscriptions: None
+
+Services: 
+ * /talker/set_logger_level
+ * /talker/get_loggers
+
+
+contacting node http://UoT-IST-Ub:40788/ ...
+Pid: 5811
+Connections:
+ * topic: /rosout
+    * to: /rosout
+    * direction: outbound
+    * transport: TCPROS
+ * topic: /chatter
+    * to: /listener
+    * direction: outbound
+    * transport: TCPROS
+}}}
 ===参考===
 -----
 -----
