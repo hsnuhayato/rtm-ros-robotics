@@ -425,9 +425,15 @@ string data
 -----
 -----
 ==roscp==
-[http://www.ros.org/wiki/ROS/Tutorials/CreatingMsgAndSrv ROSのroscp]を詳しくは参照してください。
+
+
+パッケージ名を指定してその中のファイルを指定のパスにコピーするコマンド。
 ===主に使う形===
-===参考===
+{{{
+    roscp パッケージ名　対象ファイル名　コピー先ディレクトリ
+ex) roscp roseus_tutorials kinect.launch ./launch
+}}}
+
 -----
 -----
 ==rosnode==
