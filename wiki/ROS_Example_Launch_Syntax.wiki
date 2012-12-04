@@ -84,7 +84,7 @@ nodeタグでは、ひとつのあるパッケージのrosrunを行っている�
 {{{
   <node name="image_proc" pkg="image_proc" type="image_proc" output="screen" />
 }}}
-に注目してください。これは、outputの部分を除けば、nodeを立ち上げる最小のコードの書き方になります。まず、
+に注目してください。これは、outputの部分を除けば、nodeを立ち上げる最小のコードの書き方になります。(outputはオプションです。)まず、
 {{{
 name="image_proc"
 }}}
@@ -127,11 +127,11 @@ euslispのとき
 #!/usr/bin/env roseus
 }}}
 ------
-次にoutputです。
+次によく出てくるオプションの一つoutputです。
 {{{
 output="screen"
 }}}
-ログをはく場所をしてします。スクリーンに設定すると標準出力が出力先になります。
+ログをはく場所をしてします。"screen"に設定すると標準出力が出力先になります。もう一つの"log"に指定すると、ROS_HOMEが指定されていなければ、.ros/log以下に出力され、設定されていればそのなかに出力される。
 ==includeタグ==
 本家のページは[http://www.ros.org/wiki/roslaunch/XML/include こちら]です。
 ==remapタグ==
