@@ -82,7 +82,7 @@ nodeタグでは、ひとつのあるパッケージのrosrunを行っている�
 {{{
   <node name="image_proc" pkg="image_proc" type="image_proc" output="screen" />
 }}}
-に注目してください。これは<nodeの後に、outputを除けば最低限必要な設定のみが残ります。まず、
+に注目してください。これは、outputの部分を除けば、nodeを立ち上げる最小のコードの書き方になります。まず、
 {{{
 name="image_proc"
 }}}
