@@ -125,10 +125,11 @@ euslispのとき
 #!/usr/bin/env roseus
 }}}
 ------
-次にtypeです。
+次にoutputです。
 {{{
-type="image_proc"
+output="screen"
 }}}
+ログをはく場所をしてします。スクリーンに設定すると標準出力が出力先になります。
 ==includeタグ==
 ==remapタグ==
 ==paramタグ==
