@@ -31,6 +31,18 @@ roslaunch パッケージ名　launchファイル名
 }}}
 上のようにしてある部分はコメントアウトされて、実行の際は無視されます。
 ==launchタグ==
+launchファイルであることを示すためだけのタグです。かならず、ファイルの全体をくくってます。
+{{{
+<launch>
+     <node name="image_view2" pkg="image_view2" type="image_view2" output="screen" >
+       <remap from="image" to="image_rect_color" />
+       <param name="autosize" value="true" />
+       <param name="blurry" value="false" />
+       <param name="window_name" value="image_view2" />
+    </node>
+</launch>
+}}}
+これは、roseus_tutorialsのファイルの中身ですが、開くと余計な部分は除くと主に上のようになっていると思います。全体を<launch>と</launch>がくくっています。
 ==nodeタグ==
 ==includeタグ==
 ==remapタグ==
