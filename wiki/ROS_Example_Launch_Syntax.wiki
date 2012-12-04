@@ -62,7 +62,7 @@ launchファイルであることを示すためだけのタグです。かな�
     </node>
 </launch>
 }}}
-これは、roseus_tutorialsのimage_view.launchファイルの中身ですが、余計な部分は除くと主に上のようになっています。全体を"<launch>"と"</launch>"がくくっています。
+これは、roseus_tutorialsのimage_view.launchファイルの中身ですが、余計な部分は除くと主に上のようになっています。全体を＜launch＞と＜/launch＞がくくっています。
 ==nodeタグ==
 nodeタグでは、ひとつのあるパッケージのrosrunを行っているのと同様なもので、このタグで指定したパッケージの指定したプログラムが起動します。以下はroseus_tutorialsのusb-camera.launchファイルです。
 {{{
