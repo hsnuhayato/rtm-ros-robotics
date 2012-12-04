@@ -46,5 +46,10 @@
 *roslaunch文法
 
  * http://www.ros.org/wiki/roslaunch/XML
+
 * 一部日本語に翻訳されているページ郡
+
  * http://www.ros.org/wiki/ja
+
+* ROS関係の環境変数
+ * http://www.ros.org/wiki/ROS/EnvironmentVariables
