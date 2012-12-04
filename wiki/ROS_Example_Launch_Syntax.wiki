@@ -24,6 +24,19 @@ roslaunch パッケージ名　launchファイル名
 ||<group>||複数のnodeをひとまとめにして扱うタグ。その中ではlaunchタグ内と同じ文法がかける||
 
 = launchファイル解説=
+基本的にサンプルとともに、タグを紹介してます。どのタグでもなんのサンプルかは明記してあると思うので、実際に見たいときは、たとえば「AパッケージのBファイル」であれば以下のように打ちます。
+{{{
+roscd Aパッケージ名
+}}}
+とすると、そのパッケージの中に移れます。そしたら、
+{{{
+cd ./launch
+}}}でlaunchフォルダに移ってください。
+基本的に、launchファイルはそのパッケージのlaunchフォルダにあると思うので
+{{{
+roscd Aパッケージ名/launch
+}}}
+とすると、一発でできます。
 ==コメントアウト==
 一度でも、この形式のものを書いたことがあれば、大丈夫だと思いますが、ファイルの中で以下の形式で囲ってある部分はコメント文です。
 {{{
@@ -42,8 +55,23 @@ launchファイルであることを示すためだけのタグです。かな�
     </node>
 </launch>
 }}}
-これは、roseus_tutorialsのファイルの中身ですが、開くと余計な部分は除くと主に上のようになっていると思います。全体を<launch>と</launch>がくくっています。
+これは、roseus_tutorialsのimage_view.launchファイルの中身ですが、余計な部分は除くと主に上のようになっています。全体を<launch>と</launch>がくくっています。
 ==nodeタグ==
+nodeタグでは、ひとつのあるパッケージのrosrunを行っているのと同様なもので、このタグでまた新しくプログラムが起動します。以下はroseus_tutorialsのusb-camera.launchファイルです。
+{{{
+<launch>
+  <node name="uvc_camera" pkg="uvc_camera" type="camera_node" output="screen" >
+    <param name="device" value="/dev/video0" />
+    <param name="camera_info_url" type="string" value="file://$(find roseus_tutorials)/launch/usb-camera.yaml"/>
+    <param name="width" value="640" />
+    <param name="height" value="480" />
+    <param name="fps" value="30"/>
+    <param name="frame_id" value="camera" />
+  </node>
+  <node name="image_proc" pkg="image_proc" type="image_proc" output="screen" />
+}}}
+
+
 ==includeタグ==
 ==remapタグ==
 ==paramタグ==
