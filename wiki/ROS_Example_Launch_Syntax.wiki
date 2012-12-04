@@ -30,11 +30,11 @@ roslaunch パッケージ名　launchファイル名
 <!--  この中は表示されません   -->
 }}}
 上のようにしてある部分はコメントアウトされて、実行の際は無視されます。
-==<launch>==
-==<node>==
-==<include>==
-==<remap>==
-==<param>==
-==<rosparam>==
-==<arg>==
-==<group>==
+==launchタグ==
+==nodeタグ==
+==includeタグ==
+==remapタグ==
+==paramタグ==
+==rosparamタグ==
+==argタグ==
+==groupタグ==
