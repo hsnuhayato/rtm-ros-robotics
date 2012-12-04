@@ -139,7 +139,7 @@ output="screen"
 ==paramタグ==
 本家のページは[http://www.ros.org/wiki/roslaunch/XML/param こちら]です。
 ==rosparamタグ==
-本家のページは[http://www.ros.org/wiki/roslaunch/XML/reparam こちら]です。
+本家のページは[http://www.ros.org/wiki/roslaunch/XML/rosparam こちら]です。
 ==argタグ==
 本家のページは[http://www.ros.org/wiki/roslaunch/XML/arg こちら]です。
 ==groupタグ==
