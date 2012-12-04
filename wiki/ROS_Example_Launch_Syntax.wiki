@@ -62,9 +62,9 @@ launchファイルであることを示すためだけのタグです。かな�
     </node>
 </launch>
 }}}
-これは、roseus_tutorialsのimage_view.launchファイルの中身ですが、余計な部分は除くと主に上のようになっています。全体を<launch>と</launch>がくくっています。
+これは、roseus_tutorialsのimage_view.launchファイルの中身ですが、余計な部分は除くと主に上のようになっています。全体を"<launch>"と"</launch>"がくくっています。
 ==nodeタグ==
-nodeタグでは、ひとつのあるパッケージのrosrunを行っているのと同様なもので、このタグでまた新しくプログラムが起動します。以下はroseus_tutorialsのusb-camera.launchファイルです。
+nodeタグでは、ひとつのあるパッケージのrosrunを行っているのと同様なもので、このタグで指定したパッケージの指定したプログラムが起動します。以下はroseus_tutorialsのusb-camera.launchファイルです。
 {{{
 <launch>
   <node name="uvc_camera" pkg="uvc_camera" type="camera_node" output="screen" >
@@ -76,8 +76,27 @@ nodeタグでは、ひとつのあるパッケージのrosrunを行っている�
     <param name="frame_id" value="camera" />
   </node>
   <node name="image_proc" pkg="image_proc" type="image_proc" output="screen" />
+</launch>
 }}}
+この中で後半の
+{{{
+  <node name="image_proc" pkg="image_proc" type="image_proc" output="screen" />
+}}}
+に注目してください。これは<nodeの後に、outputを除けば最低限必要な設定のみが残ります。まず、
+{{{
+name="image_proc"
+}}}
+ですが、これは、nodeの名前を決めるものです。rosでは全く同じプログラムを複数起動することができますが、起動する際のnodeの名前を変えなくてはなりません。そうしないと、
+{{{
+[ WARN] [1354478592.636962934]: Shutdown request received.
+[ WARN] [1354478592.637284343]: Reason given for shutdown: [new node registered with same name]
+}}}
+のように表示され、片方が勝手に閉じてしまいます。launchファイル内でも簡単に名前がつけられるように、name=""でnode名が設定できるようになります。ここではこのnode名はimage_procになります。
 
+つぎにpkgです。
+{{{
+pkg="image_proc"
+}}}
 
 ==includeタグ==
 ==remapタグ==
