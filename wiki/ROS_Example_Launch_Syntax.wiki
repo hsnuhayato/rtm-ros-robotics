@@ -104,7 +104,31 @@ roscd 指定したいパッケージ名
 で問題なく動くのならパスは通ってます。
 ------
 次にtypeです。
+{{{
+type="image_proc"
+}}}
+これは具体的に実行するファイル名を指定します。ここではimage_procが実行されます。今回これは、c++の実行ファイルとなってますが、pythonや、lispだったときの書き方は以下です。
+{{{
+//pythonのとき
+<node name="node名" pkg="パッケージ名" type="ファイル名.py" />
+//euslispのとき
+<node name="node名" pkg="パッケージ名" type="ファイル名.l" />
+}}}
+それぞれ、実行するファイルの先頭に以下の記述が必要です。
 
+pythonのとき
+{{{
+#!/usr/bin/env python
+}}}
+euslispのとき
+{{{
+#!/usr/bin/env roseus
+}}}
+------
+次にtypeです。
+{{{
+type="image_proc"
+}}}
 ==includeタグ==
 ==remapタグ==
 ==paramタグ==
