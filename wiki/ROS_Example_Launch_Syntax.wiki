@@ -51,7 +51,7 @@ rosed Aパッケージ名　Bファイル名
 }}}
 上のようにしてある部分はコメントアウトされて、実行の際は無視されます。
 ==launchタグ==
-本家のページは[http://www.ros.org/wiki/roslaunch/XML/launch　こちら]です。
+本家のページは[http://www.ros.org/wiki/roslaunch/XML/launch こちら]です。
 launchファイルであることを示すためだけのタグです。かならず、ファイルの全体をくくってます。
 {{{
 <launch>
@@ -65,7 +65,7 @@ launchファイルであることを示すためだけのタグです。かな�
 }}}
 これは、roseus_tutorialsのimage_view.launchファイルの中身ですが、余計な部分は除くと主に上のようになっています。全体を＜launch＞と＜/launch＞がくくっています。
 ==nodeタグ==
-本家のページは[http://www.ros.org/wiki/roslaunch/XML/node　こちら]です。
+本家のページは[http://www.ros.org/wiki/roslaunch/XML/node こちら]です。
 nodeタグでは、ひとつのあるパッケージのrosrunを行っているのと同様なもので、このタグで指定したパッケージの指定したプログラムが起動します。以下はroseus_tutorialsのusb-camera.launchファイルです。
 {{{
 <launch>
@@ -133,14 +133,14 @@ output="screen"
 }}}
 ログをはく場所をしてします。スクリーンに設定すると標準出力が出力先になります。
 ==includeタグ==
-本家のページは[http://www.ros.org/wiki/roslaunch/XML/include　こちら]です。
+本家のページは[http://www.ros.org/wiki/roslaunch/XML/include こちら]です。
 ==remapタグ==
-本家のページは[http://www.ros.org/wiki/roslaunch/XML/remap　こちら]です。
+本家のページは[http://www.ros.org/wiki/roslaunch/XML/remap こちら]です。
 ==paramタグ==
-本家のページは[http://www.ros.org/wiki/roslaunch/XML/param　こちら]です。
+本家のページは[http://www.ros.org/wiki/roslaunch/XML/param こちら]です。
 ==rosparamタグ==
-本家のページは[http://www.ros.org/wiki/roslaunch/XML/reparam　こちら]です。
+本家のページは[http://www.ros.org/wiki/roslaunch/XML/reparam こちら]です。
 ==argタグ==
-本家のページは[http://www.ros.org/wiki/roslaunch/XML/arg　こちら]です。
+本家のページは[http://www.ros.org/wiki/roslaunch/XML/arg こちら]です。
 ==groupタグ==
-本家のページは[http://www.ros.org/wiki/roslaunch/XML/group　こちら]です。
+本家のページは[http://www.ros.org/wiki/roslaunch/XML/group こちら]です。
