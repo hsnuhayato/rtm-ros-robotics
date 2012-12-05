@@ -423,8 +423,22 @@ string data
 -----
 ==roslocate==
 [http://www.ros.org/wiki/roslocate ROSのroslocate]を詳しくは参照してください。
+
+パッケージのインストールに関する情報を示してくれるコマンドです。必要なパッケージがあるときに、パッケージ名を指定すると、落としてくるべき、URLなどが表示されます。
 ===主に使う形===
-===参考===
+{{{
+roslocate info パッケージ名
+}}}
+とすれば、tfのパッケージなら以下の様になると思います
+{{{
+mechuser@UoT-IST-Ub:~$ roslocate info tf
+- hg:   
+    local-name: geometry
+    meta:
+      repo-name: wg-kforge
+    uri: https://kforge.ros.org/geometry/geometry
+    version: tf_rework
+}}}
 -----
 -----
 ==roscp==
