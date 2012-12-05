@@ -73,9 +73,9 @@ $cd ~   //ホームディレクトリに移動
 保存したら、試しに使ってみます。
 ===使い方===
 emacsを開きまず、C-x C-r C-f(Ctrl+x Ctrl+r Ctrl+f)を行うと、下の方に、Enter ros pathが出てきていると思うので、
-{{
+{{{
 Enter ros path:roseus_tutorials/manifest.xml
-}}
+}}}
 と入力すれば、roseus_tutorialsの中のmanifest.xmlが開けると思います。
 
 = ROS外部パッケージの更新 =
