@@ -48,7 +48,7 @@ sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
 Emacsを使いたい人には、かなり便利なものです。ここではインストール方法と簡単な使い方をご説明します。詳しくは、[http://www.ros.org/wiki/rosemacs ROSのrosemacs]を参考にしてください。
 
 利点は以下です。
-*パスの指定をパッケージ名から行える。
+ * パスの指定をパッケージ名から行える。
 
 ===インストール===
 インストールするには、とりあえず以下を実行してください。
