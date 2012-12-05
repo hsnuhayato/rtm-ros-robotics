@@ -48,8 +48,9 @@ sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
 Emacsを使いたい人には、かなり便利なものです。ここではインストール方法と簡単な使い方をご説明します。詳しくは、[http://www.ros.org/wiki/rosemacs ROSのrosemacs]を参考にしてください。
 
 利点は以下です。
--パスの指定をパッケージ名から行える。
+*パスの指定をパッケージ名から行える。
 
+===インストール===
 インストールするには、とりあえず以下を実行してください。
 {{{
 sudo apt-get install rosemacs-el
@@ -59,7 +60,7 @@ sudo apt-get install rosemacs-el
 {{{
 $cd ~   //ホームディレクトリに移動
 }}}
-.emacsを開いてください。最後に以下をついてください。
+.emacsを開いてください。ファイルの最後に以下を加えてください。
 {{{
 ;; Load the library and start it up
 (require 'rosemacs)
@@ -70,7 +71,12 @@ $cd ~   //ホームディレクトリに移動
 (global-set-key "\C-x\C-r" ros-keymap)
 }}}
 保存したら、試しに使ってみます。
-
+===使い方===
+emacsを開きまず、C-x C-r C-f(Ctrl+x Ctrl+r Ctrl+f)を行うと、下の方に、Enter ros pathが出てきていると思うので、
+{{
+Enter ros path:roseus_tutorials/manifest.xml
+}}
+と入力すれば、roseus_tutorialsの中のmanifest.xmlが開けると思います。
 
 = ROS外部パッケージの更新 =
 
