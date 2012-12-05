@@ -184,13 +184,13 @@ file="$(find openni_launch)/launch/openni.launch"
 }}}
 となっていて、一番外側のlaunchタグは、このファイルがlaunchであることを示すタグの様な役割でした。その中のnodeタグでは、image_view2(pkg)パッケージのimage_view2(type)という実行ファイルを実行して、ログは標準出力(screen)に設定されたimage_view2(name)というnode名のnodeを作ります。今回この中のremapタグについて解説します。
 
-remapタグはrosに備わっている機能のひとつであるリマップという機能をタグの形で表現したものです。リマップはソースコードの中で指定しているサブスクライブ（情報をとってくる）するtopic名をソースコードの中に書いてあるものを設定する値で上書きする機能のことです。
+remapタグはrosに備わっている機能のひとつであるリマップという機能をタグの形で表現したものです。リマップはソースコードの中で指定しているサブスクライブ（情報をとってくる）するtopic名を実行中のみ別に設定する値で上書きしてしまう機能のことです。
 
 おそらくよくわからないと思うので、具体的に見ていきたいと思います。上のimage-view.launchの中の
 {{{
        <remap from="image" to="image_rect_color" />
 }}}
-の部分をご覧ください。このimage-view.launchは先ほども書いたように、画像を表示するプログラムです。ここでは、入力元となる画像の情報をどこかしらのtopicからとってこなくてはなりません。その時に、デフォルトでは、topic名がimageになっているところから取得しようとするようになっています。上の中のfrom="image"というのは、もともとソースコードに書いてあるデフォルトのtopic名です。また、to="image_rect_color"というのが、実行するときだけ新たに上書きしたいtopic名になります。色々な環境で実行する時は、例えばusb-cameraなら、camera/image_rect_colorですし、家でkinectを使うときは、camera/rgb/image_rect_color、実機ならopenni/rgb/image_rect_colorという様にtopicの名前はコロコロ変わってしまいます。その時に、launchファイルにremapタグを書くことによって、一々c++ソースファイルのコンパイルをしなおして実行するという過程を簡単に省略でき、変えたいときは、remapのto以下のみを差し替えれば簡単に変えることができます。
+の部分をご覧ください。このimage-view.launchは先ほども書いたように、画像を表示するプログラムです。ここでは、入力元となる画像の情報をどこかしらのtopicからとってこなくてはなりません。その時に、デフォルトでは、topic名がimageになっているところから取得しようとするようになっています。上の中のfrom="image"というのは、もともとソースコードに書いてあるデフォルトのtopic名をさしています。また、to="image_rect_color"というのが、実行するときだけ新たに上書きしたいtopic名になります。色々な環境で実行する時は、例えばusb-cameraなら、camera/image_rect_colorですし、家でkinectを使うときは、camera/rgb/image_rect_color、実機ならopenni/rgb/image_rect_colorという様にtopicの名前はコロコロ変わってしまいます。その時に、launchファイルにremapタグを書くことによって、一々c++ソースファイルを修正してコンパイルをしなおして実行するという過程を簡単に省略でき、変えたいときは、remapのto以下のみを差し替えれば簡単に実現することができます。
 
 image-view2.cppのmainが以下のようになっています。
 {{{
@@ -207,7 +207,7 @@ int main(int argc, char **argv)
   }
 ・・・
 }}}
-コードの中のn.resolveName("image")が、topic
+コードの中のn.resolveName("image")が、デフォルトで指定されているtopic名を引き出している箇所です。コードの中では、すべてn.resolveName("image")でtopicの名前が呼び出されるのですが、もし、リマップされていれば、別のtopic名を返し、もしされていないなら、デフォルトのtopic名を返します。（ここでは/imageをデフォルトで返します。）
 
 ==paramタグ==
 本家のページは[http://www.ros.org/wiki/roslaunch/XML/param こちら]です。
