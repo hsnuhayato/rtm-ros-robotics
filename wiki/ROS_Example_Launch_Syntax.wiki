@@ -141,6 +141,34 @@ output="screen"
 
 ==includeタグ==
 本家のページは[http://www.ros.org/wiki/roslaunch/XML/include こちら]です。
+このincludeはlaunchの再利用性をあげるためのもので、これを利用すると、他のlaunchファイルのもroslaunchして実行してくれます。以下のコードは、roseus_tutorialsのcamshift.launchのファイルの中です。
+{{{
+<launch>
+//kinectの情報をとってきてくれるnodeをいっぱい作るopenni.launch
+ <include file="$(find openni_launch)/launch/openni.launch">
+    <!--arg name="camera" value="openni"/-->
+    <arg name="respawn" value="true"/>
+    <arg name="publish_tf" value="true"/>
+  </include>
+
+//camshiftを得られたkinectのカメラが像から処理を行うcamshiftdemoのnode
+  <node name="camshiftdemo" pkg="jsk_perception"
+        type="camshiftdemo" output="screen">
+    <remap from="image" to="/camera/rgb/image_rect_color" />
+    <remap from="screenrectangle" to="image_rect_color/screenrectangle" />
+  </node>
+</launch>
+}}}
+
+コードの前半で、後半のnodeで使用するものを用意してもらうため、あらかじめ用意されているopenni.launchを外部からインクルードしてきて、実行します。この際に
+{{{
+<include file="$(find openni_launch)/launch/openni.launch"/>
+}}}
+一番シンプルには、上の形で構いません。また、
+{{{
+file="$(find openni_launch)/launch/openni.launch"
+}}}
+についてですが、fileの指定をしています。そのとき、$(find openni_launch)はopenni_launchパッケージのパスを返す関数となっています。ですので、$(find openni_launch)/launch/openni.launch全体で、openni.launchのファイルのパスを表しています。他にもlaunchファイルでも出てくるであろう$()は関数を実行していると思っていただいてかまいません。
 ==remapタグ==
 本家のページは[http://www.ros.org/wiki/roslaunch/XML/remap こちら]です。
 ==paramタグ==
