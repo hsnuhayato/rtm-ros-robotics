@@ -44,6 +44,32 @@ rosws update
 sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
 }}}
 をしてリブートしておく必要がある．
+=rosemacsのインストール=
+Emacsを使いたい人には、かなり便利なものです。ここではインストール方法と簡単な使い方をご説明します。詳しくは、[http://www.ros.org/wiki/rosemacs ROSのrosemacs]を参考にしてください。
+
+利点は以下です。
+-パスの指定をパッケージ名から行える。
+
+インストールするには、とりあえず以下を実行してください。
+{{{
+sudo apt-get install rosemacs-el
+}}}
+
+インストールが終わったら、ホームディレクトリに移動して、.emacsを更新します。
+{{{
+$cd ~   //ホームディレクトリに移動
+}}}
+.emacsを開いてください。最後に以下をついてください。
+{{{
+;; Load the library and start it up
+(require 'rosemacs)
+(invoke-rosemacs)
+
+;; Optional but highly recommended: add a prefix for quick access
+;; to the rosemacs commands
+(global-set-key "\C-x\C-r" ros-keymap)
+}}}
+保存したら、試しに使ってみます。
 
 
 = ROS外部パッケージの更新 =
