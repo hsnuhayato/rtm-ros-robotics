@@ -53,3 +53,9 @@
 
 * ROS関係の環境変数
  * http://www.ros.org/wiki/ROS/EnvironmentVariables
+
+= 本家ROSのページを編集する。=
+本家ROSのページを編集するには、アカウントを作る必要があります。上の「一部日本語に翻訳されているページ郡」から右側のユーザのログインでアカウント作成をし、ログインをしてください。その後、編集ボタンを用いて、wikiを変えることができます。
+
+* WikiMacros。Wikiを編集する際のマクロが書かれている。
+ * http://www.ros.org/wiki/WikiMacros
