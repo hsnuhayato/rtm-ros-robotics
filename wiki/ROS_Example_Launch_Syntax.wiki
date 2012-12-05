@@ -160,11 +160,11 @@ output="screen"
 </launch>
 }}}
 
-コードの前半で、後半のnodeで使用するものを用意してもらうため、あらかじめ用意されているopenni.launchを外部からインクルードしてきて、実行します。この際に
+コードの前半で、後半のnodeで使用するものを用意してもらうため、あらかじめ用意されているopenni.launchを外部からインクルードしてきて、実行します。includeタグを一番短くには
 {{{
 <include file="$(find openni_launch)/launch/openni.launch"/>
 }}}
-一番シンプルには、上の形で構いません。また、
+の形で構いません。今回のサンプルではそのファイルに大して設定を施しているため少々形が変わっています。また、
 {{{
 file="$(find openni_launch)/launch/openni.launch"
 }}}
