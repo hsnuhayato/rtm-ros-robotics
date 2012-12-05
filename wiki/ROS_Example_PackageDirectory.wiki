@@ -20,7 +20,7 @@ roscreate-pkg
 {{{
 bin    CMakeLists.txt  launch        Makefile      msg      src  srv_gen
 build  include         mainpage.dox  manifest.xml  msg_gen  srv  scripts
-euslisp
+euslisp test
 }}}
 などがあると思います。
 はじめにファイルから見ていきたいと思います。
@@ -64,3 +64,7 @@ srv
 srv_gen
 }}}
 これらのフォルダはサービスという仕組みがわかってから必要になります。この中には、サービスの定義のファイルなどが入っています。
+{{{
+test
+}}}
+rostestのコマンドでインストールがしっかりできているかを確認できるためのフォルダ。
