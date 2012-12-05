@@ -182,7 +182,7 @@ file="$(find openni_launch)/launch/openni.launch"
     </node>
 </launch>
 }}}
-となっていて、一番外側のlaunchタグは、このファイルがlaunchであることを示すタグの様な役割でした。ここで、image_view2(pkg)パッケージのimage_view2(type)という実行ファイルを実行して、ログは標準出力(screen)に設定されたimage_view2(name)というnode名のnodeを作ります。今回この中のremapタグについて解説します。
+となっていて、一番外側のlaunchタグは、このファイルがlaunchであることを示すタグの様な役割でした。その中のnodeタグでは、image_view2(pkg)パッケージのimage_view2(type)という実行ファイルを実行して、ログは標準出力(screen)に設定されたimage_view2(name)というnode名のnodeを作ります。今回この中のremapタグについて解説します。
 
 remapタグはrosに備わっている機能のひとつであるリマップという機能をタグの形で表現したものです。リマップはソースコードの中で指定しているサブスクライブ（情報をとってくる）するtopic名をソースコードの中に書いてあるものを設定する値で上書きする機能のことです。
 
