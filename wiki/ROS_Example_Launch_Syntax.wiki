@@ -171,6 +171,44 @@ file="$(find openni_launch)/launch/openni.launch"
 についてですが、fileの指定をしています。そのとき、$(find openni_launch)はopenni_launchパッケージのパスを返す関数となっています。ですので、$(find openni_launch)/launch/openni.launch全体で、openni.launchのファイルのパスを表しています。他にもlaunchファイルでも出てくるであろう$()は関数を実行していると思っていただいてかまいません。
 ==remapタグ==
 本家のページは[http://www.ros.org/wiki/roslaunch/XML/remap こちら]です。
+今度もlaunchファイルでも例に使ったroseus_tutorialsのimage_view.launchファイルの中身です。このプログラムは、指定された画像情報をウィンドウに表示するだけのプログラムです。
+{{{
+<launch>
+     <node name="image_view2" pkg="image_view2" type="image_view2" output="screen" >
+       <remap from="image" to="image_rect_color" />
+       <param name="autosize" value="true" />
+       <param name="blurry" value="false" />
+       <param name="window_name" value="image_view2" />
+    </node>
+</launch>
+}}}
+となっていて、一番外側のlaunchタグは、このファイルがlaunchであることを示すタグの様な役割でした。ここで、image_view2(pkg)パッケージのimage_view2(type)という実行ファイルを実行して、ログは標準出力(screen)に設定されたimage_view2(name)というnode名のnodeを作ります。今回この中のremapタグについて解説します。
+
+remapタグはrosに備わっている機能のひとつであるリマップという機能をタグの形で表現したものです。リマップはソースコードの中で指定しているサブスクライブ（情報をとってくる）するtopic名をソースコードの中に書いてあるものを設定する値で上書きする機能のことです。
+
+おそらくよくわからないと思うので、具体的に見ていきたいと思います。上のimage-view.launchの中の
+{{{
+       <remap from="image" to="image_rect_color" />
+}}}
+の部分をご覧ください。このimage-view.launchは先ほども書いたように、画像を表示するプログラムです。ここでは、入力元となる画像の情報をどこかしらのtopicからとってこなくてはなりません。その時に、デフォルトでは、topic名がimageになっているところから取得しようとするようになっています。上の中のfrom="image"というのは、もともとソースコードに書いてあるデフォルトのtopic名です。また、to="image_rect_color"というのが、実行するときだけ新たに上書きしたいtopic名になります。色々な環境で実行する時は、例えばusb-cameraなら、camera/image_rect_colorですし、家でkinectを使うときは、camera/rgb/image_rect_color、実機ならopenni/rgb/image_rect_colorという様にtopicの名前はコロコロ変わってしまいます。その時に、launchファイルにremapタグを書くことによって、一々c++ソースファイルのコンパイルをしなおして実行するという過程を簡単に省略でき、変えたいときは、remapのto以下のみを差し替えれば簡単に変えることができます。
+
+image-view2.cppのmainが以下のようになっています。
+{{{
+・・・
+int main(int argc, char **argv)
+{
+  //ros::init(argc, argv, "image_view2", ros::init_options::AnonymousName);
+  ros::init(argc, argv, "image_view2");
+  ros::NodeHandle n;
+
+  if ( n.resolveName("image") == "/image") {
+    ROS_WARN("image_view: image has not been remapped! Typical command-line usage:\n"
+             "\t$ ./image_view image:=<image topic> [transport]");
+  }
+・・・
+}}}
+コードの中のn.resolveName("image")が、topic
+
 ==paramタグ==
 本家のページは[http://www.ros.org/wiki/roslaunch/XML/param こちら]です。
 ==rosparamタグ==
