@@ -62,5 +62,9 @@
 
 * ページ編集についてと作業中ページ
  * http://www.ros.org/wiki/ja/Translation
-+a
-+b
+
+== 新規作成済ページ==
+ * ja/WikiMacros
+== 改良済ページ==
+== 編集中ページ==
+ * ja/ROS/EnvironmentVariables
