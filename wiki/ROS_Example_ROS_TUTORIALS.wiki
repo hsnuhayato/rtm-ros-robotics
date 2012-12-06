@@ -65,6 +65,7 @@
 
 == 新規作成済ページ==
  * ja/WikiMacros
+ * ja/ROS/EnvironmentVariables
 == 改良済ページ==
 == 編集中ページ==
  * ja/ROS/EnvironmentVariables
