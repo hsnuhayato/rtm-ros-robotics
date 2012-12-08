@@ -67,4 +67,7 @@
  * ja/WikiMacros
  * ja/ROS/EnvironmentVariables
 == 改良済ページ==
+ * ja/ROS/Tutorials/NavigatingTheFilesystem
+ * ja/ROS/Tutorials
 == 編集中ページ==
+ * ja/ROS/Tutorials/CreatingPackage
