@@ -75,5 +75,6 @@
  * ja/ROS/Tutorials/UnderstandingNodes
  * ja/ROS/Tutorials/UnderstandingTopics
  * ja/ROS/Tutorials/UnderstandingServicesParams
+ * ja/ROS/Tutorials/UsingRxconsoleRoslaunch
 == 編集中ページ==
  * ja/ROS/Tutorials/CreatingPackage
