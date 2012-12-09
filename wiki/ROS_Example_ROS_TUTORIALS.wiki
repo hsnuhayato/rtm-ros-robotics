@@ -66,6 +66,7 @@
 == 新規作成済ページ==
  * ja/WikiMacros
  * ja/ROS/EnvironmentVariables
+ * ja/ROS/Tutorials/InstallingandConfiguringROSEnvironment
 == 改良済ページ==
  * ja/ROS/Tutorials/NavigatingTheFilesystem
  * ja/ROS/Tutorials
