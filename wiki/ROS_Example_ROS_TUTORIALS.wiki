@@ -71,5 +71,6 @@
  * ja/ROS/Tutorials/NavigatingTheFilesystem
  * ja/ROS/Tutorials/CreatingPackage
  * ja/ROS/Tutorials
+ * ja/ROS/Tutorials/BuildingPackages
 == 編集中ページ==
  * ja/ROS/Tutorials/CreatingPackage
