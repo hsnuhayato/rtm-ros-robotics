@@ -68,9 +68,10 @@
  * ja/ROS/EnvironmentVariables
  * ja/ROS/Tutorials/InstallingandConfiguringROSEnvironment
 == 改良済ページ==
+ * ja/ROS/Tutorials
  * ja/ROS/Tutorials/NavigatingTheFilesystem
  * ja/ROS/Tutorials/CreatingPackage
- * ja/ROS/Tutorials
  * ja/ROS/Tutorials/BuildingPackages
+ * ja/ROS/Tutorials/UnderstandingNodes
 == 編集中ページ==
  * ja/ROS/Tutorials/CreatingPackage
