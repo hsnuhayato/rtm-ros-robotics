@@ -69,6 +69,7 @@
  * ja/ROS/Tutorials/InstallingandConfiguringROSEnvironment
 == 改良済ページ==
  * ja/ROS/Tutorials/NavigatingTheFilesystem
+ * ja/ROS/Tutorials/CreatingPackage
  * ja/ROS/Tutorials
 == 編集中ページ==
  * ja/ROS/Tutorials/CreatingPackage
