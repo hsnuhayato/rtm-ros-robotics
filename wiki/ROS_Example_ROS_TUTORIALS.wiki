@@ -9,7 +9,7 @@
 
 * ROSの概念を学ぶ
 
- * http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem
+ * [[http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem  English NavigatingTheFileSystem]]
 
  * http://www.ros.org/wiki/ROS/Tutorials/UnderstandingNodes
 
