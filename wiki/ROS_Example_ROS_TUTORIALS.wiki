@@ -9,13 +9,18 @@
 
 * ROSの概念を学ぶ
 
- * [[http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem  English NavigatingTheFileSystem]]
+ * [http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem  English NavigatingTheFileSystem]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/NavigatingTheFilesystem  日本語 Navigatingファイルシステム]
 
- * http://www.ros.org/wiki/ROS/Tutorials/UnderstandingNodes
+ * [http://www.ros.org/wiki/ROS/Tutorials/UnderstandingNodes English Understanding Nodes]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/UnderstandingNodes 日本語 Nodeを理解する]
 
- * http://www.ros.org/wiki/ROS/Tutorials/UnderstandingTopics
 
- * http://www.ros.org/wiki/ROS/Tutorials/UnderstandingServicesParams
+ * [http://www.ros.org/wiki/ROS/Tutorials/UnderstandingTopics Engilish Understanding Topics]
+* [http://www.ros.org/wiki/ja/ROS/Tutorials/UnderstandingTopics 日本語　Topicを理解する]
+
+ * [http://www.ros.org/wiki/ROS/Tutorials/UnderstandingServicesParams English UnderstangindServicesParams]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/UnderstandingServicesParams 日本語　サービスとパラメータを理解する]
 
 * ROSのプログラミング環境を学ぶ
 
