@@ -17,16 +17,18 @@
 
 
  * [http://www.ros.org/wiki/ROS/Tutorials/UnderstandingTopics Engilish Understanding Topics]
-* [http://www.ros.org/wiki/ja/ROS/Tutorials/UnderstandingTopics 日本語　Topicを理解する]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/UnderstandingTopics 日本語　Topicを理解する]
 
  * [http://www.ros.org/wiki/ROS/Tutorials/UnderstandingServicesParams English UnderstangindServicesParams]
  * [http://www.ros.org/wiki/ja/ROS/Tutorials/UnderstandingServicesParams 日本語　サービスとパラメータを理解する]
 
 * ROSのプログラミング環境を学ぶ
 
- * http://www.ros.org/wiki/ROS/Tutorials/CreatingPackage
+ * [http://www.ros.org/wiki/ROS/Tutorials/CreatingPackage English CreatingPackage]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/CreatingPackage 日本語　パッケージを作る]
 
- * http://www.ros.org/wiki/ROS/Tutorials/BuildingPackages
+ * [http://www.ros.org/wiki/ROS/Tutorials/BuildingPackages English BuildingPackages]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/BuildingPackages 日本語　パッケージをビルドする]
 
 * ROSのプログラミング手法を学ぶ
 
@@ -57,8 +59,8 @@
  * http://www.ros.org/wiki/ja
 
 * ROS関係の環境変数
- * http://www.ros.org/wiki/ROS/EnvironmentVariables
-
+ * [http://www.ros.org/wiki/ROS/EnvironmentVariables English EnvironmentVariables]
+ * [http://www.ros.org/wiki/ja/ROS/EnvironmentVariables 日本語　環境変数]
 = 本家ROSのページを編集する。=
 本家ROSのページを編集するには、アカウントを作る必要があります。上の「一部日本語に翻訳されているページ郡」から右側のユーザのログインでアカウント作成をし、ログインをしてください。その後、編集ボタンを用いて、wikiを変えることができます。
 
