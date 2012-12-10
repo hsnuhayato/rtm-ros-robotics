@@ -67,6 +67,7 @@
  * ja/WikiMacros
  * ja/ROS/EnvironmentVariables
  * ja/ROS/Tutorials/InstallingandConfiguringROSEnvironment
+ * ja/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29
 == 改良済ページ==
  * ja/ROS/Tutorials
  * ja/ROS/Tutorials/NavigatingTheFilesystem
@@ -77,6 +78,7 @@
  * ja/ROS/Tutorials/UnderstandingServicesParams
  * ja/ROS/Tutorials/UsingRxconsoleRoslaunch
  * ja/ROS/Tutorials/UsingRosEd
+ * ja/ROS/Tutorials/CreatingMsgAndSrv
 
 == 編集中ページ==
  * ja/ROS/Tutorials/CreatingPackage
