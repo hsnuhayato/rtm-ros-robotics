@@ -88,4 +88,3 @@
  * ja/ROS/Tutorials/CreatingMsgAndSrv
 
 == 編集中ページ==
- * ja/ROS/Tutorials/CreatingPackage
