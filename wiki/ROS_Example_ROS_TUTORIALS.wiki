@@ -32,31 +32,31 @@
 
 * ROSのプログラミング手法を学ぶ
 
-  * http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29
+ * [http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29 English WritingPublisherSubscriberPython]
 
- * http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29
+ * [http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29 English WritingPublisherSubscriberC]
 
- * http://www.ros.org/wiki/ROS/Tutorials/ExaminingPublisherSubscriber
+ * [http://www.ros.org/wiki/ROS/Tutorials/ExaminingPublisherSubscriber English ExaminingPublisherSubscriber]
 
- * http://www.ros.org/wiki/ROS/Tutorials/WritingServiceClient%28python%29
+ * [http://www.ros.org/wiki/ROS/Tutorials/WritingServiceClient%28python%29 English WritingServiceClientPython]
 
- * http://www.ros.org/wiki/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29
+ * [http://www.ros.org/wiki/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29 English WritingServiceClientC]
 
- * http://www.ros.org/wiki/ROS/Tutorials/ExaminingServiceClient
+ * [http://www.ros.org/wiki/ROS/Tutorials/ExaminingServiceClient English ExaminingServiceClient]
 
- * http://www.ros.org/wiki/ROS/Tutorials/Recording%20and%20playing%20back%20data
+ * [http://www.ros.org/wiki/ROS/Tutorials/Recording%20and%20playing%20back%20data English RecordingAndPlayingBackData]
 
 * ROSのall_tutorials
 
- * http://www.ros.org/wiki/AllTutorials
+ * [http://www.ros.org/wiki/AllTutorials English AllTutorials] 
 
 *roslaunch文法
 
- * http://www.ros.org/wiki/roslaunch/XML
+ * [http://www.ros.org/wiki/roslaunch/XML English roslaunch/XML]
 
 * 一部日本語に翻訳されているページ郡
 
- * http://www.ros.org/wiki/ja
+ * [http://www.ros.org/wiki/ja 日本語のROSのRootページ]
 
 * ROS関係の環境変数
  * [http://www.ros.org/wiki/ROS/EnvironmentVariables English EnvironmentVariables]
