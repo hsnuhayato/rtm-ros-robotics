@@ -176,6 +176,8 @@ int64 sum
 
 この例では、clientが好きなタイミングで、requestで足しほしい２つをServiceを用いてserverに送って、serverで足し算をした後、responseでclientに情報を渡しているプログラムです。先ほども述べたように、clientは結果が返ってくるまで何も処理をしません。
 
+====本家のチュートリアルの該当個所====
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/UnderstandingServicesParams serviceとパラメータを理解する]
 
 
 以上で、すごく簡単になってしまいましたが、rosで出てくる主な概念の説明は終わりです。あとは、launchファイルの文法が目新しいと思いますので、ROSのtutorials一通りこなしたあとに、参照していただければと思います。
