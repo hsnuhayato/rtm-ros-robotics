@@ -33,11 +33,11 @@
 * ROSのプログラミング手法を学ぶ
 
  * [http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29 English WritingPublisherSubscriberPython]
- * [http://www.ros.org/wiki/ja/ROS/Tutorials/WritingPublisherSubscriber%28python%29 English 日本語　Pythonでパブリッシュとサブスクライブ]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/WritingPublisherSubscriber%28python%29  日本語　Pythonでパブリッシュとサブスクライブ]
 
 
  * [http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29 English WritingPublisherSubscriberC]
- * [http://www.ros.org/wiki/ja/ROS/Tutorials/WritingPublisherSubscriber%28c%29 English 日本語　C++でパブリッシュとサブスクライブ]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/WritingPublisherSubscriber%28c%29 日本語　C++でパブリッシュとサブスクライブ]
 
  * [http://www.ros.org/wiki/ROS/Tutorials/ExaminingPublisherSubscriber English ExaminingPublisherSubscriber]
 
