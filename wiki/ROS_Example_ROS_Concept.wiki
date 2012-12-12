@@ -66,7 +66,7 @@ node名が違えば、同じプログラムでも複数起動することが可�
 ====見に行くべきコマンド====
  * [http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_Commands#rosrun rosrun]
 
-===本家のチュートリアルの該当個所===
+====本家のチュートリアルの該当個所====
 本家のチュートリアルはより詳しく説明しております。何となく理解した、または、本家の方で学びたい方は以下のチュートリアルから見に行ってください。
 
 日本語のページを指定いますが、もし原文を読みたい場合は、飛んだ先のページのURLのなかで「ja」の部分を取り除いてください。
@@ -110,6 +110,8 @@ cameraImageMakerというnodeが、/camera/image_rectというtopicにカメラ�
  * [http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_Commands#rostopic rostopic]
 
 
+====本家のチュートリアルの該当個所====
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/UnderstandingTopics topicを理解する]
 == msgについて==
 msg（メッセージ）はtopicを用いてnode間で情報を届けるときに渡される情報のことです。それぞれのtopicを準備するときに、そのtopicの書き込むmsg(メッセージ)の形(type)を決めなくてはなりません。
 
