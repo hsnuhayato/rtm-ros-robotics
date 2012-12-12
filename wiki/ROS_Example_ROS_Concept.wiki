@@ -66,7 +66,14 @@ node名が違えば、同じプログラムでも複数起動することが可�
 ====見に行くべきコマンド====
  * [http://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_Commands#rosrun rosrun]
 
+===本家のチュートリアルの該当個所===
+本家のチュートリアルはより詳しく説明しております。何となく理解した、または、本家の方で学びたい方は以下のチュートリアルから見に行ってください。
 
+日本語のページを指定いますが、もし原文を読みたい場合は、飛んだ先のページのURLのなかで「ja」の部分を取り除いてください。
+
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/CreatingPackage パッケージの作成]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/BuildingPackages パッケージのビルド]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/UnderstandingNodes nodeを理解する]
 
 ===topic===
 そして次に注目をしていただきたいものが、node同士を結んでいる矢印です。この矢印は、node間で情報を渡していることを表しrosではこれはtopicと呼びます。矢印で書いてあるので通り抜けるイメージを持つかもしれませんが、どちらかというと、chatterというtopicにtalkerが渡して、chatterからlistenerに情報を渡すバケツリレーを想像するとわかりやすいかもしれません。それぞれの矢印には、名前が書いてありますが、ここには２種類あります。
