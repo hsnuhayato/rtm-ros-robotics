@@ -40,7 +40,7 @@
  * [http://www.ros.org/wiki/ja/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29 日本語　C++でパブリッシュとサブスクライブ]
 
  * [http://www.ros.org/wiki/ROS/Tutorials/ExaminingPublisherSubscriber English ExaminingPublisherSubscriber]
-
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/ExaminingPublisherSubscriber 日本語　サブスクライバーとパブリッシャーを試す。]
  * [http://www.ros.org/wiki/ROS/Tutorials/WritingServiceClient%28python%29 English WritingServiceClientPython]
 
  * [http://www.ros.org/wiki/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29 English WritingServiceClientC]
@@ -90,5 +90,5 @@
  * ja/ROS/Tutorials/UsingRxconsoleRoslaunch
  * ja/ROS/Tutorials/UsingRosEd
  * ja/ROS/Tutorials/CreatingMsgAndSrv
-
+ * ja/ROS/Tutorials/ExaminingPublisherSubscriber
 == 編集中ページ==
