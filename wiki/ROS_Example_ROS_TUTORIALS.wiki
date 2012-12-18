@@ -1,4 +1,5 @@
 #summary ROSのページにあるチュートリアル
+<wiki:toc max_depth="2" />
 
 = Introduction =
 
@@ -6,8 +7,10 @@
 
 
 = Details =
-
+-----------
+-----------
 * ROSの概念を学ぶ
+-----------
 
  * [http://www.ros.org/wiki/ROS/Tutorials/NavigatingTheFilesystem  English NavigatingTheFileSystem]
  * [http://www.ros.org/wiki/ja/ROS/Tutorials/NavigatingTheFilesystem  日本語 Navigatingファイルシステム]
@@ -22,7 +25,10 @@
  * [http://www.ros.org/wiki/ROS/Tutorials/UnderstandingServicesParams English UnderstangindServicesParams]
  * [http://www.ros.org/wiki/ja/ROS/Tutorials/UnderstandingServicesParams 日本語　サービスとパラメータを理解する]
 
+-----------
+-----------
 * ROSのプログラミング環境を学ぶ
+-----------
 
  * [http://www.ros.org/wiki/ROS/Tutorials/CreatingPackage English CreatingPackage]
  * [http://www.ros.org/wiki/ja/ROS/Tutorials/CreatingPackage 日本語　パッケージを作る]
@@ -30,7 +36,10 @@
  * [http://www.ros.org/wiki/ROS/Tutorials/BuildingPackages English BuildingPackages]
  * [http://www.ros.org/wiki/ja/ROS/Tutorials/BuildingPackages 日本語　パッケージをビルドする]
 
+-----------
+-----------
 * ROSのプログラミング手法を学ぶ
+-----------
 
  * [http://www.ros.org/wiki/ROS/Tutorials/WritingPublisherSubscriber%28python%29 English WritingPublisherSubscriberPython]
  * [http://www.ros.org/wiki/ja/ROS/Tutorials/WritingPublisherSubscriber%28python%29  日本語　Pythonでパブリッシュとサブスクライブ]
@@ -54,15 +63,24 @@
 
  * [http://www.ros.org/wiki/ROS/Tutorials/Recording%20and%20playing%20back%20data English RecordingAndPlayingBackData]
 
+-----------
+-----------
 * ROSのall_tutorials
+-----------
 
  * [http://www.ros.org/wiki/AllTutorials English AllTutorials] 
 
+-----------
+-----------
 *roslaunch文法
+-----------
 
  * [http://www.ros.org/wiki/roslaunch/XML English roslaunch/XML]
 
+-----------
+-----------
 * 一部日本語に翻訳されているページ郡
+-----------
 
  * [http://www.ros.org/wiki/ja 日本語のROSのRootページ]
 
