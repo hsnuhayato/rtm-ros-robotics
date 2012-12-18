@@ -43,10 +43,14 @@
  * [http://www.ros.org/wiki/ja/ROS/Tutorials/ExaminingPublisherSubscriber 日本語　サブスクライバーとパブリッシャーを試す。]
 
  * [http://www.ros.org/wiki/ROS/Tutorials/WritingServiceClient%28python%29 English WritingServiceClientPython]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/WritingServiceClient%28python%29 日本語　Pythonでサービスクライアントを書く]
 
  * [http://www.ros.org/wiki/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29 English WritingServiceClientC]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29 日本語　Cでサービスクライアントを書く]
 
  * [http://www.ros.org/wiki/ROS/Tutorials/ExaminingServiceClient English ExaminingServiceClient]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/ExaminingServiceClient 日本語　サービスクライアントを試す]
+
 
  * [http://www.ros.org/wiki/ROS/Tutorials/Recording%20and%20playing%20back%20data English RecordingAndPlayingBackData]
 
@@ -80,6 +84,8 @@
  * ja/ROS/Tutorials/InstallingandConfiguringROSEnvironment
  * ja/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29
  * ja/ROS/Tutorials/WritingPublisherSubscriber%28python%29
+ * ja/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29
+ * ja/ROS/Tutorials/WritingServiceClient%28python%29
 == 改良済ページ==
  * ja/ROS/Tutorials
  * ja/ROS/Tutorials/NavigatingTheFilesystem
@@ -92,4 +98,5 @@
  * ja/ROS/Tutorials/UsingRosEd
  * ja/ROS/Tutorials/CreatingMsgAndSrv
  * ja/ROS/Tutorials/ExaminingPublisherSubscriber
+ * ja/ROS/Tutorials/ExaminingServiceClient
 == 編集中ページ==
