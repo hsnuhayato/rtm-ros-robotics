@@ -119,6 +119,10 @@ ROSのページには、さまざまTutorialが詳しく作られています。
  * ja/ROS/Tutorials/Getting%20started%20with%20roswtf
  * ja/rosserial
  * ja/rosserial/Tutorials
+ * ja/rosserial_arduino/jaTutorials
+ * ja/rosserial_arduino/jaTutorials/Arduino%20IDE%20Setup
+ * ja/rosserial_arduino/jaTutorials/Hello%20World
+
 == 改良済ページ==
  * ja/ROS/Tutorials
  * ja/ROS/Tutorials/NavigatingTheFilesystem
