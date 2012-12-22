@@ -118,6 +118,7 @@ ROSのページには、さまざまTutorialが詳しく作られています。
  * ja/ROS/Tutorials/Recording%20and%20playing%20back%20data
  * ja/ROS/Tutorials/Getting%20started%20with%20roswtf
  * ja/rosserial
+ * ja/rosserial/Tutorials
 == 改良済ページ==
  * ja/ROS/Tutorials
  * ja/ROS/Tutorials/NavigatingTheFilesystem
