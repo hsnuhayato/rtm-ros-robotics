@@ -117,6 +117,7 @@ ROSのページには、さまざまTutorialが詳しく作られています。
  * ja/ROS/Tutorials/WritingServiceClient%28python%29
  * ja/ROS/Tutorials/Recording%20and%20playing%20back%20data
  * ja/ROS/Tutorials/Getting%20started%20with%20roswtf
+ * ja/rosserial
 == 改良済ページ==
  * ja/ROS/Tutorials
  * ja/ROS/Tutorials/NavigatingTheFilesystem
