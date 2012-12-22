@@ -62,6 +62,7 @@
 
 
  * [http://www.ros.org/wiki/ROS/Tutorials/Recording%20and%20playing%20back%20data English RecordingAndPlayingBackData]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/Recording%20and%20playing%20back%20data 日本語 データを保存し再現する]
 
 -----------
 -----------
