@@ -122,6 +122,8 @@ ROSのページには、さまざまTutorialが詳しく作られています。
  * ja/rosserial_arduino/jaTutorials
  * ja/rosserial_arduino/jaTutorials/Arduino%20IDE%20Setup
  * ja/rosserial_arduino/jaTutorials/Hello%20World
+ * ja/rosserial_arduino/jaTutorials/Blink
+ * ja/rosserial_arduino/jaTutorials/Time%20and%20TF
 
 == 改良済ページ==
  * ja/ROS/Tutorials
