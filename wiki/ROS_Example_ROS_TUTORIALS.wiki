@@ -128,6 +128,7 @@ ROSのページには、さまざまTutorialが詳しく作られています。
  * ja/rosserial_arduino/jaTutorials/Time%20and%20TF
  * ja/rosserial_arduino/jaTutorials/Push%20Button
  * ja/kinect
+ * ja/openni_kinect
 == 改良済ページ==
  * ja/ROS/Tutorials
  * ja/ROS/Tutorials/NavigatingTheFilesystem
