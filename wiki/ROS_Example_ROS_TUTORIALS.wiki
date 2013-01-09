@@ -129,6 +129,7 @@ ROSのページには、さまざまTutorialが詳しく作られています。
  * ja/rosserial_arduino/jaTutorials/Push%20Button
  * ja/kinect
  * ja/openni_kinect
+ * ja/openni_tracker
 == 改良済ページ==
  * ja/ROS/Tutorials
  * ja/ROS/Tutorials/NavigatingTheFilesystem
