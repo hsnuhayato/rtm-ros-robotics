@@ -1,13 +1,31 @@
 #summary Result of seminar 2012 by Furuta Yuki
 
-= Introduction =
+= 概要 =
 
-Add your content here.
+2012年度機械系少人数ゼミ岡田研究室で製作。
+WebSocketを経由して遠隔地からロボットへ任意の文字・絵を描かせる。書き初めロボ。
+具体的には以下の構成になっている。
+  * webページ上のキャンバスに線画を描き、rosjsを使ってrosbridgeへトピックを非同期送信する。
+  * rosbridgeがrosjsから送られてきたデータをtopicとしてpublishする。
+  * rosjsからの線画情報とkinectからのテーブルの位置・姿勢を逐次取得し、逆運動学を用いてPR2が線を描いていく。
 
+= (以下Under Construction) =
 
-= Details =
+= やり方 =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== rosjs ==
+
+TODO:
+  * チュートリアル日本語訳
+  * 書いたページのソースを解説
+  * JSONの工夫(PointCloudList.msgの生成)
+
+== rosbridge ==
+  * 簡単なやり方
+  * はまったところの注意(PYTHONPATHとos.environとjohorikoの9090とwsのhostname)
+
+== write-char-ik.l ==
+  * tfのsubscribe
+  * rosbridgeのsubscribe
+  * テーブル平面へpointcloudを変換
+  * ikして*ri*へ送信(注意点:線形補間, wait-interporate)
