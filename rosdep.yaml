@@ -1,0 +1,225 @@
+sun-java6-jdk:
+  ubuntu: |
+   #!/bin/bash
+   if [ ! -f /etc/apt/sources.list.d/ferramroberto-java-`lsb_release -cs`.list ] ; then
+     yes | sudo add-apt-repository ppa:ferramroberto/java
+     sudo aptitude update
+   fi
+   echo "sun-java6-jdk shared/accepted-sun-dlj-v1-1 select true" | sudo debconf-set-selections
+   echo "sun-java6-jre shared/accepted-sun-dlj-v1-1 select true" | sudo debconf-set-selections
+   DEBIAN_FRONTEND=noninteractive sudo apt-get -y --force-yes install sun-java6-jdk sun-java6-fonts sun-java6-plugin
+jython:
+  ubuntu: jython
+libreadline-java:
+  ubuntu: libreadline-java
+
+# japanese font
+ttf-sazanami-gothic:
+  ubuntu: ttf-sazanami-gothic
+ttf-sazanami-mincho:
+  ubuntu: ttf-sazanami-mincho
+ttf-kochi-gothic:
+  ubuntu: ttf-kochi-gothic
+ttf-kochi-mincho:
+  ubuntu: ttf-kochi-mincho
+
+# omniORB
+libcos4-dev:
+  ubuntu: libcos4-dev
+libomnievents-dev:
+  ubuntu: libomnievents-dev
+libomniorb4-dev:
+  ubuntu: libomniorb4-dev
+libomnithread3-dev:
+  ubuntu: libomnithread3-dev
+omnievents:
+  ubuntu: omnievents
+omniidl4:
+  ubuntu:
+    kermic: omniidl4
+    lucid: omniidl4
+    maverick: omniidl4
+    natty: omniidl4
+    oneiric: omniidl
+omniidl-python:
+  ubuntu:
+    kermic: omniidl4-python
+    lucid: omniidl4-python
+    maverick: omniidl-python
+    natty: omniidl-python
+    oneiric: omniidl-python
+omniorb4:
+  ubuntu:
+    kermic: omniorb4
+    lucid: omniorb4
+    maverick: omniorb4
+    natty: omniorb4
+    oneiric: omniorb
+omniorb4-idl:
+  ubuntu:
+    kermic: omniorb4-idl
+    lucid: omniorb4-idl
+    maverick: omniorb4-idl
+    natty: omniorb4-idl
+    oneiric: omniorb-idl
+omniorb4-nameserver:
+  ubuntu:
+    kermic: omniorb4-nameserver
+    lucid: omniorb4-nameserver
+    maverick: omniorb4-nameserver
+    natty: omniorb4-nameserver
+    oneiric: omniorb-nameserver
+libomniorb4-dev:
+  ubuntu: libomniorb4-dev
+python-omniorb:
+  ubuntu:
+   kermic: python-omniorb2
+   lucid: python-omniorb2
+   maverick: python-omniorb
+   natty: python-omniorb
+   oneiric: python-omniorb
+python-tk:
+  ubuntu: python-tk
+python-psutil:
+  ubuntu: python-psutil
+python-svn:
+  ubuntu: python-svn
+
+# math
+liblapack3gf:
+  ubuntu: liblapack3gf
+liblapack-dev:
+  ubuntu: liblapack-dev
+libatlas-base-dev:
+  ubuntu: libatlas-base-dev
+libblas3gf:
+  ubuntu: libblas3gf
+libblas-dev:
+  ubuntu: libblas-dev
+f2c:
+  ubuntu: f2c
+libf2c2:
+  ubuntu: libf2c2
+libf2c2-dev:
+  ubuntu: libf2c2-dev
+libgfortran3:
+  ubuntu: libgfortran3
+libgfortran3-dbg:
+  ubuntu: libgfortran3-dbg
+tvmet:
+  ubuntu: tvmet
+
+# boost
+
+# eclipse3.4.2
+eclipse:
+  ubuntu:
+   kermic: eclipse eclipse-platform eclipse-rcp eclipse-pde
+   lucid: eclipse eclipse-platform eclipse-rcp eclipse-pde
+   maverick: eclipse eclipse-platform eclipse-rcp eclipse-emf eclipse-xsd eclipse-pde
+   natty: eclipse eclipse-platform eclipse-rcp eclipse-emf eclipse-xsd eclipse-pde
+   oneiric: eclipse eclipse-platform eclipse-rcp eclipse-emf eclipse-xsd eclipse-pde
+eclipse-openhrp:
+  ubuntu: |
+   #!/bin/bash
+   if [ ! -f /usr/lib/eclipse/eclipse ] ; then
+     echo "==="; echo "Downloading Eclipse files, it takes ~10 min"; echo "==="
+     wget -O /tmp/eclipse.tar.gz http://www.openrtp.jp/openhrp3/download/eclipse342_hrpdependencies_linux_en_20100602.tar.gz 1>&2
+     cd /usr/lib && sudo tar -xvzf /tmp/eclipse.tar.gz
+   fi
+
+xulrunner-1.9.2:
+  ubuntu:
+    kermic: xulrunner-1.9.2
+    lucid: xulrunner-1.9.2
+    maverick: xulrunner-1.9.2
+    natty: xulrunner-1.9.2
+    oneiric: |
+      #!/bin/bash
+      echo "oneric does not need xulrunner"
+
+# etc
+zlib1g-dev:
+  ubuntu: zlib1g-dev
+libjpeg62-dev:
+  ubuntu: libjpeg62-dev
+libpng12-dev:
+  ubuntu: libpng12-dev
+uuid-dev:
+  ubuntu: uuid-dev
+
+# openhrp3 test
+xnee:
+  ubuntu: |
+    if [ ! -f /usr/local/bin/cnee ]; then
+     sudo aptitude install build-essential libxtst-dev libpanel-applet2-dev autoconf automake libtool libgnomeui-dev checkinstall
+      wget http://ftp.gnu.org/gnu/xnee/xnee-3.10.tar.gz -O /tmp/xnee-3.10-$$.tar.gz
+      mkdir /tmp/xnee-3.10-$$; tar -C /tmp/xnee-3.10-$$ -xzvf /tmp/xnee-3.10-$$.tar.gz; cd /tmp/xnee-3.10-$$/xnee-3.10; ./configure --disable-doc; make; sudo checkinstall -y
+    fi
+xdotool:
+  ubuntu: |
+    if [ ! -f /usr/local/bin/xdotool ]; then
+      sudo aptitude install checkinstall libxtst-dev
+      wget http://semicomplete.googlecode.com/files/xdotool-2.20110530.1.tar.gz -O /tmp/xdotool-2.2-$$.tar.gz
+      mkdir /tmp/xdotool-2.2-$$; tar -C /tmp/xdotool-2.2-$$ -xvzf /tmp/xdotool-2.2-$$.tar.gz; cd /tmp/xdotool-2.2-$$/xdotool-2.20110530.1; ./configure; make; sudo mkdir -p /usr/local/man/man1; sudo mkdir -p /usr/local/lib; sudo mkdir -p /usr/local/include; sudo checkinstall -y
+    fi
+libxtst-dev:
+  ubuntu: libxtst-dev
+
+# openrtm
+#openrtm-aist
+#openrtm-aist-doc
+#openrtm-aist-dev
+#openrtm-aist-example
+openrtm:
+  ubuntu: |
+   #!/bin/bash
+   if [ ! -f /etc/apt/sources.list.d/openrtm.list ] ; then
+     echo "deb http://www.openrtm.org/pub/Linux/ubuntu `lsb_release -cs` main" |  sudo tee /etc/apt/sources.list.d/openrtm.list
+     sudo apt-get update
+   fi
+   sudo apt-get -y --force-yes install openrtm-aist openrtm-aist-doc openrtm-aist-dev openrtm-aist-example openrtm-aist-python openrtm-aist-python-example
+
+collada15dom:
+  ubuntu: |
+   #!/bin/bash
+   if [ ! -f /etc/apt/sources.list.d/openrave-release*.list ] ; then
+     echo "deb http://ppa.launchpad.net/openrave/release/ubuntu `lsb_release -cs` main" |  sudo tee /etc/apt/sources.list.d/openrave-release.list
+     sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 58E6B835EDC85D09
+     sudo apt-get -y update
+   fi
+   sudo apt-get -y --force-yes install libcollada15dom-dev
+
+# for openhrp3
+libxml2:
+  ubuntu: libxml2-dev
+  debian: libxml2-dev
+
+# for hrpsys
+# libncurses5-dev
+# libreadline5-dev
+libirrlicht-dev:
+  ubuntu: libirrlicht-dev
+libglew-dev:
+  ubuntu: libglew1.5-dev libglew1.5
+
+# for openrtm-python-example
+tix:
+  ubuntu: tix
+
+# choreonoid
+doxygen:
+  ubuntu: doxygen
+openscenegraph:
+  ubuntu: libopenscenegraph-dev openscenegraph-doc
+libsimage-dev:
+  ubuntu: libsimage-dev
+libqt4-opengl:
+  ubuntu: libqt4-opengl-dev
+wx-common:
+  ubuntu: wx-common
+libqhull-dev:
+  ubuntu: libqhull-dev
+qhull-bin:
+  ubuntu: qhull-bin
+

@@ -1,0 +1,26 @@
+<package>
+  <description brief="openrtm">
+
+     openrtm
+
+  </description>
+  <author>AIST, ros package is maintained by Kei Okada</author>
+  <license>EPL</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/openrtm</url>
+
+  <rosdep name="tix" />
+  <rosdep name="omniidl4" />
+  <rosdep name="omniorb4-nameserver" />
+  <rosdep name="omniidl-python" />
+
+  <depend package="rtmbuild" />
+  <depend package="xdot" />
+
+  <export>
+    <python path="${prefix}/src/openrtm:${prefix}/src/openrtm/OpenRTM_aist/:${prefix}/src/openrtm/OpenRTM_aist/utils:${prefix}/src/openrtm/OpenRTM_aist/RTM_IDL" />
+  </export>
+
+</package>
+
+

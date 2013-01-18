@@ -1,0 +1,19 @@
+<package>
+  <description brief="rtmbuild">
+
+     rtmbuild
+
+  </description>
+  <author>Build scripts for OpenRTM and OpenHRP, Kei Okada</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/rtmbuild</url>
+
+  <depend package="std_msgs"/>
+
+  <rosdep name="omniidl4"/>
+  <rosdep name="libomniorb4-dev"/>
+
+</package>
+
+
