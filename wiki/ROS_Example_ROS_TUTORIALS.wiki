@@ -72,13 +72,13 @@ ROSのページには、さまざまTutorialが詳しく作られています。
 
 
  * [http://www.ros.org/wiki/ROS/Tutorials/Recording%20and%20playing%20back%20data English RecordingAndPlayingBackData]
- * [http://www.ros.org/wiki/ja/ROS/Tutorials/Recording%20and%20playing%20back%20data 日本語 データを保存し再現する]
+ * [http://www.ros.org/wiki/ja/ROS/Tutorials/Recording%20and%20playing%20back%20data 日本語　データを保存し再現する]
 
  * [http://www.ros.org/wiki/rosjs rosjs Package Summary]
- * [http://www.ros.org/wiki/ja/rosjs rosjs概要・インストール]
+ * [http://www.ros.org/wiki/ja/rosjs 日本語　Rosjs概要・インストール]
 
  * [http://ros.org/wiki/rosbridge/Tutorials/Using%20Javascript%20to%20control%20ROS%20via%20rosjs English Using Javascript to control ROS via rosjs]
-
+ * [http://ros.org/wiki/ja/rosbridge/Tutorials/Using%20Javascript%20to%20control%20ROS%20via%20rosjs 日本語　rosjsを介してJavascriptを使ったROSをコントロールする]
 
 -----------
 -----------
