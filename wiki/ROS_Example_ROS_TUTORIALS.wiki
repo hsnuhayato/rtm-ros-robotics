@@ -135,6 +135,7 @@ ROSのページには、さまざまTutorialが詳しく作られています。
  * ja/openni_kinect
  * ja/openni_tracker
  * ja/pcl
+ * ja/roscore
 == 改良済ページ==
  * ja/ROS/Tutorials
  * ja/ROS/Tutorials/NavigatingTheFilesystem
