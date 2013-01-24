@@ -4,10 +4,7 @@
 
 = ROS本体のインストール =
 
-<wiki:comment>
-http://www.ros.org/wiki/diamondback/Installation/Ubuntu
-</wiki:comment>
-http://www.ros.org/wiki/electric/Installation/Ubuntu
+http://www.ros.org/wiki/fuerte/Installation/Ubuntu
  より抜粋
 
 
