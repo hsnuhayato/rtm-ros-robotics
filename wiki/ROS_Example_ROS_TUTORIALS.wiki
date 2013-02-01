@@ -137,6 +137,7 @@ ROSのページには、さまざまTutorialが詳しく作られています。
  * ja/pcl
  * ja/roscore
  * ja/Master
+ * ja/ROS/Tutorials/Creating%20a%20Package%20by%20Hand
 == 改良済ページ==
  * ja/ROS/Tutorials
  * ja/ROS/Tutorials/NavigatingTheFilesystem
