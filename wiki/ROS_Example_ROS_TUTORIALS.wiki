@@ -152,3 +152,4 @@ ROSのページには、さまざまTutorialが詳しく作られています。
  * ja/ROS/Tutorials/ExaminingPublisherSubscriber
  * ja/ROS/Tutorials/ExaminingServiceClient
 == 編集中ページ==
+ * ja/rosbuild/
