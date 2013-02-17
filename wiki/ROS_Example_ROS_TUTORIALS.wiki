@@ -107,6 +107,9 @@ ROSのページには、さまざまTutorialが詳しく作られています。
 = 本家ROSのページを編集する。=
 本家ROSのページを編集するには、アカウントを作る必要があります。上の「一部日本語に翻訳されているページ郡」から右側のユーザのログインでアカウント作成をし、ログインをしてください。その後、編集ボタンを用いて、wikiを変えることができます。
 
+*編集の上での注意
+ # 今のところ、Tutorialsによっては、FullSearchWithDescriptionsCSを使っているページと、TutorialChainを使っているページがあります。前者を使用しているページは、ja/Tutorialsなどで作成したチュートリアルもTutorialの中に組み込んでしまうため、TutorialChainを使用していないページでは、とりあえず、ja/Tutorialsをja/jaTutorialsなどに変更しておいてください。
+
 * WikiMacros。Wikiを編集する際のマクロが書かれている。
  * http://www.ros.org/wiki/WikiMacros
 
