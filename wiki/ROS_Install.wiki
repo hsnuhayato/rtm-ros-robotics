@@ -14,7 +14,7 @@ ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公
 {{{
 wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
 yes | bash /tmp/jsk.rosbuild fuerte
-cd ros/fuerte
+cd ~/ros/fuerte
 source setup.bash
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 rosws update
