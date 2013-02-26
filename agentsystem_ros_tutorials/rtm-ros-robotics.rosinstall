@@ -45,8 +45,8 @@
 ##
 ## for face detector
 - svn:
-    uri: https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg
-    local-name: tum-ros-pkg
+    uri: https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg/perception
+    local-name: tum-ros-pkg/perception
 ##
 ## saliency tracking
 - svn:
