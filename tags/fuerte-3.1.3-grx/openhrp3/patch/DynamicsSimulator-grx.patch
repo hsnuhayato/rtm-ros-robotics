@@ -1,0 +1,41 @@
+diff -ur idl/OpenHRP/DynamicsSimulator.idl.orig idl/OpenHRP/DynamicsSimulator.idl
+--- idl/OpenHRP/DynamicsSimulator.idl.orig	2011-06-08 17:49:14.000000000 +0900
++++ idl/OpenHRP/DynamicsSimulator.idl	2012-06-25 14:57:23.000000000 +0900
+@@ -8,10 +8,7 @@
+  * @if jp
+  * DynamicsSimulator サーバ関連インターフェース
+  * @endif
+- * @author Shin'ichiro Nakaoka
+- * @author Rafael Cisneros
+-*/
+-
++ */
+ module OpenHRP {
+ 
+ 	/**
+@@ -180,7 +177,6 @@
+ 		 * @param	K ばね係数
+ 		 * @param	C ダンパ係数
+          * @param   culling_thresh  この距離以下の点は同一接触点とみなす
+-         * @param   Restitution  
+ 		 * @else
+ 		 * Add Collision Pairs
+ 		 * @param	char1	  Name of character for first link
+@@ -192,7 +188,6 @@
+ 		 * @param	K Parameters for Spring
+ 		 * @param	C Parameters for Damper
+ 		 * @param   culling_thresh
+-         * @param   Restitution  
+ 		 * @note K and C should be of zero length for no Spring-Damper stuff.
+ 		 * @endif
+ 		 */
+@@ -206,8 +201,7 @@
+ 		 in double slipFriction,
+ 		 in DblSequence6 K,
+ 		 in DblSequence6 C,
+-         in double culling_thresh,
+-		 in double Restitution
++         in double culling_thresh
+ 		 );
+   
+ 
