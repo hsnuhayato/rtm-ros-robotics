@@ -96,7 +96,7 @@ rosrun roseus roseus (rossetpr2したのと同じターミナルで実行)
 :larm
 :rarm :collar-y
       :shoulder-p
-      :shoulder-y
+      :shoulder-r
       :elbow-p
       :elbow-r
       :wrist-p
