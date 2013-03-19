@@ -67,9 +67,9 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 -- FLANN found (include: /opt/ros/fuerte/include, lib: optimized;/opt/ros/fuerte/lib/libflann_cpp.so;debug;/opt/ros/fuerte/lib/libflann_cpp-gd.so)
 -- Found LIBUSB_1: /usr/lib/x86_64-linux-gnu/libusb-1.0.so 
 }}}
-などの表記が見られると思うので、少なくとも、[http://pointclouds.org/downloads/source.html pclのcompiling from sourceのページ下部にあるMandatory]に表記されているソフトウェアのバージョン以上を守っているかインストールされているかを確認してください。(2013/3/19時点で、boost:1.46以上、Eigen:3.0以上、FLANN:1.7.1以上、vtk:5.6以上)。バージョンが大きすぎてもダメな場合もありました。
+出力の内、上の方に上記の表記が見られると思うので、少なくとも、[http://pointclouds.org/downloads/source.html pclのcompiling from sourceのページ下部にあるMandatory]に表記されているソフトウェアのバージョン以上を守っているかインストールされているかを確認してください。(2013/3/19時点で、boost:1.46以上、Eigen:3.0以上、FLANN:1.7.1以上、vtk:5.6以上)。バージョンが大きすぎてもダメな場合もありました。
 
-これらがしっかりとできれていれば、少なくともtrackingに関して言えば、
+これらがしっかりとできれていれば、少なくともtrackingに関して言えば、先の出力の下の方に
 {{{
 -- The following subsystems will be built:
 --   common
@@ -89,7 +89,7 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 --   surface
 --   registration
 --   keypoints
---   tracking
+--   tracking　　　　　　　←ここ
 --   recognition
 --   stereo
 --   apps
@@ -102,7 +102,7 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 のように含まれているはずです。（上図は人それぞれ変わるかもしれません。）
 
 この時点で、*pcl-trunk*/appsの中のsrcにソースコードのopenni_tracking.cppが入っているはずです。
-念の為、buildディレクトリにいるなら、
+念の為確認しておきましょう。buildディレクトリにいるなら、
 {{{
 cd ../apps/src
 }}}
@@ -125,7 +125,7 @@ make
 を実行して、エラーが出ないかを確認します。ここで、"instantiated from"やwarningはひとまずおいておいて問題ありません。
 
 *ただ、trunkは開発過程にあるものなので、makeが通らないことが多々あります。その時は、いくらかのリビジョンを戻して再度cmakeからやりなおしましょう。*
-2013/03/18日の時点で、少なくとも、_*svn*_の最新のリビジョンではmakeが通らなかったため、３月3日ごろの8754では動くことができました。
+2013/03/18日の時点で、少なくとも、_*svn*_の最新のリビジョンではmakeが通らなかったため、3月3日ごろの8754では動くことができました。
 
 
 うまくmakeが通ったなら、おそらくサンプルはbuild/bin以下に入っているので、
