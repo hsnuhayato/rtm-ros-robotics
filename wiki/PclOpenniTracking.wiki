@@ -1,4 +1,5 @@
 #summary pclのtrunkに含まれるtrackingのサンプルを実行する。
+<wiki:toc max_depth="2" />
 
 = はじめに =
 
