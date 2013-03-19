@@ -54,7 +54,7 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 }}}
 などの表記が見られると思うので、少なくとも、[http://pointclouds.org/downloads/source.html pclのcompiling from sourceのページ下部にあるMandatory]に表記されているソフトウェアのバージョン以上を守っているかインストールされているかを確認してください。(2013/3/19時点で、boost:1.46以上、Eigen:3.0以上、FLANN:1.7.1以上、vtk:5.6以上)。バージョンが大きすぎてもダメな場合もありました。
 
-これらがしっかりとできれていれば、少なくともtrackingに関していれば、
+これらがしっかりとできれていれば、少なくともtrackingに関して言えば、
 {{{
 -- The following subsystems will be built:
 --   common
