@@ -5,12 +5,11 @@
 2013年3月19日現在、まだ、安定版になっていないので、trackingはtrunkに含まれています。
 また今後、trunkにのみ入っているサンプルを実行したいというときのために、一連の導入の流れを念の為書いておきますが、一部、環境による部分も含まれていますので、ご注意ください。
 
-また、最新の情報は、[[http://pointclouds.org/downloads/ pclのダウンロードサイト]]で確認するようにしてください。
+また、最新の情報は、[http://pointclouds.org/downloads/ pclのダウンロードサイト]で確認するようにしてください。
 
 = 準備 =
-== git ==
-[[http://pointclouds.org/downloads/source.html pclのcompiling from source]]のページに書いてあるように必要なtrunkをcloneします。
-（３月１４日ころからgitになったようです。）
+[http://pointclouds.org/downloads/source.html pclのcompiling from source]のページに書いてあるように必要なtrunkをcloneします。
+（３月１４日ころからsvnからgitになったようです。）
 
 pcl-trunkのフォルダを置きたいフォルダに移動して、以下を打ちます。
 {{{
@@ -87,26 +86,31 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 }}}
 のように含まれているはずです。（上図は人それぞれ変わるかもしれません。）
 
-この時点で、すでにおそらく、appsの中のsrcにopenni_tracking.cppが入っているはずです。
-念の為、buildディレクトリにいるなら、
-{{{
-cd apps/src
-}}}
-でapps/srcに移動し、openni_tracking.cppがあるか確認しましょう。
-
 確認ができましたら、buildディレクトリの中で、
 {{{
 ccmake ..
 }}}
 を実行します。以下のようなウィンドウが開くと思うので、
 
-BUILD_appsをONにします。BUILD_appsにまでフォーカスが合うようにカーソルを移動して、Enterを押し、終わったら、gを押すと、実行して、終了してくれます。
+BUILD_appsをONにします。BUILD_appsにまでフォーカスが合うようにカーソルを移動して、Enterを押しOFFからONに変更し、終わったら、gを押すと、実行して、終了してくれます。
 
 いよいよ
 {{{
 make
 }}}
-を実行して、エラーが出ないかを確認します。
+を実行して、エラーが出ないかを確認します。ここで、"instantiated from"やwarningはひとまずおいておいて問題ありません。
+
+*ただ、trunkは開発過程にあるものなので、makeが通らないことが多々あります。その時は、いくらかのリビジョンを戻して再度cmakeからやりなおしましょう。*
+2013/03/18日の時点で、少なくとも、_*svn*_の最新のリビジョンではmakeが通らなかったため、３月3日ごろの8754では動くことができました。
+
+
+これが終わるとbuild/appsの中のsrcにopenni_tracking.cppが入っているはずです。
+念の為、buildディレクトリにいるなら、
+{{{
+cd apps/src
+}}}
+でapps/srcに移動し、openni_tracking.cppがあるか確認しましょう。（trackingのサンプルを実行したい場合）しっかりあれば、問題ありません。
+
 
 そしたら、おそらくサンプルはbuild/bin以下に入っているので、
 {{{
@@ -121,3 +125,31 @@ ls bin/pcl_openni_tracking
  cd bin
 }}}
 その後、
+{{{
+./pcl_openni_viewer -l
+}}}
+を行い
+{{{
+Device: 1, vendor: PrimeSense, product: PrimeSense Device, connected:  @ , serial number: ''
+Virtual Devices available: ONI player
+}}}
+などのようなものが表示されます。pclでは<device id>を指定するときは、この上記のDeviceにある値を用います。もう少し詳しい使い方は
+{{{
+./pcl_openni_viewer --help
+}}}
+と実行すると見れると思います。
+今回は、PrimeSenseのものしか指していませんが、確認をするため、映像を取得できるか試してみます。（今回はdevice id が1です。）
+{{{
+./pcl_openni_viewer "#1"
+}}}
+と実行され、正しく以下のように表示されることを確認してください。
+うまく表示されたのであれば、pcl_openni_trackingを実行してみます。
+床に、trackingしたい対象を設置して、ほどよく離れてKinectを準備します。準備ができたら、
+{{{
+./pcl_openni_tracking "#1"
+}}}
+を実行して、しばらく待ちます。
+うまく行けば、パーティクルが、働いているのが見えると思います。図の赤と青の部分です。
+
+= pcl_openni_trackingの使い方 =
+とりあえず、どんなキー操作ができるかはhを押すことで、コマンドライン上に以下のように表示されます。
