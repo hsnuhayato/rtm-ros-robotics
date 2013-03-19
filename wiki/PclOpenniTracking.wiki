@@ -2,17 +2,26 @@
 
 = はじめに =
 
-2013年3月19日現在、まだ、安定版になっていないので、trackingはtrunkに含まれています。
+2013年3月19日現在、まだ、安定版になっていないので、trackingはtrunkに含まれています。そのため、基本的にソースコードのコンパイルから行うことになります。
 また今後、trunkにのみ入っているサンプルを実行したいというときのために、一連の導入の流れを念の為書いておきますが、一部、環境による部分も含まれていますので、ご注意ください。
 
 また、最新の情報は、[http://pointclouds.org/downloads/ pclのダウンロードサイト]で確認するようにしてください。
+
+-------------
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_downloadPage.png]
+-------------
+-------------
 
 = 準備 =
+
 [http://pointclouds.org/downloads/source.html pclのcompiling from source]のページに書いてあるように必要なtrunkをcloneします。
 （３月１４日ころからsvnからgitになったようです。）
-[http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_compilepage_1.png]
 
+--------------------------
+--------------------------
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_compilepage_1.png]
+--------------------------
+--------------------------
 
 pcl-trunkのフォルダを置きたいフォルダに移動して、以下を打ちます。
 {{{
