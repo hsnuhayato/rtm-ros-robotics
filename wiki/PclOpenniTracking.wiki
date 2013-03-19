@@ -6,10 +6,13 @@
 また今後、trunkにのみ入っているサンプルを実行したいというときのために、一連の導入の流れを念の為書いておきますが、一部、環境による部分も含まれていますので、ご注意ください。
 
 また、最新の情報は、[http://pointclouds.org/downloads/ pclのダウンロードサイト]で確認するようにしてください。
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_downloadPage.png]
 
 = 準備 =
 [http://pointclouds.org/downloads/source.html pclのcompiling from source]のページに書いてあるように必要なtrunkをcloneします。
 （３月１４日ころからsvnからgitになったようです。）
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_compilepage_1.png]
+
 
 pcl-trunkのフォルダを置きたいフォルダに移動して、以下を打ちます。
 {{{
@@ -100,7 +103,7 @@ cd ../apps/src
 ccmake ..
 }}}
 を実行します。以下のようなウィンドウが開くと思うので、
-
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/ccmake.png]
 BUILD_appsをONにします。BUILD_appsにまでフォーカスが合うようにカーソルを移動して、Enterを押しOFFからONに変更し、終わったら、gを押すと、実行して、終了してくれます。
 
 いよいよ
@@ -144,6 +147,7 @@ Virtual Devices available: ONI player
 ./pcl_openni_viewer "#1"
 }}}
 と実行され、正しく以下のように表示されることを確認してください。
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_openni_viewer.png]
 うまく表示されたのであれば、pcl_openni_trackingを実行してみます。
 床に、trackingしたい対象を設置して、ほどよく離れてKinectを準備します。準備ができたら、
 {{{
@@ -151,6 +155,7 @@ Virtual Devices available: ONI player
 }}}
 を実行して、しばらく待ちます。
 うまく行けば、パーティクルが、働いているのが見えると思います。図の赤と青の部分です。
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_openni_sample.png]
 
 = pcl_openni_trackingの使い方 =
 とりあえず、どんなキー操作ができるかはhを押すことで、コマンドライン上に以下のように表示されます。
