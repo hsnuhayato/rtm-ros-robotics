@@ -86,7 +86,7 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 }}}
 のように含まれているはずです。（上図は人それぞれ変わるかもしれません。）
 
-この時点で、*pcl-trunk*/appsの中のsrcにopenni_tracking.cppが入っているはずです。
+この時点で、*pcl-trunk*/appsの中のsrcにソースコードのopenni_tracking.cppが入っているはずです。
 念の為、buildディレクトリにいるなら、
 {{{
 cd ../apps/src
@@ -95,7 +95,7 @@ cd ../apps/src
 
 
 
-確認ができましたら、buildディレクトリの中で、
+確認ができましたら、buildディレクトリの中で、(忘れずに cd ../../build でbuildディレクトリにお戻りください)
 {{{
 ccmake ..
 }}}
