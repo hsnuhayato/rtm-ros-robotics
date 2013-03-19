@@ -160,7 +160,7 @@ Virtual Devices available: ONI player
 }}}
 と実行され、正しく以下のように表示されることを確認してください。
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_openni_viewer.png]
-うまく表示されたのであれば、pcl_openni_trackingを実行してみます。
+うまく表示されたのであれば、デバイスはしっかりと認識されており、device idも正しいことがわかったので、pcl_openni_trackingを実行してみます。
 床に、trackingしたい対象を設置して、ほどよく離れてKinectを準備します。準備ができたら、
 {{{
 ./pcl_openni_tracking "#1"
