@@ -160,7 +160,7 @@ Virtual Devices available: ONI player
 }}}
 とのみ打ってみてください。おそらく以下のような表示が見れると思います。
 {{{
-wiki@wiki-ThinkPad-T430:~/work/pcl/pcl-trunk/build/bin$ ./pcl_openni_tracking  
+ ./pcl_openni_tracking  
 usage: ./pcl_openni_tracking <device_id> [-C] [-g]
 
   -C:  initialize the pointcloud to track without plane segmentation
