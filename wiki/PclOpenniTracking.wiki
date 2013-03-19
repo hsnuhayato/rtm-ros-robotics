@@ -86,6 +86,15 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 }}}
 のように含まれているはずです。（上図は人それぞれ変わるかもしれません。）
 
+この時点で、*pcl-trunk*/appsの中のsrcにopenni_tracking.cppが入っているはずです。
+念の為、buildディレクトリにいるなら、
+{{{
+cd ../apps/src
+}}}
+でapps/srcに移動し、openni_tracking.cppがあるか確認しましょう。（trackingのサンプルを実行したい場合）しっかりあれば、問題ありません。
+
+
+
 確認ができましたら、buildディレクトリの中で、
 {{{
 ccmake ..
@@ -104,15 +113,7 @@ make
 2013/03/18日の時点で、少なくとも、_*svn*_の最新のリビジョンではmakeが通らなかったため、３月3日ごろの8754では動くことができました。
 
 
-これが終わるとbuild/appsの中のsrcにopenni_tracking.cppが入っているはずです。
-念の為、buildディレクトリにいるなら、
-{{{
-cd apps/src
-}}}
-でapps/srcに移動し、openni_tracking.cppがあるか確認しましょう。（trackingのサンプルを実行したい場合）しっかりあれば、問題ありません。
-
-
-そしたら、おそらくサンプルはbuild/bin以下に入っているので、
+うまくmakeが通ったなら、おそらくサンプルはbuild/bin以下に入っているので、
 {{{
 ls bin/pcl_openni_tracking
 }}}
@@ -120,7 +121,7 @@ ls bin/pcl_openni_tracking
 
 = 実行 =
 それでは、実行に入ります。kinectをつないでください。電源が別途必要な場合は忘れないで指してください。
-まず、build/binに移動します。
+まず、pcl-trunk/build/binに移動します。
 {{{
  cd bin
 }}}
@@ -128,12 +129,12 @@ ls bin/pcl_openni_tracking
 {{{
 ./pcl_openni_viewer -l
 }}}
-を行い
+を行うと
 {{{
 Device: 1, vendor: PrimeSense, product: PrimeSense Device, connected:  @ , serial number: ''
 Virtual Devices available: ONI player
 }}}
-などのようなものが表示されます。pclでは<device id>を指定するときは、この上記のDeviceにある値を用います。もう少し詳しい使い方は
+などのようなものが表示されます。このコマンドは、pclに接続されているデバイスのID付きのリストを表示するものです。pclでは<device id>を指定するときは、この上記のDeviceにある値を用います。もう少し詳しい使い方は
 {{{
 ./pcl_openni_viewer --help
 }}}
@@ -153,3 +154,18 @@ Virtual Devices available: ONI player
 
 = pcl_openni_trackingの使い方 =
 とりあえず、どんなキー操作ができるかはhを押すことで、コマンドライン上に以下のように表示されます。
+また、コマンドラインの引数は
+{{{
+./pcl_openni_tracking
+}}}
+とのみ打ってみてください。おそらく以下のような表示が見れると思います。
+{{{
+wiki@wiki-ThinkPad-T430:~/work/pcl/pcl-trunk/build/bin$ ./pcl_openni_tracking  
+usage: ./pcl_openni_tracking <device_id> [-C] [-g]
+
+  -C:  initialize the pointcloud to track without plane segmentation
+  -D: visualizing with non-downsampled pointclouds.
+  -P: not visualizing particle cloud.
+  -fixed: use the fixed number of the particles.
+  -d <value>: specify the grid size of downsampling (defaults to 0.01).
+}}}
