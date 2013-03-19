@@ -1,0 +1,123 @@
+#summary pclのtrunkに含まれるtrackingのサンプルを実行する。
+
+= はじめに =
+
+2013年3月19日現在、まだ、安定版になっていないので、trackingはtrunkに含まれています。
+また今後、trunkにのみ入っているサンプルを実行したいというときのために、一連の導入の流れを念の為書いておきますが、一部、環境による部分も含まれていますので、ご注意ください。
+
+また、最新の情報は、[[http://pointclouds.org/downloads/ pclのダウンロードサイト]]で確認するようにしてください。
+
+= 準備 =
+== git ==
+[[http://pointclouds.org/downloads/source.html pclのcompiling from source]]のページに書いてあるように必要なtrunkをcloneします。
+（３月１４日ころからgitになったようです。）
+
+pcl-trunkのフォルダを置きたいフォルダに移動して、以下を打ちます。
+{{{
+git clone https://github.com/PointCloudLibrary/pcl pcl-trunk
+}}}
+
+cloneが完了したら、
+{{{
+cd pcl-trunk && mkdir build && cd build
+}}}
+を行うことで、pcl-trunkの中に移動して、buildフォルダを作り、buildに移動します。
+その後、
+{{{
+cmake -DCMAKE_BUILD_TYPE=Release .. 
+}}}
+を行い、
+{{{
+-- The C compiler identification is GNU
+-- The CXX compiler identification is GNU
+・・・
+-- Found SSE4.2 extensions, using flags:  -march=native -msse4.2 -mfpmath=sse
+-- Try OpenMP C flag = [-fopenmp]
+・・
+-- Found OpenMP: -fopenmp 
+-- Found OpenMP
+-- Boost version: 1.46.1
+-- Found the following Boost libraries:
+--   system
+--   filesystem
+--   thread
+--   date_time
+--   iostreams
+-- checking for module 'eigen3'
+--   found eigen3, version 3.0.5
+-- Found Eigen: /usr/include/eigen3 
+-- Eigen found (include: /usr/include/eigen3)
+-- checking for module 'flann>=1.7.0'
+--   found flann, version 1.7.1
+-- Found FLANN: /opt/ros/fuerte/lib/libflann_cpp.so (Required is at least version "1.7.0")
+-- FLANN found (include: /opt/ros/fuerte/include, lib: optimized;/opt/ros/fuerte/lib/libflann_cpp.so;debug;/opt/ros/fuerte/lib/libflann_cpp-gd.so)
+-- Found LIBUSB_1: /usr/lib/x86_64-linux-gnu/libusb-1.0.so 
+}}}
+などの表記が見られると思うので、少なくとも、Mandatoryに表記されているソフトウェアのバージョン以上を守っているかインストールされているかを確認してください。(2013/3/19時点で、boost:1.46以上、Eigen:3.0以上、FLANN:1.7.1以上、vtk:5.6以上)。バージョンが大きすぎてもダメな場合もありました。
+
+これらがしっかりとできれていれば、少なくともtrackingに関していれば、
+{{{
+-- The following subsystems will be built:
+--   common
+--   octree
+--   io
+--   kdtree
+--   search
+--   sample_consensus
+--   filters
+--   2d
+--   features
+--   geometry
+--   visualization
+--   ml
+--   segmentation
+--   people
+--   surface
+--   registration
+--   keypoints
+--   tracking
+--   recognition
+--   stereo
+--   apps
+--   outofcore
+--   global_tests
+--   examples
+--   tools
+
+}}}
+のように含まれているはずです。（上図は人それぞれ変わるかもしれません。）
+
+この時点で、すでにおそらく、appsの中のsrcにopenni_tracking.cppが入っているはずです。
+念の為、buildディレクトリにいるなら、
+{{{
+cd apps/src
+}}}
+でapps/srcに移動し、openni_tracking.cppがあるか確認しましょう。
+
+確認ができましたら、buildディレクトリの中で、
+{{{
+ccmake ..
+}}}
+を実行します。以下のようなウィンドウが開くと思うので、
+
+BUILD_appsをONにします。BUILD_appsにまでフォーカスが合うようにカーソルを移動して、Enterを押し、終わったら、gを押すと、実行して、終了してくれます。
+
+いよいよ
+{{{
+make
+}}}
+を実行して、エラーが出ないかを確認します。
+
+そしたら、おそらくサンプルはbuild/bin以下に入っているので、
+{{{
+ls bin/pcl_openni_tracking
+}}}
+で該当するものがあるかを確認しましょう。
+
+= 実行 =
+それでは、実行に入ります。kinectをつないでください。電源が別途必要な場合は忘れないで指してください。
+まず、build/binに移動します。
+{{{
+ cd bin
+}}}
+その後、
