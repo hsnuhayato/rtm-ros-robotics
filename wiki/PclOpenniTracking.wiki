@@ -166,7 +166,7 @@ Virtual Devices available: ONI player
 ./pcl_openni_tracking "#1"
 }}}
 を実行して、しばらく待ちます。
-初めは画面のほとんどが黒く、中心しか見えないと思いますので、コンソールの*segmentation please wait*のあとに、文字が続いてから、表示ウィンドウ上でドラッグをしてください。中止しか見えなかったのは、筒の中にカメラが位置していたためです。
+初めは画面のほとんどが黒く、中心しか見えないと思いますので、コンソールの * segmentation please wait * のあとに、文字が続いてから、表示ウィンドウ上でドラッグをしてください。中止しか見えなかったのは、筒の中にカメラが位置していたためです。
 うまく行けば、パーティクルが、働いているのが見えると思います。図の赤と青の部分です。
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_openni_sample.png]
 
