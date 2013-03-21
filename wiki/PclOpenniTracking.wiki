@@ -116,7 +116,7 @@ ccmake ..
 }}}
 を実行します。以下のようなウィンドウが開くと思うので、
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/ccmake.png]
-BUILD_appsをONにします。BUILD_appsにまでフォーカスが合うようにカーソルを移動して、Enterを押しOFFからONに変更し、終わったら、gを押すと、実行して、終了してくれます。
+BUILD_appsをONにします。BUILD_appsにまでフォーカスが合うようにカーソルを移動して、Enterを押しOFFからONに変更し、終わったら、cを押して生成し、qを押すと、終了してくれます。
 
 いよいよ
 {{{
