@@ -249,7 +249,7 @@ rosrun hrpsys hrp4c_walk.sh
 }}}
 or
 {{{
-rosrun roseus roseus `rospack find hrpsys_ros_bridge`/scripts/hrp4c-pickup.l
+rosrun roseus roseus `rospack find hrpsys_ros_bridge`/euslisp/hrp4c-pickup.l
 }}}
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/hrp4c_rviz.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/hrp4c_rviz.png]
