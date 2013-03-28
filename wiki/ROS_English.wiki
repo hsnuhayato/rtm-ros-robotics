@@ -227,7 +227,7 @@ rosrun hrpsys SampleRobot_walk.sh
 }}}
 or
 {{{
-roscd hrpsys_ros_bridge/scripts/
+roscd hrpsys_ros_bridge/euslisp/
 rosrun roseus roseus samplerobot-pickup.l
 }}}
 
