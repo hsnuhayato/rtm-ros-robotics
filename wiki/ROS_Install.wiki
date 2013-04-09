@@ -18,6 +18,17 @@ cd ~/ros/fuerte
 source setup.bash
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 rosws update
+
+# for ubuntu12.04
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/drc/ubuntu precise main" > /etc/apt/sources.list.d/drc-latest.list'
+# for ubuntu12.10
+#sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu quantal main" > /etc/apt/sources.list.d/ros-latest.list'
+#sudo sh -c 'echo "deb http://packages.osrfoundation.org/drc/ubuntu quantal main" > /etc/apt/sources.list.d/drc-latest.list'
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+wget http://packages.osrfoundation.org/drc.key -O - | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install drcsim
 }}}
 このコマンドを実行すると
 (1)aptのリポジトリ登録
