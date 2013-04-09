@@ -16,7 +16,7 @@ wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbu
 yes | bash /tmp/jsk.rosbuild fuerte
 cd ~/ros/fuerte
 source setup.bash
-rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 rosws update
 }}}
 このコマンドを実行すると
