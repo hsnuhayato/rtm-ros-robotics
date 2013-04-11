@@ -176,6 +176,14 @@ Virtual Devices available: ONI player
 
 そしたら、segmentationが始める前に、カメラz軸になるべく近いところに対象を設置してください。
 
+基本的に、likelihood（コード中では、coherenece）は、HSVColorと、Distance、Normalを選ぶことができます。また、それぞれを組み合わせて使うこともできます。
+
+基本的に、Distanceは必須ですが、HSVColorやNormalは状況によりけりで任意です。多くを合わせるよりも、Particle数を増やしたり、計算回数を増やすほうが、経験上、精度があがります。
+
+Noramlなどを使う場合、エッジでの特徴量があまり咬み合わないため、うまく行く時と行かないときに分かれてしまします。
+
+
+
 == 見方 ==
 
 青が、セグメンテーションで、赤が、パーティクルです。
