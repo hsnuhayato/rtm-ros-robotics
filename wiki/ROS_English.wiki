@@ -242,7 +242,7 @@ roslaunch hrpsys_ros_bridge samplerobot.launch SCHEDULER_ARGS:=--nosim
 === HRP4 ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hrp4c.launch hrp4c.launch])
 {{{
-roslaunch hrpsys_ros_bridge hrp4c.launch
+roslaunch hrpsys_ros_bridge_tutorials hrp4c.launch
 }}}
 to setup simulator and rviz viewer. Sample client program is
 {{{
@@ -250,7 +250,7 @@ rosrun hrpsys hrp4c_walk.sh
 }}}
 or
 {{{
-rosrun roseus roseus `rospack find hrpsys_ros_bridge`/euslisp/hrp4c-pickup.l
+rosrun roseus roseus `rospack find hrpsys_ros_bridge_tutorials`/euslisp/hrp4c-pickup.l
 }}}
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/hrp4c_rviz.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/hrp4c_rviz.png]
