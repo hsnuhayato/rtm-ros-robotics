@@ -36,7 +36,7 @@ $ sudo update-java-alternatives -s java-6-sun
 install related ros packages and install `rtm-ros-robotics` software
 
 {{{
-wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
+wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?format=raw' -O /tmp/jsk.rosbuild
 yes | bash /tmp/jsk.rosbuild
 cd ~/ros/electric
 source setup.bash
