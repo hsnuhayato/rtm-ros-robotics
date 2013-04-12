@@ -261,13 +261,13 @@ you need to change  `bridge = findRTC("HRP-4C(Robot)0")` to `bridge = findRTC("H
 === Kawada HIRONX ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hironx.launch hironx.launch])
 {{{
-$ roslaunch hrpsys_ros_bridge hironx.launch
+$ roslaunch hrpsys_ros_bridge_tutorials hironx.launch
 }}}
 to launch rviz viewer with Kawada HiroNx robot
 
 then, type
 {{{
-$ roscd hrpsys_ros_bridge/scrips; rosrun roseus roseus  kawada-hironx-example.l
+$ roscd hrpsys_ros_bridge_tutorials/euslisp; rosrun roseus roseus  kawada-hironx-example.l
 }}}
 to  see the robot is moving.
 
