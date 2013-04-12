@@ -58,8 +58,8 @@ Add this line to your ~/.bashrc
 == Build source code ==
 build source code and install related packages
 {{{
-$ rosdep install hrpsys_ros_bridge
-$ rosmake hrpsys_ros_bridge
+$ rosdep install hrpsys_ros_bridge_tutorials
+$ rosmake hrpsys_ros_bridge_tutorials
 }}}
 
 If something seems to be wrong in rosmake, add --pre-clean option to cleanup all depend packages and make again.
