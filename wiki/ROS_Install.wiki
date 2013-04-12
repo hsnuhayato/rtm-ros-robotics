@@ -12,7 +12,7 @@ ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公
 
 これらの手続きは，以下のコマンドを入力することで実行される．(ROS Fuerte)
 {{{
-wget https://jsk-ros-pkg.svn.sourceforge.net/svnroot/jsk-ros-pkg/trunk/jsk.rosbuild -O /tmp/jsk.rosbuild
+wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?format=raw' -O /tmp/jsk.rosbuild
 yes | bash /tmp/jsk.rosbuild fuerte
 cd ~/ros/fuerte
 source setup.bash
