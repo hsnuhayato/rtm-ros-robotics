@@ -219,7 +219,7 @@ to start walking.
 === Sample Robot ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/samplerobot.launch samplerobot.launch])
 {{{
-roslaunch hrpsys_ros_bridge samplerobot.launch
+roslaunch hrpsys_ros_bridge_tutorials samplerobot.launch
 }}}
 and if you see sample robot in RViz viewer, 
 Then type
@@ -228,7 +228,7 @@ rosrun hrpsys SampleRobot_walk.sh
 }}}
 or
 {{{
-roscd hrpsys_ros_bridge/euslisp/
+roscd hrpsys_ros_bridge_tutorials/euslisp/
 rosrun roseus roseus samplerobot-pickup.l
 }}}
 
