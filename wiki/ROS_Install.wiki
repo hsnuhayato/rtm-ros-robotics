@@ -37,6 +37,37 @@ sudo apt-get install drcsim
 sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
 }}}
 をしてリブートしておく必要がある．
+
+
+==こんなエラーがでたら==
+=== #error "NO ORB defined" ===
+openrtmのディレクトリをrosmakeしたときに、
+{{{
+../../../../src/lib/rtm/idl/SDOPackageSkel.h:50:2: error:
+#error "NO ORB defined"
+}}}
+のようなエラーがでた場合は以下を試してください。
+{{{
+$ rosdep resolve omniorb
+#apt
+omniorb omniidl omniorb-nameserver libomniorb4-1 libomniorb4-dev
+libomnithread3-dev libomnithread3c2
+}}}
+のようにして、libomniorb4-devが表示されていることを確認する。
+表示されているなら、
+{{{
+$ sudo rosdep init
+$ rosdep update
+$ rosdep install openrtm
+}}}
+としてみてください。これで
+{{{
+$ rosmake openrtm
+}}}
+をすると恐らく通るはずです。
+
+
+
 =rosemacsのインストール=
 Emacsを使いたい人には、かなり便利なものです。ここではインストール方法と簡単な使い方をご説明します。詳しくは、[http://www.ros.org/wiki/rosemacs ROSのrosemacs]を参考にしてください。
 
@@ -71,32 +102,6 @@ Enter ros path:roseus_tutorials/manifest.xml
 }}}
 と入力すれば、roseus_tutorialsの中のmanifest.xmlが開けると思います。
 
-==こんなエラーがでたら==
-=== #error "NO ORB defined" ===
-openrtmのディレクトリをrosmakeしたときに、
-{{{
-../../../../src/lib/rtm/idl/SDOPackageSkel.h:50:2: error:
-#error "NO ORB defined"
-}}}
-のようなエラーがでた場合は以下を試してください。
-{{{
-$ rosdep resolve omniorb
-#apt
-omniorb omniidl omniorb-nameserver libomniorb4-1 libomniorb4-dev
-libomnithread3-dev libomnithread3c2
-}}}
-のようにして、libomniorb4-devが表示されていることを確認する。
-表示されているなら、
-{{{
-$ sudo rosdep init
-$ rosdep update
-$ rosdep install openrtm
-}}}
-としてみてください。これで
-{{{
-$ rosmake openrtm
-}}}
-をすると恐らく通るはずです。
 
 
 
