@@ -9,8 +9,11 @@ http://www.ros.org/wiki/move_base_stage/Tutorials/stage%20and%20navigation%20sta
 
 
 = 準備 =
-[ROS_Install]にしたがってROSと講義関連パッケージがインストールされていることが前提です．
-
+[ROS_Install]にしたがってROSと講義関連パッケージがインストールされていることが前提です．また，必要に応じて以下のパッケージをインストールしてください．
+{{{
+sudo apt-get install ros-fuerte-stage
+sudo apt-get install ros-fuerte-navigation
+}}}
 
 = 実行 =
 ３つのターミナルを立ち上げます
