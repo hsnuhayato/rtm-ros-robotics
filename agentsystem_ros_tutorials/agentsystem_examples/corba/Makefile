@@ -1,4 +1,5 @@
 all: server client Hello_idl.py
+	@echo ";; make sure to restart name server, sudo /etc/init.d/omniorb4-nameserver restart"
 	@echo ";; ./server"
 	@echo ";; ./client IOB:01....."
 	@echo ";; client.py IOB:01....."
