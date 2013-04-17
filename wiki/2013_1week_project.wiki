@@ -1,0 +1,50 @@
+= 2013年１週間プロジェクト =
+
+---
+* PR2の起動
+
+{{{
+$ ssh pr1012
+$ tmux
+$ robot claim
+$ robot start
+$ # ひと呼吸おいて
+$ roslaunch jsk_pr2_startup pr2.launch &
+$ tmux detach # or C-b d
+}}}
+
+---
+* rvizの立ち上げ方
+
+{{{
+$ roscd jsk_pr2_startup/config
+$ rosrun rviz rviz -d jsk_startup.vcg
+}}}
+
+* 現在位置の修正（rviz）
+2d pose estimationして正しい現在地に移動しないとミスる。
+
+---
+* :move-toや:go-pos時の注意
+手段１：電源コードとネットワークケーブルを抜く。
+
+手段２：
+{{{
+$ rostopic echo /network/connected
+$ rostopic echo /power_state
+  # または
+$ rosnode info /cable_warning
+}}}
+を実行してケーブルや電源コードが刺さってないことを確認する。
+{{{
+
+最後の手段：
+$ rosnode kill /cable_warning
+
+---
+* :wait-interpolationが途中で止まる
+{{{
+$ roscd pr2eus
+$ svn up
+}}}
+でr4076になっていることを確認する。
