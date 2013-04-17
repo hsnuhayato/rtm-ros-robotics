@@ -83,35 +83,9 @@ er)
 == Setup Eclipse ==
 type
 {{{
-$ rosrun openhrp3 eclipse.sh
+$ rosrun openhrp3 install-eclipse-plugins.sh
 }}}
-then you'll see eclipse interface.
-Then you select
-`Help -> Install New Softare -> Add`
-from menu bar. and add
- `http://download.eclipse.org/tools/gef/updates/releases/`
-to the Location and uncheck "show only the latest version" .
-Then GEF SDK 3.6.2 become available, install and restart eclipse.
-
-You also need to add
- `http://download.eclipse.org/modeling/emf/updates/releases/`
-to the Location and select EMF SDK 2.5.0.
-
-Then select
-`Help -> Install New Softare -> Add`
-and press "Archive" button, and select the archive.
-
-`<openhrp3>/build/rtmtools_eclipse.zip`
-
-Then check everything to install.
-`<openhrp3>` is a install directory for openhrp3. (roscd openhrp3)
-
-Lastly, you have to install following software as well from Install
-`New Software -> Add`
-
-`<openhrp3>/build/java3declipse-20090302.zip`<br>
-`<openhrp3>/build/grxui_eclipse.zip`<br>
-`<hrpsys>/build/robothardware_eclipse.zip`<br>
+and wait for several minutes.
 
 Note: You must comment out the line "::1 localhost" in /etc/hosts to run following simulations.
 
