@@ -9,8 +9,7 @@ drcsimの使い方です．
                                           
 * rosのインストール *
 
-( http://www.jsk.t.u-tokyo.ac.jp/wiliki/wiliki.cgi?JSK%a5%a4%a5%f3%a5%b9%a5%c8%a1%bc%a5%eb%a5%b7%a5%b9%a5%c6%a5%e0 )
-
+https://code.google.com/p/rtm-ros-robotics/wiki/ROS_Install
 
 * drcsimのインストール *
 
