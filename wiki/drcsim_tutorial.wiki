@@ -6,30 +6,30 @@ drcsimの使い方です．
 
 
 = Details =
-
                                           
-* rosのインストール
+* rosのインストール *
+
 ( http://www.jsk.t.u-tokyo.ac.jp/wiliki/wiliki.cgi?JSK%a5%a4%a5%f3%a5%b9%a5%c8%a1%bc%a5%eb%a5%b7%a5%b9%a5%c6%a5%e0 )
 
 
-* drcsimのインストール
+* drcsimのインストール *
 
 http://gazebosim.org/wiki/DRC/Install をみて
-
+{{{
 sudo sh -c 'echo "deb http://packages.osrfoundation.org/drc/ubuntu precise main" > /etc/apt/sources.list.d/drc-latest.list'
 wget http://packages.osrfoundation.org/drc.key -O - | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install gazebo drcsim
-
+}}}
 としてインストールする．
 
-.bashrcに以下を追記
-
+~/.bashrcに以下を追記
+{{{
 export ROS_PACKAGE_PATH_ORG=$ROS_PACKAGE_PATH
 source /usr/share/drcsim/setup.sh
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH_ORG:$ROS_PACKAGE_PATH
 export ROS_PACKAGE_PATH=`echo $(echo $ROS_PACKAGE_PATH | sed -e "s/:/\n/g" | awk '!($0 in A) && A[$0] = 1' | grep -v "opt/ros"; echo $ROS_PACKAGE_PATH | sed -e "s/:/\n/g" | awk '!($0 in A) && A[$0] = 1' | grep "opt/ros") | sed -e "s/ /:/g"`
-
+}}}
 ここまでで，セットアップ終わり
 
 
