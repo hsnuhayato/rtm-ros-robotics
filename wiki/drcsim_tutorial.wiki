@@ -35,19 +35,22 @@ export ROS_PACKAGE_PATH=`echo $(echo $ROS_PACKAGE_PATH | sed -e "s/:/\n/g" | awk
 
 * 確認
 
+{{{
 roscd atlas_utils
-/usr/share/drcsim-2.4/ros/以下にあることを確認
+# /usr/share/drcsim-2.4/ros/以下にあることを確認
 rosmake atlas_utils
+}}}
 
+{{{
 roscd hrpsys_gazeboで
-~/ros/fuerte/rtm-ros-robotics/rtmros_common/以下にあることを確認
+# ~/ros/fuerte/rtm-ros-robotics/rtmros_common/以下にあることを確認
 rosdep install hrpsys_gazebo
 rosmake hrpsys_gazebo
-
+}}}
 
 * 実行
 
-# 以下で実行
+{{{
 roslaunch hrpsys_gazebo atlas.launch
 # これでgazeboのウィンドウが出る
 
@@ -58,5 +61,5 @@ roseus euslisp/atlas-interface.l
 (objects (list *atlas*))
 (send *atlas* :larm :shouler-y :joint-angle 100)
 (send *ri* :angle-vector (send *atlas* :angle-vector) 1000)
-
 # これで倒れる
+}}}
