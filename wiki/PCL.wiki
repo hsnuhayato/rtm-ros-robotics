@@ -1,8 +1,18 @@
 #summary PCLのチュートリアル
 
 このページでは、
-本家のPCL（ros_pclではない）のチュートリアルなどを参考に、
+[http://pointclouds.org/ 本家のPCL]（ros_pclではない）のチュートリアルなどを参考に、
 チュートリアルを見ていきたいと思います。
+
+* PCLとは
+
+　PCLは、PointCloudLibraryの略で、主に、３次元の点群などを処理するライブラリを提供します。Kinect for Windows や、 XBoxのKinect、ASUSのKinectなどで主に使用することができます。（Kinectなどのデバイスを扱うライブラリはOpenNIです。たぶん。）。様々なライブラリが提供されており、
+  * 点群数を均等に間引く
+  * 点群から平面を取り除いて、テーブルの上のオブジェクトのみを得る。
+  * オブジェクトごとにラベリングする。
+などなどが簡単にできるようになっています。
+
+
 
 == [PCL_Install PCLの導入]==
 == [PclOpenniTracking PCLのトラッキング] ==
