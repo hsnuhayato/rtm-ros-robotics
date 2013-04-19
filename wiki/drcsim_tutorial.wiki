@@ -54,6 +54,7 @@ roslaunch hrpsys_gazebo atlas.launch
 # これでgazeboのウィンドウが出る
 
 # 別ターミナルで
+roscd hrpsys_gazebo
 roseus euslisp/atlas-interface.l
 (atlas-init) 
 # *ri*と*atlas*ができる
