@@ -12,6 +12,9 @@ $ mkdir pcl_cmake_test
 $ cd pcl_cmake_test
 $ mkdir build
 }}}
+
+次に、ソースコードであるpcd_write.cppをpcl_cmake_test直下に準備します。
+
 {{{
 #include <iostream>
 #include <pcl/io/pcd_io.h>
@@ -44,3 +47,60 @@ int
   return (0);
 }
 }}}
+そしたら、
+pcl_cmake_test以下に、以下をCMakeLists.txtとして保存します。
+{{{
+cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+
+project(pcd_write)
+
+find_package(PCL 1.2 REQUIRED)
+
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+
+add_executable (pcd_write pcd_write.cpp)
+target_link_libraries (pcd_write ${PCL_LIBRARIES})
+}}}
+
+ここまでで、全体の準備すべきものは終わったと思います。
+手順通り行なっていれば以下のようなディレクトリで見れるはずです。
+
+そしたら、いよいよcmakeを行います。cmakeを行うことで、いろいろな設定ファイルやMakefileを自動生成してくれます。
+
+※CMakeFiles.txtとはいるディレクトリが異なるので注意してください※
+
+{{{
+$ cd build
+$ cmake ..
+}}}
+
+おそらく以下のようなものが見れるはずです。
+{{{
+-- The C compiler identification is GNU
+-- The CXX compiler identification is GNU
+
+・・・・・・・
+
+(Required is at least version "1.2")
+-- Configuring done
+-- Generating done
+-- Build files have been written to: ・・・・/pcl_cmake_test/build
+}}}
+
+これらを実行すると、build以下に以下のようなものが出てくると思います。
+
+{{{
+CMakeCache.txt  CMakeFiles  Makefile  cmake_install.cmake
+}}}
+
+確認ができたら、buildの中で
+{{{
+$ make
+}}}
+
+
+
+
+
