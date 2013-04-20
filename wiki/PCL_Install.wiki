@@ -1,0 +1,10 @@
+#summary One-sentence summary of this page.
+<wiki:toc max_depth="2" />
+
+= 概要 =
+
+簡単に、といっても本家のとおり、PCLのみをインストールします。
+※rosで入れてるひとはopenniでの競合が起こりますのでご注意ください※
+
+最新の情報は、[http://pointclouds.org/downloads/ 本家PCLのインストール]を参考にしてください。
+また、Ubuntuを前提とします。
