@@ -51,7 +51,7 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 {{{
 ccmake ..
 }}}
- 4# 最後に同じくbuildディレクトリの中でmakeし、installします。
+ #4 最後に同じくbuildディレクトリの中でmakeし、installします。
 {{{
 make
 }}}
