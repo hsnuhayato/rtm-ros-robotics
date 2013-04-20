@@ -56,13 +56,13 @@ add_definitions(${PCL_DEFINITIONS})
 
 また、PCLが見つかるといくらかの関連した値がセットされます。
 
-PCL_FOUND: pclが見つかったら１がセットされ他の場合は何もセットされません。
-PCL_INCLUDE_DIRS: PCLのインストールヘッダーや依存のヘッダへのパスがセットされます。
-PCL_LIBRARIES: ビルとされインストールされたPCLのライブラリのファイル名がセットされます。
-PCL_LIBRARY_DIRS: PCLのライブラリと3rdpartyへのパスがセットされます。
-PCL_VERSION: 見つかったPCLのバージョンです。
-PCL_COMPONENTS: すべての利用できるコンポーネントのリストです。
-PCL_DEFINITIONS: 必要なプリプロセッサ定義とコンパイラフラッグのリストです。
+ * PCL_FOUND: pclが見つかったら１がセットされ他の場合は何もセットされません。
+ * PCL_INCLUDE_DIRS: PCLのインストールヘッダーや依存のヘッダへのパスがセットされます。
+ * PCL_LIBRARIES: ビルとされインストールされたPCLのライブラリのファイル名がセットされます。
+ * PCL_LIBRARY_DIRS: PCLのライブラリと3rdpartyへのパスがセットされます。
+ * PCL_VERSION: 見つかったPCLのバージョンです。
+ * PCL_COMPONENTS: すべての利用できるコンポーネントのリストです。
+ * PCL_DEFINITIONS: 必要なプリプロセッサ定義とコンパイラフラッグのリストです。
 
 {{{
 add_executable(pcd_write_test pcd_write.cpp)
@@ -70,6 +70,13 @@ add_executable(pcd_write_test pcd_write.cpp)
 
 ここで、cmakeにpcl_write_testという名前の実行ファイルを単一のpcd_write.cppファイルから作ることを伝えます。CMakeは環境によって拡張子とアクセス権限を補ってくれます。(windowsなら.exe Linuxなら空白)
 
+{{{
+target_link_libraries(pcd_write_test ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES})
+}}}
+
+ビルドしている実行ファイルは、PCLの関数郡の呼び出しを作成します。ここまでで、cmakeに対してPCLのヘッダーのみをインクルードして、コンパイラに呼び出している関数について教えていました。さらにリンクをしようとしているライブラリへのリンカーも知らせなくてはなりません。先ほども述べたようにPCLの見つかったライブラリは、PCL_LIBRARIESの変数を使うことで参照できるので、やらなくてはならないのは、target_link_librariesのマクロを呼び出してリンクをさせることだけです。PCLConfig.cmakeは、あたかも自分でビルドしたかのように他のプロジェクトのターゲットを使えるようにするEXPORTというCMakeの特別な値を使います。そのようなターゲットを使うときは、それらは、インポーテッドターゲット(imported target)と呼ばれ、他のターゲットと同じように働きます。
+
+----------
 
 = CMakeLists.txtの使い方 =
 試しに、pcd_write.cppをCMakeLists.txtを通して、準備してみましょう。まず、以下のようにして、ディレクトリなどを準備しましょう。(pcl_cmake_testなどはどんな名前でも構いません。)
