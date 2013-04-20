@@ -1,5 +1,7 @@
 #summary PCLのチュートリアルで使うCMakeLists.txt
 
+<wiki:toc max_depth="2" />
+
 = 概要 =
 PCLのチュートリアルで共通に使われるCMakeLists.txtの意味と使い方を簡単に説明します。ここでは、主に、[http://pointclouds.org/documentation/tutorials/using_pcl_pcl_config.php 本家PCLのチュートリアル]を参考にしてます。詳しくはそちらをご覧ください。
 
