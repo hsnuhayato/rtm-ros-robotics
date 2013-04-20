@@ -12,7 +12,7 @@ cmakeは簡単に言うとMakefileやそのほかの設定を生成するため�
  # makeを打って、プログラムを生成
  # プログラムが実行できる
 
-のようになっています。この章では、1の部分を説明します。２以降は、[#CMakelists.txtの使い方 | CMakelists.txtの使い方]になります。
+のようになっています。この章では、1の部分を説明します。２以降は、[#CMakelists.txtの使い方  CMakelists.txtの使い方]になります。
 以下のようなCMakeLists.txtを例にものすごく簡単に説明します。
 {{{
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
