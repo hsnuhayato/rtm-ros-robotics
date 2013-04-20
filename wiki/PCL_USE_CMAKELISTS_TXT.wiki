@@ -4,6 +4,70 @@
 PCLのチュートリアルで共通に使われるCMakeLists.txtの意味と使い方を簡単に説明します。ここでは、主に、[http://pointclouds.org/documentation/tutorials/using_pcl_pcl_config.php 本家PCLのチュートリアル]を参考にしてます。詳しくはそちらをご覧ください。
 
 = CMakeLists.txtの内容 =
+cmakeは簡単に言うとMakefileやそのほかの設定を生成するためのものです。全体の流れとしては、
+
+ # CMakeLists.txtを記述する。
+ # 全体のディレクトリを作る。(buildフォルダを作るなど。慣例)
+ # cmake ..　を行いMakefileなどを生成
+ # makeを打って、プログラムを生成
+ # プログラムが実行できる
+
+のようになっています。この章では、1の部分を説明します。２以降は、CMakelists.txtの使い方になります。
+以下のようなCMakeLists.txtを例にものすごく簡単に説明します。
+{{{
+cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+project(MY_GRAND_PROJECT)
+find_package(PCL 1.3 REQUIRED COMPONENTS common io)
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+add_executable(pcd_write_test pcd_write.cpp)
+target_link_libraries(pcd_write_test ${PCL_COMMON_LIBRARIES} ${PCL_IO_LIBRARIES})
+}}}
+
+まず、一行目
+{{{
+cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+}}}
+この行は、cmakeファイルを使うのに必須な行で、今回とっても基本的なプロジェクトを作るので、cmake2.8より高いバージョンを利用する必要がないため、2.6が最低限必要として、それ以下のときにエラーとなるように設定しています。
+
+{{{
+project(MY_GRAND_PROJECT)
+}}}
+ここでは、プロジェクトの名前を決め、ソースディレクトリを参照するMY_GRAND_PROJECT_SOURCE_DIRや、cmakeを実行しているディレクトリMY_GRAND_PROJECT_BINARY_DIRなどのcmakeの便利ないくらかの変数をセットしてくれます。
+
+{{{
+find_package(PCL 1.3 REQUIRED COMPONENTS common io)
+}}}
+
+PCLのパッケージが最低でも1.3を満たしているように探しています。上のREQUIREDを設定することで、1.3以上のPCLがなければ、失敗するようになっています。PCLは以下のことを要求することができます。
+
+ * ひとつのコンポーネントのみ：find_package(PCL 1.3 REQUIRED COMPONENTS io)
+ * 複数のコンポーネント：find_package(PCL 1.3 REQUIRED COMPONENTS io common)
+ * 存在するものすべて:find_package(PCL 1.3 REQUIRED)
+
+{{{
+include_directories(${PCL_INCLUDE_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+}}}
+
+また、PCLが見つかるといくらかの関連した値がセットされます。
+
+PCL_FOUND: pclが見つかったら１がセットされ他の場合は何もセットされません。
+PCL_INCLUDE_DIRS: PCLのインストールヘッダーや依存のヘッダへのパスがセットされます。
+PCL_LIBRARIES: ビルとされインストールされたPCLのライブラリのファイル名がセットされます。
+PCL_LIBRARY_DIRS: PCLのライブラリと3rdpartyへのパスがセットされます。
+PCL_VERSION: 見つかったPCLのバージョンです。
+PCL_COMPONENTS: すべての利用できるコンポーネントのリストです。
+PCL_DEFINITIONS: 必要なプリプロセッサ定義とコンパイラフラッグのリストです。
+
+{{{
+add_executable(pcd_write_test pcd_write.cpp)
+}}}
+
+ここで、cmakeにpcl_write_testという名前の実行ファイルを単一のpcd_write.cppファイルから作ることを伝えます。CMakeは環境によって拡張子とアクセス権限を補ってくれます。(windowsなら.exe Linuxなら空白)
+
 
 = CMakeLists.txtの使い方 =
 試しに、pcd_write.cppをCMakeLists.txtを通して、準備してみましょう。まず、以下のようにして、ディレクトリなどを準備しましょう。(pcl_cmake_testなどはどんな名前でも構いません。)
@@ -99,8 +163,5 @@ CMakeCache.txt  CMakeFiles  Makefile  cmake_install.cmake
 {{{
 $ make
 }}}
-
-
-
 
 
