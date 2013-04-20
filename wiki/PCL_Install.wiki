@@ -8,3 +8,15 @@
 
 最新の情報は、[http://pointclouds.org/downloads/ 本家PCLのインストール]を参考にしてください。
 また、Ubuntuを前提とします。
+
+= インストール=
+== 通常のインストール ==
+通常のインストールはいたって簡単です。通常の場合は、stableが、バイナリの状態から得られるのでその後に特別必要なことはありません。[http://pointclouds.org/downloads/linux.html こちらのページ]がlinux系でのバイナリのインストールページです。
+Ubuntuでのインストールは以下でできます。
+{{{
+sudo add-apt-repository ppa:v-launchpad-jochen-sprickerhof-de/pcl
+sudo apt-get update
+sudo apt-get install libpcl-all
+}}}
+
+== ソースからインストール ==
