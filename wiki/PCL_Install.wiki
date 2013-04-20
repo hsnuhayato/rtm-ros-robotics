@@ -107,7 +107,7 @@ cd pcl-trunk && mkdir build && cd build
 ccmake ..
 }}}
 を行い、変わった画面で、BUILD_appsをonにします。
-
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/ccmake.png]
 
 その後、buildフォルダの中でmakeを実行します。ここでエラーが出た場合は、リビジョンを戻すなりして対応してください。makeが通れば、build/bin以下に実行ファイルなどが生成されます。
 {{{
