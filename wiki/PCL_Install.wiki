@@ -1,5 +1,5 @@
 #summary One-sentence summary of this page.
-<wiki:toc max_depth="2" />
+<wiki:toc max_depth="3" />
 
 = 概要 =
 
@@ -20,3 +20,71 @@ sudo apt-get install libpcl-all
 }}}
 
 == ソースからインストール ==
+こちらは、バイナリではない状態がいい方や、がんがん新しいPCLのものを使っていきたい方はこちらを行ってください。
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_downloadPage.png]
+*※必ず[http://pointclouds.org/downloads/source.html 最新の本家のページ下部]の依存ライブラリのバージョンを満たしているかを確認してください。※*
+
+=== Stable ===
+[[http://pointclouds.org/downloads/ 本家PCLのページの上部にある]最新のリリースされているtar.bz2ファイルを落としてきてください。
+
+
+
+
+
+=== Experimental ===
+*こちらは、本当に最新の開発下にあるものです。そのため、ダウンロードして、makeがうまくいくかもわかりません。エラーが出た場合は、gitでもsvnでも適当にリビジョンを戻すかメーリスで直してもらうように言うかをしてください。*
+
+
+pclのtrunkを置きたいフォルダに移動して、以下を打ちます。
+{{{
+git clone https://github.com/PointCloudLibrary/pcl pcl-trunk
+}}}
+
+その後、cloneが終わったら、
+{{{
+cd pcl-trunk && mkdir build && cd build
+}}}
+を行うことで、pcl-trunkの中に移動して、buildフォルダを作り、buildに移動します。 その後、
+{{{
+-- The C compiler identification is GNU
+-- The CXX compiler identification is GNU
+・・・
+-- Found SSE4.2 extensions, using flags:  -march=native -msse4.2 -mfpmath=sse
+-- Try OpenMP C flag = [-fopenmp]
+・・
+-- Found OpenMP: -fopenmp 
+-- Found OpenMP
+-- Boost version: 1.46.1
+-- Found the following Boost libraries:
+--   system
+--   filesystem
+--   thread
+--   date_time
+--   iostreams
+-- checking for module 'eigen3'
+--   found eigen3, version 3.0.5
+-- Found Eigen: /usr/include/eigen3 
+-- Eigen found (include: /usr/include/eigen3)
+-- checking for module 'flann>=1.7.0'
+--   found flann, version 1.7.1
+-- Found FLANN: /opt/ros/fuerte/lib/libflann_cpp.so (Required is at least version "1.7.0")
+-- FLANN found (include: /opt/ros/fuerte/include, lib: optimized;/opt/ros/fuerte/lib/libflann_cpp.so;debug;/opt/ros/fuerte/lib/libflann_cpp-gd.so)
+-- Found LIBUSB_1: /usr/lib/x86_64-linux-gnu/libusb-1.0.so 
+}}}
+というような表示が長々と表示されると思います。
+
+もし、apps/src以下にあるサンプルソースからサンプルプログラムを作ってもらいたい場合は
+{{{
+ccmake ..
+}}}
+を行い、変わった画面で、BUILD_appsをonにします。
+
+
+その後、buildフォルダの中でmakeを実行します。ここでエラーが出た場合は、リビジョンを戻すなりして対応してください。makeが通れば、build/bin以下に実行ファイルなどが生成されます。
+{{{
+make
+}}}
+
+
+
+
