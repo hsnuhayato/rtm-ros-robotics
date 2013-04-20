@@ -47,12 +47,11 @@ cmake ..
 {{{
 cmake -DCMAKE_BUILD_TYPE=Release .. 
 }}}
-
-   　　　　　 * また、設定を変えたいな・・・と思ったら以下を実行してからcmakeをしてください
+    * また、設定を変えたいな・・・と思ったら以下を実行してからcmakeをしてください
 {{{
 ccmake ..
 }}}
- #4 最後に同じくbuildディレクトリの中でmakeし、installします。
+ 4# 最後に同じくbuildディレクトリの中でmakeし、installします。
 {{{
 make
 }}}
