@@ -24,13 +24,40 @@ sudo apt-get install libpcl-all
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_downloadPage.png]
 *※必ず[http://pointclouds.org/downloads/source.html 最新の本家のページ下部]の依存ライブラリのバージョンを満たしているかを確認してください。※*
 
+----------------------------------------------
 === Stable ===
 [[http://pointclouds.org/downloads/ 本家PCLのページの上部にある]最新のリリースされているtar.bz2ファイルを落としてきてください。
 
-
-
-
-
+ # まず、tarを開きます。PCL-1.6.0-Source.tar.bz2を落としてきた場合
+{{{
+tar xvfj PCL-1.6.0-Source.tar.bz2
+}}}
+ # できたファイルの中に入りbuildのディレクトリを生成、buildの中に移ります。
+{{{
+cd PCL-1.6.0-Source && mkdir build && cd build
+}}}
+ # cmakeを行って、makefileや、そのほかもろもろを設定します。
+{{{
+cmake ..
+}}}
+    * ただし、通常デバッグモードでのビルドになるのでもし変えたい人がいたら、
+{{{
+cmake -DCMAKE_BUILD_TYPE=Release .. 
+}}}
+を行ってください。
+    * また、設定を変えたいな・・・と思ったら以下を実行してからcmakeをしてください
+{{{
+ccmake ..
+}}}
+ # 最後に同じくbuildディレクトリの中でmakeし、installします。
+{{{
+make
+}}}
+ # make install
+{{{
+sudo make install
+}}}
+----------------------------------------------
 === Experimental ===
 *こちらは、本当に最新の開発下にあるものです。そのため、ダウンロードして、makeがうまくいくかもわかりません。エラーが出た場合は、gitでもsvnでも適当にリビジョンを戻すかメーリスで直してもらうように言うかをしてください。*
 
@@ -84,7 +111,4 @@ ccmake ..
 {{{
 make
 }}}
-
-
-
 
