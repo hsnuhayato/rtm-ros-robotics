@@ -137,10 +137,6 @@ add_executable (pcd_write pcd_write.cpp)
 target_link_libraries (pcd_write ${PCL_LIBRARIES})
 }}}
 
-ここまでで、全体の準備すべきものは終わったと思います。
-手順通り行なっていれば以下のようなディレクトリで見れるはずです。
-[http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_cmake_directory_structure.png]
-
 そしたら、いよいよcmakeを行います。cmakeを行うことで、いろいろな設定ファイルやMakefileを自動生成してくれます。
 
 ※CMakeFiles.txtとはいるディレクトリが異なるので注意してください※
@@ -168,6 +164,12 @@ $ cmake ..
 {{{
 CMakeCache.txt  CMakeFiles  Makefile  cmake_install.cmake
 }}}
+
+ここまでで、全体の準備すべきものは終わったと思います。
+手順通り行なっていれば以下のようなディレクトリで見れるはずです。
+[http://rtm-ros-robotics.googlecode.com/svn/wiki/pcl_cmake_directory_structure.png]
+
+
 
 確認ができたら、buildの中で
 {{{
