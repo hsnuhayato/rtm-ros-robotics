@@ -63,3 +63,40 @@ roseus euslisp/atlas-interface.l
 (send *ri* :angle-vector (send *atlas* :angle-vector) 1000)
 # これで倒れる
 }}}
+
+* ロボットの動かし方
+
+{{{
+(atlas) ;;　これで *atlas* というロボットモデルオブジェクトが生成される．
+(send *atlas* :torso :torso-waist-y)
+(send *atlas* :torso :torso-waist-p)
+(send *atlas* :torso :torso-waist-r)
+
+(send *atlas* :larm :elbow-p)
+(send *atlas* :larm :elbow-y)
+(send *atlas* :larm :wrist-p)
+(send *atlas* :larm :shoulder-r)
+(send *atlas* :larm :shoulder-y)
+(send *atlas* :larm :wrist-y)
+
+(send *atlas* :larm :knee-p)
+(send *atlas* :larm :ankle-r)
+(send *atlas* :larm :crotch-p)
+(send *atlas* :larm :crotch-r)
+(send *atlas* :larm :ankle-p)
+(send *atlas* :larm :crotch-y)
+
+(send *atlas* :head :neck-p)
+}}}
+
+として現在の各関節角度を取得できる．間接の姿勢を変更するためには
+{{{
+(send *atlas* :larm :elbow-p 90)
+}}}
+などとする．間接角度の単位はdegree
+
+これで作った姿勢を，シミュレータ内のロボットに送るには
+{{{
+  (send *ri* :angle-vector (send *atlas* :angle-vector) 2000)
+}}}
+最後の数値は，遷移時間．単位はミリ秒．
