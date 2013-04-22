@@ -5,7 +5,7 @@ all:
 	cd ${ROSJAVA_CORE}/rosjava_tutorial_services && ROS_PACKAGE_PATH=/opt/ros/fuerte/share:/opt/ros/fuerte/stacks ${ROSJAVA_CORE}/gradlew installApp
 
 talker:
-	${ROSJAVA_CORE}/rosjava_tutorial_pubsub/build/install/rosjava_tutorial_pubsub/bin/rosjava_tutorial_pubsub org.ros.rosjava_tutorial_pubsub.Talkerw
+	${ROSJAVA_CORE}/rosjava_tutorial_pubsub/build/install/rosjava_tutorial_pubsub/bin/rosjava_tutorial_pubsub org.ros.rosjava_tutorial_pubsub.Talker
 
 listener:
 	${ROSJAVA_CORE}/rosjava_tutorial_pubsub/build/install/rosjava_tutorial_pubsub/bin/rosjava_tutorial_pubsub org.ros.rosjava_tutorial_pubsub.Listener
