@@ -205,6 +205,12 @@ or
 roscd hrpsys_ros_bridge_tutorials/euslisp/
 rosrun roseus roseus samplerobot-pickup.l
 }}}
+or
+{{{
+# walking example
+roscd hrpsys_ros_bridge_tutorials/euslisp/
+rosrun roseus roseus samplerobot-walk.l "(samplerobot-walk)"
+}}}
 
 If you do not need dynamics simulation, start `samplerobot.launch` with `--nosim` argument as followings:
 {{{
