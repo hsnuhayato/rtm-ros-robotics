@@ -207,7 +207,7 @@ rosrun roseus roseus samplerobot-pickup.l
 }}}
 or
 {{{
-# walking example
+# walking pattern generation example using euslisp
 roscd hrpsys_ros_bridge_tutorials/euslisp/
 rosrun roseus roseus samplerobot-walk.l "(samplerobot-walk)"
 }}}
