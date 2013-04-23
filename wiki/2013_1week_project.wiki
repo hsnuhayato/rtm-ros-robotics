@@ -4,7 +4,7 @@
 * PR2の起動
 
 {{{
-$ ssh <USER_NAME>pr1012
+$ ssh <USER_NAME>@pr1012
 $ tmux
 $ robot claim
 $ robot start
