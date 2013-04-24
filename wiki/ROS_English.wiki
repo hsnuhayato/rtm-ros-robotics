@@ -209,7 +209,9 @@ or
 {{{
 # walking pattern generation example using euslisp
 roscd hrpsys_ros_bridge_tutorials/euslisp/
-rosrun roseus roseus samplerobot-walk.l "(samplerobot-walk)"
+rosrun roseus roseus samplerobot-walk.l
+(samplerobot-walk) ;; on euslisp prompt
+(samplerobot-walk2) ;; on euslisp prompt
 }}}
 
 If you do not need dynamics simulation, start `samplerobot.launch` with `--nosim` argument as followings:
