@@ -191,6 +191,7 @@ to start walking.
 == RTM/ROS Integration ===
 
 === Sample Robot ===
+* simple demonstration
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/samplerobot.launch samplerobot.launch])
 {{{
 roslaunch hrpsys_ros_bridge_tutorials samplerobot.launch
@@ -205,19 +206,26 @@ or
 roscd hrpsys_ros_bridge_tutorials/euslisp/
 rosrun roseus roseus samplerobot-pickup.l
 }}}
-or
-{{{
-# walking pattern generation example using euslisp
-roscd hrpsys_ros_bridge_tutorials/euslisp/
-rosrun roseus roseus samplerobot-walk.l
-(samplerobot-walk) ;; on euslisp prompt
-(samplerobot-walk2) ;; on euslisp prompt
-}}}
 
 If you do not need dynamics simulation, start `samplerobot.launch` with `--nosim` argument as followings:
 {{{
 roslaunch hrpsys_ros_bridge samplerobot.launch SCHEDULER_ARGS:=--nosim
 }}}
+* keyboard interactive teleop example
+{{{
+roslaunch hrpsys_ros_bridge_tutorials samplerobot.launch
+}}}
+and if you see "teleop_pr2_keyboard" terminal, 
+Then type
+{{{
+# walking pattern generation example using euslisp
+roscd hrpsys_ros_bridge_tutorials/euslisp/
+rosrun roseus roseus samplerobot-walk.l
+(samplerobot-walk) ;; on euslisp prompt, setting target pos+rot example
+(samplerobot-walk2) ;; on euslisp prompt, keyboard teleop sample
+}}}
+
+
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/samplerobot_rviz.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/samplerobot_rviz.png]
 
