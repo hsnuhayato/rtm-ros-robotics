@@ -36,7 +36,7 @@ export ROS_PACKAGE_PATH=`echo $(echo $ROS_PACKAGE_PATH | sed -e "s/:/\n/g" | awk
 
 {{{
 roscd atlas_utils
-# /usr/share/drcsim-2.4/ros/以下にあることを確認
+# /usr/share/drcsim-2.5/ros/以下にあることを確認(2.5からアップデートされることもある）
 rosmake atlas_utils
 }}}
 
