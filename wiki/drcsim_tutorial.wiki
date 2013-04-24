@@ -105,6 +105,6 @@ roseus euslisp/atlas-interface.l
 {{{
   (send *ri* :start-grasp) ;; 両手を閉じる
   (send *ri* :stop-grasp) ;; 両手を開く
-  (send *ri* :start-grasp :arm :larm) ;; 左手だけ閉じる
+  (send *ri* :start-grasp :larm) ;; 左手だけ閉じる
 }}}
 のようにする．
