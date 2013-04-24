@@ -213,7 +213,7 @@ roslaunch hrpsys_ros_bridge samplerobot.launch SCHEDULER_ARGS:=--nosim
 }}}
 * keyboard interactive teleop example
 {{{
-roslaunch hrpsys_ros_bridge_tutorials samplerobot.launch
+roslaunch hrpsys_ros_bridge_tutorials samplerobot.launch LAUNCH_TELEOP:=true
 }}}
 and if you see "teleop_pr2_keyboard" terminal, 
 Then type
