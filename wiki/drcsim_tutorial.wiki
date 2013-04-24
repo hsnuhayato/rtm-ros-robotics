@@ -29,7 +29,7 @@ source /usr/share/drcsim/setup.sh
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH_ORG:$ROS_PACKAGE_PATH
 export ROS_PACKAGE_PATH=`echo $(echo $ROS_PACKAGE_PATH | sed -e "s/:/\n/g" | awk '!($0 in A) && A[$0] = 1' | grep -v "opt/ros"; echo $ROS_PACKAGE_PATH | sed -e "s/:/\n/g" | awk '!($0 in A) && A[$0] = 1' | grep "opt/ros") | sed -e "s/ /:/g"`
 }}}
-ここまでで，セットアップ終わり
+ここまでで，セットアップ終わり.
 
 
 * 確認
@@ -93,10 +93,18 @@ roseus euslisp/atlas-interface.l
 {{{
 (send *atlas* :larm :elbow-p 90)
 }}}
-などとする．間接角度の単位はdegree
+などとする．間接角度の単位はdegree.
 
 これで作った姿勢を，シミュレータ内のロボットに送るには
 {{{
   (send *ri* :angle-vector (send *atlas* :angle-vector) 2000)
 }}}
 最後の数値は，遷移時間．単位はミリ秒．
+
+ハンドを動かすには
+{{{
+  (send *ri* :start-grasp) ;; 両手を閉じる
+  (send *ri* :stop-grasp) ;; 両手を開く
+  (send *ri* :start-grasp :arm :larm) ;; 左手だけ閉じる
+}}}
+のようにする．
