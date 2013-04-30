@@ -64,9 +64,9 @@
 #    uri: https://code.ros.org/svn/ros/stacks/multimaster_experimental/trunk
 #    local-name: multimaster_experimental
 - hg:
-	uri: https://kforge.ros.org/appmanandroid/multimaster_experimental
+    uri: https://kforge.ros.org/appmanandroid/multimaster_experimental
     local-name: multimaster_experimental
-	version: 'fuerte'
+    version: 'fuerte'
 - hg:
     uri: https://kforge.ros.org/turtlebot/turtlebot
     local-name: turtlebot
@@ -95,7 +95,7 @@
 ##
 ## webots to get robots' VRML files
 ##
-- svn: 
+- svn:
     uri: http://webots-ros-pkg.svn.sourceforge.net/svnroot/webots-ros-pkg
     local-name: webots-ros-pkg
 ##
