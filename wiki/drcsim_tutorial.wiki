@@ -24,7 +24,7 @@ sudo apt-get install gazebo drcsim
 
 ~/.bashrcに以下を追記
 {{{
-export ROS_PACKAGE_PATH_ORG=$ROS_PACKAGE_PATH
+ROS_PACKAGE_PATH_ORG=$ROS_PACKAGE_PATH
 source /usr/share/drcsim/setup.sh
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH_ORG:$ROS_PACKAGE_PATH
 export ROS_PACKAGE_PATH=`echo $(echo $ROS_PACKAGE_PATH | sed -e "s/:/\n/g" | awk '!($0 in A) && A[$0] = 1' | grep -v "opt/ros"; echo $ROS_PACKAGE_PATH | sed -e "s/:/\n/g" | awk '!($0 in A) && A[$0] = 1' | grep "opt/ros") | sed -e "s/ /:/g"`
