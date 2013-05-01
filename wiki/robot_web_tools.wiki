@@ -1,0 +1,70 @@
+
+＊groovyでRobotWebToolsのinteractiveMarkerサンプルを試す方法
+{{{
+ sudo apt-get install ros-groovy-rosbridge-server
+}}}
+
+適当なworkspaceで、下記を実行、pathを通す
+(roswwwは現状ではgroovy用のものは無い。おそらく今後RobotWebToolsのrosbridge_suiteに入る気がする)
+{{{
+wstool set roswww --git git://github.com/jihoonl/roswww.git
+wstool update
+}}}
+
+
+catkin_ws/srcで
+{{{
+ wstool set rosbridge_suite --git git://github.com/RobotWebTools/rosbridge_suite.git
+ wstool set tf2_web_republisher --git git://github.com/RobotWebTools/tf2_web_republisher.git
+ wstool set interactive_marker_proxy --git git://github.com/ros-visualization/interactive_marker_proxy.git
+ wstool update
+ cd ..
+ catkin_make
+}}}
+
+※ tf2-web-republisherとrosbridge-suiteに関しては安定版を使ってもよい
+{{{
+ sudo apt-get install ros-groovy-tf2-web-republisher
+ sudo apt-get install ros-groovy-rosbridge-suite
+}}}
+
+
+roswwwは、rosパッケージのwwwディレクトリ以下を認識させることができる。
+今回は、適当なパッケージを作成して実行させてみる。
+
+{{{
+(ros3djsを落としてくる,これはrosのパッケージにはなっていない)
+wstool set ros3djs --git git://github.com/RobotWebTools/ros3djs.git
+(適当なパッケージを適当な場所に作成)
+roscreate-pkg jsk_web_test
+(www以下にサンプルファイルをコピー、シンボリックリンクを作成)
+mkdir www
+cp (ros3djs)/examples/interactivemarkers.html ./www
+ln -s (ros3djs)
+}}}
+
+interactivemarkers.htmlの中のpathを書き換える
+{{{
+<script type="text/javascript" src="../include/threejs/three.js"></src>
+}}}
+となっているのを
+{{{
+<script type="text/javascript" src="ros3djs/include/threejs/three.js"></src>
+}}}
+などとする。
+
+下記を実行して,webGLの使えるブラウザで http://localhost:8000/jsk_web_test/interactivemarkers.html にアクセス
+{{{
+    roscore
+    rosrun roswww webserver.py
+    rosrun interactive_marker_tutorials basic_controls
+    rosrun interactive_marker_proxy proxy topic_ns:=/basic_controls target_frame:=/rotating_frame
+    rosrun tf2_web_republisher tf2_web_republisher
+    roslaunch rosbridge_server rosbridge_websocket.launch
+}}}
+
+
+例えばGoogleChromeでは、
+about:gpuで確認可能。
+
+WebGLを使えない場合は、グラフィックボードのドライバをアップデートしたりブラウザのバージョンをアップデートなどするとよい。
