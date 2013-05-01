@@ -1,4 +1,4 @@
-＊groovyでRobotWebToolsのinteractiveMarkerサンプルを試す方法
+＊groovyでRobot Web ToolsのinteractiveMarkerサンプルを試す方法
 {{{
  sudo apt-get install ros-groovy-rosbridge-server
 }}}
