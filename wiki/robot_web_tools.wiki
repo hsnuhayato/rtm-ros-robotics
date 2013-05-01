@@ -1,4 +1,3 @@
-
 ＊groovyでRobotWebToolsのinteractiveMarkerサンプルを試す方法
 {{{
  sudo apt-get install ros-groovy-rosbridge-server
@@ -36,7 +35,7 @@ roswwwは、rosパッケージのwwwディレクトリ以下を認識させる�
 (ros3djsを落としてくる,これはrosのパッケージにはなっていない)
 wstool set ros3djs --git git://github.com/RobotWebTools/ros3djs.git
 (適当なパッケージを適当な場所に作成)
-roscreate-pkg jsk_web_test
+roscreate-pkg robotwebtools_test
 (www以下にサンプルファイルをコピー、シンボリックリンクを作成)
 mkdir www
 cp (ros3djs)/examples/interactivemarkers.html ./www
@@ -53,7 +52,7 @@ interactivemarkers.htmlの中のpathを書き換える
 }}}
 などとする。
 
-下記を実行して,webGLの使えるブラウザで http://localhost:8000/jsk_web_test/interactivemarkers.html にアクセス
+下記を実行して,webGLの使えるブラウザで http://localhost:8000/robotwebtools_test/interactivemarkers.html にアクセス
 {{{
     roscore
     rosrun roswww webserver.py
@@ -64,7 +63,7 @@ interactivemarkers.htmlの中のpathを書き換える
 }}}
 
 
-例えばGoogleChromeでは、
-about:gpuで確認可能。
+例えばGoogle Chromeでは、
+about:gpuなどで確認可能。
 
 WebGLを使えない場合は、グラフィックボードのドライバをアップデートしたりブラウザのバージョンをアップデートなどするとよい。
