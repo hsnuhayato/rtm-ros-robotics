@@ -59,7 +59,7 @@ roseus euslisp/atlas-interface.l
 (atlas-init) 
 # *ri*と*atlas*ができる
 (objects (list *atlas*))
-(send *atlas* :larm :shouler-y :joint-angle 100)
+(send *atlas* :larm :shoulder-y :joint-angle 100)
 (send *ri* :angle-vector (send *atlas* :angle-vector) 1000)
 # これで倒れる
 }}}
