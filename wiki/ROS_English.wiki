@@ -275,10 +275,9 @@ roslaunch hrpsys_ros_bridge_tutorials samplerobot.launch
 }}}
 gen_project.launch is called in CMakeLists in hrpsys_ros_bridge_tutorials.
 roslaunch arguments are:
-  INPUT <- robot model file (.wrl)
-  OUTPUT <- output file name for ProjectFile (.xml) and conf file (.conf)
-  OBJECT_MODELS <- optional argument. Please set object & environment model file (wrl).
-                longfloor.wrl are specified by default.
+- INPUT <- robot model file (.wrl)
+- OUTPUT <- output file name for ProjectFile (.xml) and conf file (.conf)
+- OBJECT_MODELS <- optional argument. Please set object & environment model file (wrl). longfloor.wrl are specified by default.
 If you want to specify origin offset of added model files, 
 {{{
 `rospack find openhrp3`/share/OpenHRP-3.1/sample/model/house/table.wrl,-0.3,0.5,0,1,0,0,1.5708
