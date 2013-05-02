@@ -289,7 +289,9 @@ If you want to specify origin offset of added model files,
 `rospack find openhrp3`/share/OpenHRP-3.1/sample/model/house/table.wrl,-0.3,0.5,0,1,0,0,1.5708
 }}}
 please add offset values after specifying wrl file by using camma. 
--0.3,0.5,0 <- position offset [[m]
+
+-0.3,0.5,0 <- position offset (m)
+
 1,0,0,1.5708 <- orientation offset (axis and angle)
 
 
