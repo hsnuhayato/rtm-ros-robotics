@@ -273,7 +273,7 @@ then,
 {{{
 roslaunch hrpsys_ros_bridge_tutorials samplerobot.launch 
 }}}
-_gen_project.launch is called in CMakeLists in hrpsys_ros_bridge_tutorials.
+gen_project.launch is called in CMakeLists in hrpsys_ros_bridge_tutorials.
 roslaunch arguments are:
   INPUT <- robot model file (.wrl)
   OUTPUT <- output file name for ProjectFile (.xml) and conf file (.conf)
