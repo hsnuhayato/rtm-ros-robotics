@@ -9,7 +9,7 @@
 ##
 ## jsk ros packages
 - svn:
-    uri: http://svn.code.sf.net/p/jsk-ros-pkg/code/trunk
+    uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk
     local-name: jsk-ros-pkg
 ##
 ## for uvc_camera
