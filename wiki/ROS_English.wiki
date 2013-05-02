@@ -263,6 +263,13 @@ to  see the robot is moving.
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/hironx_rviz.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/hironx_rviz.png]
 
+=== Adding optional environments or object models ===
+{{{
+ rostest -t hrpsys _gen_project.launch INPUT:=`rospack find openhrp3`/share/OpenHRP-3.1/sample/model/sample1.wrl OUTPUT:=`rospack find hrpsys_ros_bridge_tutorials`/models/SampleRobot.xml OBJECT_MODELS:="`rospack find openhrp3`/share/OpenHRP-3.1/sample/model/longfloor.wrl `rospack find openhrp3`/share/OpenHRP-3.1/sample/model/house/table.wrl,-0.3,0.5,0,1,0,0,1.5708"
+
+roslaunch hrpsys_ros_bridge_tutorials samplerobot.launch 
+}}}
+
 = Troubleshooting =
 
 == Check OmniORB bug ==
