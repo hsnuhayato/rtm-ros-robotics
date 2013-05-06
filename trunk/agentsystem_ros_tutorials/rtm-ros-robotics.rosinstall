@@ -104,21 +104,3 @@
 - svn:
     uri: http://alufr-ros-pkg.googlecode.com/svn/trunk
     local-name: alufr-ros-pkg
-#
-# for drcsim
-#
-- hg:
-    uri:  https://bitbucket.org/osrf/osrf-common/ros/osrf_msgs
-    local-name: osrf_msgs
-- hg:
-    uri:  https://bitbucket.org/osrf/drcsim/ros/atlas_utils
-    local-name: atlas_utils
-- hg:
-    uri:  https://bitbucket.org/osrf/drcsim/ros/atlas_msgs
-    local-name: atlas_msgs
-- hg:
-    uri:  https://bitbucket.org/osrf/drcsim/ros/atlas_description
-    local-name: atlas_description
-- hg:
-    uri:  https://bitbucket.org/osrf/sandia-hand/ros/sandia_hand_msgs
-    local-name: sandia_hand_msgs
