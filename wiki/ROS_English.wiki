@@ -5,7 +5,7 @@
 = Install =
 
 == Install source code ==
-Install ROS by following [http://www.ros.org/wiki/electric/Installation/Ubuntu], 
+Install ROS by following [http://www.ros.org/wiki/fuerte/Installation/Ubuntu], 
 
 Make sure sun-java-jrk is installed and that it is the default java distribution chosen for your PC 
 {{{
