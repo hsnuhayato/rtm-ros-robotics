@@ -38,20 +38,20 @@ install related ros packages and install `rtm-ros-robotics` software
 {{{
 wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?format=raw' -O /tmp/jsk.rosbuild
 yes | bash /tmp/jsk.rosbuild
-cd ~/ros/electric
+cd ~/ros/fuerte
 source setup.bash
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 
 For update installed packages 
 {{{
-cd ~/ros/electric
+cd ~/ros/fuerte
 rosws update
 }}}
 
 Load environment variables used for ROS system
 {{{
-source ~/ros/electric/setup.bash
+source ~/ros/fuerte/setup.bash
 }}}
 Add this line to your ~/.bashrc
 
