@@ -73,7 +73,7 @@ make eclipse-clean
 = 2. OpenHRPのコンパイル =
 
 {{{
-rosmake rtmros_common
+rosmake openhrp3_tutorials
 }}}
 
 
