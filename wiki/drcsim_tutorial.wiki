@@ -111,5 +111,5 @@ roseus euslisp/atlas-interface.l
 
 歩行
 {{{
-send *ri* :bdi-go-pos 2.0 1.0  ;; x[m] y[m] theta[degree]
+send *ri* :bdi-go-pos 2.0 1.0 30.0 ;; x[m] y[m] theta[degree]
 }}}
