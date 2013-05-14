@@ -91,7 +91,7 @@ roseus euslisp/atlas-interface.l
 
 として現在の各関節角度を取得できる．間接の姿勢を変更するためには
 {{{
-(send *atlas* :larm :elbow-p 90)
+(send *atlas* :larm :elbow-p :joint-angle 90)
 }}}
 などとする．間接角度の単位はdegree.
 
@@ -108,3 +108,8 @@ roseus euslisp/atlas-interface.l
   (send *ri* :start-grasp :larm) ;; 左手だけ閉じる
 }}}
 のようにする．
+
+歩行
+{{{
+send *ri* :bdi-go-pos 2.0 1.0  ;; x[m] y[m] theta[degree]
+}}}
