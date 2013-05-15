@@ -80,7 +80,7 @@ rosmake openhrp3_tutorials
 = 3. Eclipseの設定(RT System Editor編) =
 
 <wiki:video url="http://www.youtube.com/watch?v=Majjva2YhX4" />
-
+http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English#Setup_Eclipse
 == 外部プラグインのインストール for RT System Editor ==
 {{{
 rosrun openhrp3 eclipse.sh
