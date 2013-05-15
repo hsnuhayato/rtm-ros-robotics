@@ -77,51 +77,23 @@ rosmake openhrp3_tutorials
 }}}
 
 
-= 3. Eclipseの設定(RT System Editor編) =
+= 3. Eclipseの設定 =
 
-== 外部プラグインのインストール for RT System Editor ==
+== 外部プラグインのインストール ==
 
 {{{
 rosrun openhrp3 install-eclipse-plugins.sh
 }}}
 を実行し、終わるまでしばらく待つ
 
-<wiki:comment>
-<wiki:video url="http://www.youtube.com/watch?v=Majjva2YhX4" />
-http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English#Setup_Eclipse
-{{{
-rosrun openhrp3 eclipse.sh
-}}}
-で立ち上がるeclipseを用いる
-
- Help -> Install New Softare -> Add -> Location
-に
-(10.04ユーザのみ）
-http://download.eclipse.org/modeling/emf/updates/releases/
-を追加し、EMF SDK 2.5.0 を選択しインストール.
-
-(10.04/10.10ユーザ共通)
-http://download.eclipse.org/tools/gef/updates/releases/
-を追加し、GEF SDK 3.6.2を選択しインストール．
-
- Help -> Install New Softare -> Add -> Archive
-で，`<openhrp3>/build/rtmtools_eclipse.zip`
-を選択しインストール．
-
-`<openhrp3>`は`rospack find openhrp3`で表示されるディレクトリであり，例えば
-`~/prog/rtm-ros-robotics/rtmros_common/openhrp3`になる．
-
-ここまででRT System Editorが入る
-</wiki:comment>
-
 {{{
 rosrun openhrp3 eclipse.sh
 }}}
 でEclipseを立ち上げて、
  Window -> Open Perspective -> Other 
-で、RT System Editorが入っていることが確認できる
+で、RT System EditorとGRXUIが入っていることを確認する。
 
-== RT System Editor 動作確認 ==
+= 4. RT System Editorの動作確認 =
 以前講義で試したサンプル
 http://code.google.com/p/rtm-ros-robotics/wiki/RTM_Example
 を試す.
@@ -141,27 +113,6 @@ roslaunch openrtm Seq_Example.launch
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/MobileRobot_2DSimulator_Example.png]
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/Slider_and_Motor_Example.png]
 [http://rtm-ros-robotics.googlecode.com/svn/wiki/Seq_Example.png]
-
-= 4. Eclipseの設定(GXUI編) =
-== 外部プラグイン並びにのJava環境のインストール for GRXUI ==
-
-(10.04/10.10ユーザ共通)
-Help -> Install New Softare -> Add -> Archive から
-
-`<openhrp3>/build/java3declipse-20090302.zip`,
-
-`<openhrp3>/build/grxui_eclipse.zip`,
-
-`<hrpsys>/build/robothardware_eclipse.zip`
-
-をそれぞれインストール
-
-{{{
-rosrun openhrp3 eclipse.sh
-}}}
-でEclipseを立ち上げて、
- Window -> Open Perspective -> Other 
-で、GRXUIが入っていることを確認する。
 
 = 5. GRXUIとOpenHRPの動作確認 =
 == Sample mrobot_simulator ==
