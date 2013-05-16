@@ -96,6 +96,7 @@ Note: You must comment out the line "::1 localhost" in /etc/hosts to run followi
 roscore
 }}}
 You can ommit invoking roscore because the first roslaunch process starts up ROS_MASTER. 
+
 - For OpenRTM, invoke omniNames (sometimes):
 {{{
 rosrun openrtm rtm-naming
