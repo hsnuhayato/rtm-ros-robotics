@@ -91,10 +91,17 @@ and wait for several minutes.
 Note: You must comment out the line "::1 localhost" in /etc/hosts to run following simulations.
 
 = Before executing Example =
-- For OpenRTM, invoke omniNames like this:
+- For ROS, invoke roscore: (this can be ommitted)
+{{{
+roscore
+}}}
+You can ommit invoking roscore because the first roslaunch process starts up ROS_MASTER. 
+- For OpenRTM, invoke omniNames (sometimes):
 {{{
 rosrun openrtm rtm-naming
 }}}
+You need to invoke rtm-naming if you switch network (wired-LAN, wireless-LAN, ...) because RTM processes in new network cannot access omniNames invoked in old networks. 
+
 
 = Example =
 == OpenHRP3 Simulation ===
