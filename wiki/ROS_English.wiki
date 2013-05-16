@@ -90,6 +90,12 @@ and wait for several minutes.
 
 Note: You must comment out the line "::1 localhost" in /etc/hosts to run following simulations.
 
+= Before executing Example =
+- For OpenRTM, invoke omniNames like this:
+{{{
+rosrun openrtm rtm-naming
+}}}
+
 = Example =
 == OpenHRP3 Simulation ===
 
