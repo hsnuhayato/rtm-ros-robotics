@@ -81,6 +81,13 @@ er)
     Current serial number in output stream:  58
 }}}
 
+If the problem persists, install fonts:
+
+{{{
+sudo apt-get install -y gsfonts-x11 texlive-fonts-extra xfonts-100dpi xfonts-75dpi xfonts-100dpi-transcoded xfonts-75dpi-transcoded
+}}}
+
+
 == Setup Eclipse ==
 type
 {{{
