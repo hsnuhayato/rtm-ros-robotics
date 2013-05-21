@@ -55,8 +55,8 @@
 ##
 ## ar pose
 - git:
-    uri: http://robotics.ccny.cuny.edu/git/ccny-ros-pkg/ccny_vision.git
-    local-name: ccny-vision
+    uri: git://github.com/IHeartEngineering/ar_tools.git
+    local-name: ar_tools
 ##
 ## android application platform
 ##
