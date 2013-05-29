@@ -1,0 +1,8 @@
+#summary One-sentence summary of this page.
+
+* DRCsimをhrpsys経由で動かす
+
+{{{
+roslaunch hrpsys_gazebo atlas_hrpsys.launch
+}}}
+でシステムが立ち上がります．あとは，hrspysと同じ使い方で使えるようになります．
