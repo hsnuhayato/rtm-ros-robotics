@@ -2,17 +2,14 @@
 
 === 知能機械構成論　2013年度夏学期　課題リスト ===
 
-- Homework 1
 
-- Homework 2
+[2013_Homework_1 Homework 1]
 
-- Homework 3
+[2013_Homework_2 Homework 2]
 
+[2013_Homework_3 Homework 3]
 
--- hrpsysコントローラプログラムを
---- OpenRTMから動かす
---- ROSから動かす
--- atlas ロボットをROSから動かす
+[2013_Homework_4 Homework 4]
 
 
 
