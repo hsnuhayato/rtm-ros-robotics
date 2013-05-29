@@ -2,6 +2,12 @@
 
 * 移動台車ナビゲーションのシミュレータを実行し目標速度または目標位置を送るプログラムを最低2つの言語で記述すること
 
+** 宿題の準備
+
+agentsystem_examples以下にjava, euslisp, cpp, pythonのサンプルプログラムがあります．
+
+** 課題
+
 https://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_Navigation
 
 move_base_stage_tutorial/script にサンプルがあります．
