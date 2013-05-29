@@ -1,9 +1,36 @@
 #summary One-sentence summary of this page.
 
 * hrpsysコントローラプログラム 
+hrpsysプログラムとOpenRTM/ROSブリッジは
+{{{
+rosmake hrpsys_ros_bridge
+}}}
+でコンパイルをし，
+{{{
+roslaunch hrpsys_ros_bridge hrp4c.launch
+}}}
+で立ち上がります．
 
  * OpenRTMから動かす
 
+hrpsysはhrpsys/idl以下のIDLファイルに定義されたAPIを使って動かすことができます．
+サンプルプログラムは
+{{{
+rosrun hrpsys hrp4c_walk.py
+}}}
+となります．
+
  * ROSから動かす
 
+利用するメッセージはhrpsys/msg, hrpsys/srvにファイルがあります．例えば，
+{{{
+$ rosservice call /loadPattern "`rospack find hrpsys`/share/hrpsys/samples/HRP-4C/data/walk2m" 1
+}}}
+として動かすことができます．
+
 * atlas ロボットをROSから動かす
+
+https://code.google.com/p/rtm-ros-robotics/wiki/drcsim_tutorial
+にインストール方法があります．
+
+http://gazebosim.org/wiki/DRC/UserGuide#ROS_APIs に使えるROS APIの一覧があります．
