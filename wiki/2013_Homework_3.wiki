@@ -2,6 +2,8 @@
 
 = hrpsysコントローラプログラム =
 
-**  OpenRTMから動かす
+** OpenRTMから動かす
+
 ** ROSから動かす
+
 ** atlas ロボットをROSから動かす
