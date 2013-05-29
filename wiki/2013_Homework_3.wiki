@@ -1,9 +1,9 @@
 #summary One-sentence summary of this page.
 
-= hrpsysコントローラプログラム =
+* hrpsysコントローラプログラム 
 
-* OpenRTMから動かす
+ * OpenRTMから動かす
 
-* ROSから動かす
+ * ROSから動かす
 
-= atlas ロボットをROSから動かす =
+* atlas ロボットをROSから動かす
