@@ -1,5 +1,7 @@
 #summary One-sentence summary of this page.
 
+[Homework_List]
+
 * CORBAによる分散通信プログラムを書く
 
 agentsystem_examples/corbaにサンプルプログラムがあります．
