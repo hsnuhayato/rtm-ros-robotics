@@ -1,0 +1,81 @@
+#summary One-sentence summary of this page.
+
+* 移動台車ナビゲーションのシミュレータを実行し目標速度または目標位置を送るプログラムを最低2つの言語で記述すること
+
+https://code.google.com/p/rtm-ros-robotics/wiki/ROS_Example_Navigation
+
+move_base_stage_tutorial/script にサンプルがあります．
+
+{{{
+#!/usr/bin/env python
+
+import roslib; roslib.load_manifest('move_base_stage_tutorial')
+
+import rospy, actionlib
+from move_base_msgs.msg import *
+
+if __name__ == '__main__':
+    try:
+        rospy.init_node('send_goal', anonymous=True)
+        client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
+        client.wait_for_server()
+
+        goal = MoveBaseGoal()
+        goal.target_pose.header.stamp = rospy.Time.now()
+        goal.target_pose.header.frame_id = "/map"
+        goal.target_pose.pose.position.x=10;
+        goal.target_pose.pose.position.y=20;
+        goal.target_pose.pose.orientation.z = 1
+        print goal
+        client.send_goal(goal)
+        print client.wait_for_result()
+    except rospy.ROSInterruptException: pass
+}}}
+
+{{{
+#!/usr/bin/env python
+
+import roslib; roslib.load_manifest('move_base_stage_tutorial')
+
+import rospy
+from geometry_msgs.msg import Twist
+
+import sys, select, termios, tty
+def getKey():
+        tty.setraw(sys.stdin.fileno())
+        select.select([sys.stdin], [], [], 0)
+        key = sys.stdin.read(1)
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+        return key
+
+move = {
+    'w' : lambda : (1,0,0),
+    'a' : lambda : (0,1,0),
+    's' : lambda : (-1,0,0),
+    'd' : lambda : (0,-1,0),
+    'q' : lambda : (0,0,1),
+    'e' : lambda : (0,0,-1),
+    }
+if __name__ == '__main__':
+    settings = termios.tcgetattr(sys.stdin)
+
+    try:
+        pub = rospy.Publisher('cmd_vel', Twist);
+        rospy.init_node('send_velocity', anonymous=True)
+        r = rospy.Rate(10) # 10hz
+        while not rospy.is_shutdown() :
+            key = getKey()
+            print key
+            if key in ['q', 27]:
+                break
+            elif key in move.keys() :
+                print key,move[key]()
+                cmd = Twist()
+                cmd.linear.x = move[key]()[0]
+                cmd.linear.y = move[key]()[1]
+                cmd.angular.z = move[key]()[2]
+                print "publish ",cmd
+                pub.publish(cmd)
+            r.sleep()
+    except rospy.ROSInterruptException: pass
+}}}
