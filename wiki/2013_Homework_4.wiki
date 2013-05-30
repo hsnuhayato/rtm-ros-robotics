@@ -8,3 +8,5 @@
 roslaunch hrpsys_gazebo atlas_hrpsys.launch
 }}}
 でシステムが立ち上がります．あとは，hrspysと同じ使い方で使えるようになります．
+
+[https://code.google.com/p/rtm-ros-robotics/wiki/drcsim_tutorial 参考]
