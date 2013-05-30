@@ -69,8 +69,22 @@ rosmake hrpsys_gazebo
 * 実行
 
 {{{
-roslaunch hrpsys_gazebo atlas.launch
+ターミナル１で
+$ rosrun openrtm rtm-naming
+ターミナル２で
+$ roslaunch atlas_utils <launch_name>(_cpu_lidar).launch
+<launch_name>
+atlas_sandia_hand # atlasだけの世界
+vrc_task_1 # robotics challenge タスク１
+vrc_tack_2 # robotics challenge タスク２
+vrc_tack_3 # robotics challenge タスク３
+NVIDIAのグラフィックスカードでないPCでは、
+_cpu_lidar をつける。（例、vrc_task_1_cpu_lidar.launch)
+
 # これでgazeboのウィンドウが出る
+ターミナル３で
+$ roslaunch hrpsys_gazebo atlas_hrpsys.launch USE_LASER:=true
+# USE_LASER:=falseにするとlaserの取り込みができない（動作が少し早くなる）
 
 # 別ターミナルで
 roscd hrpsys_gazebo
