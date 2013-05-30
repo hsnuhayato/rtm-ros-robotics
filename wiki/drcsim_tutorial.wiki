@@ -43,6 +43,25 @@ rosmake atlas_utils
 {{{
 roscd hrpsys_gazeboで
 # ~/ros/fuerte/rtm-ros-robotics/rtmros_common/以下にあることを確認
+REAME.install に記述してある以下をしてください（必須でないがこれをしないと、rosmakeが通らない）
+
+### installing footstep planner
+## roscd; rm -rf alufr-ros-pkg ## remove source install
+sudo apt-get install ros-fuerte-humanoid-navigation
+rosrun roseus generate-all-msg-srv.sh $(rospack depends footstep_planner)
+
+### installing laser
+roscd ## move to ~/ros/fuerte
+rosws set laser_assembler --git https://github.com/ros-perception/laser_assembler.git -v groovy-devel
+rosws set laser_filters --git https://github.com/YoheiKakiuchi/laser_filters.git -v groovy-devel
+rosws update laser_assembler laser_filters
+source ~/.bashrc
+rosmake laser_filters laser_assembler
+}}}
+
+{{{
+roscd hrpsys_gazeboで
+# ~/ros/fuerte/rtm-ros-robotics/rtmros_common/以下にあることを確認
 rosdep install hrpsys_gazebo
 rosmake hrpsys_gazebo
 }}}
