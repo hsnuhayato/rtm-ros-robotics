@@ -28,11 +28,18 @@ ROS_PACKAGE_PATH_ORG=$ROS_PACKAGE_PATH
 source /usr/share/drcsim/setup.sh
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH_ORG:$ROS_PACKAGE_PATH
 export ROS_PACKAGE_PATH=`echo $(echo $ROS_PACKAGE_PATH | sed -e "s/:/\n/g" | awk '!($0 in A) && A[$0] = 1' | grep -v "opt/ros"; echo $ROS_PACKAGE_PATH | sed -e "s/:/\n/g" | awk '!($0 in A) && A[$0] = 1' | grep "opt/ros") | sed -e "s/ /:/g"`
+### enable cheat command / do not use competition
+export VRC_CHEATS_ENABLED=1
 }}}
 ここまでで，セットアップ終わり.
 
 
 * 確認
+
+{{{
+## gazeboがupdateされた時
+rm -rf ~/.gazebo
+}}}
 
 {{{
 roscd atlas_utils
@@ -64,6 +71,12 @@ roscd hrpsys_gazeboで
 # ~/ros/fuerte/rtm-ros-robotics/rtmros_common/以下にあることを確認
 rosdep install hrpsys_gazebo
 rosmake hrpsys_gazebo
+}}}
+
+{{{
+## roseus で messageが無い、md5sumが違う、packageが無いと言われたときは
+## roseusのメッセージを作りなおす
+rosrun roseus generate-all-msg-srv.sh $(rospack depends hrpsys_gazebo) hrpsys_gazebo
 }}}
 
 * 実行
