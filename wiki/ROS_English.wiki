@@ -41,7 +41,7 @@ wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?fo
 yes | bash /tmp/jsk.rosbuild
 cd ~/ros/fuerte
 source setup.bash
-rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 }}}
 
 For update installed packages 
