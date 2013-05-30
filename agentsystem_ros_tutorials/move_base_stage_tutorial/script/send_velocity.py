@@ -22,6 +22,15 @@ move = {
     'e' : lambda : (0,0,-1),
     }
 if __name__ == '__main__':
+    print """
+Reading from keyboard
+---------------------------
+Use 'WASD' to translate
+Use 'E' to yaw
+Press 'Enter' to run
+Press 'Q' to quit
+"""
+
     settings = termios.tcgetattr(sys.stdin)
 
     try:
