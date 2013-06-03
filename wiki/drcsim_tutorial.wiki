@@ -115,9 +115,9 @@ roseus euslisp/atlas-interface.l
 
 {{{
 (atlas) ;;　これで *atlas* というロボットモデルオブジェクトが生成される．
-(send *atlas* :torso :torso-waist-y)
-(send *atlas* :torso :torso-waist-p)
-(send *atlas* :torso :torso-waist-r)
+(send *atlas* :torso :waist-y)
+(send *atlas* :torso :waist-p)
+(send *atlas* :torso :waist-r)
 
 (send *atlas* :larm :elbow-p)
 (send *atlas* :larm :elbow-y)
@@ -126,12 +126,12 @@ roseus euslisp/atlas-interface.l
 (send *atlas* :larm :shoulder-y)
 (send *atlas* :larm :wrist-y)
 
-(send *atlas* :larm :knee-p)
-(send *atlas* :larm :ankle-r)
-(send *atlas* :larm :crotch-p)
-(send *atlas* :larm :crotch-r)
-(send *atlas* :larm :ankle-p)
-(send *atlas* :larm :crotch-y)
+(send *atlas* :lleg :knee-p)
+(send *atlas* :lleg :ankle-r)
+(send *atlas* :lleg :crotch-p)
+(send *atlas* :lleg :crotch-r)
+(send *atlas* :lleg :ankle-p)
+(send *atlas* :lleg :crotch-y)
 
 (send *atlas* :head :neck-p)
 }}}
