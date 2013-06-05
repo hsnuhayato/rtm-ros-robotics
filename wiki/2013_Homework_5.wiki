@@ -13,5 +13,7 @@
    - ジョイスティック等のデバイスを使う (参考　http://www.ros.org/wiki/joy ）
 
 * drcsim/atlasが動かないものはPR2シミュレータで試すので良い
+
   - roslaunch pr2_gazebo pr2_empty_world.launch
+
   - roslaunch pr2_teleop_general pr2_teleop_general_keyboard.launch
