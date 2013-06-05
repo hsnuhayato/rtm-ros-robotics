@@ -162,4 +162,16 @@ send *ri* :bdi-go-pos 2.0 1.0 30.0 ;; x[m] y[m] theta[degree]
 }}}
 
 * テレオペレーション
+
 [http://gazebosim.org/wiki/Tutorials/drcsim/2.6/keyboard_teleop keyboard_teleop]
+
+キーボードテレオペ（歩き出す）
+{{{
+$ roslaunch atlas_utils atlas_sandia_hands.launch
+$ roslaunch atlas_utils keyboard_teleop.launch
+}}}
+
+ジョイスティックで手をコントロールする（未確認、使い方を調べてみてください）
+{{{
+$ rosrun atlas_utils arm_teleop.py l
+}}}
