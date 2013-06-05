@@ -165,6 +165,8 @@ send *ri* :bdi-go-pos 2.0 1.0 30.0 ;; x[m] y[m] theta[degree]
 
 [http://gazebosim.org/wiki/Tutorials/drcsim/2.6/keyboard_teleop keyboard_teleop]
 
+[http://gazebosim.org/wiki/Tutorials/drcsim/2.6/slider_teleop slider_teleop]
+
 キーボードテレオペ（歩き出す）
 {{{
 $ roslaunch atlas_utils atlas_sandia_hands.launch
