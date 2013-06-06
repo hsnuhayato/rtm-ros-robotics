@@ -5,11 +5,11 @@
 * hrpsysコントローラプログラム 
 hrpsysプログラムとOpenRTM/ROSブリッジは
 {{{
-rosmake hrpsys_ros_bridge
+rosmake hrpsys_ros_bridge_tutorials
 }}}
 でコンパイルをし，
 {{{
-roslaunch hrpsys_ros_bridge hrp4c.launch
+roslaunch hrpsys_ros_bridge_tutorials hrp4c.launch
 }}}
 で立ち上がります．
 
@@ -26,7 +26,7 @@ rosrun hrpsys hrp4c_walk.py
 
 利用するメッセージはhrpsys/msg, hrpsys/srvにファイルがあります．例えば，
 {{{
-$ rosservice call /loadPattern "`rospack find hrpsys`/share/hrpsys/samples/HRP-4C/data/walk2m" 1
+$ rosservice call /SequencePlayerServiceROSBridge/loadPattern "`rospack find hrpsys`/share/hrpsys/samples/HRP4C/data/walk2m" 1
 }}}
 として動かすことができます．
 
