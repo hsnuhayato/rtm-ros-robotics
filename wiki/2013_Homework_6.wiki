@@ -1,0 +1,10 @@
+#summary One-sentence summary of this page.
+
+* JointTrajectryActionを使う
+ - http://www.ros.org/wiki/pr2_controllers/Tutorials/Moving%20the%20arm%20using%20the%20Joint%20Trajectory%20Action
+
+* roseus　を使う
+
+ - https://code.google.com/p/rtm-ros-robotics/wiki/pr2eus_sample
+
+の２つの方法があります．
