@@ -100,7 +100,7 @@ _cpu_lidar をつける。（例、vrc_task_1_cpu_lidar.launch)
 $ roslaunch hrpsys_gazebo atlas_hrpsys.launch USE_LASER:=true
 # USE_LASER:=falseにするとlaserの取り込みができない（動作が少し早くなる）
 
-# 別ターミナルで
+ターミナル４で
 roscd hrpsys_gazebo
 roseus euslisp/atlas-interface.l
 (atlas-init) 
