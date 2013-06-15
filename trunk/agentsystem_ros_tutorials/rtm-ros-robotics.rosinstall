@@ -12,12 +12,6 @@
     uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk
     local-name: jsk-ros-pkg
 ##
-## for uvc_camera
-- git:
-    uri: http://ram.umd.edu/git/ros/camera_umd.git
-    local-name: umd-ros-pkg/camera_umd
-    version: master
-##
 ## for 1394 camera (openvgr)
 - svn:
     uri: https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0
