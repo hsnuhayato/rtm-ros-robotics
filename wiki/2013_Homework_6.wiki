@@ -1,5 +1,7 @@
 #summary One-sentence summary of this page.
 
+ロボットの動作生成（関節角度レベルの指令）
+
 * JointTrajectryActionを使う
  - http://www.ros.org/wiki/pr2_controllers/Tutorials/Moving%20the%20arm%20using%20the%20Joint%20Trajectory%20Action
 
