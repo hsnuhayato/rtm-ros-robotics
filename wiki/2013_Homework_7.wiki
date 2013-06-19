@@ -2,10 +2,12 @@
 
 * 画像処理プログラムを実行する
 
+{{{
 $ roslaunch roseus_tutorials usb-camera.launch 
 $ roslaunch roseus_tutorials image-view.launch 
 $ roslaunch roseus_tutorials face-detector-mono.launch 
 $ rostopic echo /face_detector_mono/faces
+}}}
 
 * 画像処理結果に基づいて，ロボットの行動を生成するプログラムを書け．（前回の宿題プログラムと連結すればよい）
  
@@ -13,10 +15,10 @@ $ rostopic echo /face_detector_mono/faces
 
 * その他講義で紹介したサンプルプログラム
 
+{{{
 pddl_planner/demos/sample-pddl/　PDDLの基本的なサンプルプログラム
 pddl_planner/demos/{hanoi, 2008_okada_ias}　ROSを介してPDDLを利用する例
 pddl_planner/demos/temporal/ マルチエージェントプランニング
 
 task_planner/ 行動計画と動作制御器の統合
-
-の２つの方法があります．
+}}}
