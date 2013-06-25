@@ -24,6 +24,10 @@ http://rtm-ros-robotics.googlecode.com/svn/wiki/pr2_interactive_gazebo00.png
 = roseusを用いた認識行動 =
 認識(tabletop_segmentation)をもとに、roseusから指示を与えて、テーブル上の物をつかむ
 {{{
+#事前準備
+rosrun roseus generate-all-msg-srv.sh tabletop_object_detector
+}}}
+{{{
 ROBOT=sim roslaunch pr2eus_tutorials pr2_tabletop_sim.launch
 (違うターミナルで)
 roscd pr2eus_tutorials/euslisp
