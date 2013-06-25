@@ -43,7 +43,7 @@ rm -rf ~/.gazebo
 
 {{{
 roscd atlas_utils
-# /usr/share/drcsim-2.5/ros/以下にあることを確認(2.5からアップデートされることもある）
+# /usr/share/drcsim-2.6/ros/以下にあることを確認(2.6からアップデートされることもある）
 rosmake atlas_utils
 }}}
 
@@ -55,7 +55,7 @@ REAME.install に記述してある以下をしてください（必須でない
 ### installing footstep planner
 ## roscd; rm -rf alufr-ros-pkg ## remove source install
 sudo apt-get install ros-fuerte-humanoid-navigation
-rosrun roseus generate-all-msg-srv.sh $(rospack depends footstep_planner)
+rosrun roseus generate-all-msg-srv.sh $(rospack depends footstep_planner) footstep_planner
 
 ### installing laser
 roscd ## move to ~/ros/fuerte
@@ -71,6 +71,8 @@ roscd hrpsys_gazeboで
 # ~/ros/fuerte/rtm-ros-robotics/rtmros_common/以下にあることを確認
 rosdep install hrpsys_gazebo
 rosmake hrpsys_gazebo
+roscd hrpsys_gazebo
+scripts/update-software.sh
 }}}
 
 {{{
