@@ -1,0 +1,43 @@
+ロボットの認識行動 シミュレーションによる実習
+
+  #  インタラクティブマーカーを用いて対象物をつかむ
+{{{
+ROBOT=sim roslaunch pr2eus_tutorials pr2_interactive_manipulation_sim.launch
+}}}
+  # テーブル上の物体を認識して対象物をつかむ
+{{{
+ROBOT=sim roslaunch pr2eus_tutorials pr2_tabletop_sim.launch
+(違うターミナルで)
+roscd pr2eus_tutorials/euslisp
+roseus tabletop-sample.l
+
+(pickup-pick :arm :rarm) ;; ものをつかむ
+(pickup-up :arm :rarm) ;; つかみ上げる
+}}}
+
+
+[pr2_gazebo_sample 参考ページ]
+
+----
+
+* アドバンスド課題
+
+  # 上の課題で、対象物をつかんだ後に、ロボットを移動させて、机の対面や端につかんだ物を置いてみよう。
+  # VRCのqualification task2にチャレンジしてみよう。
+
+ビューワーが開くので、lispインタプリタで (get-point) を入力して、画像上をクリックするとクリックした点の三次元位置が返ってくる。
+
+{{{
+# ターミナル１
+rosrun openrtm rtm-naming-restart
+
+# ターミナル２
+roslaunch atlas_utils qual_task_2.launch
+
+# ターミナル３
+roslaunch hrpsys_gazebo atlas_hrpsys.launch USE_VIEW:=true USE_IMAGE_TRANSPORT:=false
+
+# ターミナル４
+roscd hrpsys_gazebo/euslisp
+roseus atlas-interface.l
+}}}
