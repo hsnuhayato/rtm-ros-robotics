@@ -113,3 +113,7 @@ ccmake ..
 {{{
 make
 }}}
+最後に、make installをして完了です。
+{{{
+sudo make install
+}}}
