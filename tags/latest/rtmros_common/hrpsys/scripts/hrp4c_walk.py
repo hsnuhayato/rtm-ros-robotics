@@ -1,24 +1,31 @@
 #!/usr/bin/env python
 
-# Sample script for HRP4C + SequencePlayerServiceROSBridgeComp
-# This will be copied to openrtm_ros_bridge package
+import roslib; roslib.load_manifest("hrpsys")
+import rospkg
 
-import roslib; roslib.load_manifest('hrpsys_ros_bridge')
-import sys
+import os
+import rtm
 
-import rospy
-from hrpsys.srv import *
+from rtm import *
+from OpenHRP import *
 
-# walkdata=`rospack find hrpsys`/share/hrpsys/samples/HRP-4C/data/walk2m
-walkdata = roslib.rospack.rospackexec(['find','hrpsys']) + '/share/hrpsys/samples/HRP-4C/data/walk2m'
-tms = 1.0
+def init():
+    global seq, seq_svc
+    seq = findRTC("seq")
+    print seq
+    seq_svc = narrow(seq.service("service0"), "SequencePlayerService")
+    print seq_svc
 
-if __name__ == "__main__":
-    rospy.wait_for_service('loadPattern')
-    try:
-        load_pattern = rospy.ServiceProxy('loadPattern', OpenHRP_SequencePlayerService_loadPattern)
-        resp1 = load_pattern(walkdata, tms)
-        exit
-    except rospy.ServiceException, e:
-        print "Service call failed: %s"%e
+def loadPattern(basename, tm=1.0):
+    print basename
+    seq_svc.loadPattern(basename, tm)
+    seq_svc.waitInterpolation()
+    
+    seq_svc.setJointAngle("R_SHOULDER_P", -3.0, 10)
+
+init()
+
+loadPattern(rospkg.RosPack().get_path("hrpsys")+"/share/hrpsys/samples/HRP4C/data/walk2m")
+
+
 

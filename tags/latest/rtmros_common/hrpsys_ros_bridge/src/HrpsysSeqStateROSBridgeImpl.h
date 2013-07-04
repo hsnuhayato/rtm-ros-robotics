@@ -10,10 +10,19 @@
 #include <rtm/idl/BasicDataTypeSkel.h>
 #include <rtm/idl/ExtendedDataTypesSkel.h>
 #include <rtm/Manager.h>
+#include <rtm/CorbaNaming.h>
 #include <rtm/DataFlowComponentBase.h>
 #include <rtm/CorbaPort.h>
 #include <rtm/DataInPort.h>
 #include <rtm/DataOutPort.h>
+#include "HRPDataTypes.hh"
+
+// hrp
+#include <hrpCorba/ModelLoader.hh>
+#include <hrpModel/Body.h>
+#include <hrpModel/Sensor.h>
+#include <hrpModel/Link.h>
+#include <hrpModel/ModelLoaderUtil.h>
 
 // Service implementation headers
 // <rtc-template block="service_impl_h">
@@ -22,10 +31,12 @@
 
 // Service Consumer stub headers
 // <rtc-template block="consumer_stub_h">
+
 #include "hrpsys/idl/SequencePlayerServiceStub.h"
 
 // </rtc-template>
 
+#include "tf/transform_broadcaster.h"
 using namespace RTC;
 
 class HrpsysSeqStateROSBridgeImpl  : public RTC::DataFlowComponentBase
@@ -95,24 +106,23 @@ class HrpsysSeqStateROSBridgeImpl  : public RTC::DataFlowComponentBase
   InPort<TimedDoubleSeq> m_rsangleIn;
   TimedDoubleSeq m_mcangle;
   InPort<TimedDoubleSeq> m_mcangleIn;
-  TimedDoubleSeq m_rsJointTemperature;
-  InPort<TimedDoubleSeq> m_rsJointTemperatureIn;
-  TimedDoubleSeq m_rsrfsensor;
-  InPort<TimedDoubleSeq> m_rsrfsensorIn;
-  TimedDoubleSeq m_rslfsensor;
-  InPort<TimedDoubleSeq> m_rslfsensorIn;
-  TimedDoubleSeq m_rsrhsensor;
-  InPort<TimedDoubleSeq> m_rsrhsensorIn;
-  TimedDoubleSeq m_rslhsensor;
-  InPort<TimedDoubleSeq> m_rslhsensorIn;
-  TimedDoubleSeq m_gsensor;
-  InPort<TimedDoubleSeq> m_gsensorIn;
-  TimedDoubleSeq m_gyrometer;
-  InPort<TimedDoubleSeq> m_gyrometerIn;
+  std::vector<TimedDoubleSeq> m_rsforce;
+  std::vector<InPort<TimedDoubleSeq> *> m_rsforceIn;
+  std::vector<std::string> m_rsforceName;
+  std::vector<TimedAcceleration3D> m_gsensor;
+  std::vector<InPort<TimedAcceleration3D> *> m_gsensorIn;
+  std::vector<TimedAngularVelocity3D> m_gyrometer;
+  std::vector<InPort<TimedAngularVelocity3D> *> m_gyrometerIn;
   TimedDoubleSeq m_baseTform;
   InPort<TimedDoubleSeq> m_baseTformIn;
+  TimedPoint3D m_basePos;
+  InPort<TimedPoint3D> m_basePosIn;
+  TimedOrientation3D m_baseRpy;
+  InPort<TimedOrientation3D> m_baseRpyIn;
   TimedDoubleSeq m_rstorque;
   InPort<TimedDoubleSeq> m_rstorqueIn;
+  OpenHRP::TimedLongSeqSeq m_servoState;
+  InPort<OpenHRP::TimedLongSeqSeq> m_servoStateIn;
 
   // </rtc-template>
 
@@ -140,8 +150,17 @@ class HrpsysSeqStateROSBridgeImpl  : public RTC::DataFlowComponentBase
 
   // </rtc-template>
 
- private:
+ protected:
+  hrp::BodyPtr body;
+  OpenHRP::BodyInfo_var bodyinfo;
 
+  typedef struct  {
+    std::string link_name;
+    tf::Transform transform;
+  } SensorInfo;
+  std::map<std::string, SensorInfo> sensor_info;
+
+ private:
 };
 
 

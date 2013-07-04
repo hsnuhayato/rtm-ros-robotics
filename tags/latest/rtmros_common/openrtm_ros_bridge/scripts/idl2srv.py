@@ -82,7 +82,14 @@ void convert(S& s, boost::array<T,n>& v){
   for(std::size_t i=0; i<n; i++) convert(s[i],v[i]);}
 template<class S,class T,std::size_t n>
 void convert(boost::array<T,n>& v, S& s){
+  s = S(n, S::allocbuf(n), 1);
   for(std::size_t i=0; i<n; i++) convert(v[i],s[i]);}
+template<typename S,class T,std::size_t n>
+void convert(boost::array<T,n>& v, S (&s)[n]){
+  for(std::size_t i=0; i<n; i++) convert(v[i],s[i]);}
+
+// special case for RTC::LightweightRTObject_var
+template<class T> void convert(T& in, RTC::LightweightRTObject_var out){ std::cerr << "convert from RTC::LightweightRTObject_var is not supported" << std::endl; }
 """
 
 multiarray_conversion = """
@@ -173,7 +180,10 @@ class ServiceVisitor (idlvisitor.AstVisitor):
            isinstance(typ, idlast.Interface) or \
            isinstance(typ, idlast.Operation):
             if full == CPP_FULL:
-                return idlutil.ccolonName(typ.scopedName())
+                if ( idlutil.ccolonName(typ.scopedName()) == "RTC::LightweightRTObject") :
+                    return idlutil.ccolonName(typ.scopedName())+"_var"
+                else:
+                    return idlutil.ccolonName(typ.scopedName())
             elif full == ROS_FULL:
                 return '_'.join(typ.scopedName())
             else:
@@ -277,7 +287,7 @@ class ServiceVisitor (idlvisitor.AstVisitor):
             print msgfile
             return
 
-        if os.path.exists(msgfile) and not options.overwrite:
+        if os.path.exists(msgfile) and (os.stat(msgfile).st_mtime > os.stat(idlfile).st_mtime) and not options.overwrite:
             return # do not overwrite
 
         os.system('mkdir -p %s/msg' % basedir)
@@ -304,7 +314,7 @@ class ServiceVisitor (idlvisitor.AstVisitor):
             print srvfile
             return
 
-        if os.path.exists(srvfile) and not options.overwrite:
+        if os.path.exists(srvfile) and (os.stat(srvfile).st_mtime > os.stat(idlfile).st_mtime) and not options.overwrite:
             return # do not overwrite
         os.system('mkdir -p %s/srv' % basedir)
         args = op.parameters()
@@ -376,17 +386,24 @@ class ServiceVisitor (idlvisitor.AstVisitor):
                 if is_out:
                     ptr = ('*' if cxx.types.variableDecl(ptype.decl()) else '')
                     res_code += '  convert(%s%s, res.%s);\n' % (ptr, var, var)
+                    res_code += '  delete %s;\n' % (var)
 
                 else:
                     req_code += '  convert(req.%s, %s);\n' % (var, var)
 
+        code += '\n'
+        code += '  ROS_INFO_STREAM("%s::%s()");\n' % (ifname, op.identifier())
+
+        code += '\n' + req_code + '\n'
+
+        code += '  try {\n'
+
         params = ', '.join(params)
-        code += ('  ROS_INFO("call %s");\n' % op.identifier()) + '\n' + req_code
 
         if op.oneway() or op.returnType().kind() == idltype.tk_void:
-            code += '  m_service0->%s(%s);\n' % (op.identifier(), params)
+            code += '    m_service0->%s(%s);\n' % (op.identifier(), params)
         elif isinstance(op.returnType().unalias(), idltype.Base):
-            code += '  res.operation_return = m_service0->%s(%s);\n' % (op.identifier(), params)
+            code += '    res.operation_return = m_service0->%s(%s);\n' % (op.identifier(), params)
         else:
             rtype = op.returnType()
             if isinstance(rtype.unalias(), idltype.String):
@@ -397,9 +414,29 @@ class ServiceVisitor (idlvisitor.AstVisitor):
                 ptr = ('*' if cxx.types.variableDecl(rtype.decl()) else '')
             else: ptr = ''
             code += '  %s operation_return;\n' % self.getCppTypeText(rtype, out=True, full=CPP_FULL)
-            code += '  operation_return = m_service0->%s(%s);\n' % (op.identifier(), params)
-            code += '  convert(%soperation_return, res.operation_return);\n' % ptr
+            code += '    operation_return = m_service0->%s(%s);\n' % (op.identifier(), params)
+            code += '    convert(%soperation_return, res.operation_return);\n' % ptr
 
+        code += '  } catch(CORBA::COMM_FAILURE& ex) {\n'
+        code += '      ROS_ERROR_STREAM("%s::%s : Caught system exception COMM_FAILURE -- unable to contact the object.");\n' % (ifname, op.identifier())
+        code += '      return false;\n'
+        code += '  } catch(CORBA::SystemException&) {\n'
+        code += '      ROS_ERROR_STREAM("%s::%s : Caught CORBA::SystemException.");\n' % (ifname, op.identifier())
+        code += '      return false;\n'
+        code += '  } catch(CORBA::Exception&) {\n'
+        code += '      ROS_ERROR_STREAM("%s::%s : Caught CORBA::Exception.");\n' % (ifname, op.identifier())
+        code += '      return false;\n'
+        code += '  } catch(omniORB::fatalException& fe) {\n'
+        code += '      ROS_ERROR_STREAM("%s::%s : Caught omniORB::fatalException:");\n' % (ifname, op.identifier())
+        code += '      ROS_ERROR_STREAM("  file: " << fe.file());\n'
+        code += '      ROS_ERROR_STREAM("  line: " << fe.line());\n'
+        code += '      ROS_ERROR_STREAM("  mesg: " << fe.errmsg());\n'
+        code += '      return false;\n'
+        code += '  }\n'
+        code += '  catch(...) {\n'
+        code += '      ROS_ERROR_STREAM("%s::%s : Caught unknown exception.");\n' % (ifname, op.identifier())
+        code += '      return false;\n'
+        code += '  }\n'
 
         code += res_code
 
@@ -423,7 +460,7 @@ class ServiceVisitor (idlvisitor.AstVisitor):
             print mod_h
             return
 
-        if os.path.exists(Comp_cpp) and os.path.exists(mod_cpp) and os.path.exists(mod_h) and not options.overwrite:
+        if all([ os.path.exists(x) and os.stat(x).st_mtime > os.stat(idlfile).st_mtime for x in [Comp_cpp, mod_cpp, mod_h]]) and not options.overwrite:
             return # do not overwrite
 
         command = "rosrun openrtm rtc-template -bcxx --module-name=%s --consumer=%s:service0:'%s' --consumer-idl=%s --idl-include=%s" % (module_name, service_name, service_name, idlfile, idldir)

@@ -11,11 +11,15 @@
 
   <export>
     <rosdoc config="rosdoc.yaml" />
+    <python path="${prefix}/src:${prefix}/share/hrpsys/python" />
   </export>
   <depend package="openhrp3"/>
 
+  <depend package="openrtm_ros_bridge" />
+
   <rosdep name="doxygen" />
   <rosdep name="libirrlicht-dev" />
+  <rosdep name="libglew-dev" />
 </package>
 
 
