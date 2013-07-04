@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.4.6)
 include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
-rosbuild_find_ros_package(rtmbuild)
-include(${rtmbuild_PACKAGE_PATH}/cmake/rtmbuild.cmake)
+rosbuild_find_ros_package(hrpsys_ros_bridge)
+include(${hrpsys_ros_bridge_PACKAGE_PATH}/cmake/compile_robot_model.cmake)
 
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
@@ -11,14 +11,13 @@ include(${rtmbuild_PACKAGE_PATH}/cmake/rtmbuild.cmake)
 #  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
 #set(ROS_BUILD_TYPE RelWithDebInfo)
 
-rtmbuild_init()
+rosbuild_init()
 
 #set the default path for built executables to the "bin" directory
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-rtmbuild_genidl()
 #uncomment if you have defined messages
 #rosbuild_genmsg()
 #uncomment if you have defined services
@@ -32,5 +31,9 @@ rtmbuild_genidl()
 #rosbuild_add_executable(example examples/example.cpp)
 #target_link_libraries(example ${PROJECT_NAME})
 
-rtmbuild_add_executable(HiroStateHolder src/HiroStateHolder.cpp src/HiroStateHolder.cpp src/HiroStateHolderComp.cpp)
+compile_collada_model(${collada_robots_PACKAGE_PATH}/data/robots/kawada-hironx.dae)
+##
+## tests
+##
+rosbuild_add_rostest(test/hironx-test.launch)
 
