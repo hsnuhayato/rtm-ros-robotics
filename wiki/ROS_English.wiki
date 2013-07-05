@@ -275,9 +275,9 @@ you need to change  `bridge = findRTC("HRP-4C(Robot)0")` to `bridge = findRTC("H
 === Kawada HIRONX ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hironx.launch hironx.launch])
 {{{
-$ roslaunch hrpsys_ros_bridge_tutorials hironx.launch
+$ roslaunch hrpsys_ros_bridge_tutorials hironx_nosim.launch
 }}}
-to launch rviz viewer with Kawada HiroNx robot
+to launch rviz viewer with Kawada HiroNx robot, without hrpsys-simulator's dynamics simulation
 
 then, type
 {{{
