@@ -1,47 +1,30 @@
-- svn: {local-name: jsk-ros-pkg, uri: 'https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk',
-    version: -r4751}
-- svn: {local-name: tum-ros-pkg/highlevel/SnapMapICP, uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg/highlevel/SnapMapICP',
-    version: -r1012}
-- svn: {local-name: tum-ros-pkg/perception, uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg/perception',
-    version: -r1012}
-- svn: {local-name: bosch-ros-pkg/stacks/bosch_shared_autonomy, uri: 'http://svn.code.sf.net/p/bosch-ros-pkg/code/trunk/stacks/bosch_shared_autonomy',
-    version: -r1685}
-- svn: {local-name: mit-ros-pkg/trunk/ee_cart_imped, uri: 'https://svn.csail.mit.edu/mit-ros-pkg/trunk/ee_cart_imped',
-    version: -r4089}
+- svn: {local-name: jsk-ros-pkg, uri: 'https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk'}
+- svn: {local-name: tum-ros-pkg/highlevel/SnapMapICP, uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg/highlevel/SnapMapICP'}
+- svn: {local-name: tum-ros-pkg/perception, uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg/perception'}
+- svn: {local-name: bosch-ros-pkg/stacks/bosch_shared_autonomy, uri: 'http://svn.code.sf.net/p/bosch-ros-pkg/code/trunk/stacks/bosch_shared_autonomy'}
+- svn: {local-name: mit-ros-pkg/trunk/ee_cart_imped, uri: 'https://svn.csail.mit.edu/mit-ros-pkg/trunk/ee_cart_imped'}
 - svn: {local-name: rtm-ros-robotics/rtmros_common, uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common',
-    version: -r4475}
-- svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r4474}
-- svn: {local-name: stacks/camera1394, uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0',
-    version: -r40422}
-- git: {local-name: ros-pkg-git/kinect, uri: 'https://github.com/ros-pkg-git/kinect.git',
-    version: e632ec653c47731217a8575c952d98c4570f0208}
-- svn: {local-name: cmu-ros-pkg, uri: 'https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk',
-    version: -r442}
-- svn: {local-name: wg-ros-pkg-cturtle/vision, uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision',
-    version: -r55322}
-- svn: {local-name: wg-ros-pkg-cturtle/sandbox/checkerboard_pose, uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboard_pose',
-    version: -r55322}
-- svn: {local-name: ua-ros-pkg, uri: 'https://ua-ros-pkg.googlecode.com/svn/trunk/arrg',
-    version: -r1657}
-- git: {local-name: ar_tools, uri: 'git://github.com/IHeartEngineering/ar_tools.git',
-    version: a83853ce68e8f5ad5ee7933e71147b5e372bf3a0}
+    version: -r}
+- svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials'}
+- svn: {local-name: stacks/camera1394, uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0'}
+- git: {local-name: ros-pkg-git/kinect, uri: 'https://github.com/ros-pkg-git/kinect.git'}
+- svn: {local-name: cmu-ros-pkg, uri: 'https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk'}
+- svn: {local-name: wg-ros-pkg-cturtle/vision, uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision'}
+- svn: {local-name: wg-ros-pkg-cturtle/sandbox/checkerboard_pose, uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboard_pose'}
+- svn: {local-name: ua-ros-pkg, uri: 'https://ua-ros-pkg.googlecode.com/svn/trunk/arrg'}
+- git: {local-name: ar_tools, uri: 'git://github.com/IHeartEngineering/ar_tools.git'}
 - hg: {local-name: multimaster_experimental, uri: 'https://kforge.ros.org/appmanandroid/multimaster_experimental',
-    version: aff730f43757}
-- hg: {local-name: turtlebot, uri: 'https://kforge.ros.org/turtlebot/turtlebot', version: e47d5a1dca1c}
+    version: fuerte}
+- hg: {local-name: turtlebot, uri: 'https://kforge.ros.org/turtlebot/turtlebot'}
 - git: {local-name: rosjava_core, uri: 'git://github.com/rosjava/rosjava_core.git',
-    version: b2bcbbe14aaadbb1a81a07902ea7fd643fa2c63e}
+    version: groovy-devel}
 - git: {local-name: android_core, uri: 'git://github.com/rosjava/android_core.git',
-    version: d19c5ac238200f8fe422b00f6051de5cd5fa194c}
+    version: groovy-devel}
 - hg: {local-name: osrf_rosandroid, uri: 'https://bitbucket.org/osrf/rosandroid',
-    version: eeb3f11fa38e}
+    version: default}
 - hg: {local-name: rosjava_zeroconf, uri: 'https://bitbucket.org/osrf/rosjava_zeroconf',
-    version: fb34770337bd}
-- git: {local-name: turtlebot_android, uri: 'https://github.com/turtlebot/turtlebot_android.git',
-    version: d1500d1005911dddcb3d6f874d1beda6b26b21d3}
-- git: {local-name: pr2_android_utilities, uri: 'https://github.com/ros-android-pr2/pr2_android_utilities.git',
-    version: e911bc2f0f7ceffa0988880a6dc393c0b27f4314}
-- svn: {local-name: webots-ros-pkg, uri: 'http://webots-ros-pkg.svn.sourceforge.net/svnroot/webots-ros-pkg',
-    version: -r21}
-- svn: {local-name: alufr-ros-pkg, uri: 'http://alufr-ros-pkg.googlecode.com/svn/trunk',
-    version: -r4230}
+    version: default}
+- git: {local-name: turtlebot_android, uri: 'https://github.com/turtlebot/turtlebot_android.git'}
+- git: {local-name: pr2_android_utilities, uri: 'https://github.com/ros-android-pr2/pr2_android_utilities.git'}
+- svn: {local-name: webots-ros-pkg, uri: 'http://webots-ros-pkg.svn.sourceforge.net/svnroot/webots-ros-pkg'}
+- svn: {local-name: alufr-ros-pkg, uri: 'http://alufr-ros-pkg.googlecode.com/svn/trunk'}
