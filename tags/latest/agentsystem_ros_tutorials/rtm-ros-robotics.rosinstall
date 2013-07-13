@@ -4,7 +4,7 @@
 - svn: {local-name: bosch-ros-pkg/stacks/bosch_shared_autonomy, uri: 'http://svn.code.sf.net/p/bosch-ros-pkg/code/trunk/stacks/bosch_shared_autonomy'}
 - svn: {local-name: mit-ros-pkg/trunk/ee_cart_imped, uri: 'https://svn.csail.mit.edu/mit-ros-pkg/trunk/ee_cart_imped'}
 - svn: {local-name: rtm-ros-robotics/rtmros_common, uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common',
-    version: -r4557}
+    version: -r4559}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials'}
 - svn: {local-name: stacks/camera1394, uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0'}
 - git: {local-name: ros-pkg-git/kinect, uri: 'https://github.com/ros-pkg-git/kinect.git'}
