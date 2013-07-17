@@ -34,6 +34,7 @@ class HIRONX(HrpsysConfigurator):
               ['head', ['HEAD_JOINT0', 'HEAD_JOINT1']],
               ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5']],
               ['larm', ['LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5']]]
+    HandGroups = {'rhand': [2, 3, 4, 5], 'lhand': [6, 7, 8, 9]}
 
     RtcList = []
 
@@ -45,7 +46,7 @@ class HIRONX(HrpsysConfigurator):
     # hiro specific methods
     #
     def getRTCList(self):
-        return [self.rh, self.seq, self.sh, self.fk, self.log]
+        return [self.rh, self.seq, self.sh, self.fk, self.sc, self.log]
 
     def init(self, robotname="HiroNX(Robot)0", url=""):
         HrpsysConfigurator.init(self, robotname=robotname, url=url)
@@ -87,6 +88,7 @@ class HIRONX(HrpsysConfigurator):
         #if self.co :
         #    self.co_svc = rtm.narrow(self.co.service("service0"), "CollisionDetectorService")
 
+        # servo controller (grasper)
         self.sc = self.createComp("ServoController", "sc")
         if self.sc :
             self.sc_svc = rtm.narrow(self.sc.service("service0"), "ServoControllerService")
@@ -115,11 +117,52 @@ class HIRONX(HrpsysConfigurator):
             rtm.connectPorts(self.sh.port('qOut'),       self.rh.port('qRef'))
 
     #
+    # hand interface
+    # hiro.HandOpen("rhand")
+    # hiro.HandOpen()        # for both hand
+    # hiro.HandClose("rhand")
+    # hiro.HandClose()       # for both hand
+    #
+    def HandOpen(self, hand):
+        if not hand:
+            self.setHandWitdh("lhand", 100)
+            self.setHandWitdh("rhand", 100)
+        else:
+            self.setHandWitdh(hand, 100)
+    def HandClose(self, hand):
+        if not hand:
+            self.setHandWitdh("lhand", 0)
+            self.setHandWitdh("rhand", 0)
+        else:
+            self.setHandWitdh(hand, 0)
+    def setHandJointAngles(self, hand, angles, tm=1):
+        self.sc_svc.setHandJointAnglesOfGroup(hand, angles, tm)
+    def setHandWidth(self, hand, width, tm=1):
+        self.setHandJointAngles(hand, self.hand_width2angles(width), tm)
+    def hand_width2angles(self, width):
+        safetyMargin = 3
+        l1, l2 = (41.9, 19)
+
+        if width < 0.0 or width > (l1+l2 - safetyMargin)*2:
+            return None
+
+        xPos   = width/2.0 + safetyMargin
+        a2Pos  = xPos - l2
+        a1radH = math.acos(a2Pos/l1)
+        a1rad  = math.pi/2.0 - a1radH
+
+        return a1rad, -a1rad, -a1rad, a1rad
+    #
     #
     #
     def setSelfGroups(self):
         for item in self.Groups:
             self.seq_svc.addJointGroup(item[0], item[1])
+        for k, v in self.HandGroups.iteritems():
+            self.sc_svc.addJointGroup(k, v)
+
+        self.sc_svc.servoOn()
+
 
     #
     def getActualState(self):
@@ -304,13 +347,13 @@ class HIRONX(HrpsysConfigurator):
 
 
 if __name__ == '__main__':
-    hironx = HIRONX()
+    hiro = HIRONX()
     if len(sys.argv) > 2:
-        hironx.init(sys.argv[1], sys.argv[2])
+        hiro.init(sys.argv[1], sys.argv[2])
     elif len(sys.argv) > 1:
-        hironx.init(sys.argv[1])
-    else :
-        hironx.init()
+        hiro.init(sys.argv[1])
+    else:
+        hiro.init()
 
 # for simulated robot
 # $ ./hironx.py

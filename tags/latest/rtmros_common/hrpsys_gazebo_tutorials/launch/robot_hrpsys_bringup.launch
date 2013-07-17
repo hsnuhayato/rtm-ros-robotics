@@ -8,33 +8,12 @@
 
   <include file="$(find hrpsys)/launch/hrpsys.launch" >
     <arg name="USE_RTCD" value="true" />
-    <arg name="hrpsys_args" value='
--o "exec_cxt.periodic.rate:200"
--o "manager.shutdown_onrtcs:NO"
--o "manager.modules.load_path:$(find hrpsys_gazebo_general)/lib,$(find hrpsys)/lib"
--o "manager.modules.preload:RobotHardware.so,hrpEC.so"
--o "manager.components.precreate:RobotHardware"
--o "exec_cxt.periodic.type:hrpExecutionContext"
--o "example.RobotHardware.config_file:$(arg GAZEBO_MODEL_DIR)/hrpsys/$(arg ROBOT_NAME).RobotHardware.conf"
--o "example.SequencePlayer.config_file:$(arg CONF_FILE)"
--o "example.ForwardKinematics.config_file:$(arg CONF_FILE)"
--o "example.ImpedanceController.config_file:$(arg CONF_FILE)"
--o "example.AutoBalancer.config_file:$(arg CONF_FILE)"
--o "example.StateHolder.config_file:$(arg CONF_FILE)"
--o "example.TorqueFilter.config_file:$(arg CONF_FILE)"
--o "example.VirtualForceSensor.config_file:$(arg CONF_FILE)"
--o "example.AbsoluteForceSensor.config_file:$(arg CONF_FILE)"
--o "example.KalmanFilter.config_file:$(arg CONF_FILE)"
--o "example.Stabilizer.config_file:$(arg CONF_FILE)"
--o "example.CollisionDetector.config_file:$(arg CONF_FILE)"
--o "example.SoftErrorLimiter.config_file:$(arg CONF_FILE)"
-' />
-
+    <arg name="hrpsys_load_path" default="$(find hrpsys_gazebo_general)/lib,$(find hrpsys)/lib"/>
+    <arg name="RobotHardware_conf" default='$(arg GAZEBO_MODEL_DIR)/hrpsys/$(arg ROBOT_NAME).RobotHardware.conf'/>
     <arg name="PROJECT_FILE" value="$(arg GAZEBO_MODEL_DIR)/hrpsys/$(arg ROBOT_NAME)_nosim.xml" />
     <arg name="MODEL_FILE" value="$(arg GAZEBO_MODEL_DIR)/hrpsys/$(arg ROBOT_NAME).dae" />
     <arg name="CONF_FILE" value="$(arg CONF_FILE)" />
     <arg name="SIMULATOR_NAME" value="$(arg SIMULATOR_NAME)" />
-    <arg name="LAUNCH_HRPSYSPY" value="true" />
     <!--arg name="HRPSYS_PY_PKG" value="hrpsys_gazebo_tutorials"/>
     <arg name="HRPSYS_PY_NAME" value="sample_hrpsys.py"/-->
   </include>
