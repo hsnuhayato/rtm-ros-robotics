@@ -33,7 +33,7 @@
 　　に追加する形でドキュメントを記述すること．
 
 　　　ドキュメントはgoogle code wiki syntax
-（https://code.google.com/p/support/wiki/WikiSyntax）で提出すること．
+（ https://code.google.com/p/support/wiki/WikiSyntax )で提出すること．
 
  # 上記の課題を解くのが困難な者は
 
