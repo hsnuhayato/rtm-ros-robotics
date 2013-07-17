@@ -1,0 +1,46 @@
+提出先: kyoin@jsk.t.u-tokyo.ac.jp
+
+締め切：７月２６日
+
+レポート枚数：A4　６枚程度
+
+
+* 課題を全て提出していないもの
+
+ # 課題１－８を解いて提出すること
+
+　　　宿題リスト：https://code.google.com/p/rtm-ros-robotics/wiki/Homework_List
+
+ # 課題を説く際に分からなかった点について質問すること
+　　　質問先は
+
+　　　　https://groups.google.com/forum/#!forum/rtm-ros-robotics
+
+　　　あるいは
+
+　　　　http://answers.ros.org/questions/
+　　　　http://answers.gazebosim.org/questions/
+
+　　　に投稿すること．
+
+　　　　　答えがもらいやすい質問の仕方は　http://ros.org/wiki/Support　に書いてある．
+
+　　　どのような質問をし，どのような返事があったかをレポートにしPDFで提出すること．
+
+ # 課題を説く際に困ったところ，情報が足りないところ，不具合の見つけ方，克服方法等があれば，
+　　　https://code.google.com/p/rtm-ros-robotics/wiki/drcsim_tutorial
+　　に追加する形でドキュメントを記述すること．
+
+　　　ドキュメントはgoogle code wiki syntax
+（https://code.google.com/p/support/wiki/WikiSyntax）で提出すること．
+
+ # 上記の課題を解くのが困難な者は
+
+　http://www.ros.org/wiki/ROS　にあるコンテンツで和訳されていないものを和訳せよ
+
+　例えば http://www.ros.org/wiki/ROS/CommandLineTools を和訳したい場合はhttp://www.ros.org/wiki/ja/ROS/CommandLineTools というように wiki/ と ROS/ の間にjaを入れたページをつくって和訳する．
+
+
+* 課題を全て提出しているもの
+
+　　　これまでの課題を組み合わせて，新しいロボットエージェントの認識行動プログラムを作成し，ソースコード，システム構成図，プログラムの動作の様子の画面キャプチャとその概要説明をレポートにし提出すること
