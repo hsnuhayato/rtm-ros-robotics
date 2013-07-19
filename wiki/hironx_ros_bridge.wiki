@@ -1,0 +1,37 @@
+#summary One-sentence summary of this page.
+
+= インストール方法 =
+
+{{{
+rosmake hironx_ros_bridge
+}}}
+
+= 使い方 =
+
+== シミュレーション環境の立上げ ==
+
+{{{
+roslaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch 
+}}}
+
+== 実機を利用している場合のRTMROSブリッジ環境の立上げ ==
+
+{{{
+roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=<hostname> 
+}}}
+
+= プログラミング例 =
+{{{
+$ roscd hironx_ros_bridge/scripts
+$ ./hironx.py
+>> hiro.servoOn()
+>> hiro.goInitial()
+>> hiro.setJointAngles("larm", [0,0,0,0,0,0])
+}}}
+
+実機の場合の立上げは以下のようにして下さい．
+{{{
+$ /hironx.py RobotHardware0 -- -ORBInitRef NameService=corbaloc:iiop:hiro014:2809/NameService
+}}}
+
+}}}
