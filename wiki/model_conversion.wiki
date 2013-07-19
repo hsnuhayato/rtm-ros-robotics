@@ -1,14 +1,15 @@
 = Model formats used in rtm-ros-robotics =
-== Euslisp (xx.l)
+== Euslisp (xx.l) ==
    Euslisp model format (irteus version) used in Euslisp process. 
    Supported : robots, objects, and scenes
-== Collada (xx.dae)
+== Collada (xx.dae) ==
    Collada model format used in some ros nodes (such as rviz) and OpenRAVE
    Supported : robots, objects, and scenes
-== VRML (xx.wrl)
+== VRML (xx.wrl) ==
    VRML model format used in OpenHRP3 system. 
    Supported : robots and objects. scenes are supported as Project File (xx.xml)
    Note that OpenHRP3 VRML format differs from webots VRML format. 
 
-
-
+= Euslisp (.l) -> Collada model (.dae) =
+= Collada model (.dae) -> Euslisp (.l) =
+= VRML model (.wrl) -> Collada model (.dae) =
