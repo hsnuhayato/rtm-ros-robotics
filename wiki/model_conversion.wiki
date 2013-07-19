@@ -25,6 +25,8 @@ Input file is pr2.dae. Output file is pr2.l. pr2.yaml is configuration file to d
 rosmake hrpsys_ros_bridge_tutorials
 }}}
 This command generates hrpsys_ros_bridge_tutorials/models/*.l. 
+== source codes ==
+`rospack find euscollada`/src/collada2eus.cpp
 = VRML model (.wrl) -> Collada model (.dae) =
 == How to convert ==
 === command line example ===
@@ -41,3 +43,6 @@ rosrun openrave openrave /tmp/SampleRobot.dae
 rosmake hrpsys_ros_bridge_tutorials
 }}}
 This command generates hrpsys_ros_bridge_tutorials/models/*.dae.
+== source codes ==
+`rospack find openhrp3`/build/OpenHRP-3/server/ModelLoader/ColladaWriter.h
+`rospack find openhrp3`/build/OpenHRP-3/server/ModelLoader/exportCollada.h
