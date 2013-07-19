@@ -14,7 +14,7 @@ rosmake hironx_ros_bridge
 roslaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch 
 }}}
 
-== 実機を利用している場合のRTMROSブリッジ環境の立上げ ==
+=== 実機を利用している場合のRTMROSブリッジ環境の立上げ ===
 
 {{{
 roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=<hostname> 
