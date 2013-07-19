@@ -11,5 +11,33 @@
    Note that OpenHRP3 VRML format differs from webots VRML format. 
 
 = Euslisp (.l) -> Collada model (.dae) =
+ (document is under construction)
 = Collada model (.dae) -> Euslisp (.l) =
+== How to convert ==
+=== command line example ===
+{{{
+rosrun collada_urdf urdf_to_collada `rospack find pr2_mechanism_model`/pr2.urdf pr2.dae # prepare pr2.dae first. 
+rosrun euscollada collada2eus pr2.dae pr2.yaml pr2.l.$$.tmp; mv pr2.l.$$.tmp pr2.l
+}}}
+Input file is pr2.dae. Output file is pr2.l. pr2.yaml is configuration file to define :reset-pose, end-coords, and joint order in euslisp. 
+=== using rosmake or make ===
+{{{
+rosmake hrpsys_ros_bridge_tutorials
+}}}
+This command generates hrpsys_ros_bridge_tutorials/models/*.l. 
 = VRML model (.wrl) -> Collada model (.dae) =
+== How to convert ==
+=== command line example ===
+{{{
+rosrun openhrp3 export-collada -i `rospack find openhrp3`/share/OpenHRP-3.1/sample/model/sample1.wrl -o /tmp/SampleRobot.dae
+}}}
+-i is input and -o is output.
+To check this file:
+{{{
+rosrun openrave openrave /tmp/SampleRobot.dae 
+}}}
+=== using rosmake or make ===
+{{{
+rosmake hrpsys_ros_bridge_tutorials
+}}}
+This command generates hrpsys_ros_bridge_tutorials/models/*.dae.
