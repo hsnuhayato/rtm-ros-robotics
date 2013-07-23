@@ -6,6 +6,7 @@ import os
 import socket
 import time
 import math
+import numpy
 
 import rtm
 import OpenHRP
@@ -72,73 +73,46 @@ class HIRONX(HrpsysConfigurator):
         return ret
 
     def createComps(self):
-        self.seq = self.createComp("SequencePlayer", "seq")
-        if self.seq :
-            self.seq_svc = rtm.narrow(self.seq.service("service0"), "SequencePlayerService")
+        [self.seq, self.seq_svc] = self.createComp("SequencePlayer", "seq", True)
 
-        self.sh = self.createComp("StateHolder", "sh")
-        if self.sh :
-            self.sh_svc = rtm.narrow(self.sh.service("service0"), "StateHolderService")
+        [self.sh, self.sh_svc] = self.createComp("StateHolder", "sh", True)
 
-        self.fk = self.createComp("ForwardKinematics", "fk")
-        if self.fk :
-            self.fk_svc = rtm.narrow(self.fk.service("service0"), "ForwardKinematicsService")
+        [self.fk, self.fk_svc] = self.createComp("ForwardKinematics", "fk", True)
 
         #self.co = self.createComp("CollisionDetector", "co")
         #if self.co :
         #    self.co_svc = rtm.narrow(self.co.service("service0"), "CollisionDetectorService")
 
         # servo controller (grasper)
-        self.sc = self.createComp("ServoController", "sc")
-        if self.sc :
-            self.sc_svc = rtm.narrow(self.sc.service("service0"), "ServoControllerService")
+        [self.sc, self.sc_svc] = self.createComp("ServoController", "sc", True)
 
-        self.log = self.createComp("DataLogger", "log")
-        if self.log :
-            self.log_svc = rtm.narrow(self.log.service("service0"), "DataLoggerService");
-
-    def connectComps(self):
-        if self.sh and self.rh:
-            print self.configurator_name, 'connectComps: self.rh =', self.rh
-            print self.configurator_name, 'connectComps self.sh =', self.sh
-            rtm.connectPorts(self.rh.port("q"), [self.sh.port("currentQIn"), self.fk.port("q")])
-
-        #
-        if self.seq and self.sh:
-            rtm.connectPorts(self.seq.port('qRef'),      self.sh.port('qIn'))
-            rtm.connectPorts(self.seq.port('basePos'),   self.sh.port('basePosIn'))
-            rtm.connectPorts(self.seq.port('baseRpy'),   self.sh.port('baseRpyIn'))
-
-            #
-            rtm.connectPorts(self.sh.port('qOut'),       [self.fk.port("qRef"),self.seq.port('qInit')])
-            rtm.connectPorts(self.sh.port('basePosOut'), [self.seq.port('basePosInit'), self.fk.port("basePosRef")])
-            rtm.connectPorts(self.sh.port('baseRpyOut'), [self.seq.port('baseRpyInit'), self.fk.port("baseRpyRef")])
-            #
-            rtm.connectPorts(self.sh.port('qOut'),       self.rh.port('qRef'))
+        [self.log, self.log_svc] = self.createComp("DataLogger", "log", True)
 
     #
     # hand interface
-    # hiro.HandOpen("rhand")
+    # effort: 1~100[%]
+    # hiro.HandOpen("rhand", effort)
     # hiro.HandOpen()        # for both hand
-    # hiro.HandClose("rhand")
+    # hiro.HandClose("rhand", effort)
     # hiro.HandClose()       # for both hand
     #
-    def HandOpen(self, hand):
-        if not hand:
-            self.setHandWitdh("lhand", 100)
-            self.setHandWitdh("rhand", 100)
-        else:
-            self.setHandWitdh(hand, 100)
-    def HandClose(self, hand):
-        if not hand:
-            self.setHandWitdh("lhand", 0)
-            self.setHandWitdh("rhand", 0)
-        else:
-            self.setHandWitdh(hand, 0)
+    def HandOpen(self, hand=None, effort=None):
+        self.setHandWidth(hand, 100, effort=effort)
+    def HandClose(self, hand=None, effort=None):
+        self.setHandWidth(hand, 0, effort=effort)
     def setHandJointAngles(self, hand, angles, tm=1):
-        self.sc_svc.setHandJointAnglesOfGroup(hand, angles, tm)
-    def setHandWidth(self, hand, width, tm=1):
-        self.setHandJointAngles(hand, self.hand_width2angles(width), tm)
+        self.sc_svc.setJointAnglesOfGroup(hand, angles, tm)
+    def setHandEffort(self, effort=100):
+        for i in [ v for vs in HandGroups.values() for v in vs]: # flatten
+            self.sc_svc.setMaxTorque(i, effort)
+    def setHandWidth(self, hand, width, tm=1, effort=None):
+        if effort:
+            self.setHandEffort(effort)
+        if hand:
+            self.setHandJointAngles(hand, self.hand_width2angles(width), tm)
+        else:
+            for h in self.HandGroups.keys():
+                self.setHandJointAngles(h, self.hand_width2angles(width), tm)
     def hand_width2angles(self, width):
         safetyMargin = 3
         l1, l2 = (41.9, 19)
@@ -160,9 +134,6 @@ class HIRONX(HrpsysConfigurator):
             self.seq_svc.addJointGroup(item[0], item[1])
         for k, v in self.HandGroups.iteritems():
             self.sc_svc.addJointGroup(k, v)
-
-        self.sc_svc.servoOn()
-
 
     #
     def getActualState(self):
@@ -208,23 +179,16 @@ class HIRONX(HrpsysConfigurator):
 
     def flat2Groups(self, flatList):
         retList = []
-        prev = None
         index = 0
-        DOF = 15
-        for item in self.Groups:
-            if not prev:
-                retList.append(flatList[:len(item[1])])
-                index += len(retList[-1])
-            elif item == self.Groups[-1]:
-                retList.append(flatList[index:DOF])
-            else:
-                retList.append(flatList[index:len(item[1])])
-                index += len(retList[-1])
+        for group in self.Groups:
+            joint_num = len(group[1])
+            retList.append(flatList[index : index+joint_num])
+            index += joint_num
         return retList
 
     # switch servos on/off
     # destroy argument is not used
-    def servoOn(self, jname='all', destroy=1):
+    def servoOn(self, jname='all', destroy=1, tm=3):
         # check joints are calibrated
         if not self.isCalibDone():
             waitInputConfirm('!! Calibrate Encoders with checkEncoders first !!\n\n')
@@ -264,14 +228,19 @@ class HIRONX(HrpsysConfigurator):
             print self.configurator_name, 'exception occured'
 
         try:
-            angles = self.flat2Groups(self.getActualState().angle)
+            angles = self.flat2Groups(map(numpy.rad2deg, self.getActualState().angle))
+            print 'Move to Actual State, Just a minute.'
             for i in range(len(self.Groups)):
-                #self.seq_svc.setJointAnglesOfGroup(nm, angles, tm)
-                self.seq_svc.setJointAnglesOfGroup(self.Groups[i][0], angles[i], tm, wait=False)
+                self.setJointAnglesOfGroup(self.Groups[i][0], angles[i], tm, wait=False)
             for i in range(len(self.Groups)):
                 self.seq_svc.waitInterpolationOfGroup(self.Groups[i][0])
         except:
             print self.configurator_name, 'post servo on motion trouble'
+
+        # turn on hand motors
+        print 'Turn on Hand Servo'
+        self.sc_svc.servoOn()
+
         return 1
 
     #
@@ -281,7 +250,9 @@ class HIRONX(HrpsysConfigurator):
             print self.configurator_name, 'omit servo off'
             return 0
 
-        # if the servos aren't on do nothing -> send again?
+        print 'Turn off Hand Servo'
+        self.sc_svc.servoOff()
+        # if the servos aren't on switch power off
         if not self.isServoOn(jname):
             if jname.lower() == 'all':
                 self.rh_svc.power('all', SWITCH_OFF)
@@ -302,7 +273,12 @@ class HIRONX(HrpsysConfigurator):
             self.rh_svc.servo('all', SWITCH_OFF)
             time.sleep(0.2)
             if jname == 'all':
-                rh_svc.power('all', SWITCH_OFF)
+                self.rh_svc.power('all', SWITCH_OFF)
+
+            # turn off hand motors
+            print 'Turn off Hand Servo'
+            self.sc_svc.servoOff()
+
             return 2
         except:
             print self.configurator_name, 'servo off: communication error'
@@ -345,6 +321,9 @@ class HIRONX(HrpsysConfigurator):
         time.sleep(0.1)
         self.rh_svc.servo(jname, SWITCH_ON)
 
+        # turn on hand motors
+        print 'Turn on Hand Servo'
+        self.sc_svc.servoOn()
 
 if __name__ == '__main__':
     hiro = HIRONX()
