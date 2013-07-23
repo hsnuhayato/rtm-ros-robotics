@@ -9,9 +9,9 @@
 - svn: {local-name: mit-ros-pkg/trunk/ee_cart_imped, uri: 'https://svn.csail.mit.edu/mit-ros-pkg/trunk/ee_cart_imped',
     version: -r4160}
 - svn: {local-name: rtm-ros-robotics/rtmros_common, uri: 'http://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common',
-    version: -r4651}
+    version: -r4654}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r4649}
+    version: -r4652}
 - svn: {local-name: stacks/camera1394, uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0',
     version: -r40422}
 - git: {local-name: ros-pkg-git/kinect, uri: 'https://github.com/ros-pkg-git/kinect.git',
