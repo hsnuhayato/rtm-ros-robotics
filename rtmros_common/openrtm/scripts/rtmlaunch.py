@@ -58,7 +58,7 @@ def rtconnect(nameserver, tags):
         dest_path   = nameserver+"/"+tag.attributes.get("to").value
         source_path = re.sub("\$\(arg SIMULATOR_NAME\)",simulator,source_path);
         dest_path = re.sub("\$\(arg SIMULATOR_NAME\)",simulator,dest_path);
-        print >>sys.stderr, "[rtmlaunch] Connecting from %s to %s"%(source_path,dest_path)
+        # print >>sys.stderr, "[rtmlaunch] Connecting from %s to %s"%(source_path,dest_path)
         source_full_path = path.cmd_path_to_full_path(source_path)
         dest_full_path = path.cmd_path_to_full_path(dest_path)
         if tag.attributes.get("subscription_type") != None:
@@ -109,7 +109,7 @@ def rtactivate(nameserver, tags):
     for tag in tags:
         cmd_path  = nameserver+"/"+tag.attributes.get("component").value
         full_path = path.cmd_path_to_full_path(cmd_path)
-        print >>sys.stderr, "[rtmlaunch] activate %s"%(full_path)
+        # print >>sys.stderr, "[rtmlaunch] activate %s"%(full_path)
         try:
             state = wait_component(full_path)
             if state == 'Active':
@@ -139,7 +139,7 @@ def main():
     fullpathname = sys.argv[1]
     print >>sys.stderr, "[rtmlaunch] starting... ",fullpathname
     try:
-        parser = parse(fullpathname)
+        parser = get_true_tags(parse(fullpathname).getElementsByTagName("group"))
     except Exception,e:
         print e
         return 1
@@ -152,6 +152,21 @@ def main():
         rtconnect(nameserver, parser.getElementsByTagName("rtconnect"))
         rtactivate(nameserver, parser.getElementsByTagName("rtactivate"))
         time.sleep(10)
+
+def get_true_tags(tags):
+    import xml.dom.minidom
+    parser_reduced = xml.dom.minidom.Document()
+    for tag in tags:
+        val = tag.attributes.get("if").value # For example, "$(arg USE_WALKING)"
+        arg = val.split(" ")[1].strip(")") # To "USE_WALKING"
+        if get_flag_from_argv(arg):
+           parser_reduced.childNodes.append(tag)
+    return parser_reduced
+
+def get_flag_from_argv(arg):
+    for a in sys.argv:
+        if arg in a: # If "USE_WALKING" is in argv
+            return True if 'true' in a.split("=")[1] else False
 
 if __name__ == '__main__':
     main()

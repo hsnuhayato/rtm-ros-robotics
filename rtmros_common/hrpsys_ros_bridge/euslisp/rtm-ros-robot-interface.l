@@ -16,7 +16,7 @@
        (send-super* :init args)
      (send self :define-all-ROSBridge-srv-methods)
      (ros::subscribe "/motor_states" hrpsys_ros_bridge::MotorStates
-                     #'send self :rtmros-temperature-callback :groupname groupname)
+                     #'send self :rtmros-motor-states-callback :groupname groupname)
      (mapcar #'(lambda (x)
                  (ros::subscribe (format nil "/~A" (string-downcase x)) geometry_msgs::WrenchStamped
                                  #'send self :rtmros-force-sensor-callback x :groupname groupname)
@@ -24,10 +24,19 @@
                                  #'send self :rtmros-force-sensor-callback (read-from-string (format nil ":off-~A" (string-downcase x))) :groupname groupname))
              (send-all (send robot :force-sensors) :name))
      ))
-  (:rtmros-temperature-callback
+  (:rtmros-motor-states-callback
    (msg)
+   (send self :set-robot-state1 :motor-extra-data (send msg :extra_data))
    (send self :set-robot-state1 :temperature (send msg :temperature)))
   (:temperature-vector () (cdr (assoc :temperature robot-state)))
+  (:motor-extra-data
+   ()
+   (let* ((d (cdr (assoc :motor-extra-data robot-state)))
+          (dims (mapcar #'(lambda (x) (send x :size)) (send (send d :layout) :dim)))
+          (ret))
+     (dotimes (j (car dims))
+       (push (subseq (send d :data) (* j (cadr dims)) (* (1+ j) (cadr dims))) ret))
+     (reverse ret)))
   (:rtmros-force-sensor-callback
    (fsensor-name msg)
    (let ((wrc (send msg :wrench)))
@@ -336,7 +345,7 @@
            (base-name (send (send (send (send robot limb :root-link) :parent) :joint) :name)))
        (apply method-func
               (string-downcase (send fs :name))
-              (if base-name base-name "WAIST")
+              (if base-name base-name "")
               (send (send (send fs :parent) :joint) :name)
               args)))
     ((and (substringp ":v" (format nil "~A" limb))
