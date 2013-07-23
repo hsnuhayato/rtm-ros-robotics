@@ -1,7 +1,7 @@
 INSTALL_DIR = $(CURDIR)
 SVN_DIR     = build/OpenHRP-3
 SVN_URL     = https://openrtp.jp/svn/hrg/openhrp/3.1/trunk
-SVN_REVISION=-r2605
+SVN_REVISION=-r2606
 SVN_PATCH = patch/OpenHRP2ModelFile.patch patch/ColladaWriter_inertia.patch
 
 
