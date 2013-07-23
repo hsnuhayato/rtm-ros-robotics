@@ -1,5 +1,5 @@
 - svn: {local-name: jsk-ros-pkg, uri: 'https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk',
-    version: -r4789}
+    version: -r4794}
 - svn: {local-name: tum-ros-pkg/highlevel/SnapMapICP, uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg/highlevel/SnapMapICP',
     version: -r1012}
 - svn: {local-name: tum-ros-pkg/perception, uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg/perception',
@@ -8,10 +8,10 @@
     version: -r1685}
 - svn: {local-name: mit-ros-pkg/trunk/ee_cart_imped, uri: 'https://svn.csail.mit.edu/mit-ros-pkg/trunk/ee_cart_imped',
     version: -r4160}
-- svn: {local-name: rtm-ros-robotics/rtmros_common, uri: 'https://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common',
-    version: -r4647}
+- svn: {local-name: rtm-ros-robotics/rtmros_common, uri: 'http://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common',
+    version: -r4651}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r4646}
+    version: -r4649}
 - svn: {local-name: stacks/camera1394, uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0',
     version: -r40422}
 - git: {local-name: ros-pkg-git/kinect, uri: 'https://github.com/ros-pkg-git/kinect.git',
@@ -26,19 +26,19 @@
     version: -r1657}
 - git: {local-name: ar_tools, uri: 'git://github.com/IHeartEngineering/ar_tools.git'}
 - hg: {local-name: multimaster_experimental, uri: 'https://kforge.ros.org/appmanandroid/multimaster_experimental',
-    version: fuerte}
-- hg: {local-name: turtlebot, uri: 'https://kforge.ros.org/turtlebot/turtlebot'}
+    version: aff730f43757}
+- hg: {local-name: turtlebot, uri: 'https://kforge.ros.org/turtlebot/turtlebot', version: e47d5a1dca1c}
 - git: {local-name: rosjava_core, uri: 'git://github.com/rosjava/rosjava_core.git',
     version: groovy-devel}
 - git: {local-name: android_core, uri: 'git://github.com/rosjava/android_core.git',
     version: groovy-devel}
 - hg: {local-name: osrf_rosandroid, uri: 'https://bitbucket.org/osrf/rosandroid',
-    version: default}
+    version: eeb3f11fa38e}
 - hg: {local-name: rosjava_zeroconf, uri: 'https://bitbucket.org/osrf/rosjava_zeroconf',
-    version: default}
+    version: fb34770337bd}
 - git: {local-name: turtlebot_android, uri: 'https://github.com/turtlebot/turtlebot_android.git'}
 - git: {local-name: pr2_android_utilities, uri: 'https://github.com/ros-android-pr2/pr2_android_utilities.git'}
 - svn: {local-name: webots-ros-pkg, uri: 'http://webots-ros-pkg.svn.sourceforge.net/svnroot/webots-ros-pkg',
     version: -r21}
 - svn: {local-name: alufr-ros-pkg, uri: 'http://alufr-ros-pkg.googlecode.com/svn/trunk',
-    version: -r4274}
+    version: -r4275}
