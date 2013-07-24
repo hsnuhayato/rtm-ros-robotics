@@ -41,14 +41,18 @@ wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?fo
 yes | bash /tmp/jsk.rosbuild
 cd ~/ros/fuerte
 source setup.bash
-rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
+rosws update
 }}}
 
 For update installed packages 
 {{{
 cd ~/ros/fuerte
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
 rosws update
 }}}
+
+Note: If you are a committer, you should use 'http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall' instead of 'http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall'.
 
 Load environment variables used for ROS system
 {{{
