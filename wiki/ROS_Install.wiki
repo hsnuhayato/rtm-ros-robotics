@@ -16,9 +16,8 @@ wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?fo
 yes | bash /tmp/jsk.rosbuild fuerte
 cd ~/ros/fuerte
 source setup.bash
-rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
 rosws update
-
 
 sudo sh -c 'echo "deb http://packages.osrfoundation.org/drc/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/drc-latest.list'
 wget http://packages.osrfoundation.org/drc.key -O - | sudo apt-key add -
@@ -110,6 +109,7 @@ Enter ros path:roseus_tutorials/manifest.xml
 また,
 {{{
 cd ~/ros/fuerte
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
 rosws update
 }}}
 とすると,ROS外部パッケージのソースツリー更新が行われる.
