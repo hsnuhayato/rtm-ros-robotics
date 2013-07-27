@@ -139,29 +139,36 @@ def main():
     fullpathname = sys.argv[1]
     print >>sys.stderr, "[rtmlaunch] starting... ",fullpathname
     try:
-        parser = get_true_tags(parse(fullpathname).getElementsByTagName("group"))
+        parser = parse(fullpathname)
+        nodes = parser.getElementsByTagName("launch")[0].childNodes
+        remove_nodes = []
+        for node in nodes:
+            if node.nodeName == u'group':
+                val = node.getAttributeNode(u'if').value
+                arg = val.split(" ")[1].strip(")") # To "USE_WALKING"
+                if not get_flag_from_argv(arg):
+                    remove_nodes.append(node)
+        for remove_node in remove_nodes:
+            nodes.remove(remove_node)
     except Exception,e:
         print e
         return 1
 
-    nameserver = os.getenv("RTCTREE_NAMESERVERS","localhost")
+    if os.getenv("RTCTREE_NAMESERVERS") == None:
+        print >>sys.stderr, "[rtmlaunch] RTCTREE_NAMESERVERS is not set, use localhost"
+        nameserver = "localhost"
+        os.environ["RTCTREE_NAMESERVERS"] = nameserver
+    else:
+        nameserver = os.getenv("RTCTREE_NAMESERVERS")
+
     simulator = os.getenv("SIMULATOR_NAME","Simulator")
-    print >>sys.stderr, "[rtmlaunch]", simulator
+    print >>sys.stderr, "[rtmlaunch] RTCTREE_NAMESERVERS", nameserver,  os.getenv("RTCTREE_NAMESERVERS")
+    print >>sys.stderr, "[rtmlaunch] SIMULATOR_NAME", simulator
     while 1:
         print >>sys.stderr, "[rtmlaunch] check connection/activation"
-        rtconnect(nameserver, parser.getElementsByTagName("rtconnect"))
         rtactivate(nameserver, parser.getElementsByTagName("rtactivate"))
+        rtconnect(nameserver, parser.getElementsByTagName("rtconnect"))
         time.sleep(10)
-
-def get_true_tags(tags):
-    import xml.dom.minidom
-    parser_reduced = xml.dom.minidom.Document()
-    for tag in tags:
-        val = tag.attributes.get("if").value # For example, "$(arg USE_WALKING)"
-        arg = val.split(" ")[1].strip(")") # To "USE_WALKING"
-        if get_flag_from_argv(arg):
-           parser_reduced.childNodes.append(tag)
-    return parser_reduced
 
 def get_flag_from_argv(arg):
     for a in sys.argv:

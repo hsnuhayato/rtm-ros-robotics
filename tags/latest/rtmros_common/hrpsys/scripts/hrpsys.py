@@ -151,6 +151,10 @@ class HrpsysConfigurator:
                     connectPorts(self.hgc.port("qOut"), self.rh.port("qRef"))
                 else :
                     connectPorts(tmp_contollers[-1].port("q"),  self.rh.port("qRef"))
+        else:
+            if self.simulation_mode :
+                connectPorts(self.sh.port("qOut"),  self.hgc.port("qIn"))
+                connectPorts(self.hgc.port("qOut"), self.rh.port("qRef"))
 
         # connection for kf
         if self.kf:
@@ -221,54 +225,55 @@ class HrpsysConfigurator:
             connectPorts(self.rh.port("q"), self.el.port("qCurrent"))
 
     def activateComps(self):
-        rtcList = self.getRTCList()
+        rtcList = self.getRTCInstanceList()
         rtm.serializeComponents(rtcList)
         for r in rtcList:
             r.start()
 
-    def createComp(self, compName, instanceName, return_svc = False):
+    def createComp(self, compName, instanceName):
         self.ms.load(compName)
         comp = self.ms.create(compName, instanceName)
         print self.configurator_name, "create Comp -> ", compName, " : ", comp
         if comp == None:
             raise RuntimeError("Cannot create component: " + compName)
-        if return_svc :
+        if comp.service("service0"):
             comp_svc = narrow(comp.service("service0"), compName+"Service")
             print self.configurator_name, "create CompSvc -> ", compName, "Service : ", comp_svc
             return [comp, comp_svc]
         else:
-            return comp
+            return [comp, None]
 
     def createComps(self):
-        [self.seq, self.seq_svc] = self.createComp("SequencePlayer", "seq", True)
-
-        [self.sh, self.sh_svc] = self.createComp("StateHolder", "sh", True)
-
-        [self.fk, self.fk_svc] = self.createComp("ForwardKinematics", "fk", True)
-
-        self.tf = self.createComp("TorqueFilter", "tf")
-
-        self.kf = self.createComp("KalmanFilter", "kf")
-
-        self.vs = self.createComp("VirtualForceSensor", "vs")
-
-        self.afs = self.createComp("AbsoluteForceSensor", "afs")
-
-        self.ic = self.createComp("ImpedanceController", "ic")
-
-        self.abc = self.createComp("AutoBalancer", "abc")
-
-        self.st = self.createComp("Stabilizer", "st")
-
-        [self.co, self.co_svc] = self.createComp("CollisionDetector", "co", True)
-
-        self.el = self.createComp("SoftErrorLimiter", "el")
-
-        [self.log, self.log_svc] = self.createComp("DataLogger", "log", True)
+        for rn in self.getRTCList():
+            rn2='self.'+rn[0]
+            if eval(rn2) == None:
+                create_str="[self."+rn[0]+", self."+rn[0]+"_svc] = self.createComp(\""+rn[1]+"\",\""+rn[0]+"\")"
+                print self.configurator_name, "  eval : ", create_str
+                exec(create_str)
 
     # public method to configure all RTCs to be activated on rtcd
     def getRTCList(self):
-        return [self.rh, self.seq, self.sh, self.fk, self.tf, self.kf, self.vs, self.afs, self.ic, self.abc, self.st, self.co, self.el, self.log]
+        return [
+            ['seq', "SequencePlayer"],
+            ['sh', "StateHolder"],
+            ['fk', "ForwardKinematics"],
+            ['tf', "TorqueFilter"],
+            ['kf', "KalmanFilter"],
+            ['vs', "VirtualForceSensor"],
+            ['afs', "AbsoluteForceSensor"],
+            ['ic', "ImpedanceController"],
+            ['abc', "AutoBalancer"],
+            ['st', "Stabilizer"],
+            ['co', "CollisionDetector"],
+            ['el', "SoftErrorLimiter"],
+            ['log', "DataLogger"]
+            ]
+
+    def getRTCInstanceList(self):
+        ret = [self.rh]
+        for r in map(lambda x : 'self.'+x[0], self.getRTCList()):
+            ret.append(eval(r))
+        return ret
 
     # public method to get bodyInfo
     def getBodyInfo(self, url):
@@ -280,7 +285,10 @@ class HrpsysConfigurator:
 
     # public method to get sensors list
     def getSensors(self, url):
-        return sum(map(lambda x : x.sensors, filter(lambda x : len(x.sensors) > 0, self.getBodyInfo(url)._get_links())), [])  # sum is for list flatten
+        if url=='':
+            return []
+        else:
+            return sum(map(lambda x : x.sensors, filter(lambda x : len(x.sensors) > 0, self.getBodyInfo(url)._get_links())), [])  # sum is for list flatten
 
     def connectLoggerPort(self, artc, sen_name):
         if artc and rtm.findPort(artc.ref, sen_name) != None:
@@ -302,9 +310,12 @@ class HrpsysConfigurator:
         for sen in self.sensors:
             self.connectLoggerPort(self.rh, sen.name)
         #
-        self.connectLoggerPort(self.kf, 'rpy')
-        self.connectLoggerPort(self.seq, 'qRef')
-        self.connectLoggerPort(self.rh, 'emergencySignal')
+        if self.kf != None:
+            self.connectLoggerPort(self.kf, 'rpy')
+        if self.seq != None:
+            self.connectLoggerPort(self.seq, 'qRef')
+        if self.rh != None:
+            self.connectLoggerPort(self.rh, 'emergencySignal')
 
     def waitForRTCManagerAndRoboHardware(self, robotname="Robot", managerhost=nshost):
         self.ms = None
