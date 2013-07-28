@@ -17,6 +17,21 @@ svn co https://rtm-ros-robotics.googlecode.com/svn/tags/fuerte-3.1.4-20130727 rt
 
 として使って下さい．このソースは以降更新はされませんが，変更が落ち着くまでの対処としておすすめします
 
+== svn upのしかた ==
+{{{
+roscd ; mv rtm-ros-robotics/rtmros_common rtm-ros-robotics/rtmros_common.bak
+rosws update rtm-ros-robotics/rtmros_common
+}}}
+としてクリーンチェックアウトをすることをお勧めしますが，急いでいる人は
+{{{
+roscd openrhp3; make wipe; roscd hrpsys; make wipe
+}}}
+としてから
+{{{
+rosmake hrpsys_ros_bridge
+}}}
+などとして下さい．
+
 == 変更点とそれに対応して変更しなければいけないところ ==
 
  *  openrtm を openrtm_aist, openrtm_aist_python, rtshell, rtctree, rtsprofile に分割しました．
