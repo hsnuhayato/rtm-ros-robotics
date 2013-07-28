@@ -1,0 +1,82 @@
+#summary One-sentence summary of this page.
+
+== Introduction ==
+
+rtmros_commonのディレクトリを以下の目的のために整理します．(issue 137)
+
+- catkinに対応し，bloomによるdebファイル生成がrosbuild firmでパッケージを作り安くする
+
+
+== 今までのソースを使いたい人 ==
+
+今までのソースを使っていく人は以下の
+
+{{{
+svn co https://rtm-ros-robotics.googlecode.com/svn/tags/fuerte-3.1.4-20130727 rtmros_common
+}}}
+
+として使って下さい．このソースは以降更新はされませんが，変更が落ち着くまでの対処としておすすめします
+
+== 変更点とそれに対応して変更しなければいけないところ ==
+
+ *  openrtm を openrtm_aist, openrtm_aist_python, rtshell, rtctree, rtsprofile に分割しました．
+  これらはupstreamのソースを落として（最低限のパッチを当てて）コンパイルするパッケージとし，ユーザがつくったスクリプト，テストなどは移行しました．
+  -  rosrun openrtm rtm-naming とある部分は rosrun openrtm_aist rtm_namingに変更
+   同様にrtm-config, rtm-skelwrapperもopenrtm_aistから使う（参考:r4713）
+
+ * openrtm3/hrpsysでjavaのidl生成，eclipse/grxuiの利用を止めました（希望があれば復帰します）
+
+  - 各実機用のロボットでhrpsys-baseのコンパイルをしているものは，前項の変更に伴いopenrtm_aistを利用できるようにし，かつ，javaのオプションをdisableする必要があります (参考：r4746)
+
+ * hrpsys/scripts openrtm/scripts　など追加したスクリプトは hrpsys_tools, openrtm_toolsに移行
+
+  - luanch ファイルの修正
+　　各launchファイルの
+{{{
+<include file="$(find hrpsys)/launch/hrpsys.launch" >
+}}}
+　は 
+{{{
+ <include file="$(find hrpsys_tools)/launch/hrpsys.launch" >
+}}}
+　に変更(参考:r4740）．
+
+　変更するためのスクリプト
+{{{
+find . -name "*.launch" -exec sed -i "s#(findhrpsys)/launch/hrpsys.launch#(find hrpsys_tools)/launch/hrpsys.launch#" {} \;
+}}}
+
+ * rtm-ros ブリッジコンポーネントの作成場所の変更
+
+hrpsys, openrtm 以下ではrtm-ros ブリッジコンポーネントプログラムはつくられずhrpsys_ros_bridge以下で作成されるようになりました．したがって各自のソースコードで
+{{{
+  -#include "hrpsys/idl/RobotHardwareService.hh"
+  +#include "hrpsys_ros_bridge/idl/RobotHardwareService.hh"
+}}}
+  と変更して下さい．（参考:r4741)
+
+ * hrpsys.pyはhrpsys_config.pyに名前を変更しました．
+   hrpsys.py をhrpsys-baseに取り込む予定で．その場合はhrpsys.soにかぶるため．これにともんないユーザプログラムで，import hrpsysをimport hrpsys_configに変更が必要になります．（参考r4741)
+
+　　変更が必要なソース一覧の表示
+{{{
+        # test
+        find . -name "*.py" -exec grep -l import\ hrpsys\$ {} \;
+        find . -name "*.py" -exec grep -l from\ hrpsys\ import {} \; 
+}}}
+
+　ファイルを書き換えるスクリプト
+{{{
+        # change
+        find . -name "*.py" -exec sed -i "s#^import hrpsys\$#import hrpsys_config#" {} \; -print
+        find . -name "*.py" -exec sed -i "s#^from hrpsys import #from hrpsys_config import #" {} \; -print
+
+}}}
+
+
+ * その他
+  - KILL_SERVERSの廃止
+{{{
+   <arg name="KILL_SERVERS" default="$(arg KILL_SERVERS)" /> 
+}}}
+は廃止しました．各自のlaunchファイルかれ消して下さい．
