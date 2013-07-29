@@ -39,6 +39,16 @@ rosmake hrpsys_ros_bridge
   -  rosrun openrtm rtm-naming とある部分は rosrun openrtm_aist rtm_namingに変更
    同様にrtm-config, rtm-skelwrapperもopenrtm_aistから使う（参考:r4713）
 
+  - rtshell-setup.shについて
+{{{
+    openrtm/scripts/rtshell-setup.sh
+}}}
+ではなく，
+{{{
+    openrtm_tools/scripts/rtshell-setup.sh
+}}}
+を使って下さい．
+
  * openrtm3/hrpsysでjavaのidl生成，eclipse/grxuiの利用を止めました（希望があれば復帰します）
 
   - 各実機用のロボットでhrpsys-baseのコンパイルをしているものは，前項の変更に伴いopenrtm_aistを利用できるようにし，かつ，javaのオプションをdisableする必要があります (参考：r4746)
