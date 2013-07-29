@@ -94,4 +94,19 @@ hrpsys, openrtm 以下ではrtm-ros ブリッジコンポーネントプログ�
 {{{
    <arg name="KILL_SERVERS" default="$(arg KILL_SERVERS)" /> 
 }}}
-は廃止しました．各自のlaunchファイルかれ消して下さい．
+は廃止しました．各自のlaunchファイルから消して下さい．
+
+== トラブルシュート ==
+
+* rtmが見つからない
+
+roslaunch hrpsys_ros_bridge_tutorials hrp4c.launchすると、
+{{{
+  File "/home/tnakaoka/ros/fuerte/rtm-ros-robotics/rtmros_common/hrpsys_tools/scripts/hrpsys_config.py", line 5, in <module>
+    import rtm
+ImportError: No module named rtm
+}}}
+
+というエラーが出てhrpsys_config.pyが上がりません。
+
+→　hrpsysディレクトリを一度削除してからsvn up hrpsys && rosmake hrpsysしたら直った気がします。
