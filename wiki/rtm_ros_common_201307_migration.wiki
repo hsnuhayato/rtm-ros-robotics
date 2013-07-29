@@ -24,7 +24,7 @@ svn co https://rtm-ros-robotics.googlecode.com/svn/tags/fuerte-3.1.4-20130727 rt
 == svn up のしかた ==
 
 {{{
-roscd ; mv rtm-ros-robotics/rtmros_common rtm-ros-robotics/rtmros_common.bak
+roscd rtmros_common/../../; mv rtm-ros-robotics/rtmros_common rtm-ros-robotics/rtmros_common.bak
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  # (開発者の人はtags/latestをtrunkに変更して下さい）
 rosws update
 }}}
