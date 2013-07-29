@@ -11,8 +11,7 @@ import numpy
 import rtm
 import OpenHRP
 
-import sys; sys.path.insert (0, roslib.packages.get_pkg_dir('hrpsys')+'/scripts'); ## add python
-from hrpsys import HrpsysConfigurator
+from hrpsys_config import HrpsysConfigurator
 
 from waitInput import waitInputConfirm, waitInputSelect
 
