@@ -1,5 +1,5 @@
 - svn: {local-name: jsk-ros-pkg, uri: 'https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk',
-    version: -r4850}
+    version: -r4854}
 - svn: {local-name: tum-ros-pkg/highlevel/SnapMapICP, uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg/highlevel/SnapMapICP',
     version: -r1012}
 - svn: {local-name: tum-ros-pkg/perception, uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg/perception',
@@ -10,7 +10,7 @@
     version: -r4220}
 - svn: {local-name: rtm-ros-robotics/rtmros_common, uri: 'http://rtm-ros-robotics.googlecode.com/svn/tags/latest/rtmros_common'}
 - svn: {local-name: rtm-ros-robotics/agentsystem_ros_tutorials, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials',
-    version: -r4760}
+    version: -r4763}
 - svn: {local-name: stacks/camera1394, uri: 'https://code.ros.org/svn/ros-pkg/stacks/camera1394/tags/camera1394-1.7.0',
     version: -r40422}
 - git: {local-name: ros-pkg-git/kinect, uri: 'https://github.com/ros-pkg-git/kinect.git',
