@@ -1,5 +1,7 @@
 #summary One-sentence summary of this page.
 
+<wiki:toc max_depth="3" />
+
 == Introduction ==
 
 rtmros_commonのディレクトリを以下の目的のために整理します．(issue 137)
@@ -17,7 +19,10 @@ svn co https://rtm-ros-robotics.googlecode.com/svn/tags/fuerte-3.1.4-20130727 rt
 
 として使って下さい．このソースは以降更新はされませんが，変更が落ち着くまでの対処としておすすめします
 
-== svn upのしかた ==
+== 新しいソースに移行したい人 ==
+
+* svn up のしかた
+
 {{{
 roscd ; mv rtm-ros-robotics/rtmros_common rtm-ros-robotics/rtmros_common.bak
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  # (開発者の人はtags/latestをtrunkに変更して下さい）
