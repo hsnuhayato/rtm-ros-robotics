@@ -4,7 +4,13 @@ project(openrtm_aist)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS rtmbuild)
+find_package(catkin REQUIRED)
+
+execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm_aist installed
+                RESULT_VARIABLE _make_failed)
+if (_make_failed)
+  message(FATAL_ERROR "Build of failed")
+endif(_make_failed)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -49,9 +55,9 @@ find_package(catkin REQUIRED COMPONENTS rtmbuild)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include
 #  LIBRARIES openrtm_aist
-#  CATKIN_DEPENDS rtmbuild
+#  CATKIN_DEPENDS openrtm_aist openrtm_aist_python
 #  DEPENDS system_lib
 )
 
@@ -67,19 +73,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(openrtm_aist
-#   src/${PROJECT_NAME}/openrtm_aist.cpp
+# add_library(openrtm_tools
+#   src/${PROJECT_NAME}/openrtm_tools.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(openrtm_aist_node src/openrtm_aist_node.cpp)
+# add_executable(openrtm_tools_node src/openrtm_tools_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(openrtm_aist_node openrtm_aist_generate_messages_cpp)
+# add_dependencies(openrtm_tools_node openrtm_tools_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(openrtm_aist_node
+# target_link_libraries(openrtm_tools_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -98,18 +104,34 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS openrtm_aist openrtm_aist_node
+# install(TARGETS openrtm_tools openrtm_tools_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+install(DIRECTORY include
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
+
+# bin goes share/openrtm_aist so that it can be invoked from rosrun
+install(DIRECTORY bin
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  USE_SOURCE_PERMISSIONS  # set executable
+)
+
+install(DIRECTORY etc
+  DESTINATION ${CATKIN_PACKAGE_ETC_DESTINATION}
+)
+
+install(DIRECTORY lib
+  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)
+
+install(DIRECTORY share
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES
@@ -123,10 +145,11 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_openrtm_aist.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_openrtm_tools.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+

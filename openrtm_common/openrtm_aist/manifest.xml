@@ -10,8 +10,6 @@
   <rosdep name="tix" />
   <rosdep name="omniorb" />
 
-  <depend package="rtmbuild" />
-
 </package>
 
 
