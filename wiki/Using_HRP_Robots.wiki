@@ -3,7 +3,7 @@
 
 Dorado is a computer sitting at a corner in 73B2 (currently where Kumagai san sits). To start up roscore, double click on the desktop icon "StartHrp4rLocal". This will start roscore locally on dorado.
 
-After a while, the hrp dashboard should pop up. click on the gear icon to turn on the servos.
+After a while, the hrp dashboard should pop up. Click on the gear icon to turn on the servos.
 
 == Controlling hpr4r from your computer ==
 
