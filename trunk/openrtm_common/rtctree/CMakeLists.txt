@@ -13,7 +13,7 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 #  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
 #set(ROS_BUILD_TYPE RelWithDebInfo)
 
-# Build hrpsys before rtmbuild_init
+# Build rtctree
 execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile installed
                 RESULT_VARIABLE _make_failed)
 if (_make_failed)
