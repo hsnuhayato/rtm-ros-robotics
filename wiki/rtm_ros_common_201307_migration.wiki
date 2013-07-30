@@ -6,7 +6,7 @@
 
 rtmros_commonのディレクトリを以下の目的のために整理します．(issue 137)
 
-- catkinに対応し，bloomによるdebファイル生成がrosbuild firmでパッケージを作り安くする
+- catkinに対応し，bloomによるdebファイル生成がrosbuild firmでパッケージを作り易くする
 
 
 = 今までのソースを使いたい人 =
