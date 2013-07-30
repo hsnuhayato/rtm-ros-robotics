@@ -3,6 +3,10 @@
 = インストール方法 =
 
 {{{
+mkdir hogehoge; cd hogehoge
+rosws init
+rosws merge /opt/ros/groovy/.rosinstall
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
 rosmake hironx_ros_bridge
 }}}
 
