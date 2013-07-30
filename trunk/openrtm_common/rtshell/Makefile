@@ -1,7 +1,7 @@
 EXTRA_CMAKE_FLAGS = -DUSE_ROSBUILD:BOOL=1
 include $(shell rospack find mk)/cmake.mk
 
-INSTALL_DIR = `rospack find rtshell`
+INSTALL_DIR = ${CURDIR}
 SOURCE_DIR  = build/rtshell-3.0.0
 TARBALL     = build/rtshell-3.0.0.zip
 TARBALL_URL = https://github.com/gbiggs/rtshell/archive/3.0.0.zip
