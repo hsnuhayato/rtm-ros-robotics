@@ -87,6 +87,7 @@ find . -name "*.launch" -exec sed -i "s#(findhrpsys)/launch/hrpsys.launch#(find 
 
  * hrpsys.pyはhrpsys_config.pyに名前を変更しました．
    hrpsys.py をhrpsys-baseに取り込む予定で．その場合はhrpsys.soにかぶるため．これにともんないユーザプログラムで，import hrpsysをimport hrpsys_configに変更が必要になります．（参考r4741)
+   また，launchでHRPSYS_PY_PKGを設定して改造したhrpsysを使用している場合，自作のスクリプトの名前をhrpsys_config.pyとするか，HRPSYS_PY_NAMEをhrpsys.pyと設定する必要があります．
 
 　　変更が必要なソース一覧の表示
 {{{
