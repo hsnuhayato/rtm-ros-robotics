@@ -6,6 +6,7 @@ project(openrtm_aist)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED)
 
+# Build OpenRTM
 execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm_aist installed
                 RESULT_VARIABLE _make_failed)
 if (_make_failed)
