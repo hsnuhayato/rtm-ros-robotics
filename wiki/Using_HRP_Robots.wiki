@@ -29,7 +29,7 @@ $export ROS_HOSTNAME = [your ip address]
 }}}
 Start up the hrp4r interface in roseus:
 {{{
-$rosrun roseus roseus `rospack find jsk_jsk_hrpsys_ros_bridge`/euslisp/hrp4r-interface.l
+$rosrun roseus roseus `rospack find jsk_hrpsys_ros_bridge`/euslisp/hrp4r-interface.l
 $hrp4r-init
 }}}
 Now you're ready to use hrp4r:
