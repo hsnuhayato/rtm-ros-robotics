@@ -12,10 +12,28 @@ Add your content here.  Format your content with:
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
 
-= Bringing up roscore on dorado = 
+= HRP4R =
+== Bringing up roscore on dorado ==
 
 Dorado is a computer sitting at the corner of 73B2 (currently where Kumagai san sits). To start up roscore, double click on the desktop icon "StartHrp4rLocal". This will start roscore locally on dorado.
 
 After a while, the hrp dashboard should pop up. click on the gear icon to turn on the servos.
 
-= Controlling hpr4r from you conputer =
+== Controlling hpr4r from your computer ==
+
+Set the ROS_MASTER_URI to point to dorado, and set the ROS_IP and ROS_HOSTNAME to point to your own computer:
+{{{
+$export ROS_MASTER_URI = http://dorado.jsk.imi.i.u-tokyo.ac.jp:11311
+$export ROS_IP = [your ip address]
+$export ROS_HOSTNAME = [your ip address]
+}}}
+Start up the hrp4r interface in roseus:
+{{{
+$rosrun roseus roseus `rospack find jsk_jsk_hrpsys_ros_bridge`/euslisp/hrp4r-interface.l
+$hrp4r-init
+}}}
+Now you're ready to use hrp4r:
+{{{
+$(send *hrp4r* :rarm :elbow-p :joint-angle -90)
+$(send *ri* :angle-vector (send *hrp4r* :angle-vector) 1000)
+}}}
