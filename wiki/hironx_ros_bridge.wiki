@@ -13,9 +13,33 @@ rosmake hironx_ros_bridge
 {{{
 roslaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch 
 }}}
+とします．このプログラムの中で，
+{{{
+    roslaunch hrionx_ros_bridge hironx_startup.launch
+}}}
+というシミュレーション環境の立ち上げ仮想ロボットを生成する作業と
+{{{
+    roslaunch hrionx_ros_bridge hironx_ros_bridge.launch
+}}}
+というhrpsysのrosブリッジを立ち上げる作業の２つを行います．
+{{{
+[ INFO] [1375160303.399785831, 483.554999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 201[Hz]
+[ INFO] [1375160304.408500642, 484.544999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 198[Hz]
+}}}
+などと表示されれば成功です．これが表示されていなかったりHzが200から離れた値の時は
+{{{
+rosrun openrtm_aist rtm-naming
+}}}
+を実行してからもう一度試してみて下さい．
+
+最後にrvizを使ってロボットを確認できます．
+{{{
+rosrun rviz rviz -d `rospack find hironx_ros_bridge`/models/kawada-hironx.rviz
+}}}
 
 === 実機を利用している場合のRTMROSブリッジ環境の立上げ ===
 
+実機を利用している環境では既にロボットのプログラム(hrpsys)は起動しているためhrpsys-rosブリッジだけを立ち上げて下さい．以下のようにしてロボットのホスト名を指定することができます．
 {{{
 roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=<hostname> 
 }}}
