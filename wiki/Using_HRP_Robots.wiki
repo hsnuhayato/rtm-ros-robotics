@@ -1,21 +1,7 @@
-#summary One-sentence summary of this page.
-
-= Introduction =
-
-This introduction describes how to use HRP robot
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
-
 = HRP4R =
 == Bringing up roscore on dorado ==
 
-Dorado is a computer sitting at the corner of 73B2 (currently where Kumagai san sits). To start up roscore, double click on the desktop icon "StartHrp4rLocal". This will start roscore locally on dorado.
+Dorado is a computer sitting at a corner in 73B2 (currently where Kumagai san sits). To start up roscore, double click on the desktop icon "StartHrp4rLocal". This will start roscore locally on dorado.
 
 After a while, the hrp dashboard should pop up. click on the gear icon to turn on the servos.
 
