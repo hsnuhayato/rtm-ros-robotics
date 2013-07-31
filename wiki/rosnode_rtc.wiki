@@ -1,0 +1,19 @@
+#summary One-sentence summary of this page.
+
+= Usage =
+
+1. roslaunch move_base_stage_tutorial robot.launch
+
+   (rosrun rviz rviz -d \`rospack find move_base_stage_tutorial\`/config/rviz.vcg )
+
+2. roslaunch rosnode_rtc stage_sample.launch
+
+Launch this configuration file and confirm the bridge node is Activated
+
+.. image:: sample/image/rosnode-rtc-sysedit.png
+  :width: 600
+
+3a. rosrun rosnode_rtc stage_sample_send_goal.sh
+
+Send navigation target pose to /move_base_simple/goal topic from RT-Component
+台車が動けば成功です
