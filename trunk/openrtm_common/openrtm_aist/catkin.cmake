@@ -57,6 +57,8 @@ endif(_make_failed)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(omniorb REQUIRED omniORB4)
 # copy from rtm-config --cflags and rtm-config --libs
 catkin_package(
   INCLUDE_DIRS include include/coil-1.1 include/openrtm-1.1 include/openrtm-1.1/rtm/idl
