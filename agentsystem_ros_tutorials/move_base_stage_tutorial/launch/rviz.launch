@@ -1,5 +1,5 @@
 <launch>
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find move_base_stage_tutorial)/config/rviz.vcg"/>
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find move_base_stage_tutorial)/config/rviz.rviz"/>
     <remap from="goal" to="move_base_simple/goal" />
     <remap from="obstacles" to="move_base_node/local_costmap/obstacles" />
     <remap from="inflated_obstacles" to="move_base_node/local_costmap/inflated_obstacles" />
