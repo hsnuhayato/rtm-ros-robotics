@@ -4,13 +4,13 @@
 
 1. roslaunch move_base_stage_tutorial robot.launch
 
-   (rosrun rviz rviz -d \`rospack find move_base_stage_tutorial\`/config/rviz.vcg )
+   (furteのユーザは，rosrun rviz rviz -d \`rospack find move_base_stage_tutorial\`/config/rviz.vcg とすること)
 
 2. roslaunch rosnode_rtc stage_sample.launch
 
 Launch this configuration file and confirm the bridge node is Activated
 
-.. image:: sample/image/rosnode-rtc-sysedit.png
+.. image:: https://rtm-ros-robotics.googlecode.com/svn/trunk/rtmros_common/rosnode_rtc/sample/image/rosnode-rtc-sysedit.png
   :width: 600
 
 3a. rosrun rosnode_rtc stage_sample_send_goal.sh
