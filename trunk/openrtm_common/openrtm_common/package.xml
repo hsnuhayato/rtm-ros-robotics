@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>openrtm_common</name>
+  <version>1.1.0</version>
+  <description>Metapackage that contains commonly used packages in ROS version of OpenRTM.</description>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <author email="iisaito@kinugarage.com">Isao Isaac Saito</author>
+  <license>EPL</license>
+
+  <url type="website">http://ros.org/wiki/openrtm_common</url>
+  <url type="repository">https://code.google.com/p/rtm-ros-robotics</url>
+  <url type="bugtracker">https://code.google.com/p/rtm-ros-robotics/issues/list</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>hrpsys</run_depend>
+  <run_depend>openhrp3</run_depend>
+  <run_depend>openrtm_aist_python</run_depend>
+  <run_depend>openrtm_aist</run_depend>
+  <run_depend>openrtm_common</run_depend>
+  <run_depend>rtctree</run_depend>
+  <run_depend>rtsprofile</run_depend>
+  <run_depend>tshell</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
