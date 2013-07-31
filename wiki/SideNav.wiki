@@ -37,6 +37,7 @@
  * [hironx_ros_bridge]
   * [HIRO_Workshop]
  * [Using_HRP_Robots Using HRP Robots]
+ * [rosnode_rtc rosnode_rtcを使ってrosナビゲーションプログラムをRTMから使う]
  * [open_rtm_ros_bridge]
  * [model_conversion]
  * [euslisp_ros_sample ROS + euslispのサンプルプログラム]
