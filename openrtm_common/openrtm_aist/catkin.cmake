@@ -93,6 +93,10 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
+# dummy
+add_library(RTC)
+add_library(coil)
+
 #############
 ## Install ##
 #############
