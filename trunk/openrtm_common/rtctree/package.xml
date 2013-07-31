@@ -1,8 +1,11 @@
 <?xml version="1.0"?>
 <package>
   <name>rtctree</name>
-  <version>3.0.0</version>
-  <description>The rtctree package</description>
+  <version>3.1.4</version>
+  <description>The rtctree package.
+
+   Version was bumped from 3.0.0 when the package was catkinized and released into ROS buildfarm via bloom.
+  </description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
