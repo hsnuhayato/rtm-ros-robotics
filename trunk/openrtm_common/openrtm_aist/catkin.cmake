@@ -62,7 +62,7 @@ pkg_check_modules(omniorb REQUIRED omniORB4)
 # copy from rtm-config --cflags and rtm-config --libs
 catkin_package(
   INCLUDE_DIRS include include/coil-1.1 include/openrtm-1.1 include/openrtm-1.1/rtm/idl
-  LIBRARIES RTC coil
+  LIBRARIES libRTC.so libcoil.so
 #  CATKIN_DEPENDS openrtm_aist openrtm_aist_python
   DEPENDS omniorb
 )
@@ -94,10 +94,6 @@ include_directories(
 # target_link_libraries(openrtm_tools_node
 #   ${catkin_LIBRARIES}
 # )
-
-# dummy
-add_library(RTC)
-add_library(coil)
 
 #############
 ## Install ##
