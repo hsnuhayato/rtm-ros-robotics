@@ -116,9 +116,9 @@ install(DIRECTORY include
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
 )
 
-# bin goes share/openrtm_aist so that it can be invoked from rosrun
+# bin goes lib/openrtm_aist so that it can be invoked from rosrun
 install(DIRECTORY bin
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}/${PROJECT_NAME}
   USE_SOURCE_PERMISSIONS  # set executable
 )
 
