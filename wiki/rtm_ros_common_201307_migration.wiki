@@ -133,3 +133,38 @@ ImportError: No module named rtm
 というエラーが出てhrpsys_config.pyが上がりません。
 
 →　hrpsysディレクトリを一度削除してからsvn up hrpsys && rosmake hrpsysしたら直った気がします。
+
+= ややこしいポイント =
+
+hrpsys/lib/python2.7/dist-packages/hrpsys_config.py
+と，
+hrpsys_tools/scripts/hrpsys_config.py
+があり，前者が今までつくっていたhrpsys_config.pyをコピーしたもの
+後者は以下のようなダミーのプログラムです．
+{{{
+#!/usr/bin/env python
+import roslib; roslib.load_manifest("hrpsys")
+
+import sys
+from hrpsys_config import HrpsysConfigurator
+
+# copy from hrpsys/lib/python2.7/dist-packages/hrpsys_config.py
+if __name__ == '__main__':
+    hcf = HrpsysConfigurator()
+    if len(sys.argv) > 2 :
+        hcf.init(sys.argv[1], sys.argv[2])
+    elif len(sys.argv) > 1 :
+        hcf.init(sys.argv[1])
+    else :
+        hcf.init()
+}}}
+hrpsys_tools/scripts/hrpsys_config.py
+がある理由は，hrpsysの下のhrpsys_config.pyはROSに依存しないという方針から
+load_manifestをしていないため
+rosrun hrpsys hrpsys_config.py
+としても，PYTHONPATHを設定していないとimport RTCなどができないためです．
+
+そこで，hrpsys_config.pyをスタンドアロンで立ち上げたい人は，
+rosrun hrpsys_tools hrpsys_config.py
+とします．これで，，行頭のload_manifest('hrpsys')で必要なPYTHONPATHを設定してからhrpsys_conifg.py
+を読み込み実行します．
