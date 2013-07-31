@@ -16,7 +16,6 @@
   <run_depend>openhrp3</run_depend>
   <run_depend>openrtm_aist_python</run_depend>
   <run_depend>openrtm_aist</run_depend>
-  <run_depend>openrtm_common</run_depend>
   <run_depend>rtctree</run_depend>
   <run_depend>rtsprofile</run_depend>
   <run_depend>tshell</run_depend>
