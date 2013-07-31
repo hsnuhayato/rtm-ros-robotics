@@ -8,6 +8,7 @@ find_package(catkin REQUIRED)
 
 # Build OpenRTM
 execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm_aist installed
+                COMMAND cmake -E copy_directory ${PROJECT_SOURCE_DIR}/lib ${CATKIN_DEVEL_PREFIX}/lib # force copy under devel for catkin_package
                 RESULT_VARIABLE _make_failed)
 if (_make_failed)
   message(FATAL_ERROR "Build of failed")
@@ -55,11 +56,13 @@ endif(_make_failed)
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
+
+# copy from rtm-config --cflags and rtm-config --libs
 catkin_package(
-  INCLUDE_DIRS include
-#  LIBRARIES openrtm_aist
+  INCLUDE_DIRS include include/coil-1.1 include/openrtm-1.1 include/openrtm-1.1/rtm/idl
+  LIBRARIES RTC coil
 #  CATKIN_DEPENDS openrtm_aist openrtm_aist_python
-#  DEPENDS system_lib
+  DEPENDS omniorb
 )
 
 ###########
