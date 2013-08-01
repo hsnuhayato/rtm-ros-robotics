@@ -1,10 +1,35 @@
 #summary One-sentence summary of this page.
 
+<wiki:toc max_depth="3" />
+
+= Pre-Requset =
+
+1 install ros
+
+{{{
+wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?format=raw' -O /tmp/jsk.rosbuild
+yes | bash /tmp/jsk.rosbuild groovy
+cd ~/ros/groovy
+source setup.bash
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
+rosws update
+}}}
+
+2. environment setup
+{{{
+echo "source ~/ros/groovy/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+}}}
+
 = Usage =
 
 1. roslaunch move_base_stage_tutorial robot.launch
 
    (furteのユーザは，rosrun rviz rviz -d \`rospack find move_base_stage_tutorial\`/config/rviz.vcg とすること)
+
+
+   see http://www.ros.org/wiki/navigation/Tutorials/Using%20rviz%20with%20the%20Navigation%20Stack for how to use rviz
+  
 
 2. roslaunch rosnode_rtc stage_sample.launch
 
