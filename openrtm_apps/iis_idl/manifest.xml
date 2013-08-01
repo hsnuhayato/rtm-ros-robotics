@@ -26,7 +26,7 @@ activity efforts
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/iis_idl</url>
 
-  <depend package="openrtm" />
+  <depend package="openrtm_aist" />
 
 </package>
 
