@@ -4,6 +4,7 @@
   <version>3.1.4</version>
   <description>Metapackage that contains commonly used packages in ROS version of OpenRTM.</description>
   <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <maintainer email="iisaito@kinugarage.com">Isao Isaac Saito</maintainer>
   <author email="iisaito@kinugarage.com">Isao Isaac Saito</author>
   <license>EPL</license>
 
