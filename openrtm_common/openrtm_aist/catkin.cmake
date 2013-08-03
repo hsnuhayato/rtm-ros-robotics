@@ -8,8 +8,8 @@ find_package(catkin REQUIRED)
 
 # Build OpenRTM
 execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm_aist installed
-                COMMAND cmake -E copy_directory ${PROJECT_SOURCE_DIR}/lib ${CATKIN_DEVEL_PREFIX}/lib # force copy under devel for catkin_package
-                COMMAND cmake -E remove_directory ${PROJECT_SOURCE_DIR}/lib/pkgconfig
+#                COMMAND cmake -E copy_directory ${PROJECT_SOURCE_DIR}/lib ${CATKIN_DEVEL_PREFIX}/lib # force copy under devel for catkin_package
+#                COMMAND cmake -E remove_directory ${PROJECT_SOURCE_DIR}/lib/pkgconfig
                 RESULT_VARIABLE _make_failed)
 if (_make_failed)
   message(FATAL_ERROR "Build of failed")
@@ -58,14 +58,22 @@ endif(_make_failed)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 
+# fake add_library for catkin_package
+add_library(RTC  SHARED IMPORTED)
+add_library(coil SHARED IMPORTED)
+set_target_properties(RTC  PROPERTIES LINKER_LANGUAGE C)
+set_target_properties(coil PROPERTIES LINKER_LANGUAGE C)
+set_target_properties(RTC  PROPERTIES IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/lib/libRTC.so )
+set_target_properties(coil PROPERTIES IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/lib/libcoil.so)
+
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(omniorb REQUIRED omniORB4)
+pkg_check_modules(omnidynamic REQUIRED omniDynamic4)
 # copy from rtm-config --cflags and rtm-config --libs
 catkin_package(
+  DEPENDS omniorb omnidynamic
   INCLUDE_DIRS include include/coil-1.1 include/openrtm-1.1 include/openrtm-1.1/rtm/idl
-  LIBRARIES libRTC.so libcoil.so
-#  CATKIN_DEPENDS openrtm_aist openrtm_aist_python
-  DEPENDS omniorb
+  LIBRARIES RTC coil
 )
 
 ###########
