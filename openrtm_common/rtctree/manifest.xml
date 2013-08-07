@@ -14,7 +14,6 @@
   <url>https://github.com/gbiggs/rtctree</url>
 
   <rosdep name="python-omniorb" />
-  <rosdep name="omniidl" />
 
   <export>
     <python path="${prefix}/lib/python2.7/site-packages" />
