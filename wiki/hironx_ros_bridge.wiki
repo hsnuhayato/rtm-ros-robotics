@@ -15,6 +15,11 @@ rosmake hironx_ros_bridge
 == シミュレーション環境の立上げ ==
 
 {{{
+rosrun openrtm_aist rtm-naming
+}}}
+としてnameserverを再起動してから，
+
+{{{
 roslaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch 
 }}}
 とします．このプログラムの中で，
