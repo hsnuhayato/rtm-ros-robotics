@@ -2,8 +2,11 @@
 
 = インストール方法 =
 
+http://ros.org/wiki/groovy/Installation/Ubuntu
+を参考にrosをインストールして，次のコマンドを実行して下さい．
+
 {{{
-mkdir hogehoge; cd hogehoge
+mkdir ros/groovy; cd ros/groovy
 rosws init
 rosws merge /opt/ros/groovy/.rosinstall
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
