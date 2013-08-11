@@ -59,12 +59,14 @@ endif(_make_failed)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 
 # fake add_library for catkin_package
-add_library(RTC  SHARED IMPORTED)
-add_library(coil SHARED IMPORTED)
+add_library(RTC  SHARED)
+add_library(coil SHARED)
 set_target_properties(RTC  PROPERTIES LINKER_LANGUAGE C)
 set_target_properties(coil PROPERTIES LINKER_LANGUAGE C)
-set_target_properties(RTC  PROPERTIES IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/lib/libRTC.so )
-set_target_properties(coil PROPERTIES IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/lib/libcoil.so)
+#add_library(RTC  SHARED IMPORTED)
+#add_library(coil SHARED IMPORTED)
+#set_target_properties(RTC  PROPERTIES IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/lib/libRTC.so )
+#set_target_properties(coil PROPERTIES IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/lib/libcoil.so)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(omniorb REQUIRED omniORB4)
@@ -135,6 +137,15 @@ install(DIRECTORY bin
   DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}/${PROJECT_NAME}
   USE_SOURCE_PERMISSIONS  # set executable
 )
+# CODE to fix path in rtm-config
+set(install_code "
+  execute_process(COMMAND sed -i s@${CMAKE_SOURCE_DIR}/${PROJECT_NAME}@${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config) # basic
+  execute_process(COMMAND sed -i s@exec_prefix=@exec_prefix=\"${CMAKE_INSTALL_PREFIX}\"\\ \\\#@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config) # for -cflags
+  #execute_process(COMMAND sed -i s@/include/@/include/${PROJECT_NAME}/include/@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config) # for -cflags
+  ")
+message("post process ${install_code}")
+install(CODE ${install_code}) # to use CMAKE_SOURCE_DIR
+
 
 install(DIRECTORY etc
   DESTINATION ${CATKIN_PACKAGE_ETC_DESTINATION}
