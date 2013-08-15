@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+  <name>rtsprofile</name>
+  <version>1.0.0</version>
+  <description>
+   <p>Library to read, manipulate and write RT system profiles using the RTSProfile XML schema.</p>
+   <p>Note the URLs of the development repository and the issue tracker URLs shown is a port to rtm-ros-robotics project. The its original development and maintenance is happening in a different location.</p>
+  </description>
+
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei OKada</maintainer>
+  <maintainer email="iisaito@kinugarage.com">Isao Isaac Saito</maintainer>
+  <author email="git@killbots.net">Geoffrey Biggs</author>
+  <author email="k-okada@jsk.t.u-tokyo.ac.jp">Kei OKada</author>
+
+  <license>EPL</license>
+  <url type="website">http://ros.org/wiki/rtsprofile</url>
+  <url type="repository">https://code.google.com/p/rtm-ros-robotics</url>
+  <url type="bugtracker">https://code.google.com/p/rtm-ros-robotics/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>unzip</build_depend>
+
+  <export/>
+
+</package>
