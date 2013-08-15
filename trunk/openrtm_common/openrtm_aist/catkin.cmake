@@ -8,10 +8,7 @@ find_package(catkin REQUIRED)
 
 # Build OpenRTM
 execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm_aist installed
-                COMMAND cmake -E make_directory ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}/bin/
-                COMMAND cmake -E copy ${PROJECT_SOURCE_DIR}/bin/rtm-config ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}/bin/ # force copy under devel for catkin_package
-#                COMMAND cmake -E copy_directory ${PROJECT_SOURCE_DIR}/lib ${CATKIN_DEVEL_PREFIX}/lib # force copy under devel for catkin_package
-#                COMMAND cmake -E remove_directory ${PROJECT_SOURCE_DIR}/lib/pkgconfig
+                COMMAND cmake -E copy_directory ${PROJECT_SOURCE_DIR}/bin ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}/bin # force copy under devel for catkin_package
                 RESULT_VARIABLE _make_failed)
 if (_make_failed)
   message(FATAL_ERROR "Build of failed")
