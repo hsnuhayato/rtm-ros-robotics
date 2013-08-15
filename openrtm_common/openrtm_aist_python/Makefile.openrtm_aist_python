@@ -14,5 +14,3 @@ PYTHONDIR   = `python -c 'import sys; print "python%s"%sys.version[:3]'`
 installed: $(SOURCE_DIR)/unpacked
 	cd $(SOURCE_DIR) && python ./setup.py build && python ./setup.py install --prefix=$(INSTALL_DIR)
 	touch installed
-
-clean: -rm -fr bin build installed lib
