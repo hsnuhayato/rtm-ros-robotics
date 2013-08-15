@@ -62,6 +62,12 @@ add_library(RTC  SHARED)
 add_library(coil SHARED)
 set_target_properties(RTC  PROPERTIES LINKER_LANGUAGE C)
 set_target_properties(coil PROPERTIES LINKER_LANGUAGE C)
+add_custom_command(OUTPUT lib/libRTC.so
+  COMMAND cmake -E copy ${PROJECT_SOURCE_DIR}/lib/libRTC.so  ${CATKIN_DEVEL_PREFIX}/lib/libRTC.so)
+add_custom_target(copy_openrtm_aist_RTC ALL DEPENDS lib/libRTC.so)
+add_custom_command(OUTPUT lib/libcoil.so
+  COMMAND cmake -E copy ${PROJECT_SOURCE_DIR}/lib/libcoil.so  ${CATKIN_DEVEL_PREFIX}/lib/libcoil.so)
+add_custom_target(copy_openrtm_aist_coil ALL DEPENDS lib/libcoil.so)
 #add_library(RTC  SHARED IMPORTED)
 #add_library(coil SHARED IMPORTED)
 #set_target_properties(RTC  PROPERTIES IMPORTED_IMPLIB ${PROJECT_SOURCE_DIR}/lib/libRTC.so )
@@ -138,10 +144,10 @@ install(DIRECTORY bin
 )
 
 #debug codes
-get_cmake_property(_variableNames VARIABLES)
-foreach (_variableName ${_variableNames})
-  message(STATUS "${_variableName}=${${_variableName}}")
-endforeach()
+#get_cmake_property(_variableNames VARIABLES)
+#foreach (_variableName ${_variableNames})
+#  message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()
 # CODE to fix path in rtm-config
 install(CODE
  "execute_process(COMMAND echo \"post process...\")
