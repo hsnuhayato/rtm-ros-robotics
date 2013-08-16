@@ -17,9 +17,7 @@
   <url type="bugtracker">https://code.google.com/p/rtm-ros-robotics/issues</url>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>rtshell</build_depend>
-  <build_depend>rtctree</build_depend>
-  <build_depend>rtsprofile</build_depend>
+
   <run_depend>rtshell</run_depend>
   <run_depend>rtctree</run_depend>
   <run_depend>rtsprofile</run_depend>
