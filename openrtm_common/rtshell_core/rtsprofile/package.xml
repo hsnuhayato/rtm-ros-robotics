@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <package>
   <name>rtsprofile</name>
-  <version>3.1.5</version>
+  <version>1.0.0</version>
 
-  <description>The rtsprofile package
-
-   Version was bumped from 2.0.0 when the package was catkinized and released into ROS buildfarm via bloom.
+  <description>
+   <p>Library to read, manipulate and write RT system profiles using the RTSProfile XML schema.</p>
   </description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
@@ -13,6 +12,7 @@
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
   <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei OKada</maintainer>
   <maintainer email="iisaito@kinugarage.com">Isao Isaac Saito</maintainer>
+  <author email="git@killbots.net">Geoffrey Biggs</author>
   <author email="k-okada@jsk.t.u-tokyo.ac.jp">Kei OKada</author>
 
   <license>EPL</license>
