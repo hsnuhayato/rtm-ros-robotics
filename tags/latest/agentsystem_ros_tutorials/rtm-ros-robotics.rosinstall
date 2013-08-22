@@ -17,7 +17,7 @@
     version: -r55337}
 - svn: {local-name: wg-ros-pkg-cturtle/sandbox/checkerboard_pose, uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/sandbox/checkerboard_pose',
     version: -r55337}
-- svn: {local-name: tum-ros-pkg/perception, uri: 'https://tum-ros-pkg.svn.sourceforge.net/svnroot/tum-ros-pkg/perception',
+- svn: {local-name: tum-ros-pkg/perception, uri: ' https://svn.code.sf.net/p/tum-ros-pkg/code/perception/',
     version: -r1012}
 - svn: {local-name: ua-ros-pkg, uri: 'https://ua-ros-pkg.googlecode.com/svn/trunk/arrg',
     version: -r1657}
