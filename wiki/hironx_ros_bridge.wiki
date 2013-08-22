@@ -16,6 +16,10 @@ rosmake hironx_ros_bridge
 = 使い方 =
 
 == シミュレーション環境の立上げ ==
+{{{
+$ sudo /etc/init.d/omniorb4-nameserver stop
+}}}
+としておく．
 
 ソースからインストールした場合は
 {{{
