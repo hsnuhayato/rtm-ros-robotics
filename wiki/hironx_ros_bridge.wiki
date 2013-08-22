@@ -17,17 +17,17 @@ rosmake hironx_ros_bridge
 
 == シミュレーション環境の立上げ ==
 
+ソースからインストールした場合は
 {{{
-rosrun openrtm_aist rtm-naming
+alias rtmlaunch='`rospack find hrpsys_ros_bridge`/scripts/rtmlaunch'
 }}}
-としてnameserverを再起動してから，
-
+としたあと，
 {{{
-roslaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch 
+rtmlaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch 
 }}}
 とします．このプログラムの中で，
 {{{
-    roslaunch hrionx_ros_bridge hironx_startup.launch
+    rtmlaunch hrionx_ros_bridge hironx_startup.launch
 }}}
 というシミュレーション環境の立ち上げ仮想ロボットを生成する作業と
 {{{
@@ -38,11 +38,7 @@ roslaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch
 [ INFO] [1375160303.399785831, 483.554999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 201[Hz]
 [ INFO] [1375160304.408500642, 484.544999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 198[Hz]
 }}}
-などと表示されれば成功です．これが表示されていなかったりHzが200から離れた値の時は
-{{{
-rosrun openrtm_aist rtm-naming
-}}}
-を実行してからもう一度試してみて下さい．
+などと表示されれば成功です．
 
 最後にrvizを使ってロボットを確認できます．
 {{{
