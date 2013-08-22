@@ -11,7 +11,7 @@
     version: -r40422}
 - git: {local-name: ros-pkg-git/kinect, uri: 'https://github.com/ros-pkg-git/kinect.git',
     version: e632ec653c47731217a8575c952d98c4570f0208}
-- svn: {local-name: cmu-ros-pkg, uri: 'https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk',
+- svn: {local-name: cmu-ros-pkg, uri: 'https://svn.code.sf.net/p/cmu-ros-pkg/code/trunk/',
     version: -r442}
 - svn: {local-name: wg-ros-pkg-cturtle/vision, uri: 'https://code.ros.org/svn/wg-ros-pkg/branches/trunk_cturtle/vision',
     version: -r55337}
@@ -38,7 +38,7 @@
     version: d1500d1005911dddcb3d6f874d1beda6b26b21d3}
 - git: {local-name: pr2_android_utilities, uri: 'https://github.com/ros-android-pr2/pr2_android_utilities.git',
     version: e911bc2f0f7ceffa0988880a6dc393c0b27f4314}
-- svn: {local-name: webots-ros-pkg, uri: 'http://webots-ros-pkg.svn.sourceforge.net/svnroot/webots-ros-pkg',
+- svn: {local-name: webots-ros-pkg, uri: 'http://svn.code.sf.net/p/webots-ros-pkg/code/',
     version: -r21}
 - svn: {local-name: alufr-ros-pkg, uri: 'http://alufr-ros-pkg.googlecode.com/svn/trunk',
     version: -r4275}
