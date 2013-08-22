@@ -9,7 +9,7 @@ http://ros.org/wiki/groovy/Installation/Ubuntu
 mkdir ros/groovy; cd ros/groovy
 rosws init
 rosws merge /opt/ros/groovy/.rosinstall
-rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
 rosmake hironx_ros_bridge
 }}}
 
