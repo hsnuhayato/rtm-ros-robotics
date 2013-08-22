@@ -39,7 +39,7 @@
 ##
 ## cmu for imagesift
 - svn:
-    uri: https://cmu-ros-pkg.svn.sourceforge.net/svnroot/cmu-ros-pkg/trunk
+    uri: https://svn.code.sf.net/p/cmu-ros-pkg/code/trunk/
     local-name: cmu-ros-pkg
 ##
 ## for cmvision
@@ -105,7 +105,7 @@
 ## webots to get robots' VRML files
 ##
 - svn:
-    uri: http://webots-ros-pkg.svn.sourceforge.net/svnroot/webots-ros-pkg
+    uri: http://svn.code.sf.net/p/webots-ros-pkg/code/
     local-name: webots-ros-pkg
 ##
 ## Albert-Ludwigs-Unversität in Freiburg, Germany.
