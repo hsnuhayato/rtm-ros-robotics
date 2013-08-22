@@ -63,7 +63,7 @@ $ ./hironx.py
 
 実機の場合の立上げは以下のようにして下さい．
 {{{
-$ /hironx.py RobotHardware0 -- -ORBInitRef NameService=corbaloc:iiop:hiro014:2809/NameService
+$ /hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:2809/NameService
 }}}
 
 }}}
