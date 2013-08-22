@@ -65,6 +65,12 @@ $ ./hironx.py
 >> hiro.setJointAngles("larm", [0.6,0,-100,-15.2,9.4,-3.2])
 }}}
 
+= MoveIt を使う =
+
+{{{
+roslaunch hironx_moveit_config moveit_planning_execution.launch
+}}}
+
 実機の場合の立上げは以下のようにして下さい．
 {{{
 $ /hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:2809/NameService
