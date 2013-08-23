@@ -10,6 +10,7 @@ mkdir ros/groovy; cd ros/groovy
 rosws init
 rosws merge /opt/ros/groovy/.rosinstall
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
+rosws update
 rosmake hironx_ros_bridge
 }}}
 
