@@ -1,0 +1,29 @@
+#summary One-sentence summary of this page.
+#labels Phase-Support
+
+This page is English translation of [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge this page in Japanese]. In case this page (the one you're on) looks outdated, please consult the original page or ask in the mailing list.
+
+= Motivation =
+hironx_ros_robotics is now [http://www.ros.org/wiki/catkin/migrating_from_rosbuild#Overview catkinized] but still compatible with ROS' old building style called rosbuild (or its commadn line interface rosmake). This page discusses installation of catkin version using rosbuild.
+
+= Install =
+
+First, install ROS by following its wiki.
+http://ros.org/wiki/groovy/Installation/Ubuntu
+
+Then,
+
+{{{
+$ mkdir ros/groovy; cd ros/groovy
+$ wstool init
+$ wstool merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
+$ wstool update
+$ rosmake hironx_ros_bridge
+}}}
+
+# [http://www.ros.org/wiki/wstool wstools] takes over rosws for catkin workspace.
+
+== Installation tweaks ==
+At the moment, a lot of tweaks are needed [http://code.google.com/p/rtm-ros-robotics/issues/detail?id=175 as reported in this thread].
+
+(TODO these tweaks will be filled) 
