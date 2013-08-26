@@ -35,6 +35,7 @@
   * [ROS_Example_TroubleShooting 困ったときは]
  * [ROS_English OpenRTM/OpenHRP/ROS Install and Example]
  * [hironx_ros_bridge]
+  * [hironx_ros_bridge_en]
   * [HIRO_Workshop]
  * [Using_HRP_Robots Using HRP Robots]
  * [rosnode_rtc rosnode_rtcを使ってrosナビゲーションプログラムをRTMから使う]
