@@ -4,9 +4,14 @@
 This page is English translation of [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge this page in Japanese]. In case this page (the one you're on) looks outdated, please consult the original page or ask in the mailing list.
 
 = Motivation =
-hironx_ros_robotics is now [http://www.ros.org/wiki/catkin/migrating_from_rosbuild#Overview catkinized] but still compatible with ROS' old building style called rosbuild (or its commadn line interface rosmake). This page discusses installation of catkin version using rosbuild.
+hironx_ros_robotics is now [http://www.ros.org/wiki/catkin/migrating_from_rosbuild#Overview catkinized] but still compatible with ROS' old building style called rosbuild (or its commadn line interface `rosmake`). Let's call it `hybrid` package. This page discusses installation of hybrid version using rosbuild. 
+
+Because installation from source may not go as smooth as it should be, please use binary version that's built by catkin if you're on Ubuntu unless you use ROS fuerte (where catkin may not be fully functional) or have reasons to build from source. For building by catkin or downloading catkin version binary, see [http:// here].
+
+Pitfalls are put together as a section at the bottom of this page. If you see any issue, please consider take a look at it.
 
 = Install =
+== Download resouce ==
 
 First, install ROS by following its wiki.
 http://ros.org/wiki/groovy/Installation/Ubuntu
@@ -18,12 +23,27 @@ $ mkdir ros/groovy; cd ros/groovy
 $ wstool init
 $ wstool merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
 $ wstool update
-$ rosmake hironx_ros_bridge
 }}}
 
 # [http://www.ros.org/wiki/wstool wstools] takes over rosws for catkin workspace.
 
-== Installation tweaks ==
-At the moment, a lot of tweaks are needed [http://code.google.com/p/rtm-ros-robotics/issues/detail?id=175 as reported in this thread].
+== Build ==
+The above commands downloads necessary codes and now you're ready to build:
 
-(TODO these tweaks will be filled) 
+{{{
+$ rosmake hironx_ros_bridge
+}}}
+
+Here, if you see rosmake stops with error at a particular package, 
+{{{
+$ cd %PKG_THAT_CAUSED_ERR%
+$ make
+}}}
+
+If this passed then do the same `rosmake` again. 
+Packages that are reported to cause error: hrpsys_ros_bridge, hironx_moveit_config
+
+hironx_moveit_config requires collada_to_urdf, which can be obtained by:
+{{{
+$ rosmake collada_tools
+}}}
