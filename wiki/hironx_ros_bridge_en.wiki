@@ -47,3 +47,103 @@ hironx_moveit_config requires collada_to_urdf, which can be obtained by:
 {{{
 $ rosmake collada_tools
 }}}
+
+= Possible pitfalls =
+== With wstool ==
+=== ERROR in config: Error processing ===
+Upon `wstool update` the error might happen. Try removing the folder you're getting error with.
+
+At the moment, a lot of tweaks are needed [http://code.google.com/p/rtm-ros-robotics/issues/detail?id=175 as reported in this thread].
+
+== hrpsys_ros_bridge fails to build ==
+-------------------------------------------------------------------------------}
+[ rosmake ] Output from build of package hrpsys_ros_bridge written to:
+[ rosmake ]    /home/leus/.ros/rosmake/rosmake_output-20130823-115337/hrpsys_ros_bridge/build_output.log
+[rosmake-0] Finished <<< hrpsys_ros_bridge [FAIL] [ 143.86 seconds ]                                                           
+[ rosmake ] Halting due to failure in package hrpsys_ros_bridge. 
+[ rosmake ] Waiting for other threads to complete.           
+[ rosmake ] Results:                                                                                                           
+[ rosmake ] Built 75 packages with 1 failure
+
+(roscd hrpsys_ros_bridge; make)
+
+== AttributeError: 'module' object has no attribute 'get_sysinfo' ==
+
+{{{
+$ simulation.launch 
+:
+Traceback (most recent call last):
+  File "/home/leus/ros/groovy/rtm-ros-robotics/rtmros_common/hrpsys_ros_bridge/scripts/rtmlaunch", line 3, in <module>
+    import os,psutil,subprocess,socket,sys
+  File "/opt/ros/groovy/lib/python2.7/dist-packages/psutil/__init__.py", line 65, in <module>
+    import psutil._pslinux as _psplatform
+  File "/opt/ros/groovy/lib/python2.7/dist-packages/psutil/_pslinux.py", line 90, in <module>
+    TOTAL_PHYMEM = _psutil_linux.get_sysinfo()[0]
+AttributeError: 'module' object has no attribute 'get_sysinfo'
+}}}
+
+If you see this error,
+{{{
+$ sudo apt-get remove ros-groovy-rqt-top
+}}}
+
+== No MoveIt! found? ==
+{{{
+$ roslaunch hironx_moveit_config moveit_planning_execution.launch
+}}}
+
+If you see error with this, then:
+
+{{{
+$ $ sudo apt-get install ros-groovy-moveit-full-pr2
+}}}
+
+== [rospack] Error: stack/package collada_tools not found ==
+{{{
+[rospack] Error: stack/package collada_tools not found
+make[2]: *** [/home/leus/catkin_ws/src/rtmros_hironx/hironx_moveit_config/models/HiroNX.urdf] Error 2
+make[1]: *** [rtmros_hironx/hironx_moveit_config/CMakeFiles/hironx_moveit_config_HiroNX_urdf.dir/all] Error 2
+}}}
+Then do:
+{{{
+$ mv src/rtmros_hironx .
+}}}
+
+== [rospack] Error: package/stack 'collada_tools' depends on non-existent package ==
+{{{
+[rospack] Error: package/stack 'collada_tools' depends on non-existent package 'colladadom' and rosdep claims that it is not a system dependency. Check the ROS_PACKAGE_PATH or try calling 'rosdep update'
+}}}
+Then comment out in `collada_tools/manifest.xml`:
+{{{
+<!-- <depend package="colladadom"/> -->
+}}}
+
+== rtm/idl/SDOPackageSkel.h:35:33: Fatal: rtm/idl/SDOPackage.hh: ==
+{{{
+$ rosmake hironx_ros_bridge
+../../../../src/lib/rtm/idl/SDOPackageSkel.h:35:33: Fatal: rtm/idl/SDOPackage.hh: not found
+}}}
+Then,
+{{{
+$ rosdep install hironx_ros_bridge
+}}}
+
+Then before rosmake-ing,
+{{{
+$ roscd openrtm_aist
+$ make clean
+}}}
+
+== Halt at [hrpsys.py]  waiting ModelLoader ==
+When you run and see:
+{{{
+$ roscd hironx_ros_bridge/scripts
+$ ./hironx.py
+[hrpsys.py]  waiting ModelLoader
+}}}
+
+Then write in your shell script (eg. ~/.bashrc):
+{{{
+export RTCTREE_NAMESERVERS=localhost:5005
+export ORBInitRef="NameService=corbaloc:iiop:localhost:5005/NameService"
+}}}
