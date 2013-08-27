@@ -75,4 +75,5 @@ roslaunch hironx_moveit_config moveit_planning_execution.launch
 $ /hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:2809/NameService
 }}}
 
-}}}
+= Troubleshooting =
+英語版([https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Troubleshoot リンク])を参照下さい．もしあなたが新たなトラブルシュートを発見したら，[http://code.google.com/p/rtm-ros-robotics/issues/detail?id=175 このチケット]に報告して下さい．確認されれば英語版トラブルシュートのページに追記されます．トラブルシュートは*この日本語ページに追記しないでください* (英日版ページ両方更新する手間を省くため)．
