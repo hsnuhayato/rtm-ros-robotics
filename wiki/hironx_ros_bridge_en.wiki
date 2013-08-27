@@ -50,7 +50,44 @@ hironx_moveit_config requires collada_to_urdf, which can be obtained by:
 $ rosmake collada_tools
 }}}
 
-= Possible pitfalls =
+To vefify that it runs, go on to next section to run simulator.
+
+= Usage =
+== Set up simulator envirionment ==
+
+Create an alias to run a script more easily:
+{{{
+$ alias rtmlaunch='`rospack find hrpsys_ros_bridge`/scripts/rtmlaunch'
+}}}
+
+Then, launch a simulator.
+{{{
+$ rtmlaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch 
+}}}
+
+This launch file does mainly two things; load a virtual robot on the simulator by:
+{{{
+    rtmlaunch hrionx_ros_bridge hironx_startup.launch
+}}}
+
+And start processes that work as a bridge between ROS and hrpsys.
+{{{
+    roslaunch hrionx_ros_bridge hironx_ros_bridge.launch
+}}}
+
+If you see some messages like these on command prompt, you're good.
+{{{
+[ INFO] [1375160303.399785831, 483.554999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 201[Hz]
+[ INFO] [1375160304.408500642, 484.544999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 198[Hz]
+}}}
+
+Lastly you can check robot model on RViz visualizer too:
+{{{
+$ rosrun rviz rviz -d `rospack find hironx_ros_bridge`/models/kawada-hironx.rviz
+}}}
+
+
+= Troubleshoot =
 == With wstool ==
 === ERROR in config: Error processing ===
 Upon `wstool update` the error might happen. Try removing the folder you're getting error with.
