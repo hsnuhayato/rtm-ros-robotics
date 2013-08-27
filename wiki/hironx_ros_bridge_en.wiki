@@ -3,6 +3,8 @@
 
 This page is English translation of [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge this page in Japanese]. In case this page (the one you're on) looks outdated, please consult the original page or ask in the mailing list.
 
+<wiki:toc />
+
 = Motivation =
 hironx_ros_robotics is now [http://www.ros.org/wiki/catkin/migrating_from_rosbuild#Overview catkinized] but still compatible with ROS' old building style called rosbuild (or its commadn line interface `rosmake`). Let's call it `hybrid` package. This page discusses installation of hybrid version using rosbuild. 
 
