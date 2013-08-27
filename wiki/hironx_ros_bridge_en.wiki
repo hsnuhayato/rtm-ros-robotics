@@ -1,7 +1,7 @@
 #summary One-sentence summary of this page.
 #labels Phase-Support
 
-This page is English translation of [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge this page in Japanese]. In case this page (the one you're on) looks outdated, please consult the original page or ask in the mailing list.
+This page is English translation of [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge this page in Japanese]. In case this page (the one you're on) looks outdated, please consult the original page or ask in the mailing list; these 2 pages are NOT guaranteed to be synchronized.
 
 <wiki:toc />
 
@@ -53,7 +53,7 @@ $ rosmake collada_tools
 To vefify that it runs, go on to next section to run simulator.
 
 = Usage =
-== Set up simulator envirionment ==
+== Start working with robot in simulator envirionment ==
 
 Create an alias to run a script more easily:
 {{{
@@ -67,12 +67,12 @@ $ rtmlaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch
 
 This launch file does mainly two things; load a virtual robot on the simulator by:
 {{{
-    rtmlaunch hrionx_ros_bridge hironx_startup.launch
+$ rtmlaunch hrionx_ros_bridge hironx_startup.launch
 }}}
 
 And start processes that work as a bridge between ROS and hrpsys.
 {{{
-    roslaunch hrionx_ros_bridge hironx_ros_bridge.launch
+$ roslaunch hrionx_ros_bridge hironx_ros_bridge.launch
 }}}
 
 If you see some messages like these on command prompt, you're good.
@@ -86,6 +86,30 @@ Lastly you can check robot model on RViz visualizer too:
 $ rosrun rviz rviz -d `rospack find hironx_ros_bridge`/models/kawada-hironx.rviz
 }}}
 
+== Start working with real robot ==
+Since hrpsys should be already running if the real robot is on, you only have to launch hrpsys_ros_bridge on your computer. You can specify the host name of the robot;
+{{{
+$ roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=<hostname> 
+}}}
+
+== Programming example ==
+{{{
+$ roscd hironx_ros_bridge/scripts
+$ ./hironx.py
+>> hiro.servoOn()
+>> hiro.goInitial()
+>> hiro.setJointAngles("larm", [0.6,0,-100,-15.2,9.4,-3.2])
+}}}
+
+== Using MoveIt! ==
+{{{
+$ roslaunch hironx_moveit_config moveit_planning_execution.launch
+}}}
+
+If you're using a real robot then do something like this (please adjust to your environment especially the location of wrl file) :
+{{{
+$ rosrun hironx_ros_bridge hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:2809/NameService
+}}}
 
 = Troubleshoot =
 == With wstool ==
@@ -134,7 +158,7 @@ $ roslaunch hironx_moveit_config moveit_planning_execution.launch
 If you see error with this, then:
 
 {{{
-$ $ sudo apt-get install ros-groovy-moveit-full-pr2
+$ sudo apt-get install ros-groovy-moveit-full-pr2
 }}}
 
 == [rospack] Error: stack/package collada_tools not found ==
@@ -185,4 +209,10 @@ Then write in your shell script (eg. ~/.bashrc):
 {{{
 export RTCTREE_NAMESERVERS=localhost:5005
 export ORBInitRef="NameService=corbaloc:iiop:localhost:5005/NameService"
+}}}
+
+== run_id on parameter server does not match declared run_id: ==
+If you see a message like this while trying to run with MoveIt!, check if your computer is able to communicate with your real robot.
+{{{
+run_id on parameter server does not match declared run_id: e6ff428e-0ec8-11e3-a8cf-88532e0fe6e6 vs e8491bd8-0ec8-11e3-9deb-88532e0fe6e6
 }}}
