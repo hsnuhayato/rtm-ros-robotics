@@ -12,7 +12,7 @@ Because installation from source may not go as smooth as it should be, please us
 
 Pitfalls are put together as a section at the bottom of this page. If you see any issue, please consider take a look at it.
 
-= Install =
+= Rosbuild Install =
 == Download resouce ==
 
 First, install ROS by following its wiki.
@@ -51,6 +51,37 @@ $ rosmake collada_tools
 }}}
 
 To vefify that it runs, go on to next section to run simulator.
+
+= Catkin Install =
+
+== Download resouce ==
+
+First, install ROS by following its wiki.
+http://ros.org/wiki/groovy/Installation/Ubuntu
+
+Then,
+
+{{{
+$ mkdir -p catkin_ws/src; cd catkin_ws/src
+$ wstool init
+$ wstool merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
+$ wstool update
+$ catkin_workspace_init
+}}}
+
+# [http://www.ros.org/wiki/wstool wstools] takes over rosws for catkin workspace.
+
+== Build ==
+The above commands downloads necessary codes and now you're ready to build:
+
+{{{
+$ cd ~/catkin_ws
+$ catkin_make
+}}}
+
+TODO:
+hironx_ros_bridge is not working on catkin now, I'll plan to copy HIRONX.urdf into hironx_ros_bridge source code
+
 
 = Usage =
 == Start working with robot in simulator envirionment ==
