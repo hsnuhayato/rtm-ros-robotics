@@ -6,9 +6,9 @@ This page is English translation of [https://code.google.com/p/rtm-ros-robotics/
 <wiki:toc />
 
 = Motivation =
-hironx_ros_robotics is now [http://www.ros.org/wiki/catkin/migrating_from_rosbuild#Overview catkinized] but still compatible with ROS' old building style called rosbuild (or its command line interface `rosmake`). Let's call it `hybrid` package. This page discusses installation of hybrid version using rosbuild. 
+hironx_ros_robotics is now [http://www.ros.org/wiki/catkin/migrating_from_rosbuild#Overview catkinized] but still compatible with ROS' old building style called rosbuild (or its command line interface `rosmake`). Let's call it `hybrid` package. This page discusses installation of hybrid version both using rosbuild and catkin. 
 
-Because installation from source may not go as smooth as it should be, please use binary version that's built by catkin if you're on Ubuntu unless you use ROS fuerte (where catkin may not be fully functional) or have reasons to build from source. For building by catkin or downloading catkin version binary, see [http:// here].
+Because installation from source may not go as smooth as it should be, please use binary version that's built by catkin if you're on Ubuntu unless you use ROS fuerte (where catkin may not be fully functional) or have reasons to build from source.
 
 Pitfalls are put together as a section at the bottom of this page. If you see any issue, please consider take a look at it.
 
