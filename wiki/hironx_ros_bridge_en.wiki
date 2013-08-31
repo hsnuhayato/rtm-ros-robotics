@@ -65,7 +65,7 @@ $ mkdir -p catkin_ws/src; cd catkin_ws/src
 $ wstool init
 $ wstool merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
 $ wstool update
-$ catkin_workspace_init
+$ catkin_init_workspace
 }}}
 
 # [http://www.ros.org/wiki/wstool wstools] takes over rosws for catkin workspace.
@@ -74,7 +74,7 @@ $ catkin_workspace_init
 The above commands downloads necessary codes and now you're ready to build:
 
 {{{
-$ cd ~/catkin_ws
+$ cd ..     (move back to catkin_ws)
 $ catkin_make
 }}}
 
