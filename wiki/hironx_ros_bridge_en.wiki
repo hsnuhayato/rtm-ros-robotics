@@ -138,7 +138,7 @@ $ roslaunch hironx_moveit_config moveit_planning_execution.launch
 
 If you're using a real robot then do something like this (please adjust to your environment especially the location of wrl file) :
 {{{
-$ rosrun hironx_ros_bridge hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:2809/NameService
+$ rosrun hironx_ros_bridge hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:15005/NameService
 }}}
 
 = Troubleshoot =
@@ -238,7 +238,7 @@ $ ./hironx.py
 Then write in your shell script (eg. ~/.bashrc):
 {{{
 export RTCTREE_NAMESERVERS=localhost:5005
-export ORBInitRef="NameService=corbaloc:iiop:localhost:5005/NameService"
+export ORBInitRef="NameService=corbaloc:iiop:localhost:15005/NameService"
 }}}
 
 == run_id on parameter server does not match declared run_id: ==
