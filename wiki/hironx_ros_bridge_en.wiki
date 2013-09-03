@@ -78,6 +78,8 @@ $ cd ..     (move back to catkin_ws)
 $ catkin_make
 }}}
 
+(Note that building by `catkin` might fail sometimes and workaround often works is re-run `catkin`.)
+
 TODO:
 hironx_ros_bridge is not working on catkin now, I'll plan to copy HIRONX.urdf into hironx_ros_bridge source code
 
