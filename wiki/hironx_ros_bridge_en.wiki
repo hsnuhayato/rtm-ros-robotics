@@ -74,8 +74,9 @@ $ catkin_init_workspace
 The above commands downloads necessary codes and now you're ready to build:
 
 {{{
-$ cd ..     (move back to catkin_ws)
+$ cd ..     (moving back to catkin_ws)
 $ catkin_make
+$ source devel/setup.bash   (or any shell script you would prefer under `/devel`)
 }}}
 
 (Note that building by `catkin` might fail sometimes and workaround often works is re-run `catkin`.)
