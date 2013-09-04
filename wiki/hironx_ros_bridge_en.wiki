@@ -33,7 +33,7 @@ If you're on ROS `Groovy` or later where its new build system `catkin` is ready 
 At this point you should already have downloaded necessary codes. 
 Also if you haven't added the source folder into an environment variable `$ROS_PACKAGE_PATH` then please do:
 {{{
-    (Suppose you're still at src folder)
+(Suppose you're still at src folder)
 $ export ROS_PACKAGE_PATH=$ABSOLUTEPATH_OF_SRC_FOLDER$:$ROS_PACKAGE_PATH
 $ rospack profile
 }}}
@@ -72,7 +72,18 @@ $ catkin_make
 $ source devel/setup.bash   (or any shell script you would prefer under `/devel`)
 }}}
 
-(Note that building by `catkin` might fail sometimes and workaround often works is just re-run `catkin`.)
+NOTE-1; building by `catkin` might fail sometimes and workaround often works is just re-run `catkin`.
+
+NOTE-2; If you updated source (by either downloading from devel repository or modifying by yourself), you should clean your source directories in your workspace by:
+
+{{{
+(Suppose you're still at src folder)
+$ catkin_make clean
+$ rm -fR build devel  (as normal catkin workspace)
+}}}
+
+Cleaning your source folder is unusual usage in `catkin` workspace in general, but it's necessary for `rtm-ros-robotics` that enables "hybrid" build of both `rosbuild` and `catkin` and thus uses source folders for build work.
+
 
 = Usage =
 == Start working with robot in simulator environment ==
@@ -87,15 +98,15 @@ Then, launch a simulator.
 $ rtmlaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch 
 }}}
 
-This launch file does mainly two things; load a virtual robot on the simulator by:
-{{{
-$ rtmlaunch hrionx_ros_bridge hironx_startup.launch
-}}}
-
-And start processes that work as a bridge between ROS and hrpsys.
-{{{
-$ roslaunch hrionx_ros_bridge hironx_ros_bridge.launch
-}}}
+    This launch file does mainly two things; load a virtual robot on the simulator by:
+    {{{
+    $ rtmlaunch hrionx_ros_bridge hironx_startup.launch
+    }}}
+    
+    And start processes that work as a bridge between ROS and hrpsys.
+    {{{
+    $ roslaunch hrionx_ros_bridge hironx_ros_bridge.launch
+    }}}
 
 If you see some messages like these on command prompt, you're good.
 {{{
@@ -123,7 +134,7 @@ $ ./hironx.py
 >> hiro.setJointAngles("larm", [0.6,0,-100,-15.2,9.4,-3.2])
 }}}
 
-== Using MoveIt! ==
+== Using MoveIt ==
 {{{
 $ roslaunch hironx_moveit_config moveit_planning_execution.launch
 }}}
