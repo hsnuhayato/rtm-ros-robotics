@@ -52,8 +52,10 @@ rosrun rviz rviz -d `rospack find hironx_ros_bridge`/models/kawada-hironx.rviz
 
 実機を利用している環境では既にロボットのプログラム(hrpsys)は起動しているためhrpsys-rosブリッジだけを立ち上げて下さい．以下のようにしてロボットのホスト名を指定することができます．
 {{{
-roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=<hostname> 
+roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=%HOSTNAME%
 }}}
+
+%HOSTNAME% を例えば hiro001 のように書き換えて下さい．
 
 = プログラミング例 =
 {{{
