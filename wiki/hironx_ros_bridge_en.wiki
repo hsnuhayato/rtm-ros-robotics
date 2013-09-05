@@ -120,12 +120,20 @@ $ rosrun rviz rviz -d `rospack find hironx_ros_bridge`/models/kawada-hironx.rviz
 }}}
 
 == Start working with real robot ==
-Since hrpsys should be already running if the real robot is on, you only have to launch hrpsys_ros_bridge on your computer. You can specify the host name of the robot;
+Since hrpsys should be already running if the real robot is on, you only have to launch hrpsys_ros_bridge on your computer. Replace `%HOSTNAME%` with an appropriate value in your environment; eg. `hiro001`;
 {{{
 $ roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=%HOSTNAME%
 }}}
 
-Replace `%HOSTNAME%` with an appropriate value in your environment; eg. hiro001
+A setting for `CORBA`.
+{{{
+$ export ORBInitRef="NameService=corbaloc:iiop:localhost:15005/NameService"
+}}}
+
+Then do something like this (adjust to your environment especially the location of wrl file, port number, robot's hostname):
+{{{
+$ rosrun hironx_ros_bridge hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:15005/NameService
+}}}
 
 == Programming example ==
 {{{
@@ -139,11 +147,6 @@ $ ./hironx.py
 == Using moveIt ==
 {{{
 $ roslaunch hironx_moveit_config moveit_planning_execution.launch
-}}}
-
-If you're using a real robot then do something like this (please adjust to your environment especially the location of wrl file) :
-{{{
-$ rosrun hironx_ros_bridge hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:15005/NameService
 }}}
 
 = Troubleshoot =
@@ -185,7 +188,7 @@ If you see this error,
 $ sudo apt-get remove ros-groovy-rqt-top
 }}}
 
-== No MoveIt found? ==
+== No moveit! found? ==
 {{{
 $ roslaunch hironx_moveit_config moveit_planning_execution.launch
 }}}
