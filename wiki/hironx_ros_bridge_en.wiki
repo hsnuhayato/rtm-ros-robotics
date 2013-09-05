@@ -114,6 +114,11 @@ If you see some messages like these on command prompt, you're good.
 [ INFO] [1375160304.408500642, 484.544999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 198[Hz]
 }}}
 
+Then setup magic spell for `OpenRTM`.
+{{{
+$ rosrun openrtm_tools rtshell-setup.sh
+}}}
+
 Lastly you can check robot model on RViz visualizer too:
 {{{
 $ rosrun rviz rviz -d `rospack find hironx_ros_bridge`/models/kawada-hironx.rviz
