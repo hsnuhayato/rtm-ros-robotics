@@ -86,8 +86,7 @@ Cleaning your source folder is unusual usage in `catkin` workspace in general, b
 
 
 = Usage =
-== Start working with robot in simulator environment ==
-
+== Common for simulation and for real robot ==
 Create an alias to run a script more easily:
 {{{
 $ alias rtmlaunch='`rospack find hrpsys_ros_bridge`/scripts/rtmlaunch'
@@ -114,25 +113,22 @@ If you see some messages like these on command prompt, you're good.
 [ INFO] [1375160304.408500642, 484.544999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 198[Hz]
 }}}
 
-Then setup magic spell for `OpenRTM`.
+Then setup magic spell for `OpenRTM`, and a setting for `CORBA`.
 {{{
 $ rosrun openrtm_tools rtshell-setup.sh
+$ export ORBInitRef="NameService=corbaloc:iiop:localhost:15005/NameService"
 }}}
 
-Lastly you can check robot model on RViz visualizer too:
+== Working in a simulator environment ==
+You can check robot model on RViz visualizer:
 {{{
 $ rosrun rviz rviz -d `rospack find hironx_ros_bridge`/models/kawada-hironx.rviz
 }}}
 
-== Start working with real robot ==
+== Working with a real robot ==
 Since hrpsys should be already running if the real robot is on, you only have to launch hrpsys_ros_bridge on your computer. Replace `%HOSTNAME%` with an appropriate value in your environment; eg. `hiro001`;
 {{{
 $ roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=%HOSTNAME%
-}}}
-
-A setting for `CORBA`.
-{{{
-$ export ORBInitRef="NameService=corbaloc:iiop:localhost:15005/NameService"
 }}}
 
 Then do something like this (adjust to your environment especially the location of wrl file, port number, robot's hostname):
