@@ -15,7 +15,20 @@ Pitfalls are put together as a section at the bottom of this page. If you see an
 = Install =
 First, download ROS by following its wiki. http://ros.org/wiki/groovy/Installation/Ubuntu
 
-Then,
+== Install via debian binary ==
+{{{
+$ apt-get install ros-groovy-openrtm_aist_core
+$ apt-get install ros-groovy-hrpsys
+$ apt-get install ros-groovy-rtshell_core
+$ apt-get install ros-groovy-rtmros_common
+$ apt-get install ros-groovy-rtmros_hironx
+}}}
+
+/!\ As of 9/5/13, binary of `rtmros_common` and `rtmros_hironx` are not yet installable via deb binary.
+
+== Insall from source ==
+Obtain source.
+
 {{{
 $ mkdir -p catkin_ws/src; cd catkin_ws/src
 $ wstool init
@@ -27,7 +40,7 @@ You may notice that we are naming a source folder as `catkin`. Besides that this
 
 # [http://www.ros.org/wiki/wstool wstools] takes over rosws for catkin workspace. Since we're not building in catkin workspace in this rosbuild section, you can keep using `rosws` if you feel like. The result shouldn't be different.
 
-== Build by rosbuild ==
+=== Source build by rosbuild ===
 If you're on ROS `Groovy` or later where its new build system `catkin` is ready and stable, [https://code.google.com/p/rtm-ros-robotics/w/edit.do#Install_by_Catkin install by catkin] is recommended. However, `rosbuild` still sticks around without any problem.
 
 At this point you should already have downloaded necessary codes. 
@@ -59,7 +72,7 @@ $ rosmake collada_tools
 
 To vefify that it runs, go on to next section to run simulator.
 
-== Build by Catkin ==
+=== Source build by Catkin ===
 In `src` folder,
 {{{
 $ catkin_init_workspace
