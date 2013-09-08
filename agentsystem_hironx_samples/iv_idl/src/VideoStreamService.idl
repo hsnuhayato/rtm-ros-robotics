@@ -1,7 +1,0 @@
-// -*- mode: idl; indent-tabs-mode: t; tab-width: 4; c-basic-offset: 4; -*-
-#include <InterfaceDataTypes.idl>
-
-interface VideoStreamService
-{
-  void capture(in long times);
-};

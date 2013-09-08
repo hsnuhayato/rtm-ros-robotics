@@ -1,7 +1,0 @@
-<launch>
-  <arg name="ROBOT_NAME" default="HRP2JSKNTS" />
-
-  <include file="$(find hrpsys_gazebo_tutorials)/launch/robot_hrpsys_bringup.launch">
-    <arg name="ROBOT_NAME" value="$(arg ROBOT_NAME)" />
-  </include>
-</launch>
