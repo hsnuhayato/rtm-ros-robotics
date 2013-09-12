@@ -21,11 +21,11 @@ $ apt-get install ros-groovy-rtmros_hironx
 }}}
 
 This will install all missing dependency including:
-- ros-groovy-openrtm_aist_core
-- ros-groovy-openhrp3
-- ros-groovy-hrpsys
-- ros-groovy-rtshell_core
-- ros-groovy-rtmros_common
+ * ros-groovy-openrtm_aist_core
+ * ros-groovy-openhrp3
+ * ros-groovy-hrpsys
+ * ros-groovy-rtshell_core
+ * ros-groovy-rtmros_common
 
 == Insall from source ==
 Obtain source.
