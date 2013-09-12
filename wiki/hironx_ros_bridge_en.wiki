@@ -15,7 +15,7 @@ Pitfalls are put together as a section at the bottom of this page. If you see an
 = Install =
 First, download ROS by following its wiki. http://ros.org/wiki/groovy/Installation/Ubuntu
 
-== Install via debian binary ==
+== Install via debian binary (RECOMMENDED) ==
 {{{
 $ apt-get install ros-groovy-rtmros_hironx
 }}}
