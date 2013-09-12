@@ -17,14 +17,15 @@ First, download ROS by following its wiki. http://ros.org/wiki/groovy/Installati
 
 == Install via debian binary ==
 {{{
-$ apt-get install ros-groovy-openrtm_aist_core
-$ apt-get install ros-groovy-hrpsys
-$ apt-get install ros-groovy-rtshell_core
-$ apt-get install ros-groovy-rtmros_common
 $ apt-get install ros-groovy-rtmros_hironx
 }}}
 
-/!\ As of 9/5/13, binary of `rtmros_common` and `rtmros_hironx` are not yet installable via deb binary.
+This will install all missing dependency including:
+- ros-groovy-openrtm_aist_core
+- ros-groovy-openhrp3
+- ros-groovy-hrpsys
+- ros-groovy-rtshell_core
+- ros-groovy-rtmros_common
 
 == Insall from source ==
 Obtain source.
