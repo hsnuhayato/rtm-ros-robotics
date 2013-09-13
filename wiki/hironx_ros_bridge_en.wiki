@@ -101,10 +101,17 @@ Cleaning your source folder is unusual usage in `catkin` workspace in general, b
 
 = Usage =
 == Common for simulation and for real robot ==
-Create an alias to run a script more easily:
+Config the envinronment for rtm things.
 {{{
-$ alias rtmlaunch='`rospack find hrpsys_ros_bridge`/scripts/rtmlaunch'
+$ source `rospack find openrtm_tools`/scripts/rtshell-setup.sh
 }}}
+
+    This includeds creating an alias to run a script more easily:
+    {{{
+    $ alias rtmlaunch='`rospack find hrpsys_ros_bridge`/scripts/rtmlaunch'
+    }}}
+
+'NOTE' As of 9/12/2013, this is only possible when you have source of `openrtm_tools` and `hrpsys_ros_bridge` in your `ROS_PACKAGE_PATH`ed location on your machine, that is. Work is in progress to realize them in deb.
 
 Then, launch a simulator.
 {{{
