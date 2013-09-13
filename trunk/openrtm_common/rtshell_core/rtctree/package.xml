@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>rtctree</name>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <description>
    <p>API for interacting with running RT-Components and managing RTM-based systems using OpenRTM-aist.</p>
   </description>

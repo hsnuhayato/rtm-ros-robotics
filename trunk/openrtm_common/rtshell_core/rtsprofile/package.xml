@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>rtsprofile</name>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 
   <description>
    <p>Library to read, manipulate and write RT system profiles using the RTSProfile XML schema.</p>
