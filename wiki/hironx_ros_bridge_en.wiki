@@ -28,28 +28,23 @@ This will install all missing dependency including:
  * ros-groovy-rtmros_common
 
 == Insall from source ==
-Obtain source.
+Create directory.
 
 {{{
 $ mkdir -p catkin_ws/src; cd catkin_ws/src
-$ wstool init
-$ wstool merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
-$ wstool update
 }}}
 
 You may notice that we are naming a source folder as `catkin`. Besides that this is just a naming build tool does not care, `catkin` as a convention prefers its work folder as to be called something like "catkin", "workspace". If you're building with `rosbuild` in the following subsection, this folder name is still valid (but if you feel confusing feel free to change it).
 
-# [http://www.ros.org/wiki/wstool wstools] takes over rosws for catkin workspace. Since we're not building in catkin workspace in this rosbuild section, you can keep using `rosws` if you feel like. The result shouldn't be different.
-
 === Source build by rosbuild ===
 If you're on ROS `Groovy` or later where its new build system `catkin` is ready and stable, [https://code.google.com/p/rtm-ros-robotics/w/edit.do#Install_by_Catkin install by catkin] is recommended. However, `rosbuild` still sticks around without any problem.
 
-At this point you should already have downloaded necessary codes. 
-Also if you haven't added the source folder into an environment variable `$ROS_PACKAGE_PATH` then please do:
+Obtain source.
 {{{
-(Suppose you're still at src folder)
-$ export ROS_PACKAGE_PATH=$ABSOLUTEPATH_OF_SRC_FOLDER$:$ROS_PACKAGE_PATH
-$ rospack profile
+$ rosws init
+$ source setup.*sh     (choose either script file that suits your needs)
+$ rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+$ rosws update
 }}}
 
 Now you're ready to build by:
@@ -74,10 +69,15 @@ $ rosmake collada_tools
 To vefify that it runs, go on to next section to run simulator.
 
 === Source build by Catkin ===
-In `src` folder,
+First obtain source. In `src` folder,
 {{{
+$ wstool init
+$ wstool merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
+$ wstool update
 $ catkin_init_workspace
 }}}
+
+# [http://www.ros.org/wiki/wstool wstools] takes over rosws for catkin workspace. Since we're not building in catkin workspace in this rosbuild section, you can keep using `rosws` if you feel like. The result shouldn't be different.
 
 The above commands downloads necessary codes and now you're ready to build:
 {{{
