@@ -36,16 +36,44 @@ $ mkdir -p catkin_ws/src; cd catkin_ws/src
 
 You may notice that we are naming a source folder as `catkin`. Besides that this is just a naming build tool does not care, `catkin` as a convention prefers its work folder as to be called something like "catkin", "workspace". If you're building with `rosbuild` in the following subsection, this folder name is still valid (but if you feel confusing feel free to change it).
 
-=== Source build by rosbuild ===
-If you're on ROS `Groovy` or later where its new build system `catkin` is ready and stable, [https://code.google.com/p/rtm-ros-robotics/w/edit.do#Install_by_Catkin install by catkin] is recommended. However, `rosbuild` still sticks around without any problem.
+The following subsections are separated for you per build tool you use. All ROS `Fuerte` users use `rosbuild`. The `Groovy` users who never used or even heard of a word `catkin` but still have some experience in ROS, you're likely a `rosbuild` user.
 
-Obtain source.
+=== Source build by rosbuild (rosmake) ===
+If you're on ROS `Groovy` or later where its new build system `catkin` is ready and stable, skip this subsection and goto `catkin`. However, `rosbuild` still sticks around without any problem.
+
+First setup a workspace at `src` dir.
 {{{
 $ rosws init
-$ source setup.*sh     (choose either script file that suits your needs)
+}}}
+Then open with your favorite editor `.rosinstall` file that should be created by the previous command. Then add ROS environment info (as [http://docs.ros.org/independent/api/rosinstall/html/rosws_tutorial.html#adding-ros-to-workspace noted in tutorial]):
+
+{{{
+- setup-file:
+    local-name: /opt/ros/%YOUR_ROS_DISTRO%/setup.*sh
+}}}
+
+    For example if you're using Groovy on `bash`,
+    {{{
+    - setup-file:
+        local-name: /opt/ros/groovy/setup.bash
+    }}}
+
+Then update the same file, obtain the source, and setup ROS environment by following:
+{{{
 $ rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
 $ rosws update
+$ source setup.*sh     (choose either script file that suits your needs)
 }}}
+
+    After `rosws merge`, the `rosinstall` file should look something like:
+    {{{
+    - setup-file:
+        local-name: /opt/ros/groovy/setup.sh
+    - svn: {local-name: rtm-ros-robotics/openrtm_common, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/openrtm_common'}
+    - svn: {local-name: rtm-ros-robotics/rtmros_common, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/rtmros_common'}
+    - svn: {local-name: rtm-ros-robotics/rtmros_hironx, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/rtmros_hironx'}
+    - svn: {local-name: rtm-ros-robotics/openrtm_apps, uri: 'https://rtm-ros-robotics.googlecode.com/svn/trunk/openrtm_apps'}
+    }}}
 
 Now you're ready to build by:
 {{{
