@@ -60,7 +60,7 @@ Then open with your favorite editor `.rosinstall` file that should be created by
 
 Then update the same file, obtain the source, and setup ROS environment by following:
 {{{
-$ rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall
+$ rosws merge https://rtm-ros-robotics.googlecode.com/svn/trunk/rtm-ros-robotics.rosinstall
 $ rosws update
 $ source setup.*sh     (choose either script file that suits your needs)
 }}}
@@ -101,7 +101,7 @@ To vefify that it runs, go on to next section to run simulator.
 First obtain source. In `src` folder,
 {{{
 $ wstool init
-$ wstool merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
+$ wstool merge https://rtm-ros-robotics.googlecode.com/svn/trunk/rtm-ros-robotics.rosinstall
 $ wstool update
 $ catkin_init_workspace
 }}}
@@ -115,17 +115,19 @@ $ catkin_make
 $ source devel/setup.bash   (or any shell script you would prefer under `/devel`)
 }}}
 
-NOTE-1; building by `catkin` might fail sometimes and workaround often works is just re-run `catkin`.
+NOTE-1; building by `catkin` might fail sometimes and workaround often works is just re-run `catkin_make`.
 
 NOTE-2; If you updated source (by either downloading from devel repository or modifying by yourself), you should clean your source directories in your workspace by:
 
 {{{
-(Suppose you're still at src folder)
-$ catkin_make clean
-$ rm -fR build devel  (as normal catkin workspace)
+$ cd %YOUR_CATKIN_WORKSPACE%
+$ rm -fR build devel
 }}}
 
-Cleaning your source folder is unusual usage in `catkin` workspace in general, but it's necessary for `rtm-ros-robotics` that enables "hybrid" build of both `rosbuild` and `catkin` and thus uses source folders for build work.
+In addition, only if you're building both `rosbuild` and `catkin` for whatever purpose, it's necessary for `rtm-ros-robotics` that enables "hybrid" build of both `rosbuild` and `catkin` and thus uses source folders for building work (cleaning your source folder is unusual usage in `catkin` workspace in general).
+{{{
+$ catkin_make clean
+}}}
 
 === Install ROS and hironx from source (both build system) ===
 If you dare to, or have a reason to install not just hironx but ROS itself too from source, you can still take advantage of `.rosinstall` file to manage all the source repositories you need to obtain sources from. Use [http://wiki.ros.org/rosinstall_generator rosinstall_generator]. 
