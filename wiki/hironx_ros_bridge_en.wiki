@@ -90,11 +90,6 @@ $ make
 If this passed then do the same `rosmake` again. 
 Packages that are reported to cause error: hrpsys_ros_bridge, hironx_moveit_config
 
-hironx_moveit_config requires collada_to_urdf, which can be obtained by:
-{{{
-$ rosmake collada_tools
-}}}
-
 To vefify that it runs, go on to next section to run simulator.
 
 === Source build by Catkin ===
@@ -173,9 +168,8 @@ If you see some messages like these on command prompt, you're good.
 [ INFO] [1375160304.408500642, 484.544999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 198[Hz]
 }}}
 
-Then setup magic spell for `OpenRTM`, and a setting for `CORBA`.
+Then setting for `CORBA`.
 {{{
-$ rosrun openrtm_tools rtshell-setup.sh
 $ export ORBInitRef="NameService=corbaloc:iiop:localhost:15005/NameService"
 }}}
 
@@ -197,18 +191,23 @@ $ rosrun hironx_ros_bridge hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/m
 }}}
 
 == Programming example ==
+Initialization:
 {{{
-$ roscd hironx_ros_bridge/scripts
-$ ./hironx.py
+$ rosrun hironx_ros_bridge hironx.py
 >> hiro.servoOn()
 >> hiro.goInitial()
 >> hiro.setJointAngles("larm", [0.6,0,-100,-15.2,9.4,-3.2])
 }}}
 
+TODO: Introduce more example using hironx.py
+
 == Using moveIt ==
+Use `MoveIt!` `RViz` plugin for interactive manipulation.
 {{{
 $ roslaunch hironx_moveit_config moveit_planning_execution.launch
 }}}
+
+TODO: Introduce some actions from MoveIt! Python API
 
 = Troubleshoot =
 == With wstool ==
@@ -304,7 +303,7 @@ $ ./hironx.py
 [hrpsys.py]  waiting ModelLoader
 }}}
 
-Then write in your shell script (eg. ~/.bashrc):
+Then define environmental variable by running:
 {{{
 export RTCTREE_NAMESERVERS=localhost:5005
 export ORBInitRef="NameService=corbaloc:iiop:localhost:15005/NameService"
