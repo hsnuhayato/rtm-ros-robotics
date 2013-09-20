@@ -139,7 +139,7 @@ $ rosinstall_generator hironx_ros_bridge --rosdistro groovy --deps --wet-only > 
 Simple this command creates a `.rosintall` file that has a long list of all source repos.
 
 = Usage =
-== Common for simulation and for real robot ==
+Common for simulation and for real robot
 Config the envinronment for rtm things.
 {{{
 $ source `rospack find openrtm_tools`/scripts/rtshell-setup.sh
@@ -150,6 +150,7 @@ $ source `rospack find openrtm_tools`/scripts/rtshell-setup.sh
     $ alias rtmlaunch='`rospack find hrpsys_ros_bridge`/scripts/rtmlaunch'
     }}}
 
+== Working in a simulator environment ==
 Then, launch a simulator.
 {{{
 $ rtmlaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch 
@@ -181,14 +182,13 @@ Then setting for `CORBA`.
 $ export ORBInitRef="NameService=corbaloc:iiop:localhost:15005/NameService"
 }}}
 
-== Working in a simulator environment ==
 You can check robot model on RViz visualizer:
 {{{
 $ rosrun rviz rviz -d `rospack find hironx_ros_bridge`/models/kawada-hironx.rviz
 }}}
 
 == Working with a real robot ==
-Since hrpsys should be already running if the real robot is on, you only have to launch hrpsys_ros_bridge on your computer. Replace `%HOSTNAME%` with an appropriate value in your environment; eg. `hiro001`;
+Since `hrpsys` should be already running if the real robot is on, you only have to launch [http://wiki.ros.org/hrpsys_ros_bridge hrpsys_ros_bridge] on your computer. Replace `%HOSTNAME%` with an appropriate value in your environment; eg. `hiro001`;
 {{{
 $ roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=%HOSTNAME%
 }}}
@@ -196,6 +196,17 @@ $ roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=%HOSTNAME%
 Then do something like this (adjust to your environment especially the location of wrl file, port number, robot's hostname):
 {{{
 $ rosrun hironx_ros_bridge hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:15005/NameService
+}}}
+
+== Initialization ==
+Now from here simulation and robot are merged their paths.
+
+Do initialization:
+{{{
+$ rosrun hironx_ros_bridge hironx.py
+>> hiro.servoOn()
+>> hiro.goInitial()
+>> hiro.setJointAngles("larm", [0.6,0,-100,-15.2,9.4,-3.2])
 }}}
 
 == Interact with the robot via moveIt ==
@@ -211,15 +222,99 @@ Refer to [http://moveit.ros.org/wiki/PR2/Rviz_Plugin/Quick_Start plugin usage pa
     Note: [http://wiki.ros.org/interactive_markers Interactive Markers] have not really been implemented with `Hiro`. Patch is welcomed.
 
 == Programming example ==
-Initialization:
+`Hiro`'s control interface is defined in `hironx_ros_bridge/scripts/hironx.py`. Here's an example `python` script of how to use it. Because of its sufficiently abundant functionality, here we use `ipython`.
+
+This is the same initialization step as discussed earlier.
 {{{
-$ rosrun hironx_ros_bridge hironx.py
->> hiro.servoOn()
->> hiro.goInitial()
->> hiro.setJointAngles("larm", [0.6,0,-100,-15.2,9.4,-3.2])
+rospaghetti@italy:~/ROS/rtm-ros-robotics/rtmros_hironx/hironx_ros_bridge/scripts$ ipython -i hironx.py 
+[hrpsys.py]  waiting ModelLoader
+[hrpsys.py]  start hrpsys
+[hrpsys.py]  finding RTCManager and RobotHardware
+:
+[hrpsys.py]  initialized successfully
 }}}
 
-TODO: Introduce more example using hironx.py
+This instantiate `HIRONX` class as a variable `hiro`. Now see what's available inside of `hiro` by:
+{{{
+In [1]: hiro.
+}}}
+
+You can tab-complete to know what's available:
+{{{
+hiro.Groups                            hiro.getCurrentRPY                     hiro.rh_svc
+hiro.HandClose                         hiro.getCurrentRotation                hiro.saveLog
+hiro.HandGroups                        hiro.getJointAngles                    hiro.sc
+hiro.HandOpen                          hiro.getRTCInstanceList                hiro.sc_svc
+hiro.InitialPose                       hiro.getRTCList                        hiro.sensors
+hiro.OffPose                           hiro.getReferencePose                  hiro.seq
+hiro.RtcList                           hiro.getReferencePosition              hiro.seq_svc
+hiro.abc                               hiro.getReferenceRPY                   hiro.servoOff
+hiro.activateComps                     hiro.getReferenceRotation              hiro.servoOn
+hiro.afs                               hiro.getSensors                        hiro.setHandEffort
+hiro.checkEncoders                     hiro.goActual                          hiro.setHandJointAngles
+hiro.clearLog                          hiro.goInitial                         hiro.setHandWidth
+hiro.co                                hiro.goOffPose                         hiro.setJointAngle
+hiro.co_svc                            hiro.hand_width2angles                 hiro.setJointAngles
+hiro.configurator_name                 hiro.hgc                               hiro.setJointAnglesOfGroup
+hiro.connectComps                      hiro.ic                                hiro.setSelfGroups
+hiro.connectLoggerPort                 hiro.init                              hiro.setTargetPose
+hiro.createComp                        hiro.isCalibDone                       hiro.setupLogger
+hiro.createComps                       hiro.isServoOn                         hiro.sh
+hiro.el                                hiro.kf                                hiro.sh_svc
+hiro.el_svc                            hiro.lengthDigitalInput                hiro.simulation_mode
+hiro.ep_svc                            hiro.lengthDigitalOutput               hiro.st
+hiro.findModelLoader                   hiro.liftRobotUp                       hiro.stOff
+hiro.fk                                hiro.loadPattern                       hiro.tf
+hiro.fk_svc                            hiro.log                               hiro.vs
+hiro.flat2Groups                       hiro.log_svc                           hiro.waitForModelLoader
+hiro.getActualState                    hiro.moveHand                          hiro.waitForRTCManagerAndRoboHardware
+hiro.getBodyInfo                       hiro.ms                                hiro.waitInterpolation
+hiro.getCurrentPose                    hiro.readDigitalInput                  hiro.waitInterpolationOfGroup
+hiro.getCurrentPosition                hiro.rh                                hiro.writeDigitalOutput
+}}}
+
+See the list of body groups:
+{{{
+In [3]: hiro.Groups
+Out[3]: 
+[['torso', ['CHEST_JOINT0']],
+ ['head', ['HEAD_JOINT0', 'HEAD_JOINT1']],
+ ['rarm',
+  ['RARM_JOINT0',
+   'RARM_JOINT1',
+   'RARM_JOINT2',
+   'RARM_JOINT3',
+   'RARM_JOINT4',
+   'RARM_JOINT5']],
+ ['larm',
+  ['LARM_JOINT0',
+   'LARM_JOINT1',
+   'LARM_JOINT2',
+   'LARM_JOINT3',
+   'LARM_JOINT4',
+   'LARM_JOINT5']]]
+}}}
+
+An advantage of `ipython` as a script interpreter is that you can get api info. Suppose you're looking for how to get the current pose, do:
+{{{
+In [10]: hiro.getCurrent
+hiro.getCurrentPose      hiro.getCurrentPosition  hiro.getCurrentRPY       hiro.getCurrentRotation
+
+In [11]: hiro.getCurrentPose?
+Type:       instancemethod
+Base Class: <type 'instancemethod'>
+String Form:<bound method HIRONX.getCurrentPose of <__main__.HIRONX instance at 0x1f39758>>
+Namespace:  Interactive
+File:       /opt/ros/groovy/lib/python2.7/dist-packages/hrpsys_config.py
+Definition: hiro.getCurrentPose(self, lname)
+Docstring:  <no docstring>
+}}}
+
+Here you know there's a method `getCurrentPose` that takes `lname`. So run:
+{{{
+In [8]: hiro.getCurrentRPY('RARM_JOINT0')
+Out[8]: (0.2576621205821993, 0.04688301083866714, -0.17600539317337488)
+}}}
 
 TODO: Introduce some actions from MoveIt! Python API
 
@@ -327,4 +422,14 @@ export ORBInitRef="NameService=corbaloc:iiop:localhost:15005/NameService"
 If you see a message like this while trying to run with MoveIt!, check if your computer is able to communicate with your real robot.
 {{{
 run_id on parameter server does not match declared run_id: e6ff428e-0ec8-11e3-a8cf-88532e0fe6e6 vs e8491bd8-0ec8-11e3-9deb-88532e0fe6e6
+}}}
+
+== Upon initialization "TRANSIENT: CORBA.TRANSIENT" ==
+{{{
+TRANSIENT: CORBA.TRANSIENT(omniORB.TRANSIENT_ConnectFailed, CORBA.COMPLETED_NO)
+}}}
+
+Run hironx by:
+{{{
+$ rtmlaunch hironx_ros_bridge hironx_startup.launch
 }}}
