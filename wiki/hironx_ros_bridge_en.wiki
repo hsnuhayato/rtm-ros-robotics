@@ -165,11 +165,16 @@ $ rtmlaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch
     $ roslaunch hrionx_ros_bridge hironx_ros_bridge.launch
     }}}
 
-If you see some messages like these on command prompt, you're good.
-{{{
-[ INFO] [1375160303.399785831, 483.554999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 201[Hz]
-[ INFO] [1375160304.408500642, 484.544999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 198[Hz]
-}}}
+If you see the following, you're good:
+
+    Some messages like these on command prompt:
+    {{{
+    [ INFO] [1375160303.399785831, 483.554999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 201[Hz]
+    [ INFO] [1375160304.408500642, 484.544999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 198[Hz]
+    }}}
+
+    And a robot on `hrpsys` viewer like this:
+    http://wiki.ros.org/hrpsys?action=AttachFile&do=get&target=snap_tutorial_hrpsysViewer.png
 
 Then setting for `CORBA`.
 {{{
@@ -193,6 +198,18 @@ Then do something like this (adjust to your environment especially the location 
 $ rosrun hironx_ros_bridge hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:15005/NameService
 }}}
 
+== Interact with the robot via moveIt ==
+You can use `MoveIt!` `RViz` plugin for interactive manipulation on GUI.
+{{{
+$ roslaunch hironx_moveit_config moveit_planning_execution.launch
+}}}
+
+http://wiki.ros.org/hironx_moveit_config?action=AttachFile&do=get&target=snap_tutorial_hironx_moveitRvizPlugin.png
+
+Refer to [http://moveit.ros.org/wiki/PR2/Rviz_Plugin/Quick_Start plugin usage page] (the page uses `PR2` humanoid but you can get the essense). 
+
+    Note: [http://wiki.ros.org/interactive_markers Interactive Markers] have not really been implemented with `Hiro`. Patch is welcomed.
+
 == Programming example ==
 Initialization:
 {{{
@@ -203,12 +220,6 @@ $ rosrun hironx_ros_bridge hironx.py
 }}}
 
 TODO: Introduce more example using hironx.py
-
-== Using moveIt ==
-Use `MoveIt!` `RViz` plugin for interactive manipulation.
-{{{
-$ roslaunch hironx_moveit_config moveit_planning_execution.launch
-}}}
 
 TODO: Introduce some actions from MoveIt! Python API
 
