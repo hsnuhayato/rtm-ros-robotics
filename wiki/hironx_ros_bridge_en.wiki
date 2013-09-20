@@ -16,8 +16,13 @@ Pitfalls are put together as a section at the bottom of this page. If you see an
 First, download ROS by following its wiki. http://ros.org/wiki/groovy/Installation/Ubuntu
 
 == Install via debian binary (RECOMMENDED) ==
+Available only in `ROS Groovy` and later.
+
+NOTE: As of 9/19/2013 Hydro version is not yet ready.
+
 {{{
-$ apt-get install ros-groovy-rtmros_hironx
+$ apt-get install ros-%YOUR_ROS_DISTRO%-rtmros_hironx
+$ apt-get install ros-groovy-rtmros_hironx     (for example)
 }}}
 
 This will install all missing dependency including:
@@ -140,9 +145,7 @@ Config the envinronment for rtm things.
 $ source `rospack find openrtm_tools`/scripts/rtshell-setup.sh
 }}}
 
-*NOTE* As of 9/12/2013, this is only possible when you have source of `openrtm_tools` and `hrpsys_ros_bridge` in your `ROS_PACKAGE_PATH`ed location on your machine. [[http://code.google.com/p/rtm-ros-robotics/issues/detail?id=200 Work is in progress to realize them in deb]]. Meanwhile, please run the following to manually create `alias`.
-
-    The above command includes creating an alias to run a script more easily:
+    The above command includes setting `PYTHONPATH` for [http://wiki.ros.org/rtshell rtshell], creating an alias to run a script more easily like this:
     {{{
     $ alias rtmlaunch='`rospack find hrpsys_ros_bridge`/scripts/rtmlaunch'
     }}}
