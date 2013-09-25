@@ -1,7 +1,7 @@
 #summary One-sentence summary of this page.
 #labels Phase-Support
 
-This page is English translation of [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge this page in Japanese]. In case this page (the one you're on) looks outdated, please consult the original page or ask in the mailing list; these 2 pages are NOT guaranteed to be synchronized.
+This page is English translation of [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge this page in Japanese]. In case this page (the one you're on) looks outdated, please consult the original Japanese page or ask in [https://groups.google.com/forum/#!forum/rtm-ros-robotics the mailing list]; these 2 pages are NOT guaranteed to be synchronized.
 
 <wiki:toc />
 
@@ -202,9 +202,8 @@ $ rtmlaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch
     $ roslaunch hrionx_ros_bridge hironx_ros_bridge.launch
     }}}
 
-If you see the following, you're good:
+If you see the following or similar on command prompt, your simulator is good:
 
-    Some messages like these on command prompt:
     {{{
     [ INFO] [1375160303.399785831, 483.554999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 201[Hz]
     [ INFO] [1375160304.408500642, 484.544999999]: [HrpsysSeqStateROSBridge0] @onExecutece 0 is working at 198[Hz]
@@ -235,15 +234,33 @@ $ rosrun hironx_ros_bridge hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/m
 }}}
 
 == Initialization ==
-Now from here simulation and robot are merged their paths.
+Now from here both simulation and robot users do the same.
 
-Do initialization:
+Initialization:
 {{{
 $ rosrun hironx_ros_bridge hironx.py
 >> hiro.servoOn()
 >> hiro.goInitial()
 >> hiro.setJointAngles("larm", [0.6,0,-100,-15.2,9.4,-3.2])
 }}}
+
+== Monitoring ROS state using rqt ==
+ROS' new GUI toolset introduced from `Groovy` called [http://ros.org/wiki/rqt rqt] help you to ease the pain to visualize data during development. Here is the suggestion of some tools particularly helpful for `Hiro` (out of [http://www.ros.org/wiki/rqt/Plugins 30+ rqt tools]:)
+
+Run:
+{{{
+$ rqt
+}}}
+
+Then click on "Plugins" and choose:
+ * `ROS Graph` ([http://wiki.ros.org/rqt_graph rqt_graph])
+ * `ROS Monitor` ([http://wiki.ros.org/rqt_robot_monitor rqt_robot_monitor])
+ * `Topic Introspection` ([http://wiki.ros.org/rqt_topic rqt_topic])
+
+You will see a window that looks like this:
+http://wiki.ros.org/hironx_ros_bridge?action=AttachFile&do=get&target=snap_rqt_graph_monitor_topic_vertical.png
+
+    (Robot Monitor only show `stale` status since this image was taken with simulator where no `diagnosis` is available)
 
 == Interact with the robot via moveIt ==
 You can use `MoveIt!` `RViz` plugin for interactive manipulation on GUI.
@@ -255,12 +272,12 @@ http://wiki.ros.org/hironx_moveit_config?action=AttachFile&do=get&target=snap_tu
 
 Refer to [http://moveit.ros.org/wiki/PR2/Rviz_Plugin/Quick_Start plugin usage page] (the page uses `PR2` humanoid but you can get the essense). 
 
-    Note: [http://wiki.ros.org/interactive_markers Interactive Markers] have not really been implemented with `Hiro`. Patch is welcomed.
+Note: [http://wiki.ros.org/interactive_markers Interactive Markers] have not really been implemented with `Hiro`. Patch from YOU is welcomed :).
 
 == Programming example ==
 `Hiro`'s control interface is defined in [http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_hironx/hironx_ros_bridge/scripts/hironx.py hironx_ros_bridge/scripts/hironx.py], which has been already introduced earlier a few times. Here's an example `python` script of how to use it. Here we use `ipython` because of its light-weight but sufficient functionality.
 
-This is the same initialization step as discussed earlier.
+This is the same initialization step as discussed earlier; you're now just doing it on `ipython` shell.
 {{{
 rospaghetti@italy:~/ROS/rtm-ros-robotics/rtmros_hironx/hironx_ros_bridge/scripts$ ipython -i hironx.py 
 [hrpsys.py]  waiting ModelLoader
