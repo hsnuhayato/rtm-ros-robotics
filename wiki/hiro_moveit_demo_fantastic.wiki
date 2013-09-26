@@ -12,9 +12,11 @@
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en?ts=1380079002&updated=hironx_ros_bridge_en#Interact_with_the_robot_via_moveIt Interact with the robot via moveIt] で MoveIt! 用の UI (RViz with MoveIt! plugin) を起動．
 
 = planner 環境を作る =
+{{{
 $ cd ~/ros/catkinws/src 
 $ mkdir ros-planning && cd ros-planning   (これは optional．この方がより奇麗に整理できる)
 $ git clone https://github.com/ros-planning/plannerarena
+}}}
 
 RViz MoveIt! plugin 上で，"scene objects" --> "import from
 > textでplannerarena->ploblems->pr2_scenes->bookshelvs.scene
