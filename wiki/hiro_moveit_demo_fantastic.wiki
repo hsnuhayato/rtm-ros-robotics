@@ -1,0 +1,27 @@
+= 前提 =
+ * Ubuntu 12.04
+ * ROS catkin workspace が ~/ros/catkinws と仮定 (違う場合は読み替えて下さい)．
+
+
+= Hiro の環境を作る．=
+
+[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en?ts=1380079002&updated=hironx_ros_bridge_en#Install_via_debian_binary_%28RECOMMENDED%29 Install via debian binary (RECOMMENDED)] を実施．
+
+[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en?ts=1380079002&updated=hironx_ros_bridge_en#Working_in_a_simulator_environment Working in a simulator environment] を実施して simulator を起動．
+
+[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en?ts=1380079002&updated=hironx_ros_bridge_en#Interact_with_the_robot_via_moveIt Interact with the robot via moveIt] で MoveIt! 用の UI (RViz with MoveIt! plugin) を起動．
+
+= planner 環境を作る =
+$ cd ~/ros/catkinws/src 
+$ mkdir ros-planning && cd ros-planning   (これは optional．この方がより奇麗に整理できる)
+$ git clone https://github.com/ros-planning/plannerarena
+
+RViz MoveIt! plugin 上で，"scene objects" --> "import from
+> textでplannerarena->ploblems->pr2_scenes->bookshelvs.scene
+
+    TODO: ↑これがエラーになる．
+    `Unable to import scene` というダイアログ．
+    ターミナルのエラー↓．
+    {{{
+[ WARN] [1380155833.087475266, 1741.660000014]: Assimp reports no scene in file:///home/n130s/ROS/groovy_precise/catkinws/src/ros-planning/plannerarena/problems/pr2_scenes/bookshelves.scene
+    }}}
