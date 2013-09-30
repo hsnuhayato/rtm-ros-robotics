@@ -290,7 +290,7 @@ rospaghetti@italy:~/ROS/rtm-ros-robotics/rtmros_hironx/hironx_ros_bridge/scripts
 
 This instantiate `HIRONX` class as a variable `hiro`. Now see what's available inside of `hiro` by:
 {{{
-In [1]: hiro.
+In : hiro.
 }}}
 
 You can tab-complete to know what's available:
@@ -329,8 +329,8 @@ hiro.getCurrentPosition                hiro.rh                                hi
 
 See the list of link groups and its member `link`s:
 {{{
-In [3]: hiro.Groups
-Out[3]: 
+In : hiro.Groups
+Out: 
 [['torso', ['CHEST_JOINT0']],
  ['head', ['HEAD_JOINT0', 'HEAD_JOINT1']],
  ['rarm',
@@ -351,13 +351,13 @@ Out[3]:
 
 An advantage of `ipython` as a script interpreter is that you can get api info. Suppose you're looking for how to get the current pose but you have no idea of command, first just guess and tab-complete:
 {{{
-In [10]: hiro.getCurrent
+In : hiro.getCurrent
 hiro.getCurrentPose      hiro.getCurrentPosition  hiro.getCurrentRPY       hiro.getCurrentRotation
 }}}
 
 then put "?" at the end of the command that fascinates you:
 {{{
-In [11]: hiro.getCurrentPose?
+In : hiro.getCurrentPose?
 Type:       instancemethod
 Base Class: <type 'instancemethod'>
 String Form:<bound method HIRONX.getCurrentPose of <__main__.HIRONX instance at 0x1f39758>>
@@ -397,9 +397,13 @@ In : hiro.getCurrentPosition('RARM_JOINT0')
 Out: [0.0, -0.145, 0.370296]
 }}}
 
-Now let's move an arm.
+Now let's move an arm. First go to initial pose.
 {{{
-In [8]: hiro.setTargetPose?
+In : hiro.goInitial()
+}}}
+
+{{{
+In : hiro.setTargetPose?
 Type:       instancemethod
 Base Class: <type 'instancemethod'>
 String Form:<bound method HIRONX.setTargetPose of <__main__.HIRONX instance at 0x333b758>>
@@ -411,9 +415,9 @@ Docstring:  <no docstring>
 
 `gname` is the name of the `link group`. `pos` and `rpy` are in list format. First, store the current values into variables:
 {{{
-In [9]: pos = hiro.getCurrentPosition('RARM_JOINT3')
-In [11]: rpy = hiro.getReferenceRPY('RARM_JOINT3')
-In [4]: tm = 3
+In : pos = hiro.getCurrentPosition('RARM_JOINT3')
+In : rpy = hiro.getReferenceRPY('RARM_JOINT3')
+In : tm = 3
 }}}
 
 Current `pose` should like:
@@ -422,15 +426,31 @@ http://wiki.ros.org/hironx_ros_bridge?action=AttachFile&do=get&target=hiro_befor
 
 Then randomly manipulate `position`, and execute:
 {{{
-In [2]: pos += [0,0,0.5]
+In : pos += [0,0,0.5]
 
-In [5]: hiro.setTargetPose('rarm', pos, rpy, tm)
-Out[5]: True
+In : hiro.setTargetPose('rarm', pos, rpy, tm)
+Out: True
 }}}
 
 Now a plan is successfully shown for the right arm to be moved to the specified `pose` like this image:
 
 http://wiki.ros.org/hironx_ros_bridge?action=AttachFile&do=get&target=hiro_after_move_rarm.png
+
+When you're done with the robot,
+{{{
+In : hiro.goOffPose()
+}}}
+
+http://wiki.ros.org/hironx_ros_bridge?action=AttachFile&do=get&target=hiro_powerOff.png
+
+Here are some other methods that could be used with real robot:
+{{{
+hiro.servoOn
+hiro.servoOff
+hiro.checkEncoders
+hiro.setJointAnglesOfGroup
+
+}}}
 
 
 === Manipulate Hiro with Moveit via Python ===
