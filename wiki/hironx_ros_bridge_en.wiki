@@ -275,6 +275,7 @@ Refer to [http://moveit.ros.org/wiki/PR2/Rviz_Plugin/Quick_Start plugin usage pa
 Note: [http://wiki.ros.org/interactive_markers Interactive Markers] have not really been implemented with `Hiro`. Patch from YOU is welcomed :).
 
 == Programming example ==
+=== Hiro by Python ===
 `Hiro`'s control interface is defined in [http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_hironx/hironx_ros_bridge/scripts/hironx.py hironx_ros_bridge/scripts/hironx.py], which has been already introduced earlier a few times. Here's an example `python` script of how to use it. Here we use `ipython` because of its light-weight but sufficient functionality.
 
 This is the same initialization step as discussed earlier; you're now just doing it on `ipython` shell.
@@ -326,7 +327,7 @@ hiro.getCurrentPose                    hiro.readDigitalInput                  hi
 hiro.getCurrentPosition                hiro.rh                                hiro.writeDigitalOutput
 }}}
 
-See the list of body groups and its member `link`s:
+See the list of link groups and its member `link`s:
 {{{
 In [3]: hiro.Groups
 Out[3]: 
@@ -388,15 +389,13 @@ Out:
  1.0]
 }}}
 
-Oops, something returned but I wanted something simpler. So again tab-complete,
+`getCurrentPose` returns the rotational matrix and the position of the given link in 1 dimensional list. You could also get only `poses`:
 {{{
 In: hiro.getCurrent
 hiro.getCurrentPose      hiro.getCurrentPosition  hiro.getCurrentRPY       hiro.getCurrentRotation
 In : hiro.getCurrentPosition('RARM_JOINT0')
 Out: [0.0, -0.145, 0.370296]
 }}}
-
-TODO what the result above means
 
 Now let's move an arm.
 {{{
@@ -410,6 +409,31 @@ Definition: hiro.setTargetPose(self, gname, pos, rpy, tm)
 Docstring:  <no docstring>
 }}}
 
+`gname` is the name of the `link group`. `pos` and `rpy` are in list format. First, store the current values into variables:
+{{{
+In [9]: pos = hiro.getCurrentPosition('RARM_JOINT3')
+In [11]: rpy = hiro.getReferenceRPY('RARM_JOINT3')
+In [4]: tm = 3
+}}}
+
+Current `pose` should like:
+
+http://wiki.ros.org/hironx_ros_bridge?action=AttachFile&do=get&target=hiro_before_move_rarm.png
+
+Then randomly manipulate `position`, and execute:
+{{{
+In [2]: pos += [0,0,0.5]
+
+In [5]: hiro.setTargetPose('rarm', pos, rpy, tm)
+Out[5]: True
+}}}
+
+Now a plan is successfully shown for the right arm to be moved to the specified `pose` like this image:
+
+http://wiki.ros.org/hironx_ros_bridge?action=AttachFile&do=get&target=hiro_after_move_rarm.png
+
+
+=== Manipulate Hiro with Moveit via Python ===
 TODO: Introduce some actions from MoveIt! Python API
 
 = Troubleshoot =
