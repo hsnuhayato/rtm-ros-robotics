@@ -6,15 +6,20 @@ This page is English translation of [https://code.google.com/p/rtm-ros-robotics/
 <wiki:toc />
 
 = Motivation =
-hironx_ros_robotics is now [http://www.ros.org/wiki/catkin/migrating_from_rosbuild#Overview catkinized] but still compatible with ROS' old building style called rosbuild (or its command line interface `rosmake`). Let's call it `hybrid` package. This page discusses installation of hybrid version both using rosbuild and catkin. 
+[http://wiki.ros.org/rtmros_hironx?distro=groovy hironx] (ROS-RTM based controller software suite for [http://nextage.kawada.jp/en/hiro/ Hiro]) is now [http://www.ros.org/wiki/catkin/migrating_from_rosbuild#Overview catkinized] but still compatible with ROS' old building style called rosbuild (or its command line interface `rosmake`). Let's call it `hybrid` package. This page discusses installation of hybrid version both using rosbuild and catkin. Also and the most recommended, binary of the whole software of hiro is now available for Ubuntu.
 
-Because installation from source may not go as smooth as it should be, please use binary version that's built by catkin if you're on Ubuntu unless you use ROS fuerte (where catkin may not be fully functional) or have reasons to build from source.
+Because installation from source may not go as smooth as it should be, you're advised to use `.deb` binary version that's built using catkin if you're on Ubuntu unless you use ROS fuerte (where catkin may not be fully functional) or have certain reasons to build from source.
 
-Pitfalls are put together as a section at the bottom of this page. If you see any issue, please consider take a look at it.
+= Pre-requisite =
+- It's assumed that you finished:
+ * download ROS by following its wiki. http://ros.org/wiki/groovy/Installation/Ubuntu
+ * [http://wiki.ros.org/ROS/Tutorials ROS fundamental tutorials]. Focus on the build tool you would use (`catkin` or `rosbuild`)
+
+- When you face troubles,
+ * [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Troubleshoot refer to the pitfalls put together as a section at the bottom of this page]. If you see any issue, please consider taking a look at the section, or you can simply text search through this page using your browser's feature.
+ * More generally, [http://google.com/ Google] is always there as your best friend.
 
 = Install =
-First, download ROS by following its wiki. http://ros.org/wiki/groovy/Installation/Ubuntu
-
 == Install via debian binary (RECOMMENDED) ==
 Available only in `ROS Groovy` and later.
 *NOTE*: As of 9/19/2013 Hydro version is not yet ready.
@@ -144,21 +149,29 @@ $ catkin_init_workspace
 
 # [http://www.ros.org/wiki/wstool wstools] takes over rosws for catkin workspace. Since we're not building in catkin workspace in this rosbuild section, you can keep using `rosws` if you feel like. The result shouldn't be different.
 
-The above commands downloads necessary codes and now you're ready to build:
+The above commands downloads necessary codes.
+
+Before you become able to build your `catkin workspace`, you need to make sure that you have all the required dependencies. We use [http://wiki.ros.org/rosdep rosdep] for this:
 {{{
 $ cd ..     (moving back to catkin_ws)
+$ rosdep install --from-paths src --ignore-src --rosdistro groovy -y
+}}}
+This will look at all of the packages in the `src` directory and find all of the dependencies they have. Then it will recursively install the dependencies. 
+
+Now you're ready to start building:
+{{{
 $ catkin_make
 $ source devel/setup.bash   (or any shell script you would prefer under `/devel`)
 }}}
 
-NOTE-1; building by `catkin` might fail sometimes and workaround often works is just re-run `catkin_make`.
+    NOTE-1; building by `catkin` might fail sometimes and workaround often works is just re-run `catkin_make`.
 
-NOTE-2; If you updated source (by either downloading from devel repository or modifying by yourself), you should clean your source directories in your workspace by:
+    NOTE-2; If you updated source (by either downloading from devel repository or modifying by yourself), you should clean your source directories in your workspace by:
 
-{{{
-$ cd %YOUR_CATKIN_WORKSPACE%
+    {{{
+$ cd %HOMEDIR_YOUR_CATKIN_WORKSPACE%
 $ rm -fR build devel
-}}}
+    }}}
 
 In addition, only if you're building both `rosbuild` and `catkin` for whatever purpose, it's necessary for `rtm-ros-robotics` that enables "hybrid" build of both `rosbuild` and `catkin` and thus uses source folders for building work (cleaning your source folder is unusual usage in `catkin` workspace in general).
 {{{
