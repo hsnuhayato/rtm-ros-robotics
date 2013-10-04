@@ -154,9 +154,9 @@ The above commands downloads necessary codes.
 Before you become able to build your `catkin workspace`, you need to make sure that you have all the required dependencies. We use [http://wiki.ros.org/rosdep rosdep] for this:
 {{{
 $ cd ..     (moving back to catkin_ws)
-$ rosdep install --from-paths src --ignore-src --rosdistro groovy -y
+$ rosdep install --from-paths src --ignore-src --rosdistro groovy -y -r
 }}}
-This will look at all of the packages in the `src` directory and find all of the dependencies they have. Then it will recursively install the dependencies. 
+This will look at all of the packages in the `src` directory and find all of the dependencies they have. Then it will recursively install the dependencies, without stopping at any errors that may or may not occur.
 
 Now you're ready to start building:
 {{{
