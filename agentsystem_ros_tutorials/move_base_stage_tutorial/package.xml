@@ -3,6 +3,8 @@
   <version>1.0.0</version>
   <description>move_base_stage_tutorial</description>
   <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <maintainer email="iisaito@opensource-robotics.tokyo.jp">Isaac Saito</maintainer>
+  <author>Kei Okada</author>
 
   <license>BSD</license>
 
