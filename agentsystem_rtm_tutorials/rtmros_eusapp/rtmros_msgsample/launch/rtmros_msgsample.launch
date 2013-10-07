@@ -1,5 +1,0 @@
-<launch>
-<node name="roseus_talker"   pkg="rtmros_msgsample" type="roseus_pubsample.l"  output="screen"
-      launch-prefix="xterm -T talker -geometry 80x10 -e " />
-<node name="rtmeus_listener" pkg="rtmros_msgsample" type="rosrtm_msgrecv.l"  output="screen" />
-</launch>
