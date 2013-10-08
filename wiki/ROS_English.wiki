@@ -266,8 +266,11 @@ you need to change  `bridge = findRTC("HRP-4C(Robot)0")` to `bridge = findRTC("H
 
 === Kawada HIRONX ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hironx.launch hironx.launch])
+If you want to see more detailed information or real-robot setting, 
+please see
+https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en
 {{{
-$ roslaunch hrpsys_ros_bridge_tutorials hironx_nosim.launch
+$ rtmlaunch hrpsys_ros_bridge_tutorials hironx_nosim.launch
 }}}
 to launch rviz viewer with Kawada HiroNx robot, without hrpsys-simulator's dynamics simulation
 
@@ -276,6 +279,7 @@ then, type
 $ roscd hrpsys_ros_bridge_tutorials/euslisp; rosrun roseus roseus  kawada-hironx-example.l
 }}}
 to  see the robot is moving.
+
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/hironx_rviz.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/hironx_rviz.png]
 
