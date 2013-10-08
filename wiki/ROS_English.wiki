@@ -227,9 +227,9 @@ roscd hrpsys_ros_bridge_tutorials/euslisp/
 rosrun roseus roseus samplerobot-pickup.l
 }}}
 
-If you do not need dynamics simulation, start `samplerobot.launch` with `--nosim` argument as followings:
+If you do not need dynamics simulation, start `samplerobot_nosim.launch`:
 {{{
-roslaunch hrpsys_ros_bridge samplerobot.launch SCHEDULER_ARGS:=--nosim
+rtmlaunch hrpsys_ros_bridge samplerobot_nosim.launch
 }}}
 * keyboard interactive teleop example
 {{{
