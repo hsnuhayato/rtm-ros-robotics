@@ -245,6 +245,7 @@ rosrun roseus roseus samplerobot-walk.l
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/samplerobot_rviz.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/samplerobot_rviz.png]
 
 === HRP4 ===
+!!HRP4 example is currently not supported!!
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hrp4c.launch hrp4c.launch])
 {{{
 rtmlaunch hrpsys_ros_bridge_tutorials hrp4c.launch
