@@ -61,6 +61,9 @@ source ~/ros/fuerte/setup.bash
 Add this line to your ~/.bashrc
 
 == Build source code ==
+Latest information about installation here
+[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en?ts=1381211065&updated=hironx_ros_bridge_en]
+
 build source code and install related packages
 {{{
 $ rosdep install hrpsys_ros_bridge_tutorials
