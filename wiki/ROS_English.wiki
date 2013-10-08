@@ -166,7 +166,7 @@ Change FPS from 50 to 1-10 to speed up simulation.
 === PA10 ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/pa10.launch pa10.launch])
 {{{
-roslaunch hrpsys pa10.launch
+rtmlaunch hrpsys_tutorials pa10.launch
 }}}
 press `Start Simulation` button,
 then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/PA10; rosrun hrpsys hrpsyspy ./PA10.py`
@@ -174,6 +174,7 @@ then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/PA10; ros
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/PA10.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/PA10.png]
 
 === HRP-4C walking ===
+!!HRP4C sample is currently not supported!!
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/hrp4c.launch hrp4c.launch])
 {{{
 roslaunch hrpsys hrp4c.launch
@@ -188,7 +189,7 @@ If failed to load HRP-4C model, rosmake hrpsys_ros_bridge again.
 === Sample Robot Walking and Grasping ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys/launch/samplerobot.launch samplerobot.launch])
 {{{
-roslaunch hrpsys samplerobot.launch
+rtmlaunch hrpsys_tutorials samplerobot.launch
 }}}
 press `Start Simulation` button,
 then press `execute script file` or type
