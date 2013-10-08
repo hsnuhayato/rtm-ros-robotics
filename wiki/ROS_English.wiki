@@ -217,11 +217,6 @@ to start walking.
 rtmlaunch hrpsys_ros_bridge_tutorials samplerobot.launch
 }}}
 and if you see sample robot in RViz viewer, 
-Then type
-{{{
-rosrun hrpsys SampleRobot_walk.sh
-}}}
-or
 {{{
 roscd hrpsys_ros_bridge_tutorials/euslisp/
 rosrun roseus roseus samplerobot-pickup.l
