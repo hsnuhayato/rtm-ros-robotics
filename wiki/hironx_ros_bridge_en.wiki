@@ -197,6 +197,7 @@ $ source `rospack find openrtm_tools`/scripts/rtshell-setup.sh
     The above command includes setting `PYTHONPATH` for [http://wiki.ros.org/rtshell rtshell], creating an alias to run a script more easily like this:
     {{{
     $ alias rtmlaunch='`rospack find hrpsys_ros_bridge`/scripts/rtmlaunch'
+    $ alias rtmtest='`rospack find hrpsys_ros_bridge`/scripts/rtmtest'
     }}}
 
 == Working in a simulator environment ==
