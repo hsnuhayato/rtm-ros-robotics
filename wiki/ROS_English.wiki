@@ -109,14 +109,6 @@ roscore
 }}}
 You can ommit invoking roscore because the first roslaunch process starts up ROS_MASTER. 
 
-=== For OpenRTM ===
-invoke omniNames (sometimes):
-{{{
-rosrun openrtm rtm-naming
-}}}
-You need to invoke rtm-naming if you switch network (wired-LAN, wireless-LAN, ...) because RTM processes in new network cannot access omniNames invoked in old networks. 
-
-
 = Example =
 == OpenHRP3 Simulation ===
 
@@ -222,7 +214,7 @@ to start walking.
 * simple demonstration
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/samplerobot.launch samplerobot.launch])
 {{{
-roslaunch hrpsys_ros_bridge_tutorials samplerobot.launch
+rtmlaunch hrpsys_ros_bridge_tutorials samplerobot.launch
 }}}
 and if you see sample robot in RViz viewer, 
 Then type
@@ -241,7 +233,7 @@ roslaunch hrpsys_ros_bridge samplerobot.launch SCHEDULER_ARGS:=--nosim
 }}}
 * keyboard interactive teleop example
 {{{
-roslaunch hrpsys_ros_bridge_tutorials samplerobot.launch LAUNCH_TELEOP:=true
+rtmlaunch hrpsys_ros_bridge_tutorials samplerobot.launch LAUNCH_TELEOP:=true
 }}}
 and if you see "teleop_pr2_keyboard" terminal, 
 Then type
@@ -260,7 +252,7 @@ rosrun roseus roseus samplerobot-walk.l
 === HRP4 ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/hrpsys_ros_bridge/launch/hrp4c.launch hrp4c.launch])
 {{{
-roslaunch hrpsys_ros_bridge_tutorials hrp4c.launch
+rtmlaunch hrpsys_ros_bridge_tutorials hrp4c.launch
 }}}
 to setup simulator and rviz viewer. Sample client program is
 {{{
