@@ -224,7 +224,7 @@ rosrun roseus roseus samplerobot-pickup.l
 
 If you do not need dynamics simulation, start `samplerobot_nosim.launch`:
 {{{
-rtmlaunch hrpsys_ros_bridge samplerobot_nosim.launch
+rtmlaunch hrpsys_ros_bridge_tutorials samplerobot_nosim.launch
 }}}
 * keyboard interactive teleop example
 {{{
