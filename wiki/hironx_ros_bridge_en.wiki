@@ -253,10 +253,14 @@ Now from here both simulation and robot users do the same.
 Initialization:
 {{{
 $ rosrun hironx_ros_bridge hironx.py
->> hiro.servoOn()
->> hiro.goInitial()
->> hiro.setJointAngles("larm", [0.6,0,-100,-15.2,9.4,-3.2])
 }}}
+
+    What this command does includes:
+
+    * (Followings are general to hrpsys) Find RTCManager and RobotHardware.
+    * Create, connect to, and activate the RT components initially necessary for `hrpsys` controller.
+    * Run logger.
+    * (Specific to Hiro) Assign link groups.
 
 == Monitoring ROS state using rqt ==
 ROS' new GUI toolset introduced from `Groovy` called [http://ros.org/wiki/rqt rqt] help you to ease the pain to visualize data during development. Here is the suggestion of some tools particularly helpful for `Hiro` (out of [http://www.ros.org/wiki/rqt/Plugins 30+ rqt tools]:)
