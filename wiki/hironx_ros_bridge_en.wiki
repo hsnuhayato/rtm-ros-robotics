@@ -272,7 +272,7 @@ $ rqt
 
 Then click on "Plugins" and choose:
  * `ROS Graph` ([http://wiki.ros.org/rqt_graph rqt_graph])
- * `ROS Monitor` ([http://wiki.ros.org/rqt_robot_monitor rqt_robot_monitor])
+ * `Robot Monitor` ([http://wiki.ros.org/rqt_robot_monitor rqt_robot_monitor]. This name is expected to be renamed as `Diagnostic Viewer`)
  * `Topic Introspection` ([http://wiki.ros.org/rqt_topic rqt_topic])
 
 You will see a window that looks like this:
