@@ -298,7 +298,7 @@ Note: [http://wiki.ros.org/interactive_markers Interactive Markers] have not rea
 
 This is the same initialization step as discussed earlier; you're now just doing it on `ipython` shell.
 {{{
-rospaghetti@italy:~/ROS/rtm-ros-robotics/rtmros_hironx/hironx_ros_bridge/scripts$ ipython -i hironx.py 
+rospaghetti@italy:$ ipython -i `rospack find hironx_ros_bridge`/scripts/hironx.py
 [hrpsys.py]  waiting ModelLoader
 [hrpsys.py]  start hrpsys
 [hrpsys.py]  finding RTCManager and RobotHardware
@@ -407,7 +407,7 @@ Out:
  1.0]
 }}}
 
-`getCurrentPose` returns the rotational matrix and the position of the given link in 1 dimensional list. You could also get only `poses`:
+`getCurrentPose` returns the rotational matrix and the position of the given link in 1 dimensional list. You could also get only `position`:
 {{{
 In: hiro.getCurrent
 hiro.getCurrentPose      hiro.getCurrentPosition  hiro.getCurrentRPY       hiro.getCurrentRotation
@@ -415,6 +415,13 @@ In : hiro.getCurrentPosition('RARM_JOINT0')
 Out: [0.0, -0.145, 0.370296]
 }}}
 
+In `hrpssy`, position vector is presented as a list with three elements [ y, x, z ] where:
+{{{
+ y: forward 
+ x: left
+ z: upward
+}}}
+ 
 Now let's move an arm. First go to initial pose.
 {{{
 In : hiro.goInitial()
@@ -438,13 +445,13 @@ In : rpy = hiro.getReferenceRPY('RARM_JOINT3')
 In : tm = 3
 }}}
 
-Current `pose` should like:
+Current `pose` should look like:
 
 http://wiki.ros.org/hironx_ros_bridge?action=AttachFile&do=get&target=hiro_before_move_rarm.png
 
 Then randomly manipulate `position`, and execute:
 {{{
-In : pos += [0,0,0.5]
+In : pos[2] = 0.5
 
 In : hiro.setTargetPose('rarm', pos, rpy, tm)
 Out: True
