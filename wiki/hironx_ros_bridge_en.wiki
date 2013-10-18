@@ -478,7 +478,7 @@ hiro.setJointAnglesOfGroup
 }}}
 
 === Manipulate Hiro with Moveit via Python ===
-[http://moveit.ros.org/wiki/MoveIt_Commander moveit_commander] package offers a capability to write a `MoveIt!` client in `Python`. You can find an example in [https://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_hironx/hironx_ros_bridge/test/test_hironx_moveit.py test_hironx_moveit.py file in hironx_ros_bridge], which looks like:
+[http://moveit.ros.org/wiki/MoveIt_Commander moveit_commander] package offers a capability to write a `MoveIt!` client in `Python` ([http://docs.ros.org/hydro/api/moveit_commander/html/annotated.html API doc]). You can find an example in [https://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_hironx/hironx_ros_bridge/test/test_hironx_moveit.py test_hironx_moveit.py file in hironx_ros_bridge], which looks like:
 
 {{{
 from geometry_msgs.msg import Pose, PoseStamped
