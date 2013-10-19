@@ -10,7 +10,7 @@ http://www.ros.org/wiki/fuerte/Installation/Ubuntu
 
 ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公開されているパッケージをソースでインストールする
 
-これらの手続きは，以下のコマンドを入力することで実行される．(ROS Fuerte)
+これらの手続きは，以下のコマンドを入力することで実行される．
 {{{
 wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?format=raw' -O /tmp/jsk.rosbuild
 yes | bash /tmp/jsk.rosbuild
