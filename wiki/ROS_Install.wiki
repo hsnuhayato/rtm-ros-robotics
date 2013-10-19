@@ -13,16 +13,11 @@ ROS本体、Robot向け汎用パッケージ、PR2向けパッケージなど公
 これらの手続きは，以下のコマンドを入力することで実行される．(ROS Fuerte)
 {{{
 wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?format=raw' -O /tmp/jsk.rosbuild
-yes | bash /tmp/jsk.rosbuild fuerte
-cd ~/ros/fuerte
+yes | bash /tmp/jsk.rosbuild
+cd ~/ros/groovy
 source setup.bash
-rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
-rosws update
-
-sudo sh -c 'echo "deb http://packages.osrfoundation.org/drc/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/drc-latest.list'
-wget http://packages.osrfoundation.org/drc.key -O - | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install drcsim
+wstool merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
+wstool update
 }}}
 このコマンドを実行すると
 (1)aptのリポジトリ登録
@@ -30,12 +25,6 @@ sudo apt-get install drcsim
 (3)ROS外部パッケージのインストール
 が行われる.
 
-
-また11.04ユーザは，
-{{{
-sudo apt-get install xfonts-100dpi xfonts-75dpi msttcorefonts
-}}}
-をしてリブートしておく必要がある．
 
 
 ==こんなエラーがでたら==
@@ -109,15 +98,15 @@ Enter ros path:roseus_tutorials/manifest.xml
 また,
 {{{
 cd ~/ros/fuerte
-rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
-rosws update
+wstool merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
+wstool update
 }}}
 とすると,ROS外部パッケージのソースツリー更新が行われる.
 (roswsについては hhttp://www.ros.org/doc/api/rosinstall/html/rosws_tutorial.html を参照)
 
 ROS関連のプログラムを使うためには以下の様にして環境変数をセットする必要がある．
 {{{
-source ~/ros/fuerte/setup.bash
+source ~/ros/groovy/setup.bash
 }}}
 この一行を ~/.bashrc に追加するとよいでしょう．
 
