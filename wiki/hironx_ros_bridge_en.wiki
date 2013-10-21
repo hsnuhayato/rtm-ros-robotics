@@ -63,6 +63,13 @@ This will install all missing dependency including:
  * ros-groovy-rtshell_core
  * ros-groovy-rtmros_common
 
+Additionally you may have to install:
+
+{{{
+$ apt-get install ros-%YOUR_ROS_DISTRO%-moveit-ros-visualization
+}}}
+
+
 === Update binaries ===
 When you know that newer binary version is available,
 
@@ -281,6 +288,12 @@ http://wiki.ros.org/hironx_ros_bridge?action=AttachFile&do=get&target=snap_rqt_g
     (Robot Monitor only show `stale` status since this image was taken with simulator where no `diagnosis` is available)
 
 == Interact with the robot via moveIt ==
+You might want to install first `OMPL` planner if you already haven't done so.
+{{{
+$ apt-get install ros-%YOUR_ROS_DISTRO%-moveit-planners-ompl
+$ apt-get install ros-%YOUR_ROS_DISTRO%-moveit-commander
+}}}
+
 You can use `MoveIt!` `RViz` plugin for interactive manipulation on GUI.
 {{{
 $ roslaunch hironx_moveit_config moveit_planning_execution.launch
@@ -295,6 +308,11 @@ Note: [http://wiki.ros.org/interactive_markers Interactive Markers] have not rea
 == Programming example ==
 === Hiro by Python ===
 `Hiro`'s control interface is defined in [http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_hironx/hironx_ros_bridge/scripts/hironx.py hironx_ros_bridge/scripts/hironx.py], which has been already introduced earlier a few times. Here's an example `python` script of how to use it. Here we use `ipython` because of its light-weight but sufficient functionality.
+
+You might want to install first `OMPL` planner if you already haven't done so.
+{{{
+$ apt-get install ros-%YOUR_ROS_DISTRO%-moveit-commander
+}}}
 
 This is the same initialization step as discussed earlier; you're now just doing it on `ipython` shell.
 {{{
