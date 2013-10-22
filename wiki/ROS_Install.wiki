@@ -4,7 +4,7 @@
 
 = ROS本体のインストール =
 
-http://www.ros.org/wiki/fuerte/Installation/Ubuntu
+http://www.ros.org/wiki/groovy/Installation/Ubuntu
  より抜粋
 
 
