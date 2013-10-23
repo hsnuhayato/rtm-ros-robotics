@@ -215,12 +215,12 @@ $ rtmlaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch
 
     This launch file does mainly two things; load a virtual robot on the simulator by:
     {{{
-    $ rtmlaunch hrionx_ros_bridge hironx_startup.launch
+    $ rtmlaunch hironx_ros_bridge hironx_startup.launch
     }}}
     
     And start processes that work as a bridge between ROS and hrpsys.
     {{{
-    $ roslaunch hrionx_ros_bridge hironx_ros_bridge.launch
+    $ roslaunch hironx_ros_bridge hironx_ros_bridge.launch
     }}}
 
 If you see the following or similar on command prompt, your simulator is good:
