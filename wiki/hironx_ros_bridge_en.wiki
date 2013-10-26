@@ -215,12 +215,12 @@ $ rtmlaunch hironx_ros_bridge hironx_ros_bridge_simulation.launch
 
     This launch file does mainly two things; load a virtual robot on the simulator by:
     {{{
-    $ rtmlaunch hironx_ros_bridge hironx_startup.launch
+    $ rtmlaunch hrionx_ros_bridge hironx_startup.launch
     }}}
     
     And start processes that work as a bridge between ROS and hrpsys.
     {{{
-    $ roslaunch hironx_ros_bridge hironx_ros_bridge.launch
+    $ roslaunch hrionx_ros_bridge hironx_ros_bridge.launch
     }}}
 
 If you see the following or similar on command prompt, your simulator is good:
@@ -299,6 +299,11 @@ $ roslaunch hironx_moveit_config moveit_planning_execution.launch
 }}}
 
 http://wiki.ros.org/hironx_moveit_config?action=AttachFile&do=get&target=snap_tutorial_hironx_moveitRvizPlugin.png
+
+    This spawns a new `ROS Node` called "`move_group`" that provides an interface specific to `hironx` and `MoveIt!` motion planner. 
+
+    rqt_graph now shows it too:
+    http://wiki.ros.org/hironx_ros_bridge?action=AttachFile&do=get&target=snap_rqt_moveit_hironx.png
 
 Refer to [http://moveit.ros.org/wiki/PR2/Rviz_Plugin/Quick_Start plugin usage page] (the page uses `PR2` humanoid but you can get the essense). 
 
