@@ -1,0 +1,50 @@
+<package>
+  <name>openhrp3</name>
+  <version>3.1.3</version>
+  <description>
+   <p>This package represents <a href = "http://www.openrtp.jp/openhrp3/en/index.html">OpenHRP3</a>. Although being ROS-agnostic by itself, you can use this via ROS together with the packages in <a href = "http://www.ros.org/wiki/rtmros_common">rtmros_common</a> that bridge between two framework.</p>
+   <p><i>OpenHRP3 (Open Architecture Human-centered Robotics Platform version 3) is an integrated software platform for robot simulations and software developments. It allows the users to inspect an original robot model and control program by dynamics simulation. In addition, OpenHRP3 provides various software components and calculation libraries that can be used for robotics related software developments</i> (<a href = "http://www.openrtp.jp/openhrp3/en/about.html">excerpts from here</a>). </p>
+
+   <p>This package is a wrapper of its upstream repository. Its development is happening at <a href = "https://openrtp.jp/svn/hrg/openhrp">code.google.com/p/hrpsys-base</a>.</p>
+   <p>The upstream version number to date is 3.1.4. Please refer to this discussion (http://code.google.com/p/rtm-ros-robotics/issues/detail?id=159) for the reason of this version conversion.</p>
+  </description>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <maintainer email="iisaito@kinugarage.com">Isao Isaac Saito</maintainer>
+  <author>AIST</author>
+  <author>General Robotix Inc.</author>
+  <author>Nakamura Lab, Dept. of Mechano Informatics, University of Tokyo</author>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+
+  <license>EPL</license>
+
+  <url type="website">https://openrtp.jp/svn/hrg/openhrp/</url>
+  <url type="bugtracker">https://openrtp.jp/redmine/</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>atlas</build_depend>
+  <build_depend>boost</build_depend>
+  <build_depend>collada-dom</build_depend>
+  <build_depend>doxygen</build_depend>
+  <build_depend>eigen</build_depend>
+  <build_depend>f2c</build_depend>
+  <build_depend>libjpeg</build_depend>
+  <build_depend>libpng12-dev</build_depend>
+  <build_depend>openrtm_aist</build_depend>
+  <build_depend>openrtm_aist_python</build_depend>
+  <build_depend>subversion</build_depend>
+
+  <run_depend>atlas</run_depend>
+  <run_depend>boost</run_depend>
+  <run_depend>collada-dom</run_depend>
+  <run_depend>eigen</run_depend>
+  <run_depend>f2c</run_depend>
+  <run_depend>libjpeg</run_depend>
+  <run_depend>libpng12-dev</run_depend>
+  <run_depend>openrtm_aist</run_depend>
+  <run_depend>openrtm_aist_python</run_depend>
+  <!-- <test_depend>openrtm_aist</test_depend> -->
+
+  <export>
+
+  </export>
+</package>
