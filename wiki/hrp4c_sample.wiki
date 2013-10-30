@@ -1,0 +1,30 @@
+#summary One-sentence summary of this page.
+
+= hrp4cの動かし方 =
+
+{{{
+roseus "hrp4c.l"
+$ (hrp4c)
+}}}
+
+{{{
+(send *hrp4c* :reset-pose)   # reset-pose(初期姿勢）になる
+(send *hrp4c* :angle-vector) # anglve-vector(関節角度列）を返す
+
+(send *hrp4c* limb joint :joint-angle [ angle ]) # 1つの関節を動かす angleの単位系は degree または mm
+;; limb joint
+:torso :waist-z
+:larm
+:rarm :collar-y
+      :shoulder-p
+      :shoulder-r
+      :elbow-p
+      :elbow-r
+      :wrist-p
+      :wrist-r
+      :gripper
+:head :neck-p
+      :neck-y
+
+(send *hrp4c* :torso :waist-z :joint-angle 100) # :torso(胴体) :waist-z（腰z軸方向）に 100mm 動く
+}}}
