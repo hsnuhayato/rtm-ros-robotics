@@ -49,3 +49,8 @@ $ (objects (list *hrp4c*))
       
 (send *hrp4c* :torso :waist-p :joint-angle 30) # :torso(胴体) :waist-p（前後方向）に 30deg 動く
 }}}
+
+ビューワにロボットを表示するのは
+{{{
+(objects (list *hrp4c*))
+}}}
