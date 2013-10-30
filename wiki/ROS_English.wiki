@@ -283,7 +283,7 @@ to  see the robot is moving.
 If you want to add optional environments and object models, 
 please generate Project File (XXX.xml). 
 {{{
- rtmtest -t hrpsys _gen_project.launch INPUT:=`rospack find openhrp3`/share/OpenHRP-3.1/sample/model/sample1.wrl OUTPUT:=`rospack find hrpsys_ros_bridge_tutorials`/models/SampleRobot.xml OBJECT_MODELS:="`rospack find openhrp3`/share/OpenHRP-3.1/sample/model/longfloor.wrl `rospack find openhrp3`/share/OpenHRP-3.1/sample/model/house/table.wrl,-0.3,0.5,0,1,0,0,1.5708"
+ rtmtest -t hrpsys_tools _gen_project.launch INPUT:=`rospack find openhrp3`/share/OpenHRP-3.1/sample/model/sample1.wrl OUTPUT:=`rospack find hrpsys_ros_bridge_tutorials`/models/SampleRobot.xml OBJECT_MODELS:="`rospack find openhrp3`/share/OpenHRP-3.1/sample/model/longfloor.wrl `rospack find openhrp3`/share/OpenHRP-3.1/sample/model/house/table.wrl,-0.3,0.5,0,1,0,0,1.5708"
 }}}
 then, 
 {{{
