@@ -14,7 +14,6 @@ $ (setq *hrp4c* (hrp4))
 (send *hrp4c* limb joint :joint-angle [ angle ]) # 1つの関節を動かす angleの単位系は degree または mm
 ;; limb joint
 :torso :waist-z
-:larm ;; :rarmと同じ
 :rarm :shoulder-p
       :shoulder-r
       :shoulder-y
@@ -23,6 +22,14 @@ $ (setq *hrp4c* (hrp4))
       :wrist-r
       :hand-j0
       :hand-j1
+:larm ;; :rarmと同じ
+:rleg :crotch-y
+      :crotch-r
+      :crotch-p
+      :knee-p
+      :ankle-p
+      :ankle-r
+:lleg ;; :rlegと同じ
 :head :neck-y
       :neck-r
       :neck-p
