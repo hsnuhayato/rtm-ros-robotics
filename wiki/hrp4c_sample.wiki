@@ -55,6 +55,13 @@ $ (objects (list *hrp4c*))
 (objects (list *hrp4c*))
 }}}
 
+ルートリンク(腰リンク)を動かす
+{{{
+(send *hrp4c* :translate (float-vector 0 0 450))
+(send *hrp4c* :rotate (deg2rad 45) :y)
+(send *hrp4c* :newcoords (make-coords :pos (float-vector 0 0 450) :rpy (list 0 (deg2rad 45) 0)))
+}}}
+
 足を地面につける
 {{{
 (send *hrp4c* :fix-leg-to-coords (make-coords) '(:rleg :lleg)) ;; :rlegと:llegのend-coords座標系の中心が(make-coords)(<=原点座標)にあようにする
