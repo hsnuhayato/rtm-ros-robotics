@@ -4,7 +4,7 @@
 
 {{{
 roseus "hrp4c.l"
-$ (hrp4c)
+$ (setq *hrp4c* (hrp4))
 }}}
 
 {{{
