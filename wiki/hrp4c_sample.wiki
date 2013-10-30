@@ -2,12 +2,14 @@
 
 = hrp4cの動かし方 =
 
+== 初期化 ==
 {{{
-roseus "hrp4c.l"
+rosrun roseus roseus "hrp4c.l"
 $ (setq *hrp4c* (hrp4))
 $ (objects (list *hrp4c*))
 }}}
 
+== 関節を動かす方法 ==
 {{{
 (send *hrp4c* :reset-pose)   # reset-pose(初期姿勢）になる
 (send *hrp4c* :angle-vector) # anglve-vector(関節角度列）を返す
