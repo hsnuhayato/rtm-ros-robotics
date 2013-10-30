@@ -45,5 +45,5 @@ $ (objects (list *hrp4c*))
       :lowerlip-p
       :cheek-p
       
-(send *hrp4c* :torso :waist-z :joint-angle 100) # :torso(胴体) :waist-z（腰z軸方向）に 100mm 動く
+(send *hrp4c* :torso :waist-p :joint-angle 100) # :torso(胴体) :waist-p（前後方向）に 100deg 動く
 }}}
