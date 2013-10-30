@@ -5,6 +5,7 @@
 {{{
 roseus "hrp4c.l"
 $ (setq *hrp4c* (hrp4))
+$ (objects (list *hrp4c*))
 }}}
 
 {{{
