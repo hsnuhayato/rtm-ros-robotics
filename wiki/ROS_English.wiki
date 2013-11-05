@@ -17,7 +17,10 @@ Install related ros packages and install `rtm-ros-robotics` software
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Install_via_debian_binary_%28RECOMMENDED%29 Install_via_debian_binary]
 === Install_from_source ===
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Install_from_source Install_from_source]
-
+=== Install_from_source+jsk euslisp softwares ===
+Instead of executing 
+[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en?ts=1383693227&updated=hironx_ros_bridge_en#Source_build_by_rosbuild_%28rosmake%29 rosbuild install], 
+please execute
 {{{
 wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?format=raw' -O /tmp/jsk.rosbuild
 yes | bash /tmp/jsk.rosbuild fuerte
