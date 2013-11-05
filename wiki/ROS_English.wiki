@@ -9,16 +9,16 @@ Latest installation is here
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en hironx_ros_bridge_en]
 , and see
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Motivation Motivation]
-and [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Pre-requisite Pre-requisite]
+and [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Pre-requisite Pre-requisite(including ROS installation)]
 
 == Install source code ==
-#Install ROS by following [http://www.ros.org/wiki/fuerte/Installation/Ubuntu], 
+Install ROS by following [http://www.ros.org/wiki/fuerte/Installation/Ubuntu], 
 
-#install related ros packages and install `rtm-ros-robotics` software
+install related ros packages and install `rtm-ros-robotics` software
 
 {{{
 wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?format=raw' -O /tmp/jsk.rosbuild
-yes | bash /tmp/jsk.rosbuild
+yes | bash /tmp/jsk.rosbuild fuerte
 cd ~/ros/fuerte
 source setup.bash
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
