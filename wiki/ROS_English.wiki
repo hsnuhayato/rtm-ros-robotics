@@ -23,8 +23,8 @@ Instead of executing
 please execute
 {{{
 wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?format=raw' -O /tmp/jsk.rosbuild
-yes | bash /tmp/jsk.rosbuild fuerte
-cd ~/ros/fuerte
+yes | bash /tmp/jsk.rosbuild %YOUR_ROS_DISTRO%
+cd ~/ros/%YOUR_ROS_DISTRO%
 source setup.bash
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
 rosws update
@@ -32,7 +32,7 @@ rosws update
 
 For update installed packages 
 {{{
-cd ~/ros/fuerte
+cd ~/ros/%YOUR_ROS_DISTRO%
 rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
 rosws update
 }}}
@@ -41,12 +41,11 @@ Note: If you are a committer, you should use 'http://rtm-ros-robotics.googlecode
 
 Load environment variables used for ROS system
 {{{
-source ~/ros/fuerte/setup.bash
+source ~/ros/%YOUR_ROS_DISTRO%/setup.bash
 }}}
 Add this line to your ~/.bashrc
 
-== Build source code ==
-build source code and install related packages
+To build source code and install related packages
 {{{
 $ rosdep install hrpsys_ros_bridge_tutorials
 $ rosmake hrpsys_ros_bridge_tutorials
