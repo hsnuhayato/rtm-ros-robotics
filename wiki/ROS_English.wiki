@@ -41,9 +41,6 @@ source ~/ros/fuerte/setup.bash
 Add this line to your ~/.bashrc
 
 == Build source code ==
-Latest information about installation here
-[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en?ts=1381211065&updated=hironx_ros_bridge_en]
-
 build source code and install related packages
 {{{
 $ rosdep install hrpsys_ros_bridge_tutorials
@@ -74,15 +71,6 @@ If the problem persists, install fonts:
 sudo apt-get install -y gsfonts-x11 texlive-fonts-extra xfonts-100dpi xfonts-75dpi xfonts-100dpi-transcoded xfonts-75dpi-transcoded
 }}}
 
-
-== Setup Eclipse ==
-type
-{{{
-$ rosrun openhrp3 install-eclipse-plugins.sh
-}}}
-and wait for several minutes.
-
-Note: You must comment out the line "::1 localhost" in /etc/hosts to run following simulations.
 
 = Example =
 == OpenHRP3 Simulation ===
@@ -399,3 +387,12 @@ $ sudo apt-get install sun-java6-plugin sun-java6-jre sun-java6-bin sun-java6-jd
 $ sudo update-java-alternatives -s java-6-sun 
 ## reference: http://www.gaggl.com/2012/04/installing-java6-jdk-on-ubuntu-12-04/
 }}}  
+
+== Setup Eclipse ==
+type
+{{{
+$ rosrun openhrp3 install-eclipse-plugins.sh
+}}}
+and wait for several minutes.
+
+Note: You must comment out the line "::1 localhost" in /etc/hosts to run following simulations.
