@@ -17,27 +17,30 @@ Install related ros packages and install `rtm-ros-robotics` software
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Install_via_debian_binary_%28RECOMMENDED%29 Install_via_debian_binary]
 === Install_from_source ===
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Install_from_source Install_from_source]
-=== Install_from_source+jsk euslisp softwares ===
-Instead of executing 
+=== Install_from_source+jsk euslisp software ===
+If you want to use 
+rtm-ros-robotics software and euslisp software (jsk-ros-pkg), 
+instead of executing 
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en?ts=1383693227&updated=hironx_ros_bridge_en#Source_build_by_rosbuild_%28rosmake%29 rosbuild install], 
-please execute
+please execute these command. 
+(Please replace %YOUR_ROS_DISTRO% -> fuerte, groovy, ...)
 {{{
 wget 'https://sourceforge.net/p/jsk-ros-pkg/code/HEAD/tree/trunk/jsk.rosbuild?format=raw' -O /tmp/jsk.rosbuild
 yes | bash /tmp/jsk.rosbuild %YOUR_ROS_DISTRO%
 cd ~/ros/%YOUR_ROS_DISTRO%
 source setup.bash
-rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
+rosws merge https://rtm-ros-robotics.googlecode.com/svn/trunk/rtm-ros-robotics.rosinstall
+#rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
 rosws update
 }}}
 
 For update installed packages 
 {{{
 cd ~/ros/%YOUR_ROS_DISTRO%
-rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
+rosws merge https://rtm-ros-robotics.googlecode.com/svn/trunk/rtm-ros-robotics.rosinstall
+#rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall -ry
 rosws update
 }}}
-
-Note: If you are a committer, you should use 'http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall' instead of 'http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall'.
 
 Load environment variables used for ROS system
 {{{
