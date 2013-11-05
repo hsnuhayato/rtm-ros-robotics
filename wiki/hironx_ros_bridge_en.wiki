@@ -80,7 +80,7 @@ $ sudo apt-get dist-upgrade
 
 This will install newer version of what's already installed if available. 
 
-== Insall from source ==
+== Install from source ==
 Create directory.
 
 {{{
