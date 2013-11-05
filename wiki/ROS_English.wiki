@@ -6,11 +6,11 @@
 
 == Before installation ==
 Latest installation is here
-[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en]
+[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en hironx_ros_bridge_en]
 , and see
-[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Motivation]
+[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Motivation Motivation]
 
-[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Pre-requisite]
+[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Pre-requisite Pre-requisite]
 
 == Install source code ==
 Install ROS by following [http://www.ros.org/wiki/fuerte/Installation/Ubuntu], 
