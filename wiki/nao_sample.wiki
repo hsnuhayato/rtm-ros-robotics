@@ -120,3 +120,8 @@ roslaunch nao_remote nao_remote.launch
 # 別ターミナルで
 rosrun rviz rviz
 }}}
+
+== cameraを使用 ==
+{{{
+rosrun nao_driver nao_camera.py --pip=NAOのIP --pport=9559
+}}}
