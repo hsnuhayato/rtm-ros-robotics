@@ -35,36 +35,20 @@ $ (objects (list *nao*))
       
 (send *nao* :head :neck-p :joint-angle 30) # :head(頭) :neck-p（前後方向）に 30deg 傾く
 
-(send *hrp4c* :angle-vector 
-   #f(0.0 0.0 -13.953 28.142 -14.189 0.0 0.0 0.0 -13.953 28.142 -14.189 0.0
-      0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
-      -12.976 -3.655 -0.68 -29.746 0.0 0.0 0.0 0.0 12.976 3.655 0.68 -29.746 0.0 0.0 0.0))
-#すべての関節のパラメータを１度に制御する
-#angle-vectorのパラメータの順序は(pprint (send-all (send *hrp4* :joint-list) :name))で確認できる
-}}}
+(send *nao* :angle-vector 
+#f(110.0 10.0 -90.0 -40.0 0.0 110.0 -10.0 90.0 40.0 0.0 0.0 0.0 -30.0 60.0 -30.0 0.0 0.0 0.0 -30.0 60.0 -30.0 0.0 0.0 0.0))
 
-ルートリンク(腰リンク)を動かす
-{{{
-(send *hrp4c* :translate (float-vector 0 0 450))
-(send *hrp4c* :rotate (deg2rad 45) :y)
-(send *hrp4c* :newcoords (make-coords :pos (float-vector 0 0 450) :rpy (list 0 (deg2rad 45) 0)))
+#すべての関節のパラメータを１度に制御する
+#angle-vectorのパラメータの順序は(pprint (send-all (send *nao* :joint-list) :name))で確認できる
 }}}
 
 
 == 足を地面につける ==
 {{{
-(send *hrp4c* :fix-leg-to-coords (make-coords) '(:rleg :lleg)) # :rlegと:llegのend-coords座標系の中心が(make-coords)(<=原点座標)にあうようにする
+(send *nao* :fix-leg-to-coords (make-coords) '(:rleg :lleg)) # :rlegと:llegのend-coords座標系の中心が(make-coords)(<=原点座標)にあうようにする
 }}}
 
 == ビューワにロボットを表示する ==
 {{{
-(objects (list *hrp4c*))
-}}}
-
-== シミュレーターを起動する ==
-{{{
-roseusを立ち上げた後
-irteusgl$ (load "package://pr2eus/robot-interface.l")
-irteusgl$ (setq *ri* (instance robot-interface :init :robot *hrp4c*))
-irteusgl$ (send *ri* :angle-vector (send *hrp4* :angle-vector) 10000)
+(objects (list *nao*))
 }}}
