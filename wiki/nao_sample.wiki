@@ -104,3 +104,16 @@ $ (objects (list *nao*))
 	 :centroid-thre 20)))
 
 }}}
+
+= Nao Ros =
+== nao_driver ==
+{{{
+roslaunch nao_driver nao_driver.launch nao_ip:=NaoのIP
+}}}
+
+== rviz に表示 ==
+{{{
+roslaunch nao_remote nao_remote.launch
+# 別ターミナルで
+rosrun rviz rviz
+}}}
