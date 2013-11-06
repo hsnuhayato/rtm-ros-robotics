@@ -81,5 +81,5 @@ $ (objects (list *hrp4c*))
 roseusを立ち上げた後
 irteusgl$ (load "package://pr2eus/robot-interface.l")
 irteusgl$ (setq *ri* (instance robot-interface :init :robot *hrp4c*))
-irteusgl$ (send *ri* :angle-vector (send *hrp4* :angle-vector) 10000)
+irteusgl$ (send *ri* :angle-vector (send *hrp4* :angle-vector) 10000) #10000msで動かす
 }}}
