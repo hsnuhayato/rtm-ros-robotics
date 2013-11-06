@@ -6,7 +6,7 @@
 {{{
 rosrun roseus roseus "nao-interface.l"
 $ (setq *nao* (nao))
-$ (setq *ni* (instance nao-interface :init)
+$ (setq *ni* (instance nao-interface :init))
 $ (objects (list *nao*))
 }}}
 
