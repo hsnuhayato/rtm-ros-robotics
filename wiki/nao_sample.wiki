@@ -52,3 +52,18 @@ $ (objects (list *nao*))
 {{{
 (objects (list *nao*))
 }}}
+
+== 重心位置の変更 ==
+{{{
+(send *nao* :fix-leg-to-coords (make-coords) '(:rleg :lleg))
+
+(send *nao* :move-centroid-on-foot :both '(:rleg :lleg)
+      :target-centroid-pos (send *nao* :lleg :end-coords :worldpos)) #重心位置を左足に移す
+(send *ni* :angle-vector (send *nao* :angle-vector) 2000)
+(send *ni* :wait-interpolation)
+
+(send *nao* :rleg :move-end-pos #f(0 0 50)) #右足を50mm上に動かす
+(send *ni* :angle-vector (send *nao* :angle-vector) 2000)
+(send *ni* :wait-interpolation)
+
+}}}
