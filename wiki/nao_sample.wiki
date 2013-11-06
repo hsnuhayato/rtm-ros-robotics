@@ -106,6 +106,9 @@ $ (objects (list *nao*))
 }}}
 
 = Nao Ros =
+ROSwiki
+http://wiki.ros.org/nao_driver
+
 == nao_driver ==
 {{{
 roslaunch nao_driver nao_driver.launch nao_ip:=NaoのIP
