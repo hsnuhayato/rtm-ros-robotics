@@ -68,6 +68,20 @@ $ (objects (list *nao*))
 
 }}}
 
+
+== InverseKinematics ==
+{{{
+(send *nao* :rarm :inverse-kinematics 
+      (send  (send (send *nao* :rarm :end-coords) :copy-worldcoords) :translate (float-vector 100 0 100) :world)
+      :revert-if-fail nil
+      :look-at-target t
+      :rotation-axis nil
+      :debug-view nil
+      )
+(send *ni* :angle-vector (send *nao* :angle-vector) 2000)
+(send *ni* :wait-interpolation)
+}}}
+
 == Fullbody-IK ==
 {{{
 (send *nao* :fix-leg-to-coords (make-coords) '(:rleg :lleg))
