@@ -67,3 +67,26 @@ $ (objects (list *nao*))
 (send *ni* :wait-interpolation)
 
 }}}
+
+== Fullbody-IK ==
+{{{
+(send *nao* :fix-leg-to-coords (make-coords) '(:rleg :lleg))
+(let* ((tc (list nil
+		 (send (send *nao* :lleg :end-coords :copy-worldcoords) :translate #f(0 0 25) :world)
+		 nil
+		 nil)))
+  (with-move-target-link-list
+   (mt ll *nao* '(:rleg :lleg :rarm :larm))
+   (send *nao* :fullbody-inverse-kinematics
+	 (mapcar #'(lambda (c m) (if c c (send m :copy-worldcoords))) tc mt)
+	 :link-list ll :move-target mt
+	 :collision-avoidance-link-pair nil
+	 :revert-if-fail nil    :stop 1000
+	 :translation-axis '(t t nil nil)
+	 :rotation-axis '(t :z t t)
+	 :thre '(5 5 10 10)
+	 :rthre (list (deg2rad 2) (deg2rad 2) (deg2rad 2) (deg2rad 2))
+	 :target-centroid-pos (send (send *nao* :rleg :end-coords :copy-worldcoords) :worldpos)
+	 :centroid-thre 20)))
+
+}}}
