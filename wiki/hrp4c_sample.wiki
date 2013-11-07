@@ -76,7 +76,8 @@ $ (objects (list *hrp4c*))
 
 == 足を地面につける ==
 {{{
-(send *hrp4c* :fix-leg-to-coords (make-coords) '(:rleg :lleg)) # :rlegと:llegのend-coords座標系の中心が(make-coords)(<=原点座標)にあうようにする
+(send *hrp4c* :fix-leg-to-coords (make-coords) '(:rleg :lleg)) 
+# :rlegと:llegのend-coords座標系の中心が(make-coords)(<=原点座標)にあうようにする
 }}}
 
 
