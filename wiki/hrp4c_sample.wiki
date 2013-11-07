@@ -15,7 +15,7 @@ $ (objects (list *hrp4c*))
 (send *hrp4c* :angle-vector) # anglve-vector(関節角度列）を返す
 
 (send *hrp4c* limb joint :joint-angle [ angle ]) # 1つの関節を動かす angleの単位系は degree または mm
-;; limb joint
+;; :limb  joint
 :torso :waist-p
        :waist-r
        :waist-y
@@ -65,11 +65,21 @@ $ (objects (list *hrp4c*))
 (send *hrp4c* :newcoords (make-coords :pos (float-vector 0 0 450) :rpy (list 0 (deg2rad 45) 0)))
 }}}
 
+逆運動学
+{{{
+(send *hrp4c* :limb :inverse-kinematics [coordinate]) #limbをcoordinate座標に持っていく
+#coordinateの後ろに :debug-view とするとデバッグに利用できる
+
+
+}}}
+
 
 == 足を地面につける ==
 {{{
 (send *hrp4c* :fix-leg-to-coords (make-coords) '(:rleg :lleg)) # :rlegと:llegのend-coords座標系の中心が(make-coords)(<=原点座標)にあうようにする
 }}}
+
+
 
 == ビューワにロボットを表示する ==
 {{{
