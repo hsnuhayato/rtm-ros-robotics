@@ -46,6 +46,8 @@
  * [euslisp_ros_sample ROS + euslispのサンプルプログラム]
   * [pr2eus_sample PR2 euslispのサンプルプログラム ]
   * [roseus_sample roseus を使ったサンプル]
+  * [hrp4c_sample HRP4C euslispのサンプルプログラム]
+  * [nao_sample NAO euslispのサンプルプログラム]
   * [pr2_gazebo_sample gazeboを使った認識行動サンプル]
  * [PCL PCLを使う]
   * [PCL_Install PCLの導入]
