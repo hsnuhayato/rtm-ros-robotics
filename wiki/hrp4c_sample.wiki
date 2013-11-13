@@ -73,6 +73,12 @@ $ (objects (list *hrp4c*))
 
 }}}
 
+他のロボットも含めて、関節の対応は
+{{{
+roscd hrpsys_ros_bridge_tutorials/models
+*.yaml
+}}}
+の中に書いてあります。
 
 == 足を地面につける ==
 {{{
