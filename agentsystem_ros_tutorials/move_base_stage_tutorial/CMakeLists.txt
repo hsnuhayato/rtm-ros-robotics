@@ -7,7 +7,7 @@ if(NOT USE_ROSBUILD)
 
   catkin_package()
 
-  install(DIRECTORY script
+  install(DIRECTORY scripts
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
     USE_SOURCE_PERMISSIONS
     PATTERN ".svn" EXCLUDE)
