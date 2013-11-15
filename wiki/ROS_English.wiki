@@ -79,6 +79,7 @@ sudo apt-get install -y gsfonts-x11 texlive-fonts-extra xfonts-100dpi xfonts-75d
 
 = Example =
 == OpenHRP3 Simulation ===
+[http://code.google.com/p/rtm-ros-robotics/wiki/ROS_English?ts=1384477600&updated=ROS_English#deprecate_or_currently_not-working_examples OpenHRP3 simulation (but currently not working...)]
 
 == hrpsys Simulation ==
 
