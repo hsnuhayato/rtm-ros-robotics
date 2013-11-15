@@ -1,9 +1,0 @@
-module Hello
-{
-    interface World
-    {
-        string hello();
-    };
-};
-
-
