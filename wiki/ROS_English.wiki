@@ -83,7 +83,7 @@ sudo apt-get install -y gsfonts-x11 texlive-fonts-extra xfonts-100dpi xfonts-75d
 === Falling Boxes ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/faling-boxes.launch faling-boxes.launch])
 {{{
-roslaunch openhrp3 falling-box.launch
+rtmlaunch openhrp3_tutorials falling-box.launch
 }}}
 press `Start Simulation` button 
 
@@ -92,7 +92,7 @@ press `Start Simulation` button
 === PA10 ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/pa10.launch pa10.launch])
 {{{
-roslaunch openhrp3 pa10.launch
+rtmlaunch openhrp3_tutorials pa10.launch
 }}}
 press `Start Simulation` button 
 
@@ -101,7 +101,7 @@ press `Start Simulation` button
 === Sample Vehicle ===
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/sample-vehicle.launch sample-vehicle.launch])
 {{{
-roslaunch openhrp3 sample-vehicle.launch
+rtmlaunch openhrp3_tutorials sample-vehicle.launch
 }}}
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleSV_RangeSensor.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleSV_RangeSensor.png]
@@ -112,7 +112,7 @@ roslaunch openhrp3 sample-vehicle.launch
 Launch following launch script and press `Start Simulation` button 
 
 {{{
-roslaunch openhrp3 samplerobot-walk.launch
+rtmlaunch openhrp3_tutorials samplerobot-walk.launch
 }}}
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SamplePD.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SamplePD.png]
@@ -120,14 +120,14 @@ roslaunch openhrp3 samplerobot-walk.launch
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-pickupbox.launch samplerobot-pickupbox.launch]) 
 
 {{{
-roslaunch openhrp3 samplerobot-pickupbox.launch
+rtmlaunch openhrp3_tutorials samplerobot-pickupbox.launch
 }}}
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleLF.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleLF.png]
 
 ([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-inhouse.launch samplerobot-inhouse.launch])
 
 {{{
-roslaunch openhrp3 samplerobot-inhouse.launch
+rtmlaunch openhrp3_tutorials samplerobot-inhouse.launch
 }}}
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleRobot_inHouse.png http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleRobot_inHouse.mp4]
