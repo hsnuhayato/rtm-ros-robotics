@@ -148,19 +148,35 @@ If you do not need dynamics simulation, start `samplerobot_nosim.launch`:
 rtmlaunch hrpsys_ros_bridge_tutorials samplerobot_nosim.launch
 }}}
 * keyboard interactive teleop example
+Execute simulation + ros bridge
 {{{
 rtmlaunch hrpsys_ros_bridge_tutorials samplerobot.launch LAUNCH_TELEOP:=true
 }}}
-and if you see "teleop_pr2_keyboard" terminal, 
-Then type
+In the other terminal, invoke euslisp process
 {{{
 # walking pattern generation example using euslisp
 roscd hrpsys_ros_bridge_tutorials/euslisp/
 rosrun roseus roseus samplerobot-walk.l
-(samplerobot-walk) ;; on euslisp prompt, setting target pos+rot example
-(samplerobot-walk2) ;; on euslisp prompt, keyboard teleop sample
 }}}
+==== example1 ====
+In euslisp terminal, please execute
+{{{
+(samplerobot-walk) ;; on euslisp prompt, setting target pos+rot example
+}}}
+, and you'll see robot walks forward and turns.
+==== example2 ====
+In euslisp terminal, please execute
+{{{
+(samplerobot-walk2) ;; on euslisp prompt, keyboard teleop sample
+and if you see "teleop_pr2_keyboard" terminal, 
+}}}
+, and the robot start to step. 
+Then type keyboard on "teleop_pr2_keyboard" terminal
+{{{
+"WASD" to translational walking
+"QE" to rotational walking
 
+}}}
 
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/samplerobot_rviz.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/samplerobot_rviz.png]
