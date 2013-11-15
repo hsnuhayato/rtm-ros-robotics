@@ -76,8 +76,9 @@ If the problem persists, install fonts:
 sudo apt-get install -y gsfonts-x11 texlive-fonts-extra xfonts-100dpi xfonts-75dpi xfonts-100dpi-transcoded xfonts-75dpi-transcoded
 }}}
 
-== a ==
-[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Usage Usage]
+== After Installation ==
+Please execute commands and write bashrc setting written
+[https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Usage Usage] page.
 
 = Example =
 == OpenHRP3 Simulation ===
