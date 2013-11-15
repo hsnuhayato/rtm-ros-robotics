@@ -88,8 +88,10 @@ sudo apt-get install -y gsfonts-x11 texlive-fonts-extra xfonts-100dpi xfonts-75d
 {{{
 rtmlaunch hrpsys_tutorials pa10.launch
 }}}
+<wiki:comment>
 press `Start Simulation` button,
 then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/PA10; rosrun hrpsys hrpsyspy ./PA10.py`
+</wiki:comment>
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/PA10.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/PA10.png]
 
@@ -99,8 +101,10 @@ then press `execute script file` or `roscd hrpsys/share/hrpsys/samples/PA10; ros
 {{{
 roslaunch hrpsys hrp4c.launch
 }}}
+<wiki:comment>
 press `Start Simulation` button,
 then press `execute script file` or command `roscd hrpsys/share/hrpsys/samples/HRP-4C; rosrun hrpsys hrpsyspy ./HRP4C.py` in new terminal
+</wiki:comment>
 
 If failed to load HRP-4C model, rosmake hrpsys_ros_bridge again.
 
@@ -111,6 +115,7 @@ If failed to load HRP-4C model, rosmake hrpsys_ros_bridge again.
 {{{
 rtmlaunch hrpsys_tutorials samplerobot.launch
 }}}
+<wiki:comment>
 press `Start Simulation` button,
 then press `execute script file` or type
 {{{
@@ -121,7 +126,7 @@ to start controller, then
 rosrun hrpsys SampleRobot_walk.sh
 }}}
 to start walking.
-
+</wiki:comment>
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/SampleRobot.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys-example/_images/SampleRobot.png]
 
 == RTM/ROS Integration ===
