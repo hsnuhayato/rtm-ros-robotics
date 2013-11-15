@@ -11,11 +11,12 @@ Latest installation is here
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Motivation Motivation]
 and [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Pre-requisite Pre-requisite (including ROS installation)]
 
-== Install_via_debian_binary (rtm-ros-robotics) ==
+== Installation ==
+=== Install_via_debian_binary (rtm-ros-robotics) ===
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Install_via_debian_binary_%28RECOMMENDED%29 Install_via_debian_binary]
-== Install_from_source (rtm-ros-robotics) ==
+=== Install_from_source (rtm-ros-robotics) ===
 [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge_en#Install_from_source Install_from_source]
-== Install_from_source (rtm-ros-robotics + jsk-ros-pkg) ==
+=== Install_from_source (rtm-ros-robotics + jsk-ros-pkg) ===
 If you want to use 
 rtm-ros-robotics software and jsk-ros-pkg software (including Euslisp and roseus), 
 instead of executing 
