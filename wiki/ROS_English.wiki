@@ -158,13 +158,18 @@ In the other terminal, invoke euslisp process
 roscd hrpsys_ros_bridge_tutorials/euslisp/
 rosrun roseus roseus samplerobot-walk.l
 }}}
-==== example1 ====
+, and then try following "example1" or "example2". 
+
+- example1
+
 In euslisp terminal, please execute
 {{{
 (samplerobot-walk) ;; on euslisp prompt, setting target pos+rot example
 }}}
 , and you'll see robot walks forward and turns.
-==== example2 ====
+
+- example2
+
 In euslisp terminal, please execute
 {{{
 (samplerobot-walk2) ;; on euslisp prompt, keyboard teleop sample
