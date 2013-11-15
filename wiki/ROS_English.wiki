@@ -80,60 +80,6 @@ sudo apt-get install -y gsfonts-x11 texlive-fonts-extra xfonts-100dpi xfonts-75d
 = Example =
 == OpenHRP3 Simulation ===
 
-=== Falling Boxes ===
-([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/faling-boxes.launch faling-boxes.launch])
-{{{
-rtmlaunch openhrp3_tutorials falling-box.launch
-}}}
-press `Start Simulation` button 
-
-[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.png]
-
-=== PA10 ===
-([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/pa10.launch pa10.launch])
-{{{
-rtmlaunch openhrp3_tutorials pa10.launch
-}}}
-press `Start Simulation` button 
-
-[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.png]
-
-=== Sample Vehicle ===
-([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/sample-vehicle.launch sample-vehicle.launch])
-{{{
-rtmlaunch openhrp3_tutorials sample-vehicle.launch
-}}}
-
-[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleSV_RangeSensor.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleSV_RangeSensor.png]
-
-=== Sample Humanoid Robot ===
-([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-walk.launch samplerobot-walk.launch]) 
-
-Launch following launch script and press `Start Simulation` button 
-
-{{{
-rtmlaunch openhrp3_tutorials samplerobot-walk.launch
-}}}
-
-[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SamplePD.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SamplePD.png]
-
-([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-pickupbox.launch samplerobot-pickupbox.launch]) 
-
-{{{
-rtmlaunch openhrp3_tutorials samplerobot-pickupbox.launch
-}}}
-[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleLF.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleLF.png]
-
-([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-inhouse.launch samplerobot-inhouse.launch])
-
-{{{
-rtmlaunch openhrp3_tutorials samplerobot-inhouse.launch
-}}}
-
-[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleRobot_inHouse.png http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleRobot_inHouse.mp4]
-
-Change FPS from 50 to 1-10 to speed up simulation.
-
 == hrpsys Simulation ==
 
 === PA10 ===
@@ -401,3 +347,60 @@ $ rosrun openhrp3 install-eclipse-plugins.sh
 and wait for several minutes.
 
 Note: You must comment out the line "::1 localhost" in /etc/hosts to run following simulations.
+
+
+== deprecate or currently not-working examples ==
+
+=== Falling Boxes ===
+([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/faling-boxes.launch faling-boxes.launch])
+{{{
+rtmlaunch openhrp3_tutorials falling-box.launch
+}}}
+press `Start Simulation` button 
+
+[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/FallingBoxes.png]
+
+=== PA10 ===
+([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/pa10.launch pa10.launch])
+{{{
+rtmlaunch openhrp3_tutorials pa10.launch
+}}}
+press `Start Simulation` button 
+
+[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/PA10Sample.png]
+
+=== Sample Vehicle ===
+([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/sample-vehicle.launch sample-vehicle.launch])
+{{{
+rtmlaunch openhrp3_tutorials sample-vehicle.launch
+}}}
+
+[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleSV_RangeSensor.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleSV_RangeSensor.png]
+
+=== Sample Humanoid Robot ===
+([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-walk.launch samplerobot-walk.launch]) 
+
+Launch following launch script and press `Start Simulation` button 
+
+{{{
+rtmlaunch openhrp3_tutorials samplerobot-walk.launch
+}}}
+
+[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SamplePD.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SamplePD.png]
+
+([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-pickupbox.launch samplerobot-pickupbox.launch]) 
+
+{{{
+rtmlaunch openhrp3_tutorials samplerobot-pickupbox.launch
+}}}
+[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleLF.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleLF.png]
+
+([http://code.google.com/p/rtm-ros-robotics/source/browse/tags/latest/rtmros_common/openhrp3/launch/samplerobot-inhouse.launch samplerobot-inhouse.launch])
+
+{{{
+rtmlaunch openhrp3_tutorials samplerobot-inhouse.launch
+}}}
+
+[http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleRobot_inHouse.png http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/openhrp3-example/_images/SampleRobot_inHouse.mp4]
+
+Change FPS from 50 to 1-10 to speed up simulation.
