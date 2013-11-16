@@ -8,7 +8,7 @@ This page is English translation of [https://code.google.com/p/rtm-ros-robotics/
 = Motivation =
 [http://wiki.ros.org/rtmros_hironx?distro=groovy hironx] (ROS-RTM based controller software suite for [http://nextage.kawada.jp/en/hiro/ Hiro]) is now [http://www.ros.org/wiki/catkin/migrating_from_rosbuild#Overview catkinized] but still compatible with ROS' old building style called rosbuild (or its command line interface `rosmake`). Let's call it `hybrid` package. This page discusses installation of hybrid version both using rosbuild and catkin. Also and the most recommended, binary of the whole software of hiro is now available for Ubuntu.
 
-Because installation from source may not go as smooth as it should be, you're advised to use `.deb` binary version that's built using catkin if you're on Ubuntu unless you use ROS fuerte (where catkin may not be fully functional) or have certain reasons to build from source.
+Because installation from source may not go as smooth as it should be, you're advised to use `.deb` binary version that's built using `catkin` if you're on Ubuntu unless you use ROS fuerte (where catkin is not fully functional) or have certain reasons to build from source.
 
 = Pre-requisite =
 - It's assumed that you finished:
@@ -81,6 +81,8 @@ $ sudo apt-get dist-upgrade
 This will install newer version of what's already installed if available. 
 
 == Install from source ==
+NOTE: Once again, you're encouraged to use binary for many reasons unless you have specific reasons to build from source.
+
 Create directory.
 
 {{{
@@ -146,6 +148,8 @@ Packages that are reported to cause error: hrpsys_ros_bridge, hironx_moveit_conf
 To vefify that it runs, go on to next section to run simulator.
 
 === Source build by Catkin ===
+*NOTE*: Many times again, you're encouraged to use binary for many reasons unless you have specific reasons to build from source.
+
 First obtain source. In `src` folder,
 {{{
 $ wstool init
@@ -164,6 +168,8 @@ $ cd ..     (moving back to catkin_ws)
 $ rosdep install --from-paths src --ignore-src --rosdistro groovy -y -r
 }}}
 This will look at all of the packages in the `src` directory and find all of the dependencies they have. Then it will recursively install the dependencies, without stopping at any errors that may or may not occur.
+
+*NOTE*: it's known that the above command using `rosdep` doesn't install all dependency for wet packages (ie. packages that are built using `catkin`) due to the spec of current `rosdep` (Oct 2013, [http://answers.ros.org/question/99756/rosdep-install-ignores-a-package-thats-actually-missing Related thread]). gm130s is writing a patch for it.
 
 Now you're ready to start building:
 {{{
