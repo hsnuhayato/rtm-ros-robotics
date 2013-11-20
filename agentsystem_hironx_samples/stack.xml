@@ -1,8 +1,0 @@
-<stack>
-  <description brief="rtmros_common">Common Packages for HIRO-NX samples</description>
-  <author>Ryo Hanai</author>
-  <license>BSD</license>  
-  <review status="unreviewed" notes=""/>
-  <depend stack="ros" />
-
-</stack>
