@@ -73,6 +73,13 @@ $ (objects (list *hrp4c*))
 
 }}}
 
+２足ロボットで、重心をうごかしてバランスをとる
+{{{
+(send *hrp4c* :move-centroid-on-foot :both '(:rleg :lleg)) ;; 両足の中央に重心がくるようにする
+(send *hrp4c* :move-centroid-on-foot :lleg '(:rleg :lleg)) ;; 左足の上に重心がくるようにする
+(send *hrp4c* :move-centroid-on-foot :lleg '(:rleg :lleg) :mid 0.3) ;; 上のコマンドよりもう少し細かく重心の位置を調節する
+}}}
+
 他のロボットも含めて、関節の対応は
 {{{
 roscd hrpsys_ros_bridge_tutorials/models
