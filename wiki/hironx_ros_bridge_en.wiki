@@ -52,16 +52,17 @@ This way, binaries that are already built but have not yet been officially relea
 
 === Download and install binary by a single command ===
 {{{
-$ apt-get install ros-%YOUR_ROS_DISTRO%-rtmros-hironx
-$ apt-get install ros-groovy-rtmros-hironx     (for example)
+$ apt-get install ros-%YOUR_ROS_DISTRO%-rtmros-hironx ros-%YOUR_ROS_DISTRO%-rtshell-core
+
+$ apt-get install ros-groovy-rtmros-hironx ros-groovy-rtshell-core
+     (for example)
 }}}
 
 This will install all missing dependency including:
- * ros-groovy-openrtm_aist_core
+ * ros-groovy-openrtm-aist-core
  * ros-groovy-openhrp3
  * ros-groovy-hrpsys
- * ros-groovy-rtshell_core
- * ros-groovy-rtmros_common
+ * ros-groovy-rtmros-common
 
 Additionally you may have to install:
 
@@ -207,7 +208,8 @@ Config the envinronment for rtm things.
 $ source `rospack find openrtm_tools`/scripts/rtshell-setup.sh
 }}}
 
-    The above command includes setting `PYTHONPATH` for [http://wiki.ros.org/rtshell rtshell], creating an alias to run a script more easily like this:
+    The above command includes setting `PYTHONPATH` for [http://wiki.ros.org/rtshell rtshell], creating aliases to more easily run `rtm` tools:
+
     {{{
     $ alias rtmlaunch='`rospack find hrpsys_ros_bridge`/scripts/rtmlaunch'
     $ alias rtmtest='`rospack find hrpsys_ros_bridge`/scripts/rtmtest'
