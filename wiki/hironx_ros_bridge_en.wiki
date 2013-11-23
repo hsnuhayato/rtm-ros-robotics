@@ -52,8 +52,8 @@ This way, binaries that are already built but have not yet been officially relea
 
 === Download and install binary by a single command ===
 {{{
-$ apt-get install ros-%YOUR_ROS_DISTRO%-rtmros_hironx
-$ apt-get install ros-groovy-rtmros_hironx     (for example)
+$ apt-get install ros-%YOUR_ROS_DISTRO%-rtmros-hironx
+$ apt-get install ros-groovy-rtmros-hironx     (for example)
 }}}
 
 This will install all missing dependency including:
