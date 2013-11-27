@@ -25,9 +25,9 @@ svn co https://rtm-ros-robotics.googlecode.com/svn/tags/fuerte-3.1.4-20130727 rt
 
 {{{
 roscd rtmros_common/../../; mv rtm-ros-robotics/rtmros_common rtm-ros-robotics/rtmros_common.bak
-# (開発者の人はtags/latestをtrunkに変更して下さい）
-# rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
-rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
+# (tag/latestバージョンを使う人はtrunkをtags/latestに変更して下さい）
+# rosws merge http://rtm-ros-robotics.googlecode.com/svn/tags/latest/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
+rosws merge http://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials/rtm-ros-robotics.rosinstall  
 rosws update
 }}}
 とクリーンチェックアウトして
