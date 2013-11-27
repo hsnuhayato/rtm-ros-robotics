@@ -1,3 +1,2 @@
 #summary One-sentence summary of this page.
-#labels Featured
 rmt-ros software installation on QNX is described [http://wiki.ros.org/rtmros_hironx/Tutorials/Install%20rtmros-based%20software%20on%20QNX here].
