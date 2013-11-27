@@ -1,5 +1,6 @@
 #summary One-sentence summary of this page.
 #labels Phase-Support
+<g:plusone size="medium"></g:plusone>
 
 This page is English translation of [https://code.google.com/p/rtm-ros-robotics/wiki/hironx_ros_bridge this page in Japanese]. In case this page (the one you're on) looks outdated, please consult the original Japanese page or ask in [https://groups.google.com/forum/#!forum/rtm-ros-robotics the mailing list]; these 2 pages are NOT guaranteed to be synchronized.
 
