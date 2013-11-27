@@ -319,7 +319,7 @@ Refer to [http://moveit.ros.org/wiki/PR2/Rviz_Plugin/Quick_Start plugin usage pa
 Note: [http://wiki.ros.org/interactive_markers Interactive Markers] have not really been implemented with `Hiro`. Patch from YOU is welcomed :).
 
 == Programming example ==
-=== Hiro by Python ===
+=== Operate robot via hrpsys in Python ===
 `Hiro`'s control interface is defined in [http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_hironx/hironx_ros_bridge/scripts/hironx.py hironx_ros_bridge/scripts/hironx.py], which has been already introduced earlier a few times. Here's an example `python` script of how to use it. Here we use `ipython` because of its light-weight but sufficient functionality.
 
 This is the same initialization step as discussed earlier; you're now just doing it on `ipython` shell.
@@ -503,7 +503,7 @@ hiro.setJointAnglesOfGroup
 
 }}}
 
-=== Manipulate Hiro with Moveit via Python ===
+=== Operate robot via moveit in Python ===
 [http://moveit.ros.org/wiki/MoveIt_Commander moveit_commander] package offers a capability to write a `MoveIt!` client in `Python` ([http://docs.ros.org/hydro/api/moveit_commander/html/annotated.html API doc]). 
 
 To utilize it, you might want to install `MoveIt!`'s python client interface if you already haven't done so.
