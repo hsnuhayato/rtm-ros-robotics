@@ -37,6 +37,7 @@
  * [hironx_ros_bridge]
   * [hironx_ros_bridge_ja]
   * [hironx_ros_bridge_en]
+  * [InstallRtmrosBasedSoftwareOnQNX]
   * [HIRO_Workshop]
   * [hiro_moveit_demo_fantastic]
  * [Using_HRP_Robots Using HRP Robots]
