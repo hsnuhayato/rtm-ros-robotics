@@ -1,5 +1,0 @@
-<launch>
-  <node pkg="hrpsys_gazebo_atlas"
-	type="touch-it-server.l"
-	name="atlas_touchit_server" output="screen"/>
-</launch>

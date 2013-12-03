@@ -1,7 +1,0 @@
-<launch>
-  <arg name="USE_LASER" default="false" />
-  <include file="$(find drcsim_gazebo)/launch/atlas_v3_sandia_hands.launch" />
-  <include file="$(find hrpsys_gazebo_atlas)/launch/atlas_hrpsys.launch" >
-    <arg name="USE_LASER" value="$(arg USE_LASER)" />
-  </include>
-</launch>
