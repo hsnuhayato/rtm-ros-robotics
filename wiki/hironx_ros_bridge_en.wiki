@@ -319,6 +319,15 @@ Refer to [http://moveit.ros.org/wiki/PR2/Rviz_Plugin/Quick_Start plugin usage pa
 Note: [http://wiki.ros.org/interactive_markers Interactive Markers] have not really been implemented with `Hiro`. Patch from YOU is welcomed :).
 
 == Programming example ==
+
+You have options in how you write robot's manipulation task:
+
+ * [http://www.ros.org/wiki/hrpsys hrpsys] in `python`
+ * [http://moveit.ros.org/ MoveIt!] in `python`
+ * [http://moveit.ros.org/ MoveIt!] in `C++`
+
+The first two are covered in the following subsections. Note that you can mix all of them to accomplish the task you want. And while using `python`, you can implement codes of `hrpsys` and `MoveIt!` within a single `python` module if you like.
+
 === Operate robot via hrpsys in Python ===
 `Hiro`'s control interface is defined in [http://code.google.com/p/rtm-ros-robotics/source/browse/trunk/rtmros_hironx/hironx_ros_bridge/scripts/hironx.py hironx_ros_bridge/scripts/hironx.py], which has been already introduced earlier a few times. Here's an example `python` script of how to use it. Here we use `ipython` because of its light-weight but sufficient functionality.
 
