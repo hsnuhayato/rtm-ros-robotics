@@ -23,12 +23,11 @@ Because installation from source may not go as smooth as it should be, you're ad
 = Install =
 == Install via debian binary (RECOMMENDED) ==
 Available only in `ROS Groovy` and later.
-*NOTE*: As of 9/19/2013 Hydro version is not yet ready.
 
-=== Adjust to preliminary .deb repository ROS ===
-*NOTE* (9/20/2013): This section will become unnecessary in the near future.
+=== Adjust to preliminary ROS binary repository ===
+*NOTE*: You might want to run this section only when you need the newest binary that's just built. 
 
-The process of creating binary files in `ROS` take awhile since the developers submitted their code due to number of reasons regarding software reliability. If you're in hurry, however, for whatever reasons to obtain newer versions binary, there's a way to do as follows. 
+The binary files that you install (likely by `apt-get` if you're on `Ubuntu`) is not built automatically by just submitting codes to the development repository; there's a certin process that needs to be started manually. In `ROS` it takes a little awhile, normally two or three weeks, before the new binary becomes available, due to a number of reasons regarding software quality. If you're in hurry, however, for whatever reasons to obtain newer version of binary, there's a way to do as follows.
 
  1. Open `/etc/apt/sources.list.d/ros-latest.list`. If it doesn't exist, create one.
 
@@ -47,9 +46,11 @@ $ sudo apt-get update
 $ sudo apt-get dist-upgrade
 }}}
 
-This way, binaries that are already built but have not yet been officially released by ROS team can be installed. This does not necessarilly mean that those binaries are unstable; instead, it's based on the release cycle of ROS binaries (cf. [https://github.com/ros/rosdistro/issues/606 this discussion]).
+ 5. Revert back the change you just made in `ros-latest.list`.
 
-*WARNING* because of the reason mentioned above, you should do this only for development purpose and *never ever* use this method on production systems.
+This way, binaries that are already built but have not yet been officially released by ROS team can get installed. This does not necessarilly mean that those binaries are unstable; instead, you're just fetching the binaries that are being tested and awaiting to be released; this is based on the release cycle of ROS debian binary (cf. [https://github.com/ros/rosdistro/issues/606 this discussion]).
+
+*WARNING* because of the nature of the process mentioned above, you should do this only for development purpose and *never ever* use this method on production systems. And as described in the step above, you're encouraged to set back the apt-get configuration.
 
 === Download and install binary by a single command ===
 {{{
