@@ -187,6 +187,13 @@ Then type keyboard on "teleop_pr2_keyboard" terminal
 
 }}}
 
+- example3
+In euslisp terminal, please execute
+{{{
+(samplerobot-walk3)
+}}}
+This is example to specify each footstep by using :set-foot-steps command.
+
 
 [http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/samplerobot_rviz.mp4 http://jenkins.jsk.imi.i.u-tokyo.ac.jp:8080/job/agentsystem-test/lastStableBuild/artifact/hrpsys_ros_bridge-example/_images/samplerobot_rviz.png]
 
