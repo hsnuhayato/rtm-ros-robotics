@@ -1,8 +1,0 @@
-<launch>
-  <arg name="USE_INTERACTIVE_JOINT" default="true" />
-
-  <!-- joint marker -->
-  <group if="$(arg USE_INTERACTIVE_JOINT)">
-    <node pkg="roseus" type="roseus" name="atlas_joint_interface_fc" args="$(find hrpsys_gazebo_atlas)/euslisp/atlas-joint-interface-fc.l"/>
-  </group>
-</launch>
