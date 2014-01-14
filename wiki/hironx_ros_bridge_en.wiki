@@ -277,7 +277,7 @@ $ rosrun hironx_ros_bridge hironx.py
     * (Followings are general to hrpsys) Find RTCManager and RobotHardware.
     * Create, connect to, and activate the RT components initially necessary for `hrpsys` controller.
     * Run logger.
-    * (Specific to Hiro) Assign link groups.
+    * (Specific to Hiro) Assign joint groups.
 
 == Monitoring ROS state using rqt ==
 ROS' new GUI toolset introduced from `Groovy` called [http://ros.org/wiki/rqt rqt] help you to ease the pain to visualize data during development. Here is the suggestion of some tools particularly helpful for `Hiro` (out of [http://www.ros.org/wiki/rqt/Plugins 30+ rqt tools]:)
@@ -381,7 +381,7 @@ hiro.getCurrentPose                    hiro.readDigitalInput                  hi
 hiro.getCurrentPosition                hiro.rh                                hiro.writeDigitalOutput
 }}}
 
-See the list of link groups and its member `link`s:
+See the list of joint groups and its member `link`s:
 {{{
 In : hiro.Groups
 Out: 
@@ -474,7 +474,7 @@ Definition: hiro.setTargetPose(self, gname, pos, rpy, tm)
 Docstring:  <no docstring>
 }}}
 
-`gname` is the name of the `link group`. `pos` and `rpy` are in list format. First, store the current values into variables:
+`gname` is the name of the `joint group`. `pos` and `rpy` are in list format. First, store the current values into variables:
 {{{
 In : pos = hiro.getCurrentPosition('RARM_JOINT3')
 In : rpy = hiro.getReferenceRPY('RARM_JOINT3')
