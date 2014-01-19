@@ -261,7 +261,17 @@ $ roslaunch hironx_ros_bridge hironx_ros_bridge.launch nameserver:=%HOSTNAME%
 
 Then do something like this (adjust to your environment especially the location of wrl file, port number, robot's hostname):
 {{{
-$ rosrun hironx_ros_bridge hironx.py RobotHardware0  /opt/jsk/etc/HIRONX/model/main_15dof.wrl -- -ORBInitRef NameService=corbaloc:iiop:hiro014:15005/NameService
+$ rosrun hironx_ros_bridge hironx.py -- --robot RobotHardware0 --modelfile /opt/jsk/etc/HIRONX/model/main_15dof.wrl --host hiro014 --port 15005
+}}}
+
+Alternatively, using `ipython` you can continue working with robot even after initializing robot by the command above. You can do:
+
+{{{
+$ ipython -i `rospack find hironx_ros_bridge`/scripts/hironx.py -- --robot RobotHardware0 --modelfile /opt/jsk/etc/HIRONX/model/main_15dof.wrl --host hiro014 --port 15005
+
+(On ipython terminal)
+hiro.getCurrentPosition('RARM_JOINT0')
+:  (whatever you like)
 }}}
 
 == Initialization ==
