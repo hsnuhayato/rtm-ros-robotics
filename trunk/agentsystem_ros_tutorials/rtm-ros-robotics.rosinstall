@@ -72,18 +72,18 @@
 #- svn:
 #    uri: https://code.ros.org/svn/ros/stacks/multimaster_experimental/trunk
 #    local-name: multimaster_experimental
-- hg:
-    uri: https://kforge.ros.org/appmanandroid/multimaster_experimental
-    local-name: multimaster_experimental
-    version: 'fuerte'
+# - hg:
+#     uri: https://kforge.ros.org/appmanandroid/multimaster_experimental
+#     local-name: multimaster_experimental
+#     version: 'fuerte'
 - git:
     local-name: rosjava_core
     uri: git://github.com/rosjava/rosjava_core.git
-    version: groovy-devel
+    version: groovy
 - git:
     local-name: android_core
     uri: git://github.com/rosjava/android_core.git
-    version: groovy-devel
+    version: groovy
 - hg:
     local-name: osrf_rosandroid
     uri: https://bitbucket.org/osrf/rosandroid
