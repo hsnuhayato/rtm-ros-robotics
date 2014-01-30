@@ -431,7 +431,7 @@ Definition: hiro.getCurrentPose(self, lname)
 Docstring:  <no docstring>
 }}}
 
-Here you know there's a method `getCurrentPose` that takes `lname`, which in this context is easy enough to interpret as `link name`. So run:
+Here you know there's a method `getCurrentPose` that takes `lname` that stands for `link name`. So run:
 {{{
 In: hiro.getCurrentPose('RARM_JOINT0')
 Out: 
@@ -461,10 +461,10 @@ In : hiro.getCurrentPosition('RARM_JOINT0')
 Out: [0.0, -0.145, 0.370296]
 }}}
 
-In `hrpssy`, position vector is presented as a list with three elements [ y, x, z ] where:
+In `hrpsys`, position vector is presented as a list with three elements [ x, y, z ] where:
 {{{
- y: forward 
- x: left
+ x: forward 
+ y: left
  z: upward
 }}}
  
