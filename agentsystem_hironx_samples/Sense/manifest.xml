@@ -1,9 +1,0 @@
-<package>
-  <description brief="Sense package for HIRONX"></description>
-  <author>Ryo Hanai</author>
-  <license>BSD</license>
-  <review status="unreviewed" notes=""/>
-  <depend package="HiroCapture"/>
-  <depend package="checkerboard_detection"/>
-</package>
-
