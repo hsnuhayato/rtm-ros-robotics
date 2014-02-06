@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+  <name>openrtm_tools</name>
+  <version>1.0.6</version>
+  <description>The openrtm_tools package</description>
+
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <maintainer email="iisaito@kinugarage.com">Isao Isaac Saito</maintainer>
+  <author email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</author>
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/openrtm_tools</url>
+  <url type="repository">https://rtm-ros-robotics.googlecode.com/svn/trunk/rtmros_common</url>
+  <url type="bugtracker">https://code.google.com/p/rtm-ros-robotics/issues/</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>openrtm_aist</build_depend>
+  <build_depend>openrtm_aist_python</build_depend>
+  <build_depend>rtshell</build_depend>
+
+  <run_depend>openrtm_aist</run_depend>
+  <run_depend>openrtm_aist_python</run_depend>
+  <run_depend>rtshell</run_depend>
+
+  <export/>
+</package>

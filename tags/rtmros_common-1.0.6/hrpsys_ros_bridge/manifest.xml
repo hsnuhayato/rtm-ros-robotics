@@ -1,0 +1,41 @@
+<package>
+  <description brief="hrpsys and ROS bridge software, launch script">
+
+hrpsys_ros_bridge.launch : hrpsys and ROS bridge software core launch script, this script is usually included from other script.
+
+
+  </description>
+  <author>Kei Okada</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/hrprtc_ros_bridge</url>
+
+  <depend package="hrpsys"/>
+  <depend package="hrpsys_tools"/>
+  <depend package="openrtm_tools"/>
+  <depend package="openrtm_ros_bridge"/>
+
+  <!-- seq state ros bridge -->
+  <depend package="roscpp"/>
+  <depend package="sensor_msgs"/>
+  <depend package="robot_state_publisher"/>
+  <depend package="actionlib"/>
+  <depend package="pr2_controllers_msgs"/>
+  <depend package="control_msgs"/>
+  <depend package="tf" />
+
+  <!-- image ros bridge -->
+  <depend package="camera_info_manager" />
+  <depend package="image_transport" />
+  <depend package="dynamic_reconfigure" />
+
+  <!-- dashboard -->
+  <depend package="robot_monitor"/>
+  <depend package="pr2_dashboard"/>
+
+  <!-- rtm* command -->
+  <rosdep name="python-psutil"/>
+
+</package>
+
+
