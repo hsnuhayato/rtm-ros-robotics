@@ -1,19 +1,19 @@
 ##
 ## agentsystem lecture
-- svn:
-    uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/openrtm_common
+- git:
+    uri: https://github.com/start-jsk/openrtm_common
     local-name: rtm-ros-robotics/openrtm_common
-- svn:
-    uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/rtmros_common
+- git:
+    uri: https://github.com/start-jsk/rtmros_common
     local-name: rtm-ros-robotics/rtmros_common
-- svn:
-    uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/rtmros_tutorials
+- git:
+    uri: https://github.com/start-jsk/rtmros_tutorials
     local-name: rtm-ros-robotics/rtmros_tutorials
-- svn:
-    uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/rtmros_hironx
+- git:
+    uri: https://github.com/start-jsk/rtmros_hironx
     local-name: rtm-ros-robotics/rtmros_hironx
-- svn:
-    uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/rtmros_gazebo
+- git:
+    uri: https://github.com/start-jsk/rtmros_gazebo
     local-name: rtm-ros-robotics/rtmros_gazebo
 - svn:
     uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/openrtm_apps
