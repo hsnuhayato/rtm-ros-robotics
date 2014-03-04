@@ -31,10 +31,49 @@
     uri: https://rtm-ros-robotics.googlecode.com/svn/trunk/agentsystem_ros_tutorials
     local-name: rtm-ros-robotics/agentsystem_ros_tutorials
 ##
-## jsk ros packages
-- svn:
-    uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk
-    local-name: jsk-ros-pkg
+## jsk ros packages => move to github
+##
+#  jsk-ros-pkg old repository
+#- svn:
+#    uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk
+#    local-name: jsk-ros-pkg
+# jsk-ros-pkg new repository
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_common
+    local-name: jsk-ros-pkg/jsk_common
+- git:
+    uri: https://github.com/jsk-ros-pkg/openrave_planning
+    local-name: jsk-ros-pkg/openrave_planning
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_visualization
+    local-name: jsk-ros-pkg/jsk_visualization
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_smart_apps
+    local-name: jsk-ros-pkg/jsk_smart_apps
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_roseus
+    local-name: jsk-ros-pkg/jsk_roseus
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_robot
+    local-name: jsk-ros-pkg/jsk_robot
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_recognition
+    local-name: jsk-ros-pkg/jsk_recognition
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_pr2eus
+    local-name: jsk-ros-pkg/jsk_pr2eus
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_planning
+    local-name: jsk-ros-pkg/jsk_planning
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_model_tools
+    local-name: jsk-ros-pkg/jsk_model_tools
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_demos
+    local-name: jsk-ros-pkg/jsk_demos
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_control
+    local-name: jsk-ros-pkg/jsk_control
 ##
 ## for 1394 camera (openvgr)
 - svn:
