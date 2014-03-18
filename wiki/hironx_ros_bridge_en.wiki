@@ -10,3 +10,5 @@ Content of this page is now moved to the following pages on `ROS` wiki.
  * [http://wiki.ros.org/rtmros_nextage/Tutorials/Install%20NEXTAGE%20OPEN%20software%20on%20your%20machine Install NEXTAGE OPEN software on your machine]
  * [http://wiki.ros.org/rtmros_nextage/Tutorials/Operating%20Hiro,%20NEXTAGE%20OPEN%20from%20Client%20Pograms Operating Hiro, NEXTAGE OPEN from Client Pograms]
  * [http://wiki.ros.org/rtmros_nextage/Tutorials/Known%20Troubleshoots Known Troubleshoots]
+
+In case the link is not functioning, [http://ros-logger.blogspot.com/2012/12/list-of-mirror-sites-of-rosorg.html a number of sites that are mirroring ROS wiki is available].
