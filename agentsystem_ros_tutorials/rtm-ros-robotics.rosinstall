@@ -152,12 +152,23 @@
 - svn:
     uri: http://svn.code.sf.net/p/webots-ros-pkg/code/
     local-name: webots-ros-pkg
-##
-## Albert-Ludwigs-Unversität in Freiburg, Germany.
-##
-- svn:
-    uri: http://alufr-ros-pkg.googlecode.com/svn/trunk
-    local-name: alufr-ros-pkg
+
+# nao
+- git:
+    uri: https://github.com/ahornung/nao_robot.git
+    local-name: humanoid_stacks/nao_robot
+- git:
+    uri: https://github.com/ahornung/nao_common.git
+    local-name: humanoid_stacks/nao_common
+- git:
+    uri: https://github.com/ahornung/nao_viz.git
+    local-name: humanoid_stacks/nao_viz
+- git:
+    uri: https://github.com/ahornung/humanoid_msgs.git
+    local-name: humanoid_stacks/humanoid_msgs
+- git:
+    uri: https://github.com/ahornung/humanoid_navigation.git
+    local-name: humanoid_stacks/humanoid_navigation
 
 # for rviz view control
 - git:
