@@ -81,9 +81,10 @@
     local-name: stacks/camera1394
 ##
 ## kinect
-- git:
-    uri: https://github.com/ros-pkg-git/kinect.git
-    local-name: ros-pkg-git/kinect
+#### Legacy repository
+# - git:
+#     uri: https://github.com/ros-pkg-git/kinect.git
+#     local-name: ros-pkg-git/kinect
 ##
 ## cmu for imagesift
 - svn:
@@ -140,9 +141,10 @@
     local-name: rosjava_zeroconf
     uri: https://bitbucket.org/osrf/rosjava_zeroconf
     version: default
-- git:
-    local-name: turtlebot_android
-    uri: https://github.com/turtlebot/turtlebot_android.git
+#### comment out temporary for errors
+# - git:
+#     local-name: turtlebot_android
+#     uri: https://github.com/turtlebot/turtlebot_android.git
 - git:
     local-name: pr2_android_utilities
     uri: https://github.com/ros-android-pr2/pr2_android_utilities.git
